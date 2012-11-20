@@ -74,7 +74,7 @@ loadPackageDB core deps = do
                 [ maybe mempty go $ condLibrary gpd
                 , mconcat $ map (go . snd) $ condExecutables gpd
                 , mconcat $ map (go . snd) $ condTestSuites gpd
-                , mconcat $ map (go . snd) $ condBenchmarks gpd
+                -- , mconcat $ map (go . snd) $ condBenchmarks gpd
                 ]
             _ -> mempty
       where
