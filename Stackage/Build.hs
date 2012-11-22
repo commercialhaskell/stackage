@@ -16,10 +16,11 @@ build :: IO ()
 build = do
     ii <- getInstallInfo
 
+    rm_r "cabal-dev"
+
     checkPlan ii
     putStrLn "No mismatches, starting the sandboxed build."
 
-    rm_r "cabal-dev"
     ph <- withBinaryFile "build.log" WriteMode $ \handle ->
         runProcess "cabal-dev" ("install":"-fnetwork23":iiPackageList ii) Nothing Nothing Nothing (Just handle) (Just handle)
     ec <- waitForProcess ph
