@@ -15,12 +15,12 @@ build-type:          Simple
 cabal-version:       >=1.8
 
 library
-  exposed-modules:     Stackage.PackageList
-                       Stackage.NarrowDatabase
+  exposed-modules:     Stackage.NarrowDatabase
                        Stackage.LoadDatabase
                        Stackage.HaskellPlatform
                        Stackage.Util
                        Stackage.Types
+                       Stackage.Config
   build-depends:       base >= 4 && < 5
                      , containers
                      , Cabal
@@ -28,6 +28,7 @@ library
                      , bytestring
                      , directory
                      , filepath
+                     , transformers
 
 executable stackage-gen-install-line
   hs-source-dirs:      app

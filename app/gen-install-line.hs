@@ -6,9 +6,9 @@ import           Data.Version             (showVersion)
 import           Stackage.HaskellPlatform
 import           Stackage.LoadDatabase
 import           Stackage.NarrowDatabase
-import           Stackage.PackageList
 import           Stackage.Types
 import           Stackage.Util
+import           Stackage.Config
 import           System.Directory         (doesDirectoryExist, removeDirectoryRecursive, removeFile, createDirectory)
 import           System.Process           (readProcess, waitForProcess, runProcess)
 import System.Exit (ExitCode (ExitSuccess), exitWith)
@@ -18,26 +18,10 @@ import System.IO (IOMode (WriteMode, AppendMode), withBinaryFile)
 data Mismatch = OnlyDryRun String | OnlySimpleList String
     deriving Show
 
-extraCore :: Set PackageName
-extraCore = Set.singleton $ PackageName "binary"
-
--- Test suites which are expected to fail for some reason. The test suite
--- will still be run and logs kept, but a failure will not indicate an
--- error in our package combination.
-expectedFailures :: Set PackageName
-expectedFailures = Set.fromList $ map PackageName
-    [ -- Requires an old version of WAI and Warp for tests
-      "HTTP"
-      -- Requires a special hspec-meta which is not yet available from
-      -- Hackage.
-    , "hspec"
-    ]
-
 main :: IO ()
 main = do
-    userPackages <- loadPackageList "package-list.txt"
     hp <- loadHaskellPlatform
-    let allPackages = Map.union userPackages $ identsToRanges (hplibs hp)
+    let allPackages = Map.union stablePackages $ identsToRanges (hplibs hp)
     pdb <- loadPackageDB (extraCore `Set.union` Set.map (\(PackageIdentifier p _) -> p) (hpcore hp)) allPackages
     final <- narrowPackageDB pdb $ Set.fromList $ Map.keys allPackages
     let simpleList = map (\(PackageName p, v) -> p ++ "-" ++ showVersion v) $ Map.toList final
