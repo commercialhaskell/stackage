@@ -12,8 +12,7 @@ import           Data.Monoid                           (Monoid (..))
 import           Data.Set                              (member)
 import qualified Data.Set                              as Set
 import           Distribution.Package                  (Dependency (Dependency))
-import           Distribution.PackageDescription       (condBenchmarks,
-                                                        condExecutables,
+import           Distribution.PackageDescription       (condExecutables,
                                                         condLibrary,
                                                         condTestSuites,
                                                         condTreeConstraints)
