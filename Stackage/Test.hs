@@ -2,7 +2,7 @@ module Stackage.Test
     ( runTestSuites
     ) where
 
-import           Control.Monad    (foldM, when)
+import           Control.Monad    (foldM, unless, when)
 import qualified Data.Map         as Map
 import qualified Data.Set         as Set
 import           Stackage.Config
@@ -21,9 +21,7 @@ runTestSuites ii = do
     rm_r testdir
     createDirectory testdir
     allPass <- foldM (runTestSuite testdir) True $ Map.toList $ iiPackages ii
-    if allPass
-        then putStrLn "All test suites that were expected to pass did pass"
-        else error $ "There were failures, please see the logs in " ++ testdir
+    unless allPass $ error $ "There were failures, please see the logs in " ++ testdir
 
 runTestSuite :: FilePath -> Bool -> (PackageName, Version) -> IO Bool
 runTestSuite testdir prevPassed pair@(packageName, _) = do

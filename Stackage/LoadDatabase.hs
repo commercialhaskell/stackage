@@ -1,12 +1,9 @@
 module Stackage.LoadDatabase where
 
 import qualified Codec.Archive.Tar                     as Tar
-import qualified Codec.Archive.Tar.Entry               as TarEntry
 import           Control.Exception                     (throwIO)
-import           Control.Monad                         (guard)
 import qualified Data.ByteString.Lazy                  as L
 import qualified Data.ByteString.Lazy.Char8            as L8
-import           Data.List                             (stripPrefix)
 import qualified Data.Map                              as Map
 import           Data.Monoid                           (Monoid (..))
 import           Data.Set                              (member)
@@ -18,11 +15,9 @@ import           Distribution.PackageDescription       (condExecutables,
                                                         condTreeConstraints)
 import           Distribution.PackageDescription.Parse (ParseResult (ParseOk),
                                                         parsePackageDescription)
-import           Distribution.Text                     (simpleParse)
 import           Distribution.Version                  (withinRange)
 import           Stackage.Types
-import           System.Directory                      (getAppUserDataDirectory)
-import           System.FilePath                       ((</>))
+import           Stackage.Util
 
 -- | Load the raw package database.
 --
@@ -39,8 +34,7 @@ loadPackageDB :: Set PackageName -- ^ core packages
               -> Map PackageName VersionRange -- ^ additional deps
               -> IO PackageDB
 loadPackageDB core deps = do
-    c <- getAppUserDataDirectory "cabal"
-    let tarName = c </> "packages" </> "hackage.haskell.org" </> "00-index.tar"
+    tarName <- getTarballName
     lbs <- L.readFile tarName
     addEntries mempty $ Tar.read lbs
   where
@@ -51,7 +45,7 @@ loadPackageDB core deps = do
 
     addEntry :: PackageDB -> Tar.Entry -> IO PackageDB
     addEntry pdb e =
-        case getPackageVersion $ TarEntry.fromTarPathToPosixPath (TarEntry.entryTarPath e) of
+        case getPackageVersion e of
             Nothing -> return pdb
             Just (p, v)
                 | p `member` core -> return pdb
@@ -78,14 +72,3 @@ loadPackageDB core deps = do
             _ -> mempty
       where
         go = Set.fromList . map (\(Dependency p _) -> p) . condTreeConstraints
-
-    getPackageVersion :: FilePath -> Maybe (PackageName, Version)
-    getPackageVersion fp = do
-        let (package', s1) = break (== '/') fp
-            package = PackageName package'
-        s2 <- stripPrefix "/" s1
-        let (version', s3) = break (== '/') s2
-        version <- simpleParse version'
-        s4 <- stripPrefix "/" s3
-        guard $ s4 == package' ++ ".cabal"
-        Just (package, version)

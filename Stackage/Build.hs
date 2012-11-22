@@ -5,6 +5,7 @@ module Stackage.Build
 import           Control.Monad        (unless)
 import           Stackage.CheckPlan
 import           Stackage.InstallInfo
+import           Stackage.Tarballs
 import           Stackage.Test
 import           Stackage.Util
 import           System.Exit          (ExitCode (ExitSuccess), exitWith)
@@ -14,17 +15,18 @@ import           System.Process       (runProcess, waitForProcess)
 build :: IO ()
 build = do
     ii <- getInstallInfo
+
     checkPlan ii
+    putStrLn "No mismatches, starting the sandboxed build."
 
     rm_r "cabal-dev"
-
-    putStrLn "No mismatches, good to go!"
-
     ph <- withBinaryFile "build.log" WriteMode $ \handle ->
         runProcess "cabal-dev" ("install":"-fnetwork23":iiPackageList ii) Nothing Nothing Nothing (Just handle) (Just handle)
     ec <- waitForProcess ph
     unless (ec == ExitSuccess) $ exitWith ec
 
-    putStrLn "Environment built, beginning individual test suites"
-
+    putStrLn "Sandbox built, beginning individual test suites"
     runTestSuites ii
+
+    putStrLn "All test suites that were expected to pass did pass, building tarballs."
+    makeTarballs ii
