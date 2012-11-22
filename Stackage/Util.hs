@@ -1,12 +1,13 @@
 module Stackage.Util where
 
+import           Control.Monad        (when)
 import qualified Data.Map             as Map
 import qualified Data.Set             as Set
+import           Data.Version         (showVersion)
 import           Distribution.Version (thisVersion)
-import           Data.Version (showVersion)
 import           Stackage.Types
-import           System.Directory         (doesDirectoryExist, removeDirectoryRecursive)
-import Control.Monad (when)
+import           System.Directory     (doesDirectoryExist,
+                                       removeDirectoryRecursive)
 
 identsToRanges :: Set PackageIdentifier -> Map PackageName VersionRange
 identsToRanges =

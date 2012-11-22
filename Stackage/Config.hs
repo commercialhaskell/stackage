@@ -1,12 +1,12 @@
 module Stackage.Config where
 
-import qualified Data.Map as Map
-import Stackage.Types
-import Control.Monad.Trans.Writer (execWriter, tell)
-import Data.Set (singleton, fromList)
-import Control.Monad (when, unless)
-import Distribution.System (OS (..), buildOS)
-import           Distribution.Text    (simpleParse)
+import           Control.Monad              (unless, when)
+import           Control.Monad.Trans.Writer (execWriter, tell)
+import qualified Data.Map                   as Map
+import           Data.Set                   (fromList, singleton)
+import           Distribution.System        (OS (..), buildOS)
+import           Distribution.Text          (simpleParse)
+import           Stackage.Types
 
 -- | Packages which are shipped with GHC but are not included in the
 -- Haskell Platform list of core packages.

@@ -2,17 +2,18 @@ module Stackage.Test
     ( runTestSuites
     ) where
 
-import           Control.Monad            (when, foldM)
-import qualified Data.Map                 as Map
-import qualified Data.Set                 as Set
+import           Control.Monad    (foldM, when)
+import qualified Data.Map         as Map
+import qualified Data.Set         as Set
+import           Stackage.Config
 import           Stackage.Types
 import           Stackage.Util
-import           Stackage.Config
-import           System.Directory         (removeFile, createDirectory)
-import           System.Process           (waitForProcess, runProcess)
-import System.Exit (ExitCode (ExitSuccess))
-import System.FilePath ((</>), (<.>))
-import System.IO (IOMode (WriteMode, AppendMode), withBinaryFile)
+import           System.Directory (createDirectory, removeFile)
+import           System.Exit      (ExitCode (ExitSuccess))
+import           System.FilePath  ((<.>), (</>))
+import           System.IO        (IOMode (WriteMode, AppendMode),
+                                   withBinaryFile)
+import           System.Process   (runProcess, waitForProcess)
 
 runTestSuites :: InstallInfo -> IO ()
 runTestSuites ii = do

@@ -40,6 +40,6 @@ instance Monoid HaskellPlatform where
     HaskellPlatform a x `mappend` HaskellPlatform b y = HaskellPlatform (mappend a b) (mappend x y)
 
 data InstallInfo = InstallInfo
-    { iiCore :: Set PackageName
+    { iiCore     :: Set PackageName
     , iiPackages :: Map PackageName Version
     }

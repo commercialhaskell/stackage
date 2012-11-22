@@ -2,14 +2,14 @@ module Stackage.Build
     ( build
     ) where
 
-import           Control.Monad            (unless)
+import           Control.Monad        (unless)
 import           Stackage.CheckPlan
+import           Stackage.InstallInfo
 import           Stackage.Test
 import           Stackage.Util
-import           Stackage.InstallInfo
-import           System.Process           (waitForProcess, runProcess)
-import System.Exit (ExitCode (ExitSuccess), exitWith)
-import System.IO (IOMode (WriteMode), withBinaryFile)
+import           System.Exit          (ExitCode (ExitSuccess), exitWith)
+import           System.IO            (IOMode (WriteMode), withBinaryFile)
+import           System.Process       (runProcess, waitForProcess)
 
 build :: IO ()
 build = do

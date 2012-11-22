@@ -2,12 +2,12 @@ module Stackage.CheckPlan
     ( checkPlan
     ) where
 
-import           Control.Monad            (unless)
-import           Data.List                (sort)
-import           Stackage.Types
+import           Control.Monad        (unless)
+import           Data.List            (sort)
 import           Stackage.InstallInfo
-import           System.Process           (readProcess)
-import System.Exit (ExitCode (ExitFailure), exitWith)
+import           Stackage.Types
+import           System.Exit          (ExitCode (ExitFailure), exitWith)
+import           System.Process       (readProcess)
 
 data Mismatch = OnlyDryRun String | OnlySimpleList String
     deriving Show

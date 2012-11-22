@@ -3,14 +3,14 @@ module Stackage.InstallInfo
     , iiPackageList
     ) where
 
-import           Stackage.Types
-import           Stackage.Util
+import qualified Data.Map                 as Map
+import qualified Data.Set                 as Set
 import           Stackage.Config
+import           Stackage.HaskellPlatform
 import           Stackage.LoadDatabase
 import           Stackage.NarrowDatabase
-import           Stackage.HaskellPlatform
-import qualified Data.Map as Map
-import qualified Data.Set as Set
+import           Stackage.Types
+import           Stackage.Util
 
 getInstallInfo :: IO InstallInfo
 getInstallInfo = do
