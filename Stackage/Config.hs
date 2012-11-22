@@ -6,7 +6,6 @@ import Control.Monad.Trans.Writer (execWriter, tell)
 import Data.Set (singleton, fromList)
 import Control.Monad (when, unless)
 import Distribution.System (OS (..), buildOS)
-import Distribution.Version (anyVersion)
 import           Distribution.Text    (simpleParse)
 
 -- | Packages which are shipped with GHC but are not included in the

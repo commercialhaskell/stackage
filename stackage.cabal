@@ -21,6 +21,10 @@ library
                        Stackage.Util
                        Stackage.Types
                        Stackage.Config
+                       Stackage.InstallInfo
+                       Stackage.CheckPlan
+                       Stackage.Test
+                       Stackage.Build
   build-depends:       base >= 4 && < 5
                      , containers
                      , Cabal
@@ -29,13 +33,10 @@ library
                      , directory
                      , filepath
                      , transformers
+                     , process
 
-executable stackage-gen-install-line
+executable stackage
   hs-source-dirs:      app
-  main-is:             gen-install-line.hs
+  main-is:             stackage.hs
   build-depends:       base
                      , stackage
-                     , containers
-                     , filepath
-                     , process
-                     , directory
