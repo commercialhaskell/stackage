@@ -43,7 +43,12 @@ runTestSuite testdir prevPassed pair@(packageName, _) = do
                             else do
                                 ph4 <- getHandle AppendMode $ \handle -> runProcess "cabal-dev" ["test"] (Just dir) Nothing Nothing (Just handle) (Just handle)
                                 ec4 <- waitForProcess ph4
-                                return $ ec4 == ExitSuccess
+                                if (ec4 /= ExitSuccess)
+                                    then return False
+                                    else do
+                                        ph5 <- getHandle AppendMode $ \handle -> runProcess "cabal-dev" ["haddock"] (Just dir) Nothing Nothing (Just handle) (Just handle)
+                                        ec5 <- waitForProcess ph5
+                                        return $ ec5 == ExitSuccess
     let expectedFailure = packageName `Set.member` expectedFailures
     if passed
         then do

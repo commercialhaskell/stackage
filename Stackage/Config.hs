@@ -23,6 +23,18 @@ expectedFailures = fromList $ map PackageName
       -- Requires a special hspec-meta which is not yet available from
       -- Hackage.
     , "hspec"
+
+      -- Requires markdown-unlit, which we don't want to depend on.
+    , "hspec-expectations"
+
+      -- text and setenv have recursive dependencies in their tests, which
+      -- cabal can't (yet) handle
+    , "text"
+    , "setenv"
+
+      -- The version of GLUT included with the HP does not generate
+      -- documentation correctly.
+    , "GLUT"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
