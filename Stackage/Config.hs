@@ -8,6 +8,12 @@ import           Distribution.System        (OS (..), buildOS)
 import           Distribution.Text          (simpleParse)
 import           Stackage.Types
 
+targetCompilerVersion :: Version
+targetCompilerVersion =
+    case simpleParse "7.4.2" of
+        Nothing -> error "Invalid targetCompilerVersion"
+        Just v -> v
+
 -- | Packages which are shipped with GHC but are not included in the
 -- Haskell Platform list of core packages.
 extraCore :: Set PackageName

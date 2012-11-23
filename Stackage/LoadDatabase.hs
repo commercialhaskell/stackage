@@ -12,12 +12,17 @@ import           Distribution.Package                  (Dependency (Dependency))
 import           Distribution.PackageDescription       (condExecutables,
                                                         condLibrary,
                                                         condTestSuites,
-                                                        condTreeConstraints)
+                                                        condBenchmarks,
+                                                        condTreeConstraints, condTreeComponents, ConfVar (..), Condition(..), flagName, flagDefault, genPackageFlags)
 import           Distribution.PackageDescription.Parse (ParseResult (ParseOk),
                                                         parsePackageDescription)
 import           Distribution.Version                  (withinRange)
 import           Stackage.Types
 import           Stackage.Util
+import           Stackage.Config
+import Data.Maybe (mapMaybe)
+import Distribution.System (buildOS, buildArch)
+import Distribution.Compiler (CompilerFlavor (GHC))
 
 -- | Load the raw package database.
 --
@@ -64,11 +69,30 @@ loadPackageDB core deps = do
     parseDeps lbs =
         case parsePackageDescription $ L8.unpack lbs of
             ParseOk _ gpd -> mconcat
-                [ maybe mempty go $ condLibrary gpd
-                , mconcat $ map (go . snd) $ condExecutables gpd
-                , mconcat $ map (go . snd) $ condTestSuites gpd
-                -- , mconcat $ map (go . snd) $ condBenchmarks gpd
+                [ maybe mempty (go gpd) $ condLibrary gpd
+                , mconcat $ map (go gpd . snd) $ condExecutables gpd
+                , mconcat $ map (go gpd . snd) $ condTestSuites gpd
+                , mconcat $ map (go gpd . snd) $ condBenchmarks gpd
                 ]
             _ -> mempty
       where
-        go = Set.fromList . map (\(Dependency p _) -> p) . condTreeConstraints
+        go gpd tree
+            = Set.unions
+            $ Set.fromList (map (\(Dependency p _) -> p) $ condTreeConstraints tree)
+            : map (go gpd) (mapMaybe (checkCond gpd) $ condTreeComponents tree)
+
+        checkCond gpd (cond, tree, melse)
+            | checkCond' cond = Just tree
+            | otherwise = melse
+          where
+            checkCond' (Var (OS os)) = os == buildOS
+            checkCond' (Var (Arch arch)) = arch == buildArch
+            checkCond' (Var (Flag flag)) = flag `elem` flags
+            checkCond' (Var (Impl compiler range)) =
+                compiler == GHC && withinRange targetCompilerVersion range
+            checkCond' (Lit b) = b
+            checkCond' (CNot c) = not $ checkCond' c
+            checkCond' (COr c1 c2) = checkCond' c1 || checkCond' c2
+            checkCond' (CAnd c1 c2) = checkCond' c1 && checkCond' c2
+
+            flags = map flagName $ filter flagDefault $ genPackageFlags gpd
