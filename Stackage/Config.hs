@@ -54,10 +54,6 @@ stablePackages = execWriter $ do
     add "yesod-newsfeed"
     add "yesod-sitemap"
     add "yesod-static"
-    -- A few transient deps not otherwise picked up
-    add "cipher-aes"
-    when (buildOS == Linux) $ add "hinotify"
-    unless (buildOS == Windows) $ add "unix-time"
   where
     add = flip addRange "-any"
     addRange package range =
