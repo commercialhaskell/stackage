@@ -9,22 +9,23 @@ import           Stackage.Types
 -- their dependencies.
 narrowPackageDB :: PackageDB
                 -> Set PackageName
-                -> IO (Map PackageName Version)
+                -> IO (Map PackageName (Version, [PackageName]))
 narrowPackageDB (PackageDB pdb) =
-    loop Map.empty . Set.map ((,) True)
+    loop Map.empty . Set.map ((,) [])
   where
     loop result toProcess =
         case Set.minView toProcess of
             Nothing -> return result
-            Just ((isOrig, p), toProcess') ->
+            Just ((users, p), toProcess') ->
                 case Map.lookup p pdb of
                     Nothing
-                        | isOrig -> error $ "Unknown package: " ++ show p
+                        | null users -> error $ "Unknown package: " ++ show p
                         | otherwise -> loop result toProcess'
                     Just pi -> do
-                        let result' = Map.insert p (piVersion pi) result
-                        loop result' $ Set.foldl' (addDep result') toProcess' $ piDeps pi
-    addDep result toProcess p =
+                        let users' = p:users
+                            result' = Map.insert p (piVersion pi, users) result
+                        loop result' $ Set.foldl' (addDep users' result') toProcess' $ piDeps pi
+    addDep users result toProcess p =
         case Map.lookup p result of
-            Nothing -> Set.insert (False, p) toProcess
+            Nothing -> Set.insert (users, p) toProcess
             Just{} -> toProcess

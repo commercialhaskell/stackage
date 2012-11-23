@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 module Stackage.Config where
 
 import           Control.Monad              (unless, when)
@@ -63,3 +64,11 @@ stablePackages = execWriter $ do
         case simpleParse range of
             Nothing -> error $ "Invalid range " ++ show range ++ " for " ++ package
             Just range' -> tell $ Map.singleton (PackageName package) range'
+
+verbose :: Bool
+verbose =
+#if VERBOSE
+    True
+#else
+    False
+#endif
