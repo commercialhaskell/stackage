@@ -54,7 +54,7 @@ runTestSuite testdir prevPassed pair@(packageName, _) = do
         then do
             removeFile logfile
             when expectedFailure $ putStrLn $ package ++ " passed, but I didn't think it would."
-        else putStrLn $ "Test suite failed: " ++ package
+        else unless expectedFailure $ putStrLn $ "Test suite failed: " ++ package
     rm_r dir
     return $! prevPassed && (passed || expectedFailure)
   where
