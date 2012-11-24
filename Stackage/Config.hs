@@ -54,6 +54,10 @@ stablePackages = execWriter $ do
     add "yesod-newsfeed"
     add "yesod-sitemap"
     add "yesod-static"
+    add "yesod-test"
+    add "markdown"
+    add "filesystem-conduit"
+    add "mime-mail-ses"
   where
     add = flip addRange "-any"
     addRange package range =
