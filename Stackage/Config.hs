@@ -58,6 +58,10 @@ stablePackages = execWriter $ do
     add "markdown"
     add "filesystem-conduit"
     add "mime-mail-ses"
+
+    -- Neil Mitchell
+    add "hoogle"
+    add "hlint"
   where
     add = flip addRange "-any"
     addRange package range =
