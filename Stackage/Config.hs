@@ -66,6 +66,11 @@ stablePackages = execWriter $ do
     -- Alan Zimmerman
     add "hjsmin"
     add "language-javascript"
+
+    -- Jasper Van der Jeugt
+    add "blaze-html"
+    add "blaze-markup"
+    add "stylish-haskell"
   where
     add = flip addRange "-any"
     addRange package range =
