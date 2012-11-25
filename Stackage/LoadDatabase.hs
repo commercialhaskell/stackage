@@ -1,4 +1,3 @@
-{-# LANGUAGE CPP #-}
 module Stackage.LoadDatabase where
 
 import qualified Codec.Archive.Tar                     as Tar
@@ -44,11 +43,7 @@ loadPackageDB core deps = do
     lbs <- L.readFile tarName
     addEntries mempty $ Tar.read lbs
   where
-#if MIN_VERSION_tar(0, 4, 0)
-    addEntries _ (Tar.Fail e) = throwIO e
-#else
-    addEntries _ (Tar.Fail e) = error e
-#endif
+    addEntries _ (Tar.Fail e) = error $ show e
     addEntries db Tar.Done = return db
     addEntries db (Tar.Next e es) = addEntry db e >>= flip addEntries es
 

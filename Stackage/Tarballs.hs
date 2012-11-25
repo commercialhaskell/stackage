@@ -1,4 +1,3 @@
-{-# LANGUAGE CPP #-}
 module Stackage.Tarballs
     ( makeTarballs
     ) where
@@ -27,11 +26,8 @@ makeTarballs ii = do
     createDirectoryIfMissing True $ takeDirectory extraTar
     L.writeFile extraTar $ Tar.write extraEntries
   where
-#if MIN_VERSION_tar(0, 4, 0)
-    loop _ _ (Tar.Fail err) = throwIO err
-#else
-    loop _ _ (Tar.Fail err) = error err
-#endif
+    -- Using "error . show" for compatibility with tar 0.3 and 0.4
+    loop _ _ (Tar.Fail err) = error $ show err
     loop stable extra Tar.Done = return (stable [], extra [])
     loop stable extra (Tar.Next e es) =
         loop stable' extra' es
