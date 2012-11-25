@@ -62,6 +62,10 @@ stablePackages = execWriter $ do
     -- Neil Mitchell
     add "hoogle"
     add "hlint"
+
+    -- Alan Zimmerman
+    add "hjsmin"
+    add "language-javascript"
   where
     add = flip addRange "-any"
     addRange package range =
