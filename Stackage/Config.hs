@@ -37,6 +37,22 @@ expectedFailures = fromList $ map PackageName
       -- The version of GLUT included with the HP does not generate
       -- documentation correctly.
     , "GLUT"
+
+      -- https://github.com/bos/statistics/issues/42
+    , "statistics"
+
+      -- https://github.com/kazu-yamamoto/unix-time/issues/4
+    , "unix-time"
+
+      -- https://github.com/kazu-yamamoto/simple-sendfile/pull/10
+    , "simple-sendfile"
+
+      -- https://github.com/alanz/hjsmin/pull/11
+    , "hjsmin"
+
+      -- Michael emailed Dominic about bumping version numbers, but no new
+      -- release has yet been made.
+    , "largeword"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
