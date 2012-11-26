@@ -14,8 +14,10 @@ import           System.Process       (runProcess, waitForProcess)
 
 build :: IO ()
 build = do
+    putStrLn "Creating a build plan"
     ii <- getInstallInfo
 
+    putStrLn "Wiping out old cabal-dev folder"
     rm_r "cabal-dev"
 
     checkPlan ii
