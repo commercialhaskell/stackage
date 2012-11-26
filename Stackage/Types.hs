@@ -25,8 +25,9 @@ instance Monoid PackageDB where
             | otherwise = pi2
 
 data PackageInfo = PackageInfo
-    { piVersion :: Version
-    , piDeps    :: Set PackageName
+    { piVersion  :: Version
+    , piDeps     :: Set PackageName
+    , piHasTests :: Bool
     }
     deriving (Show, Eq, Ord)
 
@@ -46,4 +47,5 @@ data InstallInfo = InstallInfo
       -- ^ This is intended to hold onto packages which might be automatically
       -- provided in the global package database. In practice, this would be
       -- Haskell Platform packages provided by distributions.
+    , iiPackageDB :: PackageDB
     }

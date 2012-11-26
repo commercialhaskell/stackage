@@ -16,16 +16,18 @@ import           System.FilePath    ((<.>), (</>))
 import           System.IO          (IOMode (WriteMode, AppendMode),
                                      withBinaryFile)
 import           System.Process     (runProcess, waitForProcess)
-import Distribution.Text
-import Data.Maybe
 
 runTestSuites :: InstallInfo -> IO ()
 runTestSuites ii = do
     let testdir = "runtests"
     rm_r testdir
     createDirectory testdir
-    allPass <- foldM (runTestSuite testdir) True $ Map.toList $ iiPackages ii
+    allPass <- foldM (runTestSuite testdir) True $ filter hasTestSuites $ Map.toList $ iiPackages ii
     unless allPass $ error $ "There were failures, please see the logs in " ++ testdir
+  where
+    PackageDB pdb = iiPackageDB ii
+
+    hasTestSuites (name, _) = maybe defaultHasTestSuites piHasTests $ Map.lookup name pdb
 
 -- | Separate for the PATH environment variable
 pathSep :: Char

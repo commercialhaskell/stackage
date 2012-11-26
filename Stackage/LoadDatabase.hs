@@ -58,21 +58,24 @@ loadPackageDB core deps = do
                             | not $ withinRange v vrange -> return pdb
                         _ ->
                             case Tar.entryContent e of
-                                Tar.NormalFile bs _ -> return $ mappend pdb $ PackageDB $ Map.singleton p PackageInfo
-                                    { piVersion = v
-                                    , piDeps = parseDeps bs
-                                    }
+                                Tar.NormalFile bs _ -> do
+                                    let (deps', hasTests) = parseDeps bs
+                                    return $ mappend pdb $ PackageDB $ Map.singleton p PackageInfo
+                                        { piVersion = v
+                                        , piDeps = deps'
+                                        , piHasTests = hasTests
+                                        }
                                 _ -> return pdb
 
     parseDeps lbs =
         case parsePackageDescription $ L8.unpack lbs of
-            ParseOk _ gpd -> mconcat
+            ParseOk _ gpd -> (mconcat
                 [ maybe mempty (go gpd) $ condLibrary gpd
                 , mconcat $ map (go gpd . snd) $ condExecutables gpd
                 , mconcat $ map (go gpd . snd) $ condTestSuites gpd
                 , mconcat $ map (go gpd . snd) $ condBenchmarks gpd
-                ]
-            _ -> mempty
+                ], not $ null $ condTestSuites gpd)
+            _ -> (mempty, defaultHasTestSuites)
       where
         go gpd tree
             = Set.unions

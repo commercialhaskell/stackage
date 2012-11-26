@@ -61,3 +61,10 @@ getPackageVersion e = do
     Just (package, version)
   where
     fp = TarEntry.fromTarPathToPosixPath $ TarEntry.entryTarPath e
+
+-- | If a package cannot be parsed or is not found, the default value for
+-- whether it has a test suite. We default to @True@ since, worst case
+-- scenario, this just means a little extra time trying to run a suite that's
+-- not there. Defaulting to @False@ would result in silent failures.
+defaultHasTestSuites :: Bool
+defaultHasTestSuites = True

@@ -29,6 +29,7 @@ getInstallInfo = do
         { iiCore = totalCore
         , iiPackages = Map.map fst final
         , iiOptionalCore = Map.fromList $ map (\(PackageIdentifier p v) -> (p, v)) $ Set.toList $ hplibs hp
+        , iiPackageDB = pdb
         }
 
 showDep :: (PackageName, (Version, [PackageName])) -> String
