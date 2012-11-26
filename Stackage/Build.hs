@@ -24,7 +24,9 @@ build = do
     ph <- withBinaryFile "build.log" WriteMode $ \handle ->
         runProcess "cabal-dev" ("install":"-fnetwork23":iiPackageList ii) Nothing Nothing Nothing (Just handle) (Just handle)
     ec <- waitForProcess ph
-    unless (ec == ExitSuccess) $ exitWith ec
+    unless (ec == ExitSuccess) $ do
+        putStrLn "Build failed, please see build.log"
+        exitWith ec
 
     putStrLn "Sandbox built, beginning individual test suites"
     runTestSuites ii
