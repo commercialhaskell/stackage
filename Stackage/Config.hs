@@ -71,6 +71,10 @@ stablePackages = execWriter $ do
     add "blaze-html"
     add "blaze-markup"
     add "stylish-haskell"
+
+    -- Antoine Latter
+    add "uuid"
+    add "byteorder"
   where
     add = flip addRange "-any"
     addRange package range =
