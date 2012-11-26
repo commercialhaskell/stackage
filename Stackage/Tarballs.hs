@@ -3,7 +3,6 @@ module Stackage.Tarballs
     ) where
 
 import qualified Codec.Archive.Tar       as Tar
-import           Control.Exception       (throwIO)
 import qualified Data.ByteString.Lazy    as L
 import qualified Data.Map                as Map
 import qualified Data.Set                as Set

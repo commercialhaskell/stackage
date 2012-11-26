@@ -1,7 +1,6 @@
 module Stackage.LoadDatabase where
 
 import qualified Codec.Archive.Tar                     as Tar
-import           Control.Exception                     (throwIO)
 import qualified Data.ByteString.Lazy                  as L
 import qualified Data.ByteString.Lazy.Char8            as L8
 import qualified Data.Map                              as Map

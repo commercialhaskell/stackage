@@ -2,25 +2,37 @@ module Stackage.CheckPlan
     ( checkPlan
     ) where
 
-import           Control.Monad        (unless)
-import           Data.List            (sort)
+import           Control.Monad        (unless, when)
+import           Data.List            (isPrefixOf, sort)
+import qualified Data.Map             as Map
+import qualified Data.Set             as Set
 import           Stackage.InstallInfo
 import           Stackage.Types
-import           System.Exit          (ExitCode (ExitFailure), exitWith)
-import           System.Process       (readProcess)
+import           Stackage.Util
+import           System.Exit          (ExitCode (ExitFailure, ExitSuccess),
+                                       exitWith)
+import           System.Process       (readProcessWithExitCode)
 
 data Mismatch = OnlyDryRun String | OnlySimpleList String
     deriving Show
 
 checkPlan :: InstallInfo -> IO ()
 checkPlan ii = do
-    dryRun' <- readProcess "cabal-dev" ("install":"--dry-run":"-fnetwork23":iiPackageList ii) ""
-    let dryRun = sort $ drop 2 $ lines dryRun'
-    let mismatches = getMismatches dryRun (iiPackageList ii)
+    (ec, dryRun', stderr) <- readProcessWithExitCode "cabal-dev" ("install":"--dry-run":"-fnetwork23":iiPackageList ii) ""
+    when (ec /= ExitSuccess || "Warning:" `isPrefixOf` stderr) $ do
+        putStr stderr
+        putStr dryRun'
+        putStrLn "cabal-dev returned a bad result, exiting"
+        exitWith ec
+    let dryRun = sort $ filter notOptionalCore $ map (takeWhile (/= ' ')) $ drop 2 $ lines dryRun'
+    let mismatches = getMismatches dryRun (filter notOptionalCore $ iiPackageList ii)
     unless (null mismatches) $ do
         putStrLn "Found the following mismtaches"
         mapM_ print mismatches
         exitWith $ ExitFailure 1
+  where
+    optionalCore = Set.fromList $ map packageVersionString $ Map.toList $ iiOptionalCore ii
+    notOptionalCore s = not $ s `Set.member` optionalCore
 
 getMismatches :: [String] -> [String] -> [Mismatch]
 getMismatches =

@@ -1,11 +1,9 @@
 {-# LANGUAGE CPP #-}
 module Stackage.Config where
 
-import           Control.Monad              (unless, when)
 import           Control.Monad.Trans.Writer (execWriter, tell)
 import qualified Data.Map                   as Map
 import           Data.Set                   (fromList, singleton)
-import           Distribution.System        (OS (..), buildOS)
 import           Distribution.Text          (simpleParse)
 import           Stackage.Types
 

@@ -42,4 +42,8 @@ instance Monoid HaskellPlatform where
 data InstallInfo = InstallInfo
     { iiCore     :: Set PackageName
     , iiPackages :: Map PackageName Version
+    , iiOptionalCore :: Map PackageName Version
+      -- ^ This is intended to hold onto packages which might be automatically
+      -- provided in the global package database. In practice, this would be
+      -- Haskell Platform packages provided by distributions.
     }
