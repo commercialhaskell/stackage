@@ -42,10 +42,14 @@ instance Monoid HaskellPlatform where
 
 data InstallInfo = InstallInfo
     { iiCore     :: Set PackageName
-    , iiPackages :: Map PackageName Version
+    , iiPackages :: Map PackageName (Version, Maintainer)
     , iiOptionalCore :: Map PackageName Version
       -- ^ This is intended to hold onto packages which might be automatically
       -- provided in the global package database. In practice, this would be
       -- Haskell Platform packages provided by distributions.
     , iiPackageDB :: PackageDB
     }
+
+-- | Email address of a Stackage maintainer.
+newtype Maintainer = Maintainer { unMaintainer :: String }
+    deriving (Show, Eq, Ord)

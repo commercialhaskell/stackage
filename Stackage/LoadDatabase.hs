@@ -35,7 +35,7 @@ import Distribution.Compiler (CompilerFlavor (GHC))
 --
 -- * For other packages, select the maximum version number.
 loadPackageDB :: Set PackageName -- ^ core packages
-              -> Map PackageName VersionRange -- ^ additional deps
+              -> Map PackageName (VersionRange, Maintainer) -- ^ additional deps
               -> IO PackageDB
 loadPackageDB core deps = do
     tarName <- getTarballName
@@ -54,7 +54,7 @@ loadPackageDB core deps = do
                 | p `member` core -> return pdb
                 | otherwise ->
                     case Map.lookup p deps of
-                        Just vrange
+                        Just (vrange, _maintainer)
                             | not $ withinRange v vrange -> return pdb
                         _ ->
                             case Tar.entryContent e of

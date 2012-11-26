@@ -36,7 +36,7 @@ makeTarballs ii = do
                 Nothing -> (stable, extra)
                 Just (package, version) ->
                     case Map.lookup package $ iiPackages ii of
-                        Just version'
+                        Just (version', _maintainer)
                             | version == version' -> (stable . (e:), extra)
                             | otherwise -> (stable, extra)
                         Nothing

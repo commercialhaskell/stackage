@@ -3,7 +3,6 @@ module Stackage.InstallInfo
     , iiPackageList
     ) where
 
-import Control.Monad (when)
 import qualified Data.Map                 as Map
 import qualified Data.Set                 as Set
 import           Stackage.Config
@@ -20,24 +19,26 @@ getInstallInfo = do
     let allPackages = Map.union stablePackages $ identsToRanges (hplibs hp)
     let totalCore = extraCore `Set.union` Set.map (\(PackageIdentifier p _) -> p) (hpcore hp)
     pdb <- loadPackageDB totalCore allPackages
-    final <- narrowPackageDB pdb $ Set.fromList $ Map.keys allPackages
+    final <- narrowPackageDB pdb $ Set.fromList $ Map.toList $ Map.map snd $ allPackages
 
-    when verbose $ do
-        putStrLn "Basic dependency listing:"
-        mapM_ (putStrLn . showDep) $ Map.toList final
+    putStrLn "Printing build plan to build-plan.log"
+    writeFile "build-plan.log" $ unlines $ map showDep $ Map.toList final
     return InstallInfo
         { iiCore = totalCore
-        , iiPackages = Map.map fst final
+        , iiPackages = Map.map (\(v, _, m) -> (v, m)) final
         , iiOptionalCore = Map.fromList $ map (\(PackageIdentifier p v) -> (p, v)) $ Set.toList $ hplibs hp
         , iiPackageDB = pdb
         }
 
-showDep :: (PackageName, (Version, [PackageName])) -> String
-showDep (name, (version, deps)) =
+showDep :: (PackageName, (Version, [PackageName], Maintainer)) -> String
+showDep (name, (version, deps, Maintainer m)) =
     concat
         [ unP name
         , "-"
         , showVersion version
+        , " ("
+        , m
+        , ")"
         , ": "
         , unwords $ map unP deps
         ]
@@ -45,4 +46,4 @@ showDep (name, (version, deps)) =
     unP (PackageName p) = p
 
 iiPackageList :: InstallInfo -> [String]
-iiPackageList = map packageVersionString . Map.toList . iiPackages
+iiPackageList = map packageVersionString . Map.toList . Map.map fst . iiPackages

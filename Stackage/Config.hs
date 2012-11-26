@@ -58,40 +58,28 @@ expectedFailures = fromList $ map PackageName
 -- | List of packages for our stable Hackage. All dependencies will be
 -- included as well. Please indicate who will be maintaining the package
 -- via comments.
-stablePackages :: Map PackageName VersionRange
+stablePackages :: Map PackageName (VersionRange, Maintainer)
 stablePackages = execWriter $ do
-    -- Michael Snoyman michael@snoyman.com
-    addRange "yesod" "< 1.4"
-    add "yesod-newsfeed"
-    add "yesod-sitemap"
-    add "yesod-static"
-    add "yesod-test"
-    add "markdown"
-    add "filesystem-conduit"
-    add "mime-mail-ses"
+    mapM_ (add "michael@snoyman.com") $ words
+        "yesod yesod-newsfeed yesod-sitemap yesod-static yesod-test markdown filesystem-conduit mime-mail-ses"
 
-    -- Neil Mitchell
-    add "hoogle"
-    add "hlint"
+    mapM_ (add "Neil Mitchell") $ words
+        "hoogle hlint"
 
-    -- Alan Zimmerman
-    add "hjsmin"
-    add "language-javascript"
+    mapM_ (add "Alan Zimmerman") $ words
+        "hjsmin language-javascript"
 
-    -- Jasper Van der Jeugt
-    add "blaze-html"
-    add "blaze-markup"
-    add "stylish-haskell"
+    mapM_ (add "Jasper Van der Jeugt") $ words
+        "blaze-html blaze-markup stylish-haskell"
 
-    -- Antoine Latter
-    add "uuid"
-    add "byteorder"
+    mapM_ (add "Antoine Latter") $ words
+        "uuid byteorder"
   where
-    add = flip addRange "-any"
-    addRange package range =
+    add maintainer package = addRange maintainer package "-any"
+    addRange maintainer package range =
         case simpleParse range of
             Nothing -> error $ "Invalid range " ++ show range ++ " for " ++ package
-            Just range' -> tell $ Map.singleton (PackageName package) range'
+            Just range' -> tell $ Map.singleton (PackageName package) (range', Maintainer maintainer)
 
 verbose :: Bool
 verbose =

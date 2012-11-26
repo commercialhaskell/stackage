@@ -15,11 +15,11 @@ import           System.Directory        (doesDirectoryExist,
 import           System.Directory        (getAppUserDataDirectory)
 import           System.FilePath         ((</>))
 
-identsToRanges :: Set PackageIdentifier -> Map PackageName VersionRange
+identsToRanges :: Set PackageIdentifier -> Map PackageName (VersionRange, Maintainer)
 identsToRanges =
     Map.unions . map go . Set.toList
   where
-    go (PackageIdentifier package version) = Map.singleton package $ thisVersion version
+    go (PackageIdentifier package version) = Map.singleton package (thisVersion version, Maintainer "Haskell Platform")
 
 packageVersionString :: (PackageName, Version) -> String
 packageVersionString (PackageName p, v) = concat [p, "-", showVersion v]

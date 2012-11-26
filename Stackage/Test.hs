@@ -41,8 +41,8 @@ fixEnv :: FilePath -> (String, String) -> (String, String)
 fixEnv bin (p@"PATH", x) = (p, bin ++ pathSep : x)
 fixEnv _ x = x
 
-runTestSuite :: FilePath -> Bool -> (PackageName, Version) -> IO Bool
-runTestSuite testdir prevPassed pair@(packageName, _) = do
+runTestSuite :: FilePath -> Bool -> (PackageName, (Version, Maintainer)) -> IO Bool
+runTestSuite testdir prevPassed (packageName, (version, Maintainer maintainer)) = do
     -- Set up a new environment that includes the cabal-dev/bin folder in PATH.
     env' <- getEnvironment
     bin <- canonicalizePath "cabal-dev/bin"
@@ -77,11 +77,11 @@ runTestSuite testdir prevPassed pair@(packageName, _) = do
         then do
             removeFile logfile
             when expectedFailure $ putStrLn $ package ++ " passed, but I didn't think it would."
-        else unless expectedFailure $ putStrLn $ "Test suite failed: " ++ package
+        else unless expectedFailure $ putStrLn $ "Test suite failed: " ++ package ++ "(" ++ maintainer ++ ")"
     rm_r dir
     return $! prevPassed && (passed || expectedFailure)
   where
     logfile = testdir </> package <.> "log"
     dir = testdir </> package
     getHandle mode = withBinaryFile logfile mode
-    package = packageVersionString pair
+    package = packageVersionString (packageName, version)
