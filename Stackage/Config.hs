@@ -29,9 +29,6 @@ expectedFailures = fromList $ map PackageName
       -- Hackage.
     , "hspec"
 
-      -- Requires markdown-unlit, which we don't want to depend on.
-    , "hspec-expectations"
-
       -- text and setenv have recursive dependencies in their tests, which
       -- cabal can't (yet) handle
     , "text"
