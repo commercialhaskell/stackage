@@ -61,4 +61,6 @@ data BuildSettings = BuildSettings
     , expectedFailures :: Set PackageName
     , stablePackages :: Map PackageName (VersionRange, Maintainer)
     , extraArgs :: [String]
+    , haskellPlatformCabal :: FilePath
+    , requireHaskellPlatform :: Bool
     }

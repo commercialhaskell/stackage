@@ -28,6 +28,8 @@ defaultBuildSettings = BuildSettings
     , expectedFailures = defaultExpectedFailures
     , stablePackages = defaultStablePackages
     , extraArgs = ["-fnetwork23"]
+    , haskellPlatformCabal = "haskell-platform/haskell-platform.cabal"
+    , requireHaskellPlatform = True
     }
 
 build :: BuildSettings -> IO ()

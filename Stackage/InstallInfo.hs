@@ -15,8 +15,10 @@ import Data.Version (showVersion)
 
 getInstallInfo :: BuildSettings -> IO InstallInfo
 getInstallInfo settings = do
-    hp <- loadHaskellPlatform
-    let allPackages = Map.union (stablePackages settings) $ identsToRanges (hplibs hp)
+    hp <- loadHaskellPlatform settings
+    let allPackages
+            | requireHaskellPlatform settings = Map.union (stablePackages settings) $ identsToRanges (hplibs hp)
+            | otherwise = stablePackages settings
     let totalCore = extraCore settings `Set.union` Set.map (\(PackageIdentifier p _) -> p) (hpcore hp)
     pdb <- loadPackageDB totalCore allPackages
     final <- narrowPackageDB pdb $ Set.fromList $ Map.toList $ Map.map snd $ allPackages
