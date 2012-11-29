@@ -13,11 +13,11 @@ import           Stackage.Types
 import           Stackage.Util
 import Data.Version (showVersion)
 
-getInstallInfo :: IO InstallInfo
-getInstallInfo = do
+getInstallInfo :: BuildSettings -> IO InstallInfo
+getInstallInfo settings = do
     hp <- loadHaskellPlatform
-    let allPackages = Map.union stablePackages $ identsToRanges (hplibs hp)
-    let totalCore = extraCore `Set.union` Set.map (\(PackageIdentifier p _) -> p) (hpcore hp)
+    let allPackages = Map.union (stablePackages settings) $ identsToRanges (hplibs hp)
+    let totalCore = extraCore settings `Set.union` Set.map (\(PackageIdentifier p _) -> p) (hpcore hp)
     pdb <- loadPackageDB totalCore allPackages
     final <- narrowPackageDB pdb $ Set.fromList $ Map.toList $ Map.map snd $ allPackages
 

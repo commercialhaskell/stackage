@@ -15,14 +15,14 @@ targetCompilerVersion =
 
 -- | Packages which are shipped with GHC but are not included in the
 -- Haskell Platform list of core packages.
-extraCore :: Set PackageName
-extraCore = singleton $ PackageName "binary"
+defaultExtraCore :: Set PackageName
+defaultExtraCore = singleton $ PackageName "binary"
 
 -- | Test suites which are expected to fail for some reason. The test suite
 -- will still be run and logs kept, but a failure will not indicate an
 -- error in our package combination.
-expectedFailures :: Set PackageName
-expectedFailures = fromList $ map PackageName
+defaultExpectedFailures :: Set PackageName
+defaultExpectedFailures = fromList $ map PackageName
     [ -- Requires an old version of WAI and Warp for tests
       "HTTP"
       -- Requires a special hspec-meta which is not yet available from
@@ -58,8 +58,8 @@ expectedFailures = fromList $ map PackageName
 -- | List of packages for our stable Hackage. All dependencies will be
 -- included as well. Please indicate who will be maintaining the package
 -- via comments.
-stablePackages :: Map PackageName (VersionRange, Maintainer)
-stablePackages = execWriter $ do
+defaultStablePackages :: Map PackageName (VersionRange, Maintainer)
+defaultStablePackages = execWriter $ do
     mapM_ (add "michael@snoyman.com") $ words
         "yesod yesod-newsfeed yesod-sitemap yesod-static yesod-test markdown filesystem-conduit mime-mail-ses"
 
@@ -80,11 +80,3 @@ stablePackages = execWriter $ do
         case simpleParse range of
             Nothing -> error $ "Invalid range " ++ show range ++ " for " ++ package
             Just range' -> tell $ Map.singleton (PackageName package) (range', Maintainer maintainer)
-
-verbose :: Bool
-verbose =
-#if VERBOSE
-    True
-#else
-    False
-#endif

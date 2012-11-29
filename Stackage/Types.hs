@@ -53,3 +53,12 @@ data InstallInfo = InstallInfo
 -- | Email address of a Stackage maintainer.
 newtype Maintainer = Maintainer { unMaintainer :: String }
     deriving (Show, Eq, Ord)
+
+data BuildSettings = BuildSettings
+    { sandboxRoot :: FilePath
+    , extraBuildArgs :: [String]
+    , extraCore :: Set PackageName
+    , expectedFailures :: Set PackageName
+    , stablePackages :: Map PackageName (VersionRange, Maintainer)
+    , extraArgs :: [String]
+    }

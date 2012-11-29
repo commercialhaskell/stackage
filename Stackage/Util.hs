@@ -69,14 +69,14 @@ getPackageVersion e = do
 defaultHasTestSuites :: Bool
 defaultHasTestSuites = True
 
-packageDir = (</> "package-db")
-libDir = (</> "lib")
-binDir = (</> "bin")
+packageDir = (</> "package-db") . sandboxRoot
+libDir = (</> "lib") . sandboxRoot
+binDir = (</> "bin") . sandboxRoot
 
-addCabalArgs root rest
+addCabalArgs settings rest
     = "--package-db=clear"
     : "--package-db=global"
-    : ("--package-db=" ++ packageDir root)
-    : ("--libdir=" ++ libDir root)
-    : ("--bindir=" ++ binDir root)
-    : rest
+    : ("--package-db=" ++ packageDir settings)
+    : ("--libdir=" ++ libDir settings)
+    : ("--bindir=" ++ binDir settings)
+    : extraArgs settings ++ rest

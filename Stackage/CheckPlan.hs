@@ -16,9 +16,9 @@ import           System.Process       (readProcessWithExitCode)
 data Mismatch = OnlyDryRun String | OnlySimpleList String
     deriving Show
 
-checkPlan :: ([String] -> [String]) -> InstallInfo -> IO ()
-checkPlan extraArgs ii = do
-    (ec, dryRun', stderr) <- readProcessWithExitCode "cabal" (extraArgs $ "install":"--dry-run":iiPackageList ii) ""
+checkPlan :: BuildSettings -> InstallInfo -> IO ()
+checkPlan settings ii = do
+    (ec, dryRun', stderr) <- readProcessWithExitCode "cabal" (addCabalArgs settings $ "install":"--dry-run":iiPackageList ii) ""
     when (ec /= ExitSuccess || "Warning:" `isPrefixOf` stderr) $ do
         putStr stderr
         putStr dryRun'

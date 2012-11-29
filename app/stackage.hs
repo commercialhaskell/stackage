@@ -1,4 +1,4 @@
-import           Stackage.Build     (build)
+import           Stackage.Build     (build, defaultBuildSettings)
 import           Stackage.Init      (stackageInit)
 import           System.Environment (getArgs, getProgName)
 
@@ -6,7 +6,7 @@ main :: IO ()
 main = do
     args <- getArgs
     case args of
-        ["build"] -> build "sandbox" id
+        ["build"] -> build defaultBuildSettings
         ["init"] -> stackageInit
         ["update"] -> stackageInit >> error "FIXME update"
         _ -> do
