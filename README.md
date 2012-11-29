@@ -21,3 +21,10 @@ general, the following set of commands should be good for getting started:
     git submodule update --init # get the Haskell Platform files
     runghc app/stackage.hs build # takes a *long* time
     runghc app/stackage.hs init # modifies your ~/.cabal/config file
+
+Notes
+-----
+
+Make sure to have Cabal-1.16 installed in either your global or user database,
+regardless of any sandboxing, as custom build types require it to be present.
+You must build with cabal-install 1.16, due to several important bug fixes.

@@ -16,13 +16,13 @@ import           System.Process       (readProcessWithExitCode)
 data Mismatch = OnlyDryRun String | OnlySimpleList String
     deriving Show
 
-checkPlan :: InstallInfo -> IO ()
-checkPlan ii = do
-    (ec, dryRun', stderr) <- readProcessWithExitCode "cabal-dev" ("install":"--dry-run":"-fnetwork23":iiPackageList ii) ""
+checkPlan :: ([String] -> [String]) -> InstallInfo -> IO ()
+checkPlan extraArgs ii = do
+    (ec, dryRun', stderr) <- readProcessWithExitCode "cabal" (extraArgs $ "install":"--dry-run":iiPackageList ii) ""
     when (ec /= ExitSuccess || "Warning:" `isPrefixOf` stderr) $ do
         putStr stderr
         putStr dryRun'
-        putStrLn "cabal-dev returned a bad result, exiting"
+        putStrLn "cabal returned a bad result, exiting"
         exitWith ec
     let dryRun = sort $ filter notOptionalCore $ map (takeWhile (/= ' ')) $ drop 2 $ lines dryRun'
     let mismatches = getMismatches dryRun (filter notOptionalCore $ iiPackageList ii)

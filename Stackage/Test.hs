@@ -20,12 +20,12 @@ import           System.Process     (runProcess, waitForProcess)
 import Control.Exception (handle, Exception, throwIO)
 import Data.Typeable (Typeable)
 
-runTestSuites :: InstallInfo -> IO ()
-runTestSuites ii = do
+runTestSuites :: FilePath -> InstallInfo -> IO ()
+runTestSuites root ii = do
     let testdir = "runtests"
     rm_r testdir
     createDirectory testdir
-    allPass <- foldM (runTestSuite testdir) True $ filter hasTestSuites $ Map.toList $ iiPackages ii
+    allPass <- foldM (runTestSuite root testdir) True $ filter hasTestSuites $ Map.toList $ iiPackages ii
     unless allPass $ error $ "There were failures, please see the logs in " ++ testdir
   where
     PackageDB pdb = iiPackageDB ii
@@ -48,12 +48,11 @@ data TestException = TestException
     deriving (Show, Typeable)
 instance Exception TestException
 
-runTestSuite :: FilePath -> Bool -> (PackageName, (Version, Maintainer)) -> IO Bool
-runTestSuite testdir prevPassed (packageName, (version, Maintainer maintainer)) = do
-    -- Set up a new environment that includes the cabal-dev/bin folder in PATH.
+runTestSuite :: FilePath -> FilePath -> Bool -> (PackageName, (Version, Maintainer)) -> IO Bool
+runTestSuite root testdir prevPassed (packageName, (version, Maintainer maintainer)) = do
+    -- Set up a new environment that includes the sandboxed bin folder in PATH.
     env' <- getEnvironment
-    bin <- canonicalizePath "cabal-dev/bin"
-    let menv = Just $ map (fixEnv bin) env'
+    let menv = Just $ map (fixEnv $ binDir root) env'
 
     let run cmd args wdir handle = do
             ph <- runProcess cmd args (Just wdir) menv Nothing (Just handle) (Just handle)
@@ -62,10 +61,10 @@ runTestSuite testdir prevPassed (packageName, (version, Maintainer maintainer)) 
 
     passed <- handle (\TestException -> return False) $ do
         getHandle WriteMode  $ run "cabal" ["unpack", package] testdir
-        getHandle AppendMode $ run "cabal-dev" ["-s", "../../cabal-dev", "configure", "--enable-tests"] dir
-        getHandle AppendMode $ run "cabal-dev" ["build"] dir
-        getHandle AppendMode $ run "cabal-dev" ["test"] dir
-        getHandle AppendMode $ run "cabal-dev" ["haddock"] dir
+        getHandle AppendMode $ run "cabal" (addCabalArgs root ["configure", "--enable-tests"]) dir
+        getHandle AppendMode $ run "cabal" ["build"] dir
+        getHandle AppendMode $ run "cabal" ["test"] dir
+        getHandle AppendMode $ run "cabal" ["haddock"] dir
         return True
     let expectedFailure = packageName `Set.member` expectedFailures
     if passed

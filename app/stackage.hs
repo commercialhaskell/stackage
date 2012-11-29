@@ -6,7 +6,7 @@ main :: IO ()
 main = do
     args <- getArgs
     case args of
-        ["build"] -> build
+        ["build"] -> build "sandbox" id
         ["init"] -> stackageInit
         ["update"] -> stackageInit >> error "FIXME update"
         _ -> do

@@ -68,3 +68,15 @@ getPackageVersion e = do
 -- not there. Defaulting to @False@ would result in silent failures.
 defaultHasTestSuites :: Bool
 defaultHasTestSuites = True
+
+packageDir = (</> "package-db")
+libDir = (</> "lib")
+binDir = (</> "bin")
+
+addCabalArgs root rest
+    = "--package-db=clear"
+    : "--package-db=global"
+    : ("--package-db=" ++ packageDir root)
+    : ("--libdir=" ++ libDir root)
+    : ("--bindir=" ++ binDir root)
+    : rest
