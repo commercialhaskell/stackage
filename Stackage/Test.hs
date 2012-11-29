@@ -25,12 +25,12 @@ runTestSuites root ii = do
     let testdir = "runtests"
     rm_r testdir
     createDirectory testdir
-    allPass <- foldM (runTestSuite root testdir) True $ filter hasTestSuites $ Map.toList $ iiPackages ii
+    allPass <- foldM (runTestSuite root testdir hasTestSuites) True $ Map.toList $ iiPackages ii
     unless allPass $ error $ "There were failures, please see the logs in " ++ testdir
   where
     PackageDB pdb = iiPackageDB ii
 
-    hasTestSuites (name, _) = maybe defaultHasTestSuites piHasTests $ Map.lookup name pdb
+    hasTestSuites name = maybe defaultHasTestSuites piHasTests $ Map.lookup name pdb
 
 -- | Separate for the PATH environment variable
 pathSep :: Char
@@ -48,8 +48,13 @@ data TestException = TestException
     deriving (Show, Typeable)
 instance Exception TestException
 
-runTestSuite :: FilePath -> FilePath -> Bool -> (PackageName, (Version, Maintainer)) -> IO Bool
-runTestSuite root testdir prevPassed (packageName, (version, Maintainer maintainer)) = do
+runTestSuite :: FilePath
+             -> FilePath
+             -> (PackageName -> Bool) -- ^ do we have any test suites?
+             -> Bool
+             -> (PackageName, (Version, Maintainer))
+             -> IO Bool
+runTestSuite root testdir hasTestSuites prevPassed (packageName, (version, Maintainer maintainer)) = do
     -- Set up a new environment that includes the sandboxed bin folder in PATH.
     env' <- getEnvironment
     let menv = Just $ map (fixEnv $ binDir root) env'
@@ -62,8 +67,9 @@ runTestSuite root testdir prevPassed (packageName, (version, Maintainer maintain
     passed <- handle (\TestException -> return False) $ do
         getHandle WriteMode  $ run "cabal" ["unpack", package] testdir
         getHandle AppendMode $ run "cabal" (addCabalArgs root ["configure", "--enable-tests"]) dir
-        getHandle AppendMode $ run "cabal" ["build"] dir
-        getHandle AppendMode $ run "cabal" ["test"] dir
+        when (hasTestSuites packageName) $ do
+            getHandle AppendMode $ run "cabal" ["build"] dir
+            getHandle AppendMode $ run "cabal" ["test"] dir
         getHandle AppendMode $ run "cabal" ["haddock"] dir
         return True
     let expectedFailure = packageName `Set.member` expectedFailures
