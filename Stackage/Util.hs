@@ -72,6 +72,8 @@ defaultHasTestSuites = True
 packageDir = (</> "package-db") . sandboxRoot
 libDir = (</> "lib") . sandboxRoot
 binDir = (</> "bin") . sandboxRoot
+dataDir = (</> "share") . sandboxRoot
+docDir x = sandboxRoot x </> "share" </> "doc" </> "$pkgid"
 
 addCabalArgs settings rest
     = "--package-db=clear"
@@ -79,4 +81,6 @@ addCabalArgs settings rest
     : ("--package-db=" ++ packageDir settings)
     : ("--libdir=" ++ libDir settings)
     : ("--bindir=" ++ binDir settings)
+    : ("--datadir=" ++ dataDir settings)
+    : ("--docdir=" ++ docDir settings)
     : extraArgs settings ++ rest
