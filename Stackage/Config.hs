@@ -25,9 +25,6 @@ defaultExpectedFailures :: Set PackageName
 defaultExpectedFailures = fromList $ map PackageName
     [ -- Requires an old version of WAI and Warp for tests
       "HTTP"
-      -- Requires a special hspec-meta which is not yet available from
-      -- Hackage.
-    , "hspec"
 
       -- text and setenv have recursive dependencies in their tests, which
       -- cabal can't (yet) handle
@@ -46,9 +43,6 @@ defaultExpectedFailures = fromList $ map PackageName
 
       -- https://github.com/kazu-yamamoto/simple-sendfile/pull/10
     , "simple-sendfile"
-
-      -- https://github.com/alanz/hjsmin/pull/11
-    , "hjsmin"
 
       -- Michael emailed Dominic about bumping version numbers, but no new
       -- release has yet been made.
