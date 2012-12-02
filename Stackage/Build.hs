@@ -5,7 +5,7 @@ module Stackage.Build
     ) where
 
 import           Distribution.Text       (simpleParse)
-import           Control.Monad        (unless)
+import           Control.Monad        (unless, when)
 import           Stackage.Types
 import           Stackage.CheckPlan
 import           Stackage.InstallInfo
@@ -14,9 +14,9 @@ import           Stackage.Test
 import           Stackage.Util
 import           Stackage.Config
 import           System.Exit          (ExitCode (ExitSuccess), exitWith)
-import           System.IO            (IOMode (WriteMode), withBinaryFile)
+import           System.IO            (IOMode (WriteMode), withBinaryFile, hPutStrLn)
 import           System.Process       (runProcess, waitForProcess, rawSystem, readProcess)
-import           System.Directory     (createDirectoryIfMissing, canonicalizePath)
+import           System.Directory     (createDirectoryIfMissing, canonicalizePath, doesDirectoryExist)
 import           Distribution.Version    (thisVersion, withinRange)
 import Control.Exception (assert)
 
@@ -30,6 +30,7 @@ defaultBuildSettings = BuildSettings
     , extraArgs = ["-fnetwork23"]
     , haskellPlatformCabal = "haskell-platform/haskell-platform.cabal"
     , requireHaskellPlatform = True
+    , cleanBeforeBuild = True
     }
 
 build :: BuildSettings -> IO ()
@@ -37,21 +38,28 @@ build settings' = do
     putStrLn "Creating a build plan"
     ii <- getInstallInfo settings'
 
-    putStrLn "Wiping out old sandbox folder"
     let root' = sandboxRoot settings'
-    rm_r root'
-    rm_r "logs"
+    initPkgDb <- if cleanBeforeBuild settings'
+       then do
+         putStrLn "Wiping out old sandbox folder"
+         rm_r root'
+         rm_r "logs"
+         return True
+       else do
+         b <- doesDirectoryExist root'
+         when b (putStrLn "Re-using existing sandbox")
+         return (not b)
     createDirectoryIfMissing True root'
     root <- canonicalizePath root'
     let settings = settings' { sandboxRoot = root }
 
-    ec1 <- rawSystem "ghc-pkg" ["init", packageDir settings]
-    unless (ec1 == ExitSuccess) $ do
-        putStrLn "Unable to create package database via ghc-pkg init"
-        exitWith ec1
-
-    checkPlan settings ii
-    putStrLn "No mismatches, starting the sandboxed build."
+    when initPkgDb $ do
+        ec1 <- rawSystem "ghc-pkg" ["init", packageDir settings]
+        unless (ec1 == ExitSuccess) $ do
+            putStrLn "Unable to create package database via ghc-pkg init"
+            exitWith ec1
+        checkPlan settings ii
+        putStrLn "No mismatches, starting the sandboxed build."
 
     versionString <- readProcess "cabal" ["--version"] ""
     libVersion <-
@@ -77,7 +85,8 @@ build settings' = do
                     , extraArgs settings
                     , iiPackageList ii
                     ]
-         in runProcess "cabal" args Nothing Nothing Nothing (Just handle) (Just handle)
+         in do hPutStrLn handle ("cabal " ++ unwords (map (\s -> "'" ++ s ++ "'") args))
+               runProcess "cabal" args Nothing Nothing Nothing (Just handle) (Just handle)
     ec <- waitForProcess ph
     unless (ec == ExitSuccess) $ do
         putStrLn "Build failed, please see build.log"
