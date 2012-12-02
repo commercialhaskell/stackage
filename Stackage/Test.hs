@@ -57,7 +57,7 @@ runTestSuite :: BuildSettings
 runTestSuite settings testdir hasTestSuites prevPassed (packageName, (version, Maintainer maintainer)) = do
     -- Set up a new environment that includes the sandboxed bin folder in PATH.
     env' <- getEnvironment
-    let menv = Just $ ("PACKAGE_SANDBOX", packageDir settings)
+    let menv = Just $ ("HASKELL_PACKAGE_SANDBOX", packageDir settings)
                     : map (fixEnv $ binDir settings) env'
 
     let run cmd args wdir handle = do
