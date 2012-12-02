@@ -63,4 +63,5 @@ data BuildSettings = BuildSettings
     , extraArgs :: [String]
     , haskellPlatformCabal :: FilePath
     , requireHaskellPlatform :: Bool
+    , cleanBeforeBuild :: Bool
     }
