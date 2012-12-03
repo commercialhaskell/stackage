@@ -16,7 +16,8 @@ targetCompilerVersion =
 -- | Packages which are shipped with GHC but are not included in the
 -- Haskell Platform list of core packages.
 defaultExtraCore :: Set PackageName
-defaultExtraCore = singleton $ PackageName "binary"
+defaultExtraCore = fromList $ map PackageName $ words
+    "binary Win32"
 
 -- | Test suites which are expected to fail for some reason. The test suite
 -- will still be run and logs kept, but a failure will not indicate an
