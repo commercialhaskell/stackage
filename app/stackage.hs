@@ -4,6 +4,7 @@ import           Stackage.Build     (build, defaultBuildSettings)
 import           Stackage.Init      (stackageInit)
 import           System.Environment (getArgs, getProgName)
 import           Data.Set           (fromList)
+import           System.IO          (hFlush, stdout)
 
 data BuildArgs = BuildArgs
     { noClean :: Bool
@@ -29,7 +30,15 @@ main = do
                 { cleanBeforeBuild = not noClean
                 , excludedPackages = fromList $ map PackageName excluded
                 }
-        ["init"] -> stackageInit
+        ["init"] -> do
+            putStrLn "Note: init isn't really ready for prime time use."
+            putStrLn "Using it may make it impossible to build stackage."
+            putStr "Are you sure you want continue (y/n)? "
+            hFlush stdout
+            x <- getLine
+            case x of
+                c:_ | c `elem` "yY" -> stackageInit
+                _ -> putStrLn "Probably a good decision, exiting."
         ["update"] -> stackageInit >> error "FIXME update"
         _ -> do
             pn <- getProgName
