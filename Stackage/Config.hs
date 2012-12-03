@@ -69,8 +69,11 @@ defaultStablePackages = execWriter $ do
     mapM_ (add "Antoine Latter") $ words
         "uuid byteorder"
 
-    mapM (add "Stefan Wehr <wehr@factisresearch.com>") $ words
+    mapM_ (add "Stefan Wehr <wehr@factisresearch.com>") $ words
         "HTF hscurses xmlgen stm-stats"
+
+    mapM_ (add "Edward Kmett") $ words
+        "lens"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
