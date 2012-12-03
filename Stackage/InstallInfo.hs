@@ -13,12 +13,19 @@ import           Stackage.Types
 import           Stackage.Util
 import Data.Version (showVersion)
 
+dropExcluded :: BuildSettings
+             -> Map PackageName (VersionRange, Maintainer)
+             -> Map PackageName (VersionRange, Maintainer)
+dropExcluded bs m0 =
+    Set.foldl' (flip Map.delete) m0 (excludedPackages bs)
+
 getInstallInfo :: BuildSettings -> IO InstallInfo
 getInstallInfo settings = do
     hp <- loadHaskellPlatform settings
-    let allPackages
+    let allPackages'
             | requireHaskellPlatform settings = Map.union (stablePackages settings) $ identsToRanges (hplibs hp)
             | otherwise = stablePackages settings
+        allPackages = dropExcluded settings allPackages'
     let totalCore = extraCore settings `Set.union` Set.map (\(PackageIdentifier p _) -> p) (hpcore hp)
     pdb <- loadPackageDB totalCore allPackages
     final <- narrowPackageDB pdb $ Set.fromList $ Map.toList $ Map.map snd $ allPackages

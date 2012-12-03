@@ -64,4 +64,8 @@ data BuildSettings = BuildSettings
     , haskellPlatformCabal :: FilePath
     , requireHaskellPlatform :: Bool
     , cleanBeforeBuild :: Bool
+    , excludedPackages :: Set PackageName
+    -- ^ Packages which should be dropped from the list of stable packages,
+    -- even if present via the Haskell Platform or @stablePackages@. If these
+    -- packages are dependencies of others, they will still be included.
     }

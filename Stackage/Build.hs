@@ -19,6 +19,7 @@ import           System.Process       (runProcess, waitForProcess, rawSystem, re
 import           System.Directory     (createDirectoryIfMissing, canonicalizePath, doesDirectoryExist)
 import           Distribution.Version    (thisVersion, withinRange)
 import Control.Exception (assert)
+import Data.Set (empty)
 
 defaultBuildSettings :: BuildSettings
 defaultBuildSettings = BuildSettings
@@ -31,6 +32,7 @@ defaultBuildSettings = BuildSettings
     , haskellPlatformCabal = "haskell-platform/haskell-platform.cabal"
     , requireHaskellPlatform = True
     , cleanBeforeBuild = True
+    , excludedPackages = empty
     }
 
 build :: BuildSettings -> IO ()
