@@ -57,20 +57,25 @@ runTestSuite :: BuildSettings
 runTestSuite settings testdir hasTestSuites prevPassed (packageName, (version, Maintainer maintainer)) = do
     -- Set up a new environment that includes the sandboxed bin folder in PATH.
     env' <- getEnvironment
-    let menv = Just $ ("HASKELL_PACKAGE_SANDBOX", packageDir settings)
-                    : map (fixEnv $ binDir settings) env'
+    let menv addGPP
+            = Just $ (if addGPP then (("GHC_PACKAGE_PATH", packageDir settings ++ ":"):) else id)
+                   $ ("HASKELL_PACKAGE_SANDBOX", packageDir settings)
+                   : map (fixEnv $ binDir settings) env'
 
-    let run cmd args wdir handle = do
-            ph <- runProcess cmd args (Just wdir) menv Nothing (Just handle) (Just handle)
+    let runGen addGPP cmd args wdir handle = do
+            ph <- runProcess cmd args (Just wdir) (menv addGPP) Nothing (Just handle) (Just handle)
             ec <- waitForProcess ph
             unless (ec == ExitSuccess) $ throwIO TestException
+
+    let run = runGen False
+        runGhcPackagePath = runGen True
 
     passed <- handle (\TestException -> return False) $ do
         getHandle WriteMode  $ run "cabal" ["unpack", package] testdir
         getHandle AppendMode $ run "cabal" (addCabalArgs settings ["configure", "--enable-tests"]) dir
         when (hasTestSuites packageName) $ do
             getHandle AppendMode $ run "cabal" ["build"] dir
-            getHandle AppendMode $ run "cabal" ["test"] dir
+            getHandle AppendMode $ runGhcPackagePath "cabal" ["test"] dir
         getHandle AppendMode $ run "cabal" ["haddock"] dir
         return True
     let expectedFailure = packageName `Set.member` expectedFailures settings
