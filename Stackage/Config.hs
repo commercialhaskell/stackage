@@ -75,6 +75,9 @@ defaultStablePackages = execWriter $ do
 
     mapM_ (add "Edward Kmett") $ words
         "lens"
+
+    mapM_ (add "Bart Massey <bart.massey+stackage@gmail.com>") $ words
+        "parseargs"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
