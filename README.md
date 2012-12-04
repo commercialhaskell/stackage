@@ -35,7 +35,6 @@ general, the following set of commands should be good for getting started:
     cd stackage
     git submodule update --init # get the Haskell Platform files
     runghc app/stackage.hs build # takes a *long* time
-    runghc app/stackage.hs init # modifies your ~/.cabal/config file
 
 Notes
 -----
