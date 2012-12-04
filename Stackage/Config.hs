@@ -75,6 +75,9 @@ defaultStablePackages = execWriter $ do
 
     mapM_ (add "Edward Kmett") $ words
         "lens"
+
+    mapM_ (add "Simon Hengel <sol@typeful.net>") $ words
+        "hspec doctest base-compat"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
