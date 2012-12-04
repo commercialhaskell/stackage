@@ -73,8 +73,19 @@ defaultStablePackages = execWriter $ do
     mapM_ (add "Stefan Wehr <wehr@factisresearch.com>") $ words
         "HTF hscurses xmlgen stm-stats"
 
-    mapM_ (add "Edward Kmett") $ words
-        "lens"
+    mapM_ (add "Edward Kmett <ekmett@gmail.com>") $ words =<<
+        [ "ad adjunctions bifunctors bound categories charset comonad comonad-transformers"
+        , "comonads-fd comonad-extras compressed concurrent-supply constraints contravariant"
+        , "distributive either eq free groupoids heaps hyphenation"
+        , "integration intervals kan-extensions lca lens linear monadic-arrays machines"
+        , "mtl profunctors profunctor-extras reducers reflection"
+        , "representable-functors representable-profunctors representable-tries"
+        , "semigroups semigroupoids semigroupoid-extras speculation tagged void"
+        , "wl-pprint-extras wl-pprint-terminfo graphs monad-products monad-st"
+        , "numeric-extras parsers pointed prelude-extras recursion-schemes reducers"
+        , "streams syb-extras vector-instances"
+        ]
+
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
