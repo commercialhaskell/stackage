@@ -9,15 +9,17 @@ import           System.IO          (hFlush, stdout)
 data BuildArgs = BuildArgs
     { noClean :: Bool
     , excluded :: [String]
+    , noPlatform :: Bool
     }
 
 parseBuildArgs :: [String] -> IO BuildArgs
 parseBuildArgs =
-    loop $ BuildArgs False []
+    loop $ BuildArgs False [] False
   where
     loop x [] = return x
     loop x ("--no-clean":rest) = loop x { noClean = True } rest
     loop x ("--exclude":y:rest) = loop x { excluded = y : excluded x } rest
+    loop x ("--no-platform":rest) = loop x { noPlatform = True } rest
     loop _ (y:_) = error $ "Did not understand argument: " ++ y
 
 main :: IO ()
@@ -29,6 +31,7 @@ main = do
             build defaultBuildSettings
                 { cleanBeforeBuild = not noClean
                 , excludedPackages = fromList $ map PackageName excluded
+                , requireHaskellPlatform = not noPlatform
                 }
         ["init"] -> do
             putStrLn "Note: init isn't really ready for prime time use."
@@ -46,5 +49,5 @@ main = do
             putStrLn "Available commands:"
             putStrLn "    update              Download updated Stackage databases. Automatically calls init."
             putStrLn "    init                Initialize your cabal file to use Stackage"
-            putStrLn "    build [--no-clean] [--exclude package...]"
+            putStrLn "    build [--no-clean] [--no-platform] [--exclude package...]"
             putStrLn "                        Build the package databases (maintainers only)"
