@@ -88,6 +88,9 @@ defaultStablePackages = execWriter $ do
         , "numeric-extras parsers pointed prelude-extras recursion-schemes reducers"
         , "streams syb-extras vector-instances"
         ]
+
+    mapM_ (add "Simon Hengel <sol@typeful.net>") $ words
+        "hspec doctest base-compat"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
