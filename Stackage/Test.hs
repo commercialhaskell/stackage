@@ -1,4 +1,3 @@
-{-# LANGUAGE CPP #-}
 {-# LANGUAGE DeriveDataTypeable #-}
 module Stackage.Test
     ( runTestSuites
@@ -32,18 +31,6 @@ runTestSuites settings ii = do
 
     hasTestSuites name = maybe defaultHasTestSuites piHasTests $ Map.lookup name pdb
 
--- | Separate for the PATH environment variable
-pathSep :: Char
-#ifdef mingw32_HOST_OS
-pathSep = ';'
-#else
-pathSep = ':'
-#endif
-
-fixEnv :: FilePath -> (String, String) -> (String, String)
-fixEnv bin (p@"PATH", x) = (p, bin ++ pathSep : x)
-fixEnv _ x = x
-
 data TestException = TestException
     deriving (Show, Typeable)
 instance Exception TestException
@@ -56,11 +43,11 @@ runTestSuite :: BuildSettings
              -> IO Bool
 runTestSuite settings testdir hasTestSuites prevPassed (packageName, (version, Maintainer maintainer)) = do
     -- Set up a new environment that includes the sandboxed bin folder in PATH.
-    env' <- getEnvironment
+    env' <- getModifiedEnv settings
     let menv addGPP
             = Just $ (if addGPP then (("GHC_PACKAGE_PATH", packageDir settings ++ ":"):) else id)
                    $ ("HASKELL_PACKAGE_SANDBOX", packageDir settings)
-                   : map (fixEnv $ binDir settings) env'
+                   : env'
 
     let runGen addGPP cmd args wdir handle = do
             ph <- runProcess cmd args (Just wdir) (menv addGPP) Nothing (Just handle) (Just handle)

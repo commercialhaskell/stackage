@@ -12,7 +12,7 @@ import           Distribution.PackageDescription       (condExecutables,
                                                         condLibrary,
                                                         condTestSuites,
                                                         condBenchmarks,
-                                                        condTreeConstraints, condTreeComponents, ConfVar (..), Condition(..), flagName, flagDefault, genPackageFlags)
+                                                        condTreeConstraints, condTreeComponents, ConfVar (..), Condition(..), flagName, flagDefault, genPackageFlags, allBuildInfo, packageDescription, buildTools, libBuildInfo, condTreeData, buildInfo, testBuildInfo, benchmarkBuildInfo)
 import           Distribution.PackageDescription.Parse (ParseResult (ParseOk),
                                                         parsePackageDescription)
 import           Distribution.Version                  (withinRange)
@@ -59,11 +59,12 @@ loadPackageDB core deps = do
                         _ ->
                             case Tar.entryContent e of
                                 Tar.NormalFile bs _ -> do
-                                    let (deps', hasTests) = parseDeps bs
+                                    let (deps', hasTests, buildTools) = parseDeps bs
                                     return $ mappend pdb $ PackageDB $ Map.singleton p PackageInfo
                                         { piVersion = v
                                         , piDeps = deps'
                                         , piHasTests = hasTests
+                                        , piBuildTools = buildTools
                                         }
                                 _ -> return pdb
 
@@ -74,9 +75,19 @@ loadPackageDB core deps = do
                 , mconcat $ map (go gpd . snd) $ condExecutables gpd
                 , mconcat $ map (go gpd . snd) $ condTestSuites gpd
                 , mconcat $ map (go gpd . snd) $ condBenchmarks gpd
-                ], not $ null $ condTestSuites gpd)
-            _ -> (mempty, defaultHasTestSuites)
+                ], not $ null $ condTestSuites gpd
+                , Set.fromList $ map depName $ allBuildInfo gpd)
+            _ -> (mempty, defaultHasTestSuites, Set.empty)
       where
+        allBuildInfo gpd = concat
+            [ maybe mempty (goBI libBuildInfo) $ condLibrary gpd
+            , concat $ map (goBI buildInfo . snd) $ condExecutables gpd
+            , concat $ map (goBI testBuildInfo . snd) $ condTestSuites gpd
+            , concat $ map (goBI benchmarkBuildInfo . snd) $ condBenchmarks gpd
+            ]
+          where
+            goBI f x = buildTools $ f $ condTreeData x
+        depName (Dependency p _) = p
         go gpd tree
             = Set.unions
             $ Set.fromList (map (\(Dependency p _) -> p) $ condTreeConstraints tree)

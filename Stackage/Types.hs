@@ -25,9 +25,10 @@ instance Monoid PackageDB where
             | otherwise = pi2
 
 data PackageInfo = PackageInfo
-    { piVersion  :: Version
-    , piDeps     :: Set PackageName
-    , piHasTests :: Bool
+    { piVersion    :: Version
+    , piDeps       :: Set PackageName
+    , piHasTests   :: Bool
+    , piBuildTools :: Set PackageName
     }
     deriving (Show, Eq, Ord)
 

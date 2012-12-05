@@ -20,6 +20,8 @@ import           System.Directory     (createDirectoryIfMissing, canonicalizePat
 import           Distribution.Version    (thisVersion, withinRange)
 import Control.Exception (assert)
 import Data.Set (empty)
+import qualified Data.Map as Map
+import qualified Data.Set as Set
 
 defaultBuildSettings :: BuildSettings
 defaultBuildSettings = BuildSettings
@@ -76,7 +78,30 @@ build settings' = do
             | v `withinRange` vr -> return ()
             | otherwise -> error $ "Unsupported Cabal version: " ++ libVersion
 
-    ph <- withBinaryFile "build.log" WriteMode $ \handle ->
+    menv <- fmap Just $ getModifiedEnv settings
+    let runCabal args handle = runProcess "cabal" args Nothing menv Nothing (Just handle) (Just handle)
+
+    -- First install build tools so they can be used below.
+    case iiBuildTools ii of
+        [] -> putStrLn "No build tools required"
+        tools -> do
+            putStrLn $ "Installing the following build tools: " ++ unwords tools
+            ph1 <- withBinaryFile "build-tools.log" WriteMode $ \handle -> do
+                let args = addCabalArgs settings
+                         $ "install"
+                         : ("--cabal-lib-version=" ++ libVersion)
+                         : "--build-log=logs-tools/$pkg.log"
+                         : "-j"
+                         : iiBuildTools ii
+                hPutStrLn handle ("cabal " ++ unwords (map (\s -> "'" ++ s ++ "'") args))
+                runCabal args handle
+            ec1 <- waitForProcess ph1
+            unless (ec1 == ExitSuccess) $ do
+                putStrLn "Building of build tools failed, please see build-tools.log"
+                exitWith ec1
+            putStrLn "Build tools built"
+
+    ph <- withBinaryFile "build.log" WriteMode $ \handle -> do
         let args = addCabalArgs settings
                  $ "install"
                  : ("--cabal-lib-version=" ++ libVersion)
@@ -87,8 +112,8 @@ build settings' = do
                     , extraArgs settings
                     , iiPackageList ii
                     ]
-         in do hPutStrLn handle ("cabal " ++ unwords (map (\s -> "'" ++ s ++ "'") args))
-               runProcess "cabal" args Nothing Nothing Nothing (Just handle) (Just handle)
+        hPutStrLn handle ("cabal " ++ unwords (map (\s -> "'" ++ s ++ "'") args))
+        runCabal args handle
     ec <- waitForProcess ph
     unless (ec == ExitSuccess) $ do
         putStrLn "Build failed, please see build.log"
@@ -99,3 +124,20 @@ build settings' = do
 
     putStrLn "All test suites that were expected to pass did pass, building tarballs."
     makeTarballs ii
+
+-- | Get all of the build tools required.
+iiBuildTools :: InstallInfo -> [String]
+iiBuildTools InstallInfo { iiPackageDB = PackageDB m, iiPackages = packages } =
+    -- FIXME possible improvement: track the dependencies between the build
+    -- tools themselves, and install them in the correct order.
+    map unPackageName
+  $ filter (flip Map.member m)
+  $ Set.toList
+  $ Set.unions
+  $ map piBuildTools
+  $ Map.elems
+  $ Map.filterWithKey isSelected m
+  where
+    unPackageName (PackageName pn) = pn
+    isSelected name _ = name `Set.member` selected
+    selected = Set.fromList $ Map.keys packages

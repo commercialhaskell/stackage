@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 module Stackage.Util where
 
 import qualified Codec.Archive.Tar       as Tar
@@ -14,6 +15,7 @@ import           System.Directory        (doesDirectoryExist,
                                           removeDirectoryRecursive)
 import           System.Directory        (getAppUserDataDirectory)
 import           System.FilePath         ((</>))
+import           System.Environment (getEnvironment)
 
 identsToRanges :: Set PackageIdentifier -> Map PackageName (VersionRange, Maintainer)
 identsToRanges =
@@ -84,3 +86,20 @@ addCabalArgs settings rest
     : ("--datadir=" ++ dataDir settings)
     : ("--docdir=" ++ docDir settings)
     : extraArgs settings ++ rest
+
+-- | Modified environment that adds our sandboxed bin folder to PATH.
+getModifiedEnv :: BuildSettings -> IO [(String, String)]
+getModifiedEnv settings = do
+    fmap (map $ fixEnv $ binDir settings) getEnvironment
+  where
+    fixEnv :: FilePath -> (String, String) -> (String, String)
+    fixEnv bin (p@"PATH", x) = (p, bin ++ pathSep : x)
+    fixEnv _ x = x
+
+    -- | Separate for the PATH environment variable
+    pathSep :: Char
+#ifdef mingw32_HOST_OS
+    pathSep = ';'
+#else
+    pathSep = ':'
+#endif
