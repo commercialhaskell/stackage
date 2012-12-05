@@ -14,8 +14,8 @@ import           Stackage.Types
 import           System.Directory        (doesDirectoryExist,
                                           removeDirectoryRecursive)
 import           System.Directory        (getAppUserDataDirectory)
+import           System.Environment      (getEnvironment)
 import           System.FilePath         ((</>))
-import           System.Environment (getEnvironment)
 
 identsToRanges :: Set PackageIdentifier -> Map PackageName (VersionRange, Maintainer)
 identsToRanges =

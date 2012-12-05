@@ -4,24 +4,28 @@ module Stackage.Build
     , BuildSettings (..)
     ) where
 
-import           Distribution.Text       (simpleParse)
+import           Control.Exception    (assert)
 import           Control.Monad        (unless, when)
-import           Stackage.Types
+import qualified Data.Map             as Map
+import           Data.Set             (empty)
+import qualified Data.Set             as Set
+import           Distribution.Text    (simpleParse)
+import           Distribution.Version (thisVersion, withinRange)
 import           Stackage.CheckPlan
+import           Stackage.Config
 import           Stackage.InstallInfo
 import           Stackage.Tarballs
 import           Stackage.Test
+import           Stackage.Types
 import           Stackage.Util
-import           Stackage.Config
+import           System.Directory     (canonicalizePath,
+                                       createDirectoryIfMissing,
+                                       doesDirectoryExist)
 import           System.Exit          (ExitCode (ExitSuccess), exitWith)
-import           System.IO            (IOMode (WriteMode), withBinaryFile, hPutStrLn)
-import           System.Process       (runProcess, waitForProcess, rawSystem, readProcess)
-import           System.Directory     (createDirectoryIfMissing, canonicalizePath, doesDirectoryExist)
-import           Distribution.Version    (thisVersion, withinRange)
-import Control.Exception (assert)
-import Data.Set (empty)
-import qualified Data.Map as Map
-import qualified Data.Set as Set
+import           System.IO            (IOMode (WriteMode), hPutStrLn,
+                                       withBinaryFile)
+import           System.Process       (rawSystem, readProcess, runProcess,
+                                       waitForProcess)
 
 defaultBuildSettings :: BuildSettings
 defaultBuildSettings = BuildSettings

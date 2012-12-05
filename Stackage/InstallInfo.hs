@@ -5,13 +5,13 @@ module Stackage.InstallInfo
 
 import qualified Data.Map                 as Map
 import qualified Data.Set                 as Set
+import           Data.Version             (showVersion)
 import           Stackage.Config
 import           Stackage.HaskellPlatform
 import           Stackage.LoadDatabase
 import           Stackage.NarrowDatabase
 import           Stackage.Types
 import           Stackage.Util
-import Data.Version (showVersion)
 
 dropExcluded :: BuildSettings
              -> Map PackageName (VersionRange, Maintainer)

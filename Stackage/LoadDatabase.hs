@@ -4,24 +4,36 @@ import qualified Codec.Archive.Tar                     as Tar
 import qualified Data.ByteString.Lazy                  as L
 import qualified Data.ByteString.Lazy.Char8            as L8
 import qualified Data.Map                              as Map
+import           Data.Maybe                            (mapMaybe)
 import           Data.Monoid                           (Monoid (..))
 import           Data.Set                              (member)
 import qualified Data.Set                              as Set
+import           Distribution.Compiler                 (CompilerFlavor (GHC))
 import           Distribution.Package                  (Dependency (Dependency))
-import           Distribution.PackageDescription       (condExecutables,
+import           Distribution.PackageDescription       (Condition (..),
+                                                        ConfVar (..),
+                                                        allBuildInfo,
+                                                        benchmarkBuildInfo,
+                                                        buildInfo, buildTools,
+                                                        condBenchmarks,
+                                                        condExecutables,
                                                         condLibrary,
                                                         condTestSuites,
-                                                        condBenchmarks,
-                                                        condTreeConstraints, condTreeComponents, ConfVar (..), Condition(..), flagName, flagDefault, genPackageFlags, allBuildInfo, packageDescription, buildTools, libBuildInfo, condTreeData, buildInfo, testBuildInfo, benchmarkBuildInfo)
+                                                        condTreeComponents,
+                                                        condTreeConstraints,
+                                                        condTreeData,
+                                                        flagDefault, flagName,
+                                                        genPackageFlags,
+                                                        libBuildInfo,
+                                                        packageDescription,
+                                                        testBuildInfo)
 import           Distribution.PackageDescription.Parse (ParseResult (ParseOk),
                                                         parsePackageDescription)
+import           Distribution.System                   (buildArch, buildOS)
 import           Distribution.Version                  (withinRange)
+import           Stackage.Config
 import           Stackage.Types
 import           Stackage.Util
-import           Stackage.Config
-import Data.Maybe (mapMaybe)
-import Distribution.System (buildOS, buildArch)
-import Distribution.Compiler (CompilerFlavor (GHC))
 
 -- | Load the raw package database.
 --

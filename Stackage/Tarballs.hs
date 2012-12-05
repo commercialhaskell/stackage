@@ -2,14 +2,14 @@ module Stackage.Tarballs
     ( makeTarballs
     ) where
 
-import qualified Codec.Archive.Tar       as Tar
-import qualified Data.ByteString.Lazy    as L
-import qualified Data.Map                as Map
-import qualified Data.Set                as Set
+import qualified Codec.Archive.Tar    as Tar
+import qualified Data.ByteString.Lazy as L
+import qualified Data.Map             as Map
+import qualified Data.Set             as Set
 import           Stackage.Types
 import           Stackage.Util
-import           System.Directory        (createDirectoryIfMissing)
-import           System.FilePath         (takeDirectory)
+import           System.Directory     (createDirectoryIfMissing)
+import           System.FilePath      (takeDirectory)
 
 makeTarballs :: InstallInfo -> IO ()
 makeTarballs ii = do

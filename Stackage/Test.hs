@@ -3,21 +3,22 @@ module Stackage.Test
     ( runTestSuites
     ) where
 
+import           Control.Exception  (Exception, handle, throwIO)
 import           Control.Monad      (foldM, unless, when)
 import qualified Data.Map           as Map
 import qualified Data.Set           as Set
+import           Data.Typeable      (Typeable)
 import           Stackage.Config
 import           Stackage.Types
 import           Stackage.Util
-import           System.Directory   (createDirectory, removeFile, canonicalizePath)
+import           System.Directory   (canonicalizePath, createDirectory,
+                                     removeFile)
 import           System.Environment (getEnvironment)
 import           System.Exit        (ExitCode (ExitSuccess))
 import           System.FilePath    ((<.>), (</>))
 import           System.IO          (IOMode (WriteMode, AppendMode),
                                      withBinaryFile)
 import           System.Process     (runProcess, waitForProcess)
-import Control.Exception (handle, Exception, throwIO)
-import Data.Typeable (Typeable)
 
 runTestSuites :: BuildSettings -> InstallInfo -> IO ()
 runTestSuites settings ii = do
