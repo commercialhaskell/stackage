@@ -96,7 +96,11 @@ build settings' = do
                          : ("--cabal-lib-version=" ++ libVersion)
                          : "--build-log=logs-tools/$pkg.log"
                          : "-j"
-                         : iiBuildTools ii
+                         : concat
+                            [ extraBuildArgs settings
+                            , extraArgs settings
+                            , iiBuildTools ii
+                            ]
                 hPutStrLn handle ("cabal " ++ unwords (map (\s -> "'" ++ s ++ "'") args))
                 runCabal args handle
             ec1 <- waitForProcess ph1
