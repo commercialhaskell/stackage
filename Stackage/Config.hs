@@ -91,6 +91,11 @@ defaultStablePackages = execWriter $ do
 
     mapM_ (add "Simon Hengel <sol@typeful.net>") $ words
         "hspec doctest base-compat"
+
+    -- Temporary upper bounds (Github issue #19)
+    addRange "Michael Snoyman" "test-framework" "< 0.7"
+    addRange "Michael Snoyman" "test-framework-hunit" "< 0.3"
+    addRange "Michael Snoyman" "test-framework-quickcheck2" "< 0.3"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
