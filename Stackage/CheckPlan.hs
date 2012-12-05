@@ -27,7 +27,7 @@ checkPlan settings ii = do
     let dryRun = sort $ filter notOptionalCore $ map (takeWhile (/= ' ')) $ drop 2 $ lines dryRun'
     let mismatches = getMismatches dryRun (filter notOptionalCore $ iiPackageList ii)
     unless (null mismatches) $ do
-        putStrLn "Found the following mismtaches"
+        putStrLn "Found the following mismatches"
         mapM_ print mismatches
         exitWith $ ExitFailure 1
   where
