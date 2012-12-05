@@ -135,6 +135,7 @@ iiBuildTools InstallInfo { iiPackageDB = PackageDB m, iiPackages = packages } =
     -- FIXME possible improvement: track the dependencies between the build
     -- tools themselves, and install them in the correct order.
     map unPackageName
+  $ filter (flip Set.notMember coreTools)
   $ filter (flip Map.member m)
   $ Set.toList
   $ Set.unions
@@ -145,3 +146,7 @@ iiBuildTools InstallInfo { iiPackageDB = PackageDB m, iiPackages = packages } =
     unPackageName (PackageName pn) = pn
     isSelected name _ = name `Set.member` selected
     selected = Set.fromList $ Map.keys packages
+
+    -- Build tools shipped with GHC which we should not attempt to build
+    -- ourselves.
+    coreTools = Set.fromList $ map PackageName $ words "hsc2hs"
