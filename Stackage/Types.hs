@@ -13,7 +13,7 @@ import           Distribution.Package as X (PackageIdentifier (..),
 import           Distribution.Version as X (VersionRange (..))
 
 newtype PackageDB = PackageDB (Map PackageName PackageInfo)
-    deriving (Show, Eq, Ord)
+    deriving (Show, Eq)
 
 instance Monoid PackageDB where
     mempty = PackageDB mempty
@@ -26,11 +26,19 @@ instance Monoid PackageDB where
 
 data PackageInfo = PackageInfo
     { piVersion    :: Version
-    , piDeps       :: Set PackageName
+    , piDeps       :: Map PackageName VersionRange
     , piHasTests   :: Bool
     , piBuildTools :: Set PackageName
     }
-    deriving (Show, Eq, Ord)
+    deriving (Show, Eq)
+
+-- | Information on a package we're going to build.
+data BuildInfo = BuildInfo
+    { biVersion    :: Version
+    , biUsers      :: [PackageName]
+    , biMaintainer :: Maintainer
+    , biDeps       :: Map PackageName VersionRange
+    }
 
 data HaskellPlatform = HaskellPlatform
     { hpcore :: Set PackageIdentifier

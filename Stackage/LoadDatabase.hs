@@ -30,7 +30,7 @@ import           Distribution.PackageDescription       (Condition (..),
 import           Distribution.PackageDescription.Parse (ParseResult (ParseOk),
                                                         parsePackageDescription)
 import           Distribution.System                   (buildArch, buildOS)
-import           Distribution.Version                  (withinRange)
+import           Distribution.Version                  (withinRange, unionVersionRanges)
 import           Stackage.Config
 import           Stackage.Types
 import           Stackage.Util
@@ -101,8 +101,8 @@ loadPackageDB core deps = do
             goBI f x = buildTools $ f $ condTreeData x
         depName (Dependency p _) = p
         go gpd tree
-            = Set.unions
-            $ Set.fromList (map (\(Dependency p _) -> p) $ condTreeConstraints tree)
+            = Map.unionsWith unionVersionRanges
+            $ Map.fromList (map (\(Dependency p vr) -> (p, vr)) $ condTreeConstraints tree)
             : map (go gpd) (mapMaybe (checkCond gpd) $ condTreeComponents tree)
 
         checkCond gpd (cond, tree, melse)

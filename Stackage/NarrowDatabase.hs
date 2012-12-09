@@ -9,7 +9,7 @@ import           Stackage.Types
 -- their dependencies.
 narrowPackageDB :: PackageDB
                 -> Set (PackageName, Maintainer)
-                -> IO (Map PackageName (Version, [PackageName], Maintainer))
+                -> IO (Map PackageName BuildInfo)
 narrowPackageDB (PackageDB pdb) =
     loop Map.empty . Set.map (\(name, maintainer) -> ([], name, maintainer))
   where
@@ -23,8 +23,13 @@ narrowPackageDB (PackageDB pdb) =
                         | otherwise -> loop result toProcess'
                     Just pi -> do
                         let users' = p:users
-                            result' = Map.insert p (piVersion pi, users, maintainer) result
-                        loop result' $ Set.foldl' (addDep users' result' maintainer) toProcess' $ piDeps pi
+                            result' = Map.insert p BuildInfo
+                                { biVersion    = piVersion pi
+                                , biUsers      = users
+                                , biMaintainer = maintainer
+                                , biDeps       = piDeps pi
+                                } result
+                        loop result' $ Set.foldl' (addDep users' result' maintainer) toProcess' $ Map.keysSet $ piDeps pi
     addDep users result maintainer toProcess p =
         case Map.lookup p result of
             Nothing -> Set.insert (users, p, maintainer) toProcess
