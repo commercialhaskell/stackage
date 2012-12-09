@@ -39,6 +39,7 @@ defaultBuildSettings = BuildSettings
     , requireHaskellPlatform = True
     , cleanBeforeBuild = True
     , excludedPackages = empty
+    , testWorkerThreads = 4
     }
 
 build :: BuildSettings -> IO ()

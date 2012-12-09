@@ -3,8 +3,9 @@ module Stackage.Test
     ( runTestSuites
     ) where
 
-import           Control.Exception  (Exception, handle, throwIO)
-import           Control.Monad      (foldM, unless, when)
+import qualified Control.Concurrent as C
+import           Control.Exception  (Exception, handle, throwIO, finally, SomeException)
+import           Control.Monad      (foldM, unless, when, replicateM)
 import qualified Data.Map           as Map
 import qualified Data.Set           as Set
 import           Data.Typeable      (Typeable)
@@ -25,12 +26,52 @@ runTestSuites settings ii = do
     let testdir = "runtests"
     rm_r testdir
     createDirectory testdir
-    allPass <- foldM (runTestSuite settings testdir hasTestSuites) True $ Map.toList $ iiPackages ii
+    allPass <- parFoldM (testWorkerThreads settings) (runTestSuite settings testdir hasTestSuites) (&&) True $ Map.toList $ iiPackages ii
     unless allPass $ error $ "There were failures, please see the logs in " ++ testdir
   where
     PackageDB pdb = iiPackageDB ii
 
     hasTestSuites name = maybe defaultHasTestSuites piHasTests $ Map.lookup name pdb
+
+parFoldM :: Int -- ^ number of threads
+         -> (b -> IO c)
+         -> (a -> c -> a)
+         -> a
+         -> [b]
+         -> IO a
+parFoldM threadCount f g a0 bs0 = do
+    ma <- C.newMVar a0
+    mbs <- C.newMVar bs0
+    signal <- C.newEmptyMVar
+    tids <- replicateM threadCount $ C.forkIO $ worker ma mbs signal
+    wait threadCount signal tids
+    C.takeMVar ma
+  where
+    worker ma mbs signal =
+        handle
+            (C.putMVar signal . Just)
+            (loop >> C.putMVar signal Nothing)
+      where
+        loop = do
+            mb <- C.modifyMVar mbs $ \bs -> return $
+                case bs of
+                    [] -> ([], Nothing)
+                    b:bs' -> (bs', Just b)
+            case mb of
+                Nothing -> return ()
+                Just b -> do
+                    c <- f b
+                    C.modifyMVar_ ma $ \a -> return $! g a c
+                    loop
+    wait threadCount signal tids
+        | threadCount == 0 = return ()
+        | otherwise = do
+            me <- C.takeMVar signal
+            case me of
+                Nothing -> wait (threadCount - 1) signal tids
+                Just e -> do
+                    mapM_ C.killThread tids
+                    throwIO (e :: SomeException)
 
 data TestException = TestException
     deriving (Show, Typeable)
@@ -39,10 +80,9 @@ instance Exception TestException
 runTestSuite :: BuildSettings
              -> FilePath
              -> (PackageName -> Bool) -- ^ do we have any test suites?
-             -> Bool
              -> (PackageName, (Version, Maintainer))
              -> IO Bool
-runTestSuite settings testdir hasTestSuites prevPassed (packageName, (version, Maintainer maintainer)) = do
+runTestSuite settings testdir hasTestSuites (packageName, (version, Maintainer maintainer)) = do
     -- Set up a new environment that includes the sandboxed bin folder in PATH.
     env' <- getModifiedEnv settings
     let menv addGPP
@@ -73,7 +113,7 @@ runTestSuite settings testdir hasTestSuites prevPassed (packageName, (version, M
             when expectedFailure $ putStrLn $ package ++ " passed, but I didn't think it would."
         else unless expectedFailure $ putStrLn $ "Test suite failed: " ++ package ++ "(" ++ maintainer ++ ")"
     rm_r dir
-    return $! prevPassed && (passed || expectedFailure)
+    return $! passed || expectedFailure
   where
     logfile = testdir </> package <.> "log"
     dir = testdir </> package

@@ -77,4 +77,6 @@ data BuildSettings = BuildSettings
     -- ^ Packages which should be dropped from the list of stable packages,
     -- even if present via the Haskell Platform or @stablePackages@. If these
     -- packages are dependencies of others, they will still be included.
+    , testWorkerThreads      :: Int
+    -- ^ How many threads to spawn for running test suites.
     }
