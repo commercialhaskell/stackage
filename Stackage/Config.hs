@@ -48,6 +48,9 @@ defaultExpectedFailures = fromList $ map PackageName
       -- Michael emailed Dominic about bumping version numbers, but no new
       -- release has yet been made.
     , "largeword"
+
+      -- https://github.com/skogsbaer/HTF/issues/11
+    , "HTF"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
@@ -96,6 +99,7 @@ defaultStablePackages = execWriter $ do
     addRange "Michael Snoyman" "test-framework" "< 0.7"
     addRange "Michael Snoyman" "test-framework-hunit" "< 0.3"
     addRange "Michael Snoyman" "test-framework-quickcheck2" "< 0.3"
+    addRange "Michael Snoyman" "cryptohash" "< 0.8"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
