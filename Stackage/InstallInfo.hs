@@ -8,7 +8,8 @@ import           Control.Monad            (forM_)
 import qualified Data.Map                 as Map
 import qualified Data.Set                 as Set
 import           Data.Version             (showVersion)
-import           Distribution.Version     (withinRange)
+import qualified Distribution.Text
+import           Distribution.Version     (withinRange, simplifyVersionRange)
 import           Stackage.Config
 import           Stackage.HaskellPlatform
 import           Stackage.LoadDatabase
@@ -40,9 +41,15 @@ getInstallInfo settings = do
         badVersions
             | Map.null badVersions -> return ()
             | otherwise -> do
-                forM_ (Map.toList badVersions) $ \(PackageName user, badDeps) -> do
+                forM_ (Map.toList badVersions) $ \(user, badDeps) -> do
                     putStrLn $ user ++ " cannot use: "
-                    mapM_ (putStrLn . packageVersionString) $ Map.toList badDeps
+                    forM_ (Map.toList badDeps) $ \(name, (version, range)) -> do
+                        putStrLn $ concat
+                            [ "- "
+                            , packageVersionString (name, version)
+                            , " -- "
+                            , Distribution.Text.display $ simplifyVersionRange range
+                            ]
                     putStrLn ""
 
                 error "Conflicting build plan, exiting"
@@ -75,16 +82,26 @@ iiPackageList = map packageVersionString . Map.toList . Map.map fst . iiPackages
 -- | Check for internal mismatches in required and actual package versions.
 checkBadVersions :: BuildSettings
                  -> Map PackageName BuildInfo
-                 -> Map PackageName (Map PackageName Version)
+                 -> Map String (Map PackageName (Version, VersionRange))
 checkBadVersions settings buildPlan =
-    Map.filter (not . Map.null) $ Map.map getBadVersions $ Map.filterWithKey unexpectedFailure buildPlan
+    Map.unions $ map getBadVersions $ Map.toList $ Map.filterWithKey unexpectedFailure buildPlan
   where
     unexpectedFailure name _ = name `Set.notMember` expectedFailures settings
 
-    getBadVersions :: BuildInfo -> Map PackageName Version
-    getBadVersions = Map.unions . map (uncurry checkPackage) . Map.toList . biDeps
+    getBadVersions :: (PackageName, BuildInfo) -> Map String (Map PackageName (Version, VersionRange))
+    getBadVersions (name, bi)
+        | Map.null badVersions = Map.empty
+        | otherwise = Map.singleton display badVersions
+      where
+        badVersions = Map.unions $ map (uncurry checkPackage) $ Map.toList $ biDeps bi
+        display = concat
+            [ packageVersionString (name, biVersion bi)
+            , " ("
+            , unMaintainer $ biMaintainer bi
+            , ")"
+            ]
 
-    checkPackage :: PackageName -> VersionRange -> Map PackageName Version
+    checkPackage :: PackageName -> VersionRange -> Map PackageName (Version, VersionRange)
     checkPackage name vr =
         case Map.lookup name buildPlan of
             -- Can't find the dependency. Could be part of core, so just ignore
@@ -92,4 +109,4 @@ checkBadVersions settings buildPlan =
             Nothing -> Map.empty
             Just bi
                 | biVersion bi `withinRange` vr -> Map.empty
-                | otherwise -> Map.singleton name $ biVersion bi
+                | otherwise -> Map.singleton name (biVersion bi, vr)
