@@ -44,13 +44,6 @@ defaultExpectedFailures = fromList $ map PackageName
 
       -- https://github.com/kazu-yamamoto/simple-sendfile/pull/10
     , "simple-sendfile"
-
-      -- Michael emailed Dominic about bumping version numbers, but no new
-      -- release has yet been made.
-    , "largeword"
-
-      -- https://github.com/skogsbaer/HTF/issues/11
-    , "HTF"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
@@ -95,10 +88,7 @@ defaultStablePackages = execWriter $ do
     mapM_ (add "Simon Hengel <sol@typeful.net>") $ words
         "hspec doctest base-compat"
 
-    -- Temporary upper bounds (Github issue #19)
-    addRange "Michael Snoyman" "test-framework" "< 0.7"
-    addRange "Michael Snoyman" "test-framework-hunit" "< 0.3"
-    addRange "Michael Snoyman" "test-framework-quickcheck2" "< 0.3"
+    -- Temporary upper bounds
     addRange "Michael Snoyman" "cryptohash" "< 0.8"
   where
     add maintainer package = addRange maintainer package "-any"
