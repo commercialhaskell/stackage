@@ -39,9 +39,6 @@ defaultExpectedFailures = fromList $ map PackageName
       -- https://github.com/bos/statistics/issues/42
     , "statistics"
 
-      -- https://github.com/kazu-yamamoto/unix-time/issues/4
-    , "unix-time"
-
       -- https://github.com/kazu-yamamoto/simple-sendfile/pull/10
     , "simple-sendfile"
     ]
@@ -87,9 +84,6 @@ defaultStablePackages = execWriter $ do
 
     mapM_ (add "Simon Hengel <sol@typeful.net>") $ words
         "hspec doctest base-compat"
-
-    -- Temporary upper bounds
-    addRange "Michael Snoyman" "cryptohash" "< 0.8"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
