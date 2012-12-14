@@ -69,6 +69,13 @@ defaultStablePackages = execWriter $ do
     mapM_ (add "Bart Massey <bart.massey+stackage@gmail.com>") $ words
         "parseargs"
 
+    mapM_ (add "Vincent Hanquez") $ words =<<
+        [ "asn1-data bytedump certificate cipher-aes cipher-rc4 connection"
+        , "cprng-aes cpu crypto-pubkey-types crypto-random-api cryptocipher"
+        , "cryptohash hit language-java libgit pem siphash socks tls"
+        , "tls-debug tls-extra udbus vhd xenstore"
+        ]
+
     mapM_ (add "Edward Kmett <ekmett@gmail.com>") $ words =<<
         [ "ad adjunctions bifunctors bound categories charset comonad comonad-transformers"
         , "comonads-fd comonad-extras compressed concurrent-supply constraints contravariant"
