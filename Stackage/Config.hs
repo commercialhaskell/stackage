@@ -48,8 +48,11 @@ defaultExpectedFailures = fromList $ map PackageName
 -- via comments.
 defaultStablePackages :: Map PackageName (VersionRange, Maintainer)
 defaultStablePackages = execWriter $ do
-    mapM_ (add "michael@snoyman.com") $ words
-        "yesod yesod-newsfeed yesod-sitemap yesod-static yesod-test markdown filesystem-conduit mime-mail-ses"
+    mapM_ (add "michael@snoyman.com") $ words =<<
+        [ "yesod yesod-newsfeed yesod-sitemap yesod-static yesod-test"
+        , "markdown filesystem-conduit mime-mail-ses"
+        , "persistent persistent-template persistent-sqlite"
+        ]
 
     mapM_ (add "Neil Mitchell") $ words
         "hoogle hlint"
