@@ -91,9 +91,6 @@ defaultStablePackages = execWriter $ do
 
     mapM_ (add "Simon Hengel <sol@typeful.net>") $ words
         "hspec doctest base-compat"
-
-    -- Issue #21
-    addRange "Michael Snoyman" "hashable" "< 1.2"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
