@@ -10,7 +10,6 @@ import qualified Data.Set                 as Set
 import           Data.Version             (showVersion)
 import qualified Distribution.Text
 import           Distribution.Version     (withinRange, simplifyVersionRange)
-import           Stackage.Config
 import           Stackage.HaskellPlatform
 import           Stackage.LoadDatabase
 import           Stackage.NarrowDatabase

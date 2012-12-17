@@ -71,12 +71,14 @@ getPackageVersion e = do
 defaultHasTestSuites :: Bool
 defaultHasTestSuites = True
 
+packageDir, libDir, binDir, dataDir, docDir :: BuildSettings -> FilePath
 packageDir = (</> "package-db") . sandboxRoot
 libDir = (</> "lib") . sandboxRoot
 binDir = (</> "bin") . sandboxRoot
 dataDir = (</> "share") . sandboxRoot
 docDir x = sandboxRoot x </> "share" </> "doc" </> "$pkgid"
 
+addCabalArgs :: BuildSettings -> [String] -> [String]
 addCabalArgs settings rest
     = "--package-db=clear"
     : "--package-db=global"

@@ -4,17 +4,14 @@ module Stackage.Test
     ) where
 
 import qualified Control.Concurrent as C
-import           Control.Exception  (Exception, handle, throwIO, finally, SomeException)
-import           Control.Monad      (foldM, unless, when, replicateM)
+import           Control.Exception  (Exception, handle, throwIO, SomeException)
+import           Control.Monad      (unless, when, replicateM)
 import qualified Data.Map           as Map
 import qualified Data.Set           as Set
 import           Data.Typeable      (Typeable)
-import           Stackage.Config
 import           Stackage.Types
 import           Stackage.Util
-import           System.Directory   (canonicalizePath, createDirectory,
-                                     removeFile)
-import           System.Environment (getEnvironment)
+import           System.Directory   (createDirectory, removeFile)
 import           System.Exit        (ExitCode (ExitSuccess))
 import           System.FilePath    ((<.>), (</>))
 import           System.IO          (IOMode (WriteMode, AppendMode),
@@ -39,12 +36,12 @@ parFoldM :: Int -- ^ number of threads
          -> a
          -> [b]
          -> IO a
-parFoldM threadCount f g a0 bs0 = do
+parFoldM threadCount0 f g a0 bs0 = do
     ma <- C.newMVar a0
     mbs <- C.newMVar bs0
     signal <- C.newEmptyMVar
-    tids <- replicateM threadCount $ C.forkIO $ worker ma mbs signal
-    wait threadCount signal tids
+    tids <- replicateM threadCount0 $ C.forkIO $ worker ma mbs signal
+    wait threadCount0 signal tids
     C.takeMVar ma
   where
     worker ma mbs signal =
@@ -90,8 +87,8 @@ runTestSuite settings testdir hasTestSuites (packageName, (version, Maintainer m
                    $ ("HASKELL_PACKAGE_SANDBOX", packageDir settings)
                    : env'
 
-    let runGen addGPP cmd args wdir handle = do
-            ph <- runProcess cmd args (Just wdir) (menv addGPP) Nothing (Just handle) (Just handle)
+    let runGen addGPP cmd args wdir handle' = do
+            ph <- runProcess cmd args (Just wdir) (menv addGPP) Nothing (Just handle') (Just handle')
             ec <- waitForProcess ph
             unless (ec == ExitSuccess) $ throwIO TestException
 

@@ -10,7 +10,7 @@ import qualified Data.Map             as Map
 import           Data.Set             (empty)
 import qualified Data.Set             as Set
 import           Distribution.Text    (simpleParse)
-import           Distribution.Version (thisVersion, withinRange)
+import           Distribution.Version (withinRange)
 import           Stackage.CheckPlan
 import           Stackage.Config
 import           Stackage.InstallInfo

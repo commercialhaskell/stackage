@@ -12,7 +12,6 @@ import           Distribution.Compiler                 (CompilerFlavor (GHC))
 import           Distribution.Package                  (Dependency (Dependency))
 import           Distribution.PackageDescription       (Condition (..),
                                                         ConfVar (..),
-                                                        allBuildInfo,
                                                         benchmarkBuildInfo,
                                                         buildInfo, buildTools,
                                                         condBenchmarks,
@@ -25,7 +24,6 @@ import           Distribution.PackageDescription       (Condition (..),
                                                         flagDefault, flagName,
                                                         genPackageFlags,
                                                         libBuildInfo,
-                                                        packageDescription,
                                                         testBuildInfo,
                                                         FlagName (FlagName))
 import           Distribution.PackageDescription.Parse (ParseResult (ParseOk),
@@ -73,12 +71,12 @@ loadPackageDB settings core deps = do
                         _ ->
                             case Tar.entryContent e of
                                 Tar.NormalFile bs _ -> do
-                                    let (deps', hasTests, buildTools) = parseDeps bs
+                                    let (deps', hasTests, buildTools') = parseDeps bs
                                     return $ mappend pdb $ PackageDB $ Map.singleton p PackageInfo
                                         { piVersion = v
                                         , piDeps = deps'
                                         , piHasTests = hasTests
-                                        , piBuildTools = buildTools
+                                        , piBuildTools = buildTools'
                                         }
                                 _ -> return pdb
 
@@ -113,7 +111,7 @@ loadPackageDB settings core deps = do
           where
             checkCond' (Var (OS os)) = os == buildOS
             checkCond' (Var (Arch arch)) = arch == buildArch
-            checkCond' (Var (Flag flag)) = flag `elem` flags
+            checkCond' (Var (Flag flag)) = flag `elem` flags'
             checkCond' (Var (Impl compiler range)) =
                 compiler == GHC && withinRange targetCompilerVersion range
             checkCond' (Lit b) = b
@@ -121,5 +119,5 @@ loadPackageDB settings core deps = do
             checkCond' (COr c1 c2) = checkCond' c1 || checkCond' c2
             checkCond' (CAnd c1 c2) = checkCond' c1 && checkCond' c2
 
-            flags = map flagName (filter flagDefault $ genPackageFlags gpd) ++
-                    (map FlagName $ Set.toList $ Stackage.Types.flags settings)
+            flags' = map flagName (filter flagDefault $ genPackageFlags gpd) ++
+                     (map FlagName $ Set.toList $ Stackage.Types.flags settings)

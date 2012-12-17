@@ -3,7 +3,7 @@ module Stackage.Config where
 
 import           Control.Monad.Trans.Writer (execWriter, tell)
 import qualified Data.Map                   as Map
-import           Data.Set                   (fromList, singleton)
+import           Data.Set                   (fromList)
 import           Distribution.Text          (simpleParse)
 import           Stackage.Types
 
