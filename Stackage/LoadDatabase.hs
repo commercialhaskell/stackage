@@ -26,7 +26,8 @@ import           Distribution.PackageDescription       (Condition (..),
                                                         genPackageFlags,
                                                         libBuildInfo,
                                                         packageDescription,
-                                                        testBuildInfo)
+                                                        testBuildInfo,
+                                                        FlagName (FlagName))
 import           Distribution.PackageDescription.Parse (ParseResult (ParseOk),
                                                         parsePackageDescription)
 import           Distribution.System                   (buildArch, buildOS)
@@ -46,10 +47,11 @@ import           Stackage.Util
 -- version.
 --
 -- * For other packages, select the maximum version number.
-loadPackageDB :: Set PackageName -- ^ core packages
+loadPackageDB :: BuildSettings
+              -> Set PackageName -- ^ core packages
               -> Map PackageName (VersionRange, Maintainer) -- ^ additional deps
               -> IO PackageDB
-loadPackageDB core deps = do
+loadPackageDB settings core deps = do
     tarName <- getTarballName
     lbs <- L.readFile tarName
     addEntries mempty $ Tar.read lbs
@@ -119,4 +121,5 @@ loadPackageDB core deps = do
             checkCond' (COr c1 c2) = checkCond' c1 || checkCond' c2
             checkCond' (CAnd c1 c2) = checkCond' c1 && checkCond' c2
 
-            flags = map flagName $ filter flagDefault $ genPackageFlags gpd
+            flags = map flagName (filter flagDefault $ genPackageFlags gpd) ++
+                    (map FlagName $ Set.toList $ Stackage.Types.flags settings)

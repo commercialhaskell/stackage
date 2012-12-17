@@ -79,4 +79,6 @@ data BuildSettings = BuildSettings
     -- packages are dependencies of others, they will still be included.
     , testWorkerThreads      :: Int
     -- ^ How many threads to spawn for running test suites.
+    , flags                  :: Set String
+    -- ^ Compile flags which should be turned on.
     }

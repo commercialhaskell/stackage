@@ -40,6 +40,7 @@ defaultBuildSettings = BuildSettings
     , cleanBeforeBuild = True
     , excludedPackages = empty
     , testWorkerThreads = 4
+    , flags = Set.fromList $ words "blaze_html_0_5"
     }
 
 build :: BuildSettings -> IO ()
