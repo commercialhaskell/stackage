@@ -41,11 +41,11 @@ defaultBuildSettings = BuildSettings
     , excludedPackages = empty
     , testWorkerThreads = 4
     , flags = Set.fromList $ words "blaze_html_0_5"
+    , allowedPackage = const $ Right ()
     }
 
 build :: BuildSettings -> IO ()
 build settings' = do
-    putStrLn "Creating a build plan"
     ii <- getInstallInfo settings'
 
     let root' = sandboxRoot settings'

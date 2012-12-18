@@ -11,6 +11,7 @@ import           Data.Version         as X (Version)
 import           Distribution.Package as X (PackageIdentifier (..),
                                             PackageName (..))
 import           Distribution.Version as X (VersionRange (..))
+import           Distribution.PackageDescription       (GenericPackageDescription)
 
 newtype PackageDB = PackageDB (Map PackageName PackageInfo)
     deriving (Show, Eq)
@@ -29,6 +30,7 @@ data PackageInfo = PackageInfo
     , piDeps       :: Map PackageName VersionRange
     , piHasTests   :: Bool
     , piBuildTools :: Set PackageName
+    , piGPD        :: Maybe GenericPackageDescription
     }
     deriving (Show, Eq)
 
@@ -81,4 +83,11 @@ data BuildSettings = BuildSettings
     -- ^ How many threads to spawn for running test suites.
     , flags                  :: Set String
     -- ^ Compile flags which should be turned on.
+    , allowedPackage         :: GenericPackageDescription -> Either String ()
+    -- ^ Checks if a package is allowed into the distribution. By default, we
+    -- allow all packages in, though this could be used to filter out certain
+    -- untrusted packages, or packages with an unacceptable license.
+    --
+    -- Returns a reason for stripping in Left, or Right if the package is
+    -- allowed.
     }

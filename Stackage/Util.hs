@@ -8,7 +8,7 @@ import           Data.List               (stripPrefix)
 import qualified Data.Map                as Map
 import qualified Data.Set                as Set
 import           Data.Version            (showVersion)
-import           Distribution.Text       (simpleParse)
+import           Distribution.Text       (simpleParse, display)
 import           Distribution.Version    (thisVersion)
 import           Stackage.Types
 import           System.Directory        (doesDirectoryExist,
@@ -16,6 +16,22 @@ import           System.Directory        (doesDirectoryExist,
 import           System.Directory        (getAppUserDataDirectory)
 import           System.Environment      (getEnvironment)
 import           System.FilePath         ((</>))
+import qualified Distribution.Package as P
+import qualified Distribution.PackageDescription as PD
+import           Distribution.License    (License (..))
+
+-- | Allow only packages with permissive licenses.
+allowPermissive :: [String] -- ^ list of explicitly allowed packages
+                -> PD.GenericPackageDescription
+                -> Either String ()
+allowPermissive allowed gpd
+    | P.pkgName (PD.package $ PD.packageDescription gpd) `elem` map PackageName allowed = Right ()
+    | otherwise =
+        case PD.license $ PD.packageDescription gpd of
+            BSD3 -> Right ()
+            MIT -> Right ()
+            PublicDomain -> Right ()
+            l -> Left $ "Non-permissive license: " ++ display l
 
 identsToRanges :: Set PackageIdentifier -> Map PackageName (VersionRange, Maintainer)
 identsToRanges =

@@ -24,14 +24,19 @@ dropExcluded bs m0 =
 
 getInstallInfo :: BuildSettings -> IO InstallInfo
 getInstallInfo settings = do
+    putStrLn "Loading Haskell Platform"
     hp <- loadHaskellPlatform settings
     let allPackages'
             | requireHaskellPlatform settings = Map.union (stablePackages settings) $ identsToRanges (hplibs hp)
             | otherwise = stablePackages settings
         allPackages = dropExcluded settings allPackages'
     let totalCore = extraCore settings `Set.union` Set.map (\(PackageIdentifier p _) -> p) (hpcore hp)
+
+    putStrLn "Loading package database"
     pdb <- loadPackageDB settings totalCore allPackages
-    final <- narrowPackageDB pdb $ Set.fromList $ Map.toList $ Map.map snd $ allPackages
+
+    putStrLn "Narrowing package database"
+    final <- narrowPackageDB settings pdb $ Set.fromList $ Map.toList $ Map.map snd $ allPackages
 
     putStrLn "Printing build plan to build-plan.log"
     writeFile "build-plan.log" $ unlines $ map showDep $ Map.toList final

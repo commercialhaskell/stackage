@@ -1,17 +1,27 @@
 module Stackage.NarrowDatabase where
 
+import           Control.Monad.Trans.Writer
 import qualified Data.Map       as Map
 import qualified Data.Set       as Set
 import           Prelude        hiding (pi)
 import           Stackage.Types
+import           Stackage.Util
+import           System.Exit (exitFailure)
 
 -- | Narrow down the database to only the specified packages and all of
 -- their dependencies.
-narrowPackageDB :: PackageDB
+narrowPackageDB :: BuildSettings
+                -> PackageDB
                 -> Set (PackageName, Maintainer)
                 -> IO (Map PackageName BuildInfo)
-narrowPackageDB (PackageDB pdb) =
-    loop Map.empty . Set.map (\(name, maintainer) -> ([], name, maintainer))
+narrowPackageDB settings (PackageDB pdb) packageSet = do
+    (res, errs) <- runWriterT $ loop Map.empty $ Set.map (\(name, maintainer) -> ([], name, maintainer)) packageSet
+    if Set.null errs
+        then return res
+        else do
+            putStrLn "Build plan requires some disallowed packages"
+            mapM_ putStrLn $ Set.toList errs
+            exitFailure
   where
     loop result toProcess =
         case Set.minView toProcess of
@@ -29,6 +39,16 @@ narrowPackageDB (PackageDB pdb) =
                                 , biMaintainer = maintainer
                                 , biDeps       = piDeps pi
                                 } result
+                        case piGPD pi of
+                            Nothing -> return ()
+                            Just gpd ->
+                                case allowedPackage settings gpd of
+                                    Left msg -> tell $ Set.singleton $ concat
+                                        [ packageVersionString (p, piVersion pi)
+                                        , ": "
+                                        , msg
+                                        ]
+                                    Right () -> return ()
                         loop result' $ Set.foldl' (addDep users' result' maintainer) toProcess' $ Map.keysSet $ piDeps pi
     addDep users result maintainer toProcess p =
         case Map.lookup p result of
