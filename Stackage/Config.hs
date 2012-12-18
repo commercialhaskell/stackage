@@ -41,6 +41,9 @@ defaultExpectedFailures = fromList $ map PackageName
 
       -- https://github.com/kazu-yamamoto/simple-sendfile/pull/10
     , "simple-sendfile"
+
+      -- http://hackage.haskell.org/trac/hackage/ticket/954
+    , "diagrams"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
@@ -94,6 +97,12 @@ defaultStablePackages = execWriter $ do
 
     mapM_ (add "Simon Hengel <sol@typeful.net>") $ words
         "hspec doctest base-compat"
+
+    mapM_ (add "Brent Yorgey <byorgey@gmail.com>") $ words =<<
+        [ "diagrams monoid-extras dual-tree vector-space-points active force-layout"
+        , "diagrams-core diagrams-lib diagrams-contrib diagrams-svg"
+        , "diagrams-builder haxr BlogLiterately BlogLiterately-diagrams"
+        ]
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
