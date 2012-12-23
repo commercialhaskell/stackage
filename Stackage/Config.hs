@@ -103,6 +103,9 @@ defaultStablePackages = execWriter $ do
         , "diagrams-core diagrams-lib diagrams-contrib diagrams-svg"
         , "diagrams-builder haxr BlogLiterately BlogLiterately-diagrams"
         ]
+
+    -- Temporary upper version bound #27
+    addRange "Michael Snoyman" "optparse-applicative" "< 0.5"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
