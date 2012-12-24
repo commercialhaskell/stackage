@@ -104,6 +104,8 @@ defaultStablePackages = execWriter $ do
         , "diagrams-builder haxr BlogLiterately BlogLiterately-diagrams"
         ]
 
+    mapM_ (add "Patrick Brisbin") $ words "gravatar"
+
     -- Temporary upper version bound #27
     addRange "Michael Snoyman" "optparse-applicative" "< 0.5"
   where
