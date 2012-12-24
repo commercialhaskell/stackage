@@ -105,9 +105,6 @@ defaultStablePackages = execWriter $ do
         ]
 
     mapM_ (add "Patrick Brisbin") $ words "gravatar"
-
-    -- Temporary upper version bound #27
-    addRange "Michael Snoyman" "optparse-applicative" "< 0.5"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
