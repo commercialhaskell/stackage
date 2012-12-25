@@ -44,6 +44,9 @@ defaultExpectedFailures = fromList $ map PackageName
 
       -- http://hackage.haskell.org/trac/hackage/ticket/954
     , "diagrams"
+
+      -- https://github.com/fpco/stackage/issues/24
+    , "unix-time"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
