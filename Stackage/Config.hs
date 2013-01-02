@@ -47,6 +47,9 @@ defaultExpectedFailures = fromList $ map PackageName
 
       -- https://github.com/fpco/stackage/issues/24
     , "unix-time"
+
+      -- https://github.com/mdittmer/hfsnotify/commit/64064fb0647302f7e136633360ed80eb1ddedd83#commitcomment-2374626
+    , "fsnotify"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
