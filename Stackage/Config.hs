@@ -108,6 +108,9 @@ defaultStablePackages = execWriter $ do
         ]
 
     mapM_ (add "Patrick Brisbin") $ words "gravatar"
+
+    -- https://github.com/tibbe/hashable/issues/49
+    addRange "Michael Snoyman" "hashable" "< 1.2"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
