@@ -23,6 +23,9 @@ You can follow the examples of the other sets of packages in that function.
 Once you've done this, you should confirm that your newly added packages are
 compatible with the rest of stackage by building the package set.
 
+You should also read the [maintainers
+agreement](https://github.com/fpco/stackage/wiki/Maintainers-Agreement).
+
 Build the package set
 ---------------------
 
