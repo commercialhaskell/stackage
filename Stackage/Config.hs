@@ -111,6 +111,9 @@ defaultStablePackages = execWriter $ do
 
     -- https://github.com/tibbe/hashable/issues/49
     addRange "Michael Snoyman" "hashable" "< 1.2"
+
+    -- zip-archive 0.1.3 and later requires binary >= 0.6
+    addRange "Michael Snoyman" "zip-archive" "< 0.1.3"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
