@@ -94,7 +94,7 @@ defaultStablePackages = execWriter $ do
         , "distributive either eq free groupoids heaps hyphenation"
         , "integration intervals kan-extensions lca lens linear monadic-arrays machines"
         , "mtl profunctors profunctor-extras reducers reflection"
-        , "representable-functors representable-profunctors representable-tries"
+        , "representable-functors representable-tries"
         , "semigroups semigroupoids semigroupoid-extras speculation tagged void"
         , "wl-pprint-extras wl-pprint-terminfo graphs monad-products monad-st"
         , "numeric-extras parsers pointed prelude-extras recursion-schemes reducers"
