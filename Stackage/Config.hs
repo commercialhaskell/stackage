@@ -88,14 +88,12 @@ defaultStablePackages = unPackageMap $ execWriter $ do
     mapM_ (add "Edward Kmett <ekmett@gmail.com>") $ words =<<
         [ "ad adjunctions bifunctors bound categories charset comonad comonad-transformers"
         , "comonads-fd comonad-extras compressed concurrent-supply constraints contravariant"
-        -- FIXME add back distributive
-        , "either eq free groupoids heaps hyphenation"
+        , "distributive either eq free groupoids heaps hyphenation"
         , "integration intervals kan-extensions lca lens linear monadic-arrays machines"
         , "mtl profunctors profunctor-extras reducers reflection"
         , "representable-functors representable-tries"
-        -- FIXME add back semigroups wl-pprint-extras wl-pprint-terminfo
-        , "semigroupoids semigroupoid-extras speculation tagged void"
-        , "graphs monad-products monad-st"
+        , "semigroups semigroupoids semigroupoid-extras speculation tagged void"
+        , "graphs monad-products monad-st wl-pprint-extras wl-pprint-terminfo"
         , "numeric-extras parsers pointed prelude-extras recursion-schemes reducers"
         , "streams syb-extras vector-instances"
         ]
@@ -115,9 +113,6 @@ defaultStablePackages = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
     -- #29
-    addRange "Michael Snoyman" "semigroups" "< 0.9"
-    addRange "Michael Snoyman" "wl-pprint-extras" "< 3.3"
-    addRange "Michael Snoyman" "wl-pprint-terminfo" "< 3.3"
     addRange "Michael Snoyman" "distributive" "< 0.3"
   where
     add maintainer package = addRange maintainer package "-any"
