@@ -53,7 +53,7 @@ defaultExpectedFailures = fromList $ map PackageName
 -- included as well. Please indicate who will be maintaining the package
 -- via comments.
 defaultStablePackages :: Map PackageName (VersionRange, Maintainer)
-defaultStablePackages = execWriter $ do
+defaultStablePackages = unPackageMap $ execWriter $ do
     mapM_ (add "michael@snoyman.com") $ words =<<
         [ "yesod yesod-newsfeed yesod-sitemap yesod-static yesod-test"
         , "markdown filesystem-conduit mime-mail-ses"
@@ -124,4 +124,4 @@ defaultStablePackages = execWriter $ do
     addRange maintainer package range =
         case simpleParse range of
             Nothing -> error $ "Invalid range " ++ show range ++ " for " ++ package
-            Just range' -> tell $ Map.singleton (PackageName package) (range', Maintainer maintainer)
+            Just range' -> tell $ PackageMap $ Map.singleton (PackageName package) (range', Maintainer maintainer)

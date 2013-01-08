@@ -11,6 +11,7 @@ import           Data.Version         as X (Version)
 import           Distribution.Package as X (PackageIdentifier (..),
                                             PackageName (..))
 import           Distribution.Version as X (VersionRange (..))
+import           Distribution.Version      (intersectVersionRanges)
 import           Distribution.PackageDescription       (GenericPackageDescription)
 
 newtype PackageDB = PackageDB (Map PackageName PackageInfo)
@@ -91,3 +92,13 @@ data BuildSettings = BuildSettings
     -- Returns a reason for stripping in Left, or Right if the package is
     -- allowed.
     }
+
+-- | A wrapper around a @Map@ providing a better @Monoid@ instance.
+newtype PackageMap = PackageMap { unPackageMap :: Map PackageName (VersionRange, Maintainer) }
+
+instance Monoid PackageMap where
+    mempty = PackageMap mempty
+    PackageMap x `mappend` PackageMap y =
+        PackageMap $ unionWith go x y
+      where
+        go (r1, m1) (r2, _) = (intersectVersionRanges r1 r2, m1)
