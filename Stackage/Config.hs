@@ -114,9 +114,6 @@ defaultStablePackages = unPackageMap $ execWriter $ do
 
     -- https://github.com/tibbe/hashable/issues/49
     addRange "Michael Snoyman" "hashable" "< 1.2"
-
-    -- #29
-    addRange "Michael Snoyman" "distributive" "< 0.3"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
