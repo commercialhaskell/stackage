@@ -47,6 +47,9 @@ defaultExpectedFailures = fromList $ map PackageName
 
       -- https://github.com/fpco/stackage/issues/24
     , "unix-time"
+
+      -- With transformers 0.3, it doesn't provide any modules
+    , "transformers-compat"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
