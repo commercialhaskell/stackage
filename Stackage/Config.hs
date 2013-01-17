@@ -61,6 +61,7 @@ defaultStablePackages = unPackageMap $ execWriter $ do
         [ "yesod yesod-newsfeed yesod-sitemap yesod-static yesod-test"
         , "markdown filesystem-conduit mime-mail-ses"
         , "persistent persistent-template persistent-sqlite"
+        , "network-conduit-tls"
         ]
 
     mapM_ (add "Neil Mitchell") $ words
