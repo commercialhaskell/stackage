@@ -7,10 +7,12 @@ module Stackage.Build
 import           Control.Exception    (assert)
 import           Control.Monad        (unless, when)
 import qualified Data.Map             as Map
+import           Data.Maybe           (mapMaybe)
 import           Data.Set             (empty)
 import qualified Data.Set             as Set
 import           Distribution.Text    (simpleParse)
 import           Distribution.Version (withinRange)
+import           Prelude              hiding (pi)
 import           Stackage.CheckPlan
 import           Stackage.Config
 import           Stackage.InstallInfo
@@ -142,7 +144,7 @@ iiBuildTools InstallInfo { iiPackageDB = PackageDB m, iiPackages = packages } =
     -- tools themselves, and install them in the correct order.
     map unPackageName
   $ filter (flip Set.notMember coreTools)
-  $ filter (flip Map.member m)
+  $ mapMaybe (flip Map.lookup buildToolMap)
   $ Set.toList
   $ Set.unions
   $ map piBuildTools
@@ -156,3 +158,11 @@ iiBuildTools InstallInfo { iiPackageDB = PackageDB m, iiPackages = packages } =
     -- Build tools shipped with GHC which we should not attempt to build
     -- ourselves.
     coreTools = Set.fromList $ map PackageName $ words "hsc2hs"
+
+    -- The map from build tool name to the package it comes from.
+    buildToolMap = Map.unions $ map toBuildToolMap $ Map.toList m
+    toBuildToolMap :: (PackageName, PackageInfo) -> Map Executable PackageName
+    toBuildToolMap (pn, pi) = Map.unions
+                            $ map (flip Map.singleton pn)
+                            $ Set.toList
+                            $ piExecs pi

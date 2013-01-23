@@ -71,13 +71,14 @@ loadPackageDB settings core deps = do
                         _ ->
                             case Tar.entryContent e of
                                 Tar.NormalFile bs _ -> do
-                                    let (deps', hasTests, buildTools', mgpd) = parseDeps bs
+                                    let (deps', hasTests, buildTools', mgpd, execs) = parseDeps bs
                                     return $ mappend pdb $ PackageDB $ Map.singleton p PackageInfo
                                         { piVersion = v
                                         , piDeps = deps'
                                         , piHasTests = hasTests
                                         , piBuildTools = buildTools'
                                         , piGPD = mgpd
+                                        , piExecs = execs
                                         }
                                 _ -> return pdb
 
@@ -89,8 +90,11 @@ loadPackageDB settings core deps = do
                 , mconcat $ map (go gpd . snd) $ condTestSuites gpd
                 , mconcat $ map (go gpd . snd) $ condBenchmarks gpd
                 ], not $ null $ condTestSuites gpd
-                , Set.fromList $ map depName $ allBuildInfo gpd, Just gpd)
-            _ -> (mempty, defaultHasTestSuites, Set.empty, Nothing)
+                , Set.fromList $ map depName $ allBuildInfo gpd
+                , Just gpd
+                , Set.fromList $ map (Executable . fst) $ condExecutables gpd
+                )
+            _ -> (mempty, defaultHasTestSuites, Set.empty, Nothing, Set.empty)
       where
         allBuildInfo gpd = concat
             [ maybe mempty (goBI libBuildInfo) $ condLibrary gpd
@@ -100,7 +104,7 @@ loadPackageDB settings core deps = do
             ]
           where
             goBI f x = buildTools $ f $ condTreeData x
-        depName (Dependency p _) = p
+        depName (Dependency (PackageName p) _) = Executable p
         go gpd tree
             = Map.unionsWith unionVersionRanges
             $ Map.fromList (map (\(Dependency p vr) -> (p, vr)) $ condTreeConstraints tree)

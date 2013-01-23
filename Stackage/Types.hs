@@ -30,10 +30,14 @@ data PackageInfo = PackageInfo
     { piVersion    :: Version
     , piDeps       :: Map PackageName VersionRange
     , piHasTests   :: Bool
-    , piBuildTools :: Set PackageName
+    , piBuildTools :: Set Executable
     , piGPD        :: Maybe GenericPackageDescription
+    , piExecs      :: Set Executable
     }
     deriving (Show, Eq)
+
+newtype Executable = Executable String
+    deriving (Show, Eq, Ord)
 
 -- | Information on a package we're going to build.
 data BuildInfo = BuildInfo
