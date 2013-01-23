@@ -119,9 +119,6 @@ defaultStablePackages = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/31
     addRange "Michael Snoyman" "pandoc" "< 1.10"
     addRange "Michael Snoyman" "pandoc-types" "< 1.10"
-
-    -- https://github.com/fpco/stackage/issues/32
-    addRange "Michael Snoyman" "cpphs" "< 1.16"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
