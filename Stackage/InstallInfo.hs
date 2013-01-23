@@ -41,7 +41,7 @@ getInstallInfo settings = do
     putStrLn "Printing build plan to build-plan.log"
     writeFile "build-plan.log" $ unlines $ map showDep $ Map.toList final
 
-    case checkBadVersions settings final of
+    case checkBadVersions settings pdb final of
         badVersions
             | Map.null badVersions -> return ()
             | otherwise -> do
@@ -85,9 +85,10 @@ iiPackageList = map packageVersionString . Map.toList . Map.map fst . iiPackages
 
 -- | Check for internal mismatches in required and actual package versions.
 checkBadVersions :: BuildSettings
+                 -> PackageDB
                  -> Map PackageName BuildInfo
                  -> Map String (Map PackageName (Version, VersionRange))
-checkBadVersions settings buildPlan =
+checkBadVersions settings (PackageDB pdb) buildPlan =
     Map.unions $ map getBadVersions $ Map.toList $ Map.filterWithKey unexpectedFailure buildPlan
   where
     unexpectedFailure name _ = name `Set.notMember` expectedFailures settings
@@ -102,6 +103,9 @@ checkBadVersions settings buildPlan =
             [ packageVersionString (name, biVersion bi)
             , " ("
             , unMaintainer $ biMaintainer bi
+            , case Map.lookup name pdb of
+                Just PackageInfo { piGithubUser = Just gu } -> " @" ++ gu
+                _ -> ""
             , ")"
             ]
 

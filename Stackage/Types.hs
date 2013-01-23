@@ -33,6 +33,7 @@ data PackageInfo = PackageInfo
     , piBuildTools :: Set Executable
     , piGPD        :: Maybe GenericPackageDescription
     , piExecs      :: Set Executable
+    , piGithubUser :: Maybe String
     }
     deriving (Show, Eq)
 

@@ -1,10 +1,13 @@
 module Stackage.LoadDatabase where
 
 import qualified Codec.Archive.Tar                     as Tar
+import           Control.Monad                         (guard)
 import qualified Data.ByteString.Lazy                  as L
 import qualified Data.ByteString.Lazy.Char8            as L8
+import           Data.List                             (stripPrefix)
 import qualified Data.Map                              as Map
-import           Data.Maybe                            (mapMaybe)
+import           Data.Maybe                            (catMaybes, listToMaybe,
+                                                        mapMaybe)
 import           Data.Monoid                           (Monoid (..))
 import           Data.Set                              (member)
 import qualified Data.Set                              as Set
@@ -12,6 +15,9 @@ import           Distribution.Compiler                 (CompilerFlavor (GHC))
 import           Distribution.Package                  (Dependency (Dependency))
 import           Distribution.PackageDescription       (Condition (..),
                                                         ConfVar (..),
+                                                        FlagName (FlagName),
+                                                        RepoType (Git),
+                                                        SourceRepo (..),
                                                         benchmarkBuildInfo,
                                                         buildInfo, buildTools,
                                                         condBenchmarks,
@@ -23,13 +29,15 @@ import           Distribution.PackageDescription       (Condition (..),
                                                         condTreeData,
                                                         flagDefault, flagName,
                                                         genPackageFlags,
-                                                        libBuildInfo,
-                                                        testBuildInfo,
-                                                        FlagName (FlagName))
+                                                        homepage, libBuildInfo,
+                                                        packageDescription,
+                                                        sourceRepos,
+                                                        testBuildInfo)
 import           Distribution.PackageDescription.Parse (ParseResult (ParseOk),
                                                         parsePackageDescription)
 import           Distribution.System                   (buildArch, buildOS)
-import           Distribution.Version                  (withinRange, unionVersionRanges)
+import           Distribution.Version                  (unionVersionRanges,
+                                                        withinRange)
 import           Stackage.Config
 import           Stackage.Types
 import           Stackage.Util
@@ -71,7 +79,7 @@ loadPackageDB settings core deps = do
                         _ ->
                             case Tar.entryContent e of
                                 Tar.NormalFile bs _ -> do
-                                    let (deps', hasTests, buildTools', mgpd, execs) = parseDeps bs
+                                    let (deps', hasTests, buildTools', mgpd, execs, mgithub) = parseDeps bs
                                     return $ mappend pdb $ PackageDB $ Map.singleton p PackageInfo
                                         { piVersion = v
                                         , piDeps = deps'
@@ -79,6 +87,7 @@ loadPackageDB settings core deps = do
                                         , piBuildTools = buildTools'
                                         , piGPD = mgpd
                                         , piExecs = execs
+                                        , piGithubUser = mgithub
                                         }
                                 _ -> return pdb
 
@@ -93,8 +102,11 @@ loadPackageDB settings core deps = do
                 , Set.fromList $ map depName $ allBuildInfo gpd
                 , Just gpd
                 , Set.fromList $ map (Executable . fst) $ condExecutables gpd
+                , listToMaybe $ catMaybes
+                  $ parseGithubUserHP (homepage $ packageDescription gpd)
+                  : map parseGithubUserSR (sourceRepos $ packageDescription gpd)
                 )
-            _ -> (mempty, defaultHasTestSuites, Set.empty, Nothing, Set.empty)
+            _ -> (mempty, defaultHasTestSuites, Set.empty, Nothing, Set.empty, Nothing)
       where
         allBuildInfo gpd = concat
             [ maybe mempty (goBI libBuildInfo) $ condLibrary gpd
@@ -126,3 +138,21 @@ loadPackageDB settings core deps = do
 
             flags' = map flagName (filter flagDefault $ genPackageFlags gpd) ++
                      (map FlagName $ Set.toList $ Stackage.Types.flags settings)
+
+-- | Attempt to grab the Github username from a homepage.
+parseGithubUserHP :: String -> Maybe String
+parseGithubUserHP url1 = do
+    url2 <- listToMaybe $ mapMaybe (flip stripPrefix url1)
+        [ "http://github.com/"
+        , "https://github.com/"
+        ]
+    let x = takeWhile (/= '/') url2
+    guard $ not $ null x
+    Just x
+
+-- | Attempt to grab the Github username from a source repo.
+parseGithubUserSR :: SourceRepo -> Maybe String
+parseGithubUserSR sr =
+    case (repoType sr, repoLocation sr) of
+        (Just Git, Just s) -> parseGithubUserHP s
+        _ -> Nothing
