@@ -1,5 +1,6 @@
 module Stackage.Select
     ( select
+    , defaultSelectSettings
     ) where
 
 import           Control.Exception    (assert)
@@ -28,20 +29,28 @@ import           System.Process       (rawSystem, readProcess, runProcess,
                                        waitForProcess)
 import Stackage.BuildPlan
 
-select :: BuildSettings -> IO BuildPlan
+defaultSelectSettings :: SelectSettings
+defaultSelectSettings = SelectSettings
+    { extraCore = defaultExtraCore
+    , expectedFailuresSelect = defaultExpectedFailures
+    , stablePackages = defaultStablePackages
+    , haskellPlatformCabal = "haskell-platform/haskell-platform.cabal"
+    , requireHaskellPlatform = True
+    , excludedPackages = empty
+    , flags = Set.fromList $ words "blaze_html_0_5"
+    , allowedPackage = const $ Right ()
+    }
+
+select :: SelectSettings -> IO BuildPlan
 select settings' = do
     ii <- getInstallInfo settings'
 
-    let bp = BuildPlan
-            { bpTools = iiBuildTools ii
-            , bpPackages = iiPackages ii
-            , bpOptionalCore = iiOptionalCore ii
-            , bpCore = iiCore ii
-            }
-
-    writeBuildPlan "build-plan.txt" bp -- FIXME
-    readBuildPlan "build-plan.txt"
-    --return bp
+    return BuildPlan
+        { bpTools = iiBuildTools ii
+        , bpPackages = iiPackages ii
+        , bpOptionalCore = iiOptionalCore ii
+        , bpCore = iiCore ii
+        }
 
 -- | Get all of the build tools required.
 iiBuildTools :: InstallInfo -> [String]

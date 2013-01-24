@@ -11,7 +11,7 @@ import           Data.Set          (singleton)
 import           Distribution.Text (simpleParse)
 import           Stackage.Types
 
-loadHaskellPlatform :: BuildSettings -> IO HaskellPlatform
+loadHaskellPlatform :: SelectSettings -> IO HaskellPlatform
 loadHaskellPlatform = fmap parseHP . readFile . haskellPlatformCabal
 
 data HPLine = HPLPackage PackageIdentifier

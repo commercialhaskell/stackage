@@ -89,23 +89,12 @@ data BuildPlan = BuildPlan
 newtype Maintainer = Maintainer { unMaintainer :: String }
     deriving (Show, Eq, Ord, Read)
 
-data BuildSettings = BuildSettings
-    { sandboxRoot            :: FilePath
-    , extraBuildArgs         :: [String]
-    , extraCore              :: Set PackageName
-    , expectedFailures       :: Set PackageName
-    , stablePackages         :: Map PackageName (VersionRange, Maintainer)
-    , extraArgs              :: [String]
-    , haskellPlatformCabal   :: FilePath
-    , requireHaskellPlatform :: Bool
-    , excludedPackages       :: Set PackageName
-    -- ^ Packages which should be dropped from the list of stable packages,
-    -- even if present via the Haskell Platform or @stablePackages@. If these
-    -- packages are dependencies of others, they will still be included.
-    , testWorkerThreads      :: Int
-    -- ^ How many threads to spawn for running test suites.
+data SelectSettings = SelectSettings
+    { haskellPlatformCabal   :: FilePath
     , flags                  :: Set String
     -- ^ Compile flags which should be turned on.
+    , extraCore              :: Set PackageName
+    , requireHaskellPlatform :: Bool
     , allowedPackage         :: GenericPackageDescription -> Either String ()
     -- ^ Checks if a package is allowed into the distribution. By default, we
     -- allow all packages in, though this could be used to filter out certain
@@ -113,6 +102,20 @@ data BuildSettings = BuildSettings
     --
     -- Returns a reason for stripping in Left, or Right if the package is
     -- allowed.
+    , expectedFailuresSelect :: Set PackageName
+    , excludedPackages       :: Set PackageName
+    -- ^ Packages which should be dropped from the list of stable packages,
+    -- even if present via the Haskell Platform or @stablePackages@. If these
+    -- packages are dependencies of others, they will still be included.
+    , stablePackages         :: Map PackageName (VersionRange, Maintainer)
+    }
+
+data BuildSettings = BuildSettings
+    { sandboxRoot            :: FilePath
+    , extraArgs              :: [String]
+    , expectedFailuresBuild  :: Set PackageName
+    , testWorkerThreads      :: Int
+    -- ^ How many threads to spawn for running test suites.
     }
 
 -- | A wrapper around a @Map@ providing a better @Monoid@ instance.

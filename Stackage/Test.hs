@@ -19,8 +19,10 @@ import           System.IO          (IOMode (WriteMode, AppendMode),
                                      withBinaryFile)
 import           System.Process     (runProcess, waitForProcess)
 
-runTestSuites :: BuildSettings -> Map PackageName SelectedPackageInfo -> IO ()
-runTestSuites settings selected = do
+runTestSuites :: BuildSettings -> BuildPlan -> IO ()
+runTestSuites settings bp = do
+    let selected = bpPackages bp
+    putStrLn "Running test suites"
     let testdir = "runtests"
     rm_r testdir
     createDirectory testdir
@@ -99,7 +101,7 @@ runTestSuite settings testdir (packageName, SelectedPackageInfo {..}) = do
             getHandle AppendMode $ runGhcPackagePath "cabal" ["test"] dir
         getHandle AppendMode $ run "cabal" ["haddock"] dir
         return True
-    let expectedFailure = packageName `Set.member` expectedFailures settings
+    let expectedFailure = packageName `Set.member` expectedFailuresBuild settings
     if passed
         then do
             removeFile logfile

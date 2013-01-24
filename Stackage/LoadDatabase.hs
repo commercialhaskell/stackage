@@ -53,7 +53,7 @@ import           Stackage.Util
 -- version.
 --
 -- * For other packages, select the maximum version number.
-loadPackageDB :: BuildSettings
+loadPackageDB :: SelectSettings
               -> Set PackageName -- ^ core packages
               -> Map PackageName (VersionRange, Maintainer) -- ^ additional deps
               -> IO PackageDB

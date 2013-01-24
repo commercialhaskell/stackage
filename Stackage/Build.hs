@@ -34,29 +34,15 @@ import Stackage.CheckCabalVersion (checkCabalVersion)
 defaultBuildSettings :: BuildSettings
 defaultBuildSettings = BuildSettings
     { sandboxRoot = "sandbox"
-    , extraBuildArgs = []
-    , extraCore = defaultExtraCore
-    , expectedFailures = defaultExpectedFailures
-    , stablePackages = defaultStablePackages
+    , expectedFailuresBuild = defaultExpectedFailures
     , extraArgs = ["-fnetwork23"]
-    , haskellPlatformCabal = "haskell-platform/haskell-platform.cabal"
-    , requireHaskellPlatform = True
-    , excludedPackages = empty
     , testWorkerThreads = 4
-    , flags = Set.fromList $ words "blaze_html_0_5"
-    , allowedPackage = const $ Right ()
     }
 
-build :: BuildSettings -> IO ()
-build settings' = do
+build :: BuildSettings -> BuildPlan -> IO ()
+build settings' bp = do
     putStrLn "Checking Cabal version"
     libVersion <- checkCabalVersion
-
-    bp <- select settings'
-
-    putStrLn "Checking build plan"
-    checkPlan bp
-    putStrLn "No mismatches, starting the sandboxed build."
 
     putStrLn "Wiping out old sandbox folder"
     rm_r $ sandboxRoot settings'
@@ -84,8 +70,7 @@ build settings' = do
                          : "--build-log=logs-tools/$pkg.log"
                          : "-j"
                          : concat
-                            [ extraBuildArgs settings
-                            , extraArgs settings
+                            [ extraArgs settings
                             , tools
                             ]
                 hPutStrLn handle ("cabal " ++ unwords (map (\s -> "'" ++ s ++ "'") args))
@@ -103,8 +88,7 @@ build settings' = do
                  : "--build-log=logs/$pkg.log"
                  : "-j"
                  : concat
-                    [ extraBuildArgs settings
-                    , extraArgs settings
+                    [ extraArgs settings
                     , bpPackageList bp
                     ]
         hPutStrLn handle ("cabal " ++ unwords (map (\s -> "'" ++ s ++ "'") args))
@@ -113,12 +97,6 @@ build settings' = do
     unless (ec == ExitSuccess) $ do
         putStrLn "Build failed, please see build.log"
         exitWith ec
-
-    putStrLn "Sandbox built, beginning individual test suites"
-    runTestSuites settings $ bpPackages bp
-
-    putStrLn "All test suites that were expected to pass did pass, building tarballs."
-    makeTarballs bp
 
 -- | Get all of the build tools required.
 iiBuildTools :: InstallInfo -> [String]

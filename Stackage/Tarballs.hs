@@ -13,6 +13,7 @@ import           System.FilePath      (takeDirectory)
 
 makeTarballs :: BuildPlan -> IO ()
 makeTarballs bp = do
+    putStrLn "Building tarballs"
     tarName <- getTarballName
     origEntries <- fmap Tar.read $ L.readFile tarName
     (stableEntries, extraEntries) <- loop id id origEntries

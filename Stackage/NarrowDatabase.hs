@@ -10,7 +10,7 @@ import           System.Exit (exitFailure)
 
 -- | Narrow down the database to only the specified packages and all of
 -- their dependencies.
-narrowPackageDB :: BuildSettings
+narrowPackageDB :: SelectSettings
                 -> PackageDB
                 -> Set (PackageName, Maintainer)
                 -> IO (Map PackageName BuildInfo)

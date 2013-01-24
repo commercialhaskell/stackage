@@ -17,13 +17,13 @@ import           Stackage.NarrowDatabase
 import           Stackage.Types
 import           Stackage.Util
 
-dropExcluded :: BuildSettings
+dropExcluded :: SelectSettings
              -> Map PackageName (VersionRange, Maintainer)
              -> Map PackageName (VersionRange, Maintainer)
 dropExcluded bs m0 =
     Set.foldl' (flip Map.delete) m0 (excludedPackages bs)
 
-getInstallInfo :: BuildSettings -> IO InstallInfo
+getInstallInfo :: SelectSettings -> IO InstallInfo
 getInstallInfo settings = do
     putStrLn "Loading Haskell Platform"
     hp <- loadHaskellPlatform settings
@@ -96,14 +96,14 @@ bpPackageList :: BuildPlan -> [String]
 bpPackageList = map packageVersionString . Map.toList . Map.map spiVersion . bpPackages
 
 -- | Check for internal mismatches in required and actual package versions.
-checkBadVersions :: BuildSettings
+checkBadVersions :: SelectSettings
                  -> PackageDB
                  -> Map PackageName BuildInfo
                  -> Map String (Map PackageName (Version, VersionRange))
 checkBadVersions settings (PackageDB pdb) buildPlan =
     Map.unions $ map getBadVersions $ Map.toList $ Map.filterWithKey unexpectedFailure buildPlan
   where
-    unexpectedFailure name _ = name `Set.notMember` expectedFailures settings
+    unexpectedFailure name _ = name `Set.notMember` expectedFailuresSelect settings
 
     getBadVersions :: (PackageName, BuildInfo) -> Map String (Map PackageName (Version, VersionRange))
     getBadVersions (name, bi)

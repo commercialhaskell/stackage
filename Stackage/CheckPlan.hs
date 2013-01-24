@@ -18,6 +18,7 @@ data Mismatch = OnlyDryRun String | OnlySimpleList String
 
 checkPlan :: BuildPlan -> IO ()
 checkPlan bp = do
+    putStrLn "Checking build plan"
     (ec, dryRun', stderr) <- readProcessWithExitCode "cabal" (addCabalArgsOnlyGlobal $ "install":"--dry-run":bpPackageList bp) ""
     when (ec /= ExitSuccess || "Warning:" `isPrefixOf` stderr) $ do
         putStr stderr
@@ -30,6 +31,7 @@ checkPlan bp = do
         putStrLn "Found the following mismatches"
         mapM_ print mismatches
         exitWith $ ExitFailure 1
+    putStrLn "Build plan checked, no mismatches"
   where
     optionalCore = Set.fromList $ map packageVersionString $ Map.toList $ bpOptionalCore bp
     notOptionalCore s = not $ s `Set.member` optionalCore
