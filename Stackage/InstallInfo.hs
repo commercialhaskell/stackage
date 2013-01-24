@@ -1,6 +1,7 @@
+{-# LANGUAGE RecordWildCards #-}
 module Stackage.InstallInfo
     ( getInstallInfo
-    , iiPackageList
+    , bpPackageList
     ) where
 
 import           Control.Arrow            ((&&&))
@@ -60,28 +61,39 @@ getInstallInfo settings = do
 
     return InstallInfo
         { iiCore = totalCore
-        , iiPackages = Map.map (biVersion &&& biMaintainer) final
+        , iiPackages = Map.map biToSPI final
         , iiOptionalCore = Map.fromList $ map (\(PackageIdentifier p v) -> (p, v)) $ Set.toList $ hplibs hp
         , iiPackageDB = pdb
         }
 
+biToSPI :: BuildInfo -> SelectedPackageInfo
+biToSPI BuildInfo {..} = SelectedPackageInfo
+    { spiVersion = biVersion
+    , spiMaintainer = biMaintainer
+    , spiGithubUser = biGithubUser
+    , spiHasTests = biHasTests
+    }
+
 showDep :: (PackageName, BuildInfo) -> String
-showDep (PackageName name, (BuildInfo version deps (Maintainer m) _)) =
+showDep (PackageName name, BuildInfo {..}) =
     concat
         [ name
         , "-"
-        , showVersion version
+        , showVersion biVersion
         , " ("
-        , m
+        , unMaintainer biMaintainer
+        , case biGithubUser of
+            Nothing -> ""
+            Just x -> " @" ++ x
         , ")"
         , ": "
-        , unwords $ map unP deps
+        , unwords $ map unP biUsers
         ]
   where
     unP (PackageName p) = p
 
-iiPackageList :: InstallInfo -> [String]
-iiPackageList = map packageVersionString . Map.toList . Map.map fst . iiPackages
+bpPackageList :: BuildPlan -> [String]
+bpPackageList = map packageVersionString . Map.toList . Map.map spiVersion . bpPackages
 
 -- | Check for internal mismatches in required and actual package versions.
 checkBadVersions :: BuildSettings

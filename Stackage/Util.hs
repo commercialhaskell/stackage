@@ -19,6 +19,9 @@ import           System.FilePath         ((</>))
 import qualified Distribution.Package as P
 import qualified Distribution.PackageDescription as PD
 import           Distribution.License    (License (..))
+import           System.Directory     (canonicalizePath,
+                                       createDirectoryIfMissing,
+                                       doesDirectoryExist)
 
 -- | Allow only packages with permissive licenses.
 allowPermissive :: [String] -- ^ list of explicitly allowed packages
@@ -94,11 +97,16 @@ binDir = (</> "bin") . sandboxRoot
 dataDir = (</> "share") . sandboxRoot
 docDir x = sandboxRoot x </> "share" </> "doc" </> "$pkgid"
 
-addCabalArgs :: BuildSettings -> [String] -> [String]
-addCabalArgs settings rest
+addCabalArgsOnlyGlobal :: [String] -> [String]
+addCabalArgsOnlyGlobal rest
     = "--package-db=clear"
     : "--package-db=global"
-    : ("--package-db=" ++ packageDir settings)
+    : rest
+
+addCabalArgs :: BuildSettings -> [String] -> [String]
+addCabalArgs settings rest
+    = addCabalArgsOnlyGlobal
+    $ ("--package-db=" ++ packageDir settings)
     : ("--libdir=" ++ libDir settings)
     : ("--bindir=" ++ binDir settings)
     : ("--datadir=" ++ dataDir settings)
@@ -121,3 +129,13 @@ getModifiedEnv settings = do
 #else
     pathSep = ':'
 #endif
+
+-- | Minor fixes, such as making paths absolute.
+--
+-- Note: creates the sandbox root in the process.
+fixBuildSettings :: BuildSettings -> IO BuildSettings
+fixBuildSettings settings' = do
+    let root' = sandboxRoot settings'
+    createDirectoryIfMissing True root'
+    root <- canonicalizePath root'
+    return settings' { sandboxRoot = root }

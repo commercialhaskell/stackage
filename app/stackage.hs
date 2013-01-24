@@ -8,8 +8,7 @@ import           Data.Set           (fromList)
 import           System.IO          (hFlush, stdout)
 
 data BuildArgs = BuildArgs
-    { noClean :: Bool
-    , excluded :: [String]
+    { excluded :: [String]
     , noPlatform :: Bool
     , onlyPermissive :: Bool
     , allowed :: [String]
@@ -18,15 +17,13 @@ data BuildArgs = BuildArgs
 parseBuildArgs :: [String] -> IO BuildArgs
 parseBuildArgs =
     loop BuildArgs
-        { noClean = False
-        , excluded = []
+        { excluded = []
         , noPlatform = False
         , onlyPermissive = False
         , allowed = []
         }
   where
     loop x [] = return x
-    loop x ("--no-clean":rest) = loop x { noClean = True } rest
     loop x ("--exclude":y:rest) = loop x { excluded = y : excluded x } rest
     loop x ("--no-platform":rest) = loop x { noPlatform = True } rest
     loop x ("--only-permissive":rest) = loop x { onlyPermissive = True } rest
@@ -40,8 +37,7 @@ main = do
         "build":rest -> do
             BuildArgs {..} <- parseBuildArgs rest
             build defaultBuildSettings
-                { cleanBeforeBuild = not noClean
-                , excludedPackages = fromList $ map PackageName excluded
+                { excludedPackages = fromList $ map PackageName excluded
                 , requireHaskellPlatform = not noPlatform
                 , allowedPackage =
                     if onlyPermissive

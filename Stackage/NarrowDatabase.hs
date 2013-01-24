@@ -38,6 +38,8 @@ narrowPackageDB settings (PackageDB pdb) packageSet = do
                                 , biUsers      = users
                                 , biMaintainer = maintainer
                                 , biDeps       = piDeps pi
+                                , biGithubUser = piGithubUser pi
+                                , biHasTests   = piHasTests pi
                                 } result
                         case piGPD pi of
                             Nothing -> return ()

@@ -1,4 +1,5 @@
 {-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE RecordWildCards    #-}
 module Stackage.Test
     ( runTestSuites
     ) where
@@ -18,17 +19,13 @@ import           System.IO          (IOMode (WriteMode, AppendMode),
                                      withBinaryFile)
 import           System.Process     (runProcess, waitForProcess)
 
-runTestSuites :: BuildSettings -> InstallInfo -> IO ()
-runTestSuites settings ii = do
+runTestSuites :: BuildSettings -> Map PackageName SelectedPackageInfo -> IO ()
+runTestSuites settings selected = do
     let testdir = "runtests"
     rm_r testdir
     createDirectory testdir
-    allPass <- parFoldM (testWorkerThreads settings) (runTestSuite settings testdir hasTestSuites) (&&) True $ Map.toList $ iiPackages ii
+    allPass <- parFoldM (testWorkerThreads settings) (runTestSuite settings testdir) (&&) True $ Map.toList selected
     unless allPass $ error $ "There were failures, please see the logs in " ++ testdir
-  where
-    PackageDB pdb = iiPackageDB ii
-
-    hasTestSuites name = maybe defaultHasTestSuites piHasTests $ Map.lookup name pdb
 
 parFoldM :: Int -- ^ number of threads
          -> (b -> IO c)
@@ -76,10 +73,9 @@ instance Exception TestException
 
 runTestSuite :: BuildSettings
              -> FilePath
-             -> (PackageName -> Bool) -- ^ do we have any test suites?
-             -> (PackageName, (Version, Maintainer))
+             -> (PackageName, SelectedPackageInfo)
              -> IO Bool
-runTestSuite settings testdir hasTestSuites (packageName, (version, Maintainer maintainer)) = do
+runTestSuite settings testdir (packageName, SelectedPackageInfo {..}) = do
     -- Set up a new environment that includes the sandboxed bin folder in PATH.
     env' <- getModifiedEnv settings
     let menv addGPP
@@ -98,7 +94,7 @@ runTestSuite settings testdir hasTestSuites (packageName, (version, Maintainer m
     passed <- handle (\TestException -> return False) $ do
         getHandle WriteMode  $ run "cabal" ["unpack", package] testdir
         getHandle AppendMode $ run "cabal" (addCabalArgs settings ["configure", "--enable-tests"]) dir
-        when (hasTestSuites packageName) $ do
+        when spiHasTests $ do
             getHandle AppendMode $ run "cabal" ["build"] dir
             getHandle AppendMode $ runGhcPackagePath "cabal" ["test"] dir
         getHandle AppendMode $ run "cabal" ["haddock"] dir
@@ -108,11 +104,20 @@ runTestSuite settings testdir hasTestSuites (packageName, (version, Maintainer m
         then do
             removeFile logfile
             when expectedFailure $ putStrLn $ package ++ " passed, but I didn't think it would."
-        else unless expectedFailure $ putStrLn $ "Test suite failed: " ++ package ++ "(" ++ maintainer ++ ")"
+        else unless expectedFailure $ putStrLn $ concat
+                [ "Test suite failed: "
+                , package
+                , "("
+                , unMaintainer spiMaintainer
+                , case spiGithubUser of
+                    Nothing -> ""
+                    Just x -> " @" ++ x
+                , ")"
+                ]
     rm_r dir
     return $! passed || expectedFailure
   where
     logfile = testdir </> package <.> "log"
     dir = testdir </> package
     getHandle mode = withBinaryFile logfile mode
-    package = packageVersionString (packageName, version)
+    package = packageVersionString (packageName, spiVersion)

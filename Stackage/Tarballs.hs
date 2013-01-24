@@ -11,8 +11,8 @@ import           Stackage.Util
 import           System.Directory     (createDirectoryIfMissing)
 import           System.FilePath      (takeDirectory)
 
-makeTarballs :: InstallInfo -> IO ()
-makeTarballs ii = do
+makeTarballs :: BuildPlan -> IO ()
+makeTarballs bp = do
     tarName <- getTarballName
     origEntries <- fmap Tar.read $ L.readFile tarName
     (stableEntries, extraEntries) <- loop id id origEntries
@@ -35,10 +35,10 @@ makeTarballs ii = do
             case getPackageVersion e of
                 Nothing -> (stable, extra)
                 Just (package, version) ->
-                    case Map.lookup package $ iiPackages ii of
-                        Just (version', _maintainer)
-                            | version == version' -> (stable . (e:), extra)
+                    case Map.lookup package $ bpPackages bp of
+                        Just spi
+                            | version == spiVersion spi -> (stable . (e:), extra)
                             | otherwise -> (stable, extra)
                         Nothing
-                            | package `Set.member` iiCore ii -> (stable, extra)
+                            | package `Set.member` bpCore bp -> (stable, extra)
                             | otherwise -> (stable, extra . (e:))

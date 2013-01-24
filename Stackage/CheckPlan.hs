@@ -16,22 +16,22 @@ import           System.Process       (readProcessWithExitCode)
 data Mismatch = OnlyDryRun String | OnlySimpleList String
     deriving Show
 
-checkPlan :: BuildSettings -> InstallInfo -> IO ()
-checkPlan settings ii = do
-    (ec, dryRun', stderr) <- readProcessWithExitCode "cabal" (addCabalArgs settings $ "install":"--dry-run":iiPackageList ii) ""
+checkPlan :: BuildPlan -> IO ()
+checkPlan bp = do
+    (ec, dryRun', stderr) <- readProcessWithExitCode "cabal" (addCabalArgsOnlyGlobal $ "install":"--dry-run":bpPackageList bp) ""
     when (ec /= ExitSuccess || "Warning:" `isPrefixOf` stderr) $ do
         putStr stderr
         putStr dryRun'
         putStrLn "cabal returned a bad result, exiting"
         exitWith ec
     let dryRun = sort $ filter notOptionalCore $ map (takeWhile (/= ' ')) $ drop 2 $ lines dryRun'
-    let mismatches = getMismatches dryRun (filter notOptionalCore $ iiPackageList ii)
+    let mismatches = getMismatches dryRun (filter notOptionalCore $ bpPackageList bp)
     unless (null mismatches) $ do
         putStrLn "Found the following mismatches"
         mapM_ print mismatches
         exitWith $ ExitFailure 1
   where
-    optionalCore = Set.fromList $ map packageVersionString $ Map.toList $ iiOptionalCore ii
+    optionalCore = Set.fromList $ map packageVersionString $ Map.toList $ bpOptionalCore bp
     notOptionalCore s = not $ s `Set.member` optionalCore
 
 getMismatches :: [String] -> [String] -> [Mismatch]

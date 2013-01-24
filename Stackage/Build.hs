@@ -28,6 +28,8 @@ import           System.IO            (IOMode (WriteMode), hPutStrLn,
                                        withBinaryFile)
 import           System.Process       (rawSystem, readProcess, runProcess,
                                        waitForProcess)
+import Stackage.Select (select)
+import Stackage.CheckCabalVersion (checkCabalVersion)
 
 defaultBuildSettings :: BuildSettings
 defaultBuildSettings = BuildSettings
@@ -39,7 +41,6 @@ defaultBuildSettings = BuildSettings
     , extraArgs = ["-fnetwork23"]
     , haskellPlatformCabal = "haskell-platform/haskell-platform.cabal"
     , requireHaskellPlatform = True
-    , cleanBeforeBuild = True
     , excludedPackages = empty
     , testWorkerThreads = 4
     , flags = Set.fromList $ words "blaze_html_0_5"
@@ -48,49 +49,31 @@ defaultBuildSettings = BuildSettings
 
 build :: BuildSettings -> IO ()
 build settings' = do
-    ii <- getInstallInfo settings'
+    putStrLn "Checking Cabal version"
+    libVersion <- checkCabalVersion
 
-    let root' = sandboxRoot settings'
-    initPkgDb <- if cleanBeforeBuild settings'
-       then do
-         putStrLn "Wiping out old sandbox folder"
-         rm_r root'
-         rm_r "logs"
-         return True
-       else do
-         b <- doesDirectoryExist root'
-         when b (putStrLn "Re-using existing sandbox")
-         return (not b)
-    createDirectoryIfMissing True root'
-    root <- canonicalizePath root'
-    let settings = settings' { sandboxRoot = root }
+    bp <- select settings'
 
-    when initPkgDb $ do
-        ec1 <- rawSystem "ghc-pkg" ["init", packageDir settings]
-        unless (ec1 == ExitSuccess) $ do
-            putStrLn "Unable to create package database via ghc-pkg init"
-            exitWith ec1
-        checkPlan settings ii
-        putStrLn "No mismatches, starting the sandboxed build."
+    putStrLn "Checking build plan"
+    checkPlan bp
+    putStrLn "No mismatches, starting the sandboxed build."
 
-    versionString <- readProcess "cabal" ["--version"] ""
-    libVersion <-
-        case map words $ lines versionString of
-            [_,["using","version",libVersion,"of","the","Cabal","library"]] -> return libVersion
-            _ -> error "Did not understand cabal --version output"
+    putStrLn "Wiping out old sandbox folder"
+    rm_r $ sandboxRoot settings'
+    rm_r "logs"
+    settings <- fixBuildSettings settings'
 
-    case (simpleParse libVersion, simpleParse ">= 1.16") of
-        (Nothing, _) -> error $ "Invalid Cabal library version: " ++ libVersion
-        (_, Nothing) -> assert False $ return ()
-        (Just v, Just vr)
-            | v `withinRange` vr -> return ()
-            | otherwise -> error $ "Unsupported Cabal version: " ++ libVersion
+    putStrLn "Creating new package database"
+    ec1 <- rawSystem "ghc-pkg" ["init", packageDir settings]
+    unless (ec1 == ExitSuccess) $ do
+        putStrLn "Unable to create package database via ghc-pkg init"
+        exitWith ec1
 
     menv <- fmap Just $ getModifiedEnv settings
     let runCabal args handle = runProcess "cabal" args Nothing menv Nothing (Just handle) (Just handle)
 
     -- First install build tools so they can be used below.
-    case iiBuildTools ii of
+    case bpTools bp of
         [] -> putStrLn "No build tools required"
         tools -> do
             putStrLn $ "Installing the following build tools: " ++ unwords tools
@@ -103,7 +86,7 @@ build settings' = do
                          : concat
                             [ extraBuildArgs settings
                             , extraArgs settings
-                            , iiBuildTools ii
+                            , tools
                             ]
                 hPutStrLn handle ("cabal " ++ unwords (map (\s -> "'" ++ s ++ "'") args))
                 runCabal args handle
@@ -122,7 +105,7 @@ build settings' = do
                  : concat
                     [ extraBuildArgs settings
                     , extraArgs settings
-                    , iiPackageList ii
+                    , bpPackageList bp
                     ]
         hPutStrLn handle ("cabal " ++ unwords (map (\s -> "'" ++ s ++ "'") args))
         runCabal args handle
@@ -132,10 +115,10 @@ build settings' = do
         exitWith ec
 
     putStrLn "Sandbox built, beginning individual test suites"
-    runTestSuites settings ii
+    runTestSuites settings $ bpPackages bp
 
     putStrLn "All test suites that were expected to pass did pass, building tarballs."
-    makeTarballs ii
+    makeTarballs bp
 
 -- | Get all of the build tools required.
 iiBuildTools :: InstallInfo -> [String]

@@ -46,6 +46,8 @@ data BuildInfo = BuildInfo
     , biUsers      :: [PackageName]
     , biMaintainer :: Maintainer
     , biDeps       :: Map PackageName VersionRange
+    , biGithubUser :: Maybe String
+    , biHasTests   :: Bool
     }
 
 data HaskellPlatform = HaskellPlatform
@@ -59,7 +61,7 @@ instance Monoid HaskellPlatform where
 
 data InstallInfo = InstallInfo
     { iiCore         :: Set PackageName
-    , iiPackages     :: Map PackageName (Version, Maintainer)
+    , iiPackages     :: Map PackageName SelectedPackageInfo
     , iiOptionalCore :: Map PackageName Version
       -- ^ This is intended to hold onto packages which might be automatically
       -- provided in the global package database. In practice, this would be
@@ -67,9 +69,25 @@ data InstallInfo = InstallInfo
     , iiPackageDB    :: PackageDB
     }
 
+data SelectedPackageInfo = SelectedPackageInfo
+    { spiVersion :: Version
+    , spiMaintainer :: Maintainer
+    , spiGithubUser :: Maybe String
+    , spiHasTests :: Bool
+    }
+    deriving (Show, Read)
+
+data BuildPlan = BuildPlan
+    { bpTools :: [String]
+    , bpPackages :: Map PackageName SelectedPackageInfo
+    , bpCore :: Set PackageName
+    , bpOptionalCore :: Map PackageName Version
+      -- ^ See 'iiOptionalCore'
+    }
+
 -- | Email address of a Stackage maintainer.
 newtype Maintainer = Maintainer { unMaintainer :: String }
-    deriving (Show, Eq, Ord)
+    deriving (Show, Eq, Ord, Read)
 
 data BuildSettings = BuildSettings
     { sandboxRoot            :: FilePath
@@ -80,7 +98,6 @@ data BuildSettings = BuildSettings
     , extraArgs              :: [String]
     , haskellPlatformCabal   :: FilePath
     , requireHaskellPlatform :: Bool
-    , cleanBeforeBuild       :: Bool
     , excludedPackages       :: Set PackageName
     -- ^ Packages which should be dropped from the list of stable packages,
     -- even if present via the Haskell Platform or @stablePackages@. If these
