@@ -115,9 +115,6 @@ defaultStablePackages = unPackageMap $ execWriter $ do
 
     mapM_ (add "Patrick Brisbin") $ words "gravatar"
 
-    -- https://github.com/tibbe/hashable/issues/49
-    addRange "Michael Snoyman" "hashable" "< 1.2"
-
     -- https://github.com/fpco/stackage/issues/31
     addRange "Michael Snoyman" "pandoc" "< 1.10"
     addRange "Michael Snoyman" "pandoc-types" "< 1.10"
