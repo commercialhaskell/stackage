@@ -106,10 +106,12 @@ defaultStablePackages = unPackageMap $ execWriter $ do
         "hspec doctest base-compat"
 
     mapM_ (add "Brent Yorgey <byorgey@gmail.com>") $ words =<<
-        [ "diagrams monoid-extras dual-tree vector-space-points active force-layout"
-        , "diagrams-core diagrams-lib diagrams-contrib diagrams-svg"
+        [ "monoid-extras dual-tree vector-space-points active force-layout"
+        , "diagrams-core diagrams-lib diagrams-svg"
         , "diagrams-builder haxr BlogLiterately BlogLiterately-diagrams"
         ]
+    -- Temporarily disabled due to build failures
+    -- diagrams diagrams-contrib
 
     mapM_ (add "Patrick Brisbin") $ words "gravatar"
 
