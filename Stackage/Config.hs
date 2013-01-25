@@ -113,6 +113,8 @@ defaultStablePackages = unPackageMap $ execWriter $ do
 
     mapM_ (add "Patrick Brisbin") $ words "gravatar"
 
+    -- https://github.com/fpco/stackage/issues/34
+    addRange "Michael Snoyman" "ansi-terminal" "< 0.6"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
