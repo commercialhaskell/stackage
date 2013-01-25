@@ -38,8 +38,38 @@ parseSelectArgs =
     loop x ("--build-plan":y:rest) = loop x { buildPlanDest = y } rest
     loop _ (y:_) = error $ "Did not understand argument: " ++ y
 
+data BuildArgs = BuildArgs
+    { sandbox :: String
+    , buildPlanSrc :: FilePath
+    , extraArgs' :: [String] -> [String]
+    }
+
+parseBuildArgs :: [String] -> IO BuildArgs
+parseBuildArgs =
+    loop BuildArgs
+        { sandbox = sandboxRoot defaultBuildSettings
+        , buildPlanSrc = defaultBuildPlan
+        , extraArgs' = id
+        }
+  where
+    loop x [] = return x
+    loop x ("--sandbox":y:rest) = loop x { sandbox = y } rest
+    loop x ("--build-plan":y:rest) = loop x { buildPlanSrc = y } rest
+    loop x ("--arg":y:rest) = loop x { extraArgs' = extraArgs' x . (y:) } rest
+    loop _ (y:_) = error $ "Did not understand argument: " ++ y
+
 defaultBuildPlan :: FilePath
 defaultBuildPlan = "build-plan.txt"
+
+withBuildSettings :: [String] -> (BuildSettings -> BuildPlan -> IO a) -> IO a
+withBuildSettings args f = do
+    BuildArgs {..} <- parseBuildArgs args
+    bp <- readBuildPlan buildPlanSrc
+    let settings = defaultBuildSettings
+            { sandboxRoot = sandbox
+            , extraArgs = extraArgs' $ extraArgs defaultBuildSettings
+            }
+    f settings bp
 
 main :: IO ()
 main = do
@@ -57,13 +87,10 @@ main = do
                             else const $ Right ()
                     }
             writeBuildPlan buildPlanDest bp
-        ["check"] -> checkHelper defaultBuildPlan
-        ["check", fp] -> checkHelper fp
-        ["build"] -> buildHelper defaultBuildPlan
-        ["build", fp] -> buildHelper fp
-        ["test"] -> testHelper defaultBuildPlan
-        ["test", fp] -> testHelper fp
-        ["tarballs"] -> tbHelper defaultBuildPlan
+        ("check":rest) -> withBuildSettings rest $ const checkPlan
+        ("build":rest) -> withBuildSettings rest build
+        ("test":rest) -> withBuildSettings rest runTestSuites
+        ("tarballs":rest) -> withBuildSettings rest $ const makeTarballs
         ["init"] -> do
             putStrLn "Note: init isn't really ready for prime time use."
             putStrLn "Using it may make it impossible to build stackage."
@@ -81,11 +108,6 @@ main = do
             --putStrLn "    update              Download updated Stackage databases. Automatically calls init."
             --putStrLn "    init                Initialize your cabal file to use Stackage"
             putStrLn "    select [--no-clean] [--no-platform] [--exclude package...] [--only-permissive] [--allow package] [--build-plan file]"
-            putStrLn "    check [build plan file]"
-            putStrLn "    build [build plan file]"
-            putStrLn "    test [build plan file]"
-  where
-    checkHelper fp = readBuildPlan fp >>= checkPlan
-    buildHelper fp = readBuildPlan fp >>= build defaultBuildSettings
-    testHelper fp = readBuildPlan fp >>= runTestSuites defaultBuildSettings
-    tbHelper fp = readBuildPlan fp >>= makeTarballs
+            putStrLn "    check [--build-plan file] [--sandbox rootdir] [--arg cabal-arg]"
+            putStrLn "    build [--build-plan file] [--sandbox rootdir] [--arg cabal-arg]"
+            putStrLn "    test [--build-plan file] [--sandbox rootdir] [--arg cabal-arg]"
