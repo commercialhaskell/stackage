@@ -20,7 +20,8 @@ import           System.IO          (IOMode (WriteMode, AppendMode),
 import           System.Process     (runProcess, waitForProcess)
 
 runTestSuites :: BuildSettings -> BuildPlan -> IO ()
-runTestSuites settings bp = do
+runTestSuites settings' bp = do
+    settings <- fixBuildSettings settings'
     let selected = bpPackages bp
     putStrLn "Running test suites"
     let testdir = "runtests"
