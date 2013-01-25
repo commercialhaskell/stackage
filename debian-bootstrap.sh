@@ -14,7 +14,7 @@ cd ghc-7.4.2
 ./configure --prefix=/opt/ghc-7.4.2
 sudo make install
 echo 'export PATH=/opt/ghc-7.4.2/bin:~/.cabal/bin:$PATH' >> ~/.bashrc
-source ~/.bashrc
+export PATH=/opt/ghc-7.4.2/bin:~/.cabal/bin:$PATH
 cd ..
 wget http://hackage.haskell.org/packages/archive/cabal-install/1.16.0.2/cabal-install-1.16.0.2.tar.gz
 tar zxfv cabal-install-1.16.0.2.tar.gz
