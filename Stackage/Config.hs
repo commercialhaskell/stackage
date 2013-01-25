@@ -107,17 +107,12 @@ defaultStablePackages = unPackageMap $ execWriter $ do
 
     mapM_ (add "Brent Yorgey <byorgey@gmail.com>") $ words =<<
         [ "monoid-extras dual-tree vector-space-points active force-layout"
-        , "diagrams-core diagrams-lib diagrams-svg"
+        , "diagrams diagrams-contrib diagrams-core diagrams-lib diagrams-svg"
         , "diagrams-builder haxr BlogLiterately BlogLiterately-diagrams"
         ]
-    -- Temporarily disabled due to build failures
-    -- diagrams diagrams-contrib
 
     mapM_ (add "Patrick Brisbin") $ words "gravatar"
 
-    -- https://github.com/fpco/stackage/issues/31
-    addRange "Michael Snoyman" "pandoc" "< 1.10"
-    addRange "Michael Snoyman" "pandoc-types" "< 1.10"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
