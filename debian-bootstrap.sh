@@ -30,4 +30,7 @@ cabal install
 cabal install alex happy
 cabal install gtk2hs-buildtools
 
-stackage build
+stackage select && \
+    stackage check && \
+    stackage build && \
+    stackage test
