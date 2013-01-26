@@ -37,7 +37,10 @@ general, the following set of commands should be good for getting started:
     git clone https://github.com/fpco/stackage
     cd stackage
     git submodule update --init # get the Haskell Platform files
+    runghc app/stackage.hs select
+    runghc app/stackage.hs check
     runghc app/stackage.hs build # takes a *long* time
+    runghc app/stackage.hs test # also takes a *long* time
 
 Notes
 -----
