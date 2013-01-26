@@ -40,6 +40,6 @@ checkCabalVersion = do
         (_, Nothing) -> assert False $ return ()
         (Just v, Just vr)
             | v `withinRange` vr -> return ()
-            | otherwise -> error $ "Unsupported Cabal version: " ++ libVersion
+            | otherwise -> error $ "Unsupported Cabal library version: " ++ libVersion
 
     return libVersion
