@@ -12,12 +12,15 @@ import           Stackage.Util
 import           System.Exit          (ExitCode (ExitFailure, ExitSuccess),
                                        exitWith)
 import           System.Process       (readProcessWithExitCode)
+import Stackage.CheckCabalVersion (checkCabalVersion)
 
 data Mismatch = OnlyDryRun String | OnlySimpleList String
     deriving Show
 
 checkPlan :: BuildPlan -> IO ()
 checkPlan bp = do
+    _ <- checkCabalVersion
+
     putStrLn "Checking build plan"
     (ec, dryRun', stderr) <- readProcessWithExitCode "cabal" (addCabalArgsOnlyGlobal $ "install":"--dry-run":bpPackageList bp) ""
     when (ec /= ExitSuccess || "Warning:" `isPrefixOf` stderr) $ do

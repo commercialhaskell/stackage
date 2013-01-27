@@ -11,7 +11,6 @@ import qualified Data.Set             as Set
 import           Distribution.Text    (simpleParse)
 import           Distribution.Version (withinRange)
 import           Prelude              hiding (pi)
-import           Stackage.CheckPlan
 import           Stackage.Config
 import           Stackage.InstallInfo
 import           Stackage.Tarballs
@@ -29,6 +28,7 @@ import           System.Process       (rawSystem, readProcess, runProcess,
 
 checkCabalVersion :: IO String
 checkCabalVersion = do
+    putStrLn "Checking Cabal version"
     versionString <- readProcess "cabal" ["--version"] ""
     libVersion <-
         case map words $ lines versionString of
@@ -36,10 +36,10 @@ checkCabalVersion = do
             _ -> error "Did not understand cabal --version output"
 
     case (simpleParse libVersion, simpleParse ">= 1.16") of
-        (Nothing, _) -> error $ "Invalid Cabal library version: " ++ libVersion
+        (Nothing, _) -> error $ "cabal binary reported an invalid Cabal library version: " ++ libVersion
         (_, Nothing) -> assert False $ return ()
         (Just v, Just vr)
             | v `withinRange` vr -> return ()
-            | otherwise -> error $ "Unsupported Cabal library version: " ++ libVersion
+            | otherwise -> error $ "cabal binary build against unsupported Cabal library version: " ++ libVersion
 
     return libVersion

@@ -41,7 +41,6 @@ defaultBuildSettings = BuildSettings
 
 build :: BuildSettings -> BuildPlan -> IO ()
 build settings' bp = do
-    putStrLn "Checking Cabal version"
     libVersion <- checkCabalVersion
 
     putStrLn "Wiping out old sandbox folder"
