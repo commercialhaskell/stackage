@@ -107,9 +107,12 @@ defaultStablePackages = unPackageMap $ execWriter $ do
 
     mapM_ (add "Brent Yorgey <byorgey@gmail.com>") $ words =<<
         [ "monoid-extras dual-tree vector-space-points active force-layout"
-        , "diagrams diagrams-contrib diagrams-core diagrams-lib diagrams-svg"
+        , "diagrams-core diagrams-lib diagrams-svg"
         , "diagrams-builder haxr BlogLiterately BlogLiterately-diagrams"
         ]
+
+    -- http://hackage.haskell.org/package/diagrams-contrib
+    -- Temporarily blocked: diagrams diagrams-contrib
 
     mapM_ (add "Patrick Brisbin") $ words "gravatar"
 
