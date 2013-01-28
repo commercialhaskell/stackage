@@ -107,7 +107,7 @@ defaultStablePackages = unPackageMap $ execWriter $ do
 
     mapM_ (add "Brent Yorgey <byorgey@gmail.com>") $ words =<<
         [ "monoid-extras dual-tree vector-space-points active force-layout"
-        , "diagrams-core diagrams-lib diagrams-svg"
+        , "diagrams diagrams-contrib diagrams-core diagrams-lib diagrams-svg"
         , "diagrams-builder haxr BlogLiterately BlogLiterately-diagrams"
         ]
 
@@ -118,6 +118,9 @@ defaultStablePackages = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/34
     addRange "Michael Snoyman" "ansi-terminal" "< 0.6"
+
+    -- https://github.com/fpco/stackage/issues/39
+    addRange "Michael Snoyman" "case-insensitive" "< 1.0"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
