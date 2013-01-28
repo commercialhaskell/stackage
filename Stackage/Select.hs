@@ -5,6 +5,7 @@ module Stackage.Select
 
 import qualified Data.Map             as Map
 import           Data.Maybe           (mapMaybe)
+import           Data.Either (partitionEithers)
 import           Data.Set             (empty)
 import qualified Data.Set             as Set
 import           Prelude              hiding (pi)
@@ -29,19 +30,24 @@ select :: SelectSettings -> IO BuildPlan
 select settings' = do
     ii <- getInstallInfo settings'
 
+    bt <-
+        case iiBuildTools ii of
+            Left s -> error $ "Could not topologically sort build tools: " ++ s
+            Right x -> return x
+
     return BuildPlan
-        { bpTools = iiBuildTools ii
+        { bpTools = bt
         , bpPackages = iiPackages ii
         , bpOptionalCore = iiOptionalCore ii
         , bpCore = iiCore ii
         }
 
 -- | Get all of the build tools required.
-iiBuildTools :: InstallInfo -> [String]
+iiBuildTools :: InstallInfo -> Either String [String]
 iiBuildTools InstallInfo { iiPackageDB = PackageDB m, iiPackages = packages } =
-    -- FIXME possible improvement: track the dependencies between the build
-    -- tools themselves, and install them in the correct order.
-    map packageVersionString
+    fmap (map packageVersionString)
+  $ topSort
+  $ map addDependencies
   $ filter (flip Set.notMember coreTools . fst)
   $ mapMaybe (flip Map.lookup buildToolMap)
   $ Set.toList
@@ -58,9 +64,43 @@ iiBuildTools InstallInfo { iiPackageDB = PackageDB m, iiPackages = packages } =
     coreTools = Set.fromList $ map PackageName $ words "hsc2hs"
 
     -- The map from build tool name to the package it comes from.
+    buildToolMap :: Map Executable (PackageName, Version)
     buildToolMap = Map.unions $ map toBuildToolMap $ Map.toList m
+
     toBuildToolMap :: (PackageName, PackageInfo) -> Map Executable (PackageName, Version)
     toBuildToolMap (pn, pi) = Map.unions
                             $ map (flip Map.singleton (pn, piVersion pi))
                             $ Set.toList
                             $ piExecs pi
+
+    addDependencies :: (PackageName, Version) -> ((PackageName, Version), Set (PackageName, Version))
+    addDependencies (pn, pv) =
+        ((pn, pv), deps)
+      where
+        deps =
+            case Map.lookup pn m of
+                Nothing -> Set.empty
+                Just pi -> Set.fromList
+                         $ mapMaybe (flip Map.lookup buildToolMap)
+                         $ Set.toList
+                         $ piBuildTools pi
+
+topSort :: (Show a, Ord a) => [(a, Set a)] -> Either String [a]
+topSort orig =
+    uncurry go . partitionEithers . map (splitter . limitDeps) $ orig
+  where
+    splitter (x, y)
+        | Set.null y = Left x
+        | otherwise = Right (x, y)
+
+    go x [] = Right x
+    go [] y = Left $ "The following form a cycle: " ++ show (map fst y)
+    go (x:xs) ys = do
+        let (xs', ys') = partitionEithers $ map (splitter . dropDep x) ys
+        rest <- go (xs ++ xs') ys'
+        return $ x : rest
+
+    dropDep x (y, z) = (y, Set.delete x z)
+
+    allVertices = Set.fromList $ map fst orig
+    limitDeps (x, y) = (x, Set.intersection allVertices y)
