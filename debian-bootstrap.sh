@@ -26,10 +26,6 @@ cd stackage
 cabal update
 cabal install
 
-# Temporary hack for cairo:
-cabal install alex happy
-cabal install gtk2hs-buildtools
-
 stackage select && \
     stackage check && \
     stackage build && \
