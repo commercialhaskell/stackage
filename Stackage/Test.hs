@@ -5,8 +5,8 @@ module Stackage.Test
     ) where
 
 import qualified Control.Concurrent as C
-import           Control.Exception  (Exception, handle, throwIO, SomeException)
-import           Control.Monad      (unless, when, replicateM)
+import           Control.Exception  (Exception, SomeException, handle, throwIO)
+import           Control.Monad      (replicateM, unless, when)
 import qualified Data.Map           as Map
 import qualified Data.Set           as Set
 import           Data.Typeable      (Typeable)

@@ -9,7 +9,7 @@ import qualified Data.Map                 as Map
 import qualified Data.Set                 as Set
 import           Data.Version             (showVersion)
 import qualified Distribution.Text
-import           Distribution.Version     (withinRange, simplifyVersionRange)
+import           Distribution.Version     (simplifyVersionRange, withinRange)
 import           Stackage.HaskellPlatform
 import           Stackage.LoadDatabase
 import           Stackage.NarrowDatabase

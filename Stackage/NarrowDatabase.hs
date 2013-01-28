@@ -1,12 +1,12 @@
 module Stackage.NarrowDatabase where
 
 import           Control.Monad.Trans.Writer
-import qualified Data.Map       as Map
-import qualified Data.Set       as Set
-import           Prelude        hiding (pi)
+import qualified Data.Map                   as Map
+import qualified Data.Set                   as Set
+import           Prelude                    hiding (pi)
 import           Stackage.Types
 import           Stackage.Util
-import           System.Exit (exitFailure)
+import           System.Exit                (exitFailure)
 
 -- | Narrow down the database to only the specified packages and all of
 -- their dependencies.

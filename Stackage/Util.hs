@@ -1,27 +1,26 @@
 {-# LANGUAGE CPP #-}
 module Stackage.Util where
 
-import qualified Codec.Archive.Tar       as Tar
-import qualified Codec.Archive.Tar.Entry as TarEntry
-import           Control.Monad           (guard, when)
-import           Data.List               (stripPrefix)
-import qualified Data.Map                as Map
-import qualified Data.Set                as Set
-import           Data.Version            (showVersion)
-import           Distribution.Text       (simpleParse, display)
-import           Distribution.Version    (thisVersion)
-import           Stackage.Types
-import           System.Directory        (doesDirectoryExist,
-                                          removeDirectoryRecursive)
-import           System.Directory        (getAppUserDataDirectory)
-import           System.Environment      (getEnvironment)
-import           System.FilePath         ((</>))
-import qualified Distribution.Package as P
+import qualified Codec.Archive.Tar               as Tar
+import qualified Codec.Archive.Tar.Entry         as TarEntry
+import           Control.Monad                   (guard, when)
+import           Data.List                       (stripPrefix)
+import qualified Data.Map                        as Map
+import qualified Data.Set                        as Set
+import           Data.Version                    (showVersion)
+import           Distribution.License            (License (..))
+import qualified Distribution.Package            as P
 import qualified Distribution.PackageDescription as PD
-import           Distribution.License    (License (..))
-import           System.Directory     (canonicalizePath,
-                                       createDirectoryIfMissing
-                                       )
+import           Distribution.Text               (display, simpleParse)
+import           Distribution.Version            (thisVersion)
+import           Stackage.Types
+import           System.Directory                (doesDirectoryExist,
+                                                  removeDirectoryRecursive)
+import           System.Directory                (getAppUserDataDirectory)
+import           System.Directory                (canonicalizePath,
+                                                  createDirectoryIfMissing)
+import           System.Environment              (getEnvironment)
+import           System.FilePath                 ((</>))
 
 -- | Allow only packages with permissive licenses.
 allowPermissive :: [String] -- ^ list of explicitly allowed packages

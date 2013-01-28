@@ -3,16 +3,16 @@ module Stackage.Types
     , module Stackage.Types
     ) where
 
-import           Data.Map             as X (Map)
-import           Data.Map             (unionWith)
-import           Data.Monoid          (Monoid (..))
-import           Data.Set             as X (Set)
-import           Data.Version         as X (Version)
-import           Distribution.Package as X (PackageIdentifier (..),
-                                            PackageName (..))
-import           Distribution.Version as X (VersionRange (..))
-import           Distribution.Version      (intersectVersionRanges)
-import           Distribution.PackageDescription       (GenericPackageDescription)
+import           Data.Map                        as X (Map)
+import           Data.Map                        (unionWith)
+import           Data.Monoid                     (Monoid (..))
+import           Data.Set                        as X (Set)
+import           Data.Version                    as X (Version)
+import           Distribution.Package            as X (PackageIdentifier (..),
+                                                       PackageName (..))
+import           Distribution.PackageDescription (GenericPackageDescription)
+import           Distribution.Version            as X (VersionRange (..))
+import           Distribution.Version            (intersectVersionRanges)
 
 newtype PackageDB = PackageDB (Map PackageName PackageInfo)
     deriving (Show, Eq)
@@ -70,17 +70,17 @@ data InstallInfo = InstallInfo
     }
 
 data SelectedPackageInfo = SelectedPackageInfo
-    { spiVersion :: Version
+    { spiVersion    :: Version
     , spiMaintainer :: Maintainer
     , spiGithubUser :: Maybe String
-    , spiHasTests :: Bool
+    , spiHasTests   :: Bool
     }
     deriving (Show, Read)
 
 data BuildPlan = BuildPlan
-    { bpTools :: [String]
-    , bpPackages :: Map PackageName SelectedPackageInfo
-    , bpCore :: Set PackageName
+    { bpTools        :: [String]
+    , bpPackages     :: Map PackageName SelectedPackageInfo
+    , bpCore         :: Set PackageName
     , bpOptionalCore :: Map PackageName Version
       -- ^ See 'iiOptionalCore'
     }
@@ -111,10 +111,10 @@ data SelectSettings = SelectSettings
     }
 
 data BuildSettings = BuildSettings
-    { sandboxRoot            :: FilePath
-    , extraArgs              :: [String]
-    , expectedFailuresBuild  :: Set PackageName
-    , testWorkerThreads      :: Int
+    { sandboxRoot           :: FilePath
+    , extraArgs             :: [String]
+    , expectedFailuresBuild :: Set PackageName
+    , testWorkerThreads     :: Int
     -- ^ How many threads to spawn for running test suites.
     }
 

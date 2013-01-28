@@ -4,18 +4,18 @@ module Stackage.Build
     , BuildSettings (..)
     ) where
 
-import           Control.Monad        (unless)
-import           Prelude              hiding (pi)
+import           Control.Monad              (unless)
+import           Prelude                    hiding (pi)
+import           Stackage.CheckCabalVersion (checkCabalVersion)
 import           Stackage.Config
 import           Stackage.InstallInfo
 import           Stackage.Types
 import           Stackage.Util
-import           System.Exit          (ExitCode (ExitSuccess), exitWith)
-import           System.IO            (IOMode (WriteMode), hPutStrLn,
-                                       withBinaryFile)
-import           System.Process       (rawSystem, runProcess,
-                                       waitForProcess)
-import Stackage.CheckCabalVersion (checkCabalVersion)
+import           System.Exit                (ExitCode (ExitSuccess), exitWith)
+import           System.IO                  (IOMode (WriteMode), hPutStrLn,
+                                             withBinaryFile)
+import           System.Process             (rawSystem, runProcess,
+                                             waitForProcess)
 
 defaultBuildSettings :: BuildSettings
 defaultBuildSettings = BuildSettings

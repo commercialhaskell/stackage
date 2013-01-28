@@ -2,17 +2,17 @@ module Stackage.CheckPlan
     ( checkPlan
     ) where
 
-import           Control.Monad        (unless, when)
-import           Data.List            (isPrefixOf, sort)
-import qualified Data.Map             as Map
-import qualified Data.Set             as Set
+import           Control.Monad              (unless, when)
+import           Data.List                  (isPrefixOf, sort)
+import qualified Data.Map                   as Map
+import qualified Data.Set                   as Set
+import           Stackage.CheckCabalVersion (checkCabalVersion)
 import           Stackage.InstallInfo
 import           Stackage.Types
 import           Stackage.Util
-import           System.Exit          (ExitCode (ExitFailure, ExitSuccess),
-                                       exitWith)
-import           System.Process       (readProcessWithExitCode)
-import Stackage.CheckCabalVersion (checkCabalVersion)
+import           System.Exit                (ExitCode (ExitFailure, ExitSuccess),
+                                             exitWith)
+import           System.Process             (readProcessWithExitCode)
 
 data Mismatch = OnlyDryRun String | OnlySimpleList String
     deriving Show

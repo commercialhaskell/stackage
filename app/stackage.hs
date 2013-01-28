@@ -1,23 +1,23 @@
 {-# LANGUAGE RecordWildCards #-}
-import           Stackage.Types
-import           Stackage.Build     (build, defaultBuildSettings)
-import           Stackage.Init      (stackageInit)
-import           Stackage.Util      (allowPermissive)
-import           Stackage.Select    (defaultSelectSettings, select)
-import           Stackage.CheckPlan (checkPlan)
-import           System.Environment (getArgs, getProgName)
 import           Data.Set           (fromList)
+import           Stackage.Build     (build, defaultBuildSettings)
+import           Stackage.BuildPlan (readBuildPlan, writeBuildPlan)
+import           Stackage.CheckPlan (checkPlan)
+import           Stackage.Init      (stackageInit)
+import           Stackage.Select    (defaultSelectSettings, select)
+import           Stackage.Tarballs  (makeTarballs)
+import           Stackage.Test      (runTestSuites)
+import           Stackage.Types
+import           Stackage.Util      (allowPermissive)
+import           System.Environment (getArgs, getProgName)
 import           System.IO          (hFlush, stdout)
-import Stackage.BuildPlan (readBuildPlan, writeBuildPlan)
-import Stackage.Test (runTestSuites)
-import Stackage.Tarballs (makeTarballs)
 
 data SelectArgs = SelectArgs
-    { excluded :: [String]
-    , noPlatform :: Bool
+    { excluded       :: [String]
+    , noPlatform     :: Bool
     , onlyPermissive :: Bool
-    , allowed :: [String]
-    , buildPlanDest :: FilePath
+    , allowed        :: [String]
+    , buildPlanDest  :: FilePath
     }
 
 parseSelectArgs :: [String] -> IO SelectArgs
@@ -39,9 +39,9 @@ parseSelectArgs =
     loop _ (y:_) = error $ "Did not understand argument: " ++ y
 
 data BuildArgs = BuildArgs
-    { sandbox :: String
+    { sandbox      :: String
     , buildPlanSrc :: FilePath
-    , extraArgs' :: [String] -> [String]
+    , extraArgs'   :: [String] -> [String]
     }
 
 parseBuildArgs :: [String] -> IO BuildArgs

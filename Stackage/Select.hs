@@ -3,9 +3,9 @@ module Stackage.Select
     , defaultSelectSettings
     ) where
 
+import           Data.Either          (partitionEithers)
 import qualified Data.Map             as Map
 import           Data.Maybe           (mapMaybe)
-import           Data.Either (partitionEithers)
 import           Data.Set             (empty)
 import qualified Data.Set             as Set
 import           Prelude              hiding (pi)

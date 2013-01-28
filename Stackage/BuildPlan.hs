@@ -1,14 +1,14 @@
-{-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE RecordWildCards   #-}
 module Stackage.BuildPlan
     ( readBuildPlan
     , writeBuildPlan
     ) where
 
-import Stackage.Types
-import qualified Data.Map as Map
-import qualified Data.Set as Set
-import           Distribution.Text       (simpleParse, display)
+import qualified Data.Map          as Map
+import qualified Data.Set          as Set
+import           Distribution.Text (display, simpleParse)
+import           Stackage.Types
 
 readBuildPlan :: FilePath -> IO BuildPlan
 readBuildPlan fp = do
