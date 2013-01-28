@@ -44,11 +44,9 @@ build settings' bp = do
     let runCabal args handle = runProcess "cabal" args Nothing menv Nothing (Just handle) (Just handle)
 
     -- First install build tools so they can be used below.
-    case bpTools bp of
-        [] -> putStrLn "No build tools required"
-        tools -> do
-            putStrLn $ "Installing the following build tools: " ++ unwords tools
-            ph1 <- withBinaryFile "build-tools.log" WriteMode $ \handle -> do
+    let installBuildTool tool = do
+            putStrLn $ "Installing build tool: " ++ tool
+            ec <- withBinaryFile "build-tools.log" WriteMode $ \handle -> do
                 let args = addCabalArgs settings
                          $ "install"
                          : ("--cabal-lib-version=" ++ libVersion)
@@ -56,15 +54,20 @@ build settings' bp = do
                          : "-j"
                          : concat
                             [ extraArgs settings
-                            , tools
+                            , [tool]
                             ]
                 hPutStrLn handle ("cabal " ++ unwords (map (\s -> "'" ++ s ++ "'") args))
-                runCabal args handle
-            ec2 <- waitForProcess ph1
-            unless (ec2 == ExitSuccess) $ do
-                putStrLn "Building of build tools failed, please see build-tools.log"
-                exitWith ec2
-            putStrLn "Build tools built"
+                ph <- runCabal args handle
+                waitForProcess ph
+            unless (ec == ExitSuccess) $ do
+                putStrLn $ concat
+                    [ "Building of "
+                    , tool
+                    , " failed, please see build-tools.log"
+                    ]
+                exitWith ec
+            putStrLn $ tool ++ " built"
+    mapM_ installBuildTool $ bpTools bp
 
     ph <- withBinaryFile "build.log" WriteMode $ \handle -> do
         let args = addCabalArgs settings
