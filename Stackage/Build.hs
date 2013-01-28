@@ -69,6 +69,7 @@ build settings' bp = do
             putStrLn $ tool ++ " built"
     mapM_ installBuildTool $ bpTools bp
 
+    putStrLn "Beginning Stackage build"
     ph <- withBinaryFile "build.log" WriteMode $ \handle -> do
         let args = addCabalArgs settings
                  $ "install"
