@@ -9,8 +9,6 @@ import Stackage.Types
 import qualified Data.Map as Map
 import qualified Data.Set as Set
 import           Distribution.Text       (simpleParse, display)
-import           Distribution.Package (PackageName (..))
-import Control.Applicative ((<$>), (<*>))
 
 readBuildPlan :: FilePath -> IO BuildPlan
 readBuildPlan fp = do
@@ -76,6 +74,7 @@ takeWord s =
             if null s'
                 then Right (x', y)
                 else Left $ "Unconsumed input in takeWord call"
+        (_, []) -> Left "takeWord failed"
 
 instance AsString SelectedPackageInfo where
     toString SelectedPackageInfo {..} = unwords

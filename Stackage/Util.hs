@@ -20,8 +20,8 @@ import qualified Distribution.Package as P
 import qualified Distribution.PackageDescription as PD
 import           Distribution.License    (License (..))
 import           System.Directory     (canonicalizePath,
-                                       createDirectoryIfMissing,
-                                       doesDirectoryExist)
+                                       createDirectoryIfMissing
+                                       )
 
 -- | Allow only packages with permissive licenses.
 allowPermissive :: [String] -- ^ list of explicitly allowed packages

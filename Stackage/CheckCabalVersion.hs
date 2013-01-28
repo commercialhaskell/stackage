@@ -3,28 +3,10 @@ module Stackage.CheckCabalVersion
     ) where
 
 import           Control.Exception    (assert)
-import           Control.Monad        (unless, when)
-import qualified Data.Map             as Map
-import           Data.Maybe           (mapMaybe)
-import           Data.Set             (empty)
-import qualified Data.Set             as Set
 import           Distribution.Text    (simpleParse)
 import           Distribution.Version (withinRange)
 import           Prelude              hiding (pi)
-import           Stackage.Config
-import           Stackage.InstallInfo
-import           Stackage.Tarballs
-import           Stackage.Test
-import           Stackage.Types
-import           Stackage.Util
-import           System.Directory     (canonicalizePath,
-                                       createDirectoryIfMissing,
-                                       doesDirectoryExist)
-import           System.Exit          (ExitCode (ExitSuccess), exitWith)
-import           System.IO            (IOMode (WriteMode), hPutStrLn,
-                                       withBinaryFile)
-import           System.Process       (rawSystem, readProcess, runProcess,
-                                       waitForProcess)
+import           System.Process       (readProcess)
 
 checkCabalVersion :: IO String
 checkCabalVersion = do

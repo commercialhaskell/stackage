@@ -4,7 +4,6 @@ module Stackage.InstallInfo
     , bpPackageList
     ) where
 
-import           Control.Arrow            ((&&&))
 import           Control.Monad            (forM_)
 import qualified Data.Map                 as Map
 import qualified Data.Set                 as Set
