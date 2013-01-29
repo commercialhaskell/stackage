@@ -96,7 +96,7 @@ runTestSuite settings testdir (packageName, SelectedPackageInfo {..}) = do
 
     passed <- handle (\TestException -> return False) $ do
         getHandle WriteMode  $ run "cabal" ["unpack", package] testdir
-        getHandle AppendMode $ run "cabal" (addCabalArgs settings ["configure", "--enable-tests"]) dir
+        getHandle AppendMode $ run "cabal" (addCabalArgs settings BSTest ["configure", "--enable-tests"]) dir
         when spiHasTests $ do
             getHandle AppendMode $ run "cabal" ["build"] dir
             getHandle AppendMode $ runGhcPackagePath "cabal" ["test"] dir

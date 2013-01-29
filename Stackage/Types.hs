@@ -110,9 +110,11 @@ data SelectSettings = SelectSettings
     , stablePackages         :: Map PackageName (VersionRange, Maintainer)
     }
 
+data BuildStage = BSBuild | BSTest
+
 data BuildSettings = BuildSettings
     { sandboxRoot           :: FilePath
-    , extraArgs             :: [String]
+    , extraArgs             :: BuildStage -> [String]
     , expectedFailuresBuild :: Set PackageName
     , testWorkerThreads     :: Int
     -- ^ How many threads to spawn for running test suites.

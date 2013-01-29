@@ -21,7 +21,7 @@ defaultBuildSettings :: BuildSettings
 defaultBuildSettings = BuildSettings
     { sandboxRoot = "sandbox"
     , expectedFailuresBuild = defaultExpectedFailures
-    , extraArgs = ["-fnetwork23"]
+    , extraArgs = const ["-fnetwork23"]
     , testWorkerThreads = 4
     }
 
@@ -47,15 +47,12 @@ build settings' bp = do
     let installBuildTool tool = do
             putStrLn $ "Installing build tool: " ++ tool
             ec <- withBinaryFile "build-tools.log" WriteMode $ \handle -> do
-                let args = addCabalArgs settings
+                let args = addCabalArgs settings BSBuild
                          $ "install"
                          : ("--cabal-lib-version=" ++ libVersion)
                          : "--build-log=logs-tools/$pkg.log"
                          : "-j"
-                         : concat
-                            [ extraArgs settings
-                            , [tool]
-                            ]
+                         : [tool]
                 hPutStrLn handle ("cabal " ++ unwords (map (\s -> "'" ++ s ++ "'") args))
                 ph <- runCabal args handle
                 waitForProcess ph
@@ -71,14 +68,13 @@ build settings' bp = do
 
     putStrLn "Beginning Stackage build"
     ph <- withBinaryFile "build.log" WriteMode $ \handle -> do
-        let args = addCabalArgs settings
+        let args = addCabalArgs settings BSBuild
                  $ "install"
                  : ("--cabal-lib-version=" ++ libVersion)
                  : "--build-log=logs/$pkg.log"
                  : "-j"
                  : concat
-                    [ extraArgs settings
-                    , bpPackageList bp
+                    [ bpPackageList bp
                     ]
         hPutStrLn handle ("cabal " ++ unwords (map (\s -> "'" ++ s ++ "'") args))
         runCabal args handle
