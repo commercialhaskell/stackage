@@ -112,12 +112,6 @@ defaultStablePackages = unPackageMap $ execWriter $ do
         ]
 
     mapM_ (add "Patrick Brisbin") $ words "gravatar"
-
-    -- https://github.com/fpco/stackage/issues/39
-    addRange "Michael Snoyman" "case-insensitive" "< 1.0"
-
-    -- https://github.com/fpco/stackage/issues/40
-    addRange "Michael Snoyman" "http-types" "< 0.8"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
