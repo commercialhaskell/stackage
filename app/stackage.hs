@@ -67,7 +67,7 @@ withBuildSettings args f = do
     bp <- readBuildPlan buildPlanSrc
     let settings = defaultBuildSettings
             { sandboxRoot = sandbox
-            , extraArgs = extraArgs' $ extraArgs defaultBuildSettings
+            , extraArgs = extraArgs' . extraArgs defaultBuildSettings
             }
     f settings bp
 
