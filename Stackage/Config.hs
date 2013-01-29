@@ -111,13 +111,7 @@ defaultStablePackages = unPackageMap $ execWriter $ do
         , "diagrams-builder haxr BlogLiterately BlogLiterately-diagrams"
         ]
 
-    -- http://hackage.haskell.org/package/diagrams-contrib
-    -- Temporarily blocked: diagrams diagrams-contrib
-
     mapM_ (add "Patrick Brisbin") $ words "gravatar"
-
-    -- https://github.com/fpco/stackage/issues/34
-    addRange "Michael Snoyman" "ansi-terminal" "< 0.6"
 
     -- https://github.com/fpco/stackage/issues/39
     addRange "Michael Snoyman" "case-insensitive" "< 1.0"
