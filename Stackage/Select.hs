@@ -49,6 +49,8 @@ iiBuildTools InstallInfo { iiPackageDB = PackageDB m, iiPackages = packages } =
   $ topSort
   $ map addDependencies
   $ filter (flip Set.notMember coreTools . fst)
+  $ Set.toList
+  $ Set.fromList
   $ mapMaybe (flip Map.lookup buildToolMap)
   $ Set.toList
   $ Set.unions
