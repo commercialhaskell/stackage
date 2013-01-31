@@ -50,6 +50,10 @@ defaultExpectedFailures = fromList $ map PackageName
 
       -- With transformers 0.3, it doesn't provide any modules
     , "transformers-compat"
+
+      -- Tests require shell script and are incompatible with sandboxed package
+      -- databases
+    , "HTF"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
