@@ -9,12 +9,14 @@ import qualified Data.Map                 as Map
 import qualified Data.Set                 as Set
 import           Data.Version             (showVersion)
 import qualified Distribution.Text
+import           Distribution.Text        (display)
 import           Distribution.Version     (simplifyVersionRange, withinRange)
 import           Stackage.HaskellPlatform
 import           Stackage.LoadDatabase
 import           Stackage.NarrowDatabase
 import           Stackage.Types
 import           Stackage.Util
+import           Stackage.GhcPkg
 
 dropExcluded :: SelectSettings
              -> Map PackageName (VersionRange, Maintainer)
@@ -26,22 +28,34 @@ getInstallInfo :: SelectSettings -> IO InstallInfo
 getInstallInfo settings = do
     putStrLn "Loading Haskell Platform"
     hp <- loadHaskellPlatform settings
+
+    core <-
+        if useGlobalDatabase settings
+            then do
+                putStrLn "Loading core packages from global database"
+                getGlobalPackages
+            else return $ hpcore hp
+    let coreMap = Map.unions
+                $ map (\(PackageIdentifier k v) -> Map.singleton k v)
+                $ Set.toList core
+
     let allPackages'
             | requireHaskellPlatform settings = Map.union (stablePackages settings) $ identsToRanges (hplibs hp)
             | otherwise = stablePackages settings
         allPackages = dropExcluded settings allPackages'
-    let totalCore = extraCore settings `Set.union` Set.map (\(PackageIdentifier p _) -> p) (hpcore hp)
+    let totalCore = extraCore settings `Set.union` Set.map (\(PackageIdentifier p _) -> p) core
 
     putStrLn "Loading package database"
     pdb <- loadPackageDB settings totalCore allPackages
 
     putStrLn "Narrowing package database"
-    final <- narrowPackageDB settings pdb $ Set.fromList $ Map.toList $ Map.map snd $ allPackages
+    final <- narrowPackageDB settings totalCore pdb $ Set.fromList $ Map.toList $ Map.map snd $ allPackages
 
     putStrLn "Printing build plan to build-plan.log"
     writeFile "build-plan.log" $ unlines $ map showDep $ Map.toList final
 
-    case checkBadVersions settings pdb final of
+    putStrLn "Checking for bad versions"
+    case checkBadVersions settings coreMap pdb final of
         badVersions
             | Map.null badVersions -> return ()
             | otherwise -> do
@@ -96,10 +110,11 @@ bpPackageList = map packageVersionString . Map.toList . Map.map spiVersion . bpP
 
 -- | Check for internal mismatches in required and actual package versions.
 checkBadVersions :: SelectSettings
+                 -> Map PackageName Version -- ^ core
                  -> PackageDB
                  -> Map PackageName BuildInfo
                  -> Map String (Map PackageName (Version, VersionRange))
-checkBadVersions settings (PackageDB pdb) buildPlan =
+checkBadVersions settings core (PackageDB pdb) buildPlan =
     Map.unions $ map getBadVersions $ Map.toList $ Map.filterWithKey unexpectedFailure buildPlan
   where
     unexpectedFailure name _ = name `Set.notMember` expectedFailuresSelect settings
@@ -123,9 +138,13 @@ checkBadVersions settings (PackageDB pdb) buildPlan =
     checkPackage :: PackageName -> VersionRange -> Map PackageName (Version, VersionRange)
     checkPackage name vr =
         case Map.lookup name buildPlan of
-            -- Can't find the dependency. Could be part of core, so just ignore
-            -- it.
-            Nothing -> Map.empty
+            Nothing ->
+                case Map.lookup name core of
+                    -- Might be part of extra-core
+                    Nothing -> Map.empty
+                    Just version
+                        | version `withinRange` vr -> Map.empty
+                        | otherwise -> Map.singleton name (version, vr)
             Just bi
                 | biVersion bi `withinRange` vr -> Map.empty
                 | otherwise -> Map.singleton name (biVersion bi, vr)

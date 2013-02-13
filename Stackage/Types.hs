@@ -108,6 +108,10 @@ data SelectSettings = SelectSettings
     -- even if present via the Haskell Platform or @stablePackages@. If these
     -- packages are dependencies of others, they will still be included.
     , stablePackages         :: Map PackageName (VersionRange, Maintainer)
+    , useGlobalDatabase      :: Bool
+    -- ^ Instead of checking the Haskell Platform file for core packages, query
+    -- the global database. For this to be reliable, you should only have
+    -- default packages in your global database. Default is @False@.
     }
 
 data BuildStage = BSBuild | BSTest

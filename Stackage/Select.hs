@@ -24,6 +24,7 @@ defaultSelectSettings = SelectSettings
     , excludedPackages = empty
     , flags = Set.fromList $ words "blaze_html_0_5"
     , allowedPackage = const $ Right ()
+    , useGlobalDatabase = False
     }
 
 select :: SelectSettings -> IO BuildPlan

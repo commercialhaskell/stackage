@@ -7,14 +7,16 @@ import           Prelude                    hiding (pi)
 import           Stackage.Types
 import           Stackage.Util
 import           System.Exit                (exitFailure)
+import Distribution.Text (display)
 
 -- | Narrow down the database to only the specified packages and all of
 -- their dependencies.
 narrowPackageDB :: SelectSettings
+                -> Set PackageName -- ^ core packages to be excluded from installation
                 -> PackageDB
                 -> Set (PackageName, Maintainer)
                 -> IO (Map PackageName BuildInfo)
-narrowPackageDB settings (PackageDB pdb) packageSet = do
+narrowPackageDB settings core (PackageDB pdb) packageSet = do
     (res, errs) <- runWriterT $ loop Map.empty $ Set.map (\(name, maintainer) -> ([], name, maintainer)) packageSet
     if Set.null errs
         then return res
@@ -29,6 +31,7 @@ narrowPackageDB settings (PackageDB pdb) packageSet = do
             Just ((users, p, maintainer), toProcess') ->
                 case Map.lookup p pdb of
                     Nothing
+                        | p `Set.member` core -> loop result toProcess'
                         | null users -> error $ "Unknown package: " ++ show p
                         | otherwise -> loop result toProcess'
                     Just pi -> do

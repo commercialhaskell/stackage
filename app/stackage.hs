@@ -18,6 +18,7 @@ data SelectArgs = SelectArgs
     , onlyPermissive :: Bool
     , allowed        :: [String]
     , buildPlanDest  :: FilePath
+    , globalDB       :: Bool
     }
 
 parseSelectArgs :: [String] -> IO SelectArgs
@@ -28,6 +29,7 @@ parseSelectArgs =
         , onlyPermissive = False
         , allowed = []
         , buildPlanDest = defaultBuildPlan
+        , globalDB = False
         }
   where
     loop x [] = return x
@@ -36,6 +38,7 @@ parseSelectArgs =
     loop x ("--only-permissive":rest) = loop x { onlyPermissive = True } rest
     loop x ("--allow":y:rest) = loop x { allowed = y : allowed x } rest
     loop x ("--build-plan":y:rest) = loop x { buildPlanDest = y } rest
+    loop x ("--use-global-db":rest) = loop x { globalDB = True } rest
     loop _ (y:_) = error $ "Did not understand argument: " ++ y
 
 data BuildArgs = BuildArgs
@@ -85,6 +88,7 @@ main = do
                         if onlyPermissive
                             then allowPermissive allowed
                             else const $ Right ()
+                    , useGlobalDatabase = globalDB
                     }
             writeBuildPlan buildPlanDest bp
         ("check":rest) -> withBuildSettings rest $ const checkPlan
