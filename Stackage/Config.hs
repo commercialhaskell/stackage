@@ -116,6 +116,9 @@ defaultStablePackages = unPackageMap $ execWriter $ do
         ]
 
     mapM_ (add "Patrick Brisbin") $ words "gravatar"
+
+    -- https://github.com/fpco/stackage/issues/42
+    addRange "Michael Snoyman" "Diff" "< 0.3"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
