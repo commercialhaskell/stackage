@@ -128,7 +128,9 @@ loadPackageDB settings core deps = do
           where
             checkCond' (Var (OS os)) = os == buildOS
             checkCond' (Var (Arch arch)) = arch == buildArch
-            checkCond' (Var (Flag flag)) = flag `elem` flags'
+            checkCond' (Var (Flag flag@(FlagName flag'))) =
+                flag' `Set.notMember` disabledFlags settings &&
+                flag `elem` flags'
             checkCond' (Var (Impl compiler range)) =
                 compiler == GHC && withinRange targetCompilerVersion range
             checkCond' (Lit b) = b

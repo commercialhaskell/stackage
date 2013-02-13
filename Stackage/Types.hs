@@ -93,6 +93,8 @@ data SelectSettings = SelectSettings
     { haskellPlatformCabal   :: FilePath
     , flags                  :: Set String
     -- ^ Compile flags which should be turned on.
+    , disabledFlags          :: Set String
+    -- ^ Compile flags which should always be disabled.
     , extraCore              :: Set PackageName
     , requireHaskellPlatform :: Bool
     , allowedPackage         :: GenericPackageDescription -> Either String ()

@@ -23,6 +23,7 @@ defaultSelectSettings = SelectSettings
     , requireHaskellPlatform = True
     , excludedPackages = empty
     , flags = Set.fromList $ words "blaze_html_0_5"
+    , disabledFlags = Set.fromList $ words "bytestring-in-base"
     , allowedPackage = const $ Right ()
     , useGlobalDatabase = False
     }
