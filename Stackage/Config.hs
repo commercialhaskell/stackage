@@ -54,6 +54,9 @@ defaultExpectedFailures = fromList $ map PackageName
       -- Tests require shell script and are incompatible with sandboxed package
       -- databases
     , "HTF"
+
+      -- https://github.com/simonmar/monad-par/issues/28
+    , "monad-par"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
