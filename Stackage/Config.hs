@@ -57,6 +57,9 @@ defaultExpectedFailures = fromList $ map PackageName
 
       -- https://github.com/simonmar/monad-par/issues/28
     , "monad-par"
+
+      -- https://github.com/meteficha/crypto-conduit/issues/16
+    , "crypto-conduit"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
