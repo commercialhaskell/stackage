@@ -60,6 +60,12 @@ defaultExpectedFailures = fromList $ map PackageName
 
       -- https://github.com/meteficha/crypto-conduit/issues/16
     , "crypto-conduit"
+
+      -- Unfortunately network failures seem to happen haphazardly
+    , "network"
+
+      -- https://github.com/ekmett/hyphenation/issues/1
+    , "hyphenation"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
