@@ -72,7 +72,9 @@ defaultStablePackages = unPackageMap $ execWriter $ do
         ]
 
     mapM_ (add "Neil Mitchell") $ words
-        "hoogle hlint"
+        "hlint"
+    -- https://github.com/fpco/stackage/issues/44
+    -- hoogle
 
     mapM_ (add "Alan Zimmerman") $ words
         "hjsmin language-javascript"
@@ -115,13 +117,12 @@ defaultStablePackages = unPackageMap $ execWriter $ do
     mapM_ (add "Brent Yorgey <byorgey@gmail.com>") $ words =<<
         [ "monoid-extras dual-tree vector-space-points active force-layout"
         , "diagrams diagrams-contrib diagrams-core diagrams-lib diagrams-svg"
-        , "diagrams-builder haxr BlogLiterately BlogLiterately-diagrams"
+        , "diagrams-builder haxr"
         ]
+    -- https://github.com/fpco/stackage/issues/44
+    -- BlogLiterately BlogLiterately-diagrams
 
     mapM_ (add "Patrick Brisbin") $ words "gravatar"
-
-    -- https://github.com/fpco/stackage/issues/42
-    addRange "Michael Snoyman" "Diff" "< 0.3"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
