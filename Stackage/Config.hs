@@ -84,9 +84,7 @@ defaultStablePackages = unPackageMap $ execWriter $ do
         ]
 
     mapM_ (add "Neil Mitchell") $ words
-        "hlint"
-    -- https://github.com/fpco/stackage/issues/44
-    -- hoogle
+        "hlint hoogle"
 
     mapM_ (add "Alan Zimmerman") $ words
         "hjsmin language-javascript"
