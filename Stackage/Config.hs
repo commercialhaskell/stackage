@@ -66,6 +66,9 @@ defaultExpectedFailures = fromList $ map PackageName
 
       -- https://github.com/ekmett/hyphenation/issues/1
     , "hyphenation"
+
+      -- Test suite takes too long to run on some systems
+    , "punycode"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
