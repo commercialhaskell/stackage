@@ -84,7 +84,7 @@ defaultStablePackages = unPackageMap $ execWriter $ do
         ]
 
     mapM_ (add "Neil Mitchell") $ words
-        "hlint hoogle"
+        "hlint hoogle shake"
 
     mapM_ (add "Alan Zimmerman") $ words
         "hjsmin language-javascript"
