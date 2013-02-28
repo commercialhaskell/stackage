@@ -127,7 +127,7 @@ defaultStablePackages = unPackageMap $ execWriter $ do
     mapM_ (add "Brent Yorgey <byorgey@gmail.com>") $ words =<<
         [ "monoid-extras dual-tree vector-space-points active force-layout"
         , "diagrams diagrams-contrib diagrams-core diagrams-lib diagrams-svg"
-        , "diagrams-builder haxr"
+        , "diagrams-postscript diagrams-builder haxr"
         ]
     -- https://github.com/fpco/stackage/issues/44
     -- BlogLiterately BlogLiterately-diagrams
