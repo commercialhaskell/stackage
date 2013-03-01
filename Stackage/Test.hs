@@ -100,7 +100,8 @@ runTestSuite settings testdir (packageName, SelectedPackageInfo {..}) = do
         when spiHasTests $ do
             getHandle AppendMode $ run "cabal" ["build"] dir
             getHandle AppendMode $ runGhcPackagePath "cabal" ["test"] dir
-        getHandle AppendMode $ run "cabal" ["haddock"] dir
+        when (buildDocs settings) $
+            getHandle AppendMode $ run "cabal" ["haddock"] dir
         return True
     let expectedFailure = packageName `Set.member` expectedFailuresBuild settings
     if passed

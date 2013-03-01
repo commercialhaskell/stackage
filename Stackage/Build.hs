@@ -23,6 +23,7 @@ defaultBuildSettings = BuildSettings
     , expectedFailuresBuild = defaultExpectedFailures
     , extraArgs = const ["-fnetwork23"]
     , testWorkerThreads = 4
+    , buildDocs = True
     }
 
 build :: BuildSettings -> BuildPlan -> IO ()

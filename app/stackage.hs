@@ -45,6 +45,7 @@ data BuildArgs = BuildArgs
     { sandbox      :: String
     , buildPlanSrc :: FilePath
     , extraArgs'   :: [String] -> [String]
+    , noDocs       :: Bool
     }
 
 parseBuildArgs :: [String] -> IO BuildArgs
@@ -53,12 +54,14 @@ parseBuildArgs =
         { sandbox = sandboxRoot defaultBuildSettings
         , buildPlanSrc = defaultBuildPlan
         , extraArgs' = id
+        , noDocs = False
         }
   where
     loop x [] = return x
     loop x ("--sandbox":y:rest) = loop x { sandbox = y } rest
     loop x ("--build-plan":y:rest) = loop x { buildPlanSrc = y } rest
     loop x ("--arg":y:rest) = loop x { extraArgs' = extraArgs' x . (y:) } rest
+    loop x ("--no-docs":rest) = loop x { noDocs = True } rest
     loop _ (y:_) = error $ "Did not understand argument: " ++ y
 
 defaultBuildPlan :: FilePath
@@ -71,6 +74,7 @@ withBuildSettings args f = do
     let settings = defaultBuildSettings
             { sandboxRoot = sandbox
             , extraArgs = extraArgs' . extraArgs defaultBuildSettings
+            , buildDocs = not noDocs
             }
     f settings bp
 
@@ -114,4 +118,4 @@ main = do
             putStrLn "    select [--no-clean] [--no-platform] [--exclude package...] [--only-permissive] [--allow package] [--build-plan file]"
             putStrLn "    check [--build-plan file] [--sandbox rootdir] [--arg cabal-arg]"
             putStrLn "    build [--build-plan file] [--sandbox rootdir] [--arg cabal-arg]"
-            putStrLn "    test [--build-plan file] [--sandbox rootdir] [--arg cabal-arg]"
+            putStrLn "    test [--build-plan file] [--sandbox rootdir] [--arg cabal-arg] [--no-docs]"

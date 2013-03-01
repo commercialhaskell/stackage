@@ -124,6 +124,8 @@ data BuildSettings = BuildSettings
     , expectedFailuresBuild :: Set PackageName
     , testWorkerThreads     :: Int
     -- ^ How many threads to spawn for running test suites.
+    , buildDocs             :: Bool
+    -- ^ Build docs as part of the test procedure.
     }
 
 -- | A wrapper around a @Map@ providing a better @Monoid@ instance.
