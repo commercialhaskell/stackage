@@ -136,6 +136,10 @@ defaultStablePackages = unPackageMap $ execWriter $ do
     -- BlogLiterately BlogLiterately-diagrams
 
     mapM_ (add "Patrick Brisbin") $ words "gravatar"
+
+    -- https://github.com/fpco/stackage/issues/46
+    addRange "Michael Snoyman" "QuickCheck" "< 2.6"
+    addRange "Michael Snoyman" "syb" "< 0.4"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
