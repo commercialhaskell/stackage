@@ -69,9 +69,6 @@ defaultExpectedFailures = fromList $ map PackageName
 
       -- Test suite takes too long to run on some systems
     , "punycode"
-
-      -- https://github.com/vincenthz/hit/issues/4
-    , "hit"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
