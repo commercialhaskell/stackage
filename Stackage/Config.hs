@@ -128,9 +128,8 @@ defaultStablePackages = unPackageMap $ execWriter $ do
         [ "monoid-extras dual-tree vector-space-points active force-layout"
         , "diagrams diagrams-contrib diagrams-core diagrams-lib diagrams-svg"
         , "diagrams-postscript diagrams-builder haxr"
+        , "BlogLiterately BlogLiterately-diagrams"
         ]
-    -- https://github.com/fpco/stackage/issues/44
-    -- BlogLiterately BlogLiterately-diagrams
 
     mapM_ (add "Patrick Brisbin") $ words "gravatar"
 
