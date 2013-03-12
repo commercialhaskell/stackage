@@ -81,6 +81,7 @@ defaultStablePackages = unPackageMap $ execWriter $ do
         , "markdown filesystem-conduit mime-mail-ses"
         , "persistent persistent-template persistent-sqlite"
         , "network-conduit-tls yackage keter"
+        , "web-fpco"
         ]
 
     mapM_ (add "Neil Mitchell") $ words
