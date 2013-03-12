@@ -133,6 +133,9 @@ defaultStablePackages = unPackageMap $ execWriter $ do
 
     mapM_ (add "Patrick Brisbin") $ words "gravatar"
 
+    mapM_ (add "Felipe Lessa <felipe.lessa@gmail.com>") $ words
+        "esqueleto"
+
     -- https://github.com/fpco/stackage/issues/46
     addRange "Michael Snoyman" "QuickCheck" "< 2.6"
     addRange "Michael Snoyman" "syb" "< 0.4"
