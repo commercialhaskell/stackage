@@ -69,6 +69,9 @@ defaultExpectedFailures = fromList $ map PackageName
 
       -- Test suite takes too long to run on some systems
     , "punycode"
+
+      -- http://hub.darcs.net/stepcut/happstack/issue/1
+    , "happstack-server"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
