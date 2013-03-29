@@ -83,7 +83,7 @@ defaultStablePackages = unPackageMap $ execWriter $ do
         [ "yesod yesod-newsfeed yesod-sitemap yesod-static yesod-test"
         , "markdown filesystem-conduit mime-mail-ses"
         , "persistent persistent-template persistent-sqlite"
-        , "network-conduit-tls yackage keter"
+        , "network-conduit-tls yackage" -- Removed until keter supports non-Linux systems: keter
         , "web-fpco"
         ]
 
