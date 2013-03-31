@@ -143,6 +143,11 @@ defaultStablePackages = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/46
     addRange "Michael Snoyman" "QuickCheck" "< 2.6"
     addRange "Michael Snoyman" "syb" "< 0.4"
+
+    -- https://github.com/fpco/stackage/issues/53
+    addRange "Michael Snoyman" "hspec" "< 1.5"
+    addRange "Michael Snoyman" "hspec-expectations" "== 0.3.0.*"
+    addRange "Michael Snoyman" "hspec-meta" "< 1.5"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
