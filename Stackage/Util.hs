@@ -4,8 +4,10 @@ module Stackage.Util where
 import qualified Codec.Archive.Tar               as Tar
 import qualified Codec.Archive.Tar.Entry         as TarEntry
 import           Control.Monad                   (guard, when)
+import           Data.Char                       (isSpace)
 import           Data.List                       (stripPrefix)
 import qualified Data.Map                        as Map
+import           Data.Maybe                      (mapMaybe)
 import qualified Data.Set                        as Set
 import           Data.Version                    (showVersion)
 import           Distribution.License            (License (..))
@@ -56,7 +58,15 @@ getCabalRoot = getAppUserDataDirectory "cabal"
 getTarballName :: IO FilePath
 getTarballName = do
     c <- getCabalRoot
-    return $ c </> "packages" </> "hackage.haskell.org" </> "00-index.tar"
+    configLines <- fmap lines $ readFile (c </> "config")
+    case mapMaybe getRemoteCache configLines of
+        [x] -> return $ x </> "hackage.haskell.org" </> "00-index.tar"
+        [] -> error $ "No remote-repo-cache found in Cabal config file"
+        _ -> error $ "Multiple remote-repo-cache entries found in Cabal config file"
+  where
+    getRemoteCache s = do
+        ("remote-repo-cache", ':':v) <- Just $ break (== ':') s
+        Just $ reverse $ dropWhile isSpace $ reverse $ dropWhile isSpace v
 
 stableRepoName, extraRepoName :: String
 stableRepoName = "stackage"
