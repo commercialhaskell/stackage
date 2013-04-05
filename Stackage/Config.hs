@@ -72,6 +72,9 @@ defaultExpectedFailures = fromList $ map PackageName
 
       -- http://hub.darcs.net/stepcut/happstack/issue/1
     , "happstack-server"
+
+      -- Requires a Facebook app.
+    , "fb"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
@@ -138,7 +141,7 @@ defaultStablePackages = unPackageMap $ execWriter $ do
     mapM_ (add "Patrick Brisbin") $ words "gravatar"
 
     mapM_ (add "Felipe Lessa <felipe.lessa@gmail.com>") $ words
-        "esqueleto"
+        "esqueleto fb fb-persistent yesod-fb yesod-auth-fb"
 
     -- https://github.com/fpco/stackage/issues/46
     addRange "Michael Snoyman" "QuickCheck" "< 2.6"
