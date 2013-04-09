@@ -140,8 +140,10 @@ defaultStablePackages = unPackageMap $ execWriter $ do
     mapM_ (add "Felipe Lessa <felipe.lessa@gmail.com>") $ words
         "esqueleto fb fb-persistent yesod-fb yesod-auth-fb"
 
-    mapM_ (add "Alexander Altman <alexanderaltman@me.com>") $ words
-        "base-unicode-symbols containers-unicode-symbols"
+    -- Requires containers 0.5
+    -- https://github.com/fpco/stackage/issues/58
+    -- mapM_ (add "Alexander Altman <alexanderaltman@me.com>") $ words
+    --    "base-unicode-symbols containers-unicode-symbols"
 
     -- https://github.com/fpco/stackage/issues/46
     addRange "Michael Snoyman" "QuickCheck" "< 2.6"
