@@ -30,7 +30,7 @@ checkPlan bp = do
         exitWith ec
     let dryRun = sort $ filter notOptionalCore $ map (takeWhile (/= ' ')) $ drop 2 $ lines dryRun'
     let mismatches = getMismatches dryRun (filter notOptionalCore $ bpPackageList bp)
-    unless (null mismatches) $ do
+    unless (null $ filter (not . acceptableMismatch) mismatches) $ do
         putStrLn "Found the following mismatches"
         mapM_ print mismatches
         exitWith $ ExitFailure 1
@@ -50,3 +50,16 @@ getMismatches =
             EQ -> go xs ys
             LT -> OnlyDryRun x     : go xs (y:ys)
             GT -> OnlySimpleList y : go (x:xs) ys
+
+-- | Some mismatches are going to be acceptable. The reasons are described
+-- below.
+acceptableMismatch :: Mismatch -> Bool
+acceptableMismatch m =
+    case m of
+        -- GHC 7.4 included extensible-extensions as a core package, and
+        -- therefore the HP at time of writing (2012.4.0.0) includes it in that
+        -- list. However, GHC 7.6 does /not/ include that package. As a result,
+        -- we get that package included in the dry run but not our list of
+        -- packages to build. See issue #57.
+        OnlyDryRun s | "extensible-exceptions-" `isPrefixOf` s -> True
+        _ -> False
