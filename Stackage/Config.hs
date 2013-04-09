@@ -143,6 +143,10 @@ defaultStablePackages = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/46
     addRange "Michael Snoyman" "QuickCheck" "< 2.6"
     addRange "Michael Snoyman" "syb" "< 0.4"
+
+    -- https://github.com/fpco/stackage/issues/59
+    addRange "Michael Snoyman" "crypto-pubkey-types" "< 0.3"
+    addRange "Michael Snoyman" "crypto-pubkey" "< 0.1.3"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
