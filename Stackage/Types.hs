@@ -91,8 +91,9 @@ newtype Maintainer = Maintainer { unMaintainer :: String }
 
 data SelectSettings = SelectSettings
     { haskellPlatformCabal   :: FilePath
-    , flags                  :: Set String
-    -- ^ Compile flags which should be turned on.
+    , flags                  :: Map PackageName Version -> Set String
+    -- ^ Compile flags which should be turned on. Takes a Map providing the
+    -- core packages so that flags can be set appropriately.
     , disabledFlags          :: Set String
     -- ^ Compile flags which should always be disabled.
     , extraCore              :: Set PackageName

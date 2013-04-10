@@ -54,10 +54,11 @@ import           Stackage.Util
 --
 -- * For other packages, select the maximum version number.
 loadPackageDB :: SelectSettings
-              -> Set PackageName -- ^ core packages
+              -> Map PackageName Version -- ^ core packages from HP file
+              -> Set PackageName -- ^ all core packages, including extras
               -> Map PackageName (VersionRange, Maintainer) -- ^ additional deps
               -> IO PackageDB
-loadPackageDB settings core deps = do
+loadPackageDB settings coreMap core deps = do
     tarName <- getTarballName
     lbs <- L.readFile tarName
     addEntries mempty $ Tar.read lbs
@@ -139,7 +140,7 @@ loadPackageDB settings core deps = do
             checkCond' (CAnd c1 c2) = checkCond' c1 && checkCond' c2
 
             flags' = map flagName (filter flagDefault $ genPackageFlags gpd) ++
-                     (map FlagName $ Set.toList $ Stackage.Types.flags settings)
+                     (map FlagName $ Set.toList $ Stackage.Types.flags settings coreMap)
 
 -- | Attempt to grab the Github username from a homepage.
 parseGithubUserHP :: String -> Maybe String

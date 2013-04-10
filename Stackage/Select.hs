@@ -8,6 +8,8 @@ import qualified Data.Map             as Map
 import           Data.Maybe           (mapMaybe)
 import           Data.Set             (empty)
 import qualified Data.Set             as Set
+import           Distribution.Text    (simpleParse)
+import           Distribution.Version (withinRange)
 import           Prelude              hiding (pi)
 import           Stackage.Config
 import           Stackage.InstallInfo
@@ -22,7 +24,13 @@ defaultSelectSettings = SelectSettings
     , haskellPlatformCabal = "haskell-platform/haskell-platform.cabal"
     , requireHaskellPlatform = True
     , excludedPackages = empty
-    , flags = Set.fromList $ words "blaze_html_0_5"
+    , flags = \coreMap ->
+        Set.fromList (words "blaze_html_0_5") `Set.union`
+        -- Support for containers-unicode-symbols
+        (case Map.lookup (PackageName "containers") coreMap of
+            Just v | Just range <- simpleParse "< 0.5", v `withinRange` range
+                -> Set.singleton "containers-old"
+            _ -> Set.empty)
     , disabledFlags = Set.fromList $ words "bytestring-in-base"
     , allowedPackage = const $ Right ()
     , useGlobalDatabase = False

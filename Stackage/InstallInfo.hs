@@ -46,7 +46,7 @@ getInstallInfo settings = do
     let totalCore = extraCore settings `Set.union` Set.map (\(PackageIdentifier p _) -> p) core
 
     putStrLn "Loading package database"
-    pdb <- loadPackageDB settings totalCore allPackages
+    pdb <- loadPackageDB settings coreMap totalCore allPackages
 
     putStrLn "Narrowing package database"
     final <- narrowPackageDB settings totalCore pdb $ Set.fromList $ Map.toList $ Map.map snd $ allPackages
