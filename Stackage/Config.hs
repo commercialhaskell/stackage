@@ -153,8 +153,6 @@ defaultStablePackages = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/62
     addRange "Michael Snoyman" "tagged" "< 0.5"
-
-    addRange "Michael Snoyman" "web-fpco" "< 0.1.1"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
