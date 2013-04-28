@@ -153,6 +153,9 @@ defaultStablePackages = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/62
     addRange "Michael Snoyman" "tagged" "< 0.5"
+
+    -- https://github.com/fpco/stackage/issues/63
+    addRange "Michael Snoyman" "NumInstances" "< 1.3"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
