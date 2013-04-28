@@ -147,10 +147,6 @@ defaultStablePackages = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "QuickCheck" "< 2.6"
     addRange "Michael Snoyman" "syb" "< 0.4"
 
-    -- https://github.com/fpco/stackage/issues/59
-    addRange "Michael Snoyman" "crypto-pubkey-types" "< 0.3"
-    addRange "Michael Snoyman" "crypto-pubkey" "< 0.1.3"
-
     -- https://github.com/fpco/stackage/issues/65
     addRange "Michael Snoyman" "tagged" "< 0.5"
 
