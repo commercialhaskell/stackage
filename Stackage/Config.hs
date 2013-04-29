@@ -157,6 +157,8 @@ defaultStablePackages = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "persistent" "< 1.2"
     addRange "Michael Snoyman" "persistent-sqlite" "< 1.2"
     addRange "Michael Snoyman" "persistent-template" "< 1.2"
+
+    addRange "Michael Snoyman" "crypto-api" "< 0.12"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
