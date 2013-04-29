@@ -152,6 +152,11 @@ defaultStablePackages = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/63
     addRange "Michael Snoyman" "NumInstances" "< 1.3"
+
+    -- https://github.com/fpco/stackage/issues/66
+    addRange "Michael Snoyman" "persistent" "< 1.2"
+    addRange "Michael Snoyman" "persistent-sqlite" "< 1.2"
+    addRange "Michael Snoyman" "persistent-template" "< 1.2"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
