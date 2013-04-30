@@ -75,6 +75,9 @@ defaultExpectedFailures = fromList $ map PackageName
 
       -- https://github.com/tibbe/hashable/issues/64
     , "hashable"
+
+      -- https://github.com/vincenthz/language-java/issues/10
+    , "language-java"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
