@@ -72,6 +72,9 @@ defaultExpectedFailures = fromList $ map PackageName
 
       -- Requires a Facebook app.
     , "fb"
+
+      -- https://github.com/tibbe/hashable/issues/64
+    , "hashable"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
