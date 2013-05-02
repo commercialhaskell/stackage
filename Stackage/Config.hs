@@ -160,9 +160,21 @@ defaultStablePackages = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "NumInstances" "< 1.3"
 
     -- https://github.com/fpco/stackage/issues/66
+    addRange "Michael Snoyman" "esqueleto" "< 1.2"
+    addRange "Michael Snoyman" "fb-persistent" "< 0.3"
     addRange "Michael Snoyman" "persistent" "< 1.2"
     addRange "Michael Snoyman" "persistent-sqlite" "< 1.2"
     addRange "Michael Snoyman" "persistent-template" "< 1.2"
+    addRange "Michael Snoyman" "yesod-core" "< 1.2"
+    addRange "Michael Snoyman" "yesod-auth" "< 1.2"
+    addRange "Michael Snoyman" "yesod-form" "< 1.3"
+    addRange "Michael Snoyman" "yesod-test" "< 1.2"
+    addRange "Michael Snoyman" "yesod-static" "< 1.2"
+    addRange "Michael Snoyman" "yesod-sitemap" "< 1.2"
+    addRange "Michael Snoyman" "yesod-persistent" "< 1.2"
+    addRange "Michael Snoyman" "yesod-newsfeed" "< 1.2"
+    addRange "Michael Snoyman" "yesod-routes" "< 1.2"
+    addRange "Michael Snoyman" "yesod" "< 1.2"
 
     addRange "Michael Snoyman" "crypto-api" "< 0.12"
   where
