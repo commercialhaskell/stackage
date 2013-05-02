@@ -173,8 +173,6 @@ defaultStablePackages = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "yesod-routes" "< 1.2"
     addRange "Michael Snoyman" "yesod" "< 1.2"
 
-    addRange "Michael Snoyman" "crypto-api" "< 0.12"
-
     -- https://github.com/fpco/stackage/issues/68
     addRange "Michael Snoyman" "criterion" "< 0.8"
 
