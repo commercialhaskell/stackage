@@ -90,7 +90,7 @@ defaultStablePackages = unPackageMap $ execWriter $ do
         , "markdown filesystem-conduit mime-mail-ses"
         , "persistent persistent-template persistent-sqlite"
         , "network-conduit-tls yackage" -- Removed until keter supports non-Linux systems: keter
-        , "web-fpco"
+        , "web-fpco th-expand-syns configurator"
         ]
 
     mapM_ (add "Neil Mitchell") $ words
