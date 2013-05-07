@@ -78,6 +78,9 @@ defaultExpectedFailures = fromList $ map PackageName
 
       -- https://github.com/vincenthz/language-java/issues/10
     , "language-java"
+
+    , "threads"
+    , "crypto-conduit"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
