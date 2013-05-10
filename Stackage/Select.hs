@@ -1,3 +1,4 @@
+{-# LANGUAGE PatternGuards #-}
 module Stackage.Select
     ( select
     , defaultSelectSettings
