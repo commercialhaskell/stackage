@@ -93,8 +93,14 @@ defaultStablePackages = unPackageMap $ execWriter $ do
         , "markdown filesystem-conduit mime-mail-ses"
         , "persistent persistent-template persistent-sqlite"
         , "network-conduit-tls yackage" -- Removed until keter supports non-Linux systems: keter
-        , "web-fpco th-expand-syns configurator"
+        , "shakespeare-text process-conduit stm-conduit"
+        , "random-shuffle"
         ]
+
+    mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
+        [ "web-fpco th-expand-syns configurator compdata smtLib unification-fd"
+        ]
+    addRange "FP Complete <michael@fpcomplete.com>" "kure" "<= 2.4.10"
 
     mapM_ (add "Neil Mitchell") $ words
         "hlint hoogle shake"
