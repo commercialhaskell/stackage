@@ -172,6 +172,13 @@ defaultStablePackages = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/70
     addRange "Michael Snoyman" "monoid-extras" "< 0.3"
 
+    -- https://github.com/fpco/stackage/issues/72
+    addRange "Michael Snoyman" "HaXml" "< 1.24"
+    addRange "Michael Snoyman" "crypto-pubkey-types" "< 0.4"
+    addRange "Michael Snoyman" "crypto-pubkey" "< 0.1.4"
+    addRange "Michael Snoyman" "asn1-types" "< 0.2"
+    addRange "Michael Snoyman" "tls-extra" "< 0.6.3"
+
     -- Due to binary package dep
     addRange "Michael Snoyman" "statistics" "< 0.10.4"
 
