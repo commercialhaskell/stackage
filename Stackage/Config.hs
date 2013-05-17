@@ -90,7 +90,7 @@ defaultExpectedFailures = fromList $ map PackageName
 defaultStablePackages :: Map PackageName (VersionRange, Maintainer)
 defaultStablePackages = unPackageMap $ execWriter $ do
     mapM_ (add "michael@snoyman.com") $ words =<<
-        [ "yesod yesod-newsfeed yesod-sitemap yesod-static yesod-test"
+        [ "yesod yesod-newsfeed yesod-sitemap yesod-static yesod-test yesod-bin"
         , "markdown filesystem-conduit mime-mail-ses"
         , "persistent persistent-template persistent-sqlite"
         , "network-conduit-tls yackage" -- Removed until keter supports non-Linux systems: keter
