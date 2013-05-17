@@ -95,6 +95,7 @@ defaultStablePackages = unPackageMap $ execWriter $ do
         , "persistent persistent-template persistent-sqlite"
         , "network-conduit-tls yackage" -- Removed until keter supports non-Linux systems: keter
         , "shakespeare-text process-conduit stm-conduit"
+        , "classy-prelude-yesod"
         , "random-shuffle"
         ]
 
