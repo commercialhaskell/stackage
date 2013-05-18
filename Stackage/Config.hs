@@ -163,6 +163,9 @@ defaultStablePackages = unPackageMap $ execWriter $ do
     mapM_ (add "Alexander Altman <alexanderaltman@me.com>") $ words
         "base-unicode-symbols containers-unicode-symbols"
 
+    mapM_ (add "Ryan Newton <ryan.newton@alum.mit.edu>") $ words
+        "accelerate"
+
     -- https://github.com/fpco/stackage/issues/46
     addRange "Michael Snoyman" "QuickCheck" "< 2.6"
     addRange "Michael Snoyman" "syb" "< 0.4"
