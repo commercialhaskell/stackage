@@ -83,6 +83,7 @@ defaultExpectedFailures = fromList $ map PackageName
     , "crypto-conduit"
     , "pandoc"
     , "compdata"
+    , "language-ecmascript"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
