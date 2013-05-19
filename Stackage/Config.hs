@@ -82,7 +82,6 @@ defaultExpectedFailures = fromList $ map PackageName
     , "threads"
     , "crypto-conduit"
     , "pandoc"
-    , "compdata"
     , "language-ecmascript"
     ]
 
@@ -187,7 +186,6 @@ defaultStablePackages = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "statistics" "< 0.10.4"
 
     addRange "Michael Snoyman" "reflection" "< 1.3"
-    addRange "Michael Snoyman" "compdata" "< 0.6.1.3"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
