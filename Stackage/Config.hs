@@ -82,6 +82,7 @@ defaultExpectedFailures = fromList $ map PackageName
     , "threads"
     , "crypto-conduit"
     , "pandoc"
+    , "compdata"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
