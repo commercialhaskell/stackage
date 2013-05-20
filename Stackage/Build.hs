@@ -73,6 +73,8 @@ build settings' bp = do
                  $ "install"
                  : ("--cabal-lib-version=" ++ libVersion)
                  : "--build-log=logs/$pkg.log"
+                 : "--max-backjumps=-1"
+                 : "--reorder-goals"
                  : "-j"
                  : concat
                     [ bpPackageList bp

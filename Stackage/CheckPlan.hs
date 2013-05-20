@@ -22,7 +22,14 @@ checkPlan bp = do
     _ <- checkCabalVersion
 
     putStrLn "Checking build plan"
-    (ec, dryRun', stderr) <- readProcessWithExitCode "cabal" (addCabalArgsOnlyGlobal $ "install":"--dry-run":bpPackageList bp) ""
+    (ec, dryRun', stderr) <- readProcessWithExitCode "cabal"
+        ( addCabalArgsOnlyGlobal
+        $ "install"
+        : "--dry-run"
+        : "--max-backjumps=-1"
+        : "--reorder-goals"
+        : bpPackageList bp
+        ) ""
     when (ec /= ExitSuccess || "Warning:" `isPrefixOf` stderr) $ do
         putStr stderr
         putStr dryRun'
