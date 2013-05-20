@@ -8,6 +8,7 @@ import           Stackage.Select    (defaultSelectSettings, select)
 import           Stackage.Tarballs  (makeTarballs)
 import           Stackage.Test      (runTestSuites)
 import           Stackage.Types
+import           Stackage.Uploads   (checkUploads)
 import           Stackage.Util      (allowPermissive)
 import           System.Environment (getArgs, getProgName)
 import           System.IO          (hFlush, stdout)
@@ -82,6 +83,7 @@ main :: IO ()
 main = do
     args <- getArgs
     case args of
+        ["uploads"] -> checkUploads "allowed.txt" "new-allowed.txt"
         "select":rest -> do
             SelectArgs {..} <- parseSelectArgs rest
             bp <- select
@@ -115,6 +117,7 @@ main = do
             putStrLn "Available commands:"
             --putStrLn "    update              Download updated Stackage databases. Automatically calls init."
             --putStrLn "    init                Initialize your cabal file to use Stackage"
+            putStrLn "    uploads"
             putStrLn "    select [--no-clean] [--no-platform] [--exclude package...] [--only-permissive] [--allow package] [--build-plan file]"
             putStrLn "    check [--build-plan file] [--sandbox rootdir] [--arg cabal-arg]"
             putStrLn "    build [--build-plan file] [--sandbox rootdir] [--arg cabal-arg]"
