@@ -48,3 +48,19 @@ Notes
 Make sure to have Cabal-1.16 installed in either your global or user database,
 regardless of any sandboxing, as custom build types require it to be present.
 You must build with cabal-install 1.16, due to several important bug fixes.
+
+Using a non-Haskell Platform versions of GHC
+--------------------------------------------
+
+By default, Stackage bases itself off of the Haskell Platform for determining
+which packages are core packages, and locks down package versions to match the
+Haskell Platform selections. This works fine when you are compiling with the
+same version of GHC as the Haskell Platform was built on. If you're using a
+different version of GHC, you'll probably need to use the following options for
+the `select` call:
+
+    --no-platform --use-global-db
+
+The former says to disregard Haskell Platform package versions, and the latter
+says to determine which packages are core packages based on their presence in
+the global package database.
