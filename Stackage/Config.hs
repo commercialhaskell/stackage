@@ -83,6 +83,7 @@ defaultExpectedFailures = fromList $ map PackageName
     , "crypto-conduit"
     , "pandoc"
     , "language-ecmascript"
+    , "hspec"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
@@ -184,8 +185,6 @@ defaultStablePackages = unPackageMap $ execWriter $ do
 
     -- Due to binary package dep
     addRange "Michael Snoyman" "statistics" "< 0.10.4"
-
-    addRange "Michael Snoyman" "reflection" "< 1.3"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
