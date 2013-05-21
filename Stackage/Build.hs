@@ -12,8 +12,9 @@ import           Stackage.InstallInfo
 import           Stackage.Types
 import           Stackage.Util
 import           System.Exit                (ExitCode (ExitSuccess), exitWith)
-import           System.IO                  (IOMode (WriteMode), hPutStrLn,
-                                             withBinaryFile)
+import           System.IO                  (BufferMode (NoBuffering),
+                                             IOMode (WriteMode), hPutStrLn,
+                                             hSetBuffering, withBinaryFile)
 import           System.Process             (rawSystem, runProcess,
                                              waitForProcess)
 
@@ -48,6 +49,8 @@ build settings' bp = do
     let installBuildTool tool = do
             putStrLn $ "Installing build tool: " ++ tool
             ec <- withBinaryFile "build-tools.log" WriteMode $ \handle -> do
+                hSetBuffering handle NoBuffering
+
                 let args = addCabalArgs settings BSBuild
                          $ "install"
                          : ("--cabal-lib-version=" ++ libVersion)
