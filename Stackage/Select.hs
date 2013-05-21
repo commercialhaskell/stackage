@@ -1,4 +1,5 @@
 {-# LANGUAGE PatternGuards #-}
+{-# LANGUAGE CPP #-}
 module Stackage.Select
     ( select
     , defaultSelectSettings
@@ -27,6 +28,11 @@ defaultSelectSettings = SelectSettings
     , excludedPackages = empty
     , flags = \coreMap ->
         Set.fromList (words "blaze_html_0_5") `Set.union`
+
+#if defined(mingw32_HOST_OS) || defined(__MINGW32__)
+        -- Needed on Windows to get unix-compat to compile
+        Set.fromList (words "old-time") `Set.union`
+#endif
         -- Support for containers-unicode-symbols
         (case Map.lookup (PackageName "containers") coreMap of
             Just v | Just range <- simpleParse "< 0.5", v `withinRange` range
