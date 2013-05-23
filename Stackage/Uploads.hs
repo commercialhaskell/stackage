@@ -34,7 +34,6 @@ checkUploads allowedFP newAllowedFP = do
     _ <- evaluate $ msize forbidden
 
     unless (Map.null $ unMonoidMap allowed') $ do
-        let fp = "new-allowed.txt"
         putStrLn $ "Newly uploaded packages detected, writing to " ++ newAllowedFP
         writeAllowed newAllowedFP allowed'
 
@@ -47,9 +46,16 @@ instance (Ord k, Monoid v) => Monoid (MonoidMap k v) where
     MonoidMap x `mappend` MonoidMap y = MonoidMap $ Map.unionWith mappend x y
 
 -- And some helper functions.
+mlookup :: Ord k => k -> MonoidMap k v -> Maybe v
 mlookup k = Map.lookup k . unMonoidMap
+
+msingleton :: k -> v -> MonoidMap k v
 msingleton k = MonoidMap . Map.singleton k
+
+mkeys :: MonoidMap k v -> [k]
 mkeys = Map.keys . unMonoidMap
+
+msize :: MonoidMap k v -> Int
 msize = Map.size . unMonoidMap
 
 type Version = String
@@ -106,7 +112,7 @@ updateAllowed uploads allowed =
     go pkg =
         case (mlookup pkg uploads, mlookup pkg allowed) of
             (Nothing, Nothing) -> assert False (mempty, mempty)
-            (Nothing, Just a) -> (mempty, mempty)
+            (Nothing, Just _) -> (mempty, mempty)
             (Just u, Nothing) -> (msingleton pkg $ getAllUsers u, mempty)
             (Just u, Just a) ->
                 let fval = mconcat $ map (check a) $ Map.toList u
@@ -119,8 +125,8 @@ updateAllowed uploads allowed =
     getAllUsers = Set.fromList . map fst . Map.elems
 
     check :: Set UserName -> (Version, (UserName, UTCTime)) -> Map Version (UserName, UTCTime)
-    check allowed (ver, (user, time))
-        | user `Set.member` allowed = Map.empty
+    check allowed' (ver, (user, time))
+        | user `Set.member` allowed' = Map.empty
         | otherwise = Map.singleton ver (user, time)
 
 writeAllowed :: FilePath -> Allowed -> IO ()

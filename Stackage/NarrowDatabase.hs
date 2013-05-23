@@ -7,7 +7,6 @@ import           Prelude                    hiding (pi)
 import           Stackage.Types
 import           Stackage.Util
 import           System.Exit                (exitFailure)
-import Distribution.Text (display)
 
 -- | Narrow down the database to only the specified packages and all of
 -- their dependencies.
