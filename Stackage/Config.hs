@@ -84,6 +84,7 @@ defaultExpectedFailures = fromList $ map PackageName
     , "pandoc"
     , "language-ecmascript"
     , "hspec"
+    , "alex"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
