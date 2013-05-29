@@ -150,4 +150,4 @@ printForbidden (MonoidMap forbidden) = unless (Map.null forbidden) $ do
                 , " at "
                 , show time
                 ]
-        exitFailure
+    exitFailure
