@@ -174,7 +174,6 @@ defaultStablePackages = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/46
     addRange "Michael Snoyman" "QuickCheck" "< 2.6"
-    addRange "Michael Snoyman" "syb" "< 0.4"
 
     -- https://github.com/fpco/stackage/issues/68
     addRange "Michael Snoyman" "criterion" "< 0.8"
