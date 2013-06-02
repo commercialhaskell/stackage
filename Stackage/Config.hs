@@ -172,6 +172,11 @@ defaultStablePackages = unPackageMap $ execWriter $ do
     mapM_ (add "Ryan Newton <ryan.newton@alum.mit.edu>") $ words
         "accelerate"
 
+    mapM_ (add "Dan Burton <danburton.email@gmail.com>") $ words =<<
+        [ "basic-prelude composition io-memoize numbers rev-state runmemo"
+        , "tardis"
+        ]
+
     -- https://github.com/fpco/stackage/issues/46
     addRange "Michael Snoyman" "QuickCheck" "< 2.6"
 
