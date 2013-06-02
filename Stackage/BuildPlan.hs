@@ -31,19 +31,22 @@ instance AsString BuildPlan where
         , makeSection "packages" $ Map.toList bpPackages
         , makeSection "core" $ Set.toList bpCore
         , makeSection "optional-core" $ Map.toList bpOptionalCore
+        , makeSection "skipped-tests" $ Set.toList bpSkippedTests
         ]
     fromString s1 = do
         (tools, s2) <- getSection "tools" s1
         (packages, s3) <- getSection "packages" s2
         (core, s4) <- getSection "core" s3
         (optionalCore, s5) <- getSection "optional-core" s4
+        (skipped, s6) <- getSection "skipped-tests" s5
         let bp = BuildPlan
                 { bpTools = tools
                 , bpPackages = Map.fromList packages
                 , bpCore = Set.fromList core
                 , bpOptionalCore = Map.fromList optionalCore
+                , bpSkippedTests = Set.fromList skipped
                 }
-        return (bp, s5)
+        return (bp, s6)
 
 makeSection :: AsString a => String -> [a] -> String
 makeSection title contents = unlines

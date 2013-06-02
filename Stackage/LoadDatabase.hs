@@ -80,7 +80,7 @@ loadPackageDB settings coreMap core deps = do
                         _ ->
                             case Tar.entryContent e of
                                 Tar.NormalFile bs _ -> do
-                                    let (deps', hasTests, buildTools', mgpd, execs, mgithub) = parseDeps bs
+                                    let (deps', hasTests, buildTools', mgpd, execs, mgithub) = parseDeps p bs
                                     return $ mappend pdb $ PackageDB $ Map.singleton p PackageInfo
                                         { piVersion = v
                                         , piDeps = deps'
@@ -92,15 +92,19 @@ loadPackageDB settings coreMap core deps = do
                                         }
                                 _ -> return pdb
 
-    parseDeps lbs =
+    skipTests p = p `Set.member` skippedTests settings
+
+    parseDeps p lbs =
         case parsePackageDescription $ L8.unpack lbs of
             ParseOk _ gpd -> (mconcat
                 [ maybe mempty (go gpd) $ condLibrary gpd
                 , mconcat $ map (go gpd . snd) $ condExecutables gpd
-                , mconcat $ map (go gpd . snd) $ condTestSuites gpd
+                , if skipTests p
+                    then mempty
+                    else mconcat $ map (go gpd . snd) $ condTestSuites gpd
                 , mconcat $ map (go gpd . snd) $ condBenchmarks gpd
                 ], not $ null $ condTestSuites gpd
-                , Set.fromList $ map depName $ allBuildInfo gpd
+                , Set.fromList $ map depName $ allBuildInfo p gpd
                 , Just gpd
                 , Set.fromList $ map (Executable . fst) $ condExecutables gpd
                 , listToMaybe $ catMaybes
@@ -109,10 +113,12 @@ loadPackageDB settings coreMap core deps = do
                 )
             _ -> (mempty, defaultHasTestSuites, Set.empty, Nothing, Set.empty, Nothing)
       where
-        allBuildInfo gpd = concat
+        allBuildInfo p gpd = concat
             [ maybe mempty (goBI libBuildInfo) $ condLibrary gpd
             , concat $ map (goBI buildInfo . snd) $ condExecutables gpd
-            , concat $ map (goBI testBuildInfo . snd) $ condTestSuites gpd
+            , if skipTests p
+                then []
+                else concat $ map (goBI testBuildInfo . snd) $ condTestSuites gpd
             , concat $ map (goBI benchmarkBuildInfo . snd) $ condBenchmarks gpd
             ]
           where

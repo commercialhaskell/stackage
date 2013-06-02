@@ -83,6 +83,7 @@ data BuildPlan = BuildPlan
     , bpCore         :: Set PackageName
     , bpOptionalCore :: Map PackageName Version
       -- ^ See 'iiOptionalCore'
+    , bpSkippedTests :: Set PackageName
     }
 
 -- | Email address of a Stackage maintainer.
@@ -115,6 +116,9 @@ data SelectSettings = SelectSettings
     -- ^ Instead of checking the Haskell Platform file for core packages, query
     -- the global database. For this to be reliable, you should only have
     -- default packages in your global database. Default is @False@.
+    , skippedTests           :: Set PackageName
+    -- ^ Do not build or run test suites, usually in order to avoid a
+    -- dependency.
     }
 
 data BuildStage = BSBuild | BSTest

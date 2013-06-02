@@ -22,13 +22,15 @@ import           System.Process     (runProcess, waitForProcess)
 runTestSuites :: BuildSettings -> BuildPlan -> IO ()
 runTestSuites settings' bp = do
     settings <- fixBuildSettings settings'
-    let selected = bpPackages bp
+    let selected = Map.filterWithKey notSkipped $ bpPackages bp
     putStrLn "Running test suites"
     let testdir = "runtests"
     rm_r testdir
     createDirectory testdir
     allPass <- parFoldM (testWorkerThreads settings) (runTestSuite settings testdir) (&&) True $ Map.toList selected
     unless allPass $ error $ "There were failures, please see the logs in " ++ testdir
+  where
+    notSkipped p _ = p `Set.notMember` bpSkippedTests bp
 
 parFoldM :: Int -- ^ number of threads
          -> (b -> IO c)

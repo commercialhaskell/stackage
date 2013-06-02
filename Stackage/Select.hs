@@ -41,6 +41,7 @@ defaultSelectSettings = SelectSettings
     , disabledFlags = Set.fromList $ words "bytestring-in-base"
     , allowedPackage = const $ Right ()
     , useGlobalDatabase = False
+    , skippedTests = empty
     }
 
 select :: SelectSettings -> IO BuildPlan
@@ -57,6 +58,7 @@ select settings' = do
         , bpPackages = iiPackages ii
         , bpOptionalCore = iiOptionalCore ii
         , bpCore = iiCore ii
+        , bpSkippedTests = skippedTests settings'
         }
 
 -- | Get all of the build tools required.
