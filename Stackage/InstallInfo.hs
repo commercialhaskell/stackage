@@ -4,18 +4,19 @@ module Stackage.InstallInfo
     , bpPackageList
     ) where
 
-import           Control.Monad            (forM_)
+import           Control.Monad            (forM_, unless)
 import qualified Data.Map                 as Map
 import qualified Data.Set                 as Set
 import           Data.Version             (showVersion)
 import qualified Distribution.Text
 import           Distribution.Version     (simplifyVersionRange, withinRange)
+import           Stackage.GhcPkg
 import           Stackage.HaskellPlatform
 import           Stackage.LoadDatabase
 import           Stackage.NarrowDatabase
 import           Stackage.Types
 import           Stackage.Util
-import           Stackage.GhcPkg
+import           System.Exit              (exitFailure)
 
 dropExcluded :: SelectSettings
              -> Map PackageName (VersionRange, Maintainer)
@@ -42,16 +43,22 @@ getInstallInfo settings = do
             | requireHaskellPlatform settings = Map.union (stablePackages settings) $ identsToRanges (hplibs hp)
             | otherwise = stablePackages settings
         allPackages = dropExcluded settings allPackages'
+    mapM_ print $ Map.keys allPackages
     let totalCore = extraCore settings `Set.union` Set.map (\(PackageIdentifier p _) -> p) core
 
     putStrLn "Loading package database"
     pdb <- loadPackageDB settings coreMap totalCore allPackages
 
     putStrLn "Narrowing package database"
-    final <- narrowPackageDB settings totalCore pdb $ Set.fromList $ Map.toList $ Map.map snd $ allPackages
+    (final, errs) <- narrowPackageDB settings totalCore pdb $ Set.fromList $ Map.toList $ Map.map snd $ allPackages
 
     putStrLn "Printing build plan to build-plan.log"
     writeFile "build-plan.log" $ unlines $ map showDep $ Map.toList final
+
+    unless (Set.null errs) $ do
+        putStrLn "Build plan requires some disallowed packages"
+        mapM_ putStrLn $ Set.toList errs
+        exitFailure
 
     putStrLn "Checking for bad versions"
     case checkBadVersions settings coreMap pdb final of

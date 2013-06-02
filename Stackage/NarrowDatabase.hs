@@ -14,15 +14,9 @@ narrowPackageDB :: SelectSettings
                 -> Set PackageName -- ^ core packages to be excluded from installation
                 -> PackageDB
                 -> Set (PackageName, Maintainer)
-                -> IO (Map PackageName BuildInfo)
-narrowPackageDB settings core (PackageDB pdb) packageSet = do
-    (res, errs) <- runWriterT $ loop Map.empty $ Set.map (\(name, maintainer) -> ([], name, maintainer)) packageSet
-    if Set.null errs
-        then return res
-        else do
-            putStrLn "Build plan requires some disallowed packages"
-            mapM_ putStrLn $ Set.toList errs
-            exitFailure
+                -> IO (Map PackageName BuildInfo, Set String)
+narrowPackageDB settings core (PackageDB pdb) packageSet =
+    runWriterT $ loop Map.empty $ Set.map (\(name, maintainer) -> ([], name, maintainer)) packageSet
   where
     loop result toProcess =
         case Set.minView toProcess of
