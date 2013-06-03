@@ -104,7 +104,7 @@ loadPackageDB settings coreMap core deps = do
                     else mconcat $ map (go gpd . snd) $ condTestSuites gpd
                 , mconcat $ map (go gpd . snd) $ condBenchmarks gpd
                 ], not $ null $ condTestSuites gpd
-                , Set.fromList $ map depName $ allBuildInfo p gpd
+                , Set.fromList $ map depName $ allBuildInfo gpd
                 , Just gpd
                 , Set.fromList $ map (Executable . fst) $ condExecutables gpd
                 , listToMaybe $ catMaybes
@@ -113,7 +113,7 @@ loadPackageDB settings coreMap core deps = do
                 )
             _ -> (mempty, defaultHasTestSuites, Set.empty, Nothing, Set.empty, Nothing)
       where
-        allBuildInfo p gpd = concat
+        allBuildInfo gpd = concat
             [ maybe mempty (goBI libBuildInfo) $ condLibrary gpd
             , concat $ map (goBI buildInfo . snd) $ condExecutables gpd
             , if skipTests p
@@ -123,10 +123,10 @@ loadPackageDB settings coreMap core deps = do
             ]
           where
             goBI f x = buildTools $ f $ condTreeData x
-        depName (Dependency (PackageName p) _) = Executable p
+        depName (Dependency (PackageName pn) _) = Executable pn
         go gpd tree
             = Map.unionsWith unionVersionRanges
-            $ Map.fromList (map (\(Dependency p vr) -> (p, vr)) $ condTreeConstraints tree)
+            $ Map.fromList (map (\(Dependency pn vr) -> (pn, vr)) $ condTreeConstraints tree)
             : map (go gpd) (mapMaybe (checkCond gpd) $ condTreeComponents tree)
 
         checkCond gpd (cond, tree, melse)
