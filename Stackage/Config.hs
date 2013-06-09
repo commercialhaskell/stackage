@@ -193,6 +193,9 @@ defaultStablePackages = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "statistics" "< 0.10.4"
 
     addRange "Michael Snoyman" "accelerate" "< 0.13.0.2"
+
+    -- https://github.com/fpco/stackage/issues/81
+    addRange "Michael Snoyman" "fingertree" "< 0.1"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
