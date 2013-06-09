@@ -191,6 +191,8 @@ defaultStablePackages = unPackageMap $ execWriter $ do
 
     -- Due to binary package dep
     addRange "Michael Snoyman" "statistics" "< 0.10.4"
+
+    addRange "Michael Snoyman" "accelerate" "< 0.13.0.2"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
