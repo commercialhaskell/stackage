@@ -43,7 +43,6 @@ getInstallInfo settings = do
             | requireHaskellPlatform settings = Map.union (stablePackages settings) $ identsToRanges (hplibs hp)
             | otherwise = stablePackages settings
         allPackages = dropExcluded settings allPackages'
-    mapM_ print $ Map.keys allPackages
     let totalCore = extraCore settings `Set.union` Set.map (\(PackageIdentifier p _) -> p) core
 
     putStrLn "Loading package database"
