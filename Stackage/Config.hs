@@ -196,6 +196,9 @@ defaultStablePackages = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "fingertree" "< 0.1"
 
     addRange "Michael Snoyman" "hashable" "< 1.2"
+
+    -- Requires containers 0.5, not supported by GHC 7.4
+    addRange "Michael Snoyman" "bytes" "< 0.8"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
