@@ -135,6 +135,11 @@ loadPackageDB settings coreMap core deps = do
           where
             checkCond' (Var (OS os)) = os == buildOS
             checkCond' (Var (Arch arch)) = arch == buildArch
+
+            -- Sigh... the small_base flag on mersenne-random-pure64 is backwards
+            checkCond' (Var (Flag (FlagName "small_base")))
+                | p == PackageName "mersenne-random-pure64" = False
+
             checkCond' (Var (Flag flag@(FlagName flag'))) =
                 flag' `Set.notMember` disabledFlags settings &&
                 flag `elem` flags'
