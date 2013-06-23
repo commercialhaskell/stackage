@@ -199,6 +199,9 @@ defaultStablePackages = unPackageMap $ execWriter $ do
 
     -- Requires containers 0.5, not supported by GHC 7.4
     addRange "Michael Snoyman" "bytes" "< 0.8"
+
+    -- unknown symbol `utf8_table4'
+    addRange "Michael Snoyman" "regex-pcre-builtin" "< 0.94.4.6.8.31"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
