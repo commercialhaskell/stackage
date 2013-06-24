@@ -105,7 +105,7 @@ defaultStablePackages = unPackageMap $ execWriter $ do
     mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
         [ "web-fpco th-expand-syns configurator compdata smtLib unification-fd"
         , "fixed-list indents language-c pretty-class"
-        , "aws yesod-auth-oauth"
+        , "aws yesod-auth-oauth csv-conduit cassava"
         ]
     addRange "FP Complete <michael@fpcomplete.com>" "kure" "<= 2.4.10"
 
