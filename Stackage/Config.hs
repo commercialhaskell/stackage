@@ -200,6 +200,7 @@ defaultStablePackages = unPackageMap $ execWriter $ do
 
     -- Requires containers 0.5, not supported by GHC 7.4
     addRange "Michael Snoyman" "bytes" "< 0.8"
+    addRange "Michael Snoyman" "multiset" "<= 0.2.1"
 
     -- unknown symbol `utf8_table4'
     addRange "Michael Snoyman" "regex-pcre-builtin" "< 0.94.4.6.8.31"
