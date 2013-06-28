@@ -106,7 +106,7 @@ defaultStablePackages = unPackageMap $ execWriter $ do
         [ "web-fpco th-expand-syns configurator compdata smtLib unification-fd"
         , "fixed-list indents language-c pretty-class"
         , "aws yesod-auth-oauth csv-conduit cassava"
-        , "multiset async"
+        , "async"
         ]
     addRange "FP Complete <michael@fpcomplete.com>" "kure" "<= 2.4.10"
 
