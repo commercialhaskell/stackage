@@ -85,6 +85,9 @@ defaultExpectedFailures = fromList $ map PackageName
     , "language-ecmascript"
     , "hspec"
     , "alex"
+
+      -- https://github.com/basvandijk/concurrent-extra/issues/
+    , "concurrent-extra"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
