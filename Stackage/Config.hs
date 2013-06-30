@@ -7,23 +7,18 @@ import           Data.Set                   (fromList)
 import           Distribution.Text          (simpleParse)
 import           Stackage.Types
 
-targetCompilerVersion :: Version
-targetCompilerVersion =
-    case simpleParse "7.4.2" of
-        Nothing -> error "Invalid targetCompilerVersion"
-        Just v -> v
-
 -- | Packages which are shipped with GHC but are not included in the
 -- Haskell Platform list of core packages.
-defaultExtraCore :: Set PackageName
-defaultExtraCore = fromList $ map PackageName $ words
+defaultExtraCore :: GhcMajorVersion -> Set PackageName
+defaultExtraCore _ = fromList $ map PackageName $ words
     "binary Win32"
 
 -- | Test suites which are expected to fail for some reason. The test suite
 -- will still be run and logs kept, but a failure will not indicate an
 -- error in our package combination.
-defaultExpectedFailures :: Set PackageName
-defaultExpectedFailures = fromList $ map PackageName
+defaultExpectedFailures :: GhcMajorVersion
+                        -> Set PackageName
+defaultExpectedFailures _ = fromList $ map PackageName
     [ -- Requires an old version of WAI and Warp for tests
       "HTTP"
 
@@ -93,8 +88,8 @@ defaultExpectedFailures = fromList $ map PackageName
 -- | List of packages for our stable Hackage. All dependencies will be
 -- included as well. Please indicate who will be maintaining the package
 -- via comments.
-defaultStablePackages :: Map PackageName (VersionRange, Maintainer)
-defaultStablePackages = unPackageMap $ execWriter $ do
+defaultStablePackages :: GhcMajorVersion -> Map PackageName (VersionRange, Maintainer)
+defaultStablePackages _ = unPackageMap $ execWriter $ do
     mapM_ (add "michael@snoyman.com") $ words =<<
         [ "yesod yesod-newsfeed yesod-sitemap yesod-static yesod-test yesod-bin"
         , "markdown filesystem-conduit mime-mail-ses"

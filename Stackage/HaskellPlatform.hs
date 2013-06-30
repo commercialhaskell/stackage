@@ -10,9 +10,25 @@ import           Data.Monoid       (Monoid (..))
 import           Data.Set          (singleton)
 import           Distribution.Text (simpleParse)
 import           Stackage.Types
+import System.Directory (doesFileExist)
+import System.FilePath ((</>))
 
-loadHaskellPlatform :: SelectSettings -> IO HaskellPlatform
-loadHaskellPlatform = fmap parseHP . readFile . haskellPlatformCabal
+loadHaskellPlatform :: SelectSettings -> IO (Maybe HaskellPlatform)
+loadHaskellPlatform ss = do
+    e <- doesFileExist fp
+    if e
+        then fmap (Just . parseHP) $ readFile fp
+        else return Nothing
+  where
+    GhcMajorVersion x y = selectGhcVersion ss
+
+    fp = haskellPlatformDir ss </> (concat
+        [ "haskell-platform-"
+        , show x
+        , "."
+        , show y
+        , ".cabal"
+        ])
 
 data HPLine = HPLPackage PackageIdentifier
             | HPLBeginCore

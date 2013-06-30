@@ -3,6 +3,7 @@ import           Data.Set           (fromList)
 import           Stackage.Build     (build, defaultBuildSettings)
 import           Stackage.BuildPlan (readBuildPlan, writeBuildPlan)
 import           Stackage.CheckPlan (checkPlan)
+import           Stackage.GhcPkg (getGhcVersion)
 import           Stackage.Init      (stackageInit)
 import           Stackage.Select    (defaultSelectSettings, select)
 import           Stackage.Tarballs  (makeTarballs)
@@ -49,10 +50,10 @@ data BuildArgs = BuildArgs
     , noDocs       :: Bool
     }
 
-parseBuildArgs :: [String] -> IO BuildArgs
-parseBuildArgs =
+parseBuildArgs :: GhcMajorVersion -> [String] -> IO BuildArgs
+parseBuildArgs version =
     loop BuildArgs
-        { sandbox = sandboxRoot defaultBuildSettings
+        { sandbox = sandboxRoot $ defaultBuildSettings version
         , buildPlanSrc = defaultBuildPlan
         , extraArgs' = id
         , noDocs = False
@@ -70,11 +71,12 @@ defaultBuildPlan = "build-plan.txt"
 
 withBuildSettings :: [String] -> (BuildSettings -> BuildPlan -> IO a) -> IO a
 withBuildSettings args f = do
-    BuildArgs {..} <- parseBuildArgs args
+    version <- getGhcVersion
+    BuildArgs {..} <- parseBuildArgs version args
     bp <- readBuildPlan buildPlanSrc
-    let settings = defaultBuildSettings
+    let settings = (defaultBuildSettings version)
             { sandboxRoot = sandbox
-            , extraArgs = extraArgs' . extraArgs defaultBuildSettings
+            , extraArgs = extraArgs' . extraArgs (defaultBuildSettings version)
             , buildDocs = not noDocs
             }
     f settings bp
@@ -86,8 +88,9 @@ main = do
         ["uploads"] -> checkUploads "allowed.txt" "new-allowed.txt"
         "select":rest -> do
             SelectArgs {..} <- parseSelectArgs rest
+            ghcVersion <- getGhcVersion
             bp <- select
-                defaultSelectSettings
+                (defaultSelectSettings ghcVersion)
                     { excludedPackages = fromList $ map PackageName excluded
                     , requireHaskellPlatform = not noPlatform
                     , allowedPackage =

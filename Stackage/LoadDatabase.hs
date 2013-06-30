@@ -37,7 +37,7 @@ import           Distribution.PackageDescription.Parse (ParseResult (ParseOk),
                                                         parsePackageDescription)
 import           Distribution.System                   (buildArch, buildOS)
 import           Distribution.Version                  (unionVersionRanges,
-                                                        withinRange)
+                                                        withinRange, Version (Version))
 import           Stackage.Config
 import           Stackage.Types
 import           Stackage.Util
@@ -66,6 +66,10 @@ loadPackageDB settings coreMap core deps = do
     addEntries _ (Tar.Fail e) = error $ show e
     addEntries db Tar.Done = return db
     addEntries db (Tar.Next e es) = addEntry db e >>= flip addEntries es
+
+    ghcVersion' =
+        let GhcMajorVersion x y = selectGhcVersion settings
+         in Version [x, y, 2] []
 
     addEntry :: PackageDB -> Tar.Entry -> IO PackageDB
     addEntry pdb e =
@@ -144,7 +148,7 @@ loadPackageDB settings coreMap core deps = do
                 flag' `Set.notMember` disabledFlags settings &&
                 flag `elem` flags'
             checkCond' (Var (Impl compiler range)) =
-                compiler == GHC && withinRange targetCompilerVersion range
+                compiler == GHC && withinRange ghcVersion' range
             checkCond' (Lit b) = b
             checkCond' (CNot c) = not $ checkCond' c
             checkCond' (COr c1 c2) = checkCond' c1 || checkCond' c2

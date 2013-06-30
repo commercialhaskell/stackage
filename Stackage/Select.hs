@@ -18,12 +18,12 @@ import           Stackage.InstallInfo
 import           Stackage.Types
 import           Stackage.Util
 
-defaultSelectSettings :: SelectSettings
-defaultSelectSettings = SelectSettings
-    { extraCore = defaultExtraCore
-    , expectedFailuresSelect = defaultExpectedFailures
-    , stablePackages = defaultStablePackages
-    , haskellPlatformCabal = "haskell-platform/haskell-platform.cabal"
+defaultSelectSettings :: GhcMajorVersion -> SelectSettings
+defaultSelectSettings version = SelectSettings
+    { extraCore = defaultExtraCore version
+    , expectedFailuresSelect = defaultExpectedFailures version
+    , stablePackages = defaultStablePackages version
+    , haskellPlatformDir = "haskell-platform"
     , requireHaskellPlatform = True
     , excludedPackages = empty
     , flags = \coreMap ->
@@ -42,6 +42,7 @@ defaultSelectSettings = SelectSettings
     , allowedPackage = const $ Right ()
     , useGlobalDatabase = False
     , skippedTests = empty
+    , selectGhcVersion = version
     }
 
 select :: SelectSettings -> IO BuildPlan

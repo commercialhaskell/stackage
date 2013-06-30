@@ -18,10 +18,10 @@ import           System.IO                  (BufferMode (NoBuffering),
 import           System.Process             (rawSystem, runProcess,
                                              waitForProcess)
 
-defaultBuildSettings :: BuildSettings
-defaultBuildSettings = BuildSettings
+defaultBuildSettings :: GhcMajorVersion -> BuildSettings
+defaultBuildSettings version = BuildSettings
     { sandboxRoot = "sandbox"
-    , expectedFailuresBuild = defaultExpectedFailures
+    , expectedFailuresBuild = defaultExpectedFailures version
     , extraArgs = const ["-fnetwork23"]
     , testWorkerThreads = 4
     , buildDocs = True

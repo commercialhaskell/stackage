@@ -91,7 +91,7 @@ newtype Maintainer = Maintainer { unMaintainer :: String }
     deriving (Show, Eq, Ord, Read)
 
 data SelectSettings = SelectSettings
-    { haskellPlatformCabal   :: FilePath
+    { haskellPlatformDir     :: FilePath
     , flags                  :: Map PackageName Version -> Set String
     -- ^ Compile flags which should be turned on. Takes a Map providing the
     -- core packages so that flags can be set appropriately.
@@ -119,6 +119,7 @@ data SelectSettings = SelectSettings
     , skippedTests           :: Set PackageName
     -- ^ Do not build or run test suites, usually in order to avoid a
     -- dependency.
+    , selectGhcVersion       :: GhcMajorVersion
     }
 
 data BuildStage = BSBuild | BSTest
@@ -142,3 +143,7 @@ instance Monoid PackageMap where
         PackageMap $ unionWith go x y
       where
         go (r1, m1) (r2, _) = (intersectVersionRanges r1 r2, m1)
+
+-- | GHC major version. For example, for GHC 7.4.2, this would be 7 4.
+data GhcMajorVersion = GhcMajorVersion Int Int
+    deriving (Show, Ord, Eq)

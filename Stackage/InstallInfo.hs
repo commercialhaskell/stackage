@@ -27,21 +27,23 @@ dropExcluded bs m0 =
 getInstallInfo :: SelectSettings -> IO InstallInfo
 getInstallInfo settings = do
     putStrLn "Loading Haskell Platform"
-    hp <- loadHaskellPlatform settings
+    mhp <- loadHaskellPlatform settings
 
     core <-
-        if useGlobalDatabase settings
-            then do
+        case mhp of
+            Just hp | not (useGlobalDatabase settings) -> return $ hpcore hp
+            _ -> do
                 putStrLn "Loading core packages from global database"
-                getGlobalPackages
-            else return $ hpcore hp
+                getGlobalPackages $ selectGhcVersion settings
     let coreMap = Map.unions
                 $ map (\(PackageIdentifier k v) -> Map.singleton k v)
                 $ Set.toList core
 
-    let allPackages'
-            | requireHaskellPlatform settings = Map.union (stablePackages settings) $ identsToRanges (hplibs hp)
-            | otherwise = stablePackages settings
+    let allPackages' =
+            case mhp of
+                Just hp | requireHaskellPlatform settings ->
+                    Map.union (stablePackages settings) $ identsToRanges (hplibs hp)
+                _ -> stablePackages settings
         allPackages = dropExcluded settings allPackages'
     let totalCore = extraCore settings `Set.union` Set.map (\(PackageIdentifier p _) -> p) core
 
@@ -80,7 +82,10 @@ getInstallInfo settings = do
     return InstallInfo
         { iiCore = totalCore
         , iiPackages = Map.map biToSPI final
-        , iiOptionalCore = Map.fromList $ map (\(PackageIdentifier p v) -> (p, v)) $ Set.toList $ hplibs hp
+        , iiOptionalCore = maybe
+            Map.empty
+            (Map.fromList . map (\(PackageIdentifier p v) -> (p, v)) . Set.toList . hplibs)
+            mhp
         , iiPackageDB = pdb
         }
 
