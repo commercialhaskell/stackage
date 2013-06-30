@@ -132,6 +132,8 @@ data BuildSettings = BuildSettings
     -- ^ How many threads to spawn for running test suites.
     , buildDocs             :: Bool
     -- ^ Build docs as part of the test procedure.
+    , tarballDir            :: FilePath
+    -- ^ Directory containing replacement tarballs.
     }
 
 -- | A wrapper around a @Map@ providing a better @Monoid@ instance.

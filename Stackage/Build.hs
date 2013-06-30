@@ -25,6 +25,7 @@ defaultBuildSettings version = BuildSettings
     , extraArgs = const ["-fnetwork23"]
     , testWorkerThreads = 4
     , buildDocs = True
+    , tarballDir = "patching/tarballs"
     }
 
 build :: BuildSettings -> BuildPlan -> IO ()
@@ -72,6 +73,7 @@ build settings' bp = do
 
     putStrLn "Beginning Stackage build"
     ph <- withBinaryFile "build.log" WriteMode $ \handle -> do
+        packageList <- mapM (replaceTarball settings) $ bpPackageList bp
         let args = addCabalArgs settings BSBuild
                  $ "install"
                  : ("--cabal-lib-version=" ++ libVersion)
@@ -79,9 +81,7 @@ build settings' bp = do
                  : "--max-backjumps=-1"
                  : "--reorder-goals"
                  : "-j"
-                 : concat
-                    [ bpPackageList bp
-                    ]
+                 : packageList
         hPutStrLn handle ("cabal " ++ unwords (map (\s -> "'" ++ s ++ "'") args))
         runCabal args handle
     ec <- waitForProcess ph

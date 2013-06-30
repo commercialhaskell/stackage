@@ -18,11 +18,11 @@ import           Distribution.Version            (thisVersion)
 import           Stackage.Types
 import           System.Directory                (doesDirectoryExist,
                                                   removeDirectoryRecursive)
-import           System.Directory                (getAppUserDataDirectory)
-import           System.Directory                (canonicalizePath,
-                                                  createDirectoryIfMissing)
+import           System.Directory                (getAppUserDataDirectory
+                                                 ,canonicalizePath,
+                                                  createDirectoryIfMissing, doesFileExist)
 import           System.Environment              (getEnvironment)
-import           System.FilePath                 ((</>))
+import           System.FilePath                 ((</>), (<.>))
 
 -- | Allow only packages with permissive licenses.
 allowPermissive :: [String] -- ^ list of explicitly allowed packages
@@ -148,3 +148,16 @@ fixBuildSettings settings' = do
     createDirectoryIfMissing True root'
     root <- canonicalizePath root'
     return settings' { sandboxRoot = root }
+
+-- | Check if a tarball exists in the tarball directory and, if so, use that
+-- instead of the given name.
+replaceTarball :: BuildSettings
+               -> String
+               -> IO String
+replaceTarball bs pkgname = do
+    exists <- doesFileExist fp
+    if exists
+        then canonicalizePath fp
+        else return pkgname
+  where
+    fp = tarballDir bs </> pkgname <.> "tar.gz"
