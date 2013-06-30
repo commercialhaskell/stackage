@@ -1,5 +1,7 @@
 #!/bin/bash -ex
 
+shopt -s nullglob
+
 mkdir -p tarballs
 
 for f in patches/*

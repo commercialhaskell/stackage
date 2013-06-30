@@ -1,5 +1,7 @@
 #!/bin/bash -ex
 
+shopt -s nullglob
+
 mkdir -p patches work
 
 for f in work/*
