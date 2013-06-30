@@ -18,7 +18,9 @@ loadHaskellPlatform ss = do
     e <- doesFileExist fp
     if e
         then fmap (Just . parseHP) $ readFile fp
-        else return Nothing
+        else do
+            putStrLn "Warning: No Haskell Platform found for current GHC version"
+            return Nothing
   where
     GhcMajorVersion x y = selectGhcVersion ss
 
