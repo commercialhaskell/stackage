@@ -176,6 +176,9 @@ defaultStablePackages _ = unPackageMap $ execWriter $ do
         , "tardis"
         ]
 
+    mapM_ (add "Daniel Díaz <dhelta.diaz@gmail.com>") $ words
+        "HaTeX"
+
     -- https://github.com/fpco/stackage/issues/46
     addRange "Michael Snoyman" "QuickCheck" "< 2.6"
 
