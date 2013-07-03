@@ -38,7 +38,6 @@ import           Distribution.PackageDescription.Parse (ParseResult (ParseOk),
 import           Distribution.System                   (buildArch, buildOS)
 import           Distribution.Version                  (unionVersionRanges,
                                                         withinRange, Version (Version))
-import           Stackage.Config
 import           Stackage.Types
 import           Stackage.Util
 

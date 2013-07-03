@@ -6,8 +6,6 @@ import           Distribution.Text (simpleParse)
 import           Distribution.Version (Version (Version))
 import Data.Char (isSpace)
 import qualified Data.Set as Set
-import Data.Maybe (fromMaybe)
-import Control.Monad (guard)
 
 getGlobalPackages :: GhcMajorVersion -> IO (Set PackageIdentifier)
 getGlobalPackages version = do
