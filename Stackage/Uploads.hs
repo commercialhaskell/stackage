@@ -2,6 +2,8 @@
 -- uploaders.
 module Stackage.Uploads
     ( checkUploads
+    , printForbidden
+    , filterForbidden
     ) where
 
 import           Control.Exception (assert, evaluate)
@@ -14,13 +16,14 @@ import           Data.Set          (Set)
 import qualified Data.Set          as Set
 import           Data.Time         (UTCTime, parseTime)
 import           Network.HTTP      (getRequest, getResponseBody, simpleHTTP)
+import qualified Stackage.Types    as ST
 import           System.Directory  (doesFileExist)
 import           System.Exit       (exitFailure)
 import           System.Locale
 
 checkUploads :: FilePath -- ^ allowed
              -> FilePath -- ^ new allowed
-             -> IO ()
+             -> IO Forbidden
 checkUploads allowedFP newAllowedFP = do
     putStrLn "Getting upload log"
     uploadLog <- getUploadLog
@@ -37,7 +40,7 @@ checkUploads allowedFP newAllowedFP = do
         putStrLn $ "Newly uploaded packages detected, writing to " ++ newAllowedFP
         writeAllowed newAllowedFP allowed'
 
-    printForbidden forbidden
+    return forbidden
 
 -- Define a Map newtype wrapper with a proper Monoid instance.
 newtype MonoidMap k v = MonoidMap { unMonoidMap :: Map k v }
@@ -151,3 +154,15 @@ printForbidden (MonoidMap forbidden) = unless (Map.null forbidden) $ do
                 , show time
                 ]
     exitFailure
+
+filterForbidden :: ST.BuildPlan
+                -> Forbidden
+                -> Forbidden
+filterForbidden bp =
+    MonoidMap . Map.filterWithKey isIncluded . unMonoidMap
+  where
+    isIncluded pn _ = ST.PackageName pn `Set.member` allPackages
+    allPackages =
+        Map.keysSet (ST.bpPackages bp) `Set.union`
+        ST.bpCore bp `Set.union`
+        Map.keysSet (ST.bpOptionalCore bp)
