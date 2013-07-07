@@ -15,6 +15,7 @@ import           Data.Monoid       (Monoid (..))
 import           Data.Set          (Set)
 import qualified Data.Set          as Set
 import           Data.Time         (UTCTime, parseTime)
+import           Distribution.Text (display)
 import           Network.HTTP      (getRequest, getResponseBody, simpleHTTP)
 import qualified Stackage.Types    as ST
 import           System.Directory  (doesFileExist)
@@ -159,10 +160,13 @@ filterForbidden :: ST.BuildPlan
                 -> Forbidden
                 -> Forbidden
 filterForbidden bp =
-    MonoidMap . Map.filterWithKey isIncluded . unMonoidMap
+    MonoidMap . Map.mapMaybeWithKey isIncluded . unMonoidMap
   where
-    isIncluded pn _ = ST.PackageName pn `Set.member` allPackages
-    allPackages =
-        Map.keysSet (ST.bpPackages bp) `Set.union`
-        ST.bpCore bp `Set.union`
-        Map.keysSet (ST.bpOptionalCore bp)
+    isIncluded :: PackageName
+               -> PackageHistory
+               -> Maybe PackageHistory
+    isIncluded pn ph = do
+        spi <- Map.lookup (ST.PackageName pn) $ ST.bpPackages bp
+        let version = display $ ST.spiVersion spi
+        tuple <- Map.lookup version ph
+        Just $ Map.singleton version tuple
