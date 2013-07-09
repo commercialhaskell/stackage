@@ -132,7 +132,7 @@ defaultStablePackages _ = unPackageMap $ execWriter $ do
         , "cryptohash hit language-java libgit pem siphash socks tls"
         , "tls-debug tls-extra vhd xenstore"
         ]
-    mapM (add "Alberto G. Corona <agocorona@gmail.com>") $ words
+    mapM_ (add "Alberto G. Corona <agocorona@gmail.com>") $ words
          "RefSerialize TCache Workflow MFlow"
 
 #if !defined(mingw32_HOST_OS) && !defined(__MINGW32__)
