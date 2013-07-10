@@ -83,6 +83,9 @@ defaultExpectedFailures _ = fromList $ map PackageName
 
       -- https://github.com/basvandijk/concurrent-extra/issues/
     , "concurrent-extra"
+
+      -- https://github.com/rrnewton/haskell-lockfree-queue/issues/7
+    , "abstract-deque"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
