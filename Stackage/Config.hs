@@ -133,7 +133,9 @@ defaultStablePackages _ = unPackageMap $ execWriter $ do
         , "tls-debug tls-extra vhd xenstore"
         ]
     mapM_ (add "Alberto G. Corona <agocorona@gmail.com>") $ words
-         "RefSerialize TCache Workflow MFlow"
+         "RefSerialize TCache Workflow"
+         -- https://github.com/fpco/stackage/issues/86
+         -- MFlow
 
 #if !defined(mingw32_HOST_OS) && !defined(__MINGW32__)
     -- Does not compile on Windows
