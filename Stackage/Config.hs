@@ -203,6 +203,9 @@ defaultStablePackages _ = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/81
     addRange "Michael Snoyman" "fingertree" "< 0.1"
 
+    -- https://github.com/fpco/stackage/issues/89
+    addRange "Michael Snoyman" "semigroupoids" "< 3.1"
+
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
     -- Requires containers 0.5, not supported by GHC 7.4
