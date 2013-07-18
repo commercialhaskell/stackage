@@ -1,6 +1,7 @@
 {-# LANGUAGE CPP #-}
 module Stackage.Config where
 
+import           Control.Monad              (when)
 import           Control.Monad.Trans.Writer (execWriter, tell)
 import qualified Data.Map                   as Map
 import           Data.Set                   (fromList)
@@ -92,7 +93,7 @@ defaultExpectedFailures _ = fromList $ map PackageName
 -- included as well. Please indicate who will be maintaining the package
 -- via comments.
 defaultStablePackages :: GhcMajorVersion -> Map PackageName (VersionRange, Maintainer)
-defaultStablePackages _ = unPackageMap $ execWriter $ do
+defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     mapM_ (add "michael@snoyman.com") $ words =<<
         [ "yesod yesod-newsfeed yesod-sitemap yesod-static yesod-test yesod-bin"
         , "markdown filesystem-conduit mime-mail-ses"
@@ -110,6 +111,8 @@ defaultStablePackages _ = unPackageMap $ execWriter $ do
         , "async"
         , "hxt"
         ]
+    when (ghcVer < GhcMajorVersion 7 6) $
+        addRange "FP Complete <michael@fpcomplete.com>" "hxt" "<= 9.3.0.1"
     addRange "FP Complete <michael@fpcomplete.com>" "kure" "<= 2.4.10"
 
     mapM_ (add "Neil Mitchell") $ words
