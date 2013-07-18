@@ -108,6 +108,7 @@ defaultStablePackages _ = unPackageMap $ execWriter $ do
         , "fixed-list indents language-c pretty-class"
         , "aws yesod-auth-oauth csv-conduit cassava"
         , "async"
+        , "hxt"
         ]
     addRange "FP Complete <michael@fpcomplete.com>" "kure" "<= 2.4.10"
 
