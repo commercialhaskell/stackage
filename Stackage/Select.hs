@@ -31,7 +31,8 @@ defaultSelectSettings version = SelectSettings
 
 #if defined(mingw32_HOST_OS) || defined(__MINGW32__)
         -- Needed on Windows to get unix-compat to compile
-        Set.fromList (words "old-time") `Set.union`
+        (if version >= GhcMajorVersion 7 6 then Set.empty else Set.fromList (words "old-time"))
+            `Set.union`
 #endif
         -- Support for containers-unicode-symbols
         (case Map.lookup (PackageName "containers") coreMap of
