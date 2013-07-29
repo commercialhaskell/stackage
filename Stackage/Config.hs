@@ -217,6 +217,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
 
     -- unknown symbol `utf8_table4'
     addRange "Michael Snoyman" "regex-pcre-builtin" "< 0.94.4.6.8.31"
+
+    -- Requires too new a base/containers
+    addRange "Michael Snoyman" "vault" "< 0.3"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
