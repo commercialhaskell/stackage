@@ -9,17 +9,18 @@ import qualified Data.Map          as Map
 import qualified Data.Set          as Set
 import           Distribution.Text (display, simpleParse)
 import           Stackage.Types
+import qualified System.IO.UTF8
 
 readBuildPlan :: FilePath -> IO BuildPlan
 readBuildPlan fp = do
-    str <- readFile fp
+    str <- System.IO.UTF8.readFile fp
     case fromString str of
         Left s -> error $ "Could not read build plan: " ++ s
         Right (x, "") -> return x
         Right (_, _:_) -> error "Trailing content when reading build plan"
 
 writeBuildPlan :: FilePath -> BuildPlan -> IO ()
-writeBuildPlan fp bp = writeFile fp $ toString bp
+writeBuildPlan fp bp = System.IO.UTF8.writeFile fp $ toString bp
 
 class AsString a where
     toString :: a -> String
