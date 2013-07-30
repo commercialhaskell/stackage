@@ -16,6 +16,7 @@ import           Stackage.LoadDatabase
 import           Stackage.NarrowDatabase
 import           Stackage.Types
 import           Stackage.Util
+import qualified System.IO.UTF8
 import           System.Exit              (exitFailure)
 
 dropExcluded :: SelectSettings
@@ -54,7 +55,7 @@ getInstallInfo settings = do
     (final, errs) <- narrowPackageDB settings totalCore pdb $ Set.fromList $ Map.toList $ Map.map snd $ allPackages
 
     putStrLn "Printing build plan to build-plan.log"
-    writeFile "build-plan.log" $ unlines $ map showDep $ Map.toList final
+    System.IO.UTF8.writeFile "build-plan.log" $ unlines $ map showDep $ Map.toList final
 
     unless (Set.null errs) $ do
         putStrLn "Build plan requires some disallowed packages"
