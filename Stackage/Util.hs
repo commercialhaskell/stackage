@@ -4,7 +4,7 @@ module Stackage.Util where
 import qualified Codec.Archive.Tar               as Tar
 import qualified Codec.Archive.Tar.Entry         as TarEntry
 import           Control.Monad                   (guard, when)
-import           Data.Char                       (isSpace)
+import           Data.Char                       (isSpace, toUpper)
 import           Data.List                       (stripPrefix)
 import qualified Data.Map                        as Map
 import           Data.Maybe                      (mapMaybe)
@@ -128,8 +128,10 @@ getModifiedEnv settings = do
     fmap (map $ fixEnv $ binDir settings) getEnvironment
   where
     fixEnv :: FilePath -> (String, String) -> (String, String)
-    fixEnv bin (p@"PATH", x) = (p, bin ++ pathSep : x)
-    fixEnv _ x = x
+    fixEnv bin (p, x)
+        -- Thank you Windows having case-insensitive environment variables...
+        | map toUpper p == "PATH" = (p, bin ++ pathSep : x)
+        | otherwise = (p, x)
 
     -- | Separate for the PATH environment variable
     pathSep :: Char
