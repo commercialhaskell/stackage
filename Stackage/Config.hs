@@ -203,6 +203,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/72
     addRange "Michael Snoyman" "HaXml" "< 1.24"
 
+    -- https://github.com/fpco/stackage/issues/96
+    addRange "Michael Snoyman" "generic-deriving" "< 1.6"
+
     -- Due to binary package dep
     addRange "Michael Snoyman" "statistics" "< 0.10.4"
 
