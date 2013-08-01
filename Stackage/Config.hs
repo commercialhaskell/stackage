@@ -109,7 +109,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         , "fixed-list indents language-c pretty-class"
         , "aws yesod-auth-oauth csv-conduit cassava"
         , "async"
-        , "hxt"
+        , "hxt dimensional"
         ]
     when (ghcVer < GhcMajorVersion 7 6) $
         addRange "FP Complete <michael@fpcomplete.com>" "hxt" "<= 9.3.0.1"
