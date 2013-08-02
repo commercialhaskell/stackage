@@ -101,7 +101,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         , "network-conduit-tls yackage" -- Removed until keter supports non-Linux systems: keter
         , "shakespeare-text process-conduit stm-conduit"
         , "classy-prelude-yesod yesod-fay"
-        , "random-shuffle"
+        , "random-shuffle safe-failure"
         ]
 
     mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
