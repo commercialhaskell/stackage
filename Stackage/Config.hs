@@ -143,7 +143,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
 
 #if !defined(mingw32_HOST_OS) && !defined(__MINGW32__)
     -- Does not compile on Windows
-    add "Vincent Hanquez" "udbus xenstore"
+    mapM_ (add "Vincent Hanquez") $ words "udbus xenstore"
 #endif
 
     mapM_ (add "Alberto G. Corona <agocorona@gmail.com>") $ words
