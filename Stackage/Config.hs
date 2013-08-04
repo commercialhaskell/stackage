@@ -137,17 +137,17 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         [ "asn1-data bytedump certificate cipher-aes cipher-rc4 connection"
         , "cprng-aes cpu crypto-pubkey-types crypto-random-api cryptocipher"
         , "cryptohash hit language-java libgit pem siphash socks tls"
-        , "tls-debug tls-extra vhd xenstore"
+        , "tls-debug tls-extra vhd"
         ]
     addRange "Vincent Hanquez" "language-java" "< 0.2.5"
 
-    mapM_ (add "Alberto G. Corona <agocorona@gmail.com>") $ words
-         "RefSerialize TCache Workflow MFlow"
-
 #if !defined(mingw32_HOST_OS) && !defined(__MINGW32__)
     -- Does not compile on Windows
-    add "Vincent Hanquez" "udbus"
+    add "Vincent Hanquez" "udbus xenstore"
 #endif
+
+    mapM_ (add "Alberto G. Corona <agocorona@gmail.com>") $ words
+         "RefSerialize TCache Workflow MFlow"
 
     mapM_ (add "Edward Kmett <ekmett@gmail.com>") $ words =<<
         [ "ad adjunctions bifunctors bound categories charset comonad comonad-transformers"
