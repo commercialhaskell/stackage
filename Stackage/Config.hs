@@ -215,6 +215,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/89
     addRange "Michael Snoyman" "semigroupoids" "< 3.1"
 
+    -- https://github.com/fpco/stackage/issues/97
+    addRange "Michael Snoyman" "tagsoup" "< 0.13"
+
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
     -- Requires containers 0.5, not supported by GHC 7.4
