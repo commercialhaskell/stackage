@@ -197,9 +197,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/68
     addRange "Michael Snoyman" "criterion" "< 0.8"
 
-    -- https://github.com/fpco/stackage/issues/70
-    addRange "Michael Snoyman" "monoid-extras" "< 0.3"
-
     -- https://github.com/fpco/stackage/issues/72
     addRange "Michael Snoyman" "HaXml" "< 1.24"
 
@@ -209,14 +206,16 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- Due to binary package dep
     addRange "Michael Snoyman" "statistics" "< 0.10.4"
 
-    -- https://github.com/fpco/stackage/issues/81
-    addRange "Michael Snoyman" "fingertree" "< 0.1"
-
     -- https://github.com/fpco/stackage/issues/89
     addRange "Michael Snoyman" "semigroupoids" "< 3.1"
 
     -- https://github.com/fpco/stackage/issues/97
     addRange "Michael Snoyman" "tagsoup" "< 0.13"
+
+    -- https://github.com/fpco/stackage/issues/98
+    addRange "Michael Snoyman" "cipher-aes" "< 0.2"
+    addRange "Michael Snoyman" "vhd" "< 0.2"
+    addRange "Michael Snoyman" "cprng-aes" "< 0.4"
 
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
