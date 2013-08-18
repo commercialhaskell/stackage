@@ -110,6 +110,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         , "aws yesod-auth-oauth csv-conduit cassava"
         , "async"
         , "hxt dimensional"
+        , "cairo diagrams-cairo"
         ]
     when (ghcVer < GhcMajorVersion 7 6) $
         addRange "FP Complete <michael@fpcomplete.com>" "hxt" "<= 9.3.0.1"
