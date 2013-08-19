@@ -224,9 +224,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/100
     addRange "Michael Snoyman" "tagged" "< 0.7"
 
-    -- https://github.com/fpco/stackage/issues/102
-    addRange "Michael Snoyman" "cpphs" "< 1.17"
-
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
     -- Requires containers 0.5, not supported by GHC 7.4
