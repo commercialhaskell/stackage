@@ -117,7 +117,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "FP Complete <michael@fpcomplete.com>" "kure" "<= 2.4.10"
 
     mapM_ (add "Neil Mitchell") $ words
-        "hlint hoogle shake"
+        "hlint hoogle shake derive"
 
     mapM_ (add "Alan Zimmerman") $ words
         "hjsmin language-javascript"
