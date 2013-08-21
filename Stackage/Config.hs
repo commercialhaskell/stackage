@@ -230,6 +230,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "hlint" "< 1.8.51"
     addRange "Michael Snoyman" "hoogle" "< 4.2.17"
     addRange "Michael Snoyman" "stylish-haskell" "< 0.5.8.0"
+    addRange "Michael Snoyman" "fay" "< 0.16.0.2"
 
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
