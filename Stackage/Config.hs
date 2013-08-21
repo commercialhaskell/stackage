@@ -192,6 +192,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     mapM_ (add "Daniel Díaz <dhelta.diaz@gmail.com>") $ words
         "HaTeX"
 
+    mapM_ (add "Adam Bergmark <adam@edea.se>") $ words
+        "fay fay-base"
+
     -- https://github.com/fpco/stackage/issues/46
     addRange "Michael Snoyman" "QuickCheck" "< 2.6"
 
