@@ -115,12 +115,17 @@ addCabalArgsOnlyGlobal rest
 addCabalArgs :: BuildSettings -> BuildStage -> [String] -> [String]
 addCabalArgs settings bs rest
     = addCabalArgsOnlyGlobal
-    $ ("--package-db=" ++ packageDir settings)
-    : ("--libdir=" ++ libDir settings)
+    $ ("--package-db=" ++ packageDir settings ++ toolsSuffix)
+    : ("--libdir=" ++ libDir settings ++ toolsSuffix)
     : ("--bindir=" ++ binDir settings)
     : ("--datadir=" ++ dataDir settings)
-    : ("--docdir=" ++ docDir settings)
+    : ("--docdir=" ++ docDir settings ++ toolsSuffix)
     : extraArgs settings bs ++ rest
+  where
+    toolsSuffix =
+        case bs of
+            BSTools -> "-tools"
+            _ -> ""
 
 -- | Modified environment that adds our sandboxed bin folder to PATH.
 getModifiedEnv :: BuildSettings -> IO [(String, String)]

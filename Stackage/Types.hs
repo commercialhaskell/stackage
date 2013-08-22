@@ -122,7 +122,7 @@ data SelectSettings = SelectSettings
     , selectGhcVersion       :: GhcMajorVersion
     }
 
-data BuildStage = BSBuild | BSTest
+data BuildStage = BSTools | BSBuild | BSTest
 
 data BuildSettings = BuildSettings
     { sandboxRoot           :: FilePath

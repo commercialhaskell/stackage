@@ -48,11 +48,18 @@ build settings' bp = do
 
     -- First install build tools so they can be used below.
     let installBuildTool tool = do
+            let toolsDir = packageDir settings ++ "-tools"
+            rm_r toolsDir
+            ecInit <- rawSystem "ghc-pkg" ["init", toolsDir]
+            unless (ecInit == ExitSuccess) $ do
+                putStrLn "Unable to create package database via ghc-pkg init"
+                exitWith ecInit
+
             putStrLn $ "Installing build tool: " ++ tool
             ec <- withBinaryFile "build-tools.log" WriteMode $ \handle -> do
                 hSetBuffering handle NoBuffering
 
-                let args = addCabalArgs settings BSBuild
+                let args = addCabalArgs settings BSTools
                          $ "install"
                          : ("--cabal-lib-version=" ++ libVersion)
                          : "--build-log=logs-tools/$pkg.log"
@@ -69,6 +76,7 @@ build settings' bp = do
                     ]
                 exitWith ec
             putStrLn $ tool ++ " built"
+            rm_r toolsDir
     mapM_ installBuildTool $ bpTools bp
 
     putStrLn "Beginning Stackage build"
