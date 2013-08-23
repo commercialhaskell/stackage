@@ -108,7 +108,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         [ "web-fpco th-expand-syns configurator compdata smtLib unification-fd"
         , "fixed-list indents language-c pretty-class"
         , "aws yesod-auth-oauth csv-conduit cassava"
-        , "async"
+        , "async shelly"
         , "hxt dimensional"
         , "cairo diagrams-cairo"
         ]
