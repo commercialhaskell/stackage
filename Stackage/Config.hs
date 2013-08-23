@@ -227,14 +227,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/100
     addRange "Michael Snoyman" "tagged" "< 0.7"
 
-    -- https://github.com/fpco/stackage/issues/103
-    addRange "Michael Snoyman" "haskell-src-exts" "< 1.14"
-    addRange "Michael Snoyman" "derive" "< 2.5.12"
-    addRange "Michael Snoyman" "hlint" "< 1.8.51"
-    addRange "Michael Snoyman" "hoogle" "< 4.2.17"
-    addRange "Michael Snoyman" "stylish-haskell" "< 0.5.8.0"
-    addRange "Michael Snoyman" "fay" "< 0.16.0.2"
-
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
     -- Requires containers 0.5, not supported by GHC 7.4
