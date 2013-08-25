@@ -112,8 +112,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         , "hxt dimensional"
         , "cairo diagrams-cairo"
         ]
-    when (ghcVer < GhcMajorVersion 7 6) $
+    when (ghcVer < GhcMajorVersion 7 6) $ do
         addRange "FP Complete <michael@fpcomplete.com>" "hxt" "<= 9.3.0.1"
+        addRange "FP Complete <michael@fpcomplete.com>" "shelly" "<= 1.0"
     addRange "FP Complete <michael@fpcomplete.com>" "kure" "<= 2.4.10"
 
     mapM_ (add "Neil Mitchell") $ words
