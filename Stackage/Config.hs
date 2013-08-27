@@ -216,9 +216,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "vhd" "< 0.2"
     addRange "Michael Snoyman" "cprng-aes" "< 0.4"
 
-    -- https://github.com/fpco/stackage/issues/100
-    addRange "Michael Snoyman" "tagged" "< 0.7"
-
     -- https://github.com/fpco/stackage/issues/103
     addRange "Michael Snoyman" "haskell-src-exts" "< 1.14"
     addRange "Michael Snoyman" "derive" "< 2.5.12"
