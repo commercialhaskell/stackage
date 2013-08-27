@@ -196,9 +196,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     mapM_ (add "Adam Bergmark <adam@edea.se>") $ words
         "fay fay-base"
 
-    -- https://github.com/fpco/stackage/issues/46
-    addRange "Michael Snoyman" "QuickCheck" "< 2.6"
-
     -- https://github.com/fpco/stackage/issues/68
     addRange "Michael Snoyman" "criterion" "< 0.8"
 
