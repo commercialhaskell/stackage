@@ -102,7 +102,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         , "shakespeare-text process-conduit stm-conduit"
         , "classy-prelude-yesod yesod-fay"
         , "random-shuffle safe-failure"
-        , "repa-devil"
         ]
 
     mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
@@ -116,6 +115,8 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     when (ghcVer < GhcMajorVersion 7 6) $ do
         addRange "FP Complete <michael@fpcomplete.com>" "hxt" "<= 9.3.0.1"
         addRange "FP Complete <michael@fpcomplete.com>" "shelly" "<= 1.0"
+    when (ghcVer >= GhcMajorVersion 7 6) $ do
+        add "FP Complete <michael@fpcomplete.com>" "repa-devil"
     addRange "FP Complete <michael@fpcomplete.com>" "kure" "<= 2.4.10"
 
     mapM_ (add "Neil Mitchell") $ words
