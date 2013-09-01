@@ -97,7 +97,7 @@ runTestSuite settings testdir (packageName, SelectedPackageInfo {..}) = do
         runGhcPackagePath = runGen True
 
     passed <- handle (\TestException -> return False) $ do
-        package' <- replaceTarball settings package
+        package' <- replaceTarball (tarballDir settings) package
         getHandle WriteMode  $ run "cabal" ["unpack", package'] testdir
         getHandle AppendMode $ run "cabal" (addCabalArgs settings BSTest ["configure", "--enable-tests"]) dir
         when spiHasTests $ do

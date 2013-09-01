@@ -158,13 +158,13 @@ fixBuildSettings settings' = do
 
 -- | Check if a tarball exists in the tarball directory and, if so, use that
 -- instead of the given name.
-replaceTarball :: BuildSettings
+replaceTarball :: FilePath -- ^ tarball directory
                -> String
                -> IO String
-replaceTarball bs pkgname = do
+replaceTarball tarballdir pkgname = do
     exists <- doesFileExist fp
     if exists
         then canonicalizePath fp
         else return pkgname
   where
-    fp = tarballDir bs </> pkgname <.> "tar.gz"
+    fp = tarballdir </> pkgname <.> "tar.gz"

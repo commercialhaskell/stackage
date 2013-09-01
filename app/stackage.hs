@@ -100,7 +100,7 @@ main = do
                     , useGlobalDatabase = globalDB
                     }
             writeBuildPlan buildPlanDest bp
-        ("check":rest) -> withBuildSettings rest $ const checkPlan
+        ("check":rest) -> withBuildSettings rest checkPlan
         ("build":rest) -> withBuildSettings rest build
         ("test":rest) -> withBuildSettings rest runTestSuites
         ("tarballs":rest) -> withBuildSettings rest $ const makeTarballs

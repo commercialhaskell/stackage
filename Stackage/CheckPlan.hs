@@ -17,18 +17,19 @@ import           System.Process             (readProcessWithExitCode)
 data Mismatch = OnlyDryRun String | OnlySimpleList String
     deriving Show
 
-checkPlan :: BuildPlan -> IO ()
-checkPlan bp = do
+checkPlan :: BuildSettings -> BuildPlan -> IO ()
+checkPlan settings bp = do
     _ <- checkCabalVersion
 
     putStrLn "Checking build plan"
+    packages <- mapM (replaceTarball $ tarballDir settings) (bpPackageList bp)
     (ec, dryRun', stderr) <- readProcessWithExitCode "cabal"
         ( addCabalArgsOnlyGlobal
         $ "install"
         : "--dry-run"
         : "--max-backjumps=-1"
         : "--reorder-goals"
-        : bpPackageList bp
+        : packages
         ) ""
     when (ec /= ExitSuccess || "Warning:" `isPrefixOf` stderr) $ do
         putStr stderr

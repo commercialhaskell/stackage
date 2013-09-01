@@ -81,7 +81,7 @@ build settings' bp = do
 
     putStrLn "Beginning Stackage build"
     ph <- withBinaryFile "build.log" WriteMode $ \handle -> do
-        packageList <- mapM (replaceTarball settings) $ bpPackageList bp
+        packageList <- mapM (replaceTarball $ tarballDir settings) $ bpPackageList bp
         let args = addCabalArgs settings BSBuild
                  $ "install"
                  : ("--cabal-lib-version=" ++ libVersion)
