@@ -223,6 +223,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "fay" "< 0.16.0.2"
     addRange "Michael Snoyman" "diagrams-haddock" "< 0.1.1.2"
 
+    -- https://github.com/fpco/stackage/issues/107
+    addRange "Michael Snoyman" "split" "< 0.2.2"
+
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
     -- Requires containers 0.5, not supported by GHC 7.4
