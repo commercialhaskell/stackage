@@ -1,0 +1,12 @@
+diff -ru orig/Test/Framework/TH/Prime/Parser.hs new/Test/Framework/TH/Prime/Parser.hs
+--- orig/Test/Framework/TH/Prime/Parser.hs	2013-09-01 16:25:06.353768490 +0300
++++ new/Test/Framework/TH/Prime/Parser.hs	2013-09-01 16:25:06.000000000 +0300
+@@ -70,7 +70,7 @@
+         toStr (Ident str) = str
+         toStr (Symbol str) = str
+     opt raw = defaultParseMode {
+-        extensions = nub $ TemplateHaskell : exts raw
++        extensions = map UnknownExtension $ nub $ "TemplateHaskell" : exts raw
+       -- to prevent "Ambiguous infix expression"
+       , fixities = Nothing
+       }
