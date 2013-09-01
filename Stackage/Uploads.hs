@@ -1,3 +1,4 @@
+{-# LANGUAGE PatternGuards #-}
 -- | Review the upload log and compare against a locally kept list of allowed
 -- uploaders.
 module Stackage.Uploads
@@ -6,6 +7,7 @@ module Stackage.Uploads
     , filterForbidden
     ) where
 
+import           Control.Arrow     (second)
 import           Control.Exception (assert, evaluate)
 import           Control.Monad     (forM_, unless)
 import           Data.Map          (Map)
@@ -68,8 +70,15 @@ type PackageName = String
 
 type PackageHistory = Map Version (UserName, UTCTime)
 type UploadLog = MonoidMap PackageName PackageHistory
-type Allowed = MonoidMap PackageName (Set UserName)
+type Allowed = MonoidMap PackageName (Map UserName AllowedVersions)
 type Forbidden = UploadLog
+
+data AllowedVersions = AllVersions | SpecificVersions (Set Version)
+instance Monoid AllowedVersions where
+    mempty = SpecificVersions mempty
+    AllVersions `mappend` _ = AllVersions
+    _ `mappend` AllVersions = AllVersions
+    SpecificVersions x `mappend` SpecificVersions y = SpecificVersions (x `mappend` y)
 
 getUploadLog :: IO UploadLog
 getUploadLog = do
@@ -101,7 +110,13 @@ readAllowed fp = do
     go :: String -> Allowed
     go s = fromMaybe mempty $ do
         pkg:users <- Just $ words s
-        Just $ msingleton pkg $ Set.fromList users
+        Just $ msingleton pkg $ Map.unionsWith mappend $ map parseUserAllowed users
+
+    parseUserAllowed s =
+        case break (== '-') s of
+            (user, '-':version) ->
+                Map.singleton user $ SpecificVersions $ Set.singleton version
+            _ -> Map.singleton s AllVersions
 
 updateAllowed :: UploadLog -> Allowed -> (Allowed, Forbidden)
 updateAllowed uploads allowed =
@@ -125,19 +140,30 @@ updateAllowed uploads allowed =
                         | otherwise = msingleton pkg fval
                  in (mempty, forbidden)
 
-    getAllUsers :: PackageHistory -> Set UserName
-    getAllUsers = Set.fromList . map fst . Map.elems
+    getAllUsers :: PackageHistory -> Map UserName AllowedVersions
+    getAllUsers = Map.fromList . map (second $ const AllVersions) . Map.elems
 
-    check :: Set UserName -> (Version, (UserName, UTCTime)) -> Map Version (UserName, UTCTime)
-    check allowed' (ver, (user, time))
-        | user `Set.member` allowed' = Map.empty
-        | otherwise = Map.singleton ver (user, time)
+    check :: Map UserName AllowedVersions
+          -> (Version, (UserName, UTCTime))
+          -> Map Version (UserName, UTCTime)
+    check allowed' (ver, (user, time)) = maybe (Map.singleton ver (user, time)) (const Map.empty) $ do
+        versions <- Map.lookup user allowed'
+        case versions of
+            AllVersions -> return ()
+            SpecificVersions vs
+                | ver `Set.member` vs -> return ()
+                | otherwise -> Nothing
 
 writeAllowed :: FilePath -> Allowed -> IO ()
 writeAllowed fp =
     writeFile fp . unlines . map go . Map.toList . unMonoidMap
   where
-    go (pkg, users) = unwords $ pkg : Set.toList users
+    go (pkg, users) = unwords $ pkg : concatMap toStr (Map.toList users)
+    toStr (user, AllVersions) = [user]
+    toStr (user, SpecificVersions vs) =
+        map helper $ Set.toList vs
+      where
+        helper v = concat [user, "-", v]
 
 printForbidden :: Forbidden -> IO ()
 printForbidden (MonoidMap forbidden) = unless (Map.null forbidden) $ do
