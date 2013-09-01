@@ -1,6 +1,7 @@
 module Stackage.LoadDatabase where
 
 import qualified Codec.Archive.Tar                     as Tar
+import qualified Codec.Compression.GZip                as GZip
 import           Control.Monad                         (guard)
 import qualified Data.ByteString.Lazy                  as L
 import qualified Data.ByteString.Lazy.Char8            as L8
@@ -36,10 +37,13 @@ import           Distribution.PackageDescription       (Condition (..),
 import           Distribution.PackageDescription.Parse (ParseResult (ParseOk),
                                                         parsePackageDescription)
 import           Distribution.System                   (buildArch, buildOS)
-import           Distribution.Version                  (unionVersionRanges,
-                                                        withinRange, Version (Version))
+import           Distribution.Version                  (Version (Version),
+                                                        unionVersionRanges,
+                                                        withinRange)
 import           Stackage.Types
 import           Stackage.Util
+import           System.Directory                      (doesFileExist)
+import           System.FilePath                       ((<.>), (</>))
 
 -- | Load the raw package database.
 --
@@ -80,22 +84,68 @@ loadPackageDB settings coreMap core deps = do
                     case Map.lookup p deps of
                         Just (vrange, _maintainer)
                             | not $ withinRange v vrange -> return pdb
-                        _ ->
-                            case Tar.entryContent e of
-                                Tar.NormalFile bs _ -> do
-                                    let (deps', hasTests, buildTools', mgpd, execs, mgithub) = parseDeps p bs
-                                    return $ mappend pdb $ PackageDB $ Map.singleton p PackageInfo
-                                        { piVersion = v
-                                        , piDeps = deps'
-                                        , piHasTests = hasTests
-                                        , piBuildTools = buildTools'
-                                        , piGPD = mgpd
-                                        , piExecs = execs
-                                        , piGithubUser = mgithub
-                                        }
-                                _ -> return pdb
+                        _ -> do
+                            let pkgname = packageVersionString (p, v)
+                                tarball = selectTarballDir settings </> pkgname <.> "tar.gz"
+                            exists <- doesFileExist tarball
+                            if exists
+                                then do
+                                    lbs <- L.readFile tarball
+                                    findCabalAndAddPackage tarball p v pdb $ Tar.read $ GZip.decompress lbs
+                                else
+                                    case Tar.entryContent e of
+                                        Tar.NormalFile bs _ -> addPackage p v bs pdb
+                                        _ -> return pdb
 
     skipTests p = p `Set.member` skippedTests settings
+
+    -- Find the relevant cabal file in the given entries and add its contents
+    -- to the package database
+    findCabalAndAddPackage tarball p v pdb =
+        loop
+      where
+        expectedPath = let PackageName p' = p in concat
+            [ packageVersionString (p, v)
+            , "/"
+            , p'
+            , ".cabal"
+            ]
+        loop Tar.Done = error $ concat
+            [ "Missing cabal file "
+            , show expectedPath
+            , " in tarball: "
+            , show tarball
+            ]
+        loop (Tar.Fail e) = error $ concat
+            [ "Unable to read tarball "
+            , show tarball
+            , ": "
+            , show e
+            ]
+        loop (Tar.Next entry rest)
+            | Tar.entryPath entry == expectedPath =
+                case Tar.entryContent entry of
+                    Tar.NormalFile bs _ -> addPackage p v bs pdb
+                    _ -> error $ concat
+                        [ "In tarball "
+                        , show tarball
+                        , " the cabal file "
+                        , show expectedPath
+                        , " was not a normal file"
+                        ]
+            | otherwise = loop rest
+
+    addPackage p v lbs pdb = do
+        let (deps', hasTests, buildTools', mgpd, execs, mgithub) = parseDeps p lbs
+        return $ mappend pdb $ PackageDB $ Map.singleton p PackageInfo
+            { piVersion = v
+            , piDeps = deps'
+            , piHasTests = hasTests
+            , piBuildTools = buildTools'
+            , piGPD = mgpd
+            , piExecs = execs
+            , piGithubUser = mgithub
+            }
 
     parseDeps p lbs =
         case parsePackageDescription $ L8.unpack lbs of

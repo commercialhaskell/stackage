@@ -120,6 +120,8 @@ data SelectSettings = SelectSettings
     -- ^ Do not build or run test suites, usually in order to avoid a
     -- dependency.
     , selectGhcVersion       :: GhcMajorVersion
+    , selectTarballDir       :: FilePath
+    -- ^ Directory containing replacement tarballs.
     }
 
 data BuildStage = BSTools | BSBuild | BSTest

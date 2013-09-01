@@ -44,6 +44,7 @@ defaultSelectSettings version = SelectSettings
     , useGlobalDatabase = False
     , skippedTests = empty
     , selectGhcVersion = version
+    , selectTarballDir = "tarballs"
     }
 
 select :: SelectSettings -> IO BuildPlan
