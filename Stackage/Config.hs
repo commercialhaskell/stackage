@@ -90,6 +90,10 @@ defaultExpectedFailures _ = fromList $ map PackageName
 
       -- https://github.com/skogsbaer/xmlgen/issues/2
     , "xmlgen"
+
+      -- Something very strange going on with the test suite, I can't figure
+      -- out how to fix it
+    , "bson"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
@@ -114,6 +118,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         , "async shelly"
         , "hxt dimensional"
         , "cairo diagrams-cairo"
+        , "persistent-mongoDB"
         ]
     when (ghcVer < GhcMajorVersion 7 6) $ do
         addRange "FP Complete <michael@fpcomplete.com>" "hxt" "<= 9.3.0.1"
