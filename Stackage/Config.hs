@@ -87,6 +87,9 @@ defaultExpectedFailures _ = fromList $ map PackageName
 
       -- https://github.com/rrnewton/haskell-lockfree-queue/issues/7
     , "abstract-deque"
+
+      -- https://github.com/skogsbaer/xmlgen/issues/2
+    , "xmlgen"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
