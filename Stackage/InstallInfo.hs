@@ -56,6 +56,7 @@ getInstallInfo settings = do
 
     putStrLn "Printing build plan to build-plan.log"
     System.IO.UTF8.writeFile "build-plan.log" $ unlines $ map showDep $ Map.toList final
+    System.IO.UTF8.writeFile "hackage-map.txt" $ unlines $ map showHackageMap $ Map.toList final
 
     unless (Set.null errs) $ do
         putStrLn "Build plan requires some disallowed packages"
@@ -115,6 +116,12 @@ showDep (PackageName name, BuildInfo {..}) =
         ]
   where
     unP (PackageName p) = p
+
+-- | Convert to format used by Hackage for displaying distribution versions.
+-- For more info, see https://github.com/fpco/stackage/issues/38.
+showHackageMap :: (PackageName, BuildInfo) -> String
+showHackageMap (PackageName name, BuildInfo {..}) =
+    show (name, showVersion biVersion, Nothing :: Maybe String)
 
 bpPackageList :: BuildPlan -> [String]
 bpPackageList = map packageVersionString . Map.toList . Map.map spiVersion . bpPackages
