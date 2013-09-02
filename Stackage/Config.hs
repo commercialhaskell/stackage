@@ -101,7 +101,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         [ "yesod yesod-newsfeed yesod-sitemap yesod-static yesod-test yesod-bin"
         , "markdown filesystem-conduit mime-mail-ses"
         , "persistent persistent-template persistent-sqlite"
-        , "network-conduit-tls yackage" -- Removed until keter supports non-Linux systems: keter
+        , "network-conduit-tls yackage warp-tls keter"
         , "shakespeare-text process-conduit stm-conduit"
         , "classy-prelude-yesod yesod-fay"
         , "random-shuffle safe-failure"
