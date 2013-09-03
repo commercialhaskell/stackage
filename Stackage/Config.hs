@@ -206,6 +206,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     mapM_ (add "Adam Bergmark <adam@edea.se>") $ words
         "fay fay-base"
 
+    mapM_ (add "Boris Lykah <lykahb@gmail.com>") $ words
+        "groundhog groundhog-th groundhog-sqlite groundhog-postgresql groundhog-mysql"
+
     -- https://github.com/fpco/stackage/issues/46
     addRange "Michael Snoyman" "QuickCheck" "< 2.6"
 
