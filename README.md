@@ -36,7 +36,7 @@ general, the following set of commands should be good for getting started:
     cabal install cabal-dev
     git clone https://github.com/fpco/stackage
     cd stackage
-    git submodule update --init # get the Haskell Platform files
+    cabal install --only-dependencies
     runghc app/stackage.hs select
     runghc app/stackage.hs check
     runghc app/stackage.hs build # takes a *long* time
