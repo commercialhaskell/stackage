@@ -94,6 +94,9 @@ defaultExpectedFailures _ = fromList $ map PackageName
       -- Something very strange going on with the test suite, I can't figure
       -- out how to fix it
     , "bson"
+
+      -- Requires a locally running PostgreSQL server with appropriate users
+    , "postgresql-simple"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
