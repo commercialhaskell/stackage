@@ -97,6 +97,9 @@ defaultExpectedFailures _ = fromList $ map PackageName
 
       -- Requires a locally running PostgreSQL server with appropriate users
     , "postgresql-simple"
+
+      -- https://github.com/IreneKnapp/direct-sqlite/issues/32
+    , "direct-sqlite"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
