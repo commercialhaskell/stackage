@@ -122,7 +122,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         , "fixed-list indents language-c pretty-class"
         , "aws yesod-auth-oauth csv-conduit cassava"
         , "async shelly"
-        , "hxt dimensional"
+        , "hxt hxt-relaxng dimensional"
         , "cairo diagrams-cairo"
         , "persistent-mongoDB"
         ]
