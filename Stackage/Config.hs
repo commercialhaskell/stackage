@@ -103,6 +103,9 @@ defaultExpectedFailures _ = fromList $ map PackageName
 
       -- https://github.com/vincenthz/hs-crypto-cipher/issues/36
     , "crypto-cipher-tests"
+
+      -- Missing files
+    , "websockets"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
