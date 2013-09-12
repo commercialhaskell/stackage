@@ -116,7 +116,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         , "persistent persistent-template persistent-sqlite"
         , "network-conduit-tls yackage warp-tls keter"
         , "shakespeare-text process-conduit stm-conduit"
-        , "classy-prelude-yesod yesod-fay"
+        , "classy-prelude-yesod yesod-fay yesod-eventsource wai-websockets"
         , "random-shuffle safe-failure"
         ]
 
