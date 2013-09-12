@@ -100,6 +100,9 @@ defaultExpectedFailures _ = fromList $ map PackageName
 
       -- https://github.com/IreneKnapp/direct-sqlite/issues/32
     , "direct-sqlite"
+
+      -- https://github.com/vincenthz/hs-crypto-cipher/issues/36
+    , "crypto-cipher-tests"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
