@@ -103,6 +103,9 @@ defaultExpectedFailures _ = fromList $ map PackageName
 
       -- Missing files
     , "websockets"
+
+      -- Some kind of Cabal bug when trying to run tests
+    , "thyme"
     ]
 
 -- | List of packages for our stable Hackage. All dependencies will be
