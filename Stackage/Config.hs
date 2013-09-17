@@ -248,6 +248,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/116
     addRange "Michael Snoyman" "semigroups" "< 0.10"
 
+    -- https://github.com/fpco/stackage/issues/117
+    addRange "Michael Snoyman" "pwstore-fast" "< 2.4"
+
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
     -- unknown symbol `utf8_table4'
