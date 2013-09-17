@@ -245,6 +245,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/115
     addRange "Michael Snoyman" "pandoc" "< 1.12"
 
+    -- https://github.com/fpco/stackage/issues/116
+    addRange "Michael Snoyman" "semigroups" "< 0.10"
+
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
     -- unknown symbol `utf8_table4'
