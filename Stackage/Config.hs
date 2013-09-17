@@ -135,7 +135,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     when (ghcVer < GhcMajorVersion 7 6) $ do
         addRange "FP Complete <michael@fpcomplete.com>" "hxt" "<= 9.3.0.1"
         addRange "FP Complete <michael@fpcomplete.com>" "shelly" "<= 1.0"
-        addRange "FP Complete <michael@fpcomplete.com>" "bson" "< 0.2.3"
     when (ghcVer >= GhcMajorVersion 7 6) $ do
         add "FP Complete <michael@fpcomplete.com>" "repa-devil"
     addRange "FP Complete <michael@fpcomplete.com>" "kure" "<= 2.4.10"
@@ -253,6 +252,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "pwstore-fast" "< 2.4"
 
     addRange "Michael Snoyman" "hashable" "< 1.2"
+
+    -- Requires binary 0.7
+    addRange "FP Complete <michael@fpcomplete.com>" "bson" "< 0.2.3"
 
     -- unknown symbol `utf8_table4'
     addRange "Michael Snoyman" "regex-pcre-builtin" "< 0.94.4.6.8.31"
