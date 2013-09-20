@@ -248,6 +248,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/116
     addRange "Michael Snoyman" "semigroups" "< 0.10"
 
+    -- https://github.com/fpco/stackage/issues/118
+    addRange "Michael Snoyman" "pem" "< 0.2"
+
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
     -- Requires binary 0.7
