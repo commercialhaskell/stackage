@@ -256,6 +256,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "comonad-transformers" "< 3.1"
     addRange "Michael Snoyman" "semigroupoids" "< 3.1"
 
+    -- https://github.com/fpco/stackage/issues/121
+    addRange "Michael Snoyman" "cereal" "< 0.4"
+
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
     -- Requires binary 0.7
