@@ -260,6 +260,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/123
     addRange "Michael Snoyman" "cryptohash" "< 0.11"
 
+    -- https://github.com/fpco/stackage/issues/124
+    addRange "Michael Snoyman" "fclabels" "< 2.0"
+
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
     -- Requires binary 0.7
