@@ -33,14 +33,14 @@ As this project is just starting, we don't really have a solid set of steps. In
 general, the following set of commands should be good for getting started:
 
     cabal update
-    cabal install cabal-dev
     git clone https://github.com/fpco/stackage
     cd stackage
+    cabal sandbox init # requires cabal-install 1.18
     cabal install --only-dependencies
-    runghc app/stackage.hs select
-    runghc app/stackage.hs check
-    runghc app/stackage.hs build # takes a *long* time
-    runghc app/stackage.hs test # also takes a *long* time
+    ./dist/build/stackage/stackage select
+    ./dist/build/stackage/stackage check
+    ./dist/build/stackage/stackage build # takes a *long* time
+    ./dist/build/stackage/stackage test # also takes a *long* time
 
 Notes
 -----
