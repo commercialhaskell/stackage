@@ -19,7 +19,7 @@ defaultExtraCore _ = fromList $ map PackageName $ words
 -- error in our package combination.
 defaultExpectedFailures :: GhcMajorVersion
                         -> Set PackageName
-defaultExpectedFailures _ = execWriter $ do
+defaultExpectedFailures ghcVer = execWriter $ do
       -- Requires an old version of WAI and Warp for tests
     add "HTTP"
 
@@ -106,6 +106,10 @@ defaultExpectedFailures _ = execWriter $ do
 
       -- Some kind of Cabal bug when trying to run tests
     add "thyme"
+
+    when (ghcVer < GhcMajorVersion 7 6) $ do
+        -- https://github.com/haskell-suite/haskell-names/issues/39
+        add "haskell-names"
   where
     add = tell . singleton . PackageName
 
