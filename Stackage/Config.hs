@@ -4,7 +4,7 @@ module Stackage.Config where
 import           Control.Monad              (when)
 import           Control.Monad.Trans.Writer (execWriter, tell)
 import qualified Data.Map                   as Map
-import           Data.Set                   (fromList)
+import           Data.Set                   (fromList, singleton)
 import           Distribution.Text          (simpleParse)
 import           Stackage.Types
 
@@ -19,94 +19,95 @@ defaultExtraCore _ = fromList $ map PackageName $ words
 -- error in our package combination.
 defaultExpectedFailures :: GhcMajorVersion
                         -> Set PackageName
-defaultExpectedFailures _ = fromList $ map PackageName
-    [ -- Requires an old version of WAI and Warp for tests
-      "HTTP"
+defaultExpectedFailures _ = execWriter $ do
+      -- Requires an old version of WAI and Warp for tests
+    add "HTTP"
 
       -- text and setenv have recursive dependencies in their tests, which
       -- cabal can't (yet) handle
-    , "text"
-    , "setenv"
+    add "text"
+    add "setenv"
 
       -- The version of GLUT included with the HP does not generate
       -- documentation correctly.
-    , "GLUT"
+    add "GLUT"
 
       -- https://github.com/bos/statistics/issues/42
-    , "statistics"
+    add "statistics"
 
       -- https://github.com/kazu-yamamoto/simple-sendfile/pull/10
-    , "simple-sendfile"
+    add "simple-sendfile"
 
       -- http://hackage.haskell.org/trac/hackage/ticket/954
-    , "diagrams"
+    add "diagrams"
 
       -- https://github.com/fpco/stackage/issues/24
-    , "unix-time"
+    add "unix-time"
 
       -- With transformers 0.3, it doesn't provide any modules
-    , "transformers-compat"
+    add "transformers-compat"
 
       -- Tests require shell script and are incompatible with sandboxed package
       -- databases
-    , "HTF"
+    add "HTF"
 
       -- https://github.com/simonmar/monad-par/issues/28
-    , "monad-par"
+    add "monad-par"
 
       -- Unfortunately network failures seem to happen haphazardly
-    , "network"
+    add "network"
 
       -- https://github.com/ekmett/hyphenation/issues/1
-    , "hyphenation"
+    add "hyphenation"
 
       -- Test suite takes too long to run on some systems
-    , "punycode"
+    add "punycode"
 
       -- http://hub.darcs.net/stepcut/happstack/issue/1
-    , "happstack-server"
+    add "happstack-server"
 
       -- Requires a Facebook app.
-    , "fb"
+    add "fb"
 
       -- https://github.com/tibbe/hashable/issues/64
-    , "hashable"
+    add "hashable"
 
       -- https://github.com/vincenthz/language-java/issues/10
-    , "language-java"
+    add "language-java"
 
-    , "threads"
-    , "crypto-conduit"
-    , "pandoc"
-    , "language-ecmascript"
-    , "hspec"
-    , "alex"
+    add "threads"
+    add "crypto-conduit"
+    add "pandoc"
+    add "language-ecmascript"
+    add "hspec"
+    add "alex"
 
       -- https://github.com/basvandijk/concurrent-extra/issues/
-    , "concurrent-extra"
+    add "concurrent-extra"
 
       -- https://github.com/rrnewton/haskell-lockfree-queue/issues/7
-    , "abstract-deque"
+    add "abstract-deque"
 
       -- https://github.com/skogsbaer/xmlgen/issues/2
-    , "xmlgen"
+    add "xmlgen"
 
       -- Something very strange going on with the test suite, I can't figure
       -- out how to fix it
-    , "bson"
+    add "bson"
 
       -- Requires a locally running PostgreSQL server with appropriate users
-    , "postgresql-simple"
+    add "postgresql-simple"
 
       -- https://github.com/IreneKnapp/direct-sqlite/issues/32
-    , "direct-sqlite"
+    add "direct-sqlite"
 
       -- Missing files
-    , "websockets"
+    add "websockets"
 
       -- Some kind of Cabal bug when trying to run tests
-    , "thyme"
-    ]
+    add "thyme"
+  where
+    add = tell . singleton . PackageName
 
 -- | List of packages for our stable Hackage. All dependencies will be
 -- included as well. Please indicate who will be maintaining the package
