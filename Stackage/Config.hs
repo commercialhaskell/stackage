@@ -249,9 +249,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "pandoc" "< 1.12"
     addRange "Michael Snoyman" "BlogLiterately" "< 0.6.3"
 
-    -- https://github.com/fpco/stackage/issues/116
-    addRange "Michael Snoyman" "semigroups" "< 0.10"
-
     -- https://github.com/fpco/stackage/issues/118
     addRange "Michael Snoyman" "pem" "< 0.2"
 
