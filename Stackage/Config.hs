@@ -257,9 +257,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/118
     addRange "Michael Snoyman" "pem" "< 0.2"
 
-    -- https://github.com/fpco/stackage/issues/121
-    addRange "Michael Snoyman" "cereal" "< 0.4"
-
     -- https://github.com/fpco/stackage/issues/123
     addRange "Michael Snoyman" "cryptohash" "< 0.11"
 
