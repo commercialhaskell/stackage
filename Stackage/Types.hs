@@ -136,6 +136,8 @@ data BuildSettings = BuildSettings
     -- ^ Build docs as part of the test procedure.
     , tarballDir            :: FilePath
     -- ^ Directory containing replacement tarballs.
+    , cabalFileDir          :: Maybe FilePath
+    -- ^ Directory to place cabal files in
     }
 
 -- | A wrapper around a @Map@ providing a better @Monoid@ instance.

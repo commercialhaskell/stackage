@@ -12,7 +12,8 @@ import qualified Data.Set           as Set
 import           Data.Typeable      (Typeable)
 import           Stackage.Types
 import           Stackage.Util
-import           System.Directory   (createDirectory, removeFile)
+import           System.Directory   (copyFile, createDirectory,
+                                     createDirectoryIfMissing, removeFile)
 import           System.Exit        (ExitCode (ExitSuccess))
 import           System.FilePath    ((<.>), (</>))
 import           System.IO          (IOMode (WriteMode, AppendMode),
@@ -99,6 +100,15 @@ runTestSuite settings testdir (packageName, SelectedPackageInfo {..}) = do
     passed <- handle (\TestException -> return False) $ do
         package' <- replaceTarball (tarballDir settings) package
         getHandle WriteMode  $ run "cabal" ["unpack", package'] testdir
+        case cabalFileDir settings of
+            Nothing -> return ()
+            Just cfd -> do
+                let PackageName name = packageName
+                    basename = name ++ ".cabal"
+                    src = dir </> basename
+                    dst = cfd </> basename
+                createDirectoryIfMissing True cfd
+                copyFile src dst
         getHandle AppendMode $ run "cabal" (addCabalArgs settings BSTest ["configure", "--enable-tests"]) dir
         when spiHasTests $ do
             getHandle AppendMode $ run "cabal" ["build"] dir

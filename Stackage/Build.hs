@@ -26,6 +26,7 @@ defaultBuildSettings version = BuildSettings
     , testWorkerThreads = 4
     , buildDocs = True
     , tarballDir = "patching/tarballs"
+    , cabalFileDir = Nothing
     }
 
 build :: BuildSettings -> BuildPlan -> IO ()
