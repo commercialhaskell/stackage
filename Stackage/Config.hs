@@ -247,13 +247,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/107
     addRange "Michael Snoyman" "split" "< 0.2.2"
 
-    -- https://github.com/fpco/stackage/issues/113
-    addRange "Michael Snoyman" "pandoc-types" "< 1.12"
-
-    -- https://github.com/fpco/stackage/issues/115
-    addRange "Michael Snoyman" "pandoc" "< 1.12"
-    addRange "Michael Snoyman" "BlogLiterately" "< 0.6.3"
-
     -- https://github.com/fpco/stackage/issues/118
     addRange "Michael Snoyman" "pem" "< 0.2"
 
