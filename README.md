@@ -37,6 +37,8 @@ general, the following set of commands should be good for getting started:
     cd stackage
     cabal sandbox init # requires cabal-install 1.18
     cabal install --only-dependencies
+    cabal configure
+    cabal build
     ./dist/build/stackage/stackage select
     ./dist/build/stackage/stackage check
     ./dist/build/stackage/stackage build # takes a *long* time
