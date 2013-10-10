@@ -1,0 +1,12 @@
+diff -ru orig/Network/Shed/Httpd.hs new/Network/Shed/Httpd.hs
+--- orig/Network/Shed/Httpd.hs	2013-10-10 10:19:03.153688450 +0300
++++ new/Network/Shed/Httpd.hs	2013-10-10 10:19:02.000000000 +0300
+@@ -139,7 +139,7 @@
+                                  hClose h
+                    _                      -> hClose h
+                  return ()
+-           ) `finally` sClose sock
++           ) `finally` Network.Socket.sClose sock
+   where 
+       loopIO m          = do m
+                              loopIO m
