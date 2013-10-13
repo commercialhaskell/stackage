@@ -260,6 +260,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "hxt" "< 9.3.1"
     addRange "Michael Snoyman" "network" "< 2.4"
 
+    -- https://github.com/fpco/stackage/issues/127
+    addRange "Michael Snoyman" "optparse-applicative" "< 0.6"
+
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
     -- Requires binary 0.7
