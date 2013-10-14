@@ -275,6 +275,10 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "bifunctors" "< 4"
     addRange "Michael Snoyman" "hashable-extras" "< 0.2"
     addRange "Michael Snoyman" "lens" "< 3.10"
+    addRange "Michael Snoyman" "keys" "< 3.10"
+    addRange "Michael Snoyman" "reducers" "< 3.10"
+    addRange "Michael Snoyman" "compressed" "< 3.10"
+    addRange "Michael Snoyman" "either" "< 4"
 
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
