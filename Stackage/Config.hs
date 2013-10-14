@@ -274,6 +274,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "groupoids" "< 4"
     addRange "Michael Snoyman" "bifunctors" "< 4"
     addRange "Michael Snoyman" "hashable-extras" "< 0.2"
+    addRange "Michael Snoyman" "lens" "< 3.10"
 
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
