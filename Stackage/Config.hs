@@ -260,6 +260,20 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "hxt" "< 9.3.1"
     addRange "Michael Snoyman" "network" "< 2.4"
 
+    -- https://github.com/fpco/stackage/issues/129
+    addRange "Michael Snoyman" "comonad" "< 4"
+    addRange "Michael Snoyman" "comonads-fd" "< 4"
+    addRange "Michael Snoyman" "comonad-transformers" "< 4"
+    addRange "Michael Snoyman" "free" "< 4"
+    addRange "Michael Snoyman" "semigroupoids" "< 4"
+    addRange "Michael Snoyman" "semigroupoid-extras" "< 4"
+    addRange "Michael Snoyman" "eq" "< 4"
+    addRange "Michael Snoyman" "pointed" "< 4"
+    addRange "Michael Snoyman" "profunctors" "< 4"
+    addRange "Michael Snoyman" "profunctor-extras" "< 4"
+    addRange "Michael Snoyman" "groupoids" "< 4"
+    addRange "Michael Snoyman" "bifunctors" "< 4"
+
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
     -- Requires binary 0.7
