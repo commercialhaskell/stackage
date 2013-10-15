@@ -9,7 +9,6 @@ import           Stackage.Select    (defaultSelectSettings, select)
 import           Stackage.Tarballs  (makeTarballs)
 import           Stackage.Test      (runTestSuites)
 import           Stackage.Types
-import           Stackage.Uploads   (checkUploads, printForbidden)
 import           Stackage.Util      (allowPermissive)
 import           System.Environment (getArgs, getProgName)
 import           System.IO          (hFlush, stdout)
@@ -85,7 +84,6 @@ main :: IO ()
 main = do
     args <- getArgs
     case args of
-        ["uploads"] -> checkUploads "allowed.txt" "new-allowed.txt" >>= printForbidden
         "select":rest -> do
             SelectArgs {..} <- parseSelectArgs rest
             ghcVersion <- getGhcVersion
