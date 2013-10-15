@@ -1,8 +1,10 @@
+{-# LANGUAGE ScopedTypeVariables #-}
 module Stackage.LoadDatabase where
 
 import qualified Codec.Archive.Tar                     as Tar
 import qualified Codec.Compression.GZip                as GZip
-import           Control.Monad                         (guard)
+import           Control.Exception                     (IOException, handle)
+import           Control.Monad                         (guard, foldM)
 import qualified Data.ByteString.Lazy                  as L
 import qualified Data.ByteString.Lazy.Char8            as L8
 import           Data.List                             (stripPrefix)
@@ -37,12 +39,13 @@ import           Distribution.PackageDescription       (Condition (..),
 import           Distribution.PackageDescription.Parse (ParseResult (ParseOk),
                                                         parsePackageDescription)
 import           Distribution.System                   (buildArch, buildOS)
+import           Distribution.Text                     (simpleParse)
 import           Distribution.Version                  (Version (Version),
                                                         unionVersionRanges,
                                                         withinRange)
 import           Stackage.Types
 import           Stackage.Util
-import           System.Directory                      (doesFileExist)
+import           System.Directory                      (doesFileExist, getDirectoryContents)
 import           System.FilePath                       ((<.>), (</>))
 
 -- | Load the raw package database.
@@ -64,11 +67,16 @@ loadPackageDB :: SelectSettings
 loadPackageDB settings coreMap core deps = do
     tarName <- getTarballName
     lbs <- L.readFile tarName
-    addEntries mempty $ Tar.read lbs
+    pdb <- addEntries mempty $ Tar.read lbs
+    contents <- handle (\(_ :: IOException) -> return [])
+              $ getDirectoryContents $ selectTarballDir settings
+    foldM addTarball pdb $ mapMaybe stripTarGz contents
   where
     addEntries _ (Tar.Fail e) = error $ show e
     addEntries db Tar.Done = return db
     addEntries db (Tar.Next e es) = addEntry db e >>= flip addEntries es
+
+    stripTarGz = fmap reverse . stripPrefix (reverse ".tar.gz") . reverse
 
     ghcVersion' =
         let GhcMajorVersion x y = selectGhcVersion settings
@@ -96,6 +104,17 @@ loadPackageDB settings coreMap core deps = do
                                     case Tar.entryContent e of
                                         Tar.NormalFile bs _ -> addPackage p v bs pdb
                                         _ -> return pdb
+
+    addTarball :: PackageDB -> FilePath -> IO PackageDB
+    addTarball pdb tarball' = do
+        lbs <- L.readFile tarball
+        let (v', p') = break (== '-') $ reverse tarball'
+            p = PackageName $ reverse $ drop 1 p'
+        v <- maybe (error $ "Invalid tarball name: " ++ tarball) return
+           $ simpleParse $ reverse v'
+        findCabalAndAddPackage tarball p v pdb $ Tar.read $ GZip.decompress lbs
+      where
+        tarball = selectTarballDir settings </> tarball' <.> "tar.gz"
 
     skipTests p = p `Set.member` skippedTests settings
 
