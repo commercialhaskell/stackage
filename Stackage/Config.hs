@@ -140,9 +140,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     when (ghcVer < GhcMajorVersion 7 6) $ do
         addRange "FP Complete <michael@fpcomplete.com>" "hxt" "<= 9.3.0.1"
         addRange "FP Complete <michael@fpcomplete.com>" "shelly" "<= 1.0"
-
-        -- https://github.com/fpco/stackage/issues/122
-        addRange "FP Complete <michael@fpcomplete.com>" "shake" "< 0.10.7"
     when (ghcVer >= GhcMajorVersion 7 6) $ do
         add "FP Complete <michael@fpcomplete.com>" "repa-devil"
     addRange "FP Complete <michael@fpcomplete.com>" "kure" "<= 2.4.10"
