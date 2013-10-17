@@ -110,6 +110,8 @@ defaultExpectedFailures ghcVer = execWriter $ do
     when (ghcVer < GhcMajorVersion 7 6) $ do
         -- https://github.com/haskell-suite/haskell-names/issues/39
         add "haskell-names"
+
+    add "shake"
   where
     add = tell . singleton . PackageName
 
