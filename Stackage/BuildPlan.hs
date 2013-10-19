@@ -1,5 +1,6 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE RecordWildCards   #-}
+{-# LANGUAGE TypeSynonymInstances #-}
 module Stackage.BuildPlan
     ( readBuildPlan
     , writeBuildPlan

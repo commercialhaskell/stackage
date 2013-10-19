@@ -1,6 +1,7 @@
 module Stackage.NarrowDatabase where
 
 import           Control.Monad.Trans.Writer
+import           Data.List                  (foldl')
 import qualified Data.Map                   as Map
 import qualified Data.Set                   as Set
 import           Prelude                    hiding (pi)
@@ -46,7 +47,7 @@ narrowPackageDB settings core (PackageDB pdb) packageSet =
                                         , msg
                                         ]
                                     Right () -> return ()
-                        loop result' $ Set.foldl' (addDep users' result' maintainer) toProcess' $ Map.keysSet $ piDeps pi
+                        loop result' $ foldl' (addDep users' result' maintainer) toProcess' $ Map.keys $ piDeps pi
     addDep users result maintainer toProcess p =
         case Map.lookup p result of
             Nothing -> Set.insert (users, p, maintainer) toProcess

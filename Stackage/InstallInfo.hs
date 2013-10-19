@@ -5,6 +5,7 @@ module Stackage.InstallInfo
     ) where
 
 import           Control.Monad            (forM_, unless)
+import           Data.List                (foldl')
 import qualified Data.Map                 as Map
 import qualified Data.Set                 as Set
 import           Data.Version             (showVersion)
@@ -23,7 +24,7 @@ dropExcluded :: SelectSettings
              -> Map PackageName (VersionRange, Maintainer)
              -> Map PackageName (VersionRange, Maintainer)
 dropExcluded bs m0 =
-    Set.foldl' (flip Map.delete) m0 (excludedPackages bs)
+    foldl' (flip Map.delete) m0 (Set.toList $ excludedPackages bs)
 
 getInstallInfo :: SelectSettings -> IO InstallInfo
 getInstallInfo settings = do
