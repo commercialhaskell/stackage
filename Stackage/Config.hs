@@ -286,6 +286,10 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- Requires binary 0.7
     addRange "FP Complete <michael@fpcomplete.com>" "bson" "< 0.2.3"
 
+    -- io-streams depends on too new a network and too old a test-framework.
+    -- Therefore, don't use the new websockets which depends on it.
+    addRange "Michael Snoyman" "websockets" "< 0.8"
+
     -- unknown symbol `utf8_table4'
     addRange "Michael Snoyman" "regex-pcre-builtin" "< 0.94.4.6.8.31"
   where
