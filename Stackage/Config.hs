@@ -278,6 +278,8 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "reducers" "< 3.10"
     addRange "Michael Snoyman" "compressed" "< 3.10"
     addRange "Michael Snoyman" "either" "< 4"
+    addRange "Michael Snoyman" "monad-products" "< 4"
+    addRange "Michael Snoyman" "recursion-schemes" "< 4"
 
     addRange "Michael Snoyman" "hashable" "< 1.2"
     addRange "Michael Snoyman" "optparse-applicative" "< 0.7"
