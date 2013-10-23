@@ -282,7 +282,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "recursion-schemes" "< 4"
 
     addRange "Michael Snoyman" "hashable" "< 1.2"
-    addRange "Michael Snoyman" "optparse-applicative" "< 0.7"
 
     -- Requires binary 0.7
     addRange "FP Complete <michael@fpcomplete.com>" "bson" "< 0.2.3"
