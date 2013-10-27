@@ -109,6 +109,9 @@ defaultExpectedFailures ghcVer = execWriter $ do
         add "haskell-names"
 
     add "shake"
+
+    -- https://github.com/nurpax/sqlite-simple/issues/30
+    add "sqlite-simple"
   where
     add = tell . singleton . PackageName
 
