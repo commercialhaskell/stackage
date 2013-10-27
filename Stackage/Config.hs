@@ -98,9 +98,6 @@ defaultExpectedFailures ghcVer = execWriter $ do
       -- Requires a locally running PostgreSQL server with appropriate users
     add "postgresql-simple"
 
-      -- https://github.com/IreneKnapp/direct-sqlite/issues/32
-    add "direct-sqlite"
-
       -- Missing files
     add "websockets"
 
