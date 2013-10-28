@@ -284,6 +284,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
 
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
+    -- https://github.com/lpsmith/postgresql-simple/issues/88
+    addRange "Michael Snoyman" "postgresql-simple" "< 0.3.9"
+
     -- Requires binary 0.7
     addRange "FP Complete <michael@fpcomplete.com>" "bson" "< 0.2.3"
 
