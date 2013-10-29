@@ -193,6 +193,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     mapM_ (add "Simon Hengel <sol@typeful.net>") $ words
         "hspec doctest base-compat"
 
+    mapM_ (add "Mario Blazevic <blamario@yahoo.com>") $ words
+        "incremental-parser monad-parallel monad-coroutine monoid-subclasses"
+
     mapM_ (add "Brent Yorgey <byorgey@gmail.com>") $ words =<<
         [ "monoid-extras dual-tree vector-space-points active force-layout"
         , "diagrams diagrams-contrib diagrams-core diagrams-lib diagrams-svg"
