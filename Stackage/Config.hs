@@ -194,7 +194,11 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         "hspec doctest base-compat"
 
     mapM_ (add "Mario Blazevic <blamario@yahoo.com>") $ words
-        "incremental-parser monad-parallel monad-coroutine monoid-subclasses"
+        "monad-parallel monad-coroutine"
+    -- https://github.com/blamario/monoid-subclasses/issues/3
+    when (ghcVer >= GhcMajorVersion 7 6) $ do
+        mapM_ (add "Mario Blazevic <blamario@yahoo.com>") $ words
+            "incremental-parser monoid-subclasses"
 
     mapM_ (add "Brent Yorgey <byorgey@gmail.com>") $ words =<<
         [ "monoid-extras dual-tree vector-space-points active force-layout"
