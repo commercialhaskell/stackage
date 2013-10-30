@@ -109,6 +109,9 @@ defaultExpectedFailures ghcVer = execWriter $ do
         add "haskell-names"
 
     add "shake"
+
+    -- https://github.com/bos/text-icu/issues/3
+    add "text-icu"
   where
     add = tell . singleton . PackageName
 
