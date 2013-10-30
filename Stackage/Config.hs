@@ -284,6 +284,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "monad-products" "< 4"
     addRange "Michael Snoyman" "recursion-schemes" "< 4"
     addRange "Michael Snoyman" "data-lens" "< 2.10.4"
+    addRange "Michael Snoyman" "intervals" "< 0.3"
 
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
