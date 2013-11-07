@@ -290,6 +290,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "data-lens" "< 2.10.4"
     addRange "Michael Snoyman" "intervals" "< 0.3"
 
+    -- https://github.com/fpco/stackage/issues/136
+    addRange "Michael Snoyman" "dual-tree" "< 0.2"
+
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
     -- Requires binary 0.7
