@@ -226,8 +226,8 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     mapM_ (add "Daniel Díaz <dhelta.diaz@gmail.com>") $ words
         "HaTeX"
 
-    mapM_ (add "Adam Bergmark <adam@edea.se>") $ words
-        "fay fay-base"
+    mapM_ (add "Adam Bergmark <adam@bergmark.nl>") $ words
+        "fay fay-base fay-dom fay-jquery fay-text fay-uri snaplet-fay"
 
     mapM_ (add "Boris Lykah <lykahb@gmail.com>") $ words
         "groundhog groundhog-th groundhog-sqlite groundhog-postgresql groundhog-mysql"
