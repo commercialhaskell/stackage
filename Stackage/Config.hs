@@ -109,6 +109,9 @@ defaultExpectedFailures ghcVer = execWriter $ do
         add "haskell-names"
 
     add "shake"
+
+    -- https://github.com/jgm/pandoc-citeproc/issues/5
+    add "pandoc-citeproc"
   where
     add = tell . singleton . PackageName
 
