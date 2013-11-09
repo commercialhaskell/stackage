@@ -238,6 +238,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     mapM_ (add "Janne Hellsten <jjhellst@gmail.com>") $ words
         "sqlite-simple"
 
+    mapM_ (add "Michal J. Gajda") $ words
+        "iterable Octree FenwickTree hPDB hPDB-examples"
+
     -- https://github.com/fpco/stackage/issues/46
     addRange "Michael Snoyman" "QuickCheck" "< 2.6"
 
