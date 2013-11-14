@@ -241,6 +241,12 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     mapM_ (add "Michal J. Gajda") $ words
         "iterable Octree FenwickTree hPDB hPDB-examples"
 
+    mapM_ (add "Roman Cheplyaka <roma@ro-che.info>") $ words =<<
+        [ "smallcheck tasty tasty-smallcheck tasty-quickcheck tasty-hunit tasty-golden"
+        , "traverse-with-class regex-applicative time-lens"
+        , "haskell-names haskell-packages hse-cpp"
+        ]
+
     -- https://github.com/fpco/stackage/issues/46
     addRange "Michael Snoyman" "QuickCheck" "< 2.6"
 
