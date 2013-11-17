@@ -18,11 +18,20 @@ import           System.IO                  (BufferMode (NoBuffering),
 import           System.Process             (rawSystem, runProcess,
                                              waitForProcess)
 
-defaultBuildSettings :: GhcMajorVersion -> BuildSettings
-defaultBuildSettings version = BuildSettings
+defaultBuildSettings :: Maybe Int -- ^ argument to -j
+                     -> GhcMajorVersion
+                     -> BuildSettings
+defaultBuildSettings cores version = BuildSettings
     { sandboxRoot = "sandbox"
     , expectedFailuresBuild = defaultExpectedFailures version
-    , extraArgs = const ["-fnetwork23"]
+    , extraArgs = \bs -> "-fnetwork23" :
+        case bs of
+            BSTest -> []
+            _ ->
+                case cores of
+                    Nothing -> ["-j"]
+                    Just 1 -> []
+                    Just j -> ["-j", show j]
     , testWorkerThreads = 4
     , buildDocs = True
     , tarballDir = "patching/tarballs"
@@ -64,7 +73,6 @@ build settings' bp = do
                          $ "install"
                          : ("--cabal-lib-version=" ++ libVersion)
                          : "--build-log=logs-tools/$pkg.log"
-                         : "-j"
                          : [tool]
                 hPutStrLn handle ("cabal " ++ unwords (map (\s -> "'" ++ s ++ "'") args))
                 ph <- runCabal args handle
@@ -89,7 +97,6 @@ build settings' bp = do
                  : "--build-log=logs/$pkg.log"
                  : "--max-backjumps=-1"
                  : "--reorder-goals"
-                 : "-j"
                  : packageList
         hPutStrLn handle ("cabal " ++ unwords (map (\s -> "'" ++ s ++ "'") args))
         runCabal args handle

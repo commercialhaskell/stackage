@@ -47,15 +47,17 @@ data BuildArgs = BuildArgs
     , buildPlanSrc :: FilePath
     , extraArgs'   :: [String] -> [String]
     , noDocs       :: Bool
+    , buildCores   :: Maybe Int
     }
 
 parseBuildArgs :: GhcMajorVersion -> [String] -> IO BuildArgs
 parseBuildArgs version =
     loop BuildArgs
-        { sandbox = sandboxRoot $ defaultBuildSettings version
+        { sandbox = sandboxRoot $ defaultBuildSettings Nothing version
         , buildPlanSrc = defaultBuildPlan
         , extraArgs' = id
         , noDocs = False
+        , buildCores = Nothing
         }
   where
     loop x [] = return x
@@ -63,6 +65,7 @@ parseBuildArgs version =
     loop x ("--build-plan":y:rest) = loop x { buildPlanSrc = y } rest
     loop x ("--arg":y:rest) = loop x { extraArgs' = extraArgs' x . (y:) } rest
     loop x ("--no-docs":rest) = loop x { noDocs = True } rest
+    loop x ("-j":y:rest) = loop x { buildCores = Just $ read y } rest
     loop _ (y:_) = error $ "Did not understand argument: " ++ y
 
 defaultBuildPlan :: FilePath
@@ -73,9 +76,10 @@ withBuildSettings args f = do
     version <- getGhcVersion
     BuildArgs {..} <- parseBuildArgs version args
     bp <- readBuildPlan buildPlanSrc
-    let settings = (defaultBuildSettings version)
+    let bs = defaultBuildSettings buildCores version
+    let settings = bs
             { sandboxRoot = sandbox
-            , extraArgs = extraArgs' . extraArgs (defaultBuildSettings version)
+            , extraArgs = extraArgs' . extraArgs bs
             , buildDocs = not noDocs
             }
     f settings bp
