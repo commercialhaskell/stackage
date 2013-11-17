@@ -313,6 +313,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- io-streams depends on too new a network and too old a test-framework.
     -- Therefore, don't use the new websockets which depends on it.
     addRange "Michael Snoyman" "websockets" "< 0.8"
+    addRange "Michael Snoyman" "wai-websockets" "< 1.3.2"
 
     -- unknown symbol `utf8_table4'
     addRange "Michael Snoyman" "regex-pcre-builtin" "< 0.94.4.6.8.31"
