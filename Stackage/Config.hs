@@ -239,7 +239,10 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         "sqlite-simple"
 
     mapM_ (add "Michal J. Gajda") $ words
-        "iterable Octree FenwickTree hPDB hPDB-examples"
+        "iterable Octree FenwickTree hPDB"
+    when (ghcVer >= GhcMajorVersion 7 6) $ do
+        mapM_ (add "Michal J. Gajda") $ words
+            "hPDB-examples"
 
     mapM_ (add "Roman Cheplyaka <roma@ro-che.info>") $ words =<<
         [ "smallcheck tasty tasty-smallcheck tasty-quickcheck tasty-hunit tasty-golden"
