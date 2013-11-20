@@ -220,6 +220,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
 
     mapM_ (add "Ryan Newton <ryan.newton@alum.mit.edu>") $ words
         "accelerate"
+    when (ghcVer < GhcMajorVersion 7 6) $ do
+        addRange "Ryan Newton <ryan.newton@alum.mit.edu>" "accelerate" "< 0.14"
+        addRange "Ryan Newton <ryan.newton@alum.mit.edu>" "fclabels" "< 2.0"
 
     mapM_ (add "Dan Burton <danburton.email@gmail.com>") $ words =<<
         [ "basic-prelude composition io-memoize numbers rev-state runmemo"
@@ -309,6 +312,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
 
     -- Requires binary 0.7
     addRange "FP Complete <michael@fpcomplete.com>" "bson" "< 0.2.3"
+
+    -- Version 0.15.3 requires a newer template-haskell
+    addRange "FP Complete <michael@fpcomplete.com>" "language-ecmascript" "< 0.15.3"
 
     -- io-streams depends on too new a network and too old a test-framework.
     -- Therefore, don't use the new websockets which depends on it.
