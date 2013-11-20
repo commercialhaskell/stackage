@@ -274,9 +274,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/123
     addRange "Michael Snoyman" "cryptohash" "< 0.11"
 
-    -- https://github.com/fpco/stackage/issues/124
-    addRange "Michael Snoyman" "fclabels" "< 2.0"
-
     -- Newest hxt requires network 2.4 or newest
     addRange "Michael Snoyman" "hxt" "< 9.3.1"
     addRange "Michael Snoyman" "network" "< 2.4"
