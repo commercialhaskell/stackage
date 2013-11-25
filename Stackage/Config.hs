@@ -283,6 +283,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/129
     addRange "Michael Snoyman" "comonad" "< 4"
+    addRange "Michael Snoyman" "comonad-extras" "< 4"
     addRange "Michael Snoyman" "comonads-fd" "< 4"
     addRange "Michael Snoyman" "comonad-transformers" "< 4"
     addRange "Michael Snoyman" "free" "< 4"
@@ -304,6 +305,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "recursion-schemes" "< 4"
     addRange "Michael Snoyman" "data-lens" "< 2.10.4"
     addRange "Michael Snoyman" "intervals" "< 0.3"
+    addRange "Michael Snoyman" "syb-extras" "< 0.3"
 
     -- https://github.com/fpco/stackage/issues/136
     addRange "Michael Snoyman" "dual-tree" "< 0.2"
