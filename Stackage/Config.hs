@@ -315,6 +315,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "diagrams-svg" "< 1.0"
     addRange "Michael Snoyman" "diagrams-postscript" "< 1.0"
     addRange "Michael Snoyman" "diagrams-contrib" "< 1.0"
+    addRange "Michael Snoyman" "diagrams" "< 1.0"
 
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
