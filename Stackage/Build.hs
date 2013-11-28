@@ -31,7 +31,7 @@ defaultBuildSettings cores version = BuildSettings
                 case cores of
                     Nothing -> ["-j"]
                     Just 1 -> []
-                    Just j -> ["-j", show j]
+                    Just j -> ["-j" ++ show j]
     , testWorkerThreads = 4
     , buildDocs = True
     , tarballDir = "patching/tarballs"
