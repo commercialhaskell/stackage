@@ -287,6 +287,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "comonads-fd" "< 4"
     addRange "Michael Snoyman" "comonad-transformers" "< 4"
     addRange "Michael Snoyman" "free" "< 4"
+    addRange "Michael Snoyman" "semigroups" "< 0.12"
     addRange "Michael Snoyman" "semigroupoids" "< 4"
     addRange "Michael Snoyman" "semigroupoid-extras" "< 4"
     addRange "Michael Snoyman" "eq" "< 4"
@@ -316,6 +317,12 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "diagrams-postscript" "< 1.0"
     addRange "Michael Snoyman" "diagrams-contrib" "< 1.0"
     addRange "Michael Snoyman" "diagrams" "< 1.0"
+
+    -- https://github.com/fpco/stackage/issues/147
+    addRange "Michael Snoyman" "haskell-names" "< 0.3.2"
+
+    -- https://github.com/fpco/stackage/issues/148
+    addRange "Michael Snoyman" "data-memocombinators" "< 0.5"
 
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
