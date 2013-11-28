@@ -318,9 +318,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "diagrams-contrib" "< 1.0"
     addRange "Michael Snoyman" "diagrams" "< 1.0"
 
-    -- https://github.com/fpco/stackage/issues/147
-    addRange "Michael Snoyman" "haskell-names" "< 0.3.2"
-
     -- https://github.com/fpco/stackage/issues/148
     addRange "Michael Snoyman" "data-memocombinators" "< 0.5"
 
