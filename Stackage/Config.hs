@@ -305,19 +305,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "monad-products" "< 4"
     addRange "Michael Snoyman" "recursion-schemes" "< 4"
     addRange "Michael Snoyman" "data-lens" "< 2.10.4"
-    addRange "Michael Snoyman" "intervals" "< 0.3"
     addRange "Michael Snoyman" "syb-extras" "< 0.3"
-
-    -- https://github.com/fpco/stackage/issues/136
-    addRange "Michael Snoyman" "dual-tree" "< 0.2"
-    addRange "Michael Snoyman" "diagrams-cairo" "< 1.0"
-    addRange "Michael Snoyman" "diagrams-lib" "< 1.0"
-    addRange "Michael Snoyman" "diagrams-core" "< 1.0"
-    addRange "Michael Snoyman" "diagrams-svg" "< 1.0"
-    addRange "Michael Snoyman" "diagrams-postscript" "< 1.0"
-    addRange "Michael Snoyman" "diagrams-contrib" "< 1.0"
-    addRange "Michael Snoyman" "diagrams" "< 1.0"
-    addRange "Michael Snoyman" "BlogLiterately-diagrams" "< 0.1.3"
 
     -- https://github.com/fpco/stackage/issues/151
     addRange "Michael Snoyman" "dlist" "< 0.6"
