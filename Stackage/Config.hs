@@ -317,6 +317,10 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "diagrams-postscript" "< 1.0"
     addRange "Michael Snoyman" "diagrams-contrib" "< 1.0"
     addRange "Michael Snoyman" "diagrams" "< 1.0"
+    addRange "Michael Snoyman" "BlogLiterately-diagrams" "< 0.1.3"
+
+    -- https://github.com/fpco/stackage/issues/151
+    addRange "Michael Snoyman" "dlist" "< 0.6"
 
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
