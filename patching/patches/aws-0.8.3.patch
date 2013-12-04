@@ -1,0 +1,143 @@
+diff -ru orig/Aws/Core.hs new/Aws/Core.hs
+--- orig/Aws/Core.hs	2013-12-04 07:33:52.794606590 +0200
++++ new/Aws/Core.hs	2013-12-04 07:33:51.000000000 +0200
+@@ -104,6 +104,8 @@
+ import           Data.Char
+ import           Data.Conduit             (ResourceT, ($$+-))
+ import qualified Data.Conduit             as C
++import qualified Data.Conduit.List        as CL
++import           Data.Default             (def)
+ import           Data.IORef
+ import           Data.List
+ import           Data.Maybe
+@@ -186,7 +188,11 @@
+ -- | Does not parse response. For debugging.
+ instance ResponseConsumer r (HTTP.Response L.ByteString) where
+     type ResponseMetadata (HTTP.Response L.ByteString) = ()
+-    responseConsumer _ _ resp = HTTP.lbsResponse resp
++    responseConsumer _ _ resp = do
++        bss <- HTTP.responseBody resp $$+- CL.consume
++        return resp
++            { HTTP.responseBody = L.fromChunks bss
++            }
+ 
+ -- | Class for responses that are fully loaded into memory
+ class AsMemoryResponse resp where
+@@ -340,16 +346,24 @@
+         -- | Additional non-"amz" headers.
+       , sqOtherHeaders :: HTTP.RequestHeaders
+         -- | Request body (used with 'Post' and 'Put').
++#if MIN_VERSION_http_conduit(2, 0, 0)
++      , sqBody :: Maybe HTTP.RequestBody
++#else
+       , sqBody :: Maybe (HTTP.RequestBody (C.ResourceT IO))
++#endif
+         -- | String to sign. Note that the string is already signed, this is passed mostly for debugging purposes.
+       , sqStringToSign :: B.ByteString
+       }
+     --deriving (Show)
+ 
+ -- | Create a HTTP request from a 'SignedQuery' object.
++#if MIN_VERSION_http_conduit(2, 0, 0)
++queryToHttpRequest :: SignedQuery -> HTTP.Request
++#else
+ queryToHttpRequest :: SignedQuery -> HTTP.Request (C.ResourceT IO)
++#endif
+ queryToHttpRequest SignedQuery{..}
+-    = HTTP.def {
++    = def {
+         HTTP.method = httpMethod sqMethod
+       , HTTP.secure = case sqProtocol of
+                         HTTP -> False
+diff -ru orig/Aws/S3/Commands/GetObject.hs new/Aws/S3/Commands/GetObject.hs
+--- orig/Aws/S3/Commands/GetObject.hs	2013-12-04 07:33:52.794606590 +0200
++++ new/Aws/S3/Commands/GetObject.hs	2013-12-04 07:33:51.000000000 +0200
+@@ -9,6 +9,7 @@
+ import qualified Data.ByteString.Char8 as B8
+ import qualified Data.ByteString.Lazy  as L
+ import qualified Data.Conduit          as C
++import qualified Data.Conduit.List     as CL
+ import           Data.Maybe
+ import qualified Data.Text             as T
+ import qualified Data.Text.Encoding    as T
+@@ -81,4 +82,8 @@
+ 
+ instance AsMemoryResponse GetObjectResponse where
+     type MemoryResponse GetObjectResponse = GetObjectMemoryResponse
+-    loadToMemory (GetObjectResponse om x) = GetObjectMemoryResponse om <$> HTTP.lbsResponse x
++    loadToMemory (GetObjectResponse om x) = do
++        bss <- HTTP.responseBody x C.$$+- CL.consume
++        return $ GetObjectMemoryResponse om x
++            { HTTP.responseBody = L.fromChunks bss
++            }
+diff -ru orig/Aws/S3/Commands/PutObject.hs new/Aws/S3/Commands/PutObject.hs
+--- orig/Aws/S3/Commands/PutObject.hs	2013-12-04 07:33:52.794606590 +0200
++++ new/Aws/S3/Commands/PutObject.hs	2013-12-04 07:33:51.000000000 +0200
+@@ -1,3 +1,4 @@
++{-# LANGUAGE CPP #-}
+ module Aws.S3.Commands.PutObject
+ where
+ 
+@@ -27,11 +28,19 @@
+   poAcl :: Maybe CannedAcl,
+   poStorageClass :: Maybe StorageClass,
+   poWebsiteRedirectLocation :: Maybe T.Text,
++#if MIN_VERSION_http_conduit(2, 0, 0)
++  poRequestBody  :: HTTP.RequestBody,
++#else
+   poRequestBody  :: HTTP.RequestBody (C.ResourceT IO),
++#endif
+   poMetadata :: [(T.Text,T.Text)]
+ }
+ 
++#if MIN_VERSION_http_conduit(2, 0, 0)
++putObject :: Bucket -> T.Text -> HTTP.RequestBody -> PutObject
++#else
+ putObject :: Bucket -> T.Text -> HTTP.RequestBody (C.ResourceT IO) -> PutObject
++#endif
+ putObject bucket obj body = PutObject obj bucket Nothing Nothing Nothing Nothing Nothing Nothing Nothing Nothing Nothing body []
+ 
+ data PutObjectResponse
+@@ -75,4 +84,4 @@
+ 
+ instance AsMemoryResponse PutObjectResponse where
+     type MemoryResponse PutObjectResponse = PutObjectResponse
+-    loadToMemory = return
+\ No newline at end of file
++    loadToMemory = return
+diff -ru orig/Aws/S3/Core.hs new/Aws/S3/Core.hs
+--- orig/Aws/S3/Core.hs	2013-12-04 07:33:52.794606590 +0200
++++ new/Aws/S3/Core.hs	2013-12-04 07:33:51.000000000 +0200
+@@ -1,3 +1,4 @@
++{-# LANGUAGE CPP #-}
+ module Aws.S3.Core where
+ 
+ import           Aws.Core
+@@ -137,7 +138,11 @@
+       , s3QContentMd5 :: Maybe MD5
+       , s3QAmzHeaders :: HTTP.RequestHeaders
+       , s3QOtherHeaders :: HTTP.RequestHeaders
++#if MIN_VERSION_http_conduit(2, 0, 0)
++      , s3QRequestBody :: Maybe HTTP.RequestBody
++#else
+       , s3QRequestBody :: Maybe (HTTP.RequestBody (C.ResourceT IO))
++#endif
+       }
+ 
+ instance Show S3Query where
+diff -ru orig/aws.cabal new/aws.cabal
+--- orig/aws.cabal	2013-12-04 07:33:52.802606590 +0200
++++ new/aws.cabal	2013-12-04 07:33:51.000000000 +0200
+@@ -107,10 +107,11 @@
+                        crypto-api           >= 0.9,
+                        cryptohash           >= 0.8     && < 0.12,
+                        cryptohash-cryptoapi == 0.1.*,
++                       data-default         == 0.5.*,
+                        directory            >= 1.0     && < 1.3,
+                        failure              >= 0.2.0.1 && < 0.3,
+                        filepath             >= 1.1     && < 1.4,
+-                       http-conduit         >= 1.9     && < 1.10,
++                       http-conduit         >= 1.9     && < 2.1,
+                        http-types           >= 0.7     && < 0.9,
+                        lifted-base          >= 0.1     && < 0.3,
+                        monad-control        >= 0.3,
