@@ -311,9 +311,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "data-lens" "< 2.10.4"
     addRange "Michael Snoyman" "syb-extras" "< 0.3"
 
-    -- https://github.com/fpco/stackage/issues/152
-    addRange "Michael Snoyman" "pandoc-citeproc" "< 0.2"
-
     -- https://github.com/fpco/stackage/issues/153
     addRange "Michael Snoyman" "text" "< 1.0"
 
