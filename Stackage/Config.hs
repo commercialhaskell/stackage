@@ -317,9 +317,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/153
     addRange "Michael Snoyman" "text" "< 1.0"
 
-    -- https://github.com/fpco/stackage/issues/154
-    addRange "Michael Snoyman" "vector-algorithms" "< 0.6"
-
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
     -- Requires binary 0.7
