@@ -86,8 +86,12 @@ runTestSuite settings testdir (packageName, SelectedPackageInfo {..}) = do
     env' <- getModifiedEnv settings
     let menv addGPP
             = Just $ (if addGPP then (("GHC_PACKAGE_PATH", packageDir settings ++ ":"):) else id)
-                   $ ("HASKELL_PACKAGE_SANDBOX", packageDir settings)
-                   : env'
+                   $ addSandbox env'
+        -- FIXME why do these packages require the workaround?
+        bannedSandboxVar = map PackageName $ words "wai-logger warp"
+        addSandbox
+            | packageName `elem` bannedSandboxVar = id
+            | otherwise = (("HASKELL_PACKAGE_SANDBOX", packageDir settings):)
 
     let runGen addGPP cmd args wdir handle' = do
             ph <- runProcess cmd args (Just wdir) (menv addGPP) Nothing (Just handle') (Just handle')
