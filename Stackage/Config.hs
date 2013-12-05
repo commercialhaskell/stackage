@@ -276,9 +276,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/107
     addRange "Michael Snoyman" "split" "< 0.2.2"
 
-    -- https://github.com/fpco/stackage/issues/118
-    addRange "Michael Snoyman" "pem" "< 0.2"
-
     -- Newest hxt requires network 2.4 or newest
     addRange "Michael Snoyman" "hxt" "< 9.3.1"
     addRange "Michael Snoyman" "network" "< 2.4"
