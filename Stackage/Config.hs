@@ -112,6 +112,10 @@ defaultExpectedFailures ghcVer = execWriter $ do
 
     -- https://github.com/jgm/pandoc-citeproc/issues/5
     add "pandoc-citeproc"
+
+    -- Problems with doctest and sandboxing
+    add "warp"
+    add "wai-logger"
   where
     add = tell . singleton . PackageName
 
