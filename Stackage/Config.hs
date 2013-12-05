@@ -212,6 +212,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         , "diagrams diagrams-contrib diagrams-core diagrams-lib diagrams-svg"
         , "diagrams-postscript diagrams-builder diagrams-haddock haxr"
         , "BlogLiterately BlogLiterately-diagrams"
+        , "MonadRandom"
         ]
 
     mapM_ (add "Patrick Brisbin") $ words "gravatar"
