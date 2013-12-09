@@ -305,6 +305,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/156
     addRange "Michael Snoyman" "hspec" "< 1.8"
+    addRange "Michael Snoyman" "hspec-expectations" "< 0.4"
 
     -- https://github.com/fpco/stackage/issues/157
     addRange "Michael Snoyman" "pretty-show" "== 1.6.1"
