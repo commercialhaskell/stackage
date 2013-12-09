@@ -1,0 +1,34 @@
+diff -ru orig/Control/Exception/Peel.hs new/Control/Exception/Peel.hs
+--- orig/Control/Exception/Peel.hs	2013-12-09 18:35:35.592693947 +0200
++++ new/Control/Exception/Peel.hs	2013-12-09 18:35:35.000000000 +0200
+@@ -1,3 +1,4 @@
++{-# LANGUAGE CPP #-}
+ {-# LANGUAGE ExistentialQuantification #-}
+ 
+ {- |
+@@ -20,7 +21,9 @@
+   handle, handleJust,
+   try, tryJust,
+   evaluate,
++#if !MIN_VERSION_base(4, 7, 0)
+   block, unblock,
++#endif
+   bracket, bracket_, bracketOnError,
+   finally, onException,
+   ) where
+@@ -108,6 +111,7 @@
+ evaluate :: MonadIO m => a -> m a
+ evaluate = liftIO . E.evaluate
+ 
++#if !MIN_VERSION_base(4, 7, 0)
+ -- |Generalized version of 'E.block'.
+ block :: MonadPeelIO m => m a -> m a
+ block = liftIOOp_ E.block
+@@ -115,6 +119,7 @@
+ -- |Generalized version of 'E.unblock'.
+ unblock :: MonadPeelIO m => m a -> m a
+ unblock = liftIOOp_ E.unblock
++#endif
+ 
+ -- |Generalized version of 'E.bracket'.  Note, any monadic side
+ -- effects in @m@ of the \"release\" computation will be discarded; it
