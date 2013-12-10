@@ -132,6 +132,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         , "shakespeare-text process-conduit stm-conduit"
         , "classy-prelude-yesod yesod-fay yesod-eventsource wai-websockets"
         , "random-shuffle safe-failure hackage-proxy"
+        , "mega-sdist"
         ]
 
     mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
