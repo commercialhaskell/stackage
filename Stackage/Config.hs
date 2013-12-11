@@ -259,6 +259,21 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         , "haskell-names haskell-packages hse-cpp"
         ]
 
+    mapM_ (add "Ketil Malde") $ words =<<
+        [ "biocore biofasta biofastq biosff"
+        , "blastxml bioace biophd"
+        , "biopsl samtools"
+        , "seqloc bioalign BlastHTTP"
+        , "RNAFold"
+        , "parsestar hTalos"
+        -- The following have out-of-date dependencies currently
+        -- biostockholm memexml RNAwolf
+        -- , "Biobase BiobaseDotP BiobaseFR3D BiobaseInfernal BiobaseMAF"
+        -- , "BiobaseTrainingData BiobaseTurner BiobaseXNA BiobaseVienna"
+        -- , "BiobaseTypes BiobaseFasta"
+        -- MC-Fold-DP
+        ]
+
     -- https://github.com/fpco/stackage/issues/46
     addRange "Michael Snoyman" "QuickCheck" "< 2.6"
 
