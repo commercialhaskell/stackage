@@ -259,7 +259,8 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         , "haskell-names haskell-packages hse-cpp"
         ]
 
-    mapM_ (add "Ketil Malde") $ words =<<
+    -- https://github.com/fpco/stackage/issues/160
+    when (ghcVer >= GhcMajorVersion 7 6) $ mapM_ (add "Ketil Malde") $ words =<<
         [ "biocore biofasta biofastq biosff"
         , "blastxml bioace biophd"
         , "biopsl samtools"
