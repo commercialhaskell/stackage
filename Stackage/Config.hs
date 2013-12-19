@@ -132,8 +132,8 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         , "shakespeare-text process-conduit stm-conduit"
         , "classy-prelude-yesod yesod-fay yesod-eventsource wai-websockets"
         , "random-shuffle safe-failure hackage-proxy"
-        , "mega-sdist"
         ]
+    when (ghcVer >= GhcMajorVersion 7 6) $ add "michael@snoyman.com" "mega-sdist"
 
     mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
         [ "web-fpco th-expand-syns configurator compdata smtLib unification-fd"
