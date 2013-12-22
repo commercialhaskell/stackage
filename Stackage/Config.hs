@@ -330,6 +330,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/159
     addRange "Michael Snoyman" "pretty-show" "< 1.6.2"
 
+    -- https://github.com/fpco/stackage/issues/161
+    addRange "Michael Snoyman" "RSA" "< 1.3"
+
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
     -- Requires binary 0.7
