@@ -7,7 +7,7 @@
 # wget -O - https://raw.github.com/fpco/stackage/master/debian-bootstrap.sh | bash -ex
 
 sudo apt-get update
-sudo apt-get install -y build-essential libncurses-dev git libgmp3c2 libgmp3-dev zlib1g-dev libedit2 libedit-dev freeglut3-dev libglu1-mesa-dev libglib2.0-dev libcairo2-dev libpango1.0-dev libgtk2.0-dev zip libdevil-dev
+sudo apt-get install -y build-essential libncurses-dev git libgmp3c2 libgmp3-dev zlib1g-dev libedit2 libedit-dev freeglut3-dev libglu1-mesa-dev libglib2.0-dev libcairo2-dev libpango1.0-dev libgtk2.0-dev zip libdevil-dev llvm
 wget http://www.haskell.org/ghc/dist/7.4.2/ghc-7.4.2-x86_64-unknown-linux.tar.bz2
 tar jxfv ghc-7.4.2-x86_64-unknown-linux.tar.bz2
 cd ghc-7.4.2
