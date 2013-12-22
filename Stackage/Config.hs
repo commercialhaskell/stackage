@@ -116,6 +116,10 @@ defaultExpectedFailures ghcVer = execWriter $ do
     -- Problems with doctest and sandboxing
     add "warp"
     add "wai-logger"
+
+    -- https://github.com/fpco/stackage/issues/163
+    add "hTalos"
+    add "seqloc"
   where
     add = tell . singleton . PackageName
 
