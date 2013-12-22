@@ -260,7 +260,8 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         ]
 
     -- https://github.com/fpco/stackage/issues/160
-    when (ghcVer >= GhcMajorVersion 7 6) $ mapM_ (add "Ketil Malde") $ words =<<
+    when (ghcVer >= GhcMajorVersion 7 6) $ do
+      mapM_ (add "Ketil Malde") $ words =<<
         [ "biocore biofasta biofastq biosff"
         , "blastxml bioace biophd"
         , "biopsl samtools"
@@ -274,6 +275,8 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         -- , "BiobaseTypes BiobaseFasta"
         -- MC-Fold-DP
         ]
+      -- https://github.com/fpco/stackage/issues/163
+      addRange "Michael Snoyman" "biophd" "< 0.0.6 || > 0.0.6"
 
     -- https://github.com/fpco/stackage/issues/46
     addRange "Michael Snoyman" "QuickCheck" "< 2.6"
