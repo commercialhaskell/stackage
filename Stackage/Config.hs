@@ -120,6 +120,10 @@ defaultExpectedFailures ghcVer = execWriter $ do
     -- https://github.com/fpco/stackage/issues/163
     add "hTalos"
     add "seqloc"
+
+    -- FIXME the test suite fails fairly regularly in builds, though I haven't
+    -- discovered why yet
+    add "crypto-numbers"
   where
     add = tell . singleton . PackageName
 
