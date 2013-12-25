@@ -153,6 +153,8 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         , "persistent-mongoDB"
         , "threepenny-gui"
         ]
+    -- https://github.com/yesodweb/persistent/issues/190
+    addRange "FP Complete <michael@fpcomplete.com>" "persistent-mongoDB" "< 1.3"
     when (ghcVer < GhcMajorVersion 7 6) $ do
         addRange "FP Complete <michael@fpcomplete.com>" "hxt" "<= 9.3.0.1"
         addRange "FP Complete <michael@fpcomplete.com>" "shelly" "<= 1.0"
