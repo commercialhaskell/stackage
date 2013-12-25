@@ -351,9 +351,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/162
     addRange "Michael Snoyman" "postgresql-simple" "< 0.4"
 
-    -- https://github.com/fpco/stackage/issues/165
-    addRange "Michael Snoyman" "temporary" "< 1.2"
-
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
     -- Requires binary 0.7
