@@ -347,9 +347,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/161
     addRange "Michael Snoyman" "RSA" "< 1.3"
 
-    -- https://github.com/fpco/stackage/issues/162
-    addRange "Michael Snoyman" "postgresql-simple" "< 0.4"
-
     -- https://github.com/fpco/stackage/issues/166
     addRange "Michael Snoyman" "temporary" "< 1.2"
 
