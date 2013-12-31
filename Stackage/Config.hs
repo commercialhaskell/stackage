@@ -348,6 +348,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/166
     addRange "Michael Snoyman" "temporary" "< 1.2"
 
+    -- https://github.com/fpco/stackage/issues/168
+    addRange "Michael Snoyman" "crypto-api" "< 0.13"
+
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
     -- Requires binary 0.7
