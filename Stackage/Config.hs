@@ -359,6 +359,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
 
     -- binary package dep issue, figure out more fine-grained workaround
     addRange "Michael Snoyman" "SHA" "< 1.6.3"
+    addRange "Michael Snoyman" "pandoc" "< 1.12.3"
 
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
