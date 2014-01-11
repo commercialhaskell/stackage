@@ -39,6 +39,7 @@ general, the following set of commands should be good for getting started:
     cabal install --only-dependencies
     cabal configure
     cabal build
+    ./patching/scripts/create-tarballs.sh
     ./dist/build/stackage/stackage select
     ./dist/build/stackage/stackage check
     ./dist/build/stackage/stackage build # takes a *long* time
