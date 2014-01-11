@@ -151,7 +151,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         , "hxt hxt-relaxng dimensional"
         , "cairo diagrams-cairo"
         , "persistent-mongoDB"
-        , "threepenny-gui"
+        , "threepenny-gui base16-bytestring convertible"
         ]
     when (ghcVer < GhcMajorVersion 7 6) $ do
         addRange "FP Complete <michael@fpcomplete.com>" "hxt" "<= 9.3.0.1"
