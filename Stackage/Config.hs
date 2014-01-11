@@ -357,6 +357,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/171
     addRange "Michael Snoyman" "pandoc-citeproc" "< 0.3"
 
+    -- https://github.com/fpco/stackage/issues/172
+    addRange "Michael Snoyman" "attoparsec" "< 0.11"
+
     -- binary package dep issue, figure out more fine-grained workaround
     addRange "Michael Snoyman" "SHA" "< 1.6.3"
     addRange "Michael Snoyman" "pandoc" "< 1.12.3"
