@@ -357,6 +357,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/171
     addRange "Michael Snoyman" "pandoc-citeproc" "< 0.3"
 
+    -- binary package dep issue, figure out more fine-grained workaround
+    addRange "Michael Snoyman" "SHA" "< 1.6.3"
+
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
     -- Requires binary 0.7
