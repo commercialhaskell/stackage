@@ -20,8 +20,17 @@ packages, you would add:
         "package1 package2 package3"
 
 You can follow the examples of the other sets of packages in that function.
-Once you've done this, you should confirm that your newly added packages are
-compatible with the rest of stackage by building the package set.
+Once you've done this, you can confirm that your newly added packages are
+compatible with the rest of stackage by building the package set following the
+instructions below.
+
+__NOTE__: In order to ease the process of adding new packages, we no longer
+require new submissions to be tested on your own system before sending a pull
+request. If you believe your package works with the newest versions of all
+dependencies, you may send a pull request without testing first. If you do so,
+please be sure to state this in the pull request so that the Stackage
+maintainers (e.g., Michael) will know to do basic sanity checking before
+merging.
 
 You should also read the [maintainers
 agreement](https://github.com/fpco/stackage/wiki/Maintainers-Agreement).
