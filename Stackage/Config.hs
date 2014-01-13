@@ -139,7 +139,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         , "network-conduit-tls yackage warp-tls keter"
         , "shakespeare-text process-conduit stm-conduit"
         , "classy-prelude-yesod yesod-fay yesod-eventsource wai-websockets"
-        , "random-shuffle safe-failure hackage-proxy"
+        , "random-shuffle safe-failure hackage-proxy hebrew-time"
         ]
     when (ghcVer >= GhcMajorVersion 7 6) $ add "michael@snoyman.com" "mega-sdist"
 
