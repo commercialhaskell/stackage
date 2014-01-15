@@ -328,6 +328,8 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "recursion-schemes" "< 4"
     addRange "Michael Snoyman" "data-lens" "< 2.10.4"
     addRange "Michael Snoyman" "syb-extras" "< 0.3"
+    addRange "Michael Snoyman" "adjunctions" "< 4.0"
+    addRange "Michael Snoyman" "kan-extensions" "< 4.0"
 
     -- https://github.com/fpco/stackage/issues/153
     addRange "Michael Snoyman" "text" "< 1.0"
