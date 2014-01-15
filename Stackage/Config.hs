@@ -359,6 +359,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/172
     addRange "Michael Snoyman" "attoparsec" "< 0.11"
+    addRange "Michael Snoyman" "fay" "< 0.19"
+    addRange "Michael Snoyman" "fay-base" "< 0.19"
+    addRange "Michael Snoyman" "fay-text" "< 0.3.0.1"
 
     -- binary package dep issue, figure out more fine-grained workaround
     addRange "Michael Snoyman" "SHA" "< 1.6.3"
