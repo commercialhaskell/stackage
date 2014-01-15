@@ -318,9 +318,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/161
     addRange "Michael Snoyman" "RSA" "< 1.3"
 
-    -- https://github.com/fpco/stackage/issues/166
-    addRange "Michael Snoyman" "temporary" "< 1.2"
-
     -- https://github.com/fpco/stackage/issues/168
     addRange "Michael Snoyman" "crypto-api" "< 0.13"
 
