@@ -124,6 +124,12 @@ defaultExpectedFailures ghcVer = execWriter $ do
     -- FIXME the test suite fails fairly regularly in builds, though I haven't
     -- discovered why yet
     add "crypto-numbers"
+
+    -- No code included any more, therefore Haddock fails
+    mapM_ add $ words =<<
+        [ "comonad-transformers comonads-fd groupoids"
+        , "profunctor-extras semigroupoid-extras"
+        ]
   where
     add = tell . singleton . PackageName
 
