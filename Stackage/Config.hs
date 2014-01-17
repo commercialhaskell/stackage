@@ -336,9 +336,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "fay-base" "< 0.19"
     addRange "Michael Snoyman" "fay-text" "< 0.3.0.1"
 
-    -- binary package dep issue, figure out more fine-grained workaround
-    addRange "Michael Snoyman" "SHA" "< 1.6.3"
-
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
     -- Requires binary 0.7
