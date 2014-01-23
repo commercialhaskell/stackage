@@ -156,7 +156,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         , "async shelly thyme"
         , "hxt hxt-relaxng dimensional"
         , "cairo diagrams-cairo"
-        , "persistent-mongoDB"
+        , "persistent-mongoDB fpco-api"
         , "threepenny-gui base16-bytestring convertible"
         ]
     when (ghcVer < GhcMajorVersion 7 6) $ do
