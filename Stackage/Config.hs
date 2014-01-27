@@ -343,6 +343,11 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/176
     addRange "Michael Snoyman" "diagrams-builder" "< 0.5"
 
+    -- https://github.com/fpco/stackage/issues/177
+    addRange "Michael Snoyman" "tls" "< 1.2"
+    addRange "Michael Snoyman" "tls-debug" "< 0.3"
+    addRange "Michael Snoyman" "connection" "< 0.2"
+
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
     -- Requires binary 0.7
