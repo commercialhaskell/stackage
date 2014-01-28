@@ -189,7 +189,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         [ "asn1-data bytedump certificate cipher-aes cipher-rc4 connection"
         , "cprng-aes cpu crypto-pubkey-types crypto-random-api cryptocipher"
         , "cryptohash hit language-java libgit pem siphash socks tls"
-        , "tls-debug tls-extra vhd"
+        , "tls-debug vhd"
         ]
     addRange "Vincent Hanquez" "language-java" "< 0.2.5"
 
