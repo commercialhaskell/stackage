@@ -341,9 +341,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "blaze-html" "< 0.7"
     addRange "Michael Snoyman" "blaze-markup" "< 0.6"
 
-    -- https://github.com/fpco/stackage/issues/176
-    addRange "Michael Snoyman" "diagrams-builder" "< 0.5"
-
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
     -- Requires binary 0.7
