@@ -341,6 +341,10 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "blaze-html" "< 0.7"
     addRange "Michael Snoyman" "blaze-markup" "< 0.6"
 
+    -- https://github.com/fpco/stackage/issues/178
+    addRange "Michael Snoyman" "MonadCatchIO-transformers" "< 0.3.1"
+    addRange "Michael Snoyman" "MonadCatchIO-mtl" "< 0.3.1"
+
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
     -- Requires binary 0.7
