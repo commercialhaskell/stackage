@@ -281,7 +281,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         , "blastxml bioace biophd"
         , "biopsl samtools"
         , "seqloc bioalign BlastHTTP"
-        , "RNAFold"
+        -- PrimitiveArray compilation failure, "RNAFold"
         , "parsestar hTalos"
         -- The following have out-of-date dependencies currently
         -- biostockholm memexml RNAwolf
