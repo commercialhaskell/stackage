@@ -1,0 +1,9 @@
+diff -ru orig/test/test.hs new/test/test.hs
+--- orig/test/test.hs	2014-01-29 09:09:40.578369753 +0200
++++ new/test/test.hs	2014-01-29 09:09:40.000000000 +0200
+@@ -36,4 +36,4 @@
+               <$> replicateM (abs n) randomIO
+         dest <- runResourceT $ do
+           C.sourceList (P.map S.pack ss) =$= bzip2 =$= bunzip2 $$ B.take (10^9)
+-        return $ dest == L.pack (concat ss)
++        return $ dest == L.pack (P.concat ss)
