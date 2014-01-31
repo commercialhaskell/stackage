@@ -274,6 +274,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         , "haskell-names haskell-packages hse-cpp"
         ]
 
+    mapM_ (add "Aycan iRiCAN <iricanaycan@gmail.com>") $ words
+        "hdaemonize"
+
     -- https://github.com/fpco/stackage/issues/160
     when (ghcVer >= GhcMajorVersion 7 6) $ do
       mapM_ (add "Ketil Malde") $ words =<<
