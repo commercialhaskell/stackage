@@ -277,6 +277,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
 #if !defined(mingw32_HOST_OS) && !defined(__MINGW32__)
     mapM_ (add "Aycan iRiCAN <iricanaycan@gmail.com>") $ words
         "hdaemonize hsyslog hweblib"
+#else
+    mapM_ (add "Aycan iRiCAN <iricanaycan@gmail.com>") $ words
+        "hweblib"
 #endif
 
     -- https://github.com/fpco/stackage/issues/160
