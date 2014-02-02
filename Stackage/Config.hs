@@ -278,6 +278,14 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         , "haskell-names haskell-packages hse-cpp"
         ]
 
+#if !defined(mingw32_HOST_OS) && !defined(__MINGW32__)
+    mapM_ (add "Aycan iRiCAN <iricanaycan@gmail.com>") $ words
+        "hdaemonize hsyslog hweblib"
+#else
+    mapM_ (add "Aycan iRiCAN <iricanaycan@gmail.com>") $ words
+        "hweblib"
+#endif
+
     -- https://github.com/fpco/stackage/issues/160
     when (ghcVer >= GhcMajorVersion 7 6) $ do
       mapM_ (add "Ketil Malde") $ words =<<
