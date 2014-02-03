@@ -257,6 +257,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     mapM_ (add "Daniel Díaz <dhelta.diaz@gmail.com>") $ words
         "HaTeX"
 
+    mapM_ (add "Gabriel Gonzalez <Gabriel439@gmail.com>")
+        ["pipes", "pipes-parse", "pipes-concurrency"]
+
     mapM_ (add "Adam Bergmark <adam@bergmark.nl>") $ words
         "fay fay-base fay-dom fay-jquery fay-text fay-uri snaplet-fay"
 
