@@ -289,6 +289,11 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         "hweblib"
 #endif
 
+    mapM_ (add "John Wiegley <johnw@fpcomplete.com>") $ words =<<
+        [ "bindings-dsl github monad-extras numbers these hlibgit2"
+        , "gitlib gitlib-cmdline gitlib-libgit2 gitlib-s3 gitlib-test"
+        ]
+
     -- https://github.com/fpco/stackage/issues/160
     when (ghcVer >= GhcMajorVersion 7 6) $ do
       mapM_ (add "Ketil Malde") $ words =<<
