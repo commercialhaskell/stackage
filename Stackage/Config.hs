@@ -287,7 +287,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
 #endif
 
     mapM_ (add "John Wiegley <johnw@fpcomplete.com>") $ words =<<
-        [ "bindings-dsl github monad-extras numbers these hlibgit2"
+        [ "bindings-DSL github monad-extras numbers these hlibgit2"
         , "gitlib gitlib-cmdline gitlib-libgit2 gitlib-s3 gitlib-test"
         ]
 
