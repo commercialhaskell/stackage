@@ -85,9 +85,6 @@ defaultExpectedFailures ghcVer = execWriter $ do
       -- https://github.com/basvandijk/concurrent-extra/issues/
     add "concurrent-extra"
 
-      -- https://github.com/rrnewton/haskell-lockfree-queue/issues/7
-    add "abstract-deque"
-
       -- https://github.com/skogsbaer/xmlgen/issues/2
     add "xmlgen"
 
