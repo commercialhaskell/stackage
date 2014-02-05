@@ -288,7 +288,8 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
 
     mapM_ (add "John Wiegley <johnw@fpcomplete.com>") $ words =<<
         [ "bindings-DSL github monad-extras numbers these hlibgit2"
-        , "gitlib gitlib-cmdline gitlib-libgit2 gitlib-s3 gitlib-test"
+        , "gitlib gitlib-cmdline gitlib-s3 gitlib-test"
+        -- gitlib-libgit2
         ]
 
     -- https://github.com/fpco/stackage/issues/160
