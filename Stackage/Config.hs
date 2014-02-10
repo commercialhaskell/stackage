@@ -363,6 +363,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "lens" "< 4.0"
     addRange "Michael Snoyman" "linear" "< 1.6"
 
+    -- https://github.com/skogsbaer/HTF/issues/31
+    addRange "Michael Snoyman" "HTF" "< 0.11.2"
+
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
     -- Requires binary 0.7
