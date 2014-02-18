@@ -9,12 +9,14 @@ import           Prelude                    hiding (pi)
 import           Stackage.CheckCabalVersion (checkCabalVersion)
 import           Stackage.Config
 import           Stackage.InstallInfo
+import           Stackage.ModuleNameConflict
 import           Stackage.Types
 import           Stackage.Util
 import           System.Exit                (ExitCode (ExitSuccess), exitWith)
 import           System.IO                  (BufferMode (NoBuffering),
                                              IOMode (WriteMode), hPutStrLn,
                                              hSetBuffering, withBinaryFile)
+import qualified System.IO.UTF8
 import           System.Process             (rawSystem, runProcess,
                                              waitForProcess)
 
@@ -104,3 +106,8 @@ build settings' bp = do
     unless (ec == ExitSuccess) $ do
         putStrLn "Build failed, please see build.log"
         exitWith ec
+
+    putStrLn "Build completed successfully, checking for module name conflicts"
+    conflicts <- getModuleNameConflicts $ packageDir settings
+    System.IO.UTF8.writeFile "module-name-conflicts.txt"
+        $ renderModuleNameConflicts conflicts
