@@ -359,6 +359,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "lens" "< 4.0"
     addRange "Michael Snoyman" "linear" "< 1.6"
 
+    -- https://github.com/meteficha/fb/commit/7629bc5daef71b805fd264085e55da953725368b#commitcomment-5408460
+    addRange "Michael Snoyman" "fb" "< 0.15"
+
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
     -- Requires binary 0.7
