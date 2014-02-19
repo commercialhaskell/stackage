@@ -320,9 +320,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/72
     addRange "Michael Snoyman" "HaXml" "< 1.24"
 
-    -- Due to binary package dep
-    addRange "Michael Snoyman" "statistics" "< 0.10.4"
-
     -- Newest hxt requires network 2.4 or newest
     addRange "Michael Snoyman" "hxt" "< 9.3.1"
     addRange "Michael Snoyman" "network" "< 2.4"
