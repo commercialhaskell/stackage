@@ -358,9 +358,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
 
     addRange "Michael Snoyman" "hashable" "< 1.2"
 
-    -- Requires binary 0.7
-    addRange "FP Complete <michael@fpcomplete.com>" "bson" "< 0.2.3"
-
     -- Version 0.15.3 requires a newer template-haskell
     addRange "FP Complete <michael@fpcomplete.com>" "language-ecmascript" "< 0.15.3"
 
