@@ -358,9 +358,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
 
     -- Version 0.15.3 requires a newer template-haskell
     addRange "FP Complete <michael@fpcomplete.com>" "language-ecmascript" "< 0.15.3"
-
-    -- unknown symbol `utf8_table4'
-    addRange "Michael Snoyman" "regex-pcre-builtin" "< 0.94.4.6.8.31"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
