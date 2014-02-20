@@ -342,12 +342,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/171
     addRange "Michael Snoyman" "pandoc-citeproc" "< 0.3"
 
-    -- https://github.com/fpco/stackage/issues/172
-    addRange "Michael Snoyman" "attoparsec" "< 0.11"
-    addRange "Michael Snoyman" "fay" "< 0.19"
-    addRange "Michael Snoyman" "fay-base" "< 0.19"
-    addRange "Michael Snoyman" "fay-text" "< 0.3.0.1"
-
     -- https://github.com/fpco/stackage/issues/178
     addRange "Michael Snoyman" "MonadCatchIO-transformers" "< 0.3.1"
     addRange "Michael Snoyman" "MonadCatchIO-mtl" "< 0.3.1"
