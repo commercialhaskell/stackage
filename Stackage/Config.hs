@@ -310,9 +310,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
       -- https://github.com/fpco/stackage/issues/163
       addRange "Michael Snoyman" "biophd" "< 0.0.6 || > 0.0.6"
 
-    -- https://github.com/fpco/stackage/issues/46
-    addRange "Michael Snoyman" "QuickCheck" "< 2.6"
-
     -- https://github.com/fpco/stackage/issues/72
     addRange "Michael Snoyman" "HaXml" "< 1.24"
 
