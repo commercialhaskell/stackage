@@ -190,9 +190,8 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         [ "asn1-data bytedump certificate cipher-aes cipher-rc4 connection"
         , "cprng-aes cpu crypto-pubkey-types crypto-random-api cryptocipher"
         , "cryptohash hit language-java libgit pem siphash socks tls"
-        , "tls-debug vhd"
+        , "tls-debug vhd language-java"
         ]
-    addRange "Vincent Hanquez" "language-java" "< 0.2.5"
 
 #if !defined(mingw32_HOST_OS) && !defined(__MINGW32__)
     -- Does not compile on Windows
