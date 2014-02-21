@@ -331,6 +331,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "lens" "< 4.0"
     addRange "Michael Snoyman" "linear" "< 1.6"
 
+    -- https://github.com/haskell-suite/haskell-names/issues/46
+    addRange "Roman Cheplyaka <roma@ro-che.info>" "pretty-show" "<= 1.6.2"
+
     -- Version 0.15.3 requires a newer template-haskell
     addRange "FP Complete <michael@fpcomplete.com>" "language-ecmascript" "< 0.15.3"
   where
