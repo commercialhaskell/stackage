@@ -320,9 +320,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/153
     addRange "Michael Snoyman" "text" "< 1.0"
 
-    -- https://github.com/fpco/stackage/issues/170
-    addRange "Michael Snoyman" "aeson" "< 0.7"
-
     -- https://github.com/fpco/stackage/issues/178
     addRange "Michael Snoyman" "MonadCatchIO-transformers" "< 0.3.1"
     addRange "Michael Snoyman" "MonadCatchIO-mtl" "< 0.3.1"
