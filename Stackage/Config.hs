@@ -290,6 +290,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         , "gitlib gitlib-cmdline gitlib-test"
         , "gitlib-libgit2 gitlib-s3"
         ]
+        
+    mapM_ (add "Ben Ford <ben@dlstartup.com") $ words
+        "HandsomeSoup"
 
     -- https://github.com/fpco/stackage/issues/160
     when (ghcVer >= GhcMajorVersion 7 6) $ do
