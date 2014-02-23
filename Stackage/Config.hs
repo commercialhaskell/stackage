@@ -330,6 +330,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "lens" "< 4.0"
     addRange "Michael Snoyman" "linear" "< 1.6"
 
+    -- https://github.com/snapframework/io-streams/issues/22
+    addRange "Michael Snoyman" "io-streams" "< 1.1.4.1"
+
     -- Depends on a newer version of happy
     addRange "Roman Cheplyaka <roma@ro-che.info>" "pretty-show" "<= 1.6.1"
 
