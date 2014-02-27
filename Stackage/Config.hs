@@ -189,7 +189,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         "parseargs"
 
     mapM_ (add "Vincent Hanquez") $ words =<<
-        [ "asn1-data bytedump certificate cipher-aes cipher-rc4 connection"
+        [ "bytedump certificate cipher-aes cipher-rc4 connection"
         , "cprng-aes cpu crypto-pubkey-types crypto-random-api cryptocipher"
         , "cryptohash hit language-java libgit pem siphash socks tls"
         , "tls-debug vhd language-java"
