@@ -330,9 +330,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "lens" "< 4.0"
     addRange "Michael Snoyman" "linear" "< 1.6"
 
-    -- https://github.com/fpco/stackage/issues/187
-    addRange "Michael Snoyman" "cpphs" "< 1.18.2"
-
     -- https://github.com/fpco/stackage/issues/188
     addRange "Michael Snoyman" "tasty" "< 0.8"
     addRange "Michael Snoyman" "tasty-golden" "< 2.2"
