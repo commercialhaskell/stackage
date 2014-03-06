@@ -330,13 +330,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "lens" "< 4.0"
     addRange "Michael Snoyman" "linear" "< 1.6"
 
-    -- https://github.com/fpco/stackage/issues/188
-    addRange "Michael Snoyman" "tasty" "< 0.8"
-    addRange "Michael Snoyman" "tasty-golden" "< 2.2"
-    addRange "Michael Snoyman" "tasty-hunit" "< 0.8"
-    addRange "Michael Snoyman" "tasty-quickcheck" "< 0.8"
-    addRange "Michael Snoyman" "tasty-smallcheck" "< 0.8"
-
     -- Requires aeson 0.6.*
     addRange "Michael Snoyman" "threepenny-gui" "< 0.4.1"
 
