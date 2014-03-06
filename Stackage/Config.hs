@@ -160,6 +160,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         , "cairo diagrams-cairo"
         , "persistent-mongoDB fpco-api"
         , "threepenny-gui base16-bytestring convertible"
+        , "conduit-combinators"
         ]
     -- Deprecated version
     addRange "FP Complete <michael@fpcomplete.com>" "persistent-mongoDB" "< 1.3.1 || > 1.3.1"
