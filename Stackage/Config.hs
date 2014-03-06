@@ -330,6 +330,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "lens" "< 4.0"
     addRange "Michael Snoyman" "linear" "< 1.6"
 
+    -- https://github.com/fpco/stackage/issues/189
+    addRange "Michael Snoyman" "statistics" "< 0.11"
+
     -- Requires aeson 0.6.*
     addRange "Michael Snoyman" "threepenny-gui" "< 0.4.1"
 
