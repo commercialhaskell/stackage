@@ -230,7 +230,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         [ "monoid-extras dual-tree vector-space-points active force-layout"
         , "diagrams diagrams-contrib diagrams-core diagrams-lib diagrams-svg"
         , "diagrams-postscript diagrams-builder diagrams-haddock haxr"
-        , "BlogLiterately BlogLiterately-diagrams"
+        , "BlogLiterately" -- FIXME #191 BlogLiterately-diagrams"
         , "MonadRandom"
         ]
 
@@ -329,6 +329,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/189
     addRange "Michael Snoyman" "statistics" "< 0.11"
+
+    -- https://github.com/fpco/stackage/issues/191
+    addRange "Michael Snoyman" "vector-space-points" "< 0.2"
 
     -- Requires aeson 0.6.*
     addRange "Michael Snoyman" "threepenny-gui" "< 0.4.1"
