@@ -144,7 +144,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
         , "classy-prelude-yesod yesod-fay yesod-eventsource wai-websockets"
         , "random-shuffle safe-failure hackage-proxy hebrew-time"
         , "bzlib-conduit case-insensitive"
-        , "conduit-combinators"
+        , "conduit-combinators yesod-websockets"
         ]
     when (ghcVer >= GhcMajorVersion 7 6) $ add "michael@snoyman.com" "mega-sdist"
 #if !defined(mingw32_HOST_OS) && !defined(__MINGW32__)
