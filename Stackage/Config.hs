@@ -327,10 +327,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "MonadCatchIO-transformers" "< 0.3.1"
     addRange "Michael Snoyman" "MonadCatchIO-mtl" "< 0.3.1"
 
-    -- https://github.com/fpco/stackage/issues/179
-    addRange "Michael Snoyman" "lens" "< 4.0"
-    addRange "Michael Snoyman" "linear" "< 1.6"
-
     -- https://github.com/fpco/stackage/issues/189
     addRange "Michael Snoyman" "statistics" "< 0.11"
 
