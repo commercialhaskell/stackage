@@ -39,7 +39,7 @@ defaultSelectSettings version = SelectSettings
             Just v | Just range <- simpleParse "< 0.5", v `withinRange` range
                 -> Set.singleton "containers-old"
             _ -> Set.empty)
-    , disabledFlags = Set.fromList $ words "bytestring-in-base"
+    , disabledFlags = Set.fromList $ words "bytestring-in-base test-hlint"
     , allowedPackage = const $ Right ()
     , useGlobalDatabase = False
     , skippedTests = empty
