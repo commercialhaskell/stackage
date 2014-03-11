@@ -1,0 +1,20 @@
+diff -ru orig/src/MFlow/Wai/Blaze/Html/All.hs new/src/MFlow/Wai/Blaze/Html/All.hs
+--- orig/src/MFlow/Wai/Blaze/Html/All.hs	2014-03-11 21:46:17.260400422 +0200
++++ new/src/MFlow/Wai/Blaze/Html/All.hs	2014-03-11 21:46:16.000000000 +0200
+@@ -36,7 +36,7 @@
+ import Text.Blaze.Html5 hiding (map)
+ import Text.Blaze.Html5.Attributes  hiding (label,span,style,cite,title,summary,step,form)
+ import Network.Wai
+-import Network.Wai.Handler.Warp
++import qualified Network.Wai.Handler.Warp as Warp
+ import Data.TCache
+ import Text.Blaze.Internal(text)
+ 
+@@ -74,6 +74,6 @@
+     when(not $ null n) $ setNoScript n
+     addMessageFlows[(n, runFlow f)] 
+     porti <- getPort
+-    wait $ run porti waiMessageFlow
++    wait $ Warp.run porti waiMessageFlow
+     --runSettings defaultSettings{settingsTimeout = 20, settingsPort= porti} waiMessageFlow
+     
