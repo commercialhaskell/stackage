@@ -330,6 +330,10 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/189
     addRange "Michael Snoyman" "statistics" "< 0.11"
 
+    -- https://github.com/fpco/stackage/issues/192
+    addRange "Michael Snoyman" "hint" "< 0.4"
+    addRange "Michael Snoyman" "ghc-mtl" "< 1.1"
+
     -- Requires aeson 0.6.*
     addRange "Michael Snoyman" "threepenny-gui" "< 0.4.1"
 
