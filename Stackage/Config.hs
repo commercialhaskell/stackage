@@ -340,6 +340,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- Requires aeson 0.6.*
     addRange "Michael Snoyman" "threepenny-gui" "< 0.4.1"
 
+    -- local patch
+    addRange "Michael Snoyman" "bson" "== 0.2.3"
+
     -- Depends on a newer version of happy
     addRange "Roman Cheplyaka <roma@ro-che.info>" "pretty-show" "<= 1.6.1"
 
