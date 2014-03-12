@@ -334,9 +334,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "hint" "< 0.4"
     addRange "Michael Snoyman" "ghc-mtl" "< 1.1"
 
-    -- https://github.com/fpco/stackage/issues/193
-    addRange "Michael Snoyman" "MFlow" "< 0.4"
-
     -- Requires aeson 0.6.*
     addRange "Michael Snoyman" "threepenny-gui" "< 0.4.1"
 
