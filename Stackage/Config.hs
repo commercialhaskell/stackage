@@ -122,6 +122,9 @@ defaultExpectedFailures ghcVer = execWriter $ do
     -- discovered why yet
     add "crypto-numbers"
 
+    -- Test suite is currently failing regularly, needs to be worked out still.
+    add "lens"
+
     -- No code included any more, therefore Haddock fails
     mapM_ add $ words =<<
         [ "comonad-transformers comonads-fd groupoids"
