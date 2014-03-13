@@ -77,7 +77,7 @@ iiBuildTools InstallInfo { iiPackageDB = PackageDB m, iiPackages = packages } =
   $ mapMaybe (flip Map.lookup buildToolMap)
   $ Set.toList
   $ Set.unions
-  $ map piBuildTools
+  $ map piBuildToolsAll
   $ Map.elems
   $ Map.filterWithKey isSelected m
   where
@@ -108,7 +108,7 @@ iiBuildTools InstallInfo { iiPackageDB = PackageDB m, iiPackages = packages } =
                 Just pi -> Set.fromList
                          $ mapMaybe (flip Map.lookup buildToolMap)
                          $ Set.toList
-                         $ piBuildTools pi
+                         $ piBuildToolsExe pi
 
 topSort :: (Show a, Ord a) => [(a, Set a)] -> Either String [a]
 topSort orig =

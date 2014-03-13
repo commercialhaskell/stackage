@@ -30,7 +30,8 @@ data PackageInfo = PackageInfo
     { piVersion    :: Version
     , piDeps       :: Map PackageName VersionRange
     , piHasTests   :: Bool
-    , piBuildTools :: Set Executable
+    , piBuildToolsExe :: Set Executable -- ^ required just for building executable/lib
+    , piBuildToolsAll :: Set Executable -- ^ required for all stanzas
     , piGPD        :: Maybe GenericPackageDescription
     , piExecs      :: Set Executable
     , piGithubUser :: Maybe String

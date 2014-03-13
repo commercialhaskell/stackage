@@ -155,12 +155,13 @@ loadPackageDB settings coreMap core deps = do
             | otherwise = loop rest
 
     addPackage p v lbs pdb = do
-        let (deps', hasTests, buildTools', mgpd, execs, mgithub) = parseDeps p lbs
+        let (deps', hasTests, buildToolsExe', buildToolsOther', mgpd, execs, mgithub) = parseDeps p lbs
         return $ mappend pdb $ PackageDB $ Map.singleton p PackageInfo
             { piVersion = v
             , piDeps = deps'
             , piHasTests = hasTests
-            , piBuildTools = buildTools'
+            , piBuildToolsExe = buildToolsExe'
+            , piBuildToolsAll = buildToolsExe' `Set.union` buildToolsOther'
             , piGPD = mgpd
             , piExecs = execs
             , piGithubUser = mgithub
@@ -176,25 +177,29 @@ loadPackageDB settings coreMap core deps = do
                     else mconcat $ map (go gpd . snd) $ condTestSuites gpd
                 , mconcat $ map (go gpd . snd) $ condBenchmarks gpd
                 ], not $ null $ condTestSuites gpd
-                , Set.fromList $ map depName $ allBuildInfo gpd
+                , Set.fromList $ map depName $ libExeBuildInfo gpd
+                , Set.fromList $ map depName $ testBenchBuildInfo gpd
                 , Just gpd
                 , Set.fromList $ map (Executable . fst) $ condExecutables gpd
                 , listToMaybe $ catMaybes
                   $ parseGithubUserHP (homepage $ packageDescription gpd)
                   : map parseGithubUserSR (sourceRepos $ packageDescription gpd)
                 )
-            _ -> (mempty, defaultHasTestSuites, Set.empty, Nothing, Set.empty, Nothing)
+            _ -> (mempty, defaultHasTestSuites, Set.empty, Set.empty, Nothing, Set.empty, Nothing)
       where
-        allBuildInfo gpd = concat
+        allBuildInfo gpd = libExeBuildInfo gpd ++ testBenchBuildInfo gpd
+        libExeBuildInfo gpd = concat
             [ maybe mempty (goBI libBuildInfo) $ condLibrary gpd
             , concat $ map (goBI buildInfo . snd) $ condExecutables gpd
-            , if skipTests p
+            ]
+        testBenchBuildInfo gpd = concat
+            [ if skipTests p
                 then []
                 else concat $ map (goBI testBuildInfo . snd) $ condTestSuites gpd
             , concat $ map (goBI benchmarkBuildInfo . snd) $ condBenchmarks gpd
             ]
-          where
-            goBI f x = buildTools $ f $ condTreeData x
+        goBI f x = buildTools $ f $ condTreeData x
+
         depName (Dependency (PackageName pn) _) = Executable pn
         go gpd tree
             = Map.filterWithKey (\k _ -> not $ ignoredDep k)
