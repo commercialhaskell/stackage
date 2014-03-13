@@ -338,7 +338,7 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "ghc-mtl" "< 1.1"
 
     -- local patch
-    addRange "Michael Snoyman" "bson" "== 0.2.3"
+    addRange "Michael Snoyman" "bson" "== 0.2.4"
 
     -- Depends on a newer version of happy
     addRange "Roman Cheplyaka <roma@ro-che.info>" "pretty-show" "<= 1.6.1"
