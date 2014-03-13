@@ -16,6 +16,7 @@ import           System.IO          (hFlush, stdout)
 data SelectArgs = SelectArgs
     { excluded       :: [String]
     , noPlatform     :: Bool
+    , ignoreUpgradeable :: Bool
     , onlyPermissive :: Bool
     , allowed        :: [String]
     , buildPlanDest  :: FilePath
@@ -27,6 +28,7 @@ parseSelectArgs =
     loop SelectArgs
         { excluded = []
         , noPlatform = False
+        , ignoreUpgradeable = False
         , onlyPermissive = False
         , allowed = []
         , buildPlanDest = defaultBuildPlan
@@ -36,6 +38,7 @@ parseSelectArgs =
     loop x [] = return x
     loop x ("--exclude":y:rest) = loop x { excluded = y : excluded x } rest
     loop x ("--no-platform":rest) = loop x { noPlatform = True } rest
+    loop x ("--ignore-upgradeable":rest) = loop x { ignoreUpgradeable = True } rest
     loop x ("--only-permissive":rest) = loop x { onlyPermissive = True } rest
     loop x ("--allow":y:rest) = loop x { allowed = y : allowed x } rest
     loop x ("--build-plan":y:rest) = loop x { buildPlanDest = y } rest
@@ -95,6 +98,7 @@ main = do
                 (defaultSelectSettings ghcVersion)
                     { excludedPackages = fromList $ map PackageName excluded
                     , requireHaskellPlatform = not noPlatform
+                    , ignoreUpgradeableCore = ignoreUpgradeable
                     , allowedPackage =
                         if onlyPermissive
                             then allowPermissive allowed

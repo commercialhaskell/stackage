@@ -98,6 +98,8 @@ data SelectSettings = SelectSettings
     , disabledFlags          :: Set String
     -- ^ Compile flags which should always be disabled.
     , extraCore              :: Set PackageName
+    , ignoreUpgradeableCore  :: Bool
+    -- ^ Do not pin down the versions of upgradeable core packages.
     , requireHaskellPlatform :: Bool
     , allowedPackage         :: GenericPackageDescription -> Either String ()
     -- ^ Checks if a package is allowed into the distribution. By default, we

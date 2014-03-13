@@ -47,7 +47,11 @@ getInstallInfo settings = do
                     Map.union (stablePackages settings) $ identsToRanges (hplibs hp)
                 _ -> stablePackages settings
         allPackages = dropExcluded settings allPackages'
-    let totalCore = extraCore settings `Set.union` Set.map (\(PackageIdentifier p _) -> p) core
+    let totalCore
+            | ignoreUpgradeableCore settings =
+                Set.fromList $ map PackageName $ words "base containers template-haskell"
+            | otherwise =
+                extraCore settings `Set.union` Set.map (\(PackageIdentifier p _) -> p) core
 
     putStrLn "Loading package database"
     pdb <- loadPackageDB settings coreMap totalCore allPackages

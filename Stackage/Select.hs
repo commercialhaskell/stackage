@@ -25,6 +25,7 @@ defaultSelectSettings version = SelectSettings
     , stablePackages = defaultStablePackages version
     , haskellPlatformDir = "hp"
     , requireHaskellPlatform = True
+    , ignoreUpgradeableCore = False
     , excludedPackages = empty
     , flags = \coreMap ->
         Set.fromList (words "blaze_html_0_5 small_base") `Set.union`
