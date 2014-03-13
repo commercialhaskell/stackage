@@ -345,11 +345,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
 
     -- Version 0.15.3 requires a newer template-haskell
     addRange "FP Complete <michael@fpcomplete.com>" "language-ecmascript" "< 0.15.3"
-
-    -- Temporary upper bounds while getting things sorted with upstream...
-    addRange "Michael Snoyman" "dlist" "< 0.6"
-    addRange "Michael Snoyman" "unix" "< 2.7"
-    addRange "Michael Snoyman" "array" "< 0.5"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
