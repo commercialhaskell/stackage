@@ -197,9 +197,18 @@ loadPackageDB settings coreMap core deps = do
             goBI f x = buildTools $ f $ condTreeData x
         depName (Dependency (PackageName pn) _) = Executable pn
         go gpd tree
-            = Map.unionsWith unionVersionRanges
+            = Map.filterWithKey (\k _ -> not $ ignoredDep k)
+            $ Map.unionsWith unionVersionRanges
             $ Map.fromList (map (\(Dependency pn vr) -> (pn, vr)) $ condTreeConstraints tree)
             : map (go gpd) (mapMaybe (checkCond gpd) $ condTreeComponents tree)
+
+        -- Some specific overrides for cases where getting Stackage to be smart
+        -- enough to handle things would be too difficult.
+        ignoredDep :: PackageName -> Bool
+        ignoredDep dep
+            -- The flag logic used by text-stream-decode confuses Stackage.
+            | dep == PackageName "text" && p == PackageName "text-stream-decode" = True
+            | otherwise = False
 
         checkCond gpd (cond, tree, melse)
             | checkCond' cond = Just tree

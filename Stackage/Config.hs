@@ -323,9 +323,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "hxt" "< 9.3.1"
     addRange "Michael Snoyman" "network" "< 2.4"
 
-    -- https://github.com/fpco/stackage/issues/153
-    addRange "Michael Snoyman" "text" "< 1.0"
-
     -- https://github.com/fpco/stackage/issues/178
     addRange "Michael Snoyman" "MonadCatchIO-transformers" "< 0.3.1"
     addRange "Michael Snoyman" "MonadCatchIO-mtl" "< 0.3.1"
@@ -336,9 +333,6 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/192
     addRange "Michael Snoyman" "hint" "< 0.4"
     addRange "Michael Snoyman" "ghc-mtl" "< 1.1"
-
-    -- Requires aeson 0.6.*
-    addRange "Michael Snoyman" "threepenny-gui" "< 0.4.1"
 
     -- local patch
     addRange "Michael Snoyman" "bson" "== 0.2.3"
