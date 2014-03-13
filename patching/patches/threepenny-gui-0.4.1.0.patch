@@ -1,6 +1,18 @@
+diff -ru orig/src/Graphics/UI/Threepenny/Internal/Driver.hs new/src/Graphics/UI/Threepenny/Internal/Driver.hs
+--- orig/src/Graphics/UI/Threepenny/Internal/Driver.hs	2014-03-13 10:29:00.049732639 +0200
++++ new/src/Graphics/UI/Threepenny/Internal/Driver.hs	2014-03-13 10:28:59.000000000 +0200
+@@ -248,7 +248,7 @@
+ signal Session{..} = do
+     input <- getParam "signal"
+     let err = error $ "Unable to parse " ++ show input
+-    case JSON.decode . LBS.fromStrict =<< input of
++    case JSON.decode . LBS.fromChunks . return =<< input of
+         Just    signal -> liftIO $ writeChan sSignals signal
+         Nothing        -> err
+ 
 diff -ru orig/src/Graphics/UI/Threepenny/Internal/Types.hs new/src/Graphics/UI/Threepenny/Internal/Types.hs
---- orig/src/Graphics/UI/Threepenny/Internal/Types.hs	2014-03-13 07:47:41.597928004 +0200
-+++ new/src/Graphics/UI/Threepenny/Internal/Types.hs	2014-03-13 07:47:41.000000000 +0200
+--- orig/src/Graphics/UI/Threepenny/Internal/Types.hs	2014-03-13 10:29:00.049732639 +0200
++++ new/src/Graphics/UI/Threepenny/Internal/Types.hs	2014-03-13 10:28:59.000000000 +0200
 @@ -17,6 +17,7 @@
  import Data.Map                         (Map)
  import Data.String                      (fromString)
@@ -22,8 +34,8 @@ diff -ru orig/src/Graphics/UI/Threepenny/Internal/Types.hs new/src/Graphics/UI/T
  
  
 diff -ru orig/threepenny-gui.cabal new/threepenny-gui.cabal
---- orig/threepenny-gui.cabal	2014-03-13 07:47:41.605928005 +0200
-+++ new/threepenny-gui.cabal	2014-03-13 07:47:41.000000000 +0200
+--- orig/threepenny-gui.cabal	2014-03-13 10:29:00.057732639 +0200
++++ new/threepenny-gui.cabal	2014-03-13 10:28:59.000000000 +0200
 @@ -92,7 +92,7 @@
        cpp-options:  -DREBUG
        ghc-options:  -O2   
