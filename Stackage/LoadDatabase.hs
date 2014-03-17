@@ -123,6 +123,9 @@ loadPackageDB settings coreMap core deps = do
     findCabalAndAddPackage tarball p v pdb =
         loop
       where
+        fixPath '\\' = '/'
+        fixPath c = c
+
         expectedPath = let PackageName p' = p in concat
             [ packageVersionString (p, v)
             , "/"
@@ -142,7 +145,7 @@ loadPackageDB settings coreMap core deps = do
             , show e
             ]
         loop (Tar.Next entry rest)
-            | Tar.entryPath entry == expectedPath =
+            | map fixPath (Tar.entryPath entry) == expectedPath =
                 case Tar.entryContent entry of
                     Tar.NormalFile bs _ -> addPackage p v bs pdb
                     _ -> error $ concat
