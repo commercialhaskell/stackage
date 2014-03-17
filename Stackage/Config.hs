@@ -333,6 +333,9 @@ defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/189
     addRange "Michael Snoyman" "statistics" "< 0.11"
 
+    -- https://github.com/fpco/stackage/issues/194
+    addRange "Michael Snoyman" "optparse-applicative" "< 0.8"
+
     -- local patch
     addRange "Michael Snoyman" "bson" "== 0.2.4"
 
