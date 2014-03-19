@@ -310,7 +310,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
       mapM_ (add "Ketil Malde") $ words =<<
         [ "biocore biofasta biofastq biosff"
         , "blastxml bioace biophd"
-        , "biopsl samtools"
+        , "biopsl" -- https://github.com/ingolia/SamTools/issues/3 samtools
         , "seqloc bioalign BlastHTTP"
         , "RNAFold"
         , "parsestar hTalos"
