@@ -139,8 +139,10 @@ defaultExpectedFailures ghcVer = execWriter $ do
 -- | List of packages for our stable Hackage. All dependencies will be
 -- included as well. Please indicate who will be maintaining the package
 -- via comments.
-defaultStablePackages :: GhcMajorVersion -> Map PackageName (VersionRange, Maintainer)
-defaultStablePackages ghcVer = unPackageMap $ execWriter $ do
+defaultStablePackages :: GhcMajorVersion
+                      -> Bool -- ^ using haskell platform?
+                      -> Map PackageName (VersionRange, Maintainer)
+defaultStablePackages ghcVer usingHP = unPackageMap $ execWriter $ do
     mapM_ (add "michael@snoyman.com") $ words =<<
         [ "yesod yesod-newsfeed yesod-sitemap yesod-static yesod-test yesod-bin"
         , "markdown filesystem-conduit mime-mail-ses"

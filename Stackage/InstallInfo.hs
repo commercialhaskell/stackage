@@ -44,8 +44,9 @@ getInstallInfo settings = do
     let allPackages' =
             case mhp of
                 Just hp | requireHaskellPlatform settings ->
-                    Map.union (stablePackages settings) $ identsToRanges (hplibs hp)
-                _ -> stablePackages settings
+                    Map.union (stablePackages settings $ requireHaskellPlatform settings)
+                    $ identsToRanges (hplibs hp)
+                _ -> stablePackages settings $ requireHaskellPlatform settings
         allPackages = dropExcluded settings allPackages'
     let totalCore
             | ignoreUpgradeableCore settings =
