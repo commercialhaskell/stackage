@@ -342,6 +342,11 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     when (ghcVer == GhcMajorVersion 7 6 && requireHP) $
         addRange "Michael Snoyman" "parsers" "< 0.11"
 
+    -- Requires too new a version of text
+    when (ghcVer == GhcMajorVersion 7 4 && requireHP) $ do
+        addRange "Michael snoyman" "attoparsec" "< 0.11.2.1"
+        addRange "Michael Snoyman" "parsers" "< 0.11"
+
     -- local patch
     addRange "Michael Snoyman" "bson" "== 0.2.4"
 
