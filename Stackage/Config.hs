@@ -142,7 +142,7 @@ defaultExpectedFailures ghcVer = execWriter $ do
 defaultStablePackages :: GhcMajorVersion
                       -> Bool -- ^ using haskell platform?
                       -> Map PackageName (VersionRange, Maintainer)
-defaultStablePackages ghcVer usingHP = unPackageMap $ execWriter $ do
+defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "michael@snoyman.com") $ words =<<
         [ "yesod yesod-newsfeed yesod-sitemap yesod-static yesod-test yesod-bin"
         , "markdown filesystem-conduit mime-mail-ses"
@@ -337,6 +337,10 @@ defaultStablePackages ghcVer usingHP = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/194
     addRange "Michael Snoyman" "optparse-applicative" "< 0.8"
+
+    -- https://github.com/fpco/stackage/issues/197
+    when (ghcVer == GhcMajorVersion 7 6 && requireHP) $
+        addRange "Michael Snoyman" "parsers" "< 0.11"
 
     -- local patch
     addRange "Michael Snoyman" "bson" "== 0.2.4"
