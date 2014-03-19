@@ -1,0 +1,21 @@
+diff -ru orig/unit-tests/run-unit-tests.hs new/unit-tests/run-unit-tests.hs
+--- orig/unit-tests/run-unit-tests.hs	2014-03-19 13:49:32.661896632 +0200
++++ new/unit-tests/run-unit-tests.hs	2014-03-19 13:49:32.000000000 +0200
+@@ -191,7 +191,7 @@
+ test_catch :: TestCase
+ test_catch = TestCase "catch" [] $ do
+         setImports ["Prelude"]
+-        succeeds (action `catch` handler) @@? "catch failed"
++        succeeds (action `MC.catch` handler) @@? "catch failed"
+     where handler DivideByZero = return "catched"
+           handler e = throwM e
+           action = do s <- eval "1 `div` 0 :: Int"
+@@ -203,7 +203,7 @@
+     liftIO $ do
+         r <- newEmptyMVar
+         let concurrent = runInterpreter (liftIO $ putMVar r False)
+-                          `catch` \MultipleInstancesNotAllowed ->
++                          `MC.catch` \MultipleInstancesNotAllowed ->
+                                     do liftIO $ putMVar r True
+                                        return $ Right ()
+         _ <- forkIO $ concurrent >> return ()
