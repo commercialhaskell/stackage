@@ -347,6 +347,10 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/199
     addRange "Michael Snoyman" "QuickCheck" "< 2.7"
+    addRange "Michael Snoyman" "hspec-meta" "< 1.9"
+
+    -- https://github.com/fpco/stackage/issues/200
+    addRange "Michael Snoyman" "hspec" "< 1.9"
 
     -- Requires too new a version of text
     when (ghcVer == GhcMajorVersion 7 4 && requireHP) $ do
