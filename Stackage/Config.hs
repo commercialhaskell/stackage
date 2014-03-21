@@ -342,9 +342,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     when (ghcVer == GhcMajorVersion 7 6 && requireHP) $
         addRange "Michael Snoyman" "parsers" "< 0.11"
 
-    -- https://github.com/fpco/stackage/issues/198
-    addRange "Michael Snoyman" "lens" "< 4.1"
-
     -- https://github.com/fpco/stackage/issues/199
     addRange "Michael Snoyman" "QuickCheck" "< 2.7"
     addRange "Michael Snoyman" "hspec-meta" "< 1.9"
