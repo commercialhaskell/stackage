@@ -335,9 +335,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/189
     addRange "Michael Snoyman" "statistics" "< 0.11"
 
-    -- https://github.com/fpco/stackage/issues/194
-    addRange "Michael Snoyman" "optparse-applicative" "< 0.8"
-
     -- https://github.com/fpco/stackage/issues/197
     when (ghcVer == GhcMajorVersion 7 6 && requireHP) $
         addRange "Michael Snoyman" "parsers" "< 0.11"
