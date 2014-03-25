@@ -169,8 +169,11 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "cairo diagrams-cairo"
         , "persistent-mongoDB fpco-api"
         , "threepenny-gui base16-bytestring convertible"
-        , "distributed-process distributed-process-simplelocalnet"
         ]
+    when (ghcVer == GhcMajorVersion 7 4) $
+        mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
+            [ "distributed-process distributed-process-simplelocalnet"
+            ]
     -- Deprecated version
     addRange "FP Complete <michael@fpcomplete.com>" "persistent-mongoDB" "< 1.3.1 || > 1.3.1"
     when (ghcVer < GhcMajorVersion 7 6) $ do
