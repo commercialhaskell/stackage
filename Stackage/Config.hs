@@ -170,7 +170,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "persistent-mongoDB fpco-api"
         , "threepenny-gui base16-bytestring convertible"
         ]
-    when (ghcVer == GhcMajorVersion 7 4) $
+    when (ghcVer == GhcMajorVersion 7 4 && requireHP) $
         mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
             [ "distributed-process distributed-process-simplelocalnet"
             ]
