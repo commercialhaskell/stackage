@@ -1,6 +1,6 @@
 diff -ru orig/distributed-process.cabal new/distributed-process.cabal
---- orig/distributed-process.cabal	2014-03-27 18:20:56.752359087 +0200
-+++ new/distributed-process.cabal	2014-03-27 18:20:56.000000000 +0200
+--- orig/distributed-process.cabal	2014-03-27 18:23:44.792359466 +0200
++++ new/distributed-process.cabal	2014-03-27 18:23:44.000000000 +0200
 @@ -39,7 +39,7 @@
  
  Library
@@ -19,7 +19,12 @@ diff -ru orig/distributed-process.cabal new/distributed-process.cabal
    Exposed-modules:   Control.Distributed.Process,
                       Control.Distributed.Process.Serializable,
                       Control.Distributed.Process.Closure,
-@@ -94,7 +94,7 @@
+@@ -90,11 +90,11 @@
+   Main-Is:           TestCH.hs
+   Build-Depends:     base >= 4.4 && < 5,
+                      random >= 1.0 && < 1.1,
+-                     ansi-terminal >= 0.5 && < 0.6,
++                     ansi-terminal >= 0.5,
                       distributed-process,
                       network-transport >= 0.3 && < 0.4,
                       network-transport-tcp >= 0.3 && < 0.4,
@@ -28,7 +33,23 @@ diff -ru orig/distributed-process.cabal new/distributed-process.cabal
                       network >= 2.3 && < 2.5,
                       HUnit >= 1.2 && < 1.3,
                       test-framework >= 0.6 && < 0.9,
-@@ -137,7 +137,7 @@
+@@ -111,7 +111,7 @@
+   Main-Is:           TestClosure.hs
+   Build-Depends:     base >= 4.4 && < 5,
+                      random >= 1.0 && < 1.1,
+-                     ansi-terminal >= 0.5 && < 0.6,
++                     ansi-terminal >= 0.5,
+                      distributed-static >= 0.2 && < 0.3,
+                      distributed-process,
+                      network-transport >= 0.3 && < 0.4,
+@@ -131,13 +131,13 @@
+   Main-Is:           TestStats.hs
+   Build-Depends:     base >= 4.4 && < 5,
+                      random >= 1.0 && < 1.1,
+-                     ansi-terminal >= 0.5 && < 0.6,
++                     ansi-terminal >= 0.5,
+                      containers >= 0.4 && < 0.6,
+                      stm >= 2.3 && < 2.5,
                       distributed-process,
                       network-transport >= 0.3 && < 0.4,
                       network-transport-tcp >= 0.3 && < 0.4,
