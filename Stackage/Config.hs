@@ -351,6 +351,16 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/200
     addRange "Michael Snoyman" "hspec" "< 1.9"
 
+    -- https://github.com/fpco/stackage/issues/201
+    addRange "Michael Snoyman" "yesod-auth" "< 1.3"
+
+    -- https://github.com/fpco/stackage/issues/202
+    addRange "Michael Snoyman" "case-insensitive" "< 1.2"
+    addRange "Michael Snoyman" "xml-conduit" "< 1.2"
+
+    -- https://github.com/fpco/stackage/issues/203
+    addRange "Michael Snoyman" "exceptions" "< 0.4"
+
     -- Requires too new a version of text
     when (ghcVer == GhcMajorVersion 7 4 && requireHP) $ do
         addRange "Michael snoyman" "attoparsec" "< 0.11.2.1"
