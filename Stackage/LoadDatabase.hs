@@ -190,7 +190,6 @@ loadPackageDB settings coreMap core deps = do
                 )
             _ -> (mempty, defaultHasTestSuites, Set.empty, Set.empty, Nothing, Set.empty, Nothing)
       where
-        allBuildInfo gpd = libExeBuildInfo gpd ++ testBenchBuildInfo gpd
         libExeBuildInfo gpd = concat
             [ maybe mempty (goBI libBuildInfo) $ condLibrary gpd
             , concat $ map (goBI buildInfo . snd) $ condExecutables gpd
