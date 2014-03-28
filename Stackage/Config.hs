@@ -132,6 +132,12 @@ defaultExpectedFailures ghcVer = execWriter $ do
     mapM_ add $ words =<<
         [ "comonad-transformers comonads-fd groupoids"
         , "profunctor-extras semigroupoid-extras"
+        , "conduit-extra"
+        ]
+
+    -- Cloud Haskell tests seem to be unreliable
+    mapM_ add $ words =<<
+        [ "distributed-process lockfree-queue network-transport-tcp"
         ]
   where
     add = tell . singleton . PackageName
