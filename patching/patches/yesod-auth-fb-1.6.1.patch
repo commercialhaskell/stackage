@@ -1,0 +1,77 @@
+diff -ru orig/demo/clientside.hs new/demo/clientside.hs
+--- orig/demo/clientside.hs	2014-03-30 12:27:40.941431437 +0300
++++ new/demo/clientside.hs	2014-03-30 12:27:40.000000000 +0300
+@@ -27,7 +27,7 @@
+ 
+ 
+ instance Yesod Test where
+-  approot = ApprootStatic "http://dev.whonodes.org:3000"
++  approot = FIXME -- FIXME: Put your approot here
+ 
+ instance RenderMessage Test FormMessage where
+   renderMessage _ _ = englishFormMessage
+diff -ru orig/src/Yesod/Auth/Facebook/ClientSide.hs new/src/Yesod/Auth/Facebook/ClientSide.hs
+--- orig/src/Yesod/Auth/Facebook/ClientSide.hs	2014-03-30 12:27:40.941431437 +0300
++++ new/src/Yesod/Auth/Facebook/ClientSide.hs	2014-03-30 12:27:40.000000000 +0300
+@@ -364,7 +364,7 @@
+     AuthPlugin "fbcs" dispatch login
+   where
+     dispatch :: YesodAuthFbClientSide site =>
+-                Text -> [Text] -> HandlerT Auth (HandlerT site IO) ()
++                Text -> [Text] -> HandlerT Auth (HandlerT site IO) TypedContent
+     -- Login route used when successfully logging in.  Called via
+     -- AJAX by JavaScript code on 'facebookJSSDK'.
+     dispatch "GET" ["login"] = do
+@@ -372,7 +372,7 @@
+       when (redirectToReferer y) (lift setUltDestReferer)
+       etoken <- lift getUserAccessTokenFromFbCookie
+       case etoken of
+-        Right token -> lift $ setCreds True (createCreds token)
++        Right token -> lift $ setCredsRedirect (createCreds token)
+         Left msg -> fail msg
+ 
+     -- Login routes used to forcefully require the user to login.
+@@ -406,7 +406,7 @@
+       token <- lift $
+                YF.runYesodFbT $
+                FB.getUserAccessTokenStep2 proceedUrl query'
+-      lift $ setCreds True (createCreds token)
++      lift $ setCredsRedirect (createCreds token)
+ 
+     -- Everything else gives 404
+     dispatch _ _ = notFound
+diff -ru orig/src/Yesod/Auth/Facebook/ServerSide.hs new/src/Yesod/Auth/Facebook/ServerSide.hs
+--- orig/src/Yesod/Auth/Facebook/ServerSide.hs	2014-03-30 12:27:40.941431437 +0300
++++ new/src/Yesod/Auth/Facebook/ServerSide.hs	2014-03-30 12:27:40.000000000 +0300
+@@ -56,7 +56,7 @@
+     proceedR = PluginR "fb" ["proceed"]
+ 
+     dispatch :: (YesodAuth site, YF.YesodFacebook site) =>
+-                Text -> [Text] -> HandlerT Auth (HandlerT site IO) ()
++                Text -> [Text] -> HandlerT Auth (HandlerT site IO) TypedContent
+     -- Redirect the user to Facebook.
+     dispatch "GET" ["login"] = do
+         ur <- getUrlRender
+@@ -73,7 +73,7 @@
+         lift $ do
+           token <- YF.runYesodFbT $ FB.getUserAccessTokenStep2 proceedUrl query'
+           setUserAccessToken token
+-          setCreds True (createCreds token)
++          setCredsRedirect (createCreds token)
+     -- Logout the user from our site and from Facebook.
+     dispatch "GET" ["logout"] = do
+         y      <- lift getYesod
+diff -ru orig/yesod-auth-fb.cabal new/yesod-auth-fb.cabal
+--- orig/yesod-auth-fb.cabal	2014-03-30 12:27:40.945431436 +0300
++++ new/yesod-auth-fb.cabal	2014-03-30 12:27:40.000000000 +0300
+@@ -43,8 +43,9 @@
+   Build-depends:   base         >= 4.3     && < 5
+                  , lifted-base  >= 0.1     && < 0.3
+                  , yesod-core   == 1.2.*
+-                 , yesod-auth   == 1.2.*
++                 , yesod-auth   == 1.3.*
+                  , hamlet
++                 , shakespeare
+                  , shakespeare-js >= 1.0.2
+                  , wai
+                  , http-conduit >= 1.9

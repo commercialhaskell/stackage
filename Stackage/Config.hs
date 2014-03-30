@@ -355,9 +355,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/200
     addRange "Michael Snoyman" "hspec" "< 1.9"
 
-    -- https://github.com/fpco/stackage/issues/201
-    addRange "Michael Snoyman" "yesod-auth" "< 1.3"
-
     -- https://github.com/fpco/stackage/issues/202
     addRange "Michael Snoyman" "case-insensitive" "< 1.2"
     addRange "Michael Snoyman" "xml-conduit" "< 1.2"
@@ -370,6 +367,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     -- https://github.com/ozataman/csv-conduit/issues/10
     addRange "Michael Snoyman" "csv-conduit" "< 0.6.2 || > 0.6.2"
+
+    -- https://github.com/ekmett/ad/issues/34
+    addRange "Michael Snoyman" "ad" "< 4.0 || > 4.0"
 
     -- Requires too new a version of text
     when (ghcVer == GhcMajorVersion 7 4 && requireHP) $ do
