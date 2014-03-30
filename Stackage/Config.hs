@@ -132,7 +132,8 @@ defaultExpectedFailures ghcVer = execWriter $ do
     mapM_ add $ words =<<
         [ "comonad-transformers comonads-fd groupoids"
         , "profunctor-extras semigroupoid-extras"
-        , "conduit-extra"
+        , "conduit-extra hamlet shakespeare-css shakespeare-i18n"
+        , "shakespeare-js shakespeare-text"
         ]
 
     -- Cloud Haskell tests seem to be unreliable
