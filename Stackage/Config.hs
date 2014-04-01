@@ -366,6 +366,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/204
     addRange "Michael Snoyman" "intervals" "< 0.5"
 
+    -- https://github.com/fpco/stackage/issues/205
+    addRange "Michael Snoyman" "hastache" "< 0.6"
+
     -- https://github.com/ozataman/csv-conduit/issues/10
     addRange "Michael Snoyman" "csv-conduit" "< 0.6.2 || > 0.6.2"
 
