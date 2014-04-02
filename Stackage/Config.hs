@@ -152,7 +152,7 @@ defaultStablePackages :: GhcMajorVersion
 defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "michael@snoyman.com") $ words =<<
         [ "yesod yesod-newsfeed yesod-sitemap yesod-static yesod-test yesod-bin"
-        , "markdown filesystem-conduit mime-mail-ses"
+        , "markdown mime-mail-ses"
         , "persistent persistent-template persistent-sqlite"
         , "network-conduit-tls yackage warp-tls keter"
         , "shakespeare-text process-conduit stm-conduit"
@@ -368,6 +368,19 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/205
     addRange "Michael Snoyman" "hastache" "< 0.6"
+
+    -- https://github.com/fpco/stackage/issues/206
+    addRange "Michael Snoyman" "conduit" "< 1.1"
+    addRange "Michael Snoyman" "attoparsec-conduit" "< 1.1"
+    addRange "Michael Snoyman" "resourcet" "< 1.1"
+    addRange "Michael Snoyman" "blaze-builder-conduit" "< 1.1"
+    addRange "Michael Snoyman" "zlib-conduit" "< 1.1"
+    addRange "Michael Snoyman" "network-conduit" "< 1.1"
+    addRange "Michael Snoyman" "network-conduit-tls" "< 1.1"
+    addRange "Michael Snoyman" "http-conduit" "< 2.1"
+    addRange "Michael Snoyman" "http-client" "< 0.3"
+    addRange "Michael Snoyman" "http-client-conduit" "< 0.3"
+    addRange "Michael Snoyman" "http-client-multipart" "< 0.3"
 
     -- https://github.com/ozataman/csv-conduit/issues/10
     addRange "Michael Snoyman" "csv-conduit" "< 0.6.2 || > 0.6.2"
