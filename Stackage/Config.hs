@@ -371,6 +371,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/206
     addRange "Michael Snoyman" "conduit" "< 1.1"
+    addRange "Michael Snoyman" "conduit-extra" "< 1.1"
     addRange "Michael Snoyman" "attoparsec-conduit" "< 1.1"
     addRange "Michael Snoyman" "resourcet" "< 1.1"
     addRange "Michael Snoyman" "blaze-builder-conduit" "< 1.1"
