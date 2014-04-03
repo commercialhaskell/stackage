@@ -1,0 +1,30 @@
+diff -ru orig/Git/Libgit2.hs new/Git/Libgit2.hs
+--- orig/Git/Libgit2.hs	2014-04-03 19:25:38.109541281 +0300
++++ new/Git/Libgit2.hs	2014-04-03 19:25:37.000000000 +0300
+@@ -1341,7 +1341,7 @@
+ 
+ lgLoadPackFileInMemory
+     :: (MonadBaseControl IO m, MonadIO m, Failure Git.GitException m,
+-        MonadUnsafeIO m, MonadThrow m, MonadLogger m)
++        MonadThrow m, MonadLogger m)
+     => FilePath
+     -> Ptr (Ptr C'git_odb_backend)
+     -> Ptr (Ptr C'git_odb)
+@@ -1373,7 +1373,7 @@
+     return odbPtr
+ 
+ lgWithPackFile :: (MonadBaseControl IO m, MonadIO m, Failure Git.GitException m,
+-                   MonadUnsafeIO m, MonadThrow m, MonadLogger m)
++                   MonadThrow m, MonadLogger m)
+                => FilePath -> (Ptr C'git_odb -> ResourceT m a) -> m a
+ lgWithPackFile idxPath f = control $ \run ->
+     alloca $ \odbPtrPtr ->
+@@ -1381,7 +1381,7 @@
+         f =<< lgLoadPackFileInMemory idxPath backendPtrPtr odbPtrPtr
+ 
+ lgReadFromPack :: (MonadBaseControl IO m, MonadIO m, Failure Git.GitException m,
+-                   MonadUnsafeIO m, MonadThrow m, MonadLogger m)
++                   MonadThrow m, MonadLogger m)
+                => FilePath -> Git.SHA -> Bool
+                -> m (Maybe (C'git_otype, CSize, ByteString))
+ lgReadFromPack idxPath sha metadataOnly =
