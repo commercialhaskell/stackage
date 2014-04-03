@@ -1,6 +1,6 @@
 diff -ru orig/Aws/Aws.hs new/Aws/Aws.hs
---- orig/Aws/Aws.hs	2014-04-03 08:17:21.058394778 +0300
-+++ new/Aws/Aws.hs	2014-04-03 08:17:20.000000000 +0300
+--- orig/Aws/Aws.hs	2014-04-03 08:40:55.146364680 +0300
++++ new/Aws/Aws.hs	2014-04-03 08:40:54.000000000 +0300
 @@ -33,7 +33,6 @@
  import           Control.Monad.IO.Class
  import           Control.Monad.Trans
@@ -35,8 +35,8 @@ diff -ru orig/Aws/Aws.hs new/Aws/Aws.hs
                                Nothing -> return ()
                                Just nextRequest -> go nextRequest
 diff -ru orig/Aws/Core.hs new/Aws/Core.hs
---- orig/Aws/Core.hs	2014-04-03 08:17:21.058394778 +0300
-+++ new/Aws/Core.hs	2014-04-03 08:17:20.000000000 +0300
+--- orig/Aws/Core.hs	2014-04-03 08:40:55.146364680 +0300
++++ new/Aws/Core.hs	2014-04-03 08:40:54.000000000 +0300
 @@ -89,13 +89,12 @@
  import           Control.Applicative
  import           Control.Arrow
@@ -136,8 +136,8 @@ diff -ru orig/Aws/Core.hs new/Aws/Core.hs
 +           Left err -> liftIO $ throwM err
 +           Right v  -> return v
 diff -ru orig/Aws/DynamoDb/Core.hs new/Aws/DynamoDb/Core.hs
---- orig/Aws/DynamoDb/Core.hs	2014-04-03 08:17:21.062394778 +0300
-+++ new/Aws/DynamoDb/Core.hs	2014-04-03 08:17:20.000000000 +0300
+--- orig/Aws/DynamoDb/Core.hs	2014-04-03 08:40:55.146364680 +0300
++++ new/Aws/DynamoDb/Core.hs	2014-04-03 08:40:54.000000000 +0300
 @@ -2,6 +2,7 @@
  
  import           Aws.Core
@@ -155,46 +155,29 @@ diff -ru orig/Aws/DynamoDb/Core.hs new/Aws/DynamoDb/Core.hs
 +                A.Error err -> throwM $ DyError (HTTP.responseStatus resp) "" err
 +        _ -> throwM $ DyError (HTTP.responseStatus resp) "" (show val)
 diff -ru orig/Aws/Ec2/InstanceMetadata.hs new/Aws/Ec2/InstanceMetadata.hs
---- orig/Aws/Ec2/InstanceMetadata.hs	2014-04-03 08:17:21.062394778 +0300
-+++ new/Aws/Ec2/InstanceMetadata.hs	2014-04-03 08:17:20.000000000 +0300
-@@ -2,8 +2,7 @@
+--- orig/Aws/Ec2/InstanceMetadata.hs	2014-04-03 08:40:55.146364680 +0300
++++ new/Aws/Ec2/InstanceMetadata.hs	2014-04-03 08:40:54.000000000 +0300
+@@ -2,7 +2,7 @@
  
  import           Control.Applicative
  import           Control.Exception
 -import           Control.Failure
--import           Control.Monad.Trans.Resource
 +import           Control.Monad.Trans.Resource (throwM)
  import qualified Data.ByteString.Lazy as L
  import qualified Data.ByteString.Lazy.Char8 as B8
  import           Data.ByteString.Lazy.UTF8 as BU
-@@ -16,19 +15,19 @@
- 
- instance Exception InstanceMetadataException
- 
--getInstanceMetadata :: HTTP.Manager -> String -> String -> ResIO L.ByteString
-+getInstanceMetadata :: HTTP.Manager -> String -> String -> IO L.ByteString
- getInstanceMetadata mgr p x = do req <- HTTP.parseUrl ("http://169.254.169.254/" ++ p ++ '/' : x)
-                                  HTTP.responseBody <$> HTTP.httpLbs req mgr
- 
--getInstanceMetadataListing :: HTTP.Manager -> String -> ResIO [String]
-+getInstanceMetadataListing :: HTTP.Manager -> String -> IO [String]
- getInstanceMetadataListing mgr p = map BU.toString . B8.split '\n' <$> getInstanceMetadata mgr p ""
- 
--getInstanceMetadataFirst :: HTTP.Manager -> String -> ResIO L.ByteString
-+getInstanceMetadataFirst :: HTTP.Manager -> String -> IO L.ByteString
+@@ -25,7 +25,7 @@
+ getInstanceMetadataFirst :: HTTP.Manager -> String -> IO L.ByteString
  getInstanceMetadataFirst mgr p = do listing <- getInstanceMetadataListing mgr p
                                      case listing of
 -                                      [] -> failure (MetadataNotFound p)
 +                                      [] -> throwM (MetadataNotFound p)
                                        (x:_) -> getInstanceMetadata mgr p x
  
--getInstanceMetadataOrFirst :: HTTP.Manager -> String -> Maybe String -> ResIO L.ByteString
-+getInstanceMetadataOrFirst :: HTTP.Manager -> String -> Maybe String -> IO L.ByteString
- getInstanceMetadataOrFirst mgr p (Just x) = getInstanceMetadata mgr p x
- getInstanceMetadataOrFirst mgr p Nothing = getInstanceMetadataFirst mgr p
+ getInstanceMetadataOrFirst :: HTTP.Manager -> String -> Maybe String -> IO L.ByteString
 diff -ru orig/Aws/Iam/Core.hs new/Aws/Iam/Core.hs
---- orig/Aws/Iam/Core.hs	2014-04-03 08:17:21.062394778 +0300
-+++ new/Aws/Iam/Core.hs	2014-04-03 08:17:20.000000000 +0300
+--- orig/Aws/Iam/Core.hs	2014-04-03 08:40:55.146364680 +0300
++++ new/Aws/Iam/Core.hs	2014-04-03 08:40:54.000000000 +0300
 @@ -19,8 +19,8 @@
  import qualified Blaze.ByteString.Builder       as Blaze
  import qualified Blaze.ByteString.Builder.Char8 as Blaze8
@@ -232,8 +215,8 @@ diff -ru orig/Aws/Iam/Core.hs new/Aws/Iam/Core.hs
      userArn        <- attr "Arn"
      userCreateDate <- attr "CreateDate" >>= parseDateTime . Text.unpack
 diff -ru orig/Aws/Iam/Internal.hs new/Aws/Iam/Internal.hs
---- orig/Aws/Iam/Internal.hs	2014-04-03 08:17:21.062394778 +0300
-+++ new/Aws/Iam/Internal.hs	2014-04-03 08:17:20.000000000 +0300
+--- orig/Aws/Iam/Internal.hs	2014-04-03 08:40:55.146364680 +0300
++++ new/Aws/Iam/Internal.hs	2014-04-03 08:40:54.000000000 +0300
 @@ -15,8 +15,8 @@
  import           Aws.Iam.Core
  import           Control.Applicative
@@ -254,8 +237,8 @@ diff -ru orig/Aws/Iam/Internal.hs new/Aws/Iam/Internal.hs
      -> m (Bool, Maybe Text)
  markedIterResponse cursor = do
 diff -ru orig/Aws/S3/Commands/CopyObject.hs new/Aws/S3/Commands/CopyObject.hs
---- orig/Aws/S3/Commands/CopyObject.hs	2014-04-03 08:17:21.062394778 +0300
-+++ new/Aws/S3/Commands/CopyObject.hs	2014-04-03 08:17:20.000000000 +0300
+--- orig/Aws/S3/Commands/CopyObject.hs	2014-04-03 08:40:55.150364680 +0300
++++ new/Aws/S3/Commands/CopyObject.hs	2014-04-03 08:40:54.000000000 +0300
 @@ -5,7 +5,7 @@
  import           Aws.S3.Core
  import           Control.Applicative
@@ -275,8 +258,8 @@ diff -ru orig/Aws/S3/Commands/CopyObject.hs new/Aws/S3/Commands/CopyObject.hs
                lastMod <- forceM "Missing Last-Modified" $ el $/ elContent "LastModified" &| (parseHttpDate' . T.unpack)
                etag <- force "Missing ETag" $ el $/ elContent "ETag"
 diff -ru orig/Aws/S3/Core.hs new/Aws/S3/Core.hs
---- orig/Aws/S3/Core.hs	2014-04-03 08:17:21.062394778 +0300
-+++ new/Aws/S3/Core.hs	2014-04-03 08:17:20.000000000 +0300
+--- orig/Aws/S3/Core.hs	2014-04-03 08:40:55.150364680 +0300
++++ new/Aws/S3/Core.hs	2014-04-03 08:40:54.000000000 +0300
 @@ -5,8 +5,8 @@
  import           Control.Arrow                  ((***))
  import           Control.Monad
@@ -392,8 +375,8 @@ diff -ru orig/Aws/S3/Core.hs new/Aws/S3/Core.hs
          -- expiration = return undefined
          userMetadata = flip mapMaybe ht $
 diff -ru orig/Aws/Ses/Core.hs new/Aws/Ses/Core.hs
---- orig/Aws/Ses/Core.hs	2014-04-03 08:17:21.062394778 +0300
-+++ new/Aws/Ses/Core.hs	2014-04-03 08:17:20.000000000 +0300
+--- orig/Aws/Ses/Core.hs	2014-04-03 08:40:55.150364680 +0300
++++ new/Aws/Ses/Core.hs	2014-04-03 08:40:54.000000000 +0300
 @@ -22,8 +22,8 @@
  import qualified Blaze.ByteString.Builder       as Blaze
  import qualified Blaze.ByteString.Builder.Char8 as Blaze8
@@ -414,8 +397,8 @@ diff -ru orig/Aws/Ses/Core.hs new/Aws/Ses/Core.hs
  class SesAsQuery a where
      -- | Write a data type as a list of query parameters.
 diff -ru orig/Aws/SimpleDb/Core.hs new/Aws/SimpleDb/Core.hs
---- orig/Aws/SimpleDb/Core.hs	2014-04-03 08:17:21.066394778 +0300
-+++ new/Aws/SimpleDb/Core.hs	2014-04-03 08:17:20.000000000 +0300
+--- orig/Aws/SimpleDb/Core.hs	2014-04-03 08:40:55.150364680 +0300
++++ new/Aws/SimpleDb/Core.hs	2014-04-03 08:40:54.000000000 +0300
 @@ -4,8 +4,8 @@
  import qualified Blaze.ByteString.Builder       as Blaze
  import qualified Blaze.ByteString.Builder.Char8 as Blaze8
@@ -475,8 +458,8 @@ diff -ru orig/Aws/SimpleDb/Core.hs new/Aws/SimpleDb/Core.hs
    name <- force "Missing Name" <=< sequence $ cursor $/ Cu.laxElement "Name" &| decodeBase64
    attributes <- sequence $ cursor $/ Cu.laxElement "Attribute" &| readAttribute
 diff -ru orig/Aws/Sqs/Commands/Message.hs new/Aws/Sqs/Commands/Message.hs
---- orig/Aws/Sqs/Commands/Message.hs	2014-04-03 08:17:21.066394778 +0300
-+++ new/Aws/Sqs/Commands/Message.hs	2014-04-03 08:17:20.000000000 +0300
+--- orig/Aws/Sqs/Commands/Message.hs	2014-04-03 08:40:55.154364680 +0300
++++ new/Aws/Sqs/Commands/Message.hs	2014-04-03 08:40:54.000000000 +0300
 @@ -4,9 +4,9 @@
  import           Aws.Core
  import           Aws.Sqs.Core
@@ -498,8 +481,8 @@ diff -ru orig/Aws/Sqs/Commands/Message.hs new/Aws/Sqs/Commands/Message.hs
    name <- force "Missing Name" $ cursor $/ Cu.laxElement "Name" &/ Cu.content
    value <- force "Missing Value" $ cursor $/ Cu.laxElement "Value" &/ Cu.content
 diff -ru orig/Aws/Sqs/Core.hs new/Aws/Sqs/Core.hs
---- orig/Aws/Sqs/Core.hs	2014-04-03 08:17:21.066394778 +0300
-+++ new/Aws/Sqs/Core.hs	2014-04-03 08:17:20.000000000 +0300
+--- orig/Aws/Sqs/Core.hs	2014-04-03 08:40:55.154364680 +0300
++++ new/Aws/Sqs/Core.hs	2014-04-03 08:40:54.000000000 +0300
 @@ -5,14 +5,12 @@
  import qualified Blaze.ByteString.Builder       as Blaze
  import qualified Blaze.ByteString.Builder.Char8 as Blaze8
@@ -564,17 +547,8 @@ diff -ru orig/Aws/Sqs/Core.hs new/Aws/Sqs/Core.hs
  printMessageAttribute :: MessageAttribute -> T.Text
  printMessageAttribute MessageAll = "All"
 diff -ru orig/aws.cabal new/aws.cabal
---- orig/aws.cabal	2014-04-03 08:17:21.070394778 +0300
-+++ new/aws.cabal	2014-04-03 08:17:20.000000000 +0300
-@@ -20,7 +20,7 @@
- Source-repository this
-   type: git
-   location: https://github.com/aristidb/aws.git
--  tag: 0.8.5
-+  tag: 0.8.6
- 
- Source-repository head
-   type: git
+--- orig/aws.cabal	2014-04-03 08:40:55.158364680 +0300
++++ new/aws.cabal	2014-04-03 08:40:54.000000000 +0300
 @@ -98,8 +98,6 @@
                         Aws.DynamoDb.Core
  
@@ -619,17 +593,3 @@ diff -ru orig/aws.cabal new/aws.cabal
  
    GHC-Options: -Wall
  
-diff -ru orig/README.org new/README.org
---- orig/README.org	2014-04-03 08:17:21.058394778 +0300
-+++ new/README.org	2014-04-03 08:17:20.000000000 +0300
-@@ -90,6 +90,10 @@
- 
- ** 0.8 series
- 
-+- 0.8.6
-+  - move Instance metadata functions out of ResourceT to remove problem with exceptions-0.5
-+    (this makes a fresh install of aws on a clean system possible again)
-+
- - 0.8.5
-   - compatibility with case-insensitive 1.2
-   - support for V4 signatures
