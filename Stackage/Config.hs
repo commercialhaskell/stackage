@@ -155,13 +155,13 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "markdown mime-mail-ses"
         , "persistent persistent-template persistent-sqlite"
         , "network-conduit-tls yackage warp-tls keter"
-        , "shakespeare-text process-conduit stm-conduit"
+        , "process-conduit stm-conduit"
         , "classy-prelude-yesod yesod-fay yesod-eventsource wai-websockets"
-        , "random-shuffle safe-failure hackage-proxy hebrew-time"
+        , "random-shuffle hebrew-time"
         , "bzlib-conduit case-insensitive"
         , "conduit-combinators yesod-websockets"
         ]
-    when (ghcVer >= GhcMajorVersion 7 6) $ add "michael@snoyman.com" "mega-sdist"
+    when (ghcVer >= GhcMajorVersion 7 6) $ add "michael@snoyman.com" "cabal-src"
 #if !defined(mingw32_HOST_OS) && !defined(__MINGW32__)
     -- Does not compile on Windows
     mapM_ (add "michael@snoyman.com") $ words "judy"
@@ -174,7 +174,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "async shelly thyme"
         , "hxt hxt-relaxng dimensional"
         , "cairo diagrams-cairo"
-        , "persistent-mongoDB fpco-api"
+        , "persistent-mongoDB" -- FIXME fpco-api"
         , "threepenny-gui base16-bytestring convertible"
         , "distributed-process distributed-process-simplelocalnet"
         ]
@@ -352,9 +352,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "QuickCheck" "< 2.7"
     addRange "Michael Snoyman" "hspec-meta" "< 1.9"
     addRange "Michael Snoyman" "tasty-quickcheck" "< 0.8.0.3"
-
-    -- https://github.com/fpco/stackage/issues/200
-    addRange "Michael Snoyman" "hspec" "< 1.9"
 
     -- https://github.com/fpco/stackage/issues/204
     addRange "Michael Snoyman" "intervals" "< 0.5"
