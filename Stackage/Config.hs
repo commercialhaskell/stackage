@@ -362,12 +362,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/205
     addRange "Michael Snoyman" "hastache" "< 0.6"
 
-    -- https://github.com/ozataman/csv-conduit/issues/10
-    addRange "Michael Snoyman" "csv-conduit" "< 0.6.2 || > 0.6.2"
-
-    -- https://github.com/ekmett/ad/issues/34
-    addRange "Michael Snoyman" "ad" "< 4.0 || > 4.0"
-
     -- Requires too new a version of text
     when (ghcVer == GhcMajorVersion 7 4 && requireHP) $ do
         addRange "Michael snoyman" "attoparsec" "< 0.11.2.1"
