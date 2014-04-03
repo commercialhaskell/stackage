@@ -1,0 +1,53 @@
+diff -ru orig/cereal-conduit.cabal new/cereal-conduit.cabal
+--- orig/cereal-conduit.cabal	2014-04-03 08:22:14.122388542 +0300
++++ new/cereal-conduit.cabal	2014-04-03 08:22:13.000000000 +0300
+@@ -19,7 +19,8 @@
+ 
+ library
+     build-depends: base         >= 4       && < 5
+-                 , conduit      >= 1.0.0   && < 1.1
++                 , conduit      >= 1.0.0   && < 1.2
++                 , resourcet    >= 0.4     && < 1.2
+                  , cereal       >= 0.4.0.0 && < 0.5
+                  , bytestring
+                  , transformers >= 0.2.0.0
+diff -ru orig/Data/Conduit/Cereal.hs new/Data/Conduit/Cereal.hs
+--- orig/Data/Conduit/Cereal.hs	2014-04-03 08:22:14.122388542 +0300
++++ new/Data/Conduit/Cereal.hs	2014-04-03 08:22:13.000000000 +0300
+@@ -19,6 +19,7 @@
+ 
+ import           Control.Exception.Base
+ import           Control.Monad.Trans.Class (MonadTrans, lift)
++import           Control.Monad.Trans.Resource (MonadThrow, monadThrow)
+ import qualified Data.ByteString as BS
+ import qualified Data.ByteString.Lazy as LBS
+ import qualified Data.Conduit as C
+@@ -34,7 +35,7 @@
+ instance Exception GetException
+ 
+ -- | Run a 'Get' repeatedly on the input stream, producing an output stream of whatever the 'Get' outputs.
+-conduitGet :: C.MonadThrow m => Get o -> C.Conduit BS.ByteString m o
++conduitGet :: MonadThrow m => Get o -> C.Conduit BS.ByteString m o
+ conduitGet = mkConduitGet errorHandler
+   where errorHandler msg = pipeError $ GetException msg
+ 
+@@ -42,7 +43,7 @@
+ --
+ -- If 'Get' succeed it will return the data read and unconsumed part of the input stream.
+ -- If the 'Get' fails due to deserialization error or early termination of the input stream it raise an error.
+-sinkGet :: C.MonadThrow m => Get r -> C.Consumer BS.ByteString m r
++sinkGet :: MonadThrow m => Get r -> C.Consumer BS.ByteString m r
+ sinkGet = mkSinkGet errorHandler terminationHandler
+   where errorHandler msg = pipeError $ GetException msg
+         terminationHandler f = case f BS.empty of
+@@ -50,8 +51,8 @@
+           Done r lo -> C.leftover lo >> return r
+           Partial _ -> pipeError $ GetException "Failed reading: Internal error: unexpected Partial."
+ 
+-pipeError :: (C.MonadThrow m, MonadTrans t, Exception e) => e -> t m a
+-pipeError e = lift $ C.monadThrow e
++pipeError :: (MonadThrow m, MonadTrans t, Exception e) => e -> t m a
++pipeError e = lift $ monadThrow e
+ 
+ -- | Convert a 'Put' into a 'Source'. Runs in constant memory.
+ sourcePut :: Monad m => Put -> C.Producer m BS.ByteString

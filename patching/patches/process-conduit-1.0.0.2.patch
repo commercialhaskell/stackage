@@ -1,0 +1,62 @@
+diff -ru orig/Data/Conduit/Process.hs new/Data/Conduit/Process.hs
+--- orig/Data/Conduit/Process.hs	2014-04-03 08:26:07.254383579 +0300
++++ new/Data/Conduit/Process.hs	2014-04-03 08:26:06.000000000 +0300
+@@ -21,6 +21,7 @@
+ import Control.Monad
+ import Control.Monad.Trans
+ import Control.Monad.Trans.Loop
++import Control.Monad.Trans.Resource (MonadResource, monadThrow)
+ import qualified Data.ByteString as S
+ import Data.Conduit
+ import qualified Data.Conduit.List as CL
+diff -ru orig/process-conduit.cabal new/process-conduit.cabal
+--- orig/process-conduit.cabal	2014-04-03 08:26:07.258383579 +0300
++++ new/process-conduit.cabal	2014-04-03 08:26:06.000000000 +0300
+@@ -33,7 +33,8 @@
+                      , bytestring       >= 0.9
+                      , text             >= 0.11
+                      , process          >= 1.0
+-                     , conduit          == 1.0.*
++                     , conduit          >= 1.0 && < 1.2
++                     , resourcet        >= 0.4 && < 1.2
+                      , shakespeare-text >= 1.0
+                      , shakespeare
+ 
+@@ -47,4 +48,6 @@
+                      , bytestring
+                      , hspec           >= 1.3
+                      , conduit
++                     , conduit-extra
++                     , resourcet
+                      , process-conduit
+diff -ru orig/System/Process/QQ.hs new/System/Process/QQ.hs
+--- orig/System/Process/QQ.hs	2014-04-03 08:26:07.254383579 +0300
++++ new/System/Process/QQ.hs	2014-04-03 08:26:06.000000000 +0300
+@@ -14,6 +14,7 @@
+ import qualified Data.Text.Lazy as LT
+ import Language.Haskell.TH.Quote
+ import Text.Shakespeare.Text
++import Control.Monad.Trans.Resource (runResourceT)
+ 
+ import Data.Conduit.Process
+ 
+@@ -28,7 +29,7 @@
+ -- | Command result of (Lazy) ByteString.
+ cmd :: QuasiQuoter
+ cmd = def { quoteExp = \str -> [|
+-  BL.fromChunks <$> C.runResourceT (sourceCmd (LT.unpack $(quoteExp lt str)) C.$$ CL.consume)
++  BL.fromChunks <$> runResourceT (sourceCmd (LT.unpack $(quoteExp lt str)) C.$$ CL.consume)
+ |] }
+ 
+ -- | Source of shell command
+diff -ru orig/test.hs new/test.hs
+--- orig/test.hs	2014-04-03 08:26:07.254383579 +0300
++++ new/test.hs	2014-04-03 08:26:06.000000000 +0300
+@@ -7,6 +7,7 @@
+ import Data.Conduit
+ import qualified Data.Conduit.Binary as CB
+ import Test.Hspec
++import Control.Monad.Trans.Resource (runResourceT)
+ 
+ main :: IO ()
+ main = hspec $ do

@@ -356,32 +356,11 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/200
     addRange "Michael Snoyman" "hspec" "< 1.9"
 
-    -- https://github.com/fpco/stackage/issues/202
-    addRange "Michael Snoyman" "case-insensitive" "< 1.2"
-    addRange "Michael Snoyman" "xml-conduit" "< 1.2"
-
-    -- https://github.com/fpco/stackage/issues/203
-    addRange "Michael Snoyman" "exceptions" "< 0.4"
-
     -- https://github.com/fpco/stackage/issues/204
     addRange "Michael Snoyman" "intervals" "< 0.5"
 
     -- https://github.com/fpco/stackage/issues/205
     addRange "Michael Snoyman" "hastache" "< 0.6"
-
-    -- https://github.com/fpco/stackage/issues/206
-    addRange "Michael Snoyman" "conduit" "< 1.1"
-    addRange "Michael Snoyman" "conduit-extra" "< 1.1"
-    addRange "Michael Snoyman" "attoparsec-conduit" "< 1.1"
-    addRange "Michael Snoyman" "resourcet" "< 1.1"
-    addRange "Michael Snoyman" "blaze-builder-conduit" "< 1.1"
-    addRange "Michael Snoyman" "zlib-conduit" "< 1.1"
-    addRange "Michael Snoyman" "network-conduit" "< 1.1"
-    addRange "Michael Snoyman" "network-conduit-tls" "< 1.1"
-    addRange "Michael Snoyman" "http-conduit" "< 2.1"
-    addRange "Michael Snoyman" "http-client" "< 0.3"
-    addRange "Michael Snoyman" "http-client-conduit" "< 0.3"
-    addRange "Michael Snoyman" "http-client-multipart" "< 0.3"
 
     -- https://github.com/ozataman/csv-conduit/issues/10
     addRange "Michael Snoyman" "csv-conduit" "< 0.6.2 || > 0.6.2"
