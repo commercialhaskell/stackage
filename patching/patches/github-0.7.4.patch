@@ -1,0 +1,23 @@
+diff -ru orig/Github/Private.hs new/Github/Private.hs
+--- orig/Github/Private.hs	2014-04-03 09:50:34.182275724 +0300
++++ new/Github/Private.hs	2014-04-03 09:50:33.000000000 +0300
+@@ -14,7 +14,7 @@
+ import qualified Data.ByteString.Lazy.Char8 as LBS
+ import Network.HTTP.Types (Method, Status(..))
+ import Network.HTTP.Conduit
+-import Data.Conduit (ResourceT)
++import Control.Monad.Trans.Resource (ResourceT)
+ import qualified Control.Exception as E
+ import Data.Maybe (fromMaybe)
+ 
+diff -ru orig/github.cabal new/github.cabal
+--- orig/github.cabal	2014-04-03 09:50:34.194275724 +0300
++++ new/github.cabal	2014-04-03 09:50:33.000000000 +0300
+@@ -158,6 +158,7 @@
+                  http-types,
+                  data-default,
+                  vector,
++                 resourcet,
+                  unordered-containers >= 0.2 && < 0.3
+ 
+   -- Modules not exported by this package.
