@@ -1,0 +1,23 @@
+diff -ru orig/Biobase/Turner/Import.hs new/Biobase/Turner/Import.hs
+--- orig/Biobase/Turner/Import.hs	2014-04-03 10:53:56.310194793 +0300
++++ new/Biobase/Turner/Import.hs	2014-04-03 10:53:56.000000000 +0300
+@@ -37,6 +37,7 @@
+ module Biobase.Turner.Import where
+ 
+ import Control.Arrow
++import Control.Monad.Trans.Resource (runResourceT)
+ import Data.Array.Repa.Index
+ import Data.ByteString.Char8 as BS
+ import Data.ByteString.Lex.Double
+diff -ru orig/BiobaseTurner.cabal new/BiobaseTurner.cabal
+--- orig/BiobaseTurner.cabal	2014-04-03 10:53:56.310194793 +0300
++++ new/BiobaseTurner.cabal	2014-04-03 10:53:56.000000000 +0300
+@@ -35,6 +35,8 @@
+     bytestring        >= 0.9    ,
+     bytestring-lexing >= 0.4    ,
+     conduit           >= 0.5    ,
++    conduit-extra     >= 1.0    ,
++    resourcet         >= 0.4    ,
+     containers        >= 0.4    ,
+     filepath          >= 1      ,
+     lens              >= 3.8    ,
