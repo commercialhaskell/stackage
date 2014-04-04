@@ -134,6 +134,8 @@ defaultExpectedFailures ghcVer = execWriter $ do
         , "profunctor-extras semigroupoid-extras"
         , "conduit-extra hamlet shakespeare-css shakespeare-i18n"
         , "shakespeare-js shakespeare-text"
+        , "attoparsec-conduit blaze-builder-conduit http-client-conduit"
+        , "network-conduit zlib-conduit http-client-multipart"
         ]
 
     -- Cloud Haskell tests seem to be unreliable

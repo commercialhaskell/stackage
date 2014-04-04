@@ -1,0 +1,21 @@
+diff -ru orig/process-conduit.cabal new/process-conduit.cabal
+--- orig/process-conduit.cabal	2014-04-04 10:13:39.716407142 +0300
++++ new/process-conduit.cabal	2014-04-04 10:13:39.000000000 +0300
+@@ -48,4 +48,6 @@
+                      , bytestring
+                      , hspec           >= 1.3
+                      , conduit
++                     , conduit-extra
++                     , resourcet
+                      , process-conduit
+diff -ru orig/test.hs new/test.hs
+--- orig/test.hs	2014-04-04 10:13:39.692407142 +0300
++++ new/test.hs	2014-04-04 10:13:39.000000000 +0300
+@@ -5,6 +5,7 @@
+ 
+ import qualified Data.ByteString.Lazy.Char8 as L
+ import Data.Conduit
++import Control.Monad.Trans.Resource (runResourceT)
+ import qualified Data.Conduit.Binary as CB
+ import Test.Hspec
+ 
