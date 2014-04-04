@@ -142,6 +142,9 @@ defaultExpectedFailures ghcVer = execWriter $ do
     mapM_ add $ words =<<
         [ "distributed-process lockfree-queue network-transport-tcp"
         ]
+
+    -- Pulls in monad-peel which does not compile
+    when (ghcVer >= GhcMajorVersion 7 8) $ add "monad-control"
   where
     add = tell . singleton . PackageName
 
@@ -350,10 +353,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "hxt" "< 9.3.1"
     addRange "Michael Snoyman" "network" "< 2.4"
 
-    -- https://github.com/fpco/stackage/issues/178
-    addRange "Michael Snoyman" "MonadCatchIO-transformers" "< 0.3.1"
-    addRange "Michael Snoyman" "MonadCatchIO-mtl" "< 0.3.1"
-
     -- https://github.com/fpco/stackage/issues/189
     addRange "Michael Snoyman" "statistics" "< 0.11"
 
@@ -381,7 +380,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "bson" "== 0.2.4"
 
     -- Depends on a newer version of happy
-    addRange "Roman Cheplyaka <roma@ro-che.info>" "pretty-show" "<= 1.6.1"
+    when (ghcVer < GhcMajorVersion 7 8) $
+        addRange "Roman Cheplyaka <roma@ro-che.info>" "pretty-show" "<= 1.6.1"
 
     -- Version 0.15.3 requires a newer template-haskell
     addRange "FP Complete <michael@fpcomplete.com>" "language-ecmascript" "< 0.15.3"
