@@ -1,6 +1,6 @@
 diff -ru orig/Aws/Aws.hs new/Aws/Aws.hs
---- orig/Aws/Aws.hs	2014-04-03 08:40:55.146364680 +0300
-+++ new/Aws/Aws.hs	2014-04-03 08:40:54.000000000 +0300
+--- orig/Aws/Aws.hs	2014-04-04 10:18:25.108401067 +0300
++++ new/Aws/Aws.hs	2014-04-04 10:18:24.000000000 +0300
 @@ -33,7 +33,6 @@
  import           Control.Monad.IO.Class
  import           Control.Monad.Trans
@@ -35,8 +35,8 @@ diff -ru orig/Aws/Aws.hs new/Aws/Aws.hs
                                Nothing -> return ()
                                Just nextRequest -> go nextRequest
 diff -ru orig/Aws/Core.hs new/Aws/Core.hs
---- orig/Aws/Core.hs	2014-04-03 08:40:55.146364680 +0300
-+++ new/Aws/Core.hs	2014-04-03 08:40:54.000000000 +0300
+--- orig/Aws/Core.hs	2014-04-04 10:18:25.108401067 +0300
++++ new/Aws/Core.hs	2014-04-04 10:18:24.000000000 +0300
 @@ -89,13 +89,12 @@
  import           Control.Applicative
  import           Control.Arrow
@@ -136,8 +136,8 @@ diff -ru orig/Aws/Core.hs new/Aws/Core.hs
 +           Left err -> liftIO $ throwM err
 +           Right v  -> return v
 diff -ru orig/Aws/DynamoDb/Core.hs new/Aws/DynamoDb/Core.hs
---- orig/Aws/DynamoDb/Core.hs	2014-04-03 08:40:55.146364680 +0300
-+++ new/Aws/DynamoDb/Core.hs	2014-04-03 08:40:54.000000000 +0300
+--- orig/Aws/DynamoDb/Core.hs	2014-04-04 10:18:25.108401067 +0300
++++ new/Aws/DynamoDb/Core.hs	2014-04-04 10:18:24.000000000 +0300
 @@ -2,6 +2,7 @@
  
  import           Aws.Core
@@ -155,8 +155,8 @@ diff -ru orig/Aws/DynamoDb/Core.hs new/Aws/DynamoDb/Core.hs
 +                A.Error err -> throwM $ DyError (HTTP.responseStatus resp) "" err
 +        _ -> throwM $ DyError (HTTP.responseStatus resp) "" (show val)
 diff -ru orig/Aws/Ec2/InstanceMetadata.hs new/Aws/Ec2/InstanceMetadata.hs
---- orig/Aws/Ec2/InstanceMetadata.hs	2014-04-03 08:40:55.146364680 +0300
-+++ new/Aws/Ec2/InstanceMetadata.hs	2014-04-03 08:40:54.000000000 +0300
+--- orig/Aws/Ec2/InstanceMetadata.hs	2014-04-04 10:18:25.112401067 +0300
++++ new/Aws/Ec2/InstanceMetadata.hs	2014-04-04 10:18:24.000000000 +0300
 @@ -2,7 +2,7 @@
  
  import           Control.Applicative
@@ -176,8 +176,8 @@ diff -ru orig/Aws/Ec2/InstanceMetadata.hs new/Aws/Ec2/InstanceMetadata.hs
  
  getInstanceMetadataOrFirst :: HTTP.Manager -> String -> Maybe String -> IO L.ByteString
 diff -ru orig/Aws/Iam/Core.hs new/Aws/Iam/Core.hs
---- orig/Aws/Iam/Core.hs	2014-04-03 08:40:55.146364680 +0300
-+++ new/Aws/Iam/Core.hs	2014-04-03 08:40:54.000000000 +0300
+--- orig/Aws/Iam/Core.hs	2014-04-04 10:18:25.112401067 +0300
++++ new/Aws/Iam/Core.hs	2014-04-04 10:18:24.000000000 +0300
 @@ -19,8 +19,8 @@
  import qualified Blaze.ByteString.Builder       as Blaze
  import qualified Blaze.ByteString.Builder.Char8 as Blaze8
@@ -215,8 +215,8 @@ diff -ru orig/Aws/Iam/Core.hs new/Aws/Iam/Core.hs
      userArn        <- attr "Arn"
      userCreateDate <- attr "CreateDate" >>= parseDateTime . Text.unpack
 diff -ru orig/Aws/Iam/Internal.hs new/Aws/Iam/Internal.hs
---- orig/Aws/Iam/Internal.hs	2014-04-03 08:40:55.146364680 +0300
-+++ new/Aws/Iam/Internal.hs	2014-04-03 08:40:54.000000000 +0300
+--- orig/Aws/Iam/Internal.hs	2014-04-04 10:18:25.112401067 +0300
++++ new/Aws/Iam/Internal.hs	2014-04-04 10:18:24.000000000 +0300
 @@ -15,8 +15,8 @@
  import           Aws.Iam.Core
  import           Control.Applicative
@@ -237,8 +237,8 @@ diff -ru orig/Aws/Iam/Internal.hs new/Aws/Iam/Internal.hs
      -> m (Bool, Maybe Text)
  markedIterResponse cursor = do
 diff -ru orig/Aws/S3/Commands/CopyObject.hs new/Aws/S3/Commands/CopyObject.hs
---- orig/Aws/S3/Commands/CopyObject.hs	2014-04-03 08:40:55.150364680 +0300
-+++ new/Aws/S3/Commands/CopyObject.hs	2014-04-03 08:40:54.000000000 +0300
+--- orig/Aws/S3/Commands/CopyObject.hs	2014-04-04 10:18:25.112401067 +0300
++++ new/Aws/S3/Commands/CopyObject.hs	2014-04-04 10:18:24.000000000 +0300
 @@ -5,7 +5,7 @@
  import           Aws.S3.Core
  import           Control.Applicative
@@ -258,8 +258,8 @@ diff -ru orig/Aws/S3/Commands/CopyObject.hs new/Aws/S3/Commands/CopyObject.hs
                lastMod <- forceM "Missing Last-Modified" $ el $/ elContent "LastModified" &| (parseHttpDate' . T.unpack)
                etag <- force "Missing ETag" $ el $/ elContent "ETag"
 diff -ru orig/Aws/S3/Core.hs new/Aws/S3/Core.hs
---- orig/Aws/S3/Core.hs	2014-04-03 08:40:55.150364680 +0300
-+++ new/Aws/S3/Core.hs	2014-04-03 08:40:54.000000000 +0300
+--- orig/Aws/S3/Core.hs	2014-04-04 10:18:25.112401067 +0300
++++ new/Aws/S3/Core.hs	2014-04-04 10:18:24.000000000 +0300
 @@ -5,8 +5,8 @@
  import           Control.Arrow                  ((***))
  import           Control.Monad
@@ -375,8 +375,8 @@ diff -ru orig/Aws/S3/Core.hs new/Aws/S3/Core.hs
          -- expiration = return undefined
          userMetadata = flip mapMaybe ht $
 diff -ru orig/Aws/Ses/Core.hs new/Aws/Ses/Core.hs
---- orig/Aws/Ses/Core.hs	2014-04-03 08:40:55.150364680 +0300
-+++ new/Aws/Ses/Core.hs	2014-04-03 08:40:54.000000000 +0300
+--- orig/Aws/Ses/Core.hs	2014-04-04 10:18:25.112401067 +0300
++++ new/Aws/Ses/Core.hs	2014-04-04 10:18:24.000000000 +0300
 @@ -22,8 +22,8 @@
  import qualified Blaze.ByteString.Builder       as Blaze
  import qualified Blaze.ByteString.Builder.Char8 as Blaze8
@@ -397,8 +397,8 @@ diff -ru orig/Aws/Ses/Core.hs new/Aws/Ses/Core.hs
  class SesAsQuery a where
      -- | Write a data type as a list of query parameters.
 diff -ru orig/Aws/SimpleDb/Core.hs new/Aws/SimpleDb/Core.hs
---- orig/Aws/SimpleDb/Core.hs	2014-04-03 08:40:55.150364680 +0300
-+++ new/Aws/SimpleDb/Core.hs	2014-04-03 08:40:54.000000000 +0300
+--- orig/Aws/SimpleDb/Core.hs	2014-04-04 10:18:25.116401067 +0300
++++ new/Aws/SimpleDb/Core.hs	2014-04-04 10:18:24.000000000 +0300
 @@ -4,8 +4,8 @@
  import qualified Blaze.ByteString.Builder       as Blaze
  import qualified Blaze.ByteString.Builder.Char8 as Blaze8
@@ -458,8 +458,8 @@ diff -ru orig/Aws/SimpleDb/Core.hs new/Aws/SimpleDb/Core.hs
    name <- force "Missing Name" <=< sequence $ cursor $/ Cu.laxElement "Name" &| decodeBase64
    attributes <- sequence $ cursor $/ Cu.laxElement "Attribute" &| readAttribute
 diff -ru orig/Aws/Sqs/Commands/Message.hs new/Aws/Sqs/Commands/Message.hs
---- orig/Aws/Sqs/Commands/Message.hs	2014-04-03 08:40:55.154364680 +0300
-+++ new/Aws/Sqs/Commands/Message.hs	2014-04-03 08:40:54.000000000 +0300
+--- orig/Aws/Sqs/Commands/Message.hs	2014-04-04 10:18:25.116401067 +0300
++++ new/Aws/Sqs/Commands/Message.hs	2014-04-04 10:18:24.000000000 +0300
 @@ -4,9 +4,9 @@
  import           Aws.Core
  import           Aws.Sqs.Core
@@ -481,8 +481,8 @@ diff -ru orig/Aws/Sqs/Commands/Message.hs new/Aws/Sqs/Commands/Message.hs
    name <- force "Missing Name" $ cursor $/ Cu.laxElement "Name" &/ Cu.content
    value <- force "Missing Value" $ cursor $/ Cu.laxElement "Value" &/ Cu.content
 diff -ru orig/Aws/Sqs/Core.hs new/Aws/Sqs/Core.hs
---- orig/Aws/Sqs/Core.hs	2014-04-03 08:40:55.154364680 +0300
-+++ new/Aws/Sqs/Core.hs	2014-04-03 08:40:54.000000000 +0300
+--- orig/Aws/Sqs/Core.hs	2014-04-04 10:18:25.116401067 +0300
++++ new/Aws/Sqs/Core.hs	2014-04-04 10:18:24.000000000 +0300
 @@ -5,14 +5,12 @@
  import qualified Blaze.ByteString.Builder       as Blaze
  import qualified Blaze.ByteString.Builder.Char8 as Blaze8
@@ -547,8 +547,8 @@ diff -ru orig/Aws/Sqs/Core.hs new/Aws/Sqs/Core.hs
  printMessageAttribute :: MessageAttribute -> T.Text
  printMessageAttribute MessageAll = "All"
 diff -ru orig/aws.cabal new/aws.cabal
---- orig/aws.cabal	2014-04-03 08:40:55.158364680 +0300
-+++ new/aws.cabal	2014-04-03 08:40:54.000000000 +0300
+--- orig/aws.cabal	2014-04-04 10:18:25.120401065 +0300
++++ new/aws.cabal	2014-04-04 10:18:24.000000000 +0300
 @@ -98,8 +98,6 @@
                         Aws.DynamoDb.Core
  
@@ -558,7 +558,7 @@ diff -ru orig/aws.cabal new/aws.cabal
                         aeson                >= 0.6     && < 0.8,
                         base                 == 4.*,
                         base16-bytestring    == 0.1.*,
-@@ -108,29 +106,29 @@
+@@ -108,29 +106,30 @@
                         bytestring           >= 0.9     && < 0.11,
                         case-insensitive     >= 0.2     && < 1.3,
                         cereal               >= 0.3     && < 0.5,
@@ -590,6 +590,7 @@ diff -ru orig/aws.cabal new/aws.cabal
                         vector               >= 0.10,
 -                       xml-conduit          >= 1.1 && <1.2
 +                       xml-conduit          >= 1.2 && <1.3
++                       , ghc-prim
  
    GHC-Options: -Wall
  
