@@ -19,6 +19,7 @@ import           System.IO                  (BufferMode (NoBuffering),
 import qualified System.IO.UTF8
 import           System.Process             (rawSystem, runProcess,
                                              waitForProcess)
+import qualified Data.ByteString.Lazy.Char8 as L8
 
 defaultBuildSettings :: Maybe Int -- ^ argument to -j
                      -> GhcMajorVersion
@@ -105,6 +106,7 @@ build settings' bp = do
     ec <- waitForProcess ph
     unless (ec == ExitSuccess) $ do
         putStrLn "Build failed, please see build.log"
+        L8.readFile "build.log" >>= L8.putStr
         exitWith ec
 
     putStrLn "Build completed successfully, checking for module name conflicts"
