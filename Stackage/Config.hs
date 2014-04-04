@@ -153,7 +153,7 @@ defaultStablePackages :: GhcMajorVersion
                       -> Map PackageName (VersionRange, Maintainer)
 defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "michael@snoyman.com") $ words =<<
-        [ "yesod yesod-newsfeed yesod-sitemap yesod-static yesod-test yesod-bin"
+        [ "yesod yesod-newsfeed yesod-sitemap yesod-static yesod-test"
         , "markdown mime-mail-ses"
         , "persistent persistent-template persistent-sqlite"
         , "network-conduit-tls yackage warp-tls keter"
@@ -163,6 +163,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "bzlib-conduit case-insensitive"
         , "conduit-combinators yesod-websockets"
         ]
+    when (ghcVer < GhcMajorVersion 7 8) $ add "michael@snoyman.com" "yesod-bin"
     when (ghcVer >= GhcMajorVersion 7 6) $ add "michael@snoyman.com" "cabal-src"
 #if !defined(mingw32_HOST_OS) && !defined(__MINGW32__)
     -- Does not compile on Windows
@@ -177,16 +178,20 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "hxt hxt-relaxng dimensional"
         , "cairo diagrams-cairo"
         , "persistent-mongoDB" -- FIXME fpco-api"
-        , "threepenny-gui base16-bytestring convertible"
-        , "distributed-process distributed-process-simplelocalnet"
+        , "base16-bytestring convertible"
         ]
+    when (ghcVer < GhcMajorVersion 7 8) $ do -- No GHC 7.8 support
+        mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
+            [ "distributed-process distributed-process-simplelocalnet"
+            , "threepenny-gui"
+            ]
     -- Deprecated version
     addRange "FP Complete <michael@fpcomplete.com>" "persistent-mongoDB" "< 1.3.1 || > 1.3.1"
     when (ghcVer < GhcMajorVersion 7 6) $ do
         addRange "FP Complete <michael@fpcomplete.com>" "hxt" "<= 9.3.0.1"
         addRange "FP Complete <michael@fpcomplete.com>" "shelly" "<= 1.0"
         addRange "FP Complete <michael@fpcomplete.com>" "lockfree-queue" "== 0.2"
-    when (ghcVer >= GhcMajorVersion 7 6) $ do
+    when (ghcVer == GhcMajorVersion 7 6) $ do -- No GHC 7.8 support
         add "FP Complete <michael@fpcomplete.com>" "repa-devil"
     addRange "FP Complete <michael@fpcomplete.com>" "kure" "<= 2.4.10"
 
@@ -203,7 +208,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         "uuid byteorder"
 
     mapM_ (add "Stefan Wehr <wehr@factisresearch.com>") $ words
-        "HTF hscurses xmlgen stm-stats"
+        "HTF xmlgen stm-stats"
+    when (ghcVer < GhcMajorVersion 7 8) $ add "Stefan Wehr <wehr@factisresearch.com>" "hscurses"
 
     mapM_ (add "Bart Massey <bart.massey+stackage@gmail.com>") $ words
         "parseargs"
@@ -261,8 +267,10 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Alexander Altman <alexanderaltman@me.com>") $ words
         "base-unicode-symbols containers-unicode-symbols"
 
-    mapM_ (add "Ryan Newton <ryan.newton@alum.mit.edu>") $ words
-        "accelerate"
+    -- NOTE: accelerate not yet supported on GHC 7.8
+    when (ghcVer == GhcMajorVersion 7 6) $ do
+        mapM_ (add "Ryan Newton <ryan.newton@alum.mit.edu>") $ words
+            "accelerate"
     when (ghcVer < GhcMajorVersion 7 6) $ do
         addRange "Ryan Newton <ryan.newton@alum.mit.edu>" "accelerate" "< 0.14"
         addRange "Ryan Newton <ryan.newton@alum.mit.edu>" "fclabels" "< 2.0"
@@ -289,7 +297,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     mapM_ (add "Michal J. Gajda") $ words
         "iterable Octree FenwickTree hPDB"
-    when (ghcVer >= GhcMajorVersion 7 6) $ do
+    when (ghcVer == GhcMajorVersion 7 6) $ do -- No GHC 7.8 support
         mapM_ (add "Michal J. Gajda") $ words
             "hPDB-examples"
 
@@ -323,8 +331,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "blastxml bioace biophd"
         , "biopsl" -- https://github.com/ingolia/SamTools/issues/3 samtools
         , "seqloc bioalign BlastHTTP"
-        , "RNAFold"
-        , "parsestar hTalos"
+        , "parsestar"
         -- The following have out-of-date dependencies currently
         -- biostockholm memexml RNAwolf
         -- , "Biobase BiobaseDotP BiobaseFR3D BiobaseInfernal BiobaseMAF"
@@ -334,6 +341,10 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         ]
       -- https://github.com/fpco/stackage/issues/163
       addRange "Michael Snoyman" "biophd" "< 0.0.6 || > 0.0.6"
+    when (ghcVer == GhcMajorVersion 7 6) $ do
+        mapM_ (add "Ketil Malde") $ words =<<
+            [ "RNAFold hTalos"
+            ]
 
     -- Newest hxt requires network 2.4 or newest
     addRange "Michael Snoyman" "hxt" "< 9.3.1"
