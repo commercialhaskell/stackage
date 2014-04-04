@@ -365,9 +365,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "hspec-meta" "< 1.9"
     addRange "Michael Snoyman" "tasty-quickcheck" "< 0.8.0.3"
 
-    -- https://github.com/fpco/stackage/issues/204
-    addRange "Michael Snoyman" "intervals" "< 0.5"
-
     -- https://github.com/fpco/stackage/issues/205
     addRange "Michael Snoyman" "hastache" "< 0.6"
 
