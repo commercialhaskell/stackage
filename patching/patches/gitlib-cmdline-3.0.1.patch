@@ -1,0 +1,40 @@
+diff -ru orig/Git/CmdLine.hs new/Git/CmdLine.hs
+--- orig/Git/CmdLine.hs	2014-04-06 09:02:46.027789820 +0300
++++ new/Git/CmdLine.hs	2014-04-06 09:02:45.000000000 +0300
+@@ -23,6 +23,7 @@
+ import           Control.Monad.Reader.Class
+ import           Control.Monad.Trans.Class
+ import           Control.Monad.Trans.Reader (ReaderT, runReaderT)
++import           Control.Monad.Trans.Resource (MonadThrow (..))
+ import qualified Data.ByteString as B
+ import           Data.Conduit hiding (MonadBaseControl)
+ import qualified Data.Conduit.List as CL
+@@ -88,7 +89,7 @@
+ -- instance HasCliRepo (env, CliRepo) where
+ --     getCliRepo = snd
+ 
+-instance (Applicative m, Failure GitException m, MonadIO m)
++instance (Applicative m, Failure GitException m, MonadIO m, MonadThrow m)
+          => MonadGit CliRepo (ReaderT CliRepo m) where
+     type Oid CliRepo     = SHA
+     data Tree CliRepo    = CmdLineTree (TreeOid CliRepo)
+@@ -127,7 +128,7 @@
+ 
+     diffContentsWithTree = error "Not defined cliDiffContentsWithTree"
+ 
+-type MonadCli m = (Applicative m, Failure GitException m, MonadIO m)
++type MonadCli m = (Applicative m, Failure GitException m, MonadIO m, MonadThrow m)
+ 
+ mkOid :: MonadCli m => forall o. TL.Text -> ReaderT CliRepo m (Tagged o SHA)
+ mkOid = fmap Tagged <$> textToSha . toStrict
+diff -ru orig/gitlib-cmdline.cabal new/gitlib-cmdline.cabal
+--- orig/gitlib-cmdline.cabal	2014-04-06 09:02:46.031789820 +0300
++++ new/gitlib-cmdline.cabal	2014-04-06 09:02:45.000000000 +0300
+@@ -39,6 +39,7 @@
+     , transformers         >= 0.2.2
+     , transformers-base    >= 0.4.1
+     , unordered-containers >= 0.2.3.0
++    , resourcet
+   exposed-modules:
+     Git.CmdLine
+ 
