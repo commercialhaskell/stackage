@@ -1,14 +1,17 @@
 diff -ru orig/Git/CmdLine.hs new/Git/CmdLine.hs
---- orig/Git/CmdLine.hs	2014-04-06 09:02:46.027789820 +0300
-+++ new/Git/CmdLine.hs	2014-04-06 09:02:45.000000000 +0300
-@@ -23,6 +23,7 @@
+--- orig/Git/CmdLine.hs	2014-04-06 18:49:23.851795879 +0300
++++ new/Git/CmdLine.hs	2014-04-06 18:49:23.000000000 +0300
+@@ -23,8 +23,9 @@
  import           Control.Monad.Reader.Class
  import           Control.Monad.Trans.Class
  import           Control.Monad.Trans.Reader (ReaderT, runReaderT)
 +import           Control.Monad.Trans.Resource (MonadThrow (..))
  import qualified Data.ByteString as B
- import           Data.Conduit hiding (MonadBaseControl)
+-import           Data.Conduit hiding (MonadBaseControl)
++import           Data.Conduit
  import qualified Data.Conduit.List as CL
+ import           Data.Foldable (for_)
+ import           Data.Function
 @@ -88,7 +89,7 @@
  -- instance HasCliRepo (env, CliRepo) where
  --     getCliRepo = snd
@@ -28,8 +31,8 @@ diff -ru orig/Git/CmdLine.hs new/Git/CmdLine.hs
  mkOid :: MonadCli m => forall o. TL.Text -> ReaderT CliRepo m (Tagged o SHA)
  mkOid = fmap Tagged <$> textToSha . toStrict
 diff -ru orig/gitlib-cmdline.cabal new/gitlib-cmdline.cabal
---- orig/gitlib-cmdline.cabal	2014-04-06 09:02:46.031789820 +0300
-+++ new/gitlib-cmdline.cabal	2014-04-06 09:02:45.000000000 +0300
+--- orig/gitlib-cmdline.cabal	2014-04-06 18:49:23.895795879 +0300
++++ new/gitlib-cmdline.cabal	2014-04-06 18:49:23.000000000 +0300
 @@ -39,6 +39,7 @@
      , transformers         >= 0.2.2
      , transformers-base    >= 0.4.1
