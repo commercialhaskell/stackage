@@ -174,7 +174,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 #endif
 
     mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
-        [ "web-fpco th-expand-syns configurator compdata smtLib unification-fd"
+        [ "web-fpco th-expand-syns configurator compdata smtLib"
         , "fixed-list indents language-c pretty-class"
         , "aws csv-conduit cassava"
         , "async shelly thyme"
@@ -186,7 +186,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     when (ghcVer < GhcMajorVersion 7 8) $ do -- No GHC 7.8 support
         mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
             [ "distributed-process distributed-process-simplelocalnet"
-            , "threepenny-gui"
+            , "threepenny-gui unification-fd"
             ]
     -- Deprecated version
     addRange "FP Complete <michael@fpcomplete.com>" "persistent-mongoDB" "< 1.3.1 || > 1.3.1"
