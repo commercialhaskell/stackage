@@ -180,7 +180,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "async shelly thyme"
         , "hxt hxt-relaxng dimensional"
         , "cairo diagrams-cairo"
-        , "persistent-mongoDB" -- FIXME fpco-api"
+        , "persistent-mongoDB fpco-api"
         , "base16-bytestring convertible"
         ]
     when (ghcVer < GhcMajorVersion 7 8) $ do -- No GHC 7.8 support
