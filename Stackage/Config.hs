@@ -371,9 +371,13 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/205
     addRange "Michael Snoyman" "hastache" "< 0.6"
 
+    -- https://github.com/skogsbaer/HTF/issues/33
+    when (ghcVer == GhcMajorVersion 7 4) $
+        addRange "Michael Snoyman" "HTF" "< 0.11.3"
+
     -- Requires too new a version of text
     when (ghcVer == GhcMajorVersion 7 4 && requireHP) $ do
-        addRange "Michael snoyman" "attoparsec" "< 0.11.2.1"
+        addRange "Michael Snoyman" "attoparsec" "< 0.11.2.1"
         addRange "Michael Snoyman" "parsers" "< 0.11"
 
     -- local patch
