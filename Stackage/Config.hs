@@ -185,7 +185,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         ]
     when (ghcVer < GhcMajorVersion 7 8) $ do -- No GHC 7.8 support
         mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
-            [ "distributed-process distributed-process-simplelocalnet"
+            [ "" -- too unreliable for the moment "distributed-process distributed-process-simplelocalnet"
             , "threepenny-gui unification-fd"
             ]
     -- Deprecated version
