@@ -12,7 +12,7 @@ import           Stackage.Types
 -- Haskell Platform list of core packages.
 defaultExtraCore :: GhcMajorVersion -> Set PackageName
 defaultExtraCore _ = fromList $ map PackageName $ words
-    "binary Win32"
+    "binary Win32 ghc-prim integer-gmp"
 
 -- | Test suites which are expected to fail for some reason. The test suite
 -- will still be run and logs kept, but a failure will not indicate an
