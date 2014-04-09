@@ -204,7 +204,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Alan Zimmerman") $ words
         "hjsmin language-javascript"
     -- Requires newer alex than provided with HP
-    when (GhcMajorVersion == 7 4 && requireHP) $
+    when (ghcVer == GhcMajorVersion 7 4 && requireHP) $
         addRange "Alan Zimmerman" "language-javascript" "== 0.5.9"
 
     mapM_ (add "Jasper Van der Jeugt") $ words
