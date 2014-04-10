@@ -371,10 +371,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/207
     addRange "Michael Snoyman" "semigroups" "< 0.13"
 
-    -- https://github.com/skogsbaer/HTF/issues/33
-    when (ghcVer == GhcMajorVersion 7 4) $
-        addRange "Michael Snoyman" "HTF" "< 0.11.3"
-
     -- Requires too new a version of text
     when (ghcVer == GhcMajorVersion 7 4 && requireHP) $ do
         addRange "Michael Snoyman" "attoparsec" "< 0.11.2.1"
