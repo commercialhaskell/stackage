@@ -43,7 +43,10 @@ defaultSelectSettings version = SelectSettings
     , disabledFlags = Set.fromList $ words "bytestring-in-base test-hlint"
     , allowedPackage = const $ Right ()
     , useGlobalDatabase = False
-    , skippedTests = empty
+    , skippedTests =
+        if version >= GhcMajorVersion 7 8
+            then Set.singleton (PackageName "punycode") -- pulls in encoding
+            else Set.empty
     , selectGhcVersion = version
     , selectTarballDir = "patching/tarballs"
     }

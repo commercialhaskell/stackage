@@ -178,7 +178,7 @@ loadPackageDB settings coreMap core deps = do
                 , if skipTests p
                     then mempty
                     else mconcat $ map (go gpd . snd) $ condTestSuites gpd
-                , mconcat $ map (go gpd . snd) $ condBenchmarks gpd
+                -- FIXME , mconcat $ map (go gpd . snd) $ condBenchmarks gpd
                 ], not $ null $ condTestSuites gpd
                 , Set.fromList $ map depName $ libExeBuildInfo gpd
                 , Set.fromList $ map depName $ testBenchBuildInfo gpd
