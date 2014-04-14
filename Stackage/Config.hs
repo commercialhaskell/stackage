@@ -376,6 +376,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "haskell-src-exts" "< 1.15"
     addRange "Michael Snoyman" "haskell-names" "< 0.3.3.1"
 
+    -- https://github.com/fpco/stackage/issues/210
+    addRange "Michael Snoyman" "network" "< 2.5"
+
     -- Requires too new a version of text
     when (ghcVer == GhcMajorVersion 7 4 && requireHP) $ do
         addRange "Michael Snoyman" "attoparsec" "< 0.11.2.1"
