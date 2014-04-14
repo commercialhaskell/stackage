@@ -1,0 +1,100 @@
+diff -ru orig/Data/Unique/Id.hs new/Data/Unique/Id.hs
+--- orig/Data/Unique/Id.hs	2014-04-14 09:11:35.637516354 +0300
++++ new/Data/Unique/Id.hs	2014-04-14 09:11:35.000000000 +0300
+@@ -1,3 +1,4 @@
++{-# LANGUAGE CPP #-}
+ {-# LANGUAGE MagicHash #-}
+ 
+ -- | This module provides splittable supplies for unique identifiers.
+@@ -13,6 +14,86 @@
+ 
+  ) where
+ 
++#if MIN_VERSION_base(4,7,0)
++
++import GHC.Exts
++import GHC.IO ( unsafeDupableInterleaveIO )
++
++import Data.IORef
++import System.IO.Unsafe ( unsafePerformIO )
++
++-- | Unique identifiers are of type 'Id' and can be hashed to an 'Int'
++--   usning the function 'hashedId'.
++newtype Id = Id { hashedId :: Int }
++
++-- | Supplies for unique identifiers are of type 'IdSupply' and can be
++--   split into two new supplies or yield a unique identifier.
++data IdSupply = IdSupply Int# IdSupply IdSupply
++
++-- | Generates a new supply of unique identifiers. The given character
++--   is prepended to generated numbers.
++initIdSupply :: Char -> IO IdSupply
++initIdSupply (C# c) =
++ case uncheckedIShiftL# (ord# c) (unboxedInt 24) of
++  mask ->
++   let mkSupply =
++        unsafeDupableInterleaveIO (
++         nextInt  >>= \ (I# u) ->
++         mkSupply >>= \ l ->
++         mkSupply >>= \ r ->
++         return (IdSupply (word2Int# (or# (int2Word# mask) (int2Word# u))) l r))
++    in mkSupply
++
++-- | Splits a supply of unique identifiers to yield two of them.
++splitIdSupply :: IdSupply -> (IdSupply,IdSupply)
++splitIdSupply (IdSupply _ l r) = (l,r)
++
++-- | Splits a supply of unique identifiers to yield an infinite list of them.
++splitIdSupplyL :: IdSupply -> [IdSupply]
++splitIdSupplyL ids = ids1 : splitIdSupplyL ids2
++    where
++      (ids1, ids2) = splitIdSupply ids
++
++-- | Yields the unique identifier from a supply.
++idFromSupply :: IdSupply -> Id
++idFromSupply (IdSupply n _ _) = Id (I# n)
++
++instance Eq Id where Id (I# x) == Id (I# y) = I# (x ==# y) /= 0
++
++instance Ord Id
++ where
++  Id (I# x) <  Id (I# y) = I# (x <#  y) /= 0
++  Id (I# x) <= Id (I# y) = I# (x <=# y) /= 0
++
++  compare (Id (I# x)) (Id (I# y)) =
++   if I# (x ==# y) /= 0 then EQ else if I# (x <# y) /= 0 then LT else GT
++
++instance Show Id
++ where
++  showsPrec _ i s = case unpackId i of (c,n) -> c:show n++s
++
++
++
++
++unboxedInt :: Int -> Int#
++unboxedInt (I# x) = x
++
++global :: IORef Int
++global = unsafePerformIO (newIORef 0)
++
++nextInt :: IO Int
++nextInt = do
++  n <- readIORef global
++  writeIORef global (succ n)
++  return n
++
++unpackId :: Id -> (Char,Int)
++unpackId (Id (I# i)) =
++ let tag = C# (chr# (uncheckedIShiftRL# i (unboxedInt 24)))
++     num = I# (word2Int# (and# (int2Word# i)
++                               (int2Word# (unboxedInt 16777215))))
++  in (tag, num)
++#else
+ import GHC.Exts
+ import GHC.IOBase ( unsafeDupableInterleaveIO )
+ 
+@@ -90,3 +171,4 @@
+      num = I# (word2Int# (and# (int2Word# i)
+                                (int2Word# (unboxedInt 16777215))))
+   in (tag, num)
++#endif
