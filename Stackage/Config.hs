@@ -156,7 +156,7 @@ defaultStablePackages :: GhcMajorVersion
                       -> Map PackageName (VersionRange, Maintainer)
 defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "michael@snoyman.com") $ words =<<
-        [ "yesod yesod-newsfeed yesod-sitemap yesod-static yesod-test"
+        [ "yesod yesod-newsfeed yesod-sitemap yesod-static yesod-test yesod-bin"
         , "markdown mime-mail-ses"
         , "persistent persistent-template persistent-sqlite"
         , "network-conduit-tls yackage warp-tls keter"
@@ -166,7 +166,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "bzlib-conduit case-insensitive"
         , "conduit-combinators yesod-websockets"
         ]
-    when (ghcVer < GhcMajorVersion 7 8) $ add "michael@snoyman.com" "yesod-bin"
     when (ghcVer >= GhcMajorVersion 7 6) $ add "michael@snoyman.com" "cabal-src"
 #if !defined(mingw32_HOST_OS) && !defined(__MINGW32__)
     -- Does not compile on Windows
@@ -174,7 +173,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 #endif
 
     mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
-        [ "web-fpco th-expand-syns configurator compdata smtLib"
+        [ "web-fpco th-expand-syns configurator smtLib"
         , "fixed-list indents language-c pretty-class"
         , "aws csv-conduit cassava"
         , "async shelly thyme"
@@ -187,6 +186,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
             [ "" -- too unreliable for the moment "distributed-process distributed-process-simplelocalnet"
             , "threepenny-gui unification-fd"
+            , "compdata"
             ]
     -- Deprecated version
     addRange "FP Complete <michael@fpcomplete.com>" "persistent-mongoDB" "< 1.3.1 || > 1.3.1"
@@ -232,20 +232,25 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Vincent Hanquez") $ words "udbus xenstore"
 #endif
 
-    mapM_ (add "Alberto G. Corona <agocorona@gmail.com>") $ words
-         "RefSerialize TCache Workflow MFlow"
+    when (ghcVer < GhcMajorVersion 7 8) $
+        mapM_ (add "Alberto G. Corona <agocorona@gmail.com>") $ words
+             "RefSerialize TCache Workflow MFlow"
 
     mapM_ (add "Edward Kmett <ekmett@gmail.com>") $ words =<<
-        [ "ad adjunctions bifunctors bound categories charset comonad comonad-transformers"
-        , "comonads-fd comonad-extras compressed concurrent-supply constraints contravariant"
+        [ "ad adjunctions bifunctors bound charset comonad comonad-transformers"
+        , "comonads-fd compressed concurrent-supply constraints contravariant"
         , "distributive either eq free groupoids heaps hyphenation"
         , "integration intervals kan-extensions lca lens linear monadic-arrays machines"
         , "mtl profunctors profunctor-extras reducers reflection"
         , "semigroups semigroupoids semigroupoid-extras speculation tagged void"
         , "graphs monad-products monad-st wl-pprint-extras wl-pprint-terminfo"
-        , "numeric-extras parsers pointed prelude-extras recursion-schemes reducers"
-        , "streams syb-extras vector-instances"
+        , "numeric-extras parsers pointed prelude-extras reducers"
+        , "streams vector-instances"
         ]
+    when (ghcVer < GhcMajorVersion 7 8) $
+        mapM_ (add "Edward Kmett <ekmett@gmail.com>") $ words =<<
+            [ "categories comonad-extras recursion-schemes syb-extras"
+            ]
 
     mapM_ (add "Simon Hengel <sol@typeful.net>") $ words
         "hspec doctest base-compat"
@@ -295,8 +300,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Adam Bergmark <adam@bergmark.nl>") $ words
         "fay fay-base fay-dom fay-jquery fay-text fay-uri snaplet-fay"
 
-    mapM_ (add "Boris Lykah <lykahb@gmail.com>") $ words
-        "groundhog groundhog-th groundhog-sqlite groundhog-postgresql groundhog-mysql"
+    when (ghcVer < GhcMajorVersion 7 8) $
+        mapM_ (add "Boris Lykah <lykahb@gmail.com>") $ words
+            "groundhog groundhog-th groundhog-sqlite groundhog-postgresql groundhog-mysql"
 
     mapM_ (add "Janne Hellsten <jjhellst@gmail.com>") $ words
         "sqlite-simple"
@@ -321,12 +327,13 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         "hweblib"
 #endif
 
-    mapM_ (add "John Wiegley <johnw@fpcomplete.com>") $ words =<<
-        [ "bindings-DSL github monad-extras numbers these hlibgit2"
-        , "gitlib gitlib-cmdline gitlib-test"
-        , "gitlib-libgit2 gitlib-s3"
-        ]
-        
+    when (ghcVer < GhcMajorVersion 7 8) $
+        mapM_ (add "John Wiegley") $ words =<<
+            [ "bindings-DSL github monad-extras numbers these hlibgit2"
+            , "gitlib gitlib-cmdline gitlib-test"
+            , "gitlib-libgit2 gitlib-s3"
+            ]
+
     mapM_ (add "Ben Ford <ben@dlstartup.com") $ words
         "HandsomeSoup"
 
@@ -337,7 +344,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "blastxml bioace biophd"
         , "biopsl" -- https://github.com/ingolia/SamTools/issues/3 samtools
         , "seqloc bioalign BlastHTTP"
-        , "parsestar"
         -- The following have out-of-date dependencies currently
         -- biostockholm memexml RNAwolf
         -- , "Biobase BiobaseDotP BiobaseFR3D BiobaseInfernal BiobaseMAF"
@@ -349,7 +355,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
       addRange "Michael Snoyman" "biophd" "< 0.0.6 || > 0.0.6"
     when (ghcVer == GhcMajorVersion 7 6) $ do
         mapM_ (add "Ketil Malde") $ words =<<
-            [ "RNAFold hTalos"
+            [ "RNAFold hTalos parsestar"
             ]
 
     -- Newest hxt requires network 2.4 or newest
