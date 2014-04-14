@@ -353,8 +353,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
             ]
 
     -- Newest hxt requires network 2.4 or newest
-    addRange "Michael Snoyman" "hxt" "< 9.3.1"
-    addRange "Michael Snoyman" "network" "< 2.4"
+    when (ghcVer == GhcMajorVersion 7 4 && requireHP) $ do
+        addRange "Michael Snoyman" "hxt" "< 9.3.1"
+        addRange "Michael Snoyman" "network" "< 2.4"
 
     -- https://github.com/fpco/stackage/issues/189
     addRange "Michael Snoyman" "statistics" "< 0.11"
