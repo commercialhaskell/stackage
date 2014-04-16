@@ -378,10 +378,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/207
     addRange "Michael Snoyman" "semigroups" "< 0.13"
 
-    -- https://github.com/fpco/stackage/issues/209
-    addRange "Michael Snoyman" "haskell-src-exts" "< 1.15"
-    addRange "Michael Snoyman" "haskell-names" "< 0.3.3.1"
-
     -- https://github.com/fpco/stackage/issues/210
     addRange "Michael Snoyman" "network" "< 2.5"
 
