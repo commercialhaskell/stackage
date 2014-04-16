@@ -191,7 +191,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- Deprecated version
     addRange "FP Complete <michael@fpcomplete.com>" "persistent-mongoDB" "< 1.3.1 || > 1.3.1"
     when (ghcVer < GhcMajorVersion 7 6) $ do
-        addRange "FP Complete <michael@fpcomplete.com>" "hxt" "<= 9.3.0.1"
+        when requireHP $ do
+            addRange "FP Complete <michael@fpcomplete.com>" "hxt" "<= 9.3.0.1"
         addRange "FP Complete <michael@fpcomplete.com>" "shelly" "<= 1.0"
         addRange "FP Complete <michael@fpcomplete.com>" "lockfree-queue" "== 0.2"
     when (ghcVer == GhcMajorVersion 7 6) $ do -- No GHC 7.8 support
