@@ -1,0 +1,1398 @@
+Only in orig: dist
+diff -ru orig/haskell-src-exts.cabal new/haskell-src-exts.cabal
+--- orig/haskell-src-exts.cabal	2014-04-17 07:02:07.071112593 +0300
++++ new/haskell-src-exts.cabal	2014-04-17 07:02:00.000000000 +0300
+@@ -1,123 +1,96 @@
+-name: haskell-src-exts
+-version: 1.15.0
+-cabal-version: >=1.10
+-build-type: Custom
+-license: BSD3
+-license-file: LICENSE
+-maintainer: Niklas Broberg <niklas.broberg@chalmers.se>
+-stability: Stable
+-homepage: https://github.com/haskell-suite/haskell-src-exts
+-synopsis: Manipulating Haskell source: abstract syntax, lexer, parser, and pretty-printer
+-description: Haskell-Source with Extensions (HSE, haskell-src-exts)
+-             is an extension of the standard haskell-src package,
+-             and handles most registered syntactic extensions to Haskell, including:
+-             .
+-             * Multi-parameter type classes with functional dependencies
+-             .
+-             * Indexed type families (including associated types)
+-             .
+-             * Empty data declarations
+-             .
+-             * GADTs
+-             .
+-             * Implicit parameters
+-             .
+-             * Template Haskell
+-             .
+-             and a few more. All extensions implemented in GHC are supported.
+-             Apart from these standard extensions,
+-             it also handles regular patterns as per the HaRP extension
+-             as well as HSX-style embedded XML syntax.
+-category: Language
+-author: Niklas Broberg
+-tested-with: GHC ==6.10.2 GHC ==6.10.4 GHC ==6.12.3 GHC ==7.0.2
+-data-dir: ""
+-extra-source-files: CHANGELOG Test/examples/ArityMismatch.hs
+-                    Test/examples/ArrowLayout.hs Test/examples/Attributes.hs
+-                    Test/examples/BadStringLineBreak.hs Test/examples/BangPatterns.hs
+-                    Test/examples/Bug.hs Test/examples/ByteStringUtils.hs
+-                    Test/examples/ClassInstType.hs Test/examples/ConstraintKinds.hs
+-                    Test/examples/CParser.hs Test/examples/CStyleLinePragmas.hs
+-                    Test/examples/CxtWhitespace.hs Test/examples/DataHeadParen.hs
+-                    Test/examples/DataKinds.hs Test/examples/Directory.hs
+-                    Test/examples/DoRec.hs Test/examples/DoubleHashOp.hs
+-                    Test/examples/EmptyAnn.hs Test/examples/EmptyContext.hs
+-                    Test/examples/EmptyFunDepPremise.hs Test/examples/EmptyInstance.hs
+-                    Test/examples/EmptyList.hs Test/examples/ExtraEndBrace.hs
+-                    Test/examples/FamilyKindSig.hs Test/examples/FamilyVarid.hs
+-                    Test/examples/FFIExtensions.hs Test/examples/FixityTests.hs
+-                    Test/examples/ForallInInstance.hs Test/examples/ForeignImport.hs
+-                    Test/examples/GadtDeriving.hs Test/examples/GADTRecord.hs
+-                    Test/examples/GenericTree.hs Test/examples/GhcDeriving.hs
+-                    Test/examples/GroupKeyword.hs Test/examples/HappyDoAction.hs
+-                    Test/examples/HaskellParser.hs Test/examples/HexPrec.hs
+-                    Test/examples/IfThenElseLayout.hs Test/examples/IllDataTypeDecl.hs
+-                    Test/examples/IndentedWhereBlock.hs Test/examples/IndentedWhere.hs
+-                    Test/examples/InfixParser.hs Test/examples/LambdaCase.hs
+-                    Test/examples/LineOptionsPragma.hs Test/examples/MultiCtxt.hs
+-                    Test/examples/MultiWayIf.hs Test/examples/NegPrimWordLiteral.hs
+-                    Test/examples/NestedAsPat.hs Test/examples/NonDecreasing.hs
+-                    Test/examples/NPlusK.hs Test/examples/ParallelListComp.hs
+-                    Test/examples/ParenFunBind.hs
+-                    Test/examples/PrimitiveIntHexLiteral.hs Test/examples/QQType.hs
+-                    Test/examples/QualifiedDot.hs Test/examples/QuasiQuoteLines.hs
+-                    Test/examples/QuasiQuoteOld.hs Test/examples/QuasiQuoteSplice.hs
+-                    Test/examples/RCategory.lhs Test/examples/ReadP.hs
+-                    Test/examples/RealGHC.lhs Test/examples/RecordInfixSelector.hs
+-                    Test/examples/RelaxedDo.hs Test/examples/SCCPragmas.hs
+-                    Test/examples/ScopedTypeVariables.hs
+-                    Test/examples/SimpleDeriving.hs Test/examples/SingleClassAsst.hs
+-                    Test/examples/SpecializeInstance.hs
+-                    Test/examples/SpecializePhaseControl.hs
+-                    Test/examples/TabWhitespace.hs Test/examples/Testing.hs
+-                    Test/examples/THTypes.hs Test/examples/TupleSections.hs
+-                    Test/examples/TypeFunctions.hs
+-                    Test/examples/TypeOperatorAsVariable.hs
+-                    Test/examples/TypeOperatorsTest.hs
+-                    Test/examples/UnboxedSingleton.hs Test/examples/UnboxedTuples.hs
+-                    Test/examples/Unicode.hs Test/examples/UnicodeSyntax.hs
+-                    Test/examples/UnindentedPragmaClose.hs Test/examples/Unpack.hs
+-                    Test/examples/WhereBlock.hs Test/failing.txt Test/printFail.txt
+-                    Test/Runner.hs
+- 
+-source-repository head
+-    type: git
+-    location: https://github.com/haskell-suite/haskell-src-exts.git
+- 
+-library
+-    build-depends: array >=0.1 && <0.6, pretty >=1.0 && <1.2,
+-                   cpphs >=1.3 && <1.19, base -any, ghc-prim <0.4
+-    exposed-modules: Language.Haskell.Exts Language.Haskell.Exts.Lexer
+-                     Language.Haskell.Exts.Parser Language.Haskell.Exts.Pretty
+-                     Language.Haskell.Exts.Syntax Language.Haskell.Exts.Extension
+-                     Language.Haskell.Exts.Build Language.Haskell.Exts.Fixity
+-                     Language.Haskell.Exts.Comments Language.Haskell.Exts.SrcLoc
+-                     Language.Haskell.Exts.Annotated
+-                     Language.Haskell.Exts.Annotated.Syntax
+-                     Language.Haskell.Exts.Annotated.Fixity
+-                     Language.Haskell.Exts.Annotated.Build
+-                     Language.Haskell.Exts.Annotated.ExactPrint
+-                     Language.Haskell.Exts.Annotated.Simplify
+-    exposed: True
+-    buildable: True
+-    build-tools: happy >=1.17
+-    default-language: Haskell98
+-    hs-source-dirs: src
+-    other-modules: Language.Haskell.Exts.ExtScheme
+-                   Language.Haskell.Exts.ParseMonad Language.Haskell.Exts.ParseSyntax
+-                   Language.Haskell.Exts.InternalLexer
+-                   Language.Haskell.Exts.ParseUtils
+-                   Language.Haskell.Exts.InternalParser
+- 
+-test-suite test
+-    build-depends: base -any, haskell-src-exts <1.16,
+-                   smallcheck >=1.0 && <1.2, tasty >=0.3 && <0.9,
+-                   tasty-smallcheck <0.9, tasty-hunit <0.9, filepath <1.4,
+-                   directory <1.3
+-    type: exitcode-stdio-1.0
+-    main-is: Runner.hs
+-    buildable: True
+-    default-language: Haskell2010
+-    hs-source-dirs: Test
+-    ghc-options: -threaded
+- 
+\ No newline at end of file
++Name:                   haskell-src-exts
++Version:                1.15.0
++License:                BSD3
++License-File:           LICENSE
++Build-Type:             Simple
++Author:                 Niklas Broberg
++Maintainer:             Niklas Broberg <niklas.broberg@chalmers.se>
++Category:               Language
++Synopsis:               Manipulating Haskell source: abstract syntax, lexer, parser, and pretty-printer
++Description:            Haskell-Source with Extensions (HSE, haskell-src-exts)
++                        is an extension of the standard haskell-src package,
++                        and handles most registered syntactic extensions to Haskell, including:
++                        .
++                        * Multi-parameter type classes with functional dependencies
++                        .
++                        * Indexed type families (including associated types)
++                        .
++                        * Empty data declarations
++                        .
++                        * GADTs
++                        .
++                        * Implicit parameters
++                        .
++                        * Template Haskell
++                        .
++                        and a few more. All extensions implemented in GHC are supported.
++                        Apart from these standard extensions,
++                        it also handles regular patterns as per the HaRP extension
++                        as well as HSX-style embedded XML syntax.
++Homepage:               https://github.com/haskell-suite/haskell-src-exts
++Stability:              Stable
++Tested-with:            GHC==6.10.2, GHC==6.10.4, GHC==6.12.3, GHC==7.0.2
++Build-Type:             Custom
++Cabal-Version:          >= 1.10
++
++Extra-Source-Files:
++                        CHANGELOG
++                        Test/examples/*.hs
++                        Test/failing.txt
++                        Test/printFail.txt
++                        Test/Runner.hs
++                        Test/UnitTests.hs
++
++Library
++  Default-language:     Haskell98
++  Build-Tools:          happy >= 1.17
++  Build-Depends:        array >= 0.1, pretty >= 1.0, cpphs >= 1.3,
++                        base >= 4.5 && < 5,
++                        -- this is needed to access GHC.Generics on GHC 7.4
++                        ghc-prim
++
++  Exposed-modules:      Language.Haskell.Exts,
++                        Language.Haskell.Exts.Lexer,
++                        Language.Haskell.Exts.Parser,
++                        Language.Haskell.Exts.Pretty,
++                        Language.Haskell.Exts.Syntax,
++                        Language.Haskell.Exts.Extension,
++                        Language.Haskell.Exts.Build,
++                        Language.Haskell.Exts.Fixity,
++                        Language.Haskell.Exts.Comments,
++                        Language.Haskell.Exts.SrcLoc,
++                        
++                        Language.Haskell.Exts.Annotated,
++                        Language.Haskell.Exts.Annotated.Syntax,
++                        Language.Haskell.Exts.Annotated.Fixity,
++                        Language.Haskell.Exts.Annotated.Build,
++                        Language.Haskell.Exts.Annotated.ExactPrint,
++                        Language.Haskell.Exts.Annotated.Simplify
++
++  Other-modules:        Language.Haskell.Exts.ExtScheme,
++                        
++                        Language.Haskell.Exts.ParseMonad,
++                        Language.Haskell.Exts.ParseSyntax,
++                        Language.Haskell.Exts.InternalLexer,
++                        Language.Haskell.Exts.ParseUtils,
++                        Language.Haskell.Exts.InternalParser
++  Hs-source-dirs:       src
++
++Source-Repository head
++        Type:           git
++        Location:       https://github.com/haskell-suite/haskell-src-exts.git
++
++Test-Suite test
++  type:                exitcode-stdio-1.0
++  hs-source-dirs:      Test
++  main-is:             Runner.hs
++  GHC-Options:         -threaded
++  Default-language:    Haskell2010
++  Build-depends:       base < 5,
++                       haskell-src-exts,
++                       smallcheck >= 1.0,
++                       tasty >= 0.3,
++                       tasty-smallcheck,
++                       tasty-hunit,
++                       filepath,
++                       directory
+diff -ru orig/src/Language/Haskell/Exts/Annotated/Syntax.hs new/src/Language/Haskell/Exts/Annotated/Syntax.hs
+--- orig/src/Language/Haskell/Exts/Annotated/Syntax.hs	2014-04-17 07:02:06.927109238 +0300
++++ new/src/Language/Haskell/Exts/Annotated/Syntax.hs	2014-04-17 07:02:00.000000000 +0300
+@@ -1,4 +1,4 @@
+-{-# LANGUAGE DeriveDataTypeable, DeriveFoldable, DeriveTraversable, DeriveGeneric #-}
++{-# LANGUAGE DeriveDataTypeable, DeriveFoldable, DeriveTraversable, DeriveFunctor, DeriveGeneric #-}
+ -----------------------------------------------------------------------------
+ -- |
+ -- Module      :  Language.Haskell.Exts.Annotated.Syntax
+@@ -112,7 +112,7 @@
+ 
+ -- | The name of a Haskell module.
+ data ModuleName l = ModuleName l String
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | Constructors with special syntax.
+ -- These names are never qualified, and always refer to builtin type or
+@@ -125,7 +125,7 @@
+                             --   constructors @(,)@ etc, possibly boxed @(\#,\#)@
+     | Cons l                -- ^ list data constructor @(:)@
+     | UnboxedSingleCon l    -- ^ unboxed singleton tuple constructor @(\# \#)@
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | This type is used to represent qualified variables, and also
+ -- qualified constructors.
+@@ -133,38 +133,38 @@
+     = Qual    l (ModuleName l) (Name l) -- ^ name qualified with a module name
+     | UnQual  l                (Name l) -- ^ unqualified local name
+     | Special l (SpecialCon l)          -- ^ built-in constructor with special syntax
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | This type is used to represent variables, and also constructors.
+ data Name l
+     = Ident  l String   -- ^ /varid/ or /conid/.
+     | Symbol l String   -- ^ /varsym/ or /consym/
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | An implicit parameter name.
+ data IPName l
+     = IPDup l String -- ^ ?/ident/, non-linear implicit parameter
+     | IPLin l String -- ^ %/ident/, linear implicit parameter
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | Possibly qualified infix operators (/qop/), appearing in expressions.
+ data QOp l
+     = QVarOp l (QName l) -- ^ variable operator (/qvarop/)
+     | QConOp l (QName l) -- ^ constructor operator (/qconop/)
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | Operators appearing in @infix@ declarations are never qualified.
+ data Op l
+     = VarOp l (Name l)    -- ^ variable operator (/varop/)
+     | ConOp l (Name l)    -- ^ constructor operator (/conop/)
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | A name (/cname/) of a component of a class or data type in an @import@
+ -- or export specification.
+ data CName l
+     = VarName l (Name l) -- ^ name of a method or field
+     | ConName l (Name l) -- ^ name of a data constructor
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | A complete Haskell source module.
+ data Module l
+@@ -176,16 +176,16 @@
+     | XmlHybrid l (Maybe (ModuleHead l)) [ModulePragma l] [ImportDecl l] [Decl l]
+                 (XName l) [XAttr l] (Maybe (Exp l)) [Exp l]
+     -- ^ a hybrid module combining an XML document with an ordinary module
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | The head of a module, including the name and export specification.
+ data ModuleHead l = ModuleHead l (ModuleName l) (Maybe (WarningText l)) (Maybe (ExportSpecList l))
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | An explicit export specification.
+ data ExportSpecList l
+     = ExportSpecList l [ExportSpec l]
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | An item in a module's export specification.
+ data ExportSpec l
+@@ -201,7 +201,7 @@
+                                         --   a datatype exported with some of its constructors.
+      | EModuleContents l (ModuleName l) -- ^ @module M@:
+                                         --   re-export a module.
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | An import declaration.
+ data ImportDecl l = ImportDecl
+@@ -214,7 +214,7 @@
+     , importSpecs :: Maybe (ImportSpecList l)
+             -- ^ optional list of import specifications.
+     }
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | An explicit import specification list.
+ data ImportSpecList l
+@@ -222,7 +222,7 @@
+             -- A list of import specifications.
+             -- The 'Bool' is 'True' if the names are excluded
+             -- by @hiding@.
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | An import specification, representing a single explicit item imported
+ --   (or hidden) from a module.
+@@ -236,14 +236,14 @@
+      | IThingWith l (Name l) [CName l]  -- ^ @T(C_1,...,C_n)@:
+                                         --   a class imported with some of its methods, or
+                                         --   a datatype imported with some of its constructors.
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | Associativity of an operator.
+ data Assoc l
+      = AssocNone  l -- ^ non-associative operator (declared with @infix@)
+      | AssocLeft  l -- ^ left-associative operator (declared with @infixl@).
+      | AssocRight l -- ^ right-associative operator (declared with @infixr@)
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | A top-level declaration.
+ data Decl l
+@@ -303,7 +303,7 @@
+      -- ^ A SPECIALISE instance pragma
+      | AnnPragma        l (Annotation l)
+      -- ^ An ANN pragma
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | An annotation through an ANN pragma.
+ data Annotation l
+@@ -313,40 +313,40 @@
+     -- ^ An annotation for a declared type.
+     | ModuleAnn l           (Exp l)
+     -- ^ An annotation for the defining module.
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ 
+ -- | A flag stating whether a declaration is a data or newtype declaration.
+ data DataOrNew l = DataType l | NewType l
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | The head of a type or class declaration.
+ data DeclHead l
+     = DHead l (Name l) [TyVarBind l]
+     | DHInfix l (TyVarBind l) (Name l) (TyVarBind l)
+     | DHParen l (DeclHead l)
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | The head of an instance declaration.
+ data InstHead l
+     = IHead l (QName l) [Type l]
+     | IHInfix l (Type l) (QName l) (Type l)
+     | IHParen l (InstHead l)
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | A deriving clause following a data type declaration.
+ data Deriving l = Deriving l [InstHead l]
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | A binding group inside a @let@ or @where@ clause.
+ data Binds l
+     = BDecls  l [Decl l]     -- ^ An ordinary binding group
+     | IPBinds l [IPBind l]   -- ^ A binding group for implicit parameters
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | A binding of an implicit parameter.
+ data IPBind l = IPBind l (IPName l) (Exp l)
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | Clauses of a function binding.
+ data Match l
+@@ -360,7 +360,7 @@
+         --  the right-hand side and an optional where clause.
+         --  Note that there can be more than two arguments to a function declared
+         --  infix, hence the list of pattern arguments.
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | A single constructor declaration within a data type declaration,
+ --   which may have an existential quantification binding.
+@@ -368,7 +368,7 @@
+     = QualConDecl l
+         {-forall-} (Maybe [TyVarBind l]) {- . -} (Maybe (Context l))
+         {- => -} (ConDecl l)
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | Declaration of an ordinary data constructor.
+ data ConDecl l
+@@ -378,17 +378,17 @@
+                 -- ^ infix data constructor
+      | RecDecl l (Name l) [FieldDecl l]
+                 -- ^ record constructor
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | Declaration of a (list of) named field(s).
+ data FieldDecl l = FieldDecl l [Name l] (BangType l)
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ 
+ -- | A single constructor declaration in a GADT data type declaration.
+ data GadtDecl l
+     = GadtDecl l (Name l) (Type l)
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | Declarations inside a class declaration.
+ data ClassDecl l
+@@ -400,7 +400,7 @@
+             -- ^ declaration of an associated type synonym
+     | ClsTyDef   l (Type l) (Type l)
+             -- ^ default choice for an associated type synonym
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | Declarations inside an instance declaration.
+ data InstDecl l
+@@ -412,7 +412,7 @@
+             -- ^ an associated data type implementation
+     | InsGData  l (DataOrNew l) (Type l) (Maybe (Kind l)) [GadtDecl l] (Maybe (Deriving l))
+             -- ^ an associated data type implemented using GADT style
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | The type of a constructor argument or field, optionally including
+ --   a strictness annotation.
+@@ -420,21 +420,21 @@
+      = BangedTy   l (Type l) -- ^ strict component, marked with \"@!@\"
+      | UnBangedTy l (Type l) -- ^ non-strict component
+      | UnpackedTy l (Type l) -- ^ unboxed component, marked with an UNPACK pragma
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | The right hand side of a function or pattern binding.
+ data Rhs l
+      = UnGuardedRhs l (Exp l) -- ^ unguarded right hand side (/exp/)
+      | GuardedRhss  l [GuardedRhs l]
+                 -- ^ guarded right hand side (/gdrhs/)
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | A guarded right hand side @|@ /stmts/ @=@ /exp/.
+ --   The guard is a series of statements when using pattern guards,
+ --   otherwise it will be a single qualifier expression.
+ data GuardedRhs l
+      = GuardedRhs l [Stmt l] (Exp l)
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | A type qualified with a context.
+ --   An unqualified type has an empty context.
+@@ -453,7 +453,7 @@
+      | TyInfix l (Type l) (QName l) (Type l)    -- ^ infix type constructor
+      | TyKind  l (Type l) (Kind l)              -- ^ type with explicit kind signature
+      | TyPromoted l (Promoted l)                -- ^ @'K@, a promoted data type (-XDataKinds).
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | Bools here are True if there was a leading quote which may be
+ -- left out. For example @'[k1,k2]@ means the same thing as @[k1,k2]@.
+@@ -464,7 +464,7 @@
+         | PromotedList l Bool [Promoted l]
+         | PromotedTuple l [Promoted l]
+         | PromotedUnit l
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | Flag denoting whether a tuple is boxed or unboxed.
+ data Boxed = Boxed | Unboxed
+@@ -474,7 +474,7 @@
+ data TyVarBind l
+     = KindedVar   l (Name l) (Kind l)  -- ^ variable binding with kind annotation
+     | UnkindedVar l (Name l)           -- ^ ordinary variable binding
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | An explicit kind annotation.
+ data Kind l
+@@ -486,14 +486,14 @@
+     | KindApp   l (Kind l) (Kind l)  -- ^ @k1 k2@
+     | KindTuple l [Kind l]           -- ^ @'(k1,k2,k3)@, a promoted tuple
+     | KindList  l [Kind l]           -- ^ @'[k1,k2,k3]@, a promoted list literal
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ 
+ -- | A functional dependency, given on the form
+ --   l1 l2 ... ln -> r2 r3 .. rn
+ data FunDep l
+     = FunDep l [Name l] [Name l]
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | A context is a set of assertions
+ data Context l
+@@ -501,7 +501,7 @@
+     | CxTuple  l [Asst l]
+     | CxParen  l (Context l)
+     | CxEmpty  l
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | Class assertions.
+ --   In Haskell 98, the argument would be a /tyvar/, but this definition
+@@ -512,7 +512,7 @@
+         | InfixA l (Type l) (QName l) (Type l)  -- ^ class assertion where the class name is given infix
+         | IParam l (IPName l) (Type l)          -- ^ implicit parameter assertion
+         | EqualP l (Type l) (Type l)            -- ^ type equality constraint
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | /literal/
+ -- Values of this type hold the abstract value of the literal, along with the
+@@ -529,7 +529,7 @@
+     | PrimDouble l Rational String     -- ^ unboxed double literal
+     | PrimChar   l Char     String     -- ^ unboxed character literal
+     | PrimString l String   String     -- ^ unboxed string literal
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | Haskell expressions.
+ data Exp l
+@@ -601,18 +601,18 @@
+ 
+ -- LambdaCase
+     | LCase l [Alt l]                       -- ^ @\case@ /alts/
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | The name of an xml element or attribute,
+ --   possibly qualified with a namespace.
+ data XName l
+     = XName l String              -- <name ...
+     | XDomName l String String    -- <dom:name ...
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | An xml attribute, which is a name-expression pair.
+ data XAttr l = XAttr l (XName l) (Exp l)
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | A template haskell bracket expression.
+ data Bracket l
+@@ -620,20 +620,20 @@
+     | PatBracket l (Pat l)        -- ^ pattern bracket: @[p| ... |]@
+     | TypeBracket l (Type l)      -- ^ type bracket: @[t| ... |]@
+     | DeclBracket l [Decl l]      -- ^ declaration bracket: @[d| ... |]@
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | A template haskell splice expression
+ data Splice l
+     = IdSplice l String           -- ^ variable splice: @$var@
+     | ParenSplice l (Exp l)       -- ^ parenthesised expression splice: @$(/exp/)@
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | The safety of a foreign function call.
+ data Safety l
+     = PlayRisky l         -- ^ unsafe
+     | PlaySafe l Bool     -- ^ safe ('False') or threadsafe ('True')
+     | PlayInterruptible l -- ^ interruptible
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | The calling convention of a foreign function call.
+ data CallConv l
+@@ -644,7 +644,7 @@
+     | Jvm l
+     | Js l
+     | CApi l
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | A top level options pragma, preceding the module header.
+ data ModulePragma l
+@@ -653,7 +653,7 @@
+                         -- ^ OPTIONS pragma, possibly qualified with a tool, e.g. OPTIONS_GHC
+     | AnnModulePragma  l (Annotation l)
+                         -- ^ ANN pragma with module scope
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | Recognised tools for OPTIONS pragmas.
+ data Tool = GHC | HUGS | NHC98 | YHC | HADDOCK | UnknownTool String
+@@ -663,25 +663,25 @@
+ data Activation l
+     = ActiveFrom   l Int
+     | ActiveUntil  l Int
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | The body of a RULES pragma.
+ data Rule l
+     = Rule l String (Maybe (Activation l)) (Maybe [RuleVar l]) (Exp l) (Exp l)
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | Variables used in a RULES pragma, optionally annotated with types
+ data RuleVar l
+     = RuleVar l (Name l)
+     | TypedRuleVar l (Name l) (Type l)
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | Warning text to optionally use in the module header of e.g.
+ --   a deprecated module.
+ data WarningText l
+     = DeprText l String
+     | WarnText l String
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ 
+ -- | A pattern, to be matched against a value.
+@@ -711,11 +711,11 @@
+     | PXRPats  l [RPat l]                   -- ^ XML regular list pattern
+     | PQuasiQuote l String String           -- ^ quasi quote pattern: @[$/name/| /string/ |]@
+     | PBangPat l (Pat l)                    -- ^ strict (bang) pattern: @f !x = ...@
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | An XML attribute in a pattern.
+ data PXAttr l = PXAttr l (XName l) (Pat l)
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | A regular pattern operator.
+ data RPatOp l
+@@ -725,7 +725,7 @@
+     | RPPlusG l  -- ^ @+!@ = 1 or more, greedy
+     | RPOpt   l  -- ^ @?@ = 0 or 1
+     | RPOptG  l  -- ^ @?!@ = 0 or 1, greedy
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | An entity in a regular pattern.
+ data RPat l
+@@ -737,14 +737,14 @@
+     | RPAs l (Name l) (RPat l)     -- ^ linear variable binding, e.g. foo\@(1 | 2)
+     | RPParen l (RPat l)           -- ^ parenthesised pattern, e.g. (2*)
+     | RPPat l (Pat l)              -- ^ an ordinary pattern
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | An /fpat/ in a labeled record pattern.
+ data PatField l
+     = PFieldPat l (QName l) (Pat l)     -- ^ ordinary label-pattern pair
+     | PFieldPun l (Name l)              -- ^ record field pun
+     | PFieldWildcard l                  -- ^ record field wildcard
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | A statement, representing both a /stmt/ in a @do@-expression,
+ --   an ordinary /qual/ in a list comprehension, as well as a /stmt/
+@@ -758,7 +758,7 @@
+                             --   a guard expression
+     | LetStmt l (Binds l)   -- ^ local bindings
+     | RecStmt l [Stmt l]    -- ^ a recursive binding group for arrows
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | A general /transqual/ in a list comprehension,
+ --   which could potentially be a transform of the kind
+@@ -770,19 +770,19 @@
+     | GroupBy      l (Exp l)          -- ^ @then@ @group@ @by@ /exp/
+     | GroupUsing   l (Exp l)          -- ^ @then@ @group@ @using@ /exp/
+     | GroupByUsing l (Exp l) (Exp l)  -- ^ @then@ @group@ @by@ /exp/ @using@ /exp/
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | An /fbind/ in a labeled construction or update expression.
+ data FieldUpdate l
+     = FieldUpdate l (QName l) (Exp l)    -- ^ ordinary label-expresion pair
+     | FieldPun l (Name l)                -- ^ record field pun
+     | FieldWildcard l                    -- ^ record field wildcard
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | An /alt/ alternative in a @case@ expression.
+ data Alt l
+     = Alt l (Pat l) (GuardedAlts l) (Maybe (Binds l))
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | The right-hand sides of a @case@ alternative,
+ --   which may be a single right-hand side or a
+@@ -790,17 +790,17 @@
+ data GuardedAlts l
+     = UnGuardedAlt l (Exp l)         -- ^ @->@ /exp/
+     | GuardedAlts  l [GuardedAlt l]  -- ^ /gdpat/
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | A guarded case alternative @|@ /stmts/ @->@ /exp/.
+ data GuardedAlt l
+     = GuardedAlt l [Stmt l] (Exp l)
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ 
+ -- | An alternative in a multiway @if@ expression.
+ data IfAlt l
+     = IfAlt l (Exp l) (Exp l)
+-  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Generic)
++  deriving (Eq,Ord,Show,Typeable,Data,Foldable,Traversable,Functor,Generic)
+ -----------------------------------------------------------------------------
+ -- Builtin names.
+ 
+@@ -882,454 +882,6 @@
+ (=~=) :: (Annotated a, Eq (a ())) => a l1 -> a l2 -> Bool
+ a =~= b = fmap (const ()) a == fmap (const ()) b
+ 
+-instance Functor ModuleName where
+-    fmap f (ModuleName l s) = ModuleName (f l) s
+-
+-instance Functor SpecialCon where
+-    fmap f sc = case sc of
+-        UnitCon l       -> UnitCon (f l)
+-        ListCon l       -> ListCon (f l)
+-        FunCon  l       -> FunCon  (f l)
+-        TupleCon l b n  -> TupleCon (f l) b n
+-        Cons l          -> Cons (f l)
+-        UnboxedSingleCon l  -> UnboxedSingleCon (f l)
+-
+-instance Functor QName where
+-    fmap f qn = case qn of
+-        Qual    l mn n  -> Qual    (f l) (fmap f mn) (fmap f n)
+-        UnQual  l    n  -> UnQual  (f l)             (fmap f n)
+-        Special l sc    -> Special (f l) (fmap f sc)
+-
+-instance Functor Name where
+-    fmap f (Ident  l s) = Ident  (f l) s
+-    fmap f (Symbol l s) = Symbol (f l) s
+-
+-instance Functor IPName where
+-    fmap f (IPDup l s) = IPDup (f l) s
+-    fmap f (IPLin l s) = IPLin (f l) s
+-
+-instance Functor QOp where
+-    fmap f (QVarOp l qn) = QVarOp (f l) (fmap f qn)
+-    fmap f (QConOp l qn) = QConOp (f l) (fmap f qn)
+-
+-instance Functor Op where
+-    fmap f (VarOp l n) = VarOp (f l) (fmap f n)
+-    fmap f (ConOp l n) = ConOp (f l) (fmap f n)
+-
+-instance Functor CName where
+-    fmap f (VarName l n) = VarName (f l) (fmap f n)
+-    fmap f (ConName l n) = ConName (f l) (fmap f n)
+-
+-instance Functor Module where
+-    fmap f (Module l mmh ops iss dcls) =
+-        Module (f l) (fmap (fmap f) mmh) (map (fmap f) ops) (map (fmap f) iss) (map (fmap f) dcls)
+-    fmap f (XmlPage l mn os xn xas me es) =
+-        XmlPage (f l) (fmap f mn) (map (fmap f) os) (fmap f xn) (map (fmap f) xas) (fmap (fmap f) me) (map (fmap f) es)
+-    fmap f (XmlHybrid l mmh ops iss dcls xn xas me es) =
+-        XmlHybrid (f l) (fmap (fmap f) mmh) (map (fmap f) ops) (map (fmap f) iss) (map (fmap f) dcls)
+-                (fmap f xn) (map (fmap f) xas) (fmap (fmap f) me) (map (fmap f) es)
+-
+-instance Functor ModuleHead where
+-    fmap f (ModuleHead l mn mwt mexpl) =
+-        ModuleHead (f l) (fmap f mn) (fmap (fmap f) mwt) (fmap (fmap f) mexpl)
+-
+-instance Functor ExportSpecList where
+-    fmap f (ExportSpecList l ess) = ExportSpecList (f l) (map (fmap f) ess)
+-
+-instance Functor ExportSpec where
+-    fmap f es = case es of
+-        EVar l qn       -> EVar (f l) (fmap f qn)
+-        EAbs l qn       -> EAbs (f l) (fmap f qn)
+-        EThingAll l qn  -> EThingAll (f l) (fmap f qn)
+-        EThingWith l qn cns -> EThingWith (f l) (fmap f qn) (map (fmap f) cns)
+-        EModuleContents l mn    -> EModuleContents (f l) (fmap f mn)
+-
+-instance Functor ImportDecl where
+-    fmap f (ImportDecl l mn qual src pkg mmn mis) =
+-        ImportDecl (f l) (fmap f mn) qual src pkg (fmap (fmap f) mmn) (fmap (fmap f) mis)
+-
+-instance Functor ImportSpecList where
+-    fmap f (ImportSpecList l b iss) = ImportSpecList (f l) b (map (fmap f) iss)
+-
+-instance Functor ImportSpec where
+-    fmap f is = case is of
+-        IVar l n        -> IVar (f l) (fmap f n)
+-        IAbs l n        -> IAbs (f l) (fmap f n)
+-        IThingAll l n   -> IThingAll (f l) (fmap f n)
+-        IThingWith l n cns  -> IThingWith (f l) (fmap f n) (map (fmap f) cns)
+-
+-instance Functor Assoc where
+-    fmap f (AssocNone  l) = AssocNone  (f l)
+-    fmap f (AssocLeft  l) = AssocLeft  (f l)
+-    fmap f (AssocRight l) = AssocRight (f l)
+-
+-instance Functor Decl where
+-    fmap f decl = case decl of
+-        TypeDecl     l dh t      -> TypeDecl    (f l) (fmap f dh) (fmap f t)
+-        TypeFamDecl  l dh mk     -> TypeFamDecl (f l) (fmap f dh) (fmap (fmap f) mk)
+-        DataDecl     l dn mcx dh cds ders ->
+-            DataDecl (f l) (fmap f dn) (fmap (fmap f) mcx) (fmap f dh) (map (fmap f) cds) (fmap (fmap f) ders)
+-        GDataDecl    l dn mcx dh mk gds ders ->
+-            GDataDecl (f l) (fmap f dn) (fmap (fmap f) mcx) (fmap f dh) (fmap (fmap f) mk) (map (fmap f) gds) (fmap (fmap f) ders)
+-        DataFamDecl  l mcx dh mk          -> DataFamDecl (f l) (fmap (fmap f) mcx) (fmap f dh) (fmap (fmap f) mk)
+-        TypeInsDecl  l t1 t2              -> TypeInsDecl (f l) (fmap f t1) (fmap f t2)
+-        DataInsDecl  l dn t cds ders      -> DataInsDecl (f l) (fmap f dn) (fmap f t) (map (fmap f) cds) (fmap (fmap f) ders)
+-        GDataInsDecl l dn t mk gds ders   -> GDataInsDecl (f l) (fmap f dn) (fmap f t) (fmap (fmap f) mk) (map (fmap f) gds) (fmap (fmap f) ders)
+-        ClassDecl    l mcx dh fds mcds    -> ClassDecl (f l) (fmap (fmap f) mcx) (fmap f dh) (map (fmap f) fds) (fmap (map (fmap f)) mcds)
+-        InstDecl     l mcx ih mids        -> InstDecl  (f l) (fmap (fmap f) mcx) (fmap f ih) (fmap (map (fmap f)) mids)
+-        DerivDecl    l mcx ih             -> DerivDecl (f l) (fmap (fmap f) mcx) (fmap f ih)
+-        InfixDecl    l a k ops            -> InfixDecl (f l) (fmap f a) k (map (fmap f) ops)
+-        DefaultDecl  l ts                 -> DefaultDecl (f l) (map (fmap f) ts)
+-        SpliceDecl   l sp                 -> SpliceDecl (f l) (fmap f sp)
+-        TypeSig      l ns t               -> TypeSig (f l) (map (fmap f) ns) (fmap f t)
+-        FunBind      l ms                 -> FunBind (f l) (map (fmap f) ms)
+-        PatBind      l p mt rhs bs        -> PatBind (f l) (fmap f p) (fmap (fmap f) mt) (fmap f rhs) (fmap (fmap f) bs)
+-        ForImp       l cc msf s n t       -> ForImp (f l) (fmap f cc) (fmap (fmap f) msf) s (fmap f n) (fmap f t)
+-        ForExp       l cc     s n t       -> ForExp (f l) (fmap f cc)                     s (fmap f n) (fmap f t)
+-        RulePragmaDecl   l rs             -> RulePragmaDecl (f l) (map (fmap f) rs)
+-        DeprPragmaDecl   l nss            -> DeprPragmaDecl (f l) (map (wp f) nss)
+-        WarnPragmaDecl   l nss            -> WarnPragmaDecl (f l) (map (wp f) nss)
+-        InlineSig        l b mact qn      -> InlineSig (f l) b (fmap (fmap f) mact) (fmap f qn)
+-        InlineConlikeSig l   mact qn      -> InlineConlikeSig (f l) (fmap (fmap f) mact) (fmap f qn)
+-        SpecInlineSig    l b mact qn ts   -> SpecInlineSig (f l) b (fmap (fmap f) mact) (fmap f qn) (map (fmap f) ts)
+-        SpecSig          l   mact qn ts   -> SpecSig       (f l)   (fmap (fmap f) mact) (fmap f qn) (map (fmap f) ts)
+-        InstSig          l mcx ih         -> InstSig (f l) (fmap (fmap f) mcx) (fmap f ih)
+-        AnnPragma        l ann            -> AnnPragma (f l) (fmap f ann)
+-      where wp f (ns, s) = (map (fmap f) ns, s)
+-
+-instance Functor Annotation where
+-    fmap f (Ann     l n e) = Ann     (f l) (fmap f n) (fmap f e)
+-    fmap f (TypeAnn l n e) = TypeAnn (f l) (fmap f n) (fmap f e)
+-    fmap f (ModuleAnn l e) = ModuleAnn (f l) (fmap f e)
+-
+-instance Functor DataOrNew where
+-    fmap f (DataType l) = DataType (f l)
+-    fmap f (NewType  l) = NewType  (f l)
+-
+-instance Functor DeclHead where
+-    fmap f (DHead l n tvs)       = DHead (f l) (fmap f n) (map (fmap f) tvs)
+-    fmap f (DHInfix l tva n tvb) = DHInfix (f l) (fmap f tva) (fmap f n) (fmap f tvb)
+-    fmap f (DHParen l dh)        = DHParen (f l) (fmap f dh)
+-
+-instance Functor InstHead where
+-    fmap f (IHead l qn ts)       = IHead (f l) (fmap f qn) (map (fmap f) ts)
+-    fmap f (IHInfix l ta qn tb)  = IHInfix (f l) (fmap f ta) (fmap f qn) (fmap f tb)
+-    fmap f (IHParen l ih)        = IHParen (f l) (fmap f ih)
+-
+-instance Functor Deriving where
+-    fmap f (Deriving l ihs) = Deriving (f l) (map (fmap f) ihs)
+-
+-instance Functor Binds where
+-    fmap f (BDecls  l decls) = BDecls (f l) (map (fmap f) decls)
+-    fmap f (IPBinds l ibs)   = IPBinds (f l) (map (fmap f) ibs)
+-
+-instance Functor IPBind where
+-    fmap f (IPBind l ipn e) = IPBind (f l) (fmap f ipn) (fmap f e)
+-
+-instance Functor Match where
+-    fmap f (Match l n ps rhs bs) =
+-        Match (f l) (fmap f n) (map (fmap f) ps) (fmap f rhs) (fmap (fmap f) bs)
+-    fmap f (InfixMatch l a n ps rhs bs) =
+-        InfixMatch (f l) (fmap f a) (fmap f n) (map (fmap f) ps) (fmap f rhs) (fmap (fmap f) bs)
+-
+-instance Functor QualConDecl where
+-    fmap f (QualConDecl l mtvs mcx cd) = QualConDecl (f l) (fmap (map (fmap f)) mtvs) (fmap (fmap f) mcx) (fmap f cd)
+-
+-instance Functor ConDecl where
+-    fmap f (ConDecl l n bts) = ConDecl (f l) (fmap f n) (map (fmap f) bts)
+-    fmap f (InfixConDecl l ta n tb) = InfixConDecl (f l) (fmap f ta) (fmap f n) (fmap f tb)
+-    fmap f (RecDecl l n fds) = RecDecl (f l) (fmap f n) (map (fmap f) fds)
+-
+-instance Functor FieldDecl where
+-     fmap f (FieldDecl l ns t) = FieldDecl (f l) (map (fmap f) ns) (fmap f t)
+-
+-instance Functor GadtDecl where
+-    fmap f (GadtDecl l n t) = GadtDecl (f l) (fmap f n) (fmap f t)
+-
+-instance Functor ClassDecl where
+-    fmap f (ClsDecl    l d) = ClsDecl (f l) (fmap f d)
+-    fmap f (ClsDataFam l mcx dh mk) = ClsDataFam (f l) (fmap (fmap f) mcx) (fmap f dh) (fmap (fmap f) mk)
+-    fmap f (ClsTyFam   l     dh mk) = ClsTyFam   (f l)                     (fmap f dh) (fmap (fmap f) mk)
+-    fmap f (ClsTyDef   l t1 t2) = ClsTyDef (f l) (fmap f t1) (fmap f t2)
+-
+-instance Functor InstDecl where
+-    fmap f id = case id of
+-        InsDecl   l d           -> InsDecl (f l) (fmap f d)
+-        InsType   l t1 t2       -> InsType (f l) (fmap f t1) (fmap f t2)
+-        InsData   l dn t    cds ders
+-            -> InsData  (f l) (fmap f dn) (fmap f t)                    (map (fmap f) cds) (fmap (fmap f) ders)
+-        InsGData  l dn t mk gds ders
+-            -> InsGData (f l) (fmap f dn) (fmap f t) (fmap (fmap f) mk) (map (fmap f) gds) (fmap (fmap f) ders)
+---        InsInline l b mact qn   -> InsInline (f l) b (fmap (fmap f) mact) (fmap f qn)
+-
+-instance Functor BangType where
+-     fmap f (BangedTy   l t) = BangedTy (f l) (fmap f t)
+-     fmap f (UnBangedTy l t) = UnBangedTy (f l) (fmap f t)
+-     fmap f (UnpackedTy l t) = UnpackedTy (f l) (fmap f t)
+-
+-instance Functor Rhs where
+-     fmap f (UnGuardedRhs l e) = UnGuardedRhs (f l) (fmap f e)
+-     fmap f (GuardedRhss  l grhss) = GuardedRhss (f l) (map (fmap f) grhss)
+-
+-instance Functor GuardedRhs where
+-     fmap f (GuardedRhs l ss e) = GuardedRhs (f l) (map (fmap f) ss) (fmap f e)
+-
+-instance Functor Type where
+-    fmap f t = case t of
+-      TyForall l mtvs mcx t         -> TyForall (f l) (fmap (map (fmap f)) mtvs) (fmap (fmap f) mcx) (fmap f t)
+-      TyFun   l t1 t2               -> TyFun (f l) (fmap f t1) (fmap f t2)
+-      TyTuple l b ts                -> TyTuple (f l) b (map (fmap f) ts)
+-      TyList  l t                   -> TyList (f l) (fmap f t)
+-      TyApp   l t1 t2               -> TyApp (f l) (fmap f t1) (fmap f t2)
+-      TyVar   l n                   -> TyVar (f l) (fmap f n)
+-      TyCon   l qn                  -> TyCon (f l) (fmap f qn)
+-      TyParen l t                   -> TyParen (f l) (fmap f t)
+-      TyInfix l ta qn tb            -> TyInfix (f l) (fmap f ta) (fmap f qn) (fmap f tb)
+-      TyKind  l t k                 -> TyKind (f l) (fmap f t) (fmap f k)
+-      TyPromoted l   p              -> TyPromoted (f l)   (fmap f p)
+-
+-instance Functor TyVarBind where
+-    fmap f (KindedVar   l n k) = KindedVar (f l) (fmap f n) (fmap f k)
+-    fmap f (UnkindedVar l n)   = UnkindedVar (f l) (fmap f n)
+-
+-instance Functor Kind where
+-    fmap f (KindStar  l)   = KindStar (f l)
+-    fmap f (KindBang  l)   = KindBang (f l)
+-    fmap f (KindFn    l k1 k2) = KindFn (f l) (fmap f k1) (fmap f k2)
+-    fmap f (KindParen l k) = KindParen (f l) (fmap f k)
+-    fmap f (KindVar   l n) = KindVar (f l) (fmap f n)
+-    fmap f (KindApp   l k1 k2) = KindFn (f l) (fmap f k1) (fmap f k2)
+-    fmap f (KindTuple l ks) = KindTuple (f l) (map (fmap f) ks)
+-    fmap f (KindList  l ks) = KindList  (f l) (map (fmap f) ks)
+-
+-instance Functor FunDep where
+-    fmap f (FunDep l ns1 ns2) = FunDep (f l) (map (fmap f) ns1) (map (fmap f) ns2)
+-
+-instance Functor Context where
+-    fmap f (CxSingle l asst) = CxSingle (f l) (fmap f asst)
+-    fmap f (CxTuple l assts) = CxTuple (f l) (map (fmap f) assts)
+-    fmap f (CxParen l ctxt)  = CxParen (f l) (fmap f ctxt)
+-    fmap f (CxEmpty l)       = CxEmpty (f l)
+-
+-instance Functor Asst where
+-    fmap f asst = case asst of
+-        ClassA l qn ts      -> ClassA (f l) (fmap f qn) (map (fmap f) ts)
+-        InfixA l ta qn tb   -> InfixA (f l) (fmap f ta) (fmap f qn) (fmap f tb)
+-        IParam l ipn t      -> IParam (f l) (fmap f ipn) (fmap f t)
+-        EqualP l t1 t2      -> EqualP (f l) (fmap f t1) (fmap f t2)
+-
+-instance Functor Literal where
+-    fmap f lit = case lit of
+-        Char    l c rw    -> Char   (f l) c rw
+-        String  l s rw    -> String (f l) s rw
+-        Int     l i rw    -> Int    (f l) i rw
+-        Frac    l r rw    -> Frac   (f l) r rw
+-        PrimInt    l i rw -> PrimInt    (f l) i rw
+-        PrimWord   l i rw -> PrimWord   (f l) i rw
+-        PrimFloat  l r rw -> PrimFloat  (f l) r rw
+-        PrimDouble l r rw -> PrimDouble (f l) r rw
+-        PrimChar   l c rw -> PrimChar   (f l) c rw
+-        PrimString l s rw -> PrimString (f l) s rw
+-
+-instance Functor Exp where
+-    fmap f e = case e of
+-        Var l qn        -> Var (f l) (fmap f qn)
+-        IPVar l ipn     -> IPVar (f l) (fmap f ipn)
+-        Con l qn        -> Con (f l) (fmap f qn)
+-        Lit l lit       -> Lit (f l) (fmap f lit)
+-        InfixApp l e1 qop e2    -> InfixApp (f l) (fmap f e1) (fmap f qop) (fmap f e2)
+-        App l e1 e2     -> App (f l) (fmap f e1) (fmap f e2)
+-        NegApp l e      -> NegApp (f l) (fmap f e)
+-        Lambda l ps e   -> Lambda (f l) (map (fmap f) ps) (fmap f e)
+-        Let l bs e      -> Let (f l) (fmap f bs) (fmap f e)
+-        If l ec et ee   -> If (f l) (fmap f ec) (fmap f et) (fmap f ee)
+-        Case l e alts   -> Case (f l) (fmap f e) (map (fmap f) alts)
+-        Do l ss         -> Do (f l) (map (fmap f) ss)
+-        MDo l ss        -> MDo (f l) (map (fmap f) ss)
+-        Tuple l bx es   -> Tuple (f l) bx (map (fmap f) es)
+-        TupleSection l bx mes -> TupleSection (f l) bx (map (fmap (fmap f)) mes)
+-        List l es       -> List (f l) (map (fmap f) es)
+-        Paren l e       -> Paren (f l) (fmap f e)
+-        LeftSection l e qop     -> LeftSection (f l) (fmap f e) (fmap f qop)
+-        RightSection l qop e    -> RightSection (f l) (fmap f qop) (fmap f e)
+-        RecConstr l qn fups     -> RecConstr (f l) (fmap f qn) (map (fmap f) fups)
+-        RecUpdate l e  fups     -> RecUpdate (f l) (fmap f e) (map (fmap f) fups)
+-        EnumFrom l e            -> EnumFrom (f l) (fmap f e)
+-        EnumFromTo l ef et      -> EnumFromTo (f l) (fmap f ef) (fmap f et)
+-        EnumFromThen l ef et    -> EnumFromThen (f l) (fmap f ef) (fmap f et)
+-        EnumFromThenTo l ef eth eto -> EnumFromThenTo (f l) (fmap f ef) (fmap f eth) (fmap f eto)
+-        ListComp l e qss        -> ListComp (f l) (fmap f e) (map (fmap f) qss)
+-        ParComp  l e qsss       -> ParComp  (f l) (fmap f e) (map (map (fmap f)) qsss)
+-        ExpTypeSig l e t        -> ExpTypeSig (f l) (fmap f e) (fmap f t)
+-        VarQuote l qn           -> VarQuote (f l) (fmap f qn)
+-        TypQuote l qn           -> TypQuote (f l) (fmap f qn)
+-        BracketExp l br         -> BracketExp (f l) (fmap f br)
+-        SpliceExp l sp          -> SpliceExp (f l) (fmap f sp)
+-        QuasiQuote l sn se      -> QuasiQuote (f l) sn se
+-
+-        XTag  l xn xas me es     -> XTag  (f l) (fmap f xn) (map (fmap f) xas) (fmap (fmap f) me) (map (fmap f) es)
+-        XETag l xn xas me        -> XETag (f l) (fmap f xn) (map (fmap f) xas) (fmap (fmap f) me)
+-        XPcdata l s              -> XPcdata (f l) s
+-        XExpTag l e              -> XExpTag (f l) (fmap f e)
+-        XChildTag l es           -> XChildTag (f l) (map (fmap f) es)
+-
+-        CorePragma l s e   -> CorePragma (f l) s (fmap f e)
+-        SCCPragma  l s e   -> SCCPragma (f l) s (fmap f e)
+-        GenPragma  l s n12 n34 e -> GenPragma (f l) s n12 n34 (fmap f e)
+-
+-        Proc            l p e   -> Proc (f l) (fmap f p) (fmap f e)
+-        LeftArrApp      l e1 e2 -> LeftArrApp      (f l) (fmap f e1) (fmap f e2)
+-        RightArrApp     l e1 e2 -> RightArrApp     (f l) (fmap f e1) (fmap f e2)
+-        LeftArrHighApp  l e1 e2 -> LeftArrHighApp  (f l) (fmap f e1) (fmap f e2)
+-        RightArrHighApp l e1 e2 -> RightArrHighApp (f l) (fmap f e1) (fmap f e2)
+-
+-        LCase l alts -> LCase (f l) (map (fmap f) alts)
+-
+-instance Functor XName where
+-    fmap f (XName l s)  = XName (f l) s
+-    fmap f (XDomName l sd sn) = XDomName (f l) sd sn
+-
+-instance Functor XAttr where
+-    fmap f (XAttr l xn e) = XAttr (f l) (fmap f xn) (fmap f e)
+-
+-instance Functor Bracket where
+-    fmap f (ExpBracket l e) = ExpBracket (f l) (fmap f e)
+-    fmap f (PatBracket l p) = PatBracket (f l) (fmap f p)
+-    fmap f (TypeBracket l t) = TypeBracket (f l) (fmap f t)
+-    fmap f (DeclBracket l ds) = DeclBracket (f l) (map (fmap f) ds)
+-
+-instance Functor Splice where
+-    fmap f (IdSplice l s) = IdSplice (f l) s
+-    fmap f (ParenSplice l e) = ParenSplice (f l) (fmap f e)
+-
+-instance Functor Safety where
+-    fmap f (PlayRisky l) = PlayRisky (f l)
+-    fmap f (PlaySafe l b) = PlaySafe (f l) b
+-    fmap f (PlayInterruptible l) = PlayInterruptible (f l)
+-
+-instance Functor CallConv where
+-    fmap f (StdCall l) = StdCall (f l)
+-    fmap f (CCall l) = CCall (f l)
+-    fmap f (CPlusPlus l) = CPlusPlus (f l)
+-    fmap f (DotNet l) = DotNet (f l)
+-    fmap f (Jvm l) = Jvm (f l)
+-    fmap f (Js l) = Js (f l)
+-    fmap f (CApi l) = CApi (f l)
+-
+-instance Functor ModulePragma where
+-    fmap f (LanguagePragma   l ns) = LanguagePragma (f l) (map (fmap f) ns)
+-    fmap f (OptionsPragma    l mt s) = OptionsPragma (f l) mt s
+-    fmap f (AnnModulePragma  l ann) = AnnModulePragma (f l) (fmap f ann)
+-
+-instance Functor Activation where
+-    fmap f (ActiveFrom   l k) = ActiveFrom (f l) k
+-    fmap f (ActiveUntil  l k) = ActiveUntil (f l) k
+-
+-instance Functor Rule where
+-    fmap f (Rule l s mact mrvs e1 e2) =
+-        Rule (f l) s (fmap (fmap f) mact) (fmap (map (fmap f)) mrvs) (fmap f e1) (fmap f e2)
+-
+-instance Functor RuleVar where
+-    fmap f (RuleVar l n) = RuleVar (f l) (fmap f n)
+-    fmap f (TypedRuleVar l n t) = TypedRuleVar (f l) (fmap f n) (fmap f t)
+-
+-instance Functor WarningText where
+-    fmap f (DeprText l s) = DeprText (f l) s
+-    fmap f (WarnText l s) = WarnText (f l) s
+-
+-instance Functor Pat where
+-    fmap f p = case p of
+-      PVar l n          -> PVar (f l) (fmap f n)
+-      PLit l lit        -> PLit (f l) (fmap f lit)
+-      PNeg l p          -> PNeg (f l) (fmap f p)
+-      PNPlusK l n k     -> PNPlusK (f l) (fmap f n) k
+-      PInfixApp l pa qn pb  -> PInfixApp (f l) (fmap f pa) (fmap f qn) (fmap f pb)
+-      PApp l qn ps      -> PApp (f l) (fmap f qn) (map (fmap f) ps)
+-      PTuple l bx ps    -> PTuple (f l) bx (map (fmap f) ps)
+-      PList l ps        -> PList (f l) (map (fmap f) ps)
+-      PParen l p        -> PParen (f l) (fmap f p)
+-      PRec l qn pfs     -> PRec (f l) (fmap f qn) (map (fmap f) pfs)
+-      PAsPat l n p      -> PAsPat (f l) (fmap f n) (fmap f p)
+-      PWildCard l       -> PWildCard (f l)
+-      PIrrPat l p       -> PIrrPat (f l) (fmap f p)
+-      PatTypeSig l p t  -> PatTypeSig (f l) (fmap f p) (fmap f t)
+-      PViewPat l e p    -> PViewPat (f l) (fmap f e) (fmap f p)
+-      PRPat l rps       -> PRPat (f l) (map (fmap f) rps)
+-      PXTag l xn pxas mp ps -> PXTag (f l) (fmap f xn) (map (fmap f) pxas) (fmap (fmap f) mp) (map (fmap f) ps)
+-      PXETag l xn pxas mp   -> PXETag (f l) (fmap f xn) (map (fmap f) pxas) (fmap (fmap f) mp)
+-      PXPcdata l s      -> PXPcdata (f l) s
+-      PXPatTag l p      -> PXPatTag (f l) (fmap f p)
+-      PXRPats  l rps    -> PXRPats  (f l) (map (fmap f) rps)
+-      PQuasiQuote l sn st   -> PQuasiQuote (f l) sn st
+-      PBangPat l p          -> PBangPat (f l) (fmap f p)
+-
+-instance Functor PXAttr where
+-    fmap f (PXAttr l xn p) = PXAttr (f l) (fmap f xn) (fmap f p)
+-
+-instance Functor RPatOp where
+-    fmap f (RPStar  l) = RPStar (f l)
+-    fmap f (RPStarG l) = RPStarG (f l)
+-    fmap f (RPPlus  l) = RPPlus (f l)
+-    fmap f (RPPlusG l) = RPPlusG (f l)
+-    fmap f (RPOpt   l) = RPOpt (f l)
+-    fmap f (RPOptG  l) = RPOptG (f l)
+-
+-instance Functor RPat where
+-    fmap f rp = case rp of
+-      RPOp l rp rop         -> RPOp (f l) (fmap f rp) (fmap f rop)
+-      RPEither l rp1 rp2    -> RPEither (f l) (fmap f rp1) (fmap f rp2)
+-      RPSeq l rps           -> RPSeq (f l) (map (fmap f) rps)
+-      RPGuard l p ss        -> RPGuard (f l) (fmap f p) (map (fmap f) ss)
+-      RPCAs l n rp          -> RPCAs (f l) (fmap f n) (fmap f rp)
+-      RPAs l n rp           -> RPAs (f l) (fmap f n) (fmap f rp)
+-      RPParen l rp          -> RPParen (f l) (fmap f rp)
+-      RPPat l p             -> RPPat (f l) (fmap f p)
+-
+-instance Functor PatField where
+-    fmap f (PFieldPat l qn p) = PFieldPat (f l) (fmap f qn) (fmap f p)
+-    fmap f (PFieldPun l n) = PFieldPun (f l) (fmap f n)
+-    fmap f (PFieldWildcard l) = PFieldWildcard (f l)
+-
+-instance Functor Stmt where
+-    fmap f (Generator l p e) = Generator (f l) (fmap f p) (fmap f e)
+-    fmap f (Qualifier l e)   = Qualifier (f l) (fmap f e)
+-    fmap f (LetStmt l bs)    = LetStmt (f l) (fmap f bs)
+-    fmap f (RecStmt l ss)    = RecStmt (f l) (map (fmap f) ss)
+-
+-instance Functor QualStmt where
+-    fmap f (QualStmt     l s) = QualStmt (f l) (fmap f s)
+-    fmap f (ThenTrans    l e) = ThenTrans (f l) (fmap f e)
+-    fmap f (ThenBy       l e1 e2) = ThenBy (f l) (fmap f e1) (fmap f e2)
+-    fmap f (GroupBy      l e) = GroupBy (f l) (fmap f e)
+-    fmap f (GroupUsing   l e) = GroupUsing (f l) (fmap f e)
+-    fmap f (GroupByUsing l e1 e2) = GroupByUsing (f l) (fmap f e1) (fmap f e2)
+-
+-instance Functor FieldUpdate where
+-    fmap f (FieldUpdate l qn e) = FieldUpdate (f l) (fmap f qn) (fmap f e)
+-    fmap f (FieldPun l n)       = FieldPun (f l) (fmap f n)
+-    fmap f (FieldWildcard l)    = FieldWildcard (f l)
+-
+-instance Functor Alt where
+-    fmap f (Alt l p gs bs) = Alt (f l) (fmap f p) (fmap f gs) (fmap (fmap f) bs)
+-
+-instance Functor GuardedAlts where
+-    fmap f (UnGuardedAlt l e) = UnGuardedAlt (f l) (fmap f e)
+-    fmap f (GuardedAlts  l galts) = GuardedAlts (f l) (map (fmap f) galts)
+-
+-instance Functor GuardedAlt where
+-    fmap f (GuardedAlt l ss e) = GuardedAlt (f l) (map (fmap f) ss) (fmap f e)
+-
+-instance Functor Promoted where
+-    fmap f (PromotedInteger l int raw) = PromotedInteger (f l) int raw
+-    fmap f (PromotedString l str raw) = PromotedString (f l) str raw
+-    fmap f (PromotedCon l b qn)   = PromotedCon (f l) b (fmap f qn)
+-    fmap f (PromotedList l b ps)  = PromotedList  (f l) b (map (fmap f) ps)
+-    fmap f (PromotedTuple l ps) = PromotedTuple (f l) (map (fmap f) ps)
+-    fmap f (PromotedUnit l)     = PromotedUnit (f l)
+-
+-instance Functor IfAlt where
+-    fmap f (IfAlt l e1 e2) = IfAlt (f l) (fmap f e1) (fmap f e2)
+-
+ -----------------------------------------------------------------------------
+ -- Reading annotations
+ 
+@@ -1825,6 +1377,7 @@
+         RightArrHighApp l e1 e2 -> RightArrHighApp (f l) e1 e2
+ 
+         LCase l alts -> LCase (f l) alts
++        MultiIf l alts -> MultiIf (f l) alts
+ 
+ 
+ instance Annotated XName where
+diff -ru orig/src/Language/Haskell/Exts/Annotated.hs new/src/Language/Haskell/Exts/Annotated.hs
+--- orig/src/Language/Haskell/Exts/Annotated.hs	2014-04-17 07:02:06.927109238 +0300
++++ new/src/Language/Haskell/Exts/Annotated.hs	2014-04-17 07:02:00.000000000 +0300
+@@ -127,6 +127,7 @@
+             case classifyLanguage e of
+               UnknownLanguage _ -> Right $ classifyExtension e
+               lang -> Left lang
++        readExt Symbol {} = error "readExt: Symbol"
+ 
+         extractLang = extractLang' Nothing []
+ 
+diff -ru orig/src/Language/Haskell/Exts/ParseSyntax.hs new/src/Language/Haskell/Exts/ParseSyntax.hs
+--- orig/src/Language/Haskell/Exts/ParseSyntax.hs	2014-04-17 07:02:06.927109238 +0300
++++ new/src/Language/Haskell/Exts/ParseSyntax.hs	2014-04-17 07:02:00.000000000 +0300
+@@ -1,3 +1,4 @@
++{-# LANGUAGE DeriveFunctor #-}
+ {-# OPTIONS_HADDOCK hide #-}
+ module Language.Haskell.Exts.ParseSyntax where
+ 
+@@ -96,13 +97,13 @@
+ 
+ -- LambdaCase
+     | LCase l [Alt l]                       -- ^ @\case@ /alts/
+-   deriving (Eq,Show)
++   deriving (Eq,Show,Functor)
+ 
+ data PFieldUpdate l
+     = FieldUpdate l (QName l) (PExp l)
+     | FieldPun l (Name l)
+     | FieldWildcard l
+-  deriving (Eq,Show)
++  deriving (Eq,Show,Functor)
+ 
+ data ParseXAttr l = XAttr l (XName l) (PExp l)
+   deriving (Eq,Show)
+@@ -170,6 +171,7 @@
+         RightArrHighApp l e1 e2 -> l
+ 
+         LCase l alts -> l
++        MultiIf l alts -> l
+ 
+     amap f e = case e of
+         Var l qn                -> Var   (f l) qn
+@@ -233,76 +235,7 @@
+         RightArrHighApp l e1 e2 -> RightArrHighApp (f l) e1 e2
+ 
+         LCase l alts -> LCase (f l) alts
+-
+-instance Functor PExp where
+-      fmap f e = case e of
+-          Var l qn                -> Var   (f l) (fmap f qn)
+-          IPVar l ipn             -> IPVar (f l) (fmap f ipn)
+-          Con l qn                -> Con   (f l) (fmap f qn)
+-          Lit l lit               -> Lit   (f l) (fmap f lit)
+-          InfixApp l e1 qop e2    -> InfixApp (f l) (fmap f e1) (fmap f qop) (fmap f e2)
+-          App l e1 e2             -> App (f l) (fmap f e1) (fmap f e2)
+-          NegApp l e              -> NegApp (f l) (fmap f e)
+-          Lambda l ps e           -> Lambda (f l) (map (fmap f) ps) (fmap f e)
+-          Let l bs e              -> Let (f l) (fmap f bs) (fmap f e)
+-          If l ec et ee           -> If (f l) (fmap f ec) (fmap f et) (fmap f ee)
+-          Case l e alts           -> Case (f l) (fmap f e) (map (fmap f) alts)
+-          Do l ss                 -> Do (f l) (map (fmap f) ss)
+-          MDo l ss                -> MDo (f l) (map (fmap f) ss)
+-          TupleSection l bx mes   -> TupleSection (f l) bx (map (fmap (fmap f)) mes)
+-          List l es               -> List (f l) (map (fmap f) es)
+-          Paren l e               -> Paren (f l) (fmap f e)
+-          RecConstr l qn fups     -> RecConstr (f l) (fmap f qn) (map (fmap f) fups)
+-          RecUpdate l e  fups     -> RecUpdate (f l) (fmap f e)  (map (fmap f) fups)
+-          EnumFrom l e            -> EnumFrom (f l) (fmap f e)
+-          EnumFromTo l ef et      -> EnumFromTo (f l) (fmap f ef) (fmap f et)
+-          EnumFromThen l ef et    -> EnumFromThen (f l) (fmap f ef) (fmap f et)
+-          EnumFromThenTo l ef eth eto -> EnumFromThenTo (f l) (fmap f ef) (fmap f eth) (fmap f eto)
+-          ParComp  l e qsss       -> ParComp  (f l) (fmap f e) (map (map (fmap f)) qsss)
+-          ExpTypeSig l e t        -> ExpTypeSig (f l) (fmap f e) (fmap f t)
+-
+-          AsPat l n e             -> AsPat (f l) (fmap f n) (fmap f e)
+-          WildCard l              -> WildCard (f l)
+-          IrrPat l e              -> IrrPat (f l) (fmap f e)
+-          PostOp l e op           -> PostOp (f l) (fmap f e) (fmap f op)
+-          PreOp l op e            -> PreOp (f l) (fmap f op) (fmap f e)
+-          ViewPat l e1 e2         -> ViewPat (f l) (fmap f e1) (fmap f e2)
+-          SeqRP l es              -> SeqRP (f l) (map (fmap f) es)
+-          GuardRP l e ss          -> GuardRP (f l) (fmap f e) (map (fmap f) ss)
+-          EitherRP l e1 e2        -> EitherRP (f l) (fmap f e1) (fmap f e2)
+-          CAsRP l n e             -> CAsRP (f l) (fmap f n) (fmap f e)
+-          BangPat l e             -> BangPat (f l) (fmap f e)
+-
+-          VarQuote l qn           -> VarQuote (f l) (fmap f qn)
+-          TypQuote l qn           -> TypQuote (f l) (fmap f qn)
+-          BracketExp l br         -> BracketExp (f l) (fmap f br)
+-          SpliceExp l sp          -> SpliceExp (f l) (fmap f sp)
+-          QuasiQuote l sn se      -> QuasiQuote (f l) sn se
+-
+-          XTag  l xn xas me es    -> XTag  (f l) (fmap f xn) (map (fmap f) xas) (fmap (fmap f) me) (map (fmap f) es)
+-          XETag l xn xas me       -> XETag (f l) (fmap f xn) (map (fmap f) xas) (fmap (fmap f) me)
+-          XPcdata l s             -> XPcdata (f l) s
+-          XExpTag l e             -> XExpTag (f l) (fmap f e)
+-          XChildTag l es          -> XChildTag (f l) (map (fmap f) es)
+-          XRPats l es             -> XRPats (f l) (map (fmap f) es)
+-
+-          CorePragma l s e        -> CorePragma (f l) s (fmap f e)
+-          SCCPragma  l s e        -> SCCPragma  (f l) s (fmap f e)
+-          GenPragma  l s n12 n34 e -> GenPragma  (f l) s n12 n34 (fmap f e)
+-
+-          Proc            l p e   -> Proc            (f l) (fmap f p) (fmap f e)
+-          LeftArrApp      l e1 e2 -> LeftArrApp      (f l) (fmap f e1) (fmap f e2)
+-          RightArrApp     l e1 e2 -> RightArrApp     (f l) (fmap f e1) (fmap f e2)
+-          LeftArrHighApp  l e1 e2 -> LeftArrHighApp  (f l) (fmap f e1) (fmap f e2)
+-          RightArrHighApp l e1 e2 -> RightArrHighApp (f l) (fmap f e1) (fmap f e2)
+-
+-          LCase l alts -> LCase (f l) (map (fmap f) alts)
+-
+-
+-instance Functor PFieldUpdate where
+-    fmap f (FieldUpdate l qn e) = FieldUpdate (f l) (fmap f qn) (fmap f e)
+-    fmap f (FieldPun l n)       = FieldPun (f l) (fmap f n)
+-    fmap f (FieldWildcard l)    = FieldWildcard (f l)
++        MultiIf l alts -> MultiIf (f l) alts
+ 
+ instance Annotated PFieldUpdate where
+     ann (FieldUpdate l qn e) = l
+diff -ru orig/src/Language/Haskell/Exts/Pretty.hs new/src/Language/Haskell/Exts/Pretty.hs
+--- orig/src/Language/Haskell/Exts/Pretty.hs	2014-04-17 07:02:06.927109238 +0300
++++ new/src/Language/Haskell/Exts/Pretty.hs	2014-04-17 07:02:00.000000000 +0300
+@@ -716,7 +716,23 @@
+ --        prettyPrec _ (TyPred asst) = pretty asst
+         prettyPrec _ (TyInfix a op b) = myFsep [pretty a, ppQNameInfix op, pretty b]
+         prettyPrec _ (TyKind t k) = parens (myFsep [pretty t, text "::", pretty k])
++        prettyPrec _ (TyPromoted p) = pretty p
+ 
++instance Pretty Promoted where
++  pretty p =
++    case p of
++      PromotedInteger n -> integer n
++      PromotedString s -> doubleQuotes $ text s
++      PromotedCon hasQuote qn ->
++        addQuote hasQuote $ pretty qn
++      PromotedList hasQuote list ->
++        addQuote hasQuote $ bracketList . punctuate comma . map pretty $ list
++      PromotedTuple list ->
++        addQuote True $ parenList $ map pretty list
++      PromotedUnit -> addQuote True $ text "()"
++    where
++      addQuote True doc = char '\'' <> doc
++      addQuote False doc = doc
+ 
+ instance Pretty TyVarBind where
+         pretty (KindedVar var kind) = parens $ myFsep [pretty var, text "::", pretty kind]
+@@ -1689,3 +1705,4 @@
+         prettyPrec _ (P.TyPred _ asst) = pretty asst
+         prettyPrec _ (P.TyInfix _ a op b) = myFsep [pretty a, ppQNameInfix (sQName op), pretty b]
+         prettyPrec _ (P.TyKind _ t k) = parens (myFsep [pretty t, text "::", pretty k])
++        prettyPrec _ (P.TyPromoted _ p) = pretty $ sPromoted p
+diff -ru orig/src/Language/Haskell/Exts.hs new/src/Language/Haskell/Exts.hs
+--- orig/src/Language/Haskell/Exts.hs	2014-04-17 07:02:06.847107375 +0300
++++ new/src/Language/Haskell/Exts.hs	2014-04-17 07:02:00.000000000 +0300
+@@ -125,6 +125,7 @@
+             case classifyLanguage e of
+               UnknownLanguage _ -> Right $ classifyExtension e
+               lang -> Left lang
++        readExt Symbol {} = error "readExt: Symbol"
+ 
+         extractLang = extractLang' Nothing []
+ 
+@@ -141,4 +142,4 @@
+         f x = x
+ 
+ delit :: String -> String -> String
+-delit fn = if ".lhs" `isSuffixOf` fn then unlit fn else id
+\ No newline at end of file
++delit fn = if ".lhs" `isSuffixOf` fn then unlit fn else id
+Only in new/Test/examples: IndentedTopLevelWhere.hs
+Only in new/Test/examples: QuasiQuoteToplevel.hs
+Only in orig/Test/examples: RCategory.lhs
+Only in orig/Test/examples: RealGHC.lhs
+Only in new/Test/examples: RecordPuns.hs
+Only in new/Test: UnitTests.hs
