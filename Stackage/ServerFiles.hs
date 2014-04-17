@@ -22,6 +22,7 @@ createHackageFile ii h = do
     selected = Map.fromList . map toStrs . Map.toList $
         fmap spiVersion (iiPackages ii)
         `Map.union` iiOptionalCore ii
+        `Map.union` Map.mapMaybe id (iiCore ii)
 
     toStrs (PackageName name, version) = (name, display version)
 

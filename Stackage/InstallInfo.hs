@@ -1,4 +1,5 @@
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TupleSections #-}
 module Stackage.InstallInfo
     ( getInstallInfo
     , bpPackageList
@@ -54,15 +55,16 @@ getInstallInfo settings = do
         allPackages = dropExcluded settings allPackages'
     let totalCore
             | ignoreUpgradeableCore settings =
-                Set.fromList $ map PackageName $ words "base containers template-haskell"
+                Map.fromList $ map (\n -> (PackageName n, Nothing)) $ words "base containers template-haskell"
             | otherwise =
-                extraCore settings `Set.union` Set.map (\(PackageIdentifier p _) -> p) core
+                Map.fromList (map (\(PackageIdentifier p v) -> (p, Just v)) (Set.toList core))
+                `Map.union` Map.fromList (map (, Nothing) (Set.toList $ extraCore settings))
 
     putStrLn "Loading package database"
-    pdb <- loadPackageDB settings coreMap totalCore allPackages
+    pdb <- loadPackageDB settings coreMap (Map.keysSet totalCore) allPackages
 
     putStrLn "Narrowing package database"
-    (final, errs) <- narrowPackageDB settings totalCore pdb $ Set.fromList $ Map.toList $ Map.map snd $ allPackages
+    (final, errs) <- narrowPackageDB settings (Map.keysSet totalCore) pdb $ Set.fromList $ Map.toList $ Map.map snd $ allPackages
 
     putStrLn "Printing build plan to build-plan.log"
     System.IO.UTF8.writeFile "build-plan.log" $ unlines $ map showDep $ Map.toList final

@@ -61,7 +61,7 @@ instance Monoid HaskellPlatform where
     HaskellPlatform a x `mappend` HaskellPlatform b y = HaskellPlatform (mappend a b) (mappend x y)
 
 data InstallInfo = InstallInfo
-    { iiCore         :: Set PackageName
+    { iiCore         :: Map PackageName (Maybe Version)
     , iiPackages     :: Map PackageName SelectedPackageInfo
     , iiOptionalCore :: Map PackageName Version
       -- ^ This is intended to hold onto packages which might be automatically
@@ -81,7 +81,7 @@ data SelectedPackageInfo = SelectedPackageInfo
 data BuildPlan = BuildPlan
     { bpTools        :: [String]
     , bpPackages     :: Map PackageName SelectedPackageInfo
-    , bpCore         :: Set PackageName
+    , bpCore         :: Map PackageName (Maybe Version)
     , bpOptionalCore :: Map PackageName Version
       -- ^ See 'iiOptionalCore'
     , bpSkippedTests :: Set PackageName

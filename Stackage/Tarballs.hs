@@ -41,5 +41,5 @@ makeTarballs bp = do
                             | version == spiVersion spi -> (stable . (e:), extra)
                             | otherwise -> (stable, extra)
                         Nothing
-                            | package `Set.member` bpCore bp -> (stable, extra)
+                            | package `Map.member` bpCore bp -> (stable, extra)
                             | otherwise -> (stable, extra . (e:))

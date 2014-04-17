@@ -11,6 +11,7 @@ import qualified Data.Set          as Set
 import           Distribution.Text (display, simpleParse)
 import           Stackage.Types
 import qualified System.IO.UTF8
+import           Data.Char         (isSpace)
 
 readBuildPlan :: FilePath -> IO BuildPlan
 readBuildPlan fp = do
@@ -31,7 +32,7 @@ instance AsString BuildPlan where
     toString BuildPlan {..} = concat
         [ makeSection "tools" bpTools
         , makeSection "packages" $ Map.toList bpPackages
-        , makeSection "core" $ Set.toList bpCore
+        , makeSection "core" $ Map.toList bpCore
         , makeSection "optional-core" $ Map.toList bpOptionalCore
         , makeSection "skipped-tests" $ Set.toList bpSkippedTests
         ]
@@ -44,7 +45,7 @@ instance AsString BuildPlan where
         let bp = BuildPlan
                 { bpTools = tools
                 , bpPackages = Map.fromList packages
-                , bpCore = Set.fromList core
+                , bpCore = Map.fromList core
                 , bpOptionalCore = Map.fromList optionalCore
                 , bpSkippedTests = Set.fromList skipped
                 }
@@ -63,6 +64,15 @@ instance AsString String where
 instance AsString PackageName where
     toString (PackageName pn) = pn
     fromString s = Right (PackageName s, "")
+
+instance AsString (Maybe Version) where
+    toString Nothing = ""
+    toString (Just x) = toString x
+    fromString s
+        | all isSpace s = return (Nothing, s)
+        | otherwise = do
+            (v, s') <- fromString s
+            return (Just v, s')
 
 instance AsString a => AsString (PackageName, a) where
     toString (PackageName pn, s) = concat [pn, " ", toString s]
