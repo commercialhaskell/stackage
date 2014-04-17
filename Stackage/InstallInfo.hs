@@ -8,6 +8,7 @@ import           Control.Monad            (forM_, unless)
 import           Data.List                (foldl')
 import qualified Data.Map                 as Map
 import qualified Data.Set                 as Set
+import           Data.Time                (getCurrentTime, formatTime)
 import           Data.Version             (showVersion)
 import qualified Distribution.Text
 import           Distribution.Version     (simplifyVersionRange, withinRange)
@@ -15,9 +16,12 @@ import           Stackage.GhcPkg
 import           Stackage.HaskellPlatform
 import           Stackage.LoadDatabase
 import           Stackage.NarrowDatabase
+import           Stackage.ServerFiles
 import           Stackage.Types
 import           Stackage.Util
+import qualified System.IO                as IO
 import qualified System.IO.UTF8
+import           System.Locale            (defaultTimeLocale)
 import           System.Exit              (exitFailure)
 
 dropExcluded :: SelectSettings
@@ -87,15 +91,32 @@ getInstallInfo settings = do
 
                 error "Conflicting build plan, exiting"
 
-    return InstallInfo
-        { iiCore = totalCore
-        , iiPackages = Map.map biToSPI final
-        , iiOptionalCore = maybe
-            Map.empty
-            (Map.fromList . map (\(PackageIdentifier p v) -> (p, v)) . Set.toList . hplibs)
-            mhp
-        , iiPackageDB = pdb
-        }
+    let ii = InstallInfo
+            { iiCore = totalCore
+            , iiPackages = Map.map biToSPI final
+            , iiOptionalCore = maybe
+                Map.empty
+                (Map.fromList . map (\(PackageIdentifier p v) -> (p, v)) . Set.toList . hplibs)
+                mhp
+            , iiPackageDB = pdb
+            }
+
+    putStrLn "Creating hackage file (for publishing to Stackage server)"
+    IO.withBinaryFile "hackage" IO.WriteMode $ createHackageFile ii
+
+    putStrLn "Creating desc file (for publishing to Stackage server)"
+    now <- getCurrentTime
+    System.IO.UTF8.writeFile "desc" $ concat
+        [ "Stackage build for GHC "
+        , let GhcMajorVersion x y = selectGhcVersion settings
+           in show x ++ "." ++ show y
+        , ", "
+        , formatTime defaultTimeLocale "%Y-%m-%d\n" now
+        , "Generated on "
+        , show now
+        ]
+
+    return ii
 
 biToSPI :: BuildInfo -> SelectedPackageInfo
 biToSPI BuildInfo {..} = SelectedPackageInfo
