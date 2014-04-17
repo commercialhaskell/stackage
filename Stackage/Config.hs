@@ -132,7 +132,7 @@ defaultExpectedFailures ghcVer = execWriter $ do
     mapM_ add $ words =<<
         [ "comonad-transformers comonads-fd groupoids"
         , "profunctor-extras semigroupoid-extras"
-        , "conduit-extra hamlet shakespeare-css shakespeare-i18n"
+        , "hamlet shakespeare-css shakespeare-i18n"
         , "shakespeare-js shakespeare-text"
         , "attoparsec-conduit blaze-builder-conduit http-client-conduit"
         , "network-conduit zlib-conduit http-client-multipart"
