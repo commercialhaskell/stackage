@@ -164,7 +164,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "classy-prelude-yesod yesod-fay yesod-eventsource wai-websockets"
         , "random-shuffle hebrew-time"
         , "bzlib-conduit case-insensitive"
-        , "conduit-combinators yesod-websockets"
+        , "conduit-extra" "conduit-combinators yesod-websockets"
         ]
     when (ghcVer >= GhcMajorVersion 7 6) $ add "michael@snoyman.com" "cabal-src"
 #if !defined(mingw32_HOST_OS) && !defined(__MINGW32__)
