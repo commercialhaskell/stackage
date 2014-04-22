@@ -145,6 +145,9 @@ defaultExpectedFailures ghcVer = execWriter $ do
 
     -- Pulls in monad-peel which does not compile
     when (ghcVer >= GhcMajorVersion 7 8) $ add "monad-control"
+
+    -- issues with pthread
+    mapM_ add $ words "hlibgit2 gitlib-s3 gitlib-libgit2"
   where
     add = tell . singleton . PackageName
 
