@@ -304,9 +304,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Adam Bergmark <adam@bergmark.nl>") $ words
         "fay fay-base fay-dom fay-jquery fay-text fay-uri snaplet-fay"
 
-    when (ghcVer < GhcMajorVersion 7 8) $
-        mapM_ (add "Boris Lykah <lykahb@gmail.com>") $ words
-            "groundhog groundhog-th groundhog-sqlite groundhog-postgresql groundhog-mysql"
+    mapM_ (add "Boris Lykah <lykahb@gmail.com>") $ words
+        "groundhog groundhog-th groundhog-sqlite groundhog-postgresql groundhog-mysql"
 
     mapM_ (add "Janne Hellsten <jjhellst@gmail.com>") $ words
         "sqlite-simple"
