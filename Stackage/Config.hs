@@ -396,8 +396,12 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     when (ghcVer < GhcMajorVersion 7 8) $
         addRange "Roman Cheplyaka <roma@ro-che.info>" "pretty-show" "<= 1.6.1"
 
-    -- Version 0.15.3 requires a newer template-haskell
-    addRange "FP Complete <michael@fpcomplete.com>" "language-ecmascript" "< 0.15.3"
+    -- 0.16.2 fixes dependency issues with different version of GHC
+    -- and Haskell Platform. Now builds on GHC 7.4-7.8. Version 1.0 is
+    -- guaranteed to break the API. See
+    -- https://travis-ci.org/jswebtools/language-ecmascript for
+    -- current build status.
+    addRange "Andrey Chudnov <oss@chudnov.com>" "language-ecmascript" ">= 0.16.2 && < 1.0"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
