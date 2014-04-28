@@ -292,7 +292,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     mapM_ (add "Dan Burton <danburton.email@gmail.com>") $ words =<<
         [ "basic-prelude composition io-memoize numbers rev-state runmemo"
-        , "tardis"
+        , "tardis lens-family-th"
         ]
 
     mapM_ (add "Daniel Díaz <dhelta.diaz@gmail.com>") $ words
