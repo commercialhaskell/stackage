@@ -390,6 +390,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/217
     addRange "Michael Snoyman" "transformers" "< 0.4"
+    addRange "Michael Snoyman" "mtl" "< 2.2"
 
     -- Requires too new a version of text
     when (ghcVer == GhcMajorVersion 7 4 && requireHP) $ do
