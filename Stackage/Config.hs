@@ -273,6 +273,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "BlogLiterately BlogLiterately-diagrams"
         , "MonadRandom"
         ]
+    mapM_ (add "Vincent Berthoux <vincent.berthoux@gmail.com>") $ words
+       "JuicyPixels"
 
     mapM_ (add "Patrick Brisbin") $ words "gravatar"
 
