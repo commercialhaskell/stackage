@@ -393,9 +393,13 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/217
     addRange "Michael Snoyman" "transformers" "< 0.4"
     addRange "Michael Snoyman" "mtl" "< 2.2"
+    addRange "Michael Snoyman" "lifted-base" "< 0.2.2.2"
 
     -- https://github.com/fpco/stackage/issues/218
     addRange "Michael Snoyman" "exceptions" "< 0.6"
+    addRange "Michael Snoyman" "Workflow" "< 0.8.1"
+    addRange "Michael Snoyman" "ghc-mtl" "< 1.2.1.0"
+    addRange "Michael Snoyman" "hint" "< 0.4.2.0"
 
     -- https://github.com/fpco/stackage/issues/219
     addRange "Michael Snoyman" "comonad" "< 4.2"
