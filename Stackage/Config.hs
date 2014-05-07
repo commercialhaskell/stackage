@@ -184,13 +184,15 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "cairo diagrams-cairo"
         , "persistent-mongoDB fpco-api"
         , "base16-bytestring convertible"
+        , "compdata"
         ]
     when (ghcVer < GhcMajorVersion 7 8) $ do -- No GHC 7.8 support
         mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
             [ "" -- too unreliable for the moment "distributed-process distributed-process-simplelocalnet"
             , "threepenny-gui unification-fd"
-            , "compdata"
             ]
+        addRange "FP Complete <michael@fpcomplete.com>" "compdata" "< 0.8"
+
     -- Deprecated version
     addRange "FP Complete <michael@fpcomplete.com>" "persistent-mongoDB" "< 1.3.1 || > 1.3.1"
     when (ghcVer < GhcMajorVersion 7 6) $ do
