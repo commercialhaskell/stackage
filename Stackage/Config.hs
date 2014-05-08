@@ -402,6 +402,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "Workflow" "< 0.8.1"
     addRange "Michael Snoyman" "ghc-mtl" "< 1.2.1.0"
     addRange "Michael Snoyman" "hint" "< 0.4.2.0"
+    addRange "Michael Snoyman" "shelly" "< 1.5.3.1"
 
     -- https://github.com/fpco/stackage/issues/219
     addRange "Michael Snoyman" "comonad" "< 4.2"
