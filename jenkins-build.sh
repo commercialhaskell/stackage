@@ -8,4 +8,4 @@ cabal install Cabal
 ./dist/build/stackage/stackage check
 ./dist/build/stackage/stackage build
 ./dist/build/stackage/stackage test
-bash create-stackage-tarball.sh
+./create-stackage-tarball.sh
