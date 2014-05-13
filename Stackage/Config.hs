@@ -236,6 +236,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "tls-debug vhd language-java"
         ]
 
+    mapM_ (add "Chris Done") $ words
+        "statistics-linreg"
+
 #if !defined(mingw32_HOST_OS) && !defined(__MINGW32__)
     -- Does not compile on Windows
     mapM_ (add "Vincent Hanquez") $ words "udbus xenstore"
