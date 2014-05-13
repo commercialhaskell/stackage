@@ -148,6 +148,9 @@ defaultExpectedFailures ghcVer = execWriter $ do
 
     -- issues with pthread
     mapM_ add $ words "hlibgit2 gitlib-s3 gitlib-libgit2"
+
+    -- https://github.com/Daniel-Diaz/HaTeX/issues/30
+    add "HaTeX"
   where
     add = tell . singleton . PackageName
 
