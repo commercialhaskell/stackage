@@ -406,9 +406,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/219
     addRange "Michael Snoyman" "comonad" "< 4.2"
 
-    -- https://github.com/liyang/thyme/issues/21
-    addRange "Michael Snoyman" "thyme" "< 0.3.4.0"
-
     -- Requires too new a version of text
     when (ghcVer == GhcMajorVersion 7 4 && requireHP) $ do
         addRange "Michael Snoyman" "attoparsec" "< 0.11.2.1"
