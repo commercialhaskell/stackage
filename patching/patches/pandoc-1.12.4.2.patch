@@ -1,0 +1,35 @@
+diff -ru orig/pandoc.cabal new/pandoc.cabal
+--- orig/pandoc.cabal	2014-05-16 09:31:57.224498068 +0300
++++ new/pandoc.cabal	2014-05-16 09:31:56.000000000 +0300
+@@ -192,10 +192,6 @@
+   type:          git
+   location:      git://github.com/jgm/pandoc.git
+ 
+-Flag embed_data_files
+-  Description:   Embed data files in binary for relocatable executable.
+-  Default:       False
+-
+ Flag http-conduit
+   Description:   Enable downloading of resources over https.
+   Default:       True
+@@ -234,7 +230,7 @@
+                  blaze-markup >= 0.5.1 && < 0.7,
+                  attoparsec >= 0.10 && < 0.12,
+                  yaml >= 0.8.8.2 && < 0.9,
+-                 scientific >= 0.2 && < 0.3,
++                 scientific >= 0.2 && < 0.4,
+                  vector >= 0.10 && < 0.11,
+                  hslua >= 0.3 && < 0.4,
+                  binary >= 0.5 && < 0.8
+@@ -243,10 +239,6 @@
+      Build-Depends: http-conduit >= 1.9 && < 2.2,
+                     http-types >= 0.8 && < 0.9
+      cpp-options:   -DHTTP_CONDUIT
+-  if flag(embed_data_files)
+-     cpp-options:   -DEMBED_DATA_FILES
+-     -- Build-Tools:   hsb2hs -- not yet recognized by cabal
+-     other-modules: Text.Pandoc.Data
+   if os(windows)
+     Cpp-options:      -D_WINDOWS
+   Ghc-Options:   -rtsopts -Wall -fno-warn-unused-do-bind
+Only in orig/src/Text/Pandoc: Data.hsb
