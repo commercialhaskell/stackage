@@ -27,7 +27,7 @@ parseSelectArgs :: [String] -> IO SelectArgs
 parseSelectArgs =
     loop SelectArgs
         { excluded = []
-        , noPlatform = False
+        , noPlatform = True
         , ignoreUpgradeable = False
         , onlyPermissive = False
         , allowed = []
@@ -38,6 +38,7 @@ parseSelectArgs =
     loop x [] = return x
     loop x ("--exclude":y:rest) = loop x { excluded = y : excluded x } rest
     loop x ("--no-platform":rest) = loop x { noPlatform = True } rest
+    loop x ("--platform":rest) = loop x { noPlatform = False } rest
     loop x ("--ignore-upgradeable":rest) = loop x { ignoreUpgradeable = True } rest
     loop x ("--only-permissive":rest) = loop x { onlyPermissive = True } rest
     loop x ("--allow":y:rest) = loop x { allowed = y : allowed x } rest
