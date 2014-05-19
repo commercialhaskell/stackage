@@ -40,7 +40,11 @@ defaultSelectSettings version = SelectSettings
             Just v | Just range <- simpleParse "< 0.5", v `withinRange` range
                 -> Set.singleton "containers-old"
             _ -> Set.empty)
-    , disabledFlags = Set.fromList $ words "bytestring-in-base test-hlint"
+    , disabledFlags = Set.fromList (words "bytestring-in-base test-hlint")
+        `Set.union`
+        (if version <= GhcMajorVersion 7 4
+            then Set.singleton "bytestring-builder"
+            else Set.empty)
     , allowedPackage = const $ Right ()
     , useGlobalDatabase = False
     , skippedTests =

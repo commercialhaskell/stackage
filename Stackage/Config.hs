@@ -152,6 +152,9 @@ defaultExpectedFailures ghcVer = execWriter $ do
     -- https://github.com/fpco/stackage/issues/226
     add "options"
 
+    -- Requires too high a bytestring
+    when (ghcVer <= GhcMajorVersion 7 4) $ add "scientific"
+
   where
     add = tell . singleton . PackageName
 
