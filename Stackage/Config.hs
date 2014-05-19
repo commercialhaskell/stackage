@@ -149,6 +149,9 @@ defaultExpectedFailures ghcVer = execWriter $ do
     -- issues with pthread
     mapM_ add $ words "hlibgit2 gitlib-s3 gitlib-libgit2"
 
+    -- https://github.com/fpco/stackage/issues/226
+    add "options"
+
   where
     add = tell . singleton . PackageName
 
