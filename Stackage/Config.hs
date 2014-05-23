@@ -417,6 +417,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     when (ghcVer <= GhcMajorVersion 7 6) $ do
         addRange "Michael Snoyman" "zip-archive" "== 0.2.2.1"
 
+    -- https://github.com/fpco/stackage/issues/227
+    addRange "Michael Snoyman" "directory-tree" "< 0.12"
+
     -- Requires too new a version of text
     when (ghcVer == GhcMajorVersion 7 4 && requireHP) $ do
         addRange "Michael Snoyman" "attoparsec" "< 0.11.2.1"
