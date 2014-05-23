@@ -336,6 +336,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "haskell-names haskell-packages hse-cpp"
         ]
 
+    mapM_ (add "Phil Hargett <phil@haphazardhouse.net>") $ words
+        "courier"
+        
 #if !defined(mingw32_HOST_OS) && !defined(__MINGW32__)
     mapM_ (add "Aycan iRiCAN <iricanaycan@gmail.com>") $ words
         "hdaemonize hsyslog hweblib"
