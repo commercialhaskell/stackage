@@ -420,6 +420,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/227
     addRange "Michael Snoyman" "directory-tree" "< 0.12"
 
+    -- https://github.com/fpco/stackage/issues/231
+    addRange "Michael Snoyman" "optparse-applicative" "< 0.9"
+
     -- Requires too new a version of text
     when (ghcVer == GhcMajorVersion 7 4 && requireHP) $ do
         addRange "Michael Snoyman" "attoparsec" "< 0.11.2.1"
