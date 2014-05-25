@@ -1,0 +1,30 @@
+diff -ru orig/courier.cabal new/courier.cabal
+--- orig/courier.cabal	2014-05-25 12:50:48.058497069 +0300
++++ new/courier.cabal	2014-05-25 12:50:47.000000000 +0300
+@@ -64,6 +64,7 @@
+                        hslogger,
+                        network,
+                        stm,
++                       ghc-prim,
+                        text,
+                        uuid
+ 
+@@ -87,6 +88,7 @@
+         directory,
+         hslogger,
+         stm,
++        ghc-prim,
+         -- this project's modules
+         courier
+ 
+diff -ru orig/src/Network/Transport/Internal.hs new/src/Network/Transport/Internal.hs
+--- orig/src/Network/Transport/Internal.hs	2014-05-25 12:50:48.054497068 +0300
++++ new/src/Network/Transport/Internal.hs	2014-05-25 12:50:47.000000000 +0300
+@@ -21,6 +21,7 @@
+ -- external imports
+ 
+ import Control.Exception
++import Prelude hiding (catch)
+ 
+ --------------------------------------------------------------------------------
+ --------------------------------------------------------------------------------
