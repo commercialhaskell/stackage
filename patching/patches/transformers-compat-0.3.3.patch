@@ -1,0 +1,50 @@
+Only in orig: 0.2
+diff -ru orig/transformers-compat.cabal new/transformers-compat.cabal
+--- orig/transformers-compat.cabal	2014-05-26 16:42:03.281628769 +0300
++++ new/transformers-compat.cabal	2014-05-26 16:42:03.000000000 +0300
+@@ -37,17 +37,6 @@
+   type: git
+   location: git://github.com/ekmett/transformers-compat.git
+ 
+-flag two
+-  default: False
+-  description: Use transformers 0.2. This must be selected manually and should
+-    probably only be used on older GHCs around 7.0.x.
+-  manual: False
+-
+-flag three
+-  default: False
+-  manual: False
+-  description: Use transformers 0.3. This should toggle on/off automatically.
+-
+ library
+   build-depends:
+     base >= 4.3 && < 5
+@@ -55,24 +44,10 @@
+   other-modules:
+     Paths_transformers_compat
+ 
+-  if flag(three)
+-    hs-source-dirs: 0.3
+-    build-depends: transformers >= 0.3 && < 0.4
+-  else
+-    if flag(two)
+-      hs-source-dirs: 0.2 0.3
+-      build-depends: transformers >= 0.2 && < 0.3
+-    else
+-      build-depends: transformers >= 0.4.1 && < 0.5
+-
+-  if flag(two)
+-    exposed-modules:
+-      Control.Applicative.Backwards
+-      Control.Applicative.Lift
+-      Data.Functor.Reverse
++  hs-source-dirs: 0.3
++  build-depends: transformers >= 0.3 && < 0.4
+ 
+-  if flag(two) || flag(three)
+-    exposed-modules:
++  exposed-modules:
+       Control.Monad.Trans.Except
+       Control.Monad.Signatures
+       Data.Functor.Classes
