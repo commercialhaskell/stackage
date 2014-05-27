@@ -336,6 +336,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "haskell-names haskell-packages hse-cpp"
         ]
 
+    mapM_ (add "George Giorgidze <giorgidze@gmail.com>") $ words
+        "HCodecs"
+
     when (ghcVer >= GhcMajorVersion 7 6) $ do -- No GHC 7.4 support
         mapM_ (add "Phil Hargett <phil@haphazardhouse.net>") $ words
             "courier"
