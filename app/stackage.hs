@@ -52,6 +52,7 @@ data BuildArgs = BuildArgs
     , extraArgs'   :: [String] -> [String]
     , noDocs       :: Bool
     , buildCores   :: Maybe Int
+    , testThreads  :: Maybe Int
     }
 
 parseBuildArgs :: GhcMajorVersion -> [String] -> IO BuildArgs
@@ -62,6 +63,7 @@ parseBuildArgs version =
         , extraArgs' = id
         , noDocs = False
         , buildCores = Nothing
+        , testThreads = Nothing
         }
   where
     loop x [] = return x
@@ -70,6 +72,7 @@ parseBuildArgs version =
     loop x ("--arg":y:rest) = loop x { extraArgs' = extraArgs' x . (y:) } rest
     loop x ("--no-docs":rest) = loop x { noDocs = True } rest
     loop x ("-j":y:rest) = loop x { buildCores = Just $ read y } rest
+    loop x ("--test-threads":y:rest) = loop x { testThreads = Just $ read y } rest
     loop _ (y:_) = error $ "Did not understand argument: " ++ y
 
 defaultBuildPlan :: FilePath
@@ -81,7 +84,11 @@ withBuildSettings args f = do
     BuildArgs {..} <- parseBuildArgs version args
     bp <- readBuildPlan buildPlanSrc
     let bs = defaultBuildSettings buildCores version
-    let settings = bs
+        modTestThreads settings' =
+            case testThreads of
+                Nothing -> settings'
+                Just t -> settings' { testWorkerThreads = t }
+        settings = modTestThreads bs
             { sandboxRoot = sandbox
             , extraArgs = extraArgs' . extraArgs bs
             , buildDocs = not noDocs
