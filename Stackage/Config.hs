@@ -428,6 +428,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/231
     addRange "Michael Snoyman" "optparse-applicative" "< 0.9"
 
+    -- https://github.com/jmillikin/haskell-filesystem/issues/2
+    addRange "Michael Snoyman" "system-filepath" "< 0.4.11 || > 0.4.11"
+
     -- Requires too new a version of text
     when (ghcVer == GhcMajorVersion 7 4 && requireHP) $ do
         addRange "Michael Snoyman" "attoparsec" "< 0.11.2.1"
