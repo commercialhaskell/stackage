@@ -427,9 +427,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/231
     addRange "Michael Snoyman" "optparse-applicative" "< 0.9"
 
-    -- https://github.com/jmillikin/haskell-filesystem/issues/2
-    addRange "Michael Snoyman" "system-filepath" "< 0.4.11 || > 0.4.11"
-
     -- https://github.com/fpco/stackage/issues/235
     addRange "Michael Snoyman" "entropy" "< 0.3"
 
