@@ -336,9 +336,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "haskell-names haskell-packages hse-cpp"
         ]
 
-    -- QuickCheck < 2 constraint
-    -- mapM_ (add "George Giorgidze <giorgidze@gmail.com>") $ words
-    --     "HCodecs"
+    mapM_ (add "George Giorgidze <giorgidze@gmail.com>") $ words
+        "HCodecs YampaSynth"
 
     when (ghcVer >= GhcMajorVersion 7 6) $ do -- No GHC 7.4 support
         mapM_ (add "Phil Hargett <phil@haphazardhouse.net>") $ words
