@@ -7,5 +7,5 @@ cabal install Cabal
 ./dist/build/stackage/stackage select --no-platform
 ./dist/build/stackage/stackage check
 ./dist/build/stackage/stackage build
-./dist/build/stackage/stackage test
+./dist/build/stackage/stackage test --test-threads 1
 ./create-stackage-tarball.sh
