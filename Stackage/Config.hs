@@ -433,6 +433,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/236
     addRange "Michael Snoyman" "attoparsec" "< 0.12"
 
+    -- https://github.com/fpco/stackage/issues/237
+    addRange "Michael Snoyman" "lens" "< 4.2"
+
     -- https://github.com/ekmett/eq/issues/6
     when (ghcVer < GhcMajorVersion 7 8) $ do
         addRange "Michael Snoyman" "eq" "< 4.0.2"
