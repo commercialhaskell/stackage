@@ -116,7 +116,10 @@ runTestSuite settings testdir (packageName, SelectedPackageInfo {..}) = do
         getHandle AppendMode $ run "cabal" (addCabalArgs settings BSTest ["configure", "--enable-tests"]) dir
         when spiHasTests $ do
             getHandle AppendMode $ run "cabal" ["build"] dir
-            getHandle AppendMode $ runGhcPackagePath "cabal" ["test"] dir
+            getHandle AppendMode $ runGhcPackagePath "cabal"
+                [ "test"
+                , "--show-details=streaming" -- FIXME temporary workaround for https://github.com/haskell/cabal/issues/1810
+                ] dir
         when (buildDocs settings) $
             getHandle AppendMode $ run "cabal" ["haddock"] dir
         return True
