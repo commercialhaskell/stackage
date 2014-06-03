@@ -437,6 +437,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "lens" "< 4.2"
 
     -- https://github.com/fpco/stackage/issues/238
+    addRange "Michael Snoyman" "diagrams" "< 1.2"
     addRange "Michael Snoyman" "diagrams-cairo" "< 1.2"
     addRange "Michael Snoyman" "diagrams-lib" "< 1.2"
     addRange "Michael Snoyman" "diagrams-core" "< 1.2"
