@@ -436,14 +436,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/237
     addRange "Michael Snoyman" "lens" "< 4.2"
 
-    -- https://github.com/fpco/stackage/issues/238
-    addRange "Michael Snoyman" "diagrams" "< 1.2"
-    addRange "Michael Snoyman" "diagrams-cairo" "< 1.2"
-    addRange "Michael Snoyman" "diagrams-lib" "< 1.2"
-    addRange "Michael Snoyman" "diagrams-core" "< 1.2"
-    addRange "Michael Snoyman" "diagrams-contrib" "< 1.1.2"
-    addRange "Michael Snoyman" "diagrams-svg" "< 1.1"
-
     -- Requires too new a version of text
     when (ghcVer == GhcMajorVersion 7 4 && requireHP) $ do
         addRange "Michael Snoyman" "attoparsec" "< 0.11.2.1"
