@@ -155,6 +155,10 @@ defaultExpectedFailures ghcVer = execWriter $ do
     -- Requires too high a bytestring
     when (ghcVer <= GhcMajorVersion 7 4) $ add "scientific"
 
+    -- https://github.com/gtk2hs/gtk2hs/issues/36
+    add "glib"
+    add "pango"
+
   where
     add = tell . singleton . PackageName
 
