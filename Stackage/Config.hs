@@ -400,7 +400,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/199
     addRange "Michael Snoyman" "QuickCheck" "< 2.7"
-    addRange "Michael Snoyman" "hspec-meta" "< 1.9"
     addRange "Michael Snoyman" "tasty-quickcheck" "< 0.8.0.3"
 
     -- https://github.com/fpco/stackage/issues/207
