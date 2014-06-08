@@ -272,6 +272,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
             [ "categories comonad-extras recursion-schemes syb-extras"
             ]
 
+    mapM_ (add "Andrew Farmer <afarmer@ittc.ku.edu>") $ words
+        "scotty wai-middleware-static"
+
     mapM_ (add "Simon Hengel <sol@typeful.net>") $ words
         "hspec doctest base-compat"
 
@@ -346,7 +349,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     when (ghcVer >= GhcMajorVersion 7 6) $ do -- No GHC 7.4 support
         mapM_ (add "Phil Hargett <phil@haphazardhouse.net>") $ words
             "courier"
-        
+
 #if !defined(mingw32_HOST_OS) && !defined(__MINGW32__)
     mapM_ (add "Aycan iRiCAN <iricanaycan@gmail.com>") $ words
         "hdaemonize hsyslog hweblib"
