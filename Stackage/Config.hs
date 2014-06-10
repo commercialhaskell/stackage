@@ -136,6 +136,7 @@ defaultExpectedFailures ghcVer = execWriter $ do
         , "shakespeare-js shakespeare-text"
         , "attoparsec-conduit blaze-builder-conduit http-client-conduit"
         , "network-conduit zlib-conduit http-client-multipart"
+        , "wai-eventsource wai-test"
         ]
 
     -- Cloud Haskell tests seem to be unreliable
