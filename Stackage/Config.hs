@@ -212,8 +212,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
             addRange "FP Complete <michael@fpcomplete.com>" "hxt" "<= 9.3.0.1"
         addRange "FP Complete <michael@fpcomplete.com>" "shelly" "<= 1.0"
         addRange "FP Complete <michael@fpcomplete.com>" "lockfree-queue" "== 0.2"
-    when (ghcVer == GhcMajorVersion 7 6) $ do -- No GHC 7.8 support
-        add "FP Complete <michael@fpcomplete.com>" "repa-devil"
+    -- when (ghcVer == GhcMajorVersion 7 6) $ do -- No GHC 7.8 support
+    --     add "FP Complete <michael@fpcomplete.com>" "repa-devil"
     addRange "FP Complete <michael@fpcomplete.com>" "kure" "<= 2.4.10"
 
     mapM_ (add "Neil Mitchell") $ words
@@ -358,7 +358,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     when (ghcVer < GhcMajorVersion 7 8) $
         mapM_ (add "John Wiegley") $ words =<<
-            [ "bindings-DSL github monad-extras numbers these hlibgit2"
+            -- Removed these: bad semigroups upper bound
+            [ "bindings-DSL github monad-extras numbers hlibgit2"
             , "gitlib gitlib-cmdline gitlib-test"
             , "gitlib-libgit2 gitlib-s3"
             ]
@@ -384,7 +385,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
       addRange "Michael Snoyman" "biophd" "< 0.0.6 || > 0.0.6"
     when (ghcVer == GhcMajorVersion 7 6) $ do
         mapM_ (add "Ketil Malde") $ words =<<
-            [ "RNAFold hTalos parsestar"
+            -- RNAFold
+            [ "hTalos parsestar"
             ]
 
     -- Newest hxt requires network 2.4 or newest
@@ -400,8 +402,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         addRange "Michael Snoyman" "parsers" "< 0.11"
 
     -- https://github.com/fpco/stackage/issues/216
-    when (ghcVer == GhcMajorVersion 7 6) $
-        addRange "Michael Snoyman" "repa" "< 3.2.5.1"
+    -- QuickCheck constraint
+    -- when (ghcVer == GhcMajorVersion 7 6) $
+    --     addRange "Michael Snoyman" "repa" "< 3.2.5.1"
 
     -- https://github.com/fpco/stackage/issues/217
     addRange "Michael Snoyman" "transformers" "< 0.4"
