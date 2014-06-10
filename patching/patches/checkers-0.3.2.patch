@@ -1,0 +1,65 @@
+diff -ru orig/checkers.cabal new/checkers.cabal
+--- orig/checkers.cabal	2014-06-10 13:09:03.522534168 +0300
++++ new/checkers.cabal	2014-06-10 13:09:03.000000000 +0300
+@@ -27,7 +27,7 @@
+ Library
+   hs-Source-Dirs:      src
+   Extensions:
+-  Build-Depends:       base < 5, random, QuickCheck>=2.3 && <2.7, array >= 0.1
++  Build-Depends:       base < 5, random, QuickCheck>=2.3 && <2.8, array >= 0.1
+   Exposed-Modules:     
+                        Test.QuickCheck.Utils
+                        Test.QuickCheck.Checkers
+diff -ru orig/src/Test/QuickCheck/Checkers.hs new/src/Test/QuickCheck/Checkers.hs
+--- orig/src/Test/QuickCheck/Checkers.hs	2014-06-10 13:09:03.518534168 +0300
++++ new/src/Test/QuickCheck/Checkers.hs	2014-06-10 13:09:03.000000000 +0300
+@@ -51,7 +51,8 @@
+ import qualified Control.Exception as Ex
+ import Data.List (foldl')
+ import System.Random
+-import Test.QuickCheck
++import Test.QuickCheck hiding (generate)
++import Test.QuickCheck.Random (QCGen, newQCGen)
+ -- import System.IO.Unsafe
+ 
+ import Test.QuickCheck.Gen      (Gen (..)) -- for rand
+@@ -442,12 +443,12 @@
+ 
+ -- | Generate n arbitrary values
+ arbs :: Arbitrary a => Int -> IO [a]
+-arbs n = fmap (\ rnd -> generate n rnd (vector n)) newStdGen
++arbs n = fmap (\ rnd -> generate n rnd (vector n)) newQCGen
+ 
+ -- | Produce n values from a generator
+ gens :: Int -> Gen a -> IO [a]
+ gens n gen =
+-  fmap (\ rnd -> generate 1000 rnd (sequence (replicate n gen))) newStdGen
++  fmap (\ rnd -> generate 1000 rnd (sequence (replicate n gen))) newQCGen
+ 
+ -- The next two are from twanvl:
+ 
+@@ -500,10 +501,10 @@
+ 
+ -- TODO: are there QC2 replacements for these QC1 operations?
+ 
+-rand :: Gen StdGen
++rand :: Gen QCGen
+ rand = MkGen (\r _ -> r)
+ 
+-generate :: Int -> StdGen -> Gen a -> a
++generate :: Int -> QCGen -> Gen a -> a
+ generate n rnd (MkGen m) = m rnd' size
+  where
+   (size, rnd') = randomR (0, n) rnd
+diff -ru orig/src/Test/QuickCheck/Instances/List.hs new/src/Test/QuickCheck/Instances/List.hs
+--- orig/src/Test/QuickCheck/Instances/List.hs	2014-06-10 13:09:03.518534168 +0300
++++ new/src/Test/QuickCheck/Instances/List.hs	2014-06-10 13:09:03.000000000 +0300
+@@ -8,7 +8,7 @@
+        ,decreasingInf,nonincreasingInf
+        ) where
+ 
+-import Test.QuickCheck
++import Test.QuickCheck hiding (infiniteList)
+ import Test.QuickCheck.Instances.Num
+ import Control.Applicative
+ 

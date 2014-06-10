@@ -1,0 +1,34 @@
+diff -ru orig/ChasingBottoms.cabal new/ChasingBottoms.cabal
+--- orig/ChasingBottoms.cabal	2014-06-10 13:09:03.210534172 +0300
++++ new/ChasingBottoms.cabal	2014-06-10 13:09:03.000000000 +0300
+@@ -121,7 +121,7 @@
+ 
+     other-modules: Test.ChasingBottoms.IsType
+ 
+-    build-depends: QuickCheck >= 2.1 && < 2.7,
++    build-depends: QuickCheck >= 2.1 && < 2.8,
+                    mtl >= 1.1 && < 2.2,
+                    base >= 4.0 && < 4.8,
+                    containers >= 0.3 && < 0.6,
+@@ -150,7 +150,7 @@
+                    Test.ChasingBottoms.TestUtilities.Generators,
+                    Test.ChasingBottoms.TimeOut.Tests
+ 
+-    build-depends: QuickCheck >= 2.1 && < 2.7,
++    build-depends: QuickCheck >= 2.1 && < 2.8,
+                    mtl >= 1.1 && < 2.2,
+                    base >= 4.0 && < 4.8,
+                    containers >= 0.3 && < 0.6,
+diff -ru orig/Test/ChasingBottoms/ContinuousFunctions.hs new/Test/ChasingBottoms/ContinuousFunctions.hs
+--- orig/Test/ChasingBottoms/ContinuousFunctions.hs	2014-06-10 13:09:03.202534172 +0300
++++ new/Test/ChasingBottoms/ContinuousFunctions.hs	2014-06-10 13:09:03.000000000 +0300
+@@ -143,7 +143,8 @@
+   , listOf
+   ) where
+ 
+-import Test.QuickCheck hiding ((><), listOf)
++import Test.QuickCheck hiding ((><), listOf, infiniteListOf)
++import Test.QuickCheck.Gen.Unsafe (promote)
+ import Data.Sequence as Seq
+ import Data.Foldable as Seq (foldr)
+ import Prelude as P hiding (concat)
