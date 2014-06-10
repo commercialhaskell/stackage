@@ -272,8 +272,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
             [ "categories comonad-extras recursion-schemes syb-extras"
             ]
 
-    mapM_ (add "Andrew Farmer <afarmer@ittc.ku.edu>") $ words
-        "scotty wai-middleware-static"
+    when (ghcVer >= GhcMajorVersion 7 6) $
+        mapM_ (add "Andrew Farmer <afarmer@ittc.ku.edu>") $ words
+            "scotty wai-middleware-static"
 
     mapM_ (add "Simon Hengel <sol@typeful.net>") $ words
         "hspec doctest base-compat"
