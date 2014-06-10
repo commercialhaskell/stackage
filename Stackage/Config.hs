@@ -406,9 +406,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/207
     addRange "Michael Snoyman" "semigroups" "< 0.13"
 
-    -- https://github.com/fpco/stackage/issues/210
-    addRange "Michael Snoyman" "network" "< 2.5"
-
     -- https://github.com/fpco/stackage/issues/216
     when (ghcVer == GhcMajorVersion 7 6) $
         addRange "Michael Snoyman" "repa" "< 3.2.5.1"
