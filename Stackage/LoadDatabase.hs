@@ -43,6 +43,7 @@ import           Distribution.Text                     (simpleParse)
 import           Distribution.Version                  (Version (Version),
                                                         unionVersionRanges,
                                                         withinRange)
+import           Stackage.Config                       (convertGithubUser)
 import           Stackage.Types
 import           Stackage.Util
 import           System.Directory                      (doesFileExist, getDirectoryContents)
@@ -184,7 +185,7 @@ loadPackageDB settings coreMap core deps = do
                 , Set.fromList $ map depName $ testBenchBuildInfo gpd
                 , Just gpd
                 , Set.fromList $ map (Executable . fst) $ condExecutables gpd
-                , listToMaybe $ catMaybes
+                , fmap convertGithubUser $ listToMaybe $ catMaybes
                   $ parseGithubUserHP (homepage $ packageDescription gpd)
                   : map parseGithubUserSR (sourceRepos $ packageDescription gpd)
                 )

@@ -3,7 +3,9 @@ module Stackage.Config where
 
 import           Control.Monad              (when)
 import           Control.Monad.Trans.Writer (execWriter, tell)
+import           Data.Char                  (toLower)
 import qualified Data.Map                   as Map
+import           Data.Maybe                 (fromMaybe)
 import           Data.Set                   (fromList, singleton)
 import           Distribution.Text          (simpleParse)
 import           Stackage.Types
@@ -452,3 +454,19 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         case simpleParse range of
             Nothing -> error $ "Invalid range " ++ show range ++ " for " ++ package
             Just range' -> tell $ PackageMap $ Map.singleton (PackageName package) (range', Maintainer maintainer)
+
+-- | Replacement Github users. This is useful when a project is owned by an
+-- organization, and you'd like to ping either an individual or a team in that
+-- organization. See:
+--
+-- https://github.com/fpco/stackage/issues/226#issuecomment-45644142
+convertGithubUser :: String -> String
+convertGithubUser x =
+    fromMaybe x $ Map.lookup (map toLower x) pairs
+  where
+    pairs = Map.fromList
+        [ ("diagrams",     "byorgey")
+        , ("yesodweb",     "snoyberg")
+        , ("fpco",         "snoyberg")
+        , ("faylang",      "bergmark")
+        ]
