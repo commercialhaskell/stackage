@@ -430,6 +430,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/237
     addRange "Michael Snoyman" "lens" "< 4.2"
 
+    -- https://github.com/fpco/stackage/issues/242
+    addRange "Michael Snoyman" "mongoDB" "< 1.5"
+
     -- Requires too new a version of text
     when (ghcVer == GhcMajorVersion 7 4 && requireHP) $ do
         addRange "Michael Snoyman" "attoparsec" "< 0.11.2.1"
