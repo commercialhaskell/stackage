@@ -9,7 +9,7 @@ import           System.Exit                           (exitFailure)
 main :: IO ()
 main = withManager defaultManagerSettings $ \m -> do
     args <- getArgs
-    token <- getEnv "STACKAGE_AUTH_TOKEN"
+    token <- readFile "/auth-token"
     (filepath, alias) <-
         case args of
             [x, y] -> return (x, y)
