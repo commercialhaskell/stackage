@@ -30,6 +30,7 @@ createHackageFile isInc ii ghcVer date hackageH tarballH = do
             , date
             , if isInc then "-inclusive" else "-exclusive"
             , ".stackage"
+            ]
     hPutStr tarballH $ concat
         [ "#!/bin/bash -ex\n\ntar czfv "
         , stackageFP
