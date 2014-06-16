@@ -8,4 +8,12 @@ cabal install Cabal-$(cabal --version | sed -n 's@using version \(.*\) of the Ca
 ./dist/build/stackage/stackage check
 ./dist/build/stackage/stackage build
 ./dist/build/stackage/stackage test
-./create-stackage-tarball.sh
+
+for f in inclusive exclusive
+do
+    cd $f
+
+    bash create-snapshot.sh
+
+    cd ..
+done

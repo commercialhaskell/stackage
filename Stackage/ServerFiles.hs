@@ -11,13 +11,30 @@ import qualified Codec.Archive.Tar as Tar
 import qualified Data.ByteString.Lazy as L
 import Control.Arrow (second)
 import Distribution.Text (display)
-import System.IO (Handle, hPutStrLn)
+import System.Directory (doesFileExist)
+import System.FilePath ((</>), (<.>))
+import System.IO (Handle, hPutStrLn, hPutStr)
 
-createHackageFile :: InstallInfo -> Handle -> IO ()
-createHackageFile ii h = do
+createHackageFile :: Bool -- ^ inclusive?
+                  -> InstallInfo
+                  -> String -- ^ GHC version
+                  -> String -- ^ date
+                  -> Handle -- ^ hackage
+                  -> Handle -- ^ tarballs
+                  -> IO ()
+createHackageFile isInc ii ghcVer date hackageH tarballH = do
+    hPutStr tarballH $ concat
+        [ "#!/bin/bash -ex\n\ntar czfv ../ghc-"
+        , ghcVer
+        , "-"
+        , date
+        , if isInc then "-inclusive" else "-exclusive"
+        , ".stackage hackage desc"
+        ]
     indextargz <- getTarballName
     indexLBS <- L.readFile indextargz
     loop $ Tar.read indexLBS
+    hPutStrLn tarballH ""
   where
     selected = Map.fromList . map toStrs . Map.toList $
         fmap spiVersion (iiPackages ii)
@@ -35,8 +52,21 @@ createHackageFile ii h = do
             Nothing -> return ()
             Just (name, version) ->
                 case Map.lookup name selected of
-                    Just version' | version /= version' -> return ()
-                    _ -> hPutStrLn h $ concat [name, "-", version]
+                    Just version'
+                        | version == version' -> emit True  name version
+                        | otherwise           -> return ()
+                    Nothing
+                        | isInc               -> emit False name version
+                        | otherwise           -> return ()
+
+    emit usePatch name version = do
+        exists <- if usePatch then doesFileExist tarball else return False
+        if exists
+            then hPutStr tarballH $ ' ' : ".." </> tarball
+            else hPutStrLn hackageH base
+      where
+        base = concat [name, "-", version]
+        tarball = "patching" </> "tarballs" </> base <.> "tar" <.> "gz"
 
 parsePair :: String -> Maybe (String, String)
 parsePair s =

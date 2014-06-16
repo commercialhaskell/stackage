@@ -20,6 +20,8 @@ import           Stackage.NarrowDatabase
 import           Stackage.ServerFiles
 import           Stackage.Types
 import           Stackage.Util
+import           System.Directory         (createDirectoryIfMissing)
+import           System.FilePath          ((</>))
 import qualified System.IO                as IO
 import qualified System.IO.UTF8
 import           System.Locale            (defaultTimeLocale)
@@ -103,20 +105,33 @@ getInstallInfo settings = do
             , iiPackageDB = pdb
             }
 
-    putStrLn "Creating hackage file (for publishing to Stackage server)"
-    IO.withBinaryFile "hackage" IO.WriteMode $ createHackageFile ii
+    forM_ [False, True] $ \isInc -> do
+        let incexc = if isInc then "inclusive" else "exclusive"
 
-    putStrLn "Creating desc file (for publishing to Stackage server)"
-    now <- getCurrentTime
-    System.IO.UTF8.writeFile "desc" $ concat
-        [ "Stackage build for GHC "
-        , let GhcMajorVersion x y = selectGhcVersion settings
-           in show x ++ "." ++ show y
-        , ", "
-        , formatTime defaultTimeLocale "%Y-%m-%d\n" now
-        , "Generated on "
-        , show now
-        ]
+        now <- getCurrentTime
+        let ghcVer =
+                let GhcMajorVersion x y = selectGhcVersion settings
+                 in show x ++ "." ++ show y
+            date = formatTime defaultTimeLocale "%Y-%m-%d" now
+
+        createDirectoryIfMissing True incexc
+
+        putStrLn $ "Inclusive/exclusive: " ++ incexc
+
+        putStrLn "Creating hackage file (for publishing to Stackage server)"
+        IO.withBinaryFile (incexc </> "hackage") IO.WriteMode $ \hackageH ->
+            IO.withBinaryFile (incexc </> "create-snapshot.sh") IO.WriteMode
+            (createHackageFile isInc ii ghcVer date hackageH)
+
+        putStrLn "Creating desc file (for publishing to Stackage server)"
+        System.IO.UTF8.writeFile (incexc </> "desc") $ concat
+            [ "Stackage build for GHC "
+            , ghcVer
+            , ", "
+            , date
+            , "\nGenerated on "
+            , show now
+            ]
 
     return ii
 
