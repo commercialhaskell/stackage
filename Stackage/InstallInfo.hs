@@ -129,6 +129,8 @@ getInstallInfo settings = do
             , ghcVer
             , ", "
             , date
+            , ", "
+            , incexc
             , "\nGenerated on "
             , show now
             ]

@@ -9,6 +9,8 @@ cabal install Cabal-$(cabal --version | sed -n 's@using version \(.*\) of the Ca
 ./dist/build/stackage/stackage build
 ./dist/build/stackage/stackage test
 
+cabal install http-client
+
 for f in inclusive exclusive
 do
     cd $f

@@ -23,18 +23,29 @@ createHackageFile :: Bool -- ^ inclusive?
                   -> Handle -- ^ tarballs
                   -> IO ()
 createHackageFile isInc ii ghcVer date hackageH tarballH = do
+    let stackageFP = concat
+            [ "../ghc-"
+            , ghcVer
+            , "-"
+            , date
+            , if isInc then "-inclusive" else "-exclusive"
+            , ".stackage"
     hPutStr tarballH $ concat
-        [ "#!/bin/bash -ex\n\ntar czfv ../ghc-"
-        , ghcVer
-        , "-"
-        , date
-        , if isInc then "-inclusive" else "-exclusive"
-        , ".stackage hackage desc"
+        [ "#!/bin/bash -ex\n\ntar czfv "
+        , stackageFP
+        , " hackage desc"
         ]
     indextargz <- getTarballName
     indexLBS <- L.readFile indextargz
     loop $ Tar.read indexLBS
     hPutStrLn tarballH ""
+    hPutStrLn tarballH $ concat
+        [ "runghc ../stackage-upload.hs "
+        , stackageFP
+        , " unstable-ghc"
+        , filter (/= '.') ghcVer
+        , if isInc then "-inclusive" else "-exclusive"
+        ]
   where
     selected = Map.fromList . map toStrs . Map.toList $
         fmap spiVersion (iiPackages ii)
