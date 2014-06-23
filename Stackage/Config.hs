@@ -468,7 +468,7 @@ convertGithubUser x =
     fromMaybe x $ Map.lookup (map toLower x) pairs
   where
     pairs = Map.fromList
-        [ ("diagrams",     "byorgey")
+        [ ("diagrams",     "diagrams/Core")
         , ("yesodweb",     "snoyberg")
         , ("fpco",         "snoyberg")
         , ("faylang",      "bergmark")
