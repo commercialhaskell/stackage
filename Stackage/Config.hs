@@ -362,6 +362,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         "hweblib"
 #endif
 
+    mapM_ (add "Joachim Breitner <mail@joachim-breitner.de>") $ words
+        "circle-packing"
+
     when (ghcVer < GhcMajorVersion 7 8) $
         mapM_ (add "John Wiegley") $ words =<<
             -- Removed these: bad semigroups upper bound
