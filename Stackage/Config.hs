@@ -376,6 +376,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Ben Ford <ben@dlstartup.com") $ words
         "HandsomeSoup"
 
+    mapM_ (add "Clint Adams <clint@debian.org>") $ words
+        "DAV hOpenPGP hopenpgp-tools MusicBrainz"
+
     -- https://github.com/fpco/stackage/issues/160
     when (ghcVer >= GhcMajorVersion 7 6) $ do
       mapM_ (add "Ketil Malde") $ words =<<
