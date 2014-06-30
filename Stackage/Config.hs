@@ -430,9 +430,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/231
     addRange "Michael Snoyman" "optparse-applicative" "< 0.9"
 
-    -- https://github.com/fpco/stackage/issues/236
-    addRange "Michael Snoyman" "attoparsec" "< 0.12"
-
     -- https://github.com/fpco/stackage/issues/237
     addRange "Michael Snoyman" "lens" "< 4.2"
 
