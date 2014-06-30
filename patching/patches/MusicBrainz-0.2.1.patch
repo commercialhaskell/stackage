@@ -1,0 +1,28 @@
+diff -ru orig/MusicBrainz.cabal new/MusicBrainz.cabal
+--- orig/MusicBrainz.cabal	2014-06-30 16:08:08.987902131 +0300
++++ new/MusicBrainz.cabal	2014-06-30 16:08:08.000000000 +0300
+@@ -23,8 +23,10 @@
+                , monad-control ==0.3.*
+                , bytestring
+                , conduit       >= 1.0.0
++               , conduit-extra >= 1.0.0
+                , text
+                , time
++               , resourcet
+                , vector        >=0.9
+                , xml-types     ==0.3.*
+                , http-conduit  >= 1.8.8
+diff -ru orig/Network/Protocol/MusicBrainz/XML2/WebService.hs new/Network/Protocol/MusicBrainz/XML2/WebService.hs
+--- orig/Network/Protocol/MusicBrainz/XML2/WebService.hs	2014-06-30 16:08:08.987902131 +0300
++++ new/Network/Protocol/MusicBrainz/XML2/WebService.hs	2014-06-30 16:08:08.000000000 +0300
+@@ -11,8 +11,9 @@
+ import Control.Applicative (liftA2, (<|>))
+ import Control.Monad.IO.Class (MonadIO)
+ import Control.Monad.Trans.Control (MonadBaseControl)
++import Control.Monad.Trans.Resource (MonadThrow, runResourceT)
+ import qualified Data.ByteString.Lazy as BL
+-import Data.Conduit (Consumer, ($=), ($$), MonadThrow, runResourceT)
++import Data.Conduit (Consumer, ($=), ($$))
+ import Data.Conduit.Binary (sourceLbs)
+ import Data.List (intercalate)
+ import Data.Maybe (fromMaybe)
