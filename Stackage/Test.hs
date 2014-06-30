@@ -9,6 +9,7 @@ import           Control.Exception  (Exception, SomeException, handle, throwIO)
 import           Control.Monad      (replicateM, unless, when)
 import qualified Data.Map           as Map
 import qualified Data.Set           as Set
+import           Data.Version       (parseVersion, Version (Version))
 import           Data.Typeable      (Typeable)
 import           Stackage.Types
 import           Stackage.Util
@@ -18,7 +19,8 @@ import           System.Exit        (ExitCode (ExitSuccess))
 import           System.FilePath    ((<.>), (</>))
 import           System.IO          (IOMode (WriteMode, AppendMode),
                                      withBinaryFile)
-import           System.Process     (runProcess, waitForProcess)
+import           System.Process     (readProcess, runProcess, waitForProcess)
+import           Text.ParserCombinators.ReadP (readP_to_S)
 
 runTestSuites :: BuildSettings -> BuildPlan -> IO ()
 runTestSuites settings' bp = do
@@ -28,10 +30,22 @@ runTestSuites settings' bp = do
     let testdir = "runtests"
     rm_r testdir
     createDirectory testdir
-    allPass <- parFoldM (testWorkerThreads settings) (runTestSuite settings testdir) (&&) True $ Map.toList selected
+    cabalVersion <- getCabalVersion
+    allPass <- parFoldM (testWorkerThreads settings) (runTestSuite cabalVersion settings testdir) (&&) True $ Map.toList selected
     unless allPass $ error $ "There were failures, please see the logs in " ++ testdir
   where
     notSkipped p _ = p `Set.notMember` bpSkippedTests bp
+
+getCabalVersion :: IO CabalVersion
+getCabalVersion = do
+    output <- readProcess "cabal" ["--numeric-version"] ""
+    case filter (null . snd) $ readP_to_S parseVersion $ filter notCRLF output of
+        (Version (x:y:_) _, _):_ -> return $ CabalVersion x y
+        _ -> error $ "Invalid cabal version: " ++ show output
+  where
+    notCRLF '\n' = False
+    notCRLF '\r' = False
+    notCRLF _    = True
 
 parFoldM :: Int -- ^ number of threads
          -> (b -> IO c)
@@ -77,11 +91,15 @@ data TestException = TestException
     deriving (Show, Typeable)
 instance Exception TestException
 
-runTestSuite :: BuildSettings
+data CabalVersion = CabalVersion Int Int
+    deriving (Eq, Ord, Show)
+
+runTestSuite :: CabalVersion
+             -> BuildSettings
              -> FilePath
              -> (PackageName, SelectedPackageInfo)
              -> IO Bool
-runTestSuite settings testdir (packageName, SelectedPackageInfo {..}) = do
+runTestSuite cabalVersion settings testdir (packageName, SelectedPackageInfo {..}) = do
     -- Set up a new environment that includes the sandboxed bin folder in PATH.
     env' <- getModifiedEnv settings
     let menv addGPP
@@ -116,10 +134,12 @@ runTestSuite settings testdir (packageName, SelectedPackageInfo {..}) = do
         getHandle AppendMode $ run "cabal" (addCabalArgs settings BSTest ["configure", "--enable-tests"]) dir
         when spiHasTests $ do
             getHandle AppendMode $ run "cabal" ["build"] dir
-            getHandle AppendMode $ runGhcPackagePath "cabal"
-                [ "test"
-                , "--show-details=streaming" -- FIXME temporary workaround for https://github.com/haskell/cabal/issues/1810
-                ] dir
+            getHandle AppendMode $ runGhcPackagePath "cabal" (concat
+                [ ["test"]
+                , if cabalVersion >= CabalVersion 1 20
+                    then ["--show-details=streaming"] -- FIXME temporary workaround for https://github.com/haskell/cabal/issues/1810
+                    else []
+                ]) dir
         when (buildDocs settings) $
             getHandle AppendMode $ run "cabal" ["haddock"] dir
         return True
