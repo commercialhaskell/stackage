@@ -162,6 +162,19 @@ defaultExpectedFailures ghcVer = execWriter $ do
     add "glib"
     add "pango"
 
+    -- https://github.com/acw/bytestring-progress/issues/3
+    add "bytestring-progress"
+
+    -- https://github.com/silkapp/rest/issues/40
+    add "rest-core"
+    add "rest-gen"
+
+    -- Seems to require 32-bit functions
+    add "nettle"
+
+    -- Depends on a missing graphviz executable
+    add "graphviz"
+
   where
     add = tell . singleton . PackageName
 
