@@ -165,10 +165,6 @@ defaultExpectedFailures ghcVer = execWriter $ do
     -- https://github.com/acw/bytestring-progress/issues/3
     add "bytestring-progress"
 
-    -- https://github.com/silkapp/rest/issues/40
-    add "rest-core"
-    add "rest-gen"
-
     -- Seems to require 32-bit functions
     add "nettle"
 
