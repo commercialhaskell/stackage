@@ -492,4 +492,5 @@ convertGithubUser x =
         , ("fpco",         "snoyberg")
         , ("faylang",      "bergmark")
         , ("silkapp",      "silkapp/stackage")
+        , ("snapframework","mightybyte")
         ]
