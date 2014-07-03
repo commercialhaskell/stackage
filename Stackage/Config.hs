@@ -207,7 +207,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "cairo diagrams-cairo"
         , "persistent-mongoDB fpco-api"
         , "base16-bytestring convertible"
-        , "compdata"
+        , "compdata hybrid-vectors"
         ]
     when (ghcVer < GhcMajorVersion 7 8) $ do -- No GHC 7.8 support
         mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
