@@ -171,6 +171,10 @@ defaultExpectedFailures ghcVer = execWriter $ do
     -- Depends on a missing graphviz executable
     add "graphviz"
 
+    -- https://github.com/silkapp/json-schema/issues/8
+    when (ghcVer <= GhcMajorVersion 7 6) $
+        add "json-schema"
+
   where
     add = tell . singleton . PackageName
 
