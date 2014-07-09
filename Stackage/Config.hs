@@ -421,6 +421,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
       , "rest-types rest-wai tostring uri-encode"
       ]
 
+    mapM_ (add "Simon Michael <simon@joyful.com>") $ words
+        "hledger"
+
     -- Newest hxt requires network 2.4 or newest
     when (ghcVer == GhcMajorVersion 7 4 && requireHP) $ do
         addRange "Michael Snoyman" "hxt" "< 9.3.1"
