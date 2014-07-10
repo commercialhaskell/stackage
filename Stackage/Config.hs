@@ -467,10 +467,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- local patch
     addRange "Michael Snoyman" "bson" "== 0.2.4"
 
-    -- Depends on a newer version of happy
-    when (ghcVer < GhcMajorVersion 7 8) $
-        addRange "Roman Cheplyaka <roma@ro-che.info>" "pretty-show" "<= 1.6.1"
-
     -- 0.16.2 fixes dependency issues with different version of GHC
     -- and Haskell Platform. Now builds on GHC 7.4-7.8. Version 1.0 is
     -- guaranteed to break the API. See
