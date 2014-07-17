@@ -34,7 +34,7 @@ data PackageInfo = PackageInfo
     , piBuildToolsAll :: Set Executable -- ^ required for all stanzas
     , piGPD        :: Maybe GenericPackageDescription
     , piExecs      :: Set Executable
-    , piGithubUser :: Maybe String
+    , piGithubUser :: [String]
     }
     deriving (Show, Eq)
 
@@ -47,7 +47,7 @@ data BuildInfo = BuildInfo
     , biUsers      :: [PackageName]
     , biMaintainer :: Maintainer
     , biDeps       :: Map PackageName VersionRange
-    , biGithubUser :: Maybe String
+    , biGithubUser :: [String]
     , biHasTests   :: Bool
     }
 
@@ -73,7 +73,7 @@ data InstallInfo = InstallInfo
 data SelectedPackageInfo = SelectedPackageInfo
     { spiVersion    :: Version
     , spiMaintainer :: Maintainer
-    , spiGithubUser :: Maybe String
+    , spiGithubUser :: [String]
     , spiHasTests   :: Bool
     }
     deriving (Show, Read)

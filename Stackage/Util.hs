@@ -5,7 +5,7 @@ import qualified Codec.Archive.Tar               as Tar
 import qualified Codec.Archive.Tar.Entry         as TarEntry
 import           Control.Monad                   (guard, when)
 import           Data.Char                       (isSpace, toUpper)
-import           Data.List                       (stripPrefix)
+import           Data.List                       (intercalate, stripPrefix)
 import qualified Data.Map                        as Map
 import           Data.Maybe                      (mapMaybe)
 import qualified Data.Set                        as Set
@@ -168,3 +168,6 @@ replaceTarball tarballdir pkgname = do
         else return pkgname
   where
     fp = tarballdir </> pkgname <.> "tar.gz"
+
+githubMentions :: [String] -> String
+githubMentions = intercalate "," . map ('@' :)
