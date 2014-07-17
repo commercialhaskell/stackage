@@ -418,7 +418,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
       [ "aeson-utils arrow-list attoparsec-expr bumper code-builder fay-builder"
       , "generic-aeson hxt-pickle-utils json-schema multipart regular-xmlpickler"
       , "rest-client rest-core rest-gen rest-happstack rest-snap rest-stringmap"
-      , "rest-types rest-wai tostring uri-encode"
+      , "rest-types rest-wai tostring uri-encode imagesize-conduit"
       ]
 
     mapM_ (add "Simon Michael <simon@joyful.com>") $ words
