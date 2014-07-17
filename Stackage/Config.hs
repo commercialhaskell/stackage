@@ -485,15 +485,15 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 -- organization. See:
 --
 -- https://github.com/fpco/stackage/issues/226#issuecomment-45644142
-convertGithubUser :: String -> String
+convertGithubUser :: String -> [String]
 convertGithubUser x =
-    fromMaybe x $ Map.lookup (map toLower x) pairs
+    fromMaybe [x] $ Map.lookup (map toLower x) pairs
   where
     pairs = Map.fromList
-        [ ("diagrams",     "diagrams/Core")
-        , ("yesodweb",     "snoyberg")
-        , ("fpco",         "snoyberg")
-        , ("faylang",      "bergmark")
-        , ("silkapp",      "silkapp/stackage")
-        , ("snapframework","mightybyte")
+        [ ("diagrams",     ["diagrams/Core"])
+        , ("yesodweb",     ["snoyberg"])
+        , ("fpco",         ["snoyberg"])
+        , ("faylang",      ["bergmark"])
+        , ("silkapp",      ["bergmark"])
+        , ("snapframework",["mightybyte"])
         ]

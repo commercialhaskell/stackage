@@ -153,9 +153,7 @@ showDep (PackageName name, BuildInfo {..}) =
         , showVersion biVersion
         , " ("
         , unMaintainer biMaintainer
-        , case biGithubUser of
-            Nothing -> ""
-            Just x -> " @" ++ x
+        , " " ++ githubMentions biGithubUser
         , ")"
         , ": "
         , unwords $ map unP biUsers
@@ -194,7 +192,7 @@ checkBadVersions settings core (PackageDB pdb) buildPlan =
             , " ("
             , unMaintainer $ biMaintainer bi
             , case Map.lookup name pdb of
-                Just PackageInfo { piGithubUser = Just gu } -> " @" ++ gu
+                Just PackageInfo { piGithubUser = gus } -> " " ++ githubMentions gus
                 _ -> ""
             , ")"
             ]

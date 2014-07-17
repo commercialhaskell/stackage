@@ -153,9 +153,7 @@ runTestSuite cabalVersion settings testdir (packageName, SelectedPackageInfo {..
                 , package
                 , "("
                 , unMaintainer spiMaintainer
-                , case spiGithubUser of
-                    Nothing -> ""
-                    Just x -> " @" ++ x
+                , githubMentions spiGithubUser
                 , ")"
                 ]
     rm_r dir

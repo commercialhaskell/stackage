@@ -10,7 +10,7 @@ import qualified Data.ByteString.Lazy.Char8            as L8
 import           Data.List                             (stripPrefix)
 import qualified Data.Map                              as Map
 import           Data.Maybe                            (catMaybes, listToMaybe,
-                                                        mapMaybe)
+                                                        mapMaybe, fromMaybe)
 import           Data.Monoid                           (Monoid (..))
 import           Data.Set                              (member)
 import qualified Data.Set                              as Set
@@ -168,7 +168,7 @@ loadPackageDB settings coreMap core deps = do
             , piBuildToolsAll = buildToolsExe' `Set.union` buildToolsOther'
             , piGPD = mgpd
             , piExecs = execs
-            , piGithubUser = mgithub
+            , piGithubUser = fromMaybe [] mgithub
             }
 
     parseDeps p lbs =

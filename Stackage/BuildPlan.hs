@@ -12,6 +12,7 @@ import           Distribution.Text (display, simpleParse)
 import           Stackage.Types
 import qualified System.IO.UTF8
 import           Data.Char         (isSpace)
+import           Stackage.Util
 
 readBuildPlan :: FilePath -> IO BuildPlan
 readBuildPlan fp = do
@@ -95,7 +96,7 @@ instance AsString SelectedPackageInfo where
     toString SelectedPackageInfo {..} = unwords
         [ display spiVersion
         , toString spiHasTests
-        , maybe "@" ("@" ++) spiGithubUser
+        , (\v -> if null v then "@" else v) $ githubMentions spiGithubUser
         , unMaintainer spiMaintainer
         ]
     fromString s1 = do
@@ -105,7 +106,7 @@ instance AsString SelectedPackageInfo where
         Right (SelectedPackageInfo
             { spiVersion = version
             , spiHasTests = hasTests
-            , spiGithubUser = gu
+            , spiGithubUser = [gu]
             , spiMaintainer = Maintainer m
             }, "")
 
