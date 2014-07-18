@@ -484,10 +484,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
             Just range' -> tell $ PackageMap $ Map.singleton (PackageName package) (range', Maintainer maintainer)
 
 -- | Replacement Github users. This is useful when a project is owned by an
--- organization, and you'd like to ping either an individual or a team in that
--- organization. See:
+-- organization. It also lets you ping multiple users.
 --
--- https://github.com/fpco/stackage/issues/226#issuecomment-45644142
+-- Note that cross organization team mentions aren't allowed by Github.
 convertGithubUser :: String -> [String]
 convertGithubUser x =
     fromMaybe [x] $ Map.lookup (map toLower x) pairs
