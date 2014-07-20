@@ -17,9 +17,9 @@ import           Distribution.Text               (display, simpleParse)
 import           Distribution.Version            (thisVersion)
 import           Stackage.Types
 import           System.Directory                (doesDirectoryExist,
-                                                  removeDirectoryRecursive)
-import           System.Directory                (getAppUserDataDirectory
-                                                 ,canonicalizePath,
+                                                  removeDirectoryRecursive,
+                                                  getAppUserDataDirectory,
+                                                  canonicalizePath,
                                                   createDirectoryIfMissing, doesFileExist)
 import           System.Environment              (getEnvironment)
 import           System.FilePath                 ((</>), (<.>))
@@ -106,15 +106,16 @@ binDir = (</> "bin") . sandboxRoot
 dataDir = (</> "share") . sandboxRoot
 docDir x = sandboxRoot x </> "share" </> "doc" </> "$pkgid"
 
-addCabalArgsOnlyGlobal :: [String] -> [String]
-addCabalArgsOnlyGlobal rest
+addCabalArgsOnlyGlobal :: BuildSettings -> [String] -> [String]
+addCabalArgsOnlyGlobal settings rest
     = "--package-db=clear"
     : "--package-db=global"
-    : rest
+    : map ("--package-db=" ++) (underlayPackageDirs settings)
+   ++ rest
 
 addCabalArgs :: BuildSettings -> BuildStage -> [String] -> [String]
 addCabalArgs settings bs rest
-    = addCabalArgsOnlyGlobal
+    = addCabalArgsOnlyGlobal settings
     $ ("--package-db=" ++ packageDir settings ++ toolsSuffix)
     : ("--libdir=" ++ libDir settings ++ toolsSuffix)
     : ("--bindir=" ++ binDir settings)

@@ -24,7 +24,7 @@ checkPlan settings bp = do
     putStrLn "Checking build plan"
     packages <- mapM (replaceTarball $ tarballDir settings) (bpPackageList bp)
     (ec, dryRun', stderr) <- readProcessWithExitCode "cabal"
-        ( addCabalArgsOnlyGlobal
+        ( addCabalArgsOnlyGlobal settings
         $ "install"
         : "--dry-run"
         : "--max-backjumps=-1"

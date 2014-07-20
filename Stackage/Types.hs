@@ -126,6 +126,8 @@ data SelectSettings = SelectSettings
     , selectGhcVersion       :: GhcMajorVersion
     , selectTarballDir       :: FilePath
     -- ^ Directory containing replacement tarballs.
+    , selectUnderlayPackageDirs :: [FilePath]
+    -- ^ Additional package directories to reference
     }
 
 data BuildStage = BSTools | BSBuild | BSTest
@@ -142,6 +144,8 @@ data BuildSettings = BuildSettings
     -- ^ Directory containing replacement tarballs.
     , cabalFileDir          :: Maybe FilePath
     -- ^ Directory to place cabal files in
+    , underlayPackageDirs      :: [FilePath]
+    -- ^ Additional package directories to reference
     }
 
 -- | A wrapper around a @Map@ providing a better @Monoid@ instance.

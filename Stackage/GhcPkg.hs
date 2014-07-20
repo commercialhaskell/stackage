@@ -7,9 +7,9 @@ import           Distribution.Version (Version (Version))
 import Data.Char (isSpace)
 import qualified Data.Set as Set
 
-getGlobalPackages :: GhcMajorVersion -> IO (Set PackageIdentifier)
-getGlobalPackages version = do
-    output <- readProcess "ghc-pkg" [arg, "list"] ""
+getPackages :: [String] -> GhcMajorVersion -> IO (Set PackageIdentifier)
+getPackages extraArgs version = do
+    output <- readProcess "ghc-pkg" (extraArgs ++ [arg, "list"]) ""
     fmap Set.unions $ mapM parse $ drop 1 $ lines output
   where
     -- Account for a change in command line option name
@@ -27,6 +27,18 @@ getGlobalPackages version = do
     stripParens x@('(':_:_)
         | last x == ')' = tail $ init $ x
     stripParens x = x
+
+getGlobalPackages :: GhcMajorVersion -> IO (Set PackageIdentifier)
+getGlobalPackages version = getPackages [] version
+
+getDBPackages :: [FilePath] -> GhcMajorVersion -> IO (Set PackageIdentifier)
+getDBPackages [] _ = return Set.empty
+getDBPackages packageDirs version =
+    getPackages (map packageDbArg packageDirs) version
+  where
+    packageDbArg db
+        | version >= GhcMajorVersion 7 6 = "--package-db=" ++ db
+        | otherwise = "--package-conf" ++ db
 
 getGhcVersion :: IO GhcMajorVersion
 getGhcVersion = do

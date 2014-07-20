@@ -44,18 +44,19 @@ getInstallInfo settings = do
             _ -> do
                 putStrLn "Loading core packages from global database"
                 getGlobalPackages $ selectGhcVersion settings
-    let coreMap = Map.unions
+    underlay <- getDBPackages (selectUnderlayPackageDirs settings) (selectGhcVersion settings)
+    let underlaySet = Set.map pkgName underlay
+        coreMap = Map.unions
                 $ map (\(PackageIdentifier k v) -> Map.singleton k v)
                 $ Set.toList core
-
-    let allPackages' =
+        allPackages' =
             case mhp of
                 Just hp | requireHaskellPlatform settings ->
                     Map.union (stablePackages settings $ requireHaskellPlatform settings)
                     $ identsToRanges (hplibs hp)
                 _ -> stablePackages settings $ requireHaskellPlatform settings
         allPackages = dropExcluded settings allPackages'
-    let totalCore
+        totalCore
             | ignoreUpgradeableCore settings =
                 Map.fromList $ map (\n -> (PackageName n, Nothing)) $ words "base containers template-haskell"
             | otherwise =
@@ -63,7 +64,7 @@ getInstallInfo settings = do
                 `Map.union` Map.fromList (map (, Nothing) (Set.toList $ extraCore settings))
 
     putStrLn "Loading package database"
-    pdb <- loadPackageDB settings coreMap (Map.keysSet totalCore) allPackages
+    pdb <- loadPackageDB settings coreMap (Map.keysSet totalCore) allPackages underlaySet
 
     putStrLn "Narrowing package database"
     (final, errs) <- narrowPackageDB settings (Map.keysSet totalCore) pdb $ Set.fromList $ Map.toList $ Map.map snd $ allPackages

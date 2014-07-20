@@ -39,6 +39,7 @@ defaultBuildSettings cores version = BuildSettings
     , buildDocs = True
     , tarballDir = "patching/tarballs"
     , cabalFileDir = Nothing
+    , underlayPackageDirs = []
     }
 
 build :: BuildSettings -> BuildPlan -> IO ()
