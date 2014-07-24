@@ -462,6 +462,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/257
     addRange "Michael Snoyman" "aeson" "< 0.8"
 
+    -- https://github.com/jgm/pandoc/issues/1442
+    addRange "Michael Snoyman" "texmath" "<= 0.6.6.3"
+
     -- Requires too new a version of text
     when (ghcVer == GhcMajorVersion 7 4 && requireHP) $ do
         addRange "Michael Snoyman" "attoparsec" "< 0.11.2.1"
