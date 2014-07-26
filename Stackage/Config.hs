@@ -196,6 +196,16 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "bzlib-conduit case-insensitive"
         , "conduit-extra conduit-combinators yesod-websockets"
         ]
+
+    -- https://github.com/fpco/stackage/issues/261
+    addRange "Michael Snoyman" "cabal-install" $
+        case () of
+            ()
+                | ghcVer <= GhcMajorVersion 7 4 -> "< 1.15"
+                | ghcVer <= GhcMajorVersion 7 6 -> "< 1.17"
+                | ghcVer <= GhcMajorVersion 7 8 -> "< 1.19"
+                | otherwise -> "-any"
+
     when (ghcVer >= GhcMajorVersion 7 6) $ add "michael@snoyman.com" "cabal-src"
 #if !defined(mingw32_HOST_OS) && !defined(__MINGW32__)
     -- Does not compile on Windows
