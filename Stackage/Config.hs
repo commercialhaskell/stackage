@@ -218,7 +218,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "aws csv-conduit cassava"
         , "async shelly thyme"
         , "hxt hxt-relaxng dimensional"
-        , "cairo diagrams-cairo"
+        , "cairo diagrams-cairo gtk2hs-buildtools"
         , "persistent-mongoDB fpco-api"
         , "base16-bytestring convertible"
         , "compdata hybrid-vectors"
