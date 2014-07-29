@@ -223,6 +223,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "base16-bytestring convertible"
         , "compdata hybrid-vectors"
         , "executable-path formatting"
+        , "criterion"
         ]
     when (ghcVer < GhcMajorVersion 7 8) $ do -- No GHC 7.8 support
         mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
@@ -439,9 +440,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     when (ghcVer == GhcMajorVersion 7 4 && requireHP) $ do
         addRange "Michael Snoyman" "hxt" "< 9.3.1"
         addRange "Michael Snoyman" "network" "< 2.4"
-
-    -- https://github.com/fpco/stackage/issues/189
-    addRange "Michael Snoyman" "statistics" "< 0.11"
 
     -- https://github.com/fpco/stackage/issues/197
     when (ghcVer == GhcMajorVersion 7 6 && requireHP) $
