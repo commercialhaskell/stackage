@@ -223,7 +223,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "base16-bytestring convertible"
         , "compdata hybrid-vectors"
         , "executable-path formatting"
-        , "criterion"
         ]
     when (ghcVer < GhcMajorVersion 7 8) $ do -- No GHC 7.8 support
         mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
@@ -231,6 +230,10 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
             , "threepenny-gui unification-fd"
             ]
         addRange "FP Complete <michael@fpcomplete.com>" "compdata" "< 0.8"
+    when (ghcVer >= GhcMajorVersion 7 8) $
+        mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
+            [ "criterion"
+            ]
 
     -- Deprecated version
     addRange "FP Complete <michael@fpcomplete.com>" "persistent-mongoDB" "< 1.3.1 || > 1.3.1"
