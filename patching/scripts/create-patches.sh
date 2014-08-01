@@ -18,7 +18,7 @@ do
     mv $PKG new
     cabal unpack $PKG
     mv $PKG orig
-    diff -ru orig new > ../patches/$PKG.patch || true
+    diff -ruN orig new > ../patches/$PKG.patch || true
     cd ..
     rm -rf tmp
     )
