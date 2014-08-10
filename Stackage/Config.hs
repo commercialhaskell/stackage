@@ -467,12 +467,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/231
     addRange "Michael Snoyman" "optparse-applicative" "< 0.9"
 
-    -- https://github.com/fpco/stackage/issues/237
-    addRange "Michael Snoyman" "lens" "< 4.2"
-    addRange "Michael Snoyman" "contravariant" "< 1"
-    addRange "Michael Snoyman" "kan-extensions" "< 4.1"
-    addRange "Michael Snoyman" "adjunctions" "< 4.2"
-
     -- https://github.com/fpco/stackage/issues/242
     addRange "Michael Snoyman" "mongoDB" "< 1.5"
 
