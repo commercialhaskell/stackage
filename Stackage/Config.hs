@@ -470,9 +470,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/242
     addRange "Michael Snoyman" "mongoDB" "< 1.5"
 
-    -- https://github.com/fpco/stackage/issues/263
-    addRange "Michael Snoyman" "semigroupoids" "< 4.1"
-
     -- https://github.com/jgm/pandoc/issues/1442
     addRange "Michael Snoyman" "texmath" "<= 0.6.6.3"
 
