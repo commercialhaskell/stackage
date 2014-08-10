@@ -1,0 +1,12 @@
+diff -ruN orig/System/Posix/Daemonize.hs new/System/Posix/Daemonize.hs
+--- orig/System/Posix/Daemonize.hs	2014-08-10 13:47:22.378323475 +0300
++++ new/System/Posix/Daemonize.hs	2014-08-10 13:47:22.000000000 +0300
+@@ -147,7 +147,7 @@
+   process daemon' args
+     where
+       
+-      program' daemon = withSyslog (fromJust $ name daemon) (syslogOptions daemon) DAEMON $
++      program' daemon = withSyslog (fromJust $ name daemon) (syslogOptions daemon) DAEMON [] $
+                       do let log = syslog Notice
+                          log "starting"
+                          pidWrite daemon
