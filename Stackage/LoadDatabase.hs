@@ -64,14 +64,16 @@ loadPackageDB :: SelectSettings
               -> Map PackageName Version -- ^ core packages from HP file
               -> Set PackageName -- ^ all core packages, including extras
               -> Map PackageName (VersionRange, Maintainer) -- ^ additional deps
+              -> Set PackageName -- ^ underlay packages to exclude
               -> IO PackageDB
-loadPackageDB settings coreMap core deps = do
+loadPackageDB settings coreMap core deps underlay = do
     tarName <- getTarballName
     lbs <- L.readFile tarName
     pdb <- addEntries mempty $ Tar.read lbs
     contents <- handle (\(_ :: IOException) -> return [])
               $ getDirectoryContents $ selectTarballDir settings
-    foldM addTarball pdb $ mapMaybe stripTarGz contents
+    pdb' <- foldM addTarball pdb $ mapMaybe stripTarGz contents
+    return $ excludeUnderlay pdb'
   where
     addEntries _ (Tar.Fail e) = error $ show e
     addEntries db Tar.Done = return db
@@ -116,6 +118,10 @@ loadPackageDB settings coreMap core deps = do
         findCabalAndAddPackage tarball p v pdb $ Tar.read $ GZip.decompress lbs
       where
         tarball = selectTarballDir settings </> tarball' <.> "tar.gz"
+
+    excludeUnderlay :: PackageDB -> PackageDB
+    excludeUnderlay (PackageDB pdb) =
+        PackageDB $ Map.filterWithKey (\k _ -> Set.notMember k underlay) pdb
 
     skipTests p = p `Set.member` skippedTests settings
 

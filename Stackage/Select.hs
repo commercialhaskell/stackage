@@ -53,6 +53,7 @@ defaultSelectSettings version = SelectSettings
             else Set.empty
     , selectGhcVersion = version
     , selectTarballDir = "patching/tarballs"
+    , selectUnderlayPackageDirs = []
     }
 
 select :: SelectSettings -> IO BuildPlan
