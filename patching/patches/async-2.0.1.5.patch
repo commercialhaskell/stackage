@@ -1,0 +1,40 @@
+diff -ruN orig/Control/Concurrent/Async.hs new/Control/Concurrent/Async.hs
+--- orig/Control/Concurrent/Async.hs	2014-08-11 12:23:17.688591763 +0300
++++ new/Control/Concurrent/Async.hs	2014-08-11 12:23:17.000000000 +0300
+@@ -246,7 +246,10 @@
+ --
+ {-# INLINE waitCatch #-}
+ waitCatch :: Async a -> IO (Either SomeException a)
+-waitCatch = atomically . waitCatchSTM
++waitCatch = tryAgain . atomically . waitCatchSTM
++  where
++    -- See: https://github.com/simonmar/async/issues/14
++    tryAgain f = f `catch` \BlockedIndefinitelyOnSTM -> f
+ 
+ -- | Check whether an 'Async' has completed yet.  If it has not
+ -- completed yet, then the result is @Nothing@, otherwise the result
+diff -ruN orig/test/test-async.hs new/test/test-async.hs
+--- orig/test/test-async.hs	2014-08-11 12:23:17.688591763 +0300
++++ new/test/test-async.hs	2014-08-11 12:23:17.000000000 +0300
+@@ -29,6 +29,7 @@
+          testCase "async_cancel"       async_cancel
+   , testCase "async_poll"        async_poll
+   , testCase "async_poll2"       async_poll2
++  , testCase "withasync_waitCatch_blocked" withasync_waitCatch_blocked
+  ]
+ 
+ value = 42 :: Int
+@@ -104,3 +105,13 @@
+   when (isNothing r) $ assertFailure ""
+   r <- poll a   -- poll twice, just to check we don't deadlock
+   when (isNothing r) $ assertFailure ""
++
++withasync_waitCatch_blocked :: Assertion
++withasync_waitCatch_blocked = do
++  r <- withAsync (newEmptyMVar >>= takeMVar) waitCatch
++  case r of
++    Left e ->
++        case fromException e of
++            Just BlockedIndefinitelyOnMVar -> return ()
++            Nothing -> assertFailure $ show e
++    Right () -> assertFailure ""
