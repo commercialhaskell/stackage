@@ -493,6 +493,10 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/269
     addRange "Michael Snoyman" "tasty-hunit" "< 0.9"
+
+    -- https://github.com/fpco/stackage/issues/271
+    when (ghcVer < GhcMajorVersion 7 8) $
+        addRange "Michael Snoyman" "aeson" "< 0.8"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
