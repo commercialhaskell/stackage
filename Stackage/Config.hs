@@ -400,7 +400,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
             , "gitlib gitlib-cmdline gitlib-test"
             , "gitlib-libgit2"
             -- https://github.com/jwiegley/gitlib/issues/31
-            , "gitlib-s3"
+            -- "gitlib-s3"
             ]
 
     mapM_ (add "Ben Ford <ben@dlstartup.com") $ words
