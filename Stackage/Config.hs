@@ -488,9 +488,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- current build status.
     addRange "Andrey Chudnov <oss@chudnov.com>" "language-ecmascript" ">= 0.16.2 && < 1.0"
 
-    -- https://github.com/fpco/stackage/issues/270
-    addRange "Michael Snoyman" "JuicyPixels" "< 3.1.6"
-
     -- https://github.com/fpco/stackage/issues/269
     addRange "Michael Snoyman" "tasty-hunit" "< 0.9"
 
