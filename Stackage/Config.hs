@@ -494,6 +494,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/271
     when (ghcVer < GhcMajorVersion 7 8) $
         addRange "Michael Snoyman" "aeson" "< 0.8"
+
+    -- https://github.com/fpco/stackage/issues/274
+    addRange "Michael Snoyman" "pandoc-citeproc" "< 0.4"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
