@@ -441,6 +441,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Simon Michael <simon@joyful.com>") $ words
         "hledger"
 
+    mapM_ (add "Mihai Maruseac <mihai.maruseac@gmail.com>") $ words
+        "io-manager"
+
     -- Newest hxt requires network 2.4 or newest
     when (ghcVer == GhcMajorVersion 7 4 && requireHP) $ do
         addRange "Michael Snoyman" "hxt" "< 9.3.1"
@@ -519,4 +522,5 @@ convertGithubUser x =
         , ("faylang",      ["bergmark"])
         , ("silkapp",      ["bergmark"])
         , ("snapframework",["mightybyte"])
+        , ("haskell-ro",   ["mihaimaruseac"])
         ]
