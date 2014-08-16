@@ -500,6 +500,12 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/274
     addRange "Michael Snoyman" "pandoc-citeproc" "< 0.4"
+
+    -- https://github.com/fpco/stackage/issues/276
+    addRange "Michael Snoyman" "network" "< 2.6"
+
+    -- https://github.com/fpco/stackage/issues/277
+    addRange "Michael Snoyman" "pandoc" "< 1.13"
   where
     add maintainer package = addRange maintainer package "-any"
     addRange maintainer package range =
