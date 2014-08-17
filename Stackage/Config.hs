@@ -120,6 +120,9 @@ defaultExpectedFailures ghcVer = execWriter $ do
     add "hTalos"
     add "seqloc"
 
+    -- https://github.com/bos/math-functions/issues/25
+    add "math-functions"
+
     -- FIXME the test suite fails fairly regularly in builds, though I haven't
     -- discovered why yet
     add "crypto-numbers"
