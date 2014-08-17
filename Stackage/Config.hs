@@ -178,6 +178,9 @@ defaultExpectedFailures ghcVer = execWriter $ do
     when (ghcVer <= GhcMajorVersion 7 6) $
         add "json-schema"
 
+    -- No AWS creds available
+    add "aws"
+
   where
     add = tell . singleton . PackageName
 
