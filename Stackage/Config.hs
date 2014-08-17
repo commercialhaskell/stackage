@@ -372,10 +372,11 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         "sqlite-simple"
 
     mapM_ (add "Michal J. Gajda") $ words
-        "iterable Octree FenwickTree hPDB"
-    when (ghcVer == GhcMajorVersion 7 6) $ do -- No GHC 7.8 support
+        "iterable Octree FenwickTree"
+    -- https://github.com/BioHaskell/hPDB/issues/2
+    when (ghcVer >= GhcMajorVersion 7 8) $ do -- No GHC 7.8 support
         mapM_ (add "Michal J. Gajda") $ words
-            "hPDB-examples"
+            "hPDB hPDB-examples"
 
     mapM_ (add "Roman Cheplyaka <roma@ro-che.info>") $ words =<<
         [ "smallcheck tasty tasty-smallcheck tasty-quickcheck tasty-hunit tasty-golden"
