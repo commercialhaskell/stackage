@@ -102,22 +102,13 @@ runTestSuite :: CabalVersion
 runTestSuite cabalVersion settings testdir (packageName, SelectedPackageInfo {..}) = do
     -- Set up a new environment that includes the sandboxed bin folder in PATH.
     env' <- getModifiedEnv settings
-    let menv addGPP
-            = Just $ (if addGPP then (("GHC_PACKAGE_PATH", packageDir settings ++ ":"):) else id)
-                   $ addSandbox env'
-        -- FIXME why do these packages require the workaround?
-        bannedSandboxVar = map PackageName $ words "wai-logger warp"
-        addSandbox
-            | packageName `elem` bannedSandboxVar = id
-            | otherwise = (("HASKELL_PACKAGE_SANDBOX", packageDir settings):)
+    let menv = Just $ addSandbox env'
+        addSandbox = (("HASKELL_PACKAGE_SANDBOX", packageDir settings):)
 
-    let runGen addGPP cmd args wdir handle' = do
-            ph <- runProcess cmd args (Just wdir) (menv addGPP) Nothing (Just handle') (Just handle')
+    let run cmd args wdir handle' = do
+            ph <- runProcess cmd args (Just wdir) menv Nothing (Just handle') (Just handle')
             ec <- waitForProcess ph
             unless (ec == ExitSuccess) $ throwIO TestException
-
-    let run = runGen False
-        runGhcPackagePath = runGen True
 
     passed <- handle (\TestException -> return False) $ do
         package' <- replaceTarball (tarballDir settings) package
@@ -134,7 +125,7 @@ runTestSuite cabalVersion settings testdir (packageName, SelectedPackageInfo {..
         getHandle AppendMode $ run "cabal" (addCabalArgs settings BSTest ["configure", "--enable-tests"]) dir
         when spiHasTests $ do
             getHandle AppendMode $ run "cabal" ["build"] dir
-            getHandle AppendMode $ runGhcPackagePath "cabal" (concat
+            getHandle AppendMode $ run "cabal" (concat
                 [ ["test"]
                 , if cabalVersion >= CabalVersion 1 20
                     then ["--show-details=streaming"] -- FIXME temporary workaround for https://github.com/haskell/cabal/issues/1810
