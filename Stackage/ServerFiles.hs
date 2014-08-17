@@ -10,6 +10,7 @@ import Control.Exception (throwIO)
 import qualified Codec.Archive.Tar as Tar
 import qualified Data.ByteString.Lazy as L
 import Control.Arrow (second)
+import Control.Monad (unless)
 import Distribution.Text (display)
 import System.Directory (doesFileExist)
 import System.FilePath ((</>), (<.>))
@@ -47,6 +48,12 @@ createHackageFile isInc ii ghcVer date hackageH tarballH = do
         , filter (/= '.') ghcVer
         , if isInc then "-inclusive" else "-exclusive"
         ]
+
+    unless isInc $ do
+        -- Add in some OS-specific package/version combos to work with
+        -- non-Linux systems.
+        hPutStrLn hackageH "hfsevents-0.1.5"
+        hPutStrLn hackageH "Win32-notify-0.3"
   where
     selected = Map.fromList . map toStrs . Map.toList $
         fmap spiVersion (iiPackages ii)
