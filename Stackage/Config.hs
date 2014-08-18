@@ -535,7 +535,7 @@ convertGithubUser x =
         , ("yesodweb",     ["snoyberg"])
         , ("fpco",         ["snoyberg"])
         , ("faylang",      ["bergmark"])
-        , ("silkapp",      ["bergmark"])
+        , ("silkapp",      ["bergmark", "hesselink"])
         , ("snapframework",["mightybyte"])
         , ("haskell-ro",   ["mihaimaruseac"])
         ]
