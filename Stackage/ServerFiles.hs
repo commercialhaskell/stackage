@@ -17,16 +17,18 @@ import System.FilePath ((</>), (<.>))
 import System.IO (Handle, hPutStrLn, hPutStr)
 
 createHackageFile :: Bool -- ^ inclusive?
+                  -> Bool -- ^ haskell platform?
                   -> InstallInfo
                   -> String -- ^ GHC version
                   -> String -- ^ date
                   -> Handle -- ^ hackage
                   -> Handle -- ^ tarballs
                   -> IO ()
-createHackageFile isInc ii ghcVer date hackageH tarballH = do
+createHackageFile isInc hp ii ghcVer date hackageH tarballH = do
     let stackageFP = concat
             [ "../ghc-"
             , ghcVer
+            , if hp then "hp" else ""
             , "-"
             , date
             , if isInc then "-inclusive" else "-exclusive"

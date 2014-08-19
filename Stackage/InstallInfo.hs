@@ -34,8 +34,6 @@ dropExcluded bs m0 =
 
 getInstallInfo :: SelectSettings -> IO InstallInfo
 getInstallInfo settings = do
-    putStrLn "Loading Haskell Platform"
-
     core <- do
         putStrLn "Loading core packages from global database"
         getGlobalPackages $ selectGhcVersion settings
@@ -108,14 +106,18 @@ getInstallInfo settings = do
         putStrLn $ "Inclusive/exclusive: " ++ incexc
 
         putStrLn "Creating hackage file (for publishing to Stackage server)"
+        let isHP = requireHaskellPlatform settings
         IO.withBinaryFile (incexc </> "hackage") IO.WriteMode $ \hackageH ->
             IO.withBinaryFile (incexc </> "create-snapshot.sh") IO.WriteMode
-            (createHackageFile isInc ii ghcVer date hackageH)
+            (createHackageFile isInc isHP ii ghcVer date hackageH)
 
         putStrLn "Creating desc file (for publishing to Stackage server)"
         System.IO.UTF8.writeFile (incexc </> "desc") $ concat
             [ "Stackage build for GHC "
             , ghcVer
+            , if requireHaskellPlatform settings
+                then " + Haskell Platform"
+                else ""
             , ", "
             , date
             , ", "
