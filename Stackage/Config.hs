@@ -2,7 +2,7 @@
 module Stackage.Config where
 
 import           Control.Monad              (when)
-import           Control.Monad.Trans.Writer (execWriter, tell)
+import           Control.Monad.Trans.Writer (Writer, execWriter, tell)
 import           Data.Char                  (toLower)
 import qualified Data.Map                   as Map
 import           Data.Maybe                 (fromMaybe)
@@ -191,6 +191,7 @@ defaultStablePackages :: GhcMajorVersion
                       -> Bool -- ^ using haskell platform?
                       -> Map PackageName (VersionRange, Maintainer)
 defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
+    when (ghcVer == GhcMajorVersion 7 8 && requireHP) haskellPlatform78
     mapM_ (add "michael@snoyman.com") $ words =<<
         [ "yesod yesod-newsfeed yesod-sitemap yesod-static yesod-test yesod-bin"
         , "markdown mime-mail-ses"
@@ -515,12 +516,78 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/277
     addRange "Michael Snoyman" "pandoc" "< 1.13"
-  where
-    add maintainer package = addRange maintainer package "-any"
-    addRange maintainer package range =
-        case simpleParse range of
-            Nothing -> error $ "Invalid range " ++ show range ++ " for " ++ package
-            Just range' -> tell $ PackageMap $ Map.singleton (PackageName package) (range', Maintainer maintainer)
+
+add :: String -> String -> Writer PackageMap ()
+add maintainer package = addRange maintainer package "-any"
+
+addRange :: String -> String -> String -> Writer PackageMap ()
+addRange maintainer package range =
+    case simpleParse range of
+        Nothing -> error $ "Invalid range " ++ show range ++ " for " ++ package
+        Just range' -> tell $ PackageMap $ Map.singleton (PackageName package) (range', Maintainer maintainer)
+
+-- | Hard coded Haskell Platform versions
+haskellPlatform78 :: Writer PackageMap ()
+haskellPlatform78 = do
+    addRange "Haskell Platform" "ghc" "== 7.8.3"
+    addRange "Haskell Platform" "haddock" "== 2.14.2"
+    addRange "Haskell Platform" "array" "== 0.5.0.0"
+    addRange "Haskell Platform" "base" "== 4.7.0.1"
+    addRange "Haskell Platform" "bytestring" "== 0.10.4.0"
+    addRange "Haskell Platform" "Cabal" "== 1.18.1.3"
+    addRange "Haskell Platform" "containers" "== 0.5.5.1"
+    addRange "Haskell Platform" "deepseq" "== 1.3.0.2"
+    addRange "Haskell Platform" "directory" "== 1.2.1.0"
+    addRange "Haskell Platform" "filepath" "== 1.3.0.2"
+    addRange "Haskell Platform" "haskell2010" "== 1.1.2.0"
+    addRange "Haskell Platform" "haskell98" "== 2.0.0.3"
+    addRange "Haskell Platform" "hpc" "== 0.6.0.1"
+    addRange "Haskell Platform" "old-locale" "== 1.0.0.6"
+    addRange "Haskell Platform" "old-time" "== 1.1.0.2"
+    addRange "Haskell Platform" "pretty" "== 1.1.1.1"
+    addRange "Haskell Platform" "process" "== 1.2.0.0"
+    addRange "Haskell Platform" "template-haskell" "== 2.9.0.0"
+    addRange "Haskell Platform" "time" "== 1.4.2"
+    addRange "Haskell Platform" "transformers" "== 0.3.0.0"
+    addRange "Haskell Platform" "unix" "== 2.7.0.1"
+    addRange "Haskell Platform" "xhtml" "== 3000.2.1"
+    addRange "Haskell Platform" "async" "== 2.0.1.5"
+    addRange "Haskell Platform" "attoparsec" "== 0.10.4.0"
+    addRange "Haskell Platform" "case-insensitive" "== 1.1.0.3"
+    addRange "Haskell Platform" "fgl" "== 5.5.0.1"
+    addRange "Haskell Platform" "GLURaw" "== 1.4.0.1"
+    addRange "Haskell Platform" "GLUT" "== 2.5.1.1"
+    addRange "Haskell Platform" "hashable" "== 1.2.2.0"
+    addRange "Haskell Platform" "haskell-src" "== 1.0.1.6"
+    addRange "Haskell Platform" "html" "== 1.0.1.2"
+    addRange "Haskell Platform" "HTTP" "== 4000.2.10"
+    addRange "Haskell Platform" "HUnit" "== 1.2.5.2"
+    addRange "Haskell Platform" "mtl" "== 2.1.3.1"
+    addRange "Haskell Platform" "network" "== 2.4.2.3"
+    addRange "Haskell Platform" "OpenGL" "== 2.9.2.0"
+    addRange "Haskell Platform" "OpenGLRaw" "== 1.5.0.0"
+    addRange "Haskell Platform" "parallel" "== 3.2.0.4"
+    addRange "Haskell Platform" "parsec" "== 3.1.5"
+    addRange "Haskell Platform" "primitive" "== 0.5.2.1"
+    addRange "Haskell Platform" "QuickCheck" "== 2.6"
+    addRange "Haskell Platform" "random" "== 1.0.1.1"
+    addRange "Haskell Platform" "regex-base" "== 0.93.2"
+    addRange "Haskell Platform" "regex-compat" "== 0.95.1"
+    addRange "Haskell Platform" "regex-posix" "== 0.95.2"
+    addRange "Haskell Platform" "split" "== 0.2.2"
+    addRange "Haskell Platform" "stm" "== 2.4.2"
+    addRange "Haskell Platform" "syb" "== 0.4.1"
+    addRange "Haskell Platform" "text" "== 1.1.0.0"
+    addRange "Haskell Platform" "transformers" "== 0.3.0.0"
+    addRange "Haskell Platform" "unordered-containers" "== 0.2.4.0"
+    addRange "Haskell Platform" "vector" "== 0.10.9.1"
+    addRange "Haskell Platform" "xhtml" "== 3000.2.1"
+    addRange "Haskell Platform" "zlib" "== 0.5.4.1"
+    addRange "Haskell Platform" "alex" "== 3.1.3"
+    addRange "Haskell Platform" "cabal-install" "== 1.18.0.5"
+    addRange "Haskell Platform" "haddock" "== 2.14.2"
+    addRange "Haskell Platform" "happy" "== 1.19.4"
+    addRange "Haskell Platform" "hscolour" "== 1.20.3"
 
 -- | Replacement Github users. This is useful when a project is owned by an
 -- organization. It also lets you ping multiple users.
