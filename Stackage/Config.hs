@@ -1,7 +1,7 @@
 {-# LANGUAGE CPP #-}
 module Stackage.Config where
 
-import           Control.Monad              (when)
+import           Control.Monad              (when, unless)
 import           Control.Monad.Trans.Writer (Writer, execWriter, tell)
 import           Data.Char                  (toLower)
 import qualified Data.Map                   as Map
@@ -240,7 +240,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
             , "threepenny-gui unification-fd"
             ]
         addRange "FP Complete <michael@fpcomplete.com>" "compdata" "< 0.8"
-    when (ghcVer >= GhcMajorVersion 7 8) $
+    when (ghcVer >= GhcMajorVersion 7 8 && not requireHP) $
         mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
             [ "criterion"
             ]
@@ -443,11 +443,16 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
             ]
 
     mapM_ (add "Silk <code@silk.co>") $ words =<<
-      [ "aeson-utils arrow-list attoparsec-expr bumper code-builder fay-builder"
-      , "generic-aeson hxt-pickle-utils json-schema multipart regular-xmlpickler"
-      , "rest-client rest-core rest-gen rest-happstack rest-snap rest-stringmap"
-      , "rest-types rest-wai tostring uri-encode imagesize-conduit"
+      [ "arrow-list attoparsec-expr bumper code-builder fay-builder"
+      , "hxt-pickle-utils multipart regular-xmlpickler"
+      , "tostring uri-encode imagesize-conduit"
       ]
+    unless (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
+        mapM_ (add "Silk <code@silk.co>") $ words =<<
+              [ "aeson-utils generic-aeson json-schema"
+              , "rest-client rest-core rest-gen rest-happstack rest-snap rest-stringmap"
+              , "rest-types rest-wai tostring uri-encode imagesize-conduit"
+              ]
 
     mapM_ (add "Simon Michael <simon@joyful.com>") $ words
         "hledger"
@@ -518,6 +523,22 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/277
     addRange "Michael Snoyman" "pandoc" "< 1.13"
 
+    when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
+        -- Yay workarounds for unnecessarily old versions
+        let peg x y = addRange "Haskell Platform" x y
+        peg "aeson" "== 0.7.0.4"
+        peg "scientific" "== 0.2.0.2"
+        --peg "criterion" "<= 0.8.1.0"
+        peg "tasty-quickcheck" "< 0.8.0.3"
+        peg "formatting" "< 5.0"
+        peg "parsers" "< 0.11"
+        peg "lens" "< 4.2"
+        peg "contravariant" "< 1"
+        peg "adjunctions" "< 4.2"
+        peg "kan-extensions" "< 4.1"
+        peg "semigroupoids" "< 4.1"
+        peg "aws" "< 0.10"
+
 add :: String -> String -> Writer PackageMap ()
 add maintainer package = addRange maintainer package "-any"
 
@@ -531,7 +552,7 @@ addRange maintainer package range =
 haskellPlatform78 :: Writer PackageMap ()
 haskellPlatform78 = do
     addRange "Haskell Platform" "ghc" "== 7.8.3"
-    addRange "Haskell Platform" "haddock" "== 2.14.2"
+    addRange "Haskell Platform" "haddock" "== 2.14.3"
     addRange "Haskell Platform" "array" "== 0.5.0.0"
     addRange "Haskell Platform" "base" "== 4.7.0.1"
     addRange "Haskell Platform" "bytestring" "== 0.10.4.0"
@@ -586,7 +607,6 @@ haskellPlatform78 = do
     addRange "Haskell Platform" "zlib" "== 0.5.4.1"
     addRange "Haskell Platform" "alex" "== 3.1.3"
     addRange "Haskell Platform" "cabal-install" "== 1.18.0.5"
-    addRange "Haskell Platform" "haddock" "== 2.14.2"
     addRange "Haskell Platform" "happy" "== 1.19.4"
     addRange "Haskell Platform" "hscolour" "== 1.20.3"
 
