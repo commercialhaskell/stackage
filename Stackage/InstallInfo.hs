@@ -14,7 +14,6 @@ import           Data.Version             (showVersion)
 import qualified Distribution.Text
 import           Distribution.Version     (simplifyVersionRange, withinRange)
 import           Stackage.GhcPkg
-import           Stackage.HaskellPlatform
 import           Stackage.LoadDatabase
 import           Stackage.NarrowDatabase
 import           Stackage.ServerFiles
@@ -36,25 +35,17 @@ dropExcluded bs m0 =
 getInstallInfo :: SelectSettings -> IO InstallInfo
 getInstallInfo settings = do
     putStrLn "Loading Haskell Platform"
-    mhp <- loadHaskellPlatform settings
 
-    core <-
-        case mhp of
-            Just hp | not (useGlobalDatabase settings) -> return $ hpcore hp
-            _ -> do
-                putStrLn "Loading core packages from global database"
-                getGlobalPackages $ selectGhcVersion settings
+    core <- do
+        putStrLn "Loading core packages from global database"
+        getGlobalPackages $ selectGhcVersion settings
     underlay <- getDBPackages (selectUnderlayPackageDirs settings) (selectGhcVersion settings)
     let underlaySet = Set.map pkgName underlay
         coreMap = Map.unions
                 $ map (\(PackageIdentifier k v) -> Map.singleton k v)
                 $ Set.toList core
         allPackages' =
-            case mhp of
-                Just hp | requireHaskellPlatform settings ->
-                    Map.union (stablePackages settings $ requireHaskellPlatform settings)
-                    $ identsToRanges (hplibs hp)
-                _ -> stablePackages settings $ requireHaskellPlatform settings
+            stablePackages settings $ requireHaskellPlatform settings
         allPackages = dropExcluded settings allPackages'
         totalCore
             | ignoreUpgradeableCore settings =
@@ -99,10 +90,7 @@ getInstallInfo settings = do
     let ii = InstallInfo
             { iiCore = totalCore
             , iiPackages = Map.map biToSPI final
-            , iiOptionalCore = maybe
-                Map.empty
-                (Map.fromList . map (\(PackageIdentifier p v) -> (p, v)) . Set.toList . hplibs)
-                mhp
+            , iiOptionalCore = Map.empty
             , iiPackageDB = pdb
             }
 
