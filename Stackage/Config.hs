@@ -512,6 +512,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/269
     addRange "Michael Snoyman" "tasty-hunit" "< 0.9"
+    addRange "Michael Snoyman" "lifted-async" "< 0.2.0.2"
 
     -- https://github.com/fpco/stackage/issues/271
     when (ghcVer < GhcMajorVersion 7 8) $
@@ -544,7 +545,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         peg "kan-extensions" "< 4.1"
         peg "semigroupoids" "< 4.1"
         peg "aws" "< 0.10"
-        peg "lifted-async" "< 0.2.0.2"
 
 add :: String -> String -> Writer PackageMap ()
 add maintainer package = addRange maintainer package "-any"
