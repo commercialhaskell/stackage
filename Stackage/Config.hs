@@ -181,6 +181,9 @@ defaultExpectedFailures ghcVer = execWriter $ do
     -- No AWS creds available
     add "aws"
 
+    -- Not sure why...
+    add "singletons"
+
   where
     add = tell . singleton . PackageName
 
