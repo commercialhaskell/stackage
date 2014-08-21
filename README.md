@@ -3,6 +3,10 @@ stackage
 
 "Stable Hackage," tools for creating a vetted set of packages from Hackage.
 
+__NOTE__ This repository is for package authors to get their code into
+Stackage. If you simply want to use Stackage as an end user, please follow the
+instructions on http://www.stackage.org/.
+
 A note about the codebase: the goal is to minimize dependencies and have
 the maximum range of supported compiler versions. Therefore, we avoid
 anything "complicated." For example, instead of using the text package,
