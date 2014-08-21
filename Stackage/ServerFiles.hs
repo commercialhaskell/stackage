@@ -48,6 +48,7 @@ createHackageFile isInc hp ii ghcVer date hackageH tarballH = do
         , stackageFP
         , " unstable-ghc"
         , filter (/= '.') ghcVer
+        , if hp then "hp" else ""
         , if isInc then "-inclusive" else "-exclusive"
         ]
 
