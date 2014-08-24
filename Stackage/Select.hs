@@ -45,6 +45,13 @@ defaultSelectSettings version = SelectSettings
         (if version <= GhcMajorVersion 7 4
             then Set.singleton "bytestring-builder"
             else Set.empty)
+
+        -- SHA and binary
+
+        `Set.union`
+        (if version <= GhcMajorVersion 7 6
+            then Set.singleton "decoderinterface"
+            else Set.empty)
     , allowedPackage = const $ Right ()
     , useGlobalDatabase = False
     , skippedTests =
