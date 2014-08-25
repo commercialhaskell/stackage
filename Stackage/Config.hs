@@ -198,7 +198,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "michael@snoyman.com") $ words =<<
         [ "yesod yesod-newsfeed yesod-sitemap yesod-static yesod-test yesod-bin"
         , "markdown mime-mail-ses"
-        , "persistent persistent-template persistent-sqlite"
+        , "persistent persistent-template persistent-sqlite persistent-postgresql persistent-mysql"
         , "network-conduit-tls yackage warp-tls keter"
         , "process-conduit stm-conduit"
         , "classy-prelude-yesod yesod-fay yesod-eventsource wai-websockets"
