@@ -527,6 +527,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/277
     addRange "Michael Snoyman" "pandoc" "< 1.13"
 
+    -- https://github.com/fpco/stackage/issues/279
+    addRange "Michael Snoyman" "MonadRandom" "< 0.2"
+
     -- https://github.com/fpco/stackage/issues/281
     addRange "Michael Snoyman" "lens" "< 4.4"
 
