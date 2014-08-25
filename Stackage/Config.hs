@@ -184,6 +184,9 @@ defaultExpectedFailures ghcVer = execWriter $ do
     -- Not sure why...
     add "singletons"
 
+    -- Requires too new a version of time
+    when (ghcVer < GhcMajorVersion 7 8) $ add "cookie"
+
   where
     add = tell . singleton . PackageName
 
