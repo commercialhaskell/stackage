@@ -111,9 +111,8 @@ loadPackageDB settings coreMap core deps underlay = do
            $ simpleParse $ reverse v'
         case Map.lookup p deps of
             Just (vrange, _)
-                | withinRange v vrange ->
-                    findCabalAndAddPackage tarball p v pdb $ Tar.read $ GZip.decompress lbs
-            _ -> return pdb
+                | not $ withinRange v vrange -> return pdb
+            _ -> findCabalAndAddPackage tarball p v pdb $ Tar.read $ GZip.decompress lbs
       where
         tarball = selectTarballDir settings </> tarball' <.> "tar.gz"
 
