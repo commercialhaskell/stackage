@@ -492,6 +492,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/224
     when (ghcVer <= GhcMajorVersion 7 6) $ do
         addRange "Michael Snoyman" "zip-archive" "== 0.2.2.1"
+        addRange "Michael Snoyman" "pandoc" "== 1.12.4.2"
+        addRange "Michael Snoyman" "texmath" "<= 0.6.6.3"
 
     -- https://github.com/fpco/stackage/issues/231
     addRange "Michael Snoyman" "optparse-applicative" "< 0.9"
