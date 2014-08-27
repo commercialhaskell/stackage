@@ -498,9 +498,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/242
     addRange "Michael Snoyman" "mongoDB" "< 1.6"
 
-    -- https://github.com/jgm/pandoc/issues/1442
-    addRange "Michael Snoyman" "texmath" "<= 0.6.6.3"
-
     -- Requires too new a version of text
     when (ghcVer == GhcMajorVersion 7 4 && requireHP) $ do
         addRange "Michael Snoyman" "attoparsec" "< 0.11.2.1"
@@ -529,9 +526,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/276
     addRange "Michael Snoyman" "network" "< 2.6"
-
-    -- https://github.com/fpco/stackage/issues/277
-    addRange "Michael Snoyman" "pandoc" "< 1.13"
 
     -- https://github.com/fpco/stackage/issues/279
     addRange "Michael Snoyman" "MonadRandom" "< 0.2"
