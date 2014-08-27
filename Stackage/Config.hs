@@ -551,6 +551,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         peg "kan-extensions" "< 4.1"
         peg "semigroupoids" "< 4.1"
         peg "aws" "< 0.10"
+        peg "pandoc" "< 1.13"
+        peg "texmath" "<= 0.6.6.3"
 
 add :: String -> String -> Writer PackageMap ()
 add maintainer package = addRange maintainer package "-any"
