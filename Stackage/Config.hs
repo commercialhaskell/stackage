@@ -541,7 +541,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         let peg x y = addRange "Haskell Platform" x y
         peg "aeson" "== 0.7.0.4"
         peg "scientific" "== 0.2.0.2"
-        --peg "criterion" "<= 0.8.1.0"
+        peg "criterion" "<= 0.8.1.0"
         peg "tasty-quickcheck" "< 0.8.0.3"
         peg "formatting" "< 5.0"
         peg "parsers" "< 0.11"

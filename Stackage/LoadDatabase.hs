@@ -98,15 +98,9 @@ loadPackageDB settings coreMap core deps underlay = do
                         _ -> do
                             let pkgname = packageVersionString (p, v)
                                 tarball = selectTarballDir settings </> pkgname <.> "tar.gz"
-                            exists <- doesFileExist tarball
-                            if exists
-                                then do
-                                    lbs <- L.readFile tarball
-                                    findCabalAndAddPackage tarball p v pdb $ Tar.read $ GZip.decompress lbs
-                                else
-                                    case Tar.entryContent e of
-                                        Tar.NormalFile bs _ -> addPackage p v bs pdb
-                                        _ -> return pdb
+                            case Tar.entryContent e of
+                                Tar.NormalFile bs _ -> addPackage p v bs pdb
+                                _ -> return pdb
 
     addTarball :: PackageDB -> FilePath -> IO PackageDB
     addTarball pdb tarball' = do
@@ -115,7 +109,11 @@ loadPackageDB settings coreMap core deps underlay = do
             p = PackageName $ reverse $ drop 1 p'
         v <- maybe (error $ "Invalid tarball name: " ++ tarball) return
            $ simpleParse $ reverse v'
-        findCabalAndAddPackage tarball p v pdb $ Tar.read $ GZip.decompress lbs
+        case Map.lookup p deps of
+            Just (vrange, _)
+                | withinRange v vrange ->
+                    findCabalAndAddPackage tarball p v pdb $ Tar.read $ GZip.decompress lbs
+            _ -> return pdb
       where
         tarball = selectTarballDir settings </> tarball' <.> "tar.gz"
 
