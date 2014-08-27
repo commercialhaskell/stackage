@@ -465,6 +465,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     mapM_ (add "Mihai Maruseac <mihai.maruseac@gmail.com>") $ words
         "io-manager"
+        
+    mapM_ (add "Yann Esposito <yann.esposito@gmail.com>") $ words
+        "holy-project"
 
     -- Newest hxt requires network 2.4 or newest
     when (ghcVer == GhcMajorVersion 7 4 && requireHP) $ do
