@@ -215,6 +215,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "persistent-template" "< 2"
     addRange "Michael Snoyman" "persistent-postgresql" "< 2"
     addRange "Michael Snoyman" "persistent-mongoDB" "< 2"
+    addRange "Michael Snoyman" "persistent-sqlite" "< 2"
 
     -- https://github.com/fpco/stackage/issues/261
     addRange "Michael Snoyman" "cabal-install" $
