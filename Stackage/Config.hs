@@ -209,6 +209,12 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "bzlib-conduit case-insensitive"
         , "conduit-extra conduit-combinators yesod-websockets"
         ]
+    -- Temporary upper bounds while persistent2 is tested
+    addRange "Michael Snoyman" "persistent" "< 2"
+    addRange "Michael Snoyman" "persistent-mysql" "< 2"
+    addRange "Michael Snoyman" "persistent-template" "< 2"
+    addRange "Michael Snoyman" "persistent-postgresql" "< 2"
+    addRange "Michael Snoyman" "persistent-mongoDB" "< 2"
 
     -- https://github.com/fpco/stackage/issues/261
     addRange "Michael Snoyman" "cabal-install" $
