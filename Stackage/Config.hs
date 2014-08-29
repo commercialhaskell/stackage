@@ -375,7 +375,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         ]
 
     mapM_ (add "Daniel Díaz <dhelta.diaz@gmail.com>") $ words
-        "HaTeX matrix"
+        "HaTeX matrix binary-list"
 
     mapM_ (add "Gabriel Gonzalez <Gabriel439@gmail.com>")
         ["pipes", "pipes-parse", "pipes-concurrency"]
