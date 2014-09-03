@@ -505,9 +505,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         addRange "Michael Snoyman" "pandoc" "== 1.12.4.2"
         addRange "Michael Snoyman" "texmath" "<= 0.6.6.3"
 
-    -- https://github.com/fpco/stackage/issues/231
-    addRange "Michael Snoyman" "optparse-applicative" "< 0.9"
-
     -- https://github.com/fpco/stackage/issues/242
     addRange "Michael Snoyman" "mongoDB" "< 1.6"
 
