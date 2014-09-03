@@ -548,6 +548,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/286
     addRange "Michael Snoyman" "optparse-applicative" "< 0.10"
+    addRange "Michael Snoyman" "haskell-packages" "< 0.2.4.2"
 
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
         -- Yay workarounds for unnecessarily old versions
