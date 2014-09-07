@@ -230,10 +230,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
                 | otherwise -> "-any"
 
     when (ghcVer >= GhcMajorVersion 7 6) $ add "michael@snoyman.com" "cabal-src"
-#if !defined(mingw32_HOST_OS) && !defined(__MINGW32__)
-    -- Does not compile on Windows
-    mapM_ (add "michael@snoyman.com") $ words "judy"
-#endif
 
     mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
         [ "web-fpco th-expand-syns configurator smtLib"
