@@ -189,6 +189,12 @@ defaultExpectedFailures ghcVer = execWriter $ do
     -- Restrictive QuickCheck upper bound in test suite
     add "uuid"
 
+    -- https://github.com/fpco/stackage/issues/285
+    add "arbtt"
+    add "diagrams-haddock"
+    add "scientific"
+    add "json-schema"
+    add "tasty-ant-xml"
   where
     add = tell . singleton . PackageName
 
@@ -465,10 +471,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- current build status.
     addRange "Andrey Chudnov <oss@chudnov.com>" "language-ecmascript" ">= 0.16.2 && < 1.0"
 
-    -- https://github.com/fpco/stackage/issues/269
-    addRange "Michael Snoyman" "tasty-hunit" "< 0.9"
-    addRange "Michael Snoyman" "lifted-async" "< 0.2.0.2"
-
     -- https://github.com/fpco/stackage/issues/271
     when (ghcVer < GhcMajorVersion 7 8) $
         addRange "Michael Snoyman" "aeson" "< 0.8"
@@ -482,9 +484,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/279
     addRange "Michael Snoyman" "MonadRandom" "< 0.2"
-
-    -- https://github.com/fpco/stackage/issues/285
-    addRange "Michael Snoyman" "tasty" "< 0.9"
 
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
         -- Yay workarounds for unnecessarily old versions
