@@ -103,10 +103,6 @@ defaultExpectedFailures ghcVer = execWriter $ do
       -- Some kind of Cabal bug when trying to run tests
     add "thyme"
 
-    when (ghcVer < GhcMajorVersion 7 6) $ do
-        -- https://github.com/haskell-suite/haskell-names/issues/39
-        add "haskell-names"
-
     add "shake"
 
     -- https://github.com/jgm/pandoc-citeproc/issues/5
@@ -157,9 +153,6 @@ defaultExpectedFailures ghcVer = execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/226
     add "options"
-
-    -- Requires too high a bytestring
-    when (ghcVer <= GhcMajorVersion 7 4) $ add "scientific"
 
     -- https://github.com/gtk2hs/gtk2hs/issues/36
     add "glib"
@@ -214,18 +207,16 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "random-shuffle hebrew-time"
         , "bzlib-conduit case-insensitive"
         , "conduit-extra conduit-combinators yesod-websockets"
+        , "cabal-src"
         ]
 
     -- https://github.com/fpco/stackage/issues/261
     addRange "Michael Snoyman" "cabal-install" $
         case () of
             ()
-                | ghcVer <= GhcMajorVersion 7 4 -> "< 1.15"
                 | ghcVer <= GhcMajorVersion 7 6 -> "< 1.17"
                 | ghcVer <= GhcMajorVersion 7 8 -> "< 1.19"
                 | otherwise -> "-any"
-
-    when (ghcVer >= GhcMajorVersion 7 6) $ add "michael@snoyman.com" "cabal-src"
 
     mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
         [ "web-fpco th-expand-syns configurator smtLib"
@@ -254,14 +245,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
             , "th-lift singletons th-desugar quickcheck-assertions"
             ]
 
-    -- Deprecated version
-    when (ghcVer < GhcMajorVersion 7 6) $ do
-        when requireHP $ do
-            addRange "FP Complete <michael@fpcomplete.com>" "hxt" "<= 9.3.0.1"
-        addRange "FP Complete <michael@fpcomplete.com>" "shelly" "<= 1.0"
-        addRange "FP Complete <michael@fpcomplete.com>" "lockfree-queue" "== 0.2"
-    -- when (ghcVer == GhcMajorVersion 7 6) $ do -- No GHC 7.8 support
-    --     add "FP Complete <michael@fpcomplete.com>" "repa-devil"
     addRange "FP Complete <michael@fpcomplete.com>" "kure" "<= 2.4.10"
 
     mapM_ (add "Neil Mitchell") $ words
@@ -269,9 +252,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     mapM_ (add "Alan Zimmerman") $ words
         "hjsmin language-javascript"
-    -- Requires newer alex than provided with HP
-    when (ghcVer == GhcMajorVersion 7 4 && requireHP) $
-        addRange "Alan Zimmerman" "language-javascript" "== 0.5.9"
 
     mapM_ (add "Jasper Van der Jeugt") $ words
         "blaze-html blaze-markup stylish-haskell"
@@ -321,19 +301,14 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
             [ "categories comonad-extras recursion-schemes syb-extras"
             ]
 
-    when (ghcVer >= GhcMajorVersion 7 6) $
-        mapM_ (add "Andrew Farmer <afarmer@ittc.ku.edu>") $ words
-            "scotty wai-middleware-static"
+    mapM_ (add "Andrew Farmer <afarmer@ittc.ku.edu>") $ words
+        "scotty wai-middleware-static"
 
     mapM_ (add "Simon Hengel <sol@typeful.net>") $ words
         "hspec doctest base-compat"
 
     mapM_ (add "Mario Blazevic <blamario@yahoo.com>") $ words
-        "monad-parallel monad-coroutine"
-    -- https://github.com/blamario/monoid-subclasses/issues/3
-    when (ghcVer >= GhcMajorVersion 7 6) $ do
-        mapM_ (add "Mario Blazevic <blamario@yahoo.com>") $ words
-            "incremental-parser monoid-subclasses"
+        "monad-parallel monad-coroutine incremental-parser monoid-subclasses"
 
     mapM_ (add "Brent Yorgey <byorgey@gmail.com>") $ words =<<
         [ "monoid-extras dual-tree vector-space-points active force-layout"
@@ -359,9 +334,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     when (ghcVer == GhcMajorVersion 7 6) $ do
         mapM_ (add "Ryan Newton <ryan.newton@alum.mit.edu>") $ words
             "accelerate"
-    when (ghcVer < GhcMajorVersion 7 6) $ do
-        addRange "Ryan Newton <ryan.newton@alum.mit.edu>" "accelerate" "< 0.14"
-        addRange "Ryan Newton <ryan.newton@alum.mit.edu>" "fclabels" "< 2.0"
 
     mapM_ (add "Dan Burton <danburton.email@gmail.com>") $ words =<<
         [ "basic-prelude composition io-memoize numbers rev-state runmemo"
@@ -386,7 +358,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Michal J. Gajda") $ words
         "iterable Octree FenwickTree"
     -- https://github.com/BioHaskell/hPDB/issues/2
-    when (ghcVer >= GhcMajorVersion 7 8) $ do -- No GHC 7.8 support
+    when (ghcVer >= GhcMajorVersion 7 8) $ do
         mapM_ (add "Michal J. Gajda") $ words
             "hPDB hPDB-examples"
 
@@ -399,9 +371,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "George Giorgidze <giorgidze@gmail.com>") $ words
         "HCodecs YampaSynth"
 
-    when (ghcVer >= GhcMajorVersion 7 6) $ do -- No GHC 7.4 support
-        mapM_ (add "Phil Hargett <phil@haphazardhouse.net>") $ words
-            "courier"
+    mapM_ (add "Phil Hargett <phil@haphazardhouse.net>") $ words
+        "courier"
 
 #if !defined(mingw32_HOST_OS) && !defined(__MINGW32__)
     mapM_ (add "Aycan iRiCAN <iricanaycan@gmail.com>") $ words
@@ -431,8 +402,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         "DAV hOpenPGP hopenpgp-tools openpgp-asciiarmor MusicBrainz"
 
     -- https://github.com/fpco/stackage/issues/160
-    when (ghcVer >= GhcMajorVersion 7 6) $ do
-      mapM_ (add "Ketil Malde") $ words =<<
+    mapM_ (add "Ketil Malde") $ words =<<
         [ "biocore biofasta biofastq biosff"
         , "blastxml bioace biophd"
         , "biopsl" -- https://github.com/ingolia/SamTools/issues/3 samtools
@@ -444,13 +414,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         -- , "BiobaseTypes BiobaseFasta"
         -- MC-Fold-DP
         ]
-      -- https://github.com/fpco/stackage/issues/163
-      addRange "Michael Snoyman" "biophd" "< 0.0.6 || > 0.0.6"
-    when (ghcVer == GhcMajorVersion 7 6) $ do
-        mapM_ (add "Ketil Malde") $ words =<<
-            -- RNAFold
-            [ "hTalos parsestar"
-            ]
+    -- https://github.com/fpco/stackage/issues/163
+    addRange "Michael Snoyman" "biophd" "< 0.0.6 || > 0.0.6"
 
     mapM_ (add "Silk <code@silk.co>") $ words =<<
       [ "arrow-list attoparsec-expr bumper code-builder fay-builder"
@@ -474,15 +439,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         mapM_ (add "Yann Esposito <yann.esposito@gmail.com>") $ words
             "holy-project"
 
-    -- Newest hxt requires network 2.4 or newest
-    when (ghcVer == GhcMajorVersion 7 4 && requireHP) $ do
-        addRange "Michael Snoyman" "hxt" "< 9.3.1"
-        addRange "Michael Snoyman" "network" "< 2.4"
-
-    -- https://github.com/fpco/stackage/issues/197
-    when (ghcVer == GhcMajorVersion 7 6 && requireHP) $
-        addRange "Michael Snoyman" "parsers" "< 0.11"
-
     -- https://github.com/fpco/stackage/issues/216
     -- QuickCheck constraint
     -- when (ghcVer == GhcMajorVersion 7 6) $
@@ -498,11 +454,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         addRange "Michael Snoyman" "zip-archive" "== 0.2.2.1"
         addRange "Michael Snoyman" "pandoc" "== 1.12.4.2"
         addRange "Michael Snoyman" "texmath" "<= 0.6.6.3"
-
-    -- Requires too new a version of text
-    when (ghcVer == GhcMajorVersion 7 4 && requireHP) $ do
-        addRange "Michael Snoyman" "attoparsec" "< 0.11.2.1"
-        addRange "Michael Snoyman" "parsers" "< 0.11"
 
     -- 0.16.2 fixes dependency issues with different version of GHC
     -- and Haskell Platform. Now builds on GHC 7.4-7.8. Version 1.0 is
