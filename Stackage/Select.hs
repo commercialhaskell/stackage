@@ -56,7 +56,10 @@ defaultSelectSettings version = SelectSettings
     , useGlobalDatabase = False
     , skippedTests =
         if version >= GhcMajorVersion 7 8
-            then Set.singleton (PackageName "punycode") -- pulls in encoding
+            then Set.fromList
+                    [ PackageName "punycode" -- pulls in encoding
+                    , PackageName "scientific" -- pulls in tasty-ant-xml
+                    ]
             else Set.empty
     , selectGhcVersion = version
     , selectTarballDir = "patching/tarballs"
