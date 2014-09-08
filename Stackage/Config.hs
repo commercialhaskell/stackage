@@ -186,6 +186,9 @@ defaultExpectedFailures ghcVer = execWriter $ do
     -- Restrictive checkers upper bound in test suite
     add "incremental-parser"
 
+    -- Restrictive QuickCheck upper bound in test suite
+    add "uuid"
+
   where
     add = tell . singleton . PackageName
 
