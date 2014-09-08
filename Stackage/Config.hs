@@ -190,6 +190,9 @@ defaultExpectedFailures ghcVer = execWriter $ do
     -- Requires too new a version of time
     when (ghcVer < GhcMajorVersion 7 8) $ add "cookie"
 
+    -- Restrictive checkers upper bound in test suite
+    add "incremental-parser"
+
   where
     add = tell . singleton . PackageName
 
@@ -212,13 +215,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "bzlib-conduit case-insensitive"
         , "conduit-extra conduit-combinators yesod-websockets"
         ]
-    -- Temporary upper bounds while persistent2 is tested
-    addRange "Michael Snoyman" "persistent" "< 2"
-    addRange "Michael Snoyman" "persistent-mysql" "< 2"
-    addRange "Michael Snoyman" "persistent-template" "< 2"
-    addRange "Michael Snoyman" "persistent-postgresql" "< 2"
-    addRange "Michael Snoyman" "persistent-mongoDB" "< 2"
-    addRange "Michael Snoyman" "persistent-sqlite" "< 2"
 
     -- https://github.com/fpco/stackage/issues/261
     addRange "Michael Snoyman" "cabal-install" $
@@ -258,7 +254,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
             ]
 
     -- Deprecated version
-    addRange "FP Complete <michael@fpcomplete.com>" "persistent-mongoDB" "< 1.3.1 || > 1.3.1"
     when (ghcVer < GhcMajorVersion 7 6) $ do
         when requireHP $ do
             addRange "FP Complete <michael@fpcomplete.com>" "hxt" "<= 9.3.0.1"
@@ -351,8 +346,10 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     mapM_ (add "Patrick Brisbin") $ words "gravatar"
 
+    {- persistent 2.0/conduit 1.2
     mapM_ (add "Felipe Lessa <felipe.lessa@gmail.com>") $ words
         "esqueleto fb fb-persistent yesod-fb yesod-auth-fb"
+    -}
 
     mapM_ (add "Alexander Altman <alexanderaltman@me.com>") $ words
         "base-unicode-symbols containers-unicode-symbols"
@@ -501,16 +498,10 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         addRange "Michael Snoyman" "pandoc" "== 1.12.4.2"
         addRange "Michael Snoyman" "texmath" "<= 0.6.6.3"
 
-    -- https://github.com/fpco/stackage/issues/242
-    addRange "Michael Snoyman" "mongoDB" "< 1.6"
-
     -- Requires too new a version of text
     when (ghcVer == GhcMajorVersion 7 4 && requireHP) $ do
         addRange "Michael Snoyman" "attoparsec" "< 0.11.2.1"
         addRange "Michael Snoyman" "parsers" "< 0.11"
-
-    -- local patch
-    addRange "Michael Snoyman" "bson" "== 0.2.4"
 
     -- 0.16.2 fixes dependency issues with different version of GHC
     -- and Haskell Platform. Now builds on GHC 7.4-7.8. Version 1.0 is
@@ -532,6 +523,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/276
     addRange "Michael Snoyman" "network" "< 2.6"
+    addRange "Michael Snoyman" "network-uri" "< 2.6"
 
     -- https://github.com/fpco/stackage/issues/279
     addRange "Michael Snoyman" "MonadRandom" "< 0.2"
