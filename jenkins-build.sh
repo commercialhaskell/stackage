@@ -1,6 +1,7 @@
 #!/bin/bash -ex
 
 cabal update
+rm -rf patching/tarballs
 (cd patching/ && ./scripts/create-tarballs.sh)
 cabal install
 cabal install Cabal-$(cabal --version | sed -n 's@using version \(.*\) of the Cabal library@\1@p')
