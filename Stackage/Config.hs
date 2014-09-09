@@ -183,14 +183,7 @@ defaultExpectedFailures ghcVer = execWriter $ do
     -- Requires too new a version of time
     when (ghcVer < GhcMajorVersion 7 8) $ add "cookie"
 
-    -- Restrictive checkers upper bound in test suite
-    add "incremental-parser"
-
-    -- Restrictive QuickCheck upper bound in test suite
-    add "uuid"
-
     -- https://github.com/fpco/stackage/issues/285
-    add "arbtt"
     add "diagrams-haddock"
     add "scientific"
     add "json-schema"
