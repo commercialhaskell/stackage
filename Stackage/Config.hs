@@ -191,6 +191,12 @@ defaultExpectedFailures ghcVer = execWriter $ do
 
     -- https://github.com/BioHaskell/octree/issues/4
     add "Octree"
+
+    -- No code until we upgrade to network 2.6
+    add "network-uri"
+
+    -- https://github.com/goldfirere/th-desugar/issues/12
+    add "th-desugar"
   where
     add = tell . singleton . PackageName
 
