@@ -188,6 +188,9 @@ defaultExpectedFailures ghcVer = execWriter $ do
     add "scientific"
     add "json-schema"
     add "tasty-ant-xml"
+
+    -- https://github.com/BioHaskell/octree/issues/4
+    add "Octree"
   where
     add = tell . singleton . PackageName
 
