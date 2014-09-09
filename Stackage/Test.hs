@@ -138,7 +138,7 @@ runTestSuite cabalVersion settings testdir (packageName, SelectedPackageInfo {..
     if passed
         then do
             removeFile logfile
-            when expectedFailure $ putStrLn $ package ++ " passed, but I didn't think it would."
+            when expectedFailure $ putStrLn $ "   " ++ package ++ " passed, but I didn't think it would."
         else unless expectedFailure $ putStrLn $ concat
                 [ "Test suite failed: "
                 , package
