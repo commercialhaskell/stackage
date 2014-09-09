@@ -234,14 +234,13 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "async shelly thyme"
         , "hxt hxt-relaxng dimensional"
         , "cairo diagrams-cairo gtk2hs-buildtools"
-        , "persistent-mongoDB fpco-api"
         , "base16-bytestring convertible"
         , "compdata hybrid-vectors"
         , "executable-path formatting quandl-api"
         , "fgl hmatrix hmatrix-gsl"
         , "alex happy"
         ]
-    -- aws
+    -- aws fpco-api persistent-mongoDB
     when (ghcVer < GhcMajorVersion 7 8) $ do -- No GHC 7.8 support
         mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
             [ "" -- too unreliable for the moment "distributed-process distributed-process-simplelocalnet"
@@ -408,7 +407,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         "HandsomeSoup"
 
     mapM_ (add "Clint Adams <clint@debian.org>") $ words
-        "DAV hOpenPGP hopenpgp-tools openpgp-asciiarmor MusicBrainz"
+        "hOpenPGP hopenpgp-tools openpgp-asciiarmor MusicBrainz"
+        -- DAV hopenpgp-tools
 
     -- https://github.com/fpco/stackage/issues/160
     mapM_ (add "Ketil Malde") $ words =<<
@@ -444,9 +444,11 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Mihai Maruseac <mihai.maruseac@gmail.com>") $ words
         "io-manager"
 
+    {-
     when (ghcVer >= GhcMajorVersion 7 8) $
         mapM_ (add "Yann Esposito <yann.esposito@gmail.com>") $ words
             "holy-project"
+    -}
 
     -- https://github.com/fpco/stackage/issues/216
     -- QuickCheck constraint
