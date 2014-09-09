@@ -241,8 +241,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "executable-path formatting quandl-api"
         , "fgl hmatrix hmatrix-gsl"
         , "alex happy"
+        , "fpco-api"
         ]
-    -- aws fpco-api persistent-mongoDB
+    -- aws persistent-mongoDB
     when (ghcVer < GhcMajorVersion 7 8) $ do -- No GHC 7.8 support
         mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
             [ "" -- too unreliable for the moment "distributed-process distributed-process-simplelocalnet"
