@@ -403,7 +403,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         "HandsomeSoup"
 
     mapM_ (add "Clint Adams <clint@debian.org>") $ words
-        "hOpenPGP hopenpgp-tools openpgp-asciiarmor MusicBrainz"
+        "hOpenPGP openpgp-asciiarmor MusicBrainz"
         -- DAV hopenpgp-tools
 
     -- https://github.com/fpco/stackage/issues/160
