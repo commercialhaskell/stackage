@@ -352,7 +352,10 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         ]
 
     mapM_ (add "Daniel Díaz <dhelta.diaz@gmail.com>") $ words
-        "HaTeX matrix binary-list"
+        "HaTeX matrix"
+    when (ghcVer >= GhcMajorVersion 7 8) $
+        mapM_ (add "Daniel Díaz <dhelta.diaz@gmail.com>") $ words
+            "binary-list"
 
     mapM_ (add "Gabriel Gonzalez <Gabriel439@gmail.com>")
         ["pipes", "pipes-parse", "pipes-concurrency"]
@@ -433,7 +436,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
       , "hxt-pickle-utils multipart regular-xmlpickler"
       , "tostring uri-encode imagesize-conduit"
       ]
-    unless (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
+    when (ghcVer >= GhcMajorVersion 7 8 && not requireHP) $ do
         mapM_ (add "Silk <code@silk.co>") $ words =<<
               [ "aeson-utils generic-aeson json-schema"
               , "rest-client rest-core rest-gen rest-happstack rest-snap rest-stringmap"
@@ -466,6 +469,12 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         addRange "Michael Snoyman" "zip-archive" "== 0.2.2.1"
         addRange "Michael Snoyman" "pandoc" "== 1.12.4.2"
         addRange "Michael Snoyman" "texmath" "<= 0.6.6.3"
+        addRange "Michael Snoyman" "attoparsec" "== 0.11.3.1"
+        addRange "Michael Snoyman" "parsers" "< 0.11"
+        addRange "Michael Snoyman" "scientific" "< 0.3"
+        addRange "Michael Snoyman" "aeson" "< 0.7.0.5"
+        addRange "Michael Snoyman" "aeson-utils" "< 0.2.2"
+        addRange "Michael Snoyman" "formatting" "< 5"
 
     -- 0.16.2 fixes dependency issues with different version of GHC
     -- and Haskell Platform. Now builds on GHC 7.4-7.8. Version 1.0 is
