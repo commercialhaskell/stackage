@@ -449,6 +449,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     when (ghcVer >= GhcMajorVersion 7 8) $
         mapM_ (add "Yann Esposito <yann.esposito@gmail.com>") $ words
             "holy-project"
+    when requireHP $ addRange "Yann Esposito <yann.esposito@gmail.com>" "holy-project" "< 0.1.1.1"
 
     -- https://github.com/fpco/stackage/issues/216
     -- QuickCheck constraint
