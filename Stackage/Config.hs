@@ -410,8 +410,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         "HandsomeSoup"
 
     mapM_ (add "Clint Adams <clint@debian.org>") $ words
-        "hOpenPGP openpgp-asciiarmor MusicBrainz"
-        -- DAV hopenpgp-tools
+        "hOpenPGP openpgp-asciiarmor MusicBrainz DAV hopenpgp-tools"
 
     -- https://github.com/fpco/stackage/issues/160
     mapM_ (add "Ketil Malde") $ words =<<
@@ -447,11 +446,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Mihai Maruseac <mihai.maruseac@gmail.com>") $ words
         "io-manager"
 
-    {-
     when (ghcVer >= GhcMajorVersion 7 8) $
         mapM_ (add "Yann Esposito <yann.esposito@gmail.com>") $ words
             "holy-project"
-    -}
 
     -- https://github.com/fpco/stackage/issues/216
     -- QuickCheck constraint
