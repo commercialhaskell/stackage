@@ -35,7 +35,7 @@ createHackageFile isInc hp ii ghcVer date hackageH tarballH = do
             , ".stackage"
             ]
     hPutStr tarballH $ concat
-        [ "#!/bin/bash -ex\n\ntar czfv "
+        [ "#!/bin/bash -ex\n\ncp ../build* .\ntar czfv "
         , stackageFP
         , " hackage desc"
         ]
