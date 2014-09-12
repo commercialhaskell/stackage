@@ -197,6 +197,9 @@ defaultExpectedFailures ghcVer = execWriter $ do
 
     -- https://github.com/goldfirere/th-desugar/issues/12
     add "th-desugar"
+
+    -- https://github.com/haskell/c2hs/issues/108
+    add "c2hs"
   where
     add = tell . singleton . PackageName
 
