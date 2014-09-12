@@ -27,7 +27,7 @@ defaultBuildSettings :: Maybe Int -- ^ argument to -j
 defaultBuildSettings cores version = BuildSettings
     { sandboxRoot = "sandbox"
     , expectedFailuresBuild = defaultExpectedFailures version
-    , extraArgs = \bs -> "-fnetwork23" :
+    , extraArgs = \bs -> "-fnetwork23" : "-fhttps" :
         case bs of
             BSTest -> []
             _ ->

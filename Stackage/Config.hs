@@ -240,7 +240,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "compdata hybrid-vectors"
         , "executable-path formatting quandl-api"
         , "fgl hmatrix hmatrix-gsl"
-        , "alex happy"
+        , "alex happy c2hs"
         , "fpco-api"
         ]
     -- aws persistent-mongoDB
@@ -499,6 +499,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/288
     addRange "Michael Snoyman" "text" "< 1.2"
+
+    -- Pandoc upper bound
+    addRange "Michael Snoyman" "http-client" "< 0.4"
 
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
         -- Yay workarounds for unnecessarily old versions
