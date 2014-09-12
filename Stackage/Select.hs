@@ -28,7 +28,7 @@ defaultSelectSettings version = SelectSettings
     , ignoreUpgradeableCore = False
     , excludedPackages = empty
     , flags = \coreMap ->
-        Set.fromList (words "blaze_html_0_5 small_base") `Set.union`
+        Set.fromList (words "blaze_html_0_5 small_base https") `Set.union`
 
 #if defined(mingw32_HOST_OS) || defined(__MINGW32__)
         -- Needed on Windows to get unix-compat to compile
