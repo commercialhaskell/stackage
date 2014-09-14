@@ -506,6 +506,10 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- Pandoc upper bound
     addRange "Michael Snoyman" "http-client" "< 0.4"
 
+    -- https://github.com/fpco/stackage/issues/289
+    addRange "Michael Snoyman" "haskell-src-exts" "< 1.16"
+    addRange "Michael Snoyman" "haskell-names" "< 0.4.1"
+
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
         -- Yay workarounds for unnecessarily old versions
         let peg x y = addRange "Haskell Platform" x y
