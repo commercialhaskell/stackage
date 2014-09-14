@@ -125,7 +125,11 @@ iiBuildTools InstallInfo { iiPackageDB = PackageDB m, iiPackages = packages } =
                 Just pi -> Set.fromList
                          $ mapMaybe (flip Map.lookup buildToolMap)
                          $ Set.toList
-                         $ piBuildToolsExe pi
+                         $ piBuildToolsExe pi `Set.union` manualDeps
+
+        manualDeps
+            | pn == PackageName "c2hs" = Set.singleton $ Executable "happy"
+            | otherwise = Set.empty
 
 topSort :: (Show a, Ord a) => [(a, Set a)] -> Either String [a]
 topSort orig =
