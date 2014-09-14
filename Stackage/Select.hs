@@ -58,7 +58,6 @@ defaultSelectSettings version = SelectSettings
         if version >= GhcMajorVersion 7 8
             then Set.fromList
                     [ PackageName "punycode" -- pulls in encoding
-                    , PackageName "scientific" -- pulls in tasty-ant-xml
                     ]
             else Set.empty
     , selectGhcVersion = version

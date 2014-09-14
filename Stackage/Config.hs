@@ -187,7 +187,6 @@ defaultExpectedFailures ghcVer = execWriter $ do
     add "diagrams-haddock"
     add "scientific"
     add "json-schema"
-    add "tasty-ant-xml"
 
     -- https://github.com/BioHaskell/octree/issues/4
     add "Octree"
