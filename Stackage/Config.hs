@@ -476,6 +476,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         addRange "Michael Snoyman" "aeson" "< 0.7.0.5"
         addRange "Michael Snoyman" "aeson-utils" "< 0.2.2"
         addRange "Michael Snoyman" "formatting" "< 5"
+        addRange "Michael Snoyman" "aws" "< 0.10"
 
     -- 0.16.2 fixes dependency issues with different version of GHC
     -- and Haskell Platform. Now builds on GHC 7.4-7.8. Version 1.0 is
