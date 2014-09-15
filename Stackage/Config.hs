@@ -343,10 +343,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Alexander Altman <alexanderaltman@me.com>") $ words
         "base-unicode-symbols containers-unicode-symbols"
 
-    -- NOTE: accelerate not yet supported on GHC 7.8
-    when (ghcVer == GhcMajorVersion 7 6) $ do
-        mapM_ (add "Ryan Newton <ryan.newton@alum.mit.edu>") $ words
-            "accelerate"
+    if ghcVer >= GhcMajorVersion 7 8
+        then add "Ryan Newton <ryan.newton@alum.mit.edu>" "accelerate"
+        else addRange "Ryan Newton <ryan.newton@alum.mit.edu>" "accelerate" "< 0.15"
 
     mapM_ (add "Dan Burton <danburton.email@gmail.com>") $ words =<<
         [ "basic-prelude composition io-memoize numbers rev-state runmemo"
