@@ -513,6 +513,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "haskell-names" "< 0.4.1"
     addRange "Michael Snoyman" "hlint" "< 1.9.5"
     addRange "Michael Snoyman" "stylish-haskell" "< 0.5.11"
+    addRange "Michael Snoyman" "derive" "< 2.5.17"
+    addRange "Michael Snoyman" "hoogle" "< 4.2.35"
 
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
         -- Yay workarounds for unnecessarily old versions
