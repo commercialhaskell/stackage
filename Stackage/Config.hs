@@ -199,6 +199,9 @@ defaultExpectedFailures ghcVer = execWriter $ do
 
     -- https://github.com/haskell/c2hs/issues/108
     add "c2hs"
+
+    -- https://github.com/jmillikin/haskell-filesystem/issues/3
+    add "system-filepath"
   where
     add = tell . singleton . PackageName
 
