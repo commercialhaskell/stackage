@@ -202,6 +202,10 @@ defaultExpectedFailures ghcVer = execWriter $ do
 
     -- https://github.com/jmillikin/haskell-filesystem/issues/3
     add "system-filepath"
+
+    -- For some unknown reason, doctest has trouble on GHC 7.6. This only
+    -- happens during a Stackage test.
+    when (ghcVer == GhcMajorVersion 7 8) $ add "http-types"
   where
     add = tell . singleton . PackageName
 
