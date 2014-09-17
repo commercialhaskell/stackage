@@ -519,6 +519,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- Force a specific version that's compatible with transformers 0.3
     addRange "Michael Snoyman" "transformers-compat" "== 0.3.3.3"
 
+    -- https://github.com/fpco/stackage/issues/291
+    addRange "Michael Snoyman" "random" "< 1.1"
+
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
         -- Yay workarounds for unnecessarily old versions
         let peg x y = addRange "Haskell Platform" x y
