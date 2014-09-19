@@ -345,6 +345,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     mapM_ (add "Patrick Brisbin") $ words "gravatar"
 
+    mapM_ (add "Felipe Lessa <felipe.lessa@gmail.com>") $ words
+        "esqueleto"
     {- persistent 2.0/conduit 1.2
     mapM_ (add "Felipe Lessa <felipe.lessa@gmail.com>") $ words
         "esqueleto fb fb-persistent yesod-fb yesod-auth-fb"
