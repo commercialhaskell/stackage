@@ -207,7 +207,7 @@ defaultExpectedFailures ghcVer = execWriter $ do
     -- happens during a Stackage test.
     --
     -- See: http://www.reddit.com/r/haskell/comments/2go92u/beginner_error_messages_in_c_vs_haskell/cklaspk
-    when (ghcVer == GhcMajorVersion 7 8) $ add "http-types"
+    when (ghcVer == GhcMajorVersion 7 6) $ add "http-types"
   where
     add = tell . singleton . PackageName
 
