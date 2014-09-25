@@ -1,7 +1,7 @@
 {-# LANGUAGE CPP #-}
 module Stackage.Config where
 
-import           Control.Monad              (when, unless)
+import           Control.Monad              (unless, when)
 import           Control.Monad.Trans.Writer (Writer, execWriter, tell)
 import           Data.Char                  (toLower)
 import qualified Data.Map                   as Map
@@ -549,6 +549,18 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         peg "pandoc" "< 1.13"
         peg "texmath" "<= 0.6.6.3"
         peg "checkers" "== 0.3.2"
+
+    mapM_ (add "Kazu Yamamoto <kazu@iij.ad.jp>") $ words
+        "ghc-mod io-choice"
+
+    mapM_ (add "Thomas Schilling <nominolo@googlemail.com>") $ words
+        "ghc-syb-utils"
+
+    mapM_ (add "Dimitri Sabadie <dimitri.sabadie@gmail.com>") $ words
+        "monad-journal"
+
+    mapM_ (add "Lennart Augustsson <trupill@gmail.com>") $ words
+        "djinn-lib djinn-ghc"
 
 add :: String -> String -> Writer PackageMap ()
 add maintainer package = addRange maintainer package "-any"
