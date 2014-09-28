@@ -16,9 +16,9 @@ sudo make install
 echo 'export PATH=/opt/ghc-7.4.2/bin:~/.cabal/bin:$PATH' >> ~/.bashrc
 export PATH=/opt/ghc-7.4.2/bin:~/.cabal/bin:$PATH
 cd ..
-wget http://hackage.haskell.org/packages/archive/cabal-install/1.16.0.2/cabal-install-1.16.0.2.tar.gz
-tar zxfv cabal-install-1.16.0.2.tar.gz
-cd cabal-install-1.16.0.2/
+wget http://hackage.haskell.org/packages/archive/cabal-install/1.18.0.5/cabal-install-1.18.0.5.tar.gz
+tar zxfv cabal-install-1.18.0.5.tar.gz
+cd cabal-install-1.18.0.5/
 bash bootstrap.sh
 cd ..
 git clone --recursive https://github.com/fpco/stackage
