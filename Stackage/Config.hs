@@ -259,7 +259,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     when (ghcVer < GhcMajorVersion 7 8) $ do -- No GHC 7.8 support
         mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
             [ "" -- too unreliable for the moment "distributed-process distributed-process-simplelocalnet"
-            , "threepenny-gui unification-fd"
+            -- https://github.com/fpco/stackage/issues/295
+            --, "threepenny-gui unification-fd"
             ]
         addRange "FP Complete <michael@fpcomplete.com>" "compdata" "< 0.8"
     when (ghcVer >= GhcMajorVersion 7 8 && not requireHP) $
