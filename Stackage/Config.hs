@@ -255,6 +255,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "fpco-api aws persistent-mongoDB"
         , "random-fu lhs2tex"
         , "Chart Chart-diagrams histogram-fill random-source"
+        , "retry"
         ]
     when (ghcVer < GhcMajorVersion 7 8) $ do -- No GHC 7.8 support
         mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
