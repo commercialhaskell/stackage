@@ -300,7 +300,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     mapM_ (add "Chris Done") $ words
         "statistics-linreg"
-    when (ghcVer >= GhcMajorVersion 7 8) $ add "Chris Done" "shell-conduit"
+    -- https://github.com/isomorphism/these/issues/11
+    -- when (ghcVer >= GhcMajorVersion 7 8) $ add "Chris Done" "shell-conduit"
 
 #if !defined(mingw32_HOST_OS) && !defined(__MINGW32__)
     -- Does not compile on Windows
