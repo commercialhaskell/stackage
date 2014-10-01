@@ -466,6 +466,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Dimitri Sabadie <dimitri.sabadie@gmail.com") $ words
         "monad-journal"
 
+    mapM_ (add "Thomas Schilling <nominolo@googlemail.com>") $ words
+        "ghc-syb-utils"
+
     when (ghcVer >= GhcMajorVersion 7 8) $
         mapM_ (add "Yann Esposito <yann.esposito@gmail.com>") $ words
             "holy-project"
