@@ -478,6 +478,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
             "holy-project"
     when requireHP $ addRange "Yann Esposito <yann.esposito@gmail.com>" "holy-project" "< 0.1.1.1"
 
+    mapM_ (add "Paul Rouse <pgr@doynton.org>") $ words
+        "yesod-auth-hashdb"
+
     -- https://github.com/fpco/stackage/issues/216
     -- QuickCheck constraint
     -- when (ghcVer == GhcMajorVersion 7 6) $
