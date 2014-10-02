@@ -349,6 +349,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
        "JuicyPixels"
 
     mapM_ (add "Patrick Brisbin") $ words "gravatar"
+    
+    mapM_ (add "Tom Streller") $ words "yesod-auth-oauth2"
 
     mapM_ (add "Felipe Lessa <felipe.lessa@gmail.com>") $ words
         "esqueleto fb fb-persistent yesod-fb yesod-auth-fb"
