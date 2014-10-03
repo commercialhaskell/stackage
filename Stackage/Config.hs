@@ -256,6 +256,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "fpco-api aws persistent-mongoDB"
         , "random-fu lhs2tex"
         , "Chart Chart-diagrams histogram-fill random-source"
+        , "webdriver-snoy" -- Replace with webdriver after: https://github.com/kallisti-dev/hs-webdriver/issues/53
         -- https://github.com/Soostone/retry/pull/15
         -- , "retry"
         ]
