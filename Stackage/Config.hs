@@ -208,6 +208,10 @@ defaultExpectedFailures ghcVer = execWriter $ do
     --
     -- See: http://www.reddit.com/r/haskell/comments/2go92u/beginner_error_messages_in_c_vs_haskell/cklaspk
     when (ghcVer == GhcMajorVersion 7 6) $ add "http-types"
+
+    -- Requires a running webdriver server
+    add "webdriver"
+    add "webdriver-snoy"
   where
     add = tell . singleton . PackageName
 
