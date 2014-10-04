@@ -486,6 +486,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Paul Rouse <pgr@doynton.org>") $ words
         "yesod-auth-hashdb"
 
+    add "Toralf Wittner <tw@dtex.org>" "zeromq4-haskell"
+
     -- https://github.com/fpco/stackage/issues/216
     -- QuickCheck constraint
     -- when (ghcVer == GhcMajorVersion 7 6) $
