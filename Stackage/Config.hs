@@ -552,6 +552,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/291
     addRange "Michael Snoyman" "random" "< 1.0.1.3"
 
+    -- https://github.com/fpco/stackage/issues/302
+    addRange "Michael Snoyman" "optparse-applicative" "< 0.11"
+
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
         -- Yay workarounds for unnecessarily old versions
         let peg x y = addRange "Haskell Platform" x y
