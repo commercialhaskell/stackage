@@ -554,7 +554,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/302
     addRange "Michael Snoyman" "optparse-applicative" "< 0.11"
-    addRange "Michael Snoyman" "criterion" "< 1.0.2"
+    when (ghcVer >= GhcMajorVersion 7 8) $
+        addRange "Michael Snoyman" "criterion" "< 1.0.2"
 
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
         -- Yay workarounds for unnecessarily old versions
