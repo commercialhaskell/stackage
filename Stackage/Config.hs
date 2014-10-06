@@ -556,6 +556,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "optparse-applicative" "< 0.11"
     when (ghcVer >= GhcMajorVersion 7 8) $
         addRange "Michael Snoyman" "criterion" "< 1.0.2"
+    addRange "Michael Snoyman" "tasty" "< 0.10.0.1"
 
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
         -- Yay workarounds for unnecessarily old versions
