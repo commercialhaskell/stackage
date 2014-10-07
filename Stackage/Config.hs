@@ -420,7 +420,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 #endif
 
     mapM_ (add "Joachim Breitner <mail@joachim-breitner.de>") $ words
-        "circle-packing arbtt"
+        "circle-packing arbtt ghc-heap-view"
 
     when (ghcVer < GhcMajorVersion 7 8) $
         mapM_ (add "John Wiegley") $ words =<<
