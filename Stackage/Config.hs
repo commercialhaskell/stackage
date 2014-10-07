@@ -557,6 +557,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     when (ghcVer >= GhcMajorVersion 7 8) $
         addRange "Michael Snoyman" "criterion" "< 1.0.2"
     addRange "Michael Snoyman" "tasty" "< 0.10.0.1"
+    addRange "Michael Snoyman" "haskell-packages" "< 0.2.4.3"
 
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
         -- Yay workarounds for unnecessarily old versions
