@@ -212,6 +212,9 @@ defaultExpectedFailures ghcVer = execWriter $ do
     -- Requires a running webdriver server
     add "webdriver"
     add "webdriver-snoy"
+
+    -- Weird conflicts with sandboxing
+    add "ghc-mod"
   where
     add = tell . singleton . PackageName
 
