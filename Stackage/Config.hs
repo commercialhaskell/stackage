@@ -557,6 +557,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "stylish-haskell" "< 0.5.11"
     addRange "Michael Snoyman" "derive" "< 2.5.17"
     addRange "Michael Snoyman" "hoogle" "< 4.2.35"
+    addRange "Michael Snoyman" "fay" "< 0.21"
 
     -- Force a specific version that's compatible with transformers 0.3
     addRange "Michael Snoyman" "transformers-compat" "== 0.3.3.3"
