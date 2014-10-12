@@ -547,7 +547,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/288
     addRange "Michael Snoyman" "text" "< 1.2"
 
-    -- Pandoc upper bound
+    -- Pandoc upper bound https://github.com/jgm/pandoc/issues/1681
     addRange "Michael Snoyman" "http-client" "< 0.4"
 
     -- https://github.com/fpco/stackage/issues/289
