@@ -350,9 +350,10 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Brent Yorgey <byorgey@gmail.com>") $ words =<<
         [ "monoid-extras dual-tree vector-space-points active force-layout"
         , "diagrams diagrams-contrib diagrams-core diagrams-lib diagrams-svg"
-        , "diagrams-postscript diagrams-builder diagrams-haddock haxr"
-        , "BlogLiterately BlogLiterately-diagrams"
+        , "diagrams-postscript haxr"
+        , "BlogLiterately"
         , "MonadRandom"
+        -- #289: diagrams-builder diagrams-haddock BlogLiterately-diagrams
         ]
     mapM_ (add "Vincent Berthoux <vincent.berthoux@gmail.com>") $ words
        "JuicyPixels"
@@ -549,15 +550,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     -- Pandoc upper bound https://github.com/jgm/pandoc/issues/1681
     addRange "Michael Snoyman" "http-client" "< 0.4"
-
-    -- https://github.com/fpco/stackage/issues/289
-    addRange "Michael Snoyman" "haskell-src-exts" "< 1.16"
-    addRange "Michael Snoyman" "haskell-names" "< 0.4.1"
-    addRange "Michael Snoyman" "hlint" "< 1.9.5"
-    addRange "Michael Snoyman" "stylish-haskell" "< 0.5.11"
-    addRange "Michael Snoyman" "derive" "< 2.5.17"
-    addRange "Michael Snoyman" "hoogle" "< 4.2.35"
-    addRange "Michael Snoyman" "fay" "< 0.21"
 
     -- Force a specific version that's compatible with transformers 0.3
     addRange "Michael Snoyman" "transformers-compat" "== 0.3.3.3"
