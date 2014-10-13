@@ -215,6 +215,9 @@ defaultExpectedFailures ghcVer = execWriter $ do
 
     -- Weird conflicts with sandboxing
     add "ghc-mod"
+
+    -- Requires locally running server
+    add "bloodhound"
   where
     add = tell . singleton . PackageName
 
