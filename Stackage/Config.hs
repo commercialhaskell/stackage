@@ -390,8 +390,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Gabriel Gonzalez <Gabriel439@gmail.com>")
         ["pipes", "pipes-parse", "pipes-concurrency"]
 
-    mapM_ (add "Chris Allen <cma@bitemyapp.com>")
-        ["bloodhound"]
+    when (ghcVer >= GhcMajorVersion 7 8) $
+        mapM_ (add "Chris Allen <cma@bitemyapp.com>")
+            ["bloodhound"]
 
     mapM_ (add "Adam Bergmark <adam@bergmark.nl>") $ words
         "fay fay-base fay-dom fay-jquery fay-text fay-uri snaplet-fay"
