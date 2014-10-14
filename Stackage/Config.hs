@@ -215,6 +215,7 @@ defaultExpectedFailures ghcVer = execWriter $ do
 
     -- Weird conflicts with sandboxing
     add "ghc-mod"
+    add "ghcid"
 
     -- Requires locally running server
     add "bloodhound"
