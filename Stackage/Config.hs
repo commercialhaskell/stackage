@@ -241,7 +241,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "bzlib-conduit case-insensitive"
         , "conduit-extra conduit-combinators yesod-websockets"
         , "cabal-src"
-        , "yesod-auth-deskcom monadcryptorandom"
+        , "yesod-auth-deskcom monadcryptorandom sphinx"
         ]
 
     -- https://github.com/fpco/stackage/issues/261
