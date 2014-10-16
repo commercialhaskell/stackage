@@ -492,9 +492,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     mapM_ (add "Thomas Schilling <nominolo@googlemail.com>") $ words
         "ghc-syb-utils"
-        
+
     mapM_ (add "Boris Buliga <d12frosted@icloud.com>") $ words
-        "djinn-lib djinn-ghc ghc-mod io-choice"
+        "djinn-lib djinn-ghc ghc-mod io-choice system-canonicalpath"
 
     when (ghcVer >= GhcMajorVersion 7 8) $
         mapM_ (add "Yann Esposito <yann.esposito@gmail.com>") $ words
