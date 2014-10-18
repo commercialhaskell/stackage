@@ -567,6 +567,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/310
     addRange "Michael Snoyman" "HandsomeSoup" "< 0.3.3"
+    
+    mapM_ (add "trupill@gmail.com") $ words
+        "djinn-lib djinn-ghc"
 
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
         -- Yay workarounds for unnecessarily old versions
