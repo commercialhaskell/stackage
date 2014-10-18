@@ -494,7 +494,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         "ghc-syb-utils"
 
     mapM_ (add "Boris Buliga <d12frosted@icloud.com>") $ words
-        "djinn-lib djinn-ghc ghc-mod io-choice"
+        "ghc-mod io-choice"
     when (ghcVer >= GhcMajorVersion 7 8) $
         mapM_ (add "Boris Buliga <d12frosted@icloud.com>") $ words
             "system-canonicalpath"
@@ -567,7 +567,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/310
     addRange "Michael Snoyman" "HandsomeSoup" "< 0.3.3"
-    
+
     mapM_ (add "trupill@gmail.com") $ words
         "djinn-lib djinn-ghc"
 
