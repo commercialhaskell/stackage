@@ -571,9 +571,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/310
     addRange "Michael Snoyman" "HandsomeSoup" "< 0.3.3"
 
-    -- https://github.com/skogsbaer/HTF/issues/44
-    addRange "Michael Snoyman" "HTF" "< 0.12.2.0"
-
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
         -- Yay workarounds for unnecessarily old versions
         let peg x y = addRange "Haskell Platform" x y
