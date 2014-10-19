@@ -509,6 +509,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     add "Toralf Wittner <tw@dtex.org>" "zeromq4-haskell"
 
+    mapM_ (add "trupill@gmail.com") $ words
+        "djinn-lib djinn-ghc"
+
     -- https://github.com/fpco/stackage/issues/216
     -- QuickCheck constraint
     -- when (ghcVer == GhcMajorVersion 7 6) $
@@ -567,9 +570,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/310
     addRange "Michael Snoyman" "HandsomeSoup" "< 0.3.3"
-
-    mapM_ (add "trupill@gmail.com") $ words
-        "djinn-lib djinn-ghc"
 
     -- https://github.com/skogsbaer/HTF/issues/44
     addRange "Michael Snoyman" "HTF" "< 0.12.2.0"
