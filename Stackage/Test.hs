@@ -1,11 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE RecordWildCards    #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 module Stackage.Test
     ( runTestSuites
     ) where
 
 import qualified Control.Concurrent as C
-import           Control.Exception  (Exception, SomeException, handle, throwIO)
+import           Control.Exception  (Exception, SomeException, handle, throwIO, IOException)
 import           Control.Monad      (replicateM, unless, when, forM_)
 import qualified Data.Map           as Map
 import qualified Data.Set           as Set
@@ -149,7 +150,7 @@ runTestSuite cabalVersion settings testdir docdir (packageName, SelectedPackageI
                 , "--html-location=../$pkg-$version/"
                 ] dir
             let PackageName packageName' = packageName
-            renameDirectory
+            handle (\(_ :: IOException) -> return ()) $ renameDirectory
                 (dir </> "dist" </> "doc" </> "html" </> packageName')
                 (docdir </> package)
         return True
