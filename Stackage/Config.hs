@@ -571,6 +571,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "trupill@gmail.com") $ words
         "djinn-lib djinn-ghc"
 
+    -- https://github.com/skogsbaer/HTF/issues/44
+    addRange "Michael Snoyman" "HTF" "< 0.12.2.0"
+
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
         -- Yay workarounds for unnecessarily old versions
         let peg x y = addRange "Haskell Platform" x y
