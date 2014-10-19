@@ -6,7 +6,7 @@ module Stackage.Test
 
 import qualified Control.Concurrent as C
 import           Control.Exception  (Exception, SomeException, handle, throwIO)
-import           Control.Monad      (replicateM, unless, when)
+import           Control.Monad      (replicateM, unless, when, forM_)
 import qualified Data.Map           as Map
 import qualified Data.Set           as Set
 import           Data.Version       (parseVersion, Version (Version))
@@ -14,9 +14,11 @@ import           Data.Typeable      (Typeable)
 import           Stackage.Types
 import           Stackage.Util
 import           System.Directory   (copyFile, createDirectory,
-                                     createDirectoryIfMissing, removeFile)
+                                     createDirectoryIfMissing, doesFileExist, findExecutable,
+                                     getDirectoryContents, removeFile,
+                                     renameDirectory)
 import           System.Exit        (ExitCode (ExitSuccess))
-import           System.FilePath    ((<.>), (</>))
+import           System.FilePath    ((<.>), (</>), takeDirectory)
 import           System.IO          (IOMode (WriteMode, AppendMode),
                                      withBinaryFile)
 import           System.Process     (readProcess, runProcess, waitForProcess)
@@ -28,10 +30,16 @@ runTestSuites settings' bp = do
     let selected = Map.filterWithKey notSkipped $ bpPackages bp
     putStrLn "Running test suites"
     let testdir = "runtests"
+        docdir = "haddock"
     rm_r testdir
+    rm_r docdir
     createDirectory testdir
+    createDirectory docdir
+
+    copyBuiltInHaddocks docdir
+
     cabalVersion <- getCabalVersion
-    allPass <- parFoldM (testWorkerThreads settings) (runTestSuite cabalVersion settings testdir) (&&) True $ Map.toList selected
+    allPass <- parFoldM (testWorkerThreads settings) (runTestSuite cabalVersion settings testdir docdir) (&&) True $ Map.toList selected
     unless allPass $ error $ "There were failures, please see the logs in " ++ testdir
   where
     notSkipped p _ = p `Set.notMember` bpSkippedTests bp
@@ -96,10 +104,11 @@ data CabalVersion = CabalVersion Int Int
 
 runTestSuite :: CabalVersion
              -> BuildSettings
-             -> FilePath
+             -> FilePath -- ^ testdir
+             -> FilePath -- ^ docdir
              -> (PackageName, SelectedPackageInfo)
              -> IO Bool
-runTestSuite cabalVersion settings testdir (packageName, SelectedPackageInfo {..}) = do
+runTestSuite cabalVersion settings testdir docdir (packageName, SelectedPackageInfo {..}) = do
     -- Set up a new environment that includes the sandboxed bin folder in PATH.
     env' <- getModifiedEnv settings
     let menv = Just $ addSandbox env'
@@ -131,8 +140,18 @@ runTestSuite cabalVersion settings testdir (packageName, SelectedPackageInfo {..
                     then ["--show-details=streaming"] -- FIXME temporary workaround for https://github.com/haskell/cabal/issues/1810
                     else []
                 ]) dir
-        when (buildDocs settings) $
-            getHandle AppendMode $ run "cabal" ["haddock"] dir
+        when (buildDocs settings) $ do
+            getHandle AppendMode $ run "cabal"
+                [ "haddock"
+                , "--hyperlink-source"
+                , "--html"
+                , "--hoogle"
+                , "--html-location=../$pkg-$version/"
+                ] dir
+            let PackageName packageName' = packageName
+            renameDirectory
+                (dir </> "dist" </> "doc" </> "html" </> packageName')
+                (docdir </> package)
         return True
     let expectedFailure = packageName `Set.member` expectedFailuresBuild settings
     if passed
@@ -154,3 +173,20 @@ runTestSuite cabalVersion settings testdir (packageName, SelectedPackageInfo {..
     dir = testdir </> package
     getHandle mode = withBinaryFile logfile mode
     package = packageVersionString (packageName, spiVersion)
+
+copyBuiltInHaddocks docdir = do
+    Just ghc <- findExecutable "ghc"
+    copyTree (takeDirectory ghc </> "../share/doc/ghc/html/libraries") docdir
+  where
+    copyTree src dest = do
+        entries <- fmap (filter (\s -> s /= "." && s /= ".."))
+                 $ getDirectoryContents src
+        forM_ entries $ \entry -> do
+            let src' = src </> entry
+                dest' = dest </> entry
+            isFile <- doesFileExist src'
+            if isFile
+                then copyFile src' dest'
+                else do
+                    createDirectory dest'
+                    copyTree src' dest'
