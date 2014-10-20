@@ -568,16 +568,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/291
     addRange "Michael Snoyman" "random" "< 1.0.1.3"
 
-    -- https://github.com/vincenthz/hs-tls/issues/83
-    addRange "Michael Snoyman" "tls" "== 1.2.9"
-    addRange "Michael Snoyman" "x509" "< 1.5.0"
-    addRange "Michael Snoyman" "x509-store" "< 1.5.0"
-    addRange "Michael Snoyman" "x509-system" "< 1.5.0"
-    addRange "Michael Snoyman" "x509-validation" "< 1.5.1"
-    addRange "Michael Snoyman" "asn1-encoding" "< 0.9"
-    addRange "Michael Snoyman" "asn1-types" "< 0.3"
-    addRange "Michael Snoyman" "asn1-parse" "< 0.9"
-
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
         -- Yay workarounds for unnecessarily old versions
         let peg x y = addRange "Haskell Platform" x y
