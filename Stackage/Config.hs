@@ -447,7 +447,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
             -- "gitlib-s3"
             ]
 
-    mapM_ (add "Ben Ford <ben@dlstartup.com") $ words
+    mapM_ (add "Aditya Bhargava <adit@adit.io") $ words
         "HandsomeSoup"
 
     mapM_ (add "Clint Adams <clint@debian.org>") $ words
