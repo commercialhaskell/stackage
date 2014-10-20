@@ -76,7 +76,7 @@ main = withManager defaultManagerSettings $ \m -> do
 
         putStrLn "Creating tarball"
         (Nothing, Nothing, Nothing, ph) <- createProcess
-            (proc "tar" $ "czf" : "haddock.tar.xz" : "index.html" : "style.css" : dirs)
+            (proc "tar" $ "cJf" : "haddock.tar.xz" : "index.html" : "style.css" : dirs)
                 { cwd = Just root
                 }
         ec <- waitForProcess ph
