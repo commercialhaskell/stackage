@@ -27,6 +27,10 @@ defaultBuildSettings :: Maybe Int -- ^ argument to -j
 defaultBuildSettings cores version = BuildSettings
     { sandboxRoot = "sandbox"
     , expectedFailuresBuild = defaultExpectedFailures version
+        -- FIXME This is a hack. In fact, this whole thing is a hack. The
+        -- expected failures should be written to the build-plan.txt file and
+        -- read from there.
+        False
     , extraArgs = \bs -> "-fnetwork23" : "-fhttps" :
         case bs of
             BSTest -> []

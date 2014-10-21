@@ -103,7 +103,7 @@ main = do
             SelectArgs {..} <- parseSelectArgs rest
             ghcVersion <- getGhcVersion
             bp <- select
-                (defaultSelectSettings ghcVersion)
+                (defaultSelectSettings ghcVersion $ not noPlatform)
                     { excludedPackages = fromList $ map PackageName excluded
                     , requireHaskellPlatform = not noPlatform
                     , ignoreUpgradeableCore = ignoreUpgradeable

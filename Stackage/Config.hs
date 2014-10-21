@@ -20,8 +20,9 @@ defaultExtraCore _ = fromList $ map PackageName $ words
 -- will still be run and logs kept, but a failure will not indicate an
 -- error in our package combination.
 defaultExpectedFailures :: GhcMajorVersion
+                        -> Bool -- ^ haskell platform
                         -> Set PackageName
-defaultExpectedFailures ghcVer = execWriter $ do
+defaultExpectedFailures ghcVer requireHP = execWriter $ do
       -- Requires an old version of WAI and Warp for tests
     add "HTTP"
 
@@ -219,6 +220,16 @@ defaultExpectedFailures ghcVer = execWriter $ do
 
     -- Requires locally running server
     add "bloodhound"
+
+    when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
+        -- https://github.com/ndmitchell/extra/issues/2
+        add "extra"
+
+        -- https://github.com/vincenthz/hs-asn1/issues/11
+        add "asn1-encoding"
+
+        -- https://github.com/vincenthz/hs-tls/issues/84
+        add "tls"
   where
     add = tell . singleton . PackageName
 

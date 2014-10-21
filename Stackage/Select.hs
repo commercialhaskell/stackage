@@ -18,10 +18,12 @@ import           Stackage.InstallInfo
 import           Stackage.Types
 import           Stackage.Util
 
-defaultSelectSettings :: GhcMajorVersion -> SelectSettings
-defaultSelectSettings version = SelectSettings
+defaultSelectSettings :: GhcMajorVersion
+                      -> Bool -- ^ haskell platform?
+                      -> SelectSettings
+defaultSelectSettings version requireHP = SelectSettings
     { extraCore = defaultExtraCore version
-    , expectedFailuresSelect = defaultExpectedFailures version
+    , expectedFailuresSelect = defaultExpectedFailures version requireHP
     , stablePackages = defaultStablePackages version
     , haskellPlatformDir = "hp"
     , requireHaskellPlatform = True
