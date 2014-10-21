@@ -559,9 +559,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/288
     addRange "Michael Snoyman" "text" "< 1.2"
 
-    -- Pandoc upper bound https://github.com/jgm/pandoc/issues/1681
-    addRange "Michael Snoyman" "http-client" "< 0.4"
-
     -- Force a specific version that's compatible with transformers 0.3
     addRange "Michael Snoyman" "transformers-compat" "== 0.3.3.3"
 
