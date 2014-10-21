@@ -29,7 +29,7 @@ checkPlan settings bp = do
         : "--dry-run"
         : "--max-backjumps=-1"
         : "--reorder-goals"
-        : packages
+        : extraArgs settings BSBuild ++ packages
         ) ""
     when (ec /= ExitSuccess || "Warning:" `isPrefixOf` stderr) $ do
         putStr stderr
