@@ -40,7 +40,7 @@ runTestSuites settings' bp = do
     copyBuiltInHaddocks docdir
 
     cabalVersion <- getCabalVersion
-    allPass <- parFoldM (testWorkerThreads settings) (runTestSuite cabalVersion settings testdir docdir) (&&) True $ Map.toList selected
+    allPass <- parFoldM (testWorkerThreads settings) (runTestSuite cabalVersion settings testdir docdir bp) (&&) True $ Map.toList selected
     unless allPass $ error $ "There were failures, please see the logs in " ++ testdir
   where
     notSkipped p _ = p `Set.notMember` bpSkippedTests bp
@@ -107,9 +107,10 @@ runTestSuite :: CabalVersion
              -> BuildSettings
              -> FilePath -- ^ testdir
              -> FilePath -- ^ docdir
+             -> BuildPlan
              -> (PackageName, SelectedPackageInfo)
              -> IO Bool
-runTestSuite cabalVersion settings testdir docdir (packageName, SelectedPackageInfo {..}) = do
+runTestSuite cabalVersion settings testdir docdir bp (packageName, SelectedPackageInfo {..}) = do
     -- Set up a new environment that includes the sandboxed bin folder in PATH.
     env' <- getModifiedEnv settings
     let menv = Just $ addSandbox env'
@@ -154,7 +155,7 @@ runTestSuite cabalVersion settings testdir docdir (packageName, SelectedPackageI
                 (dir </> "dist" </> "doc" </> "html" </> packageName')
                 (docdir </> package)
         return True
-    let expectedFailure = packageName `Set.member` expectedFailuresBuild settings
+    let expectedFailure = packageName `Set.member` bpExpectedFailures bp
     if passed
         then do
             removeFile logfile

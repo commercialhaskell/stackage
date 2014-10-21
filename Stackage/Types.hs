@@ -85,6 +85,9 @@ data BuildPlan = BuildPlan
     , bpOptionalCore :: Map PackageName Version
       -- ^ See 'iiOptionalCore'
     , bpSkippedTests :: Set PackageName
+    , bpExpectedFailures :: Set PackageName
+    -- ^ Expected test failures. Unlike SkippedTests, we should still try to
+    -- build them.
     }
 
 -- | Email address of a Stackage maintainer.
@@ -109,7 +112,7 @@ data SelectSettings = SelectSettings
     --
     -- Returns a reason for stripping in Left, or Right if the package is
     -- allowed.
-    , expectedFailuresSelect :: Set PackageName
+    , expectedFailures       :: Set PackageName
     , excludedPackages       :: Set PackageName
     -- ^ Packages which should be dropped from the list of stable packages,
     -- even if present via the Haskell Platform or @stablePackages@. If these
@@ -135,7 +138,6 @@ data BuildStage = BSTools | BSBuild | BSTest
 data BuildSettings = BuildSettings
     { sandboxRoot           :: FilePath
     , extraArgs             :: BuildStage -> [String]
-    , expectedFailuresBuild :: Set PackageName
     , testWorkerThreads     :: Int
     -- ^ How many threads to spawn for running test suites.
     , buildDocs             :: Bool

@@ -23,7 +23,7 @@ defaultSelectSettings :: GhcMajorVersion
                       -> SelectSettings
 defaultSelectSettings version requireHP = SelectSettings
     { extraCore = defaultExtraCore version
-    , expectedFailuresSelect = defaultExpectedFailures version requireHP
+    , expectedFailures = defaultExpectedFailures version requireHP
     , stablePackages = defaultStablePackages version
     , haskellPlatformDir = "hp"
     , requireHaskellPlatform = True
@@ -82,6 +82,7 @@ select settings' = do
         , bpOptionalCore = iiOptionalCore ii
         , bpCore = iiCore ii
         , bpSkippedTests = skippedTests settings'
+        , bpExpectedFailures = expectedFailures settings'
         }
 
 -- | Get all of the build tools required.

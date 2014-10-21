@@ -170,7 +170,7 @@ checkBadVersions :: SelectSettings
 checkBadVersions settings core (PackageDB pdb) buildPlan =
     Map.unions $ map getBadVersions $ Map.toList $ Map.filterWithKey unexpectedFailure buildPlan
   where
-    unexpectedFailure name _ = name `Set.notMember` expectedFailuresSelect settings
+    unexpectedFailure name _ = name `Set.notMember` expectedFailures settings
 
     getBadVersions :: (PackageName, BuildInfo) -> Map String (Map PackageName (Version, VersionRange))
     getBadVersions (name, bi)
