@@ -230,6 +230,8 @@ defaultExpectedFailures ghcVer requireHP = execWriter $ do
 
         -- https://github.com/vincenthz/hs-tls/issues/84
         add "tls"
+
+        add "x509"
   where
     add = tell . singleton . PackageName
 
