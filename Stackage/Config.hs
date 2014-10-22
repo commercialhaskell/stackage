@@ -222,9 +222,6 @@ defaultExpectedFailures ghcVer requireHP = execWriter $ do
     add "bloodhound"
 
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
-        -- https://github.com/ndmitchell/extra/issues/2
-        add "extra"
-
         -- https://github.com/vincenthz/hs-asn1/issues/11
         add "asn1-encoding"
 
