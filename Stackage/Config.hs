@@ -522,6 +522,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "trupill@gmail.com") $ words
         "djinn-lib djinn-ghc"
 
+    mapM_ (add "Arash Rouhani <miffoljud@gmail.com>") $ words
+        "yesod-text-markdown"
+
     -- https://github.com/fpco/stackage/issues/216
     -- QuickCheck constraint
     -- when (ghcVer == GhcMajorVersion 7 6) $
