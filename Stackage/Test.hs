@@ -29,7 +29,9 @@ import Data.IORef (IORef, readIORef, atomicModifyIORef, newIORef)
 runTestSuites :: BuildSettings -> BuildPlan -> IO ()
 runTestSuites settings' bp = do
     settings <- fixBuildSettings settings'
-    let selected = Map.filterWithKey notSkipped $ bpPackages bp
+    let selected' = Map.filterWithKey notSkipped $ bpPackages bp
+    putStrLn "Determining package dependencies"
+    selected <- mapM (addDependencies settings) $ Map.toList selected'
     putStrLn "Running test suites"
     let testdir = "runtests"
         docdir = "haddock"
@@ -42,10 +44,30 @@ runTestSuites settings' bp = do
 
     cabalVersion <- getCabalVersion
     haddockFilesRef <- newIORef []
-    allPass <- parFoldM (testWorkerThreads settings) (runTestSuite cabalVersion settings testdir docdir bp haddockFilesRef) (&&) True $ Map.toList selected
+    allPass <- parFoldM
+        (testWorkerThreads settings)
+        (runTestSuite cabalVersion settings testdir docdir bp haddockFilesRef)
+        (&&)
+        True
+        selected
     unless allPass $ error $ "There were failures, please see the logs in " ++ testdir
   where
     notSkipped p _ = p `Set.notMember` bpSkippedTests bp
+
+addDependencies :: BuildSettings
+                -> (PackageName, SelectedPackageInfo)
+                -> IO (PackageName, Set PackageName, SelectedPackageInfo)
+addDependencies settings (packageName, spi) = do
+    package' <- replaceTarball (tarballDir settings) package
+    deps <- handle (\e -> print (e :: IOException) >> return Set.empty)
+          $ getDeps package'
+    return (packageName, Set.empty, spi) -- FIXME
+  where
+    package = packageVersionString (packageName, spiVersion spi)
+
+getDeps :: String -> IO (Set PackageName)
+getDeps name = do
+    return Set.empty -- FIXME
 
 getCabalVersion :: IO CabalVersion
 getCabalVersion = do
@@ -58,35 +80,42 @@ getCabalVersion = do
     notCRLF '\r' = False
     notCRLF _    = True
 
-parFoldM :: Int -- ^ number of threads
-         -> (b -> IO c)
+parFoldM :: (Ord key, Show key)
+         => Int -- ^ number of threads
+         -> ((key, payload) -> IO c)
          -> (a -> c -> a)
          -> a
-         -> [b]
+         -> [(key, Set key, payload)]
          -> IO a
 parFoldM threadCount0 f g a0 bs0 = do
     ma <- C.newMVar a0
     mbs <- C.newMVar bs0
     signal <- C.newEmptyMVar
-    tids <- replicateM threadCount0 $ C.forkIO $ worker ma mbs signal
+    completed <- newIORef Set.empty
+    tids <- replicateM threadCount0 $ C.forkIO $ worker completed ma mbs signal
     wait threadCount0 signal tids
+    [] <- C.takeMVar mbs -- ensure all tests were run
     C.takeMVar ma
   where
-    worker ma mbs signal =
+    worker completedRef ma mbs signal =
         handle
             (C.putMVar signal . Just)
             (loop >> C.putMVar signal Nothing)
       where
         loop = do
-            mb <- C.modifyMVar mbs $ \bs -> return $
-                case bs of
-                    [] -> ([], Nothing)
-                    b:bs' -> (bs', Just b)
+            mb <- C.modifyMVar mbs $ \bs -> do
+                completed <- readIORef completedRef
+                return $ case findReady completed bs of
+                    -- There's a workload ready with no deps
+                    Just (b, bs') -> (bs', Just b)
+                    -- No workload with no deps
+                    Nothing -> (bs, Nothing)
             case mb of
                 Nothing -> return ()
-                Just b -> do
-                    c <- f b
+                Just (name, _, payload) -> do
+                    c <- f (name, payload)
                     C.modifyMVar_ ma $ \a -> return $! g a c
+                    atomicModifyIORef completedRef $ \s -> (Set.insert name s, ())
                     loop
     wait threadCount signal tids
         | threadCount == 0 = return ()
@@ -97,6 +126,19 @@ parFoldM threadCount0 f g a0 bs0 = do
                 Just e -> do
                     mapM_ C.killThread tids
                     throwIO (e :: SomeException)
+
+-- | Find a workload whose dependencies have been met.
+findReady :: Ord key
+          => Set key -- ^ workloads already complete
+          -> [(key, Set key, value)]
+          -> Maybe ((key, Set key, value), [(key, Set key, value)])
+findReady completed =
+    loop id
+  where
+    loop _ [] = Nothing
+    loop front (x@(_, deps, _):xs)
+        | Set.null $ Set.difference deps completed = Just (x, front xs)
+        | otherwise = loop (front . (x:)) xs
 
 data TestException = TestException
     deriving (Show, Typeable)
@@ -110,7 +152,7 @@ runTestSuite :: CabalVersion
              -> FilePath -- ^ testdir
              -> FilePath -- ^ docdir
              -> BuildPlan
-             -> IORef [FilePath] -- ^ .haddock files
+             -> IORef [(String, FilePath)] -- ^ .haddock files
              -> (PackageName, SelectedPackageInfo)
              -> IO Bool
 runTestSuite cabalVersion settings testdir docdir
@@ -142,7 +184,13 @@ runTestSuite cabalVersion settings testdir docdir
         -- Try building docs first in case tests have an expected failure.
         when (buildDocs settings) $ do
             hfs <- readIORef haddockFilesRef
-            let hfsOpts = map ("--haddock-options=-o " ++) hfs
+            let hfsOpts = flip map hfs $ \(pkgVer, hf) -> concat
+                    [ "--haddock-options=--read-interface="
+                    , "../"
+                    , pkgVer
+                    , "/,"
+                    , hf
+                    ]
             getHandle AppendMode $ run "cabal"
                 ( "haddock"
                 : "--hyperlink-source"
@@ -159,7 +207,7 @@ runTestSuite cabalVersion settings testdir docdir
             case enewPath :: Either IOException FilePath of
                 Left e -> print e
                 Right newPath -> atomicModifyIORef haddockFilesRef $ \hfs'
-                    -> (newPath : hfs', ())
+                    -> ((package, newPath) : hfs', ())
 
         when spiHasTests $ do
             getHandle AppendMode $ run "cabal" ["build"] dir
