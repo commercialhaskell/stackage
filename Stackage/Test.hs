@@ -6,7 +6,7 @@ module Stackage.Test
     ) where
 
 import qualified Control.Concurrent as C
-import           Control.Exception  (Exception, SomeException, handle, throwIO, IOException)
+import           Control.Exception  (Exception, SomeException, handle, throwIO, IOException, try)
 import           Control.Monad      (replicateM, unless, when, forM_)
 import qualified Data.Map           as Map
 import qualified Data.Set           as Set
@@ -17,13 +17,14 @@ import           Stackage.Util
 import           System.Directory   (copyFile, createDirectory,
                                      createDirectoryIfMissing, doesFileExist, findExecutable,
                                      getDirectoryContents, removeFile,
-                                     renameDirectory)
+                                     renameDirectory, canonicalizePath)
 import           System.Exit        (ExitCode (ExitSuccess))
 import           System.FilePath    ((<.>), (</>), takeDirectory)
 import           System.IO          (IOMode (WriteMode, AppendMode),
                                      withBinaryFile)
 import           System.Process     (readProcess, runProcess, waitForProcess)
 import           Text.ParserCombinators.ReadP (readP_to_S)
+import Data.IORef (IORef, readIORef, atomicModifyIORef, newIORef)
 
 runTestSuites :: BuildSettings -> BuildPlan -> IO ()
 runTestSuites settings' bp = do
@@ -40,7 +41,8 @@ runTestSuites settings' bp = do
     copyBuiltInHaddocks docdir
 
     cabalVersion <- getCabalVersion
-    allPass <- parFoldM (testWorkerThreads settings) (runTestSuite cabalVersion settings testdir docdir bp) (&&) True $ Map.toList selected
+    haddockFilesRef <- newIORef []
+    allPass <- parFoldM (testWorkerThreads settings) (runTestSuite cabalVersion settings testdir docdir bp haddockFilesRef) (&&) True $ Map.toList selected
     unless allPass $ error $ "There were failures, please see the logs in " ++ testdir
   where
     notSkipped p _ = p `Set.notMember` bpSkippedTests bp
@@ -108,9 +110,11 @@ runTestSuite :: CabalVersion
              -> FilePath -- ^ testdir
              -> FilePath -- ^ docdir
              -> BuildPlan
+             -> IORef [FilePath] -- ^ .haddock files
              -> (PackageName, SelectedPackageInfo)
              -> IO Bool
-runTestSuite cabalVersion settings testdir docdir bp (packageName, SelectedPackageInfo {..}) = do
+runTestSuite cabalVersion settings testdir docdir
+             bp haddockFilesRef (packageName, SelectedPackageInfo {..}) = do
     -- Set up a new environment that includes the sandboxed bin folder in PATH.
     env' <- getModifiedEnv settings
     let menv = Just $ addSandbox env'
@@ -137,17 +141,25 @@ runTestSuite cabalVersion settings testdir docdir bp (packageName, SelectedPacka
 
         -- Try building docs first in case tests have an expected failure.
         when (buildDocs settings) $ do
+            hfs <- readIORef haddockFilesRef
+            let hfsOpts = map ("--haddock-options=-o " ++) hfs
             getHandle AppendMode $ run "cabal"
-                [ "haddock"
-                , "--hyperlink-source"
-                , "--html"
-                , "--hoogle"
-                , "--html-location=../$pkg-$version/"
-                ] dir
+                ( "haddock"
+                : "--hyperlink-source"
+                : "--html"
+                : "--hoogle"
+                : "--html-location=../$pkg-$version/"
+                : hfsOpts) dir
             let PackageName packageName' = packageName
             handle (\(_ :: IOException) -> return ()) $ renameDirectory
                 (dir </> "dist" </> "doc" </> "html" </> packageName')
                 (docdir </> package)
+
+            enewPath <- try $ canonicalizePath $ docdir </> package </> packageName' <.> "haddock"
+            case enewPath :: Either IOException FilePath of
+                Left e -> print e
+                Right newPath -> atomicModifyIORef haddockFilesRef $ \hfs'
+                    -> (newPath : hfs', ())
 
         when spiHasTests $ do
             getHandle AppendMode $ run "cabal" ["build"] dir
