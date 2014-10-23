@@ -112,12 +112,11 @@ getCabalVersion = do
     notCRLF '\r' = False
     notCRLF _    = True
 
-parFoldM :: (Ord key, Show key)
-         => Int -- ^ number of threads
-         -> ((key, payload) -> IO c)
+parFoldM :: Int -- ^ number of threads
+         -> ((PackageName, payload) -> IO c)
          -> (a -> c -> a)
          -> a
-         -> [(key, Set key, payload)]
+         -> [(PackageName, Set PackageName, payload)]
          -> IO a
 parFoldM threadCount0 f g a0 bs0 = do
     ma <- C.newMVar a0
@@ -126,7 +125,11 @@ parFoldM threadCount0 f g a0 bs0 = do
     completed <- newIORef Set.empty
     tids <- replicateM threadCount0 $ C.forkIO $ worker completed ma mbs signal
     wait threadCount0 signal tids
-    [] <- C.takeMVar mbs -- ensure all tests were run
+
+    unrun <- C.takeMVar mbs
+    when (not $ null unrun) $
+        error $ "The following tests were not run: " ++ unwords
+                [x | (PackageName x, _, _) <- unrun]
     C.takeMVar ma
   where
     worker completedRef ma mbs signal =
