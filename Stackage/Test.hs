@@ -10,6 +10,8 @@ import           Control.Exception  (Exception, SomeException, handle, throwIO, 
 import           Control.Monad      (replicateM, unless, when, forM_)
 import qualified Data.Map           as Map
 import qualified Data.Set           as Set
+import qualified Control.Monad.Trans.Writer as W
+import Distribution.Package (Dependency (Dependency))
 import           Data.Version       (parseVersion, Version (Version))
 import           Data.Typeable      (Typeable)
 import           Stackage.Types
@@ -22,23 +24,30 @@ import           System.Exit        (ExitCode (ExitSuccess))
 import           System.FilePath    ((<.>), (</>), takeDirectory)
 import           System.IO          (IOMode (WriteMode, AppendMode),
                                      withBinaryFile)
-import           System.Process     (readProcess, runProcess, waitForProcess)
+import           System.Process     (readProcess, runProcess, waitForProcess, createProcess, proc, cwd)
 import           Text.ParserCombinators.ReadP (readP_to_S)
 import Data.IORef (IORef, readIORef, atomicModifyIORef, newIORef)
+import qualified Data.ByteString.Lazy as L
+import qualified Data.ByteString.Lazy.Char8 as L8
+import qualified Distribution.PackageDescription as PD
+import           Distribution.PackageDescription.Parse (ParseResult (ParseOk),
+                                                        parsePackageDescription)
 
 runTestSuites :: BuildSettings -> BuildPlan -> IO ()
 runTestSuites settings' bp = do
     settings <- fixBuildSettings settings'
     let selected' = Map.filterWithKey notSkipped $ bpPackages bp
-    putStrLn "Determining package dependencies"
-    selected <- mapM (addDependencies settings) $ Map.toList selected'
-    putStrLn "Running test suites"
     let testdir = "runtests"
         docdir = "haddock"
     rm_r testdir
     rm_r docdir
     createDirectory testdir
     createDirectory docdir
+
+    putStrLn "Determining package dependencies"
+    selected <- mapM (addDependencies settings (Map.keysSet selected') testdir)
+              $ Map.toList selected'
+    putStrLn "Running test suites"
 
     copyBuiltInHaddocks docdir
 
@@ -55,19 +64,42 @@ runTestSuites settings' bp = do
     notSkipped p _ = p `Set.notMember` bpSkippedTests bp
 
 addDependencies :: BuildSettings
+                -> Set PackageName -- ^ all packages to be installed
+                -> FilePath -- ^ testdir
                 -> (PackageName, SelectedPackageInfo)
                 -> IO (PackageName, Set PackageName, SelectedPackageInfo)
-addDependencies settings (packageName, spi) = do
+addDependencies settings allPackages testdir (packageName, spi) = do
     package' <- replaceTarball (tarballDir settings) package
     deps <- handle (\e -> print (e :: IOException) >> return Set.empty)
-          $ getDeps package'
-    return (packageName, Set.empty, spi) -- FIXME
+          $ getDeps allPackages testdir packageName package package'
+    print (packageName, deps, spi)
+    return (packageName, deps, spi)
   where
     package = packageVersionString (packageName, spiVersion spi)
 
-getDeps :: String -> IO (Set PackageName)
-getDeps name = do
-    return Set.empty -- FIXME
+getDeps :: Set PackageName -- ^ all packages to be installed
+        -> FilePath -> PackageName -> String -> String -> IO (Set PackageName)
+getDeps allPackages testdir (PackageName name) nameVer loc = do
+    (Nothing, Nothing, Nothing, ph) <- createProcess
+        (proc "cabal" ["unpack", loc, "--verbose=0"]) { cwd = Just testdir }
+    ec <- waitForProcess ph
+    unless (ec == ExitSuccess) $ error $ "Unable to unpack: " ++ loc
+    lbs <- L.readFile $ testdir </> nameVer </> name <.> "cabal"
+    case parsePackageDescription $ L8.unpack lbs of
+        ParseOk _ gpd -> return $ Set.intersection allPackages $ allLibraryDeps gpd
+        _ -> return Set.empty
+
+allLibraryDeps :: PD.GenericPackageDescription -> Set PackageName
+allLibraryDeps =
+    maybe Set.empty (W.execWriter . goTree) . PD.condLibrary
+  where
+    goTree tree = do
+        mapM_ goDep $ PD.condTreeConstraints tree
+        forM_ (PD.condTreeComponents tree) $ \(_, y, z) -> do
+            goTree y
+            maybe (return ()) goTree z
+
+    goDep (Dependency pn _) = W.tell $ Set.singleton pn
 
 getCabalVersion :: IO CabalVersion
 getCabalVersion = do
@@ -168,8 +200,6 @@ runTestSuite cabalVersion settings testdir docdir
             unless (ec == ExitSuccess) $ throwIO TestException
 
     passed <- handle (\TestException -> return False) $ do
-        package' <- replaceTarball (tarballDir settings) package
-        getHandle WriteMode  $ run "cabal" ["unpack", package'] testdir
         case cabalFileDir settings of
             Nothing -> return ()
             Just cfd -> do
@@ -179,7 +209,7 @@ runTestSuite cabalVersion settings testdir docdir
                     dst = cfd </> basename
                 createDirectoryIfMissing True cfd
                 copyFile src dst
-        getHandle AppendMode $ run "cabal" (addCabalArgs settings BSTest ["configure", "--enable-tests"]) dir
+        getHandle WriteMode $ run "cabal" (addCabalArgs settings BSTest ["configure", "--enable-tests"]) dir
 
         -- Try building docs first in case tests have an expected failure.
         when (buildDocs settings) $ do
