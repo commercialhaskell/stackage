@@ -134,14 +134,8 @@ runTestSuite cabalVersion settings testdir docdir bp (packageName, SelectedPacka
                 createDirectoryIfMissing True cfd
                 copyFile src dst
         getHandle AppendMode $ run "cabal" (addCabalArgs settings BSTest ["configure", "--enable-tests"]) dir
-        when spiHasTests $ do
-            getHandle AppendMode $ run "cabal" ["build"] dir
-            getHandle AppendMode $ run "cabal" (concat
-                [ ["test"]
-                , if cabalVersion >= CabalVersion 1 20
-                    then ["--show-details=streaming"] -- FIXME temporary workaround for https://github.com/haskell/cabal/issues/1810
-                    else []
-                ]) dir
+
+        -- Try building docs first in case tests have an expected failure.
         when (buildDocs settings) $ do
             getHandle AppendMode $ run "cabal"
                 [ "haddock"
@@ -154,6 +148,15 @@ runTestSuite cabalVersion settings testdir docdir bp (packageName, SelectedPacka
             handle (\(_ :: IOException) -> return ()) $ renameDirectory
                 (dir </> "dist" </> "doc" </> "html" </> packageName')
                 (docdir </> package)
+
+        when spiHasTests $ do
+            getHandle AppendMode $ run "cabal" ["build"] dir
+            getHandle AppendMode $ run "cabal" (concat
+                [ ["test"]
+                , if cabalVersion >= CabalVersion 1 20
+                    then ["--show-details=streaming"] -- FIXME temporary workaround for https://github.com/haskell/cabal/issues/1810
+                    else []
+                ]) dir
         return True
     let expectedFailure = packageName `Set.member` bpExpectedFailures bp
     if passed
