@@ -72,7 +72,6 @@ addDependencies settings allPackages testdir (packageName, spi) = do
     package' <- replaceTarball (tarballDir settings) package
     deps <- handle (\e -> print (e :: IOException) >> return Set.empty)
           $ getDeps allPackages testdir packageName package package'
-    print (packageName, deps, spi)
     return (packageName, deps, spi)
   where
     package = packageVersionString (packageName, spiVersion spi)
