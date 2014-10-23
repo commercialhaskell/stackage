@@ -237,7 +237,7 @@ runTestSuite cabalVersion settings testdir docdir
 
             enewPath <- try $ canonicalizePath $ docdir </> package </> packageName' <.> "haddock"
             case enewPath :: Either IOException FilePath of
-                Left e -> print e
+                Left _ -> return () -- print e
                 Right newPath -> atomicModifyIORef haddockFilesRef $ \hfs'
                     -> ((package, newPath) : hfs', ())
 
