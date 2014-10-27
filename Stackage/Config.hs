@@ -302,8 +302,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Alan Zimmerman") $ words
         "hjsmin language-javascript"
 
-    mapM_ (add "Alfredo Di Napoli <alfredo.dinapoli@gmail.com>") $ words
-        "mandrill"
+    when (ghcVer >= GhcMajorVersion 7 8 && not requireHP) $
+        mapM_ (add "Alfredo Di Napoli <alfredo.dinapoli@gmail.com>") $ words
+            "mandrill"
 
     mapM_ (add "Jasper Van der Jeugt") $ words
         "blaze-html blaze-markup stylish-haskell"
