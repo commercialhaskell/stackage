@@ -592,6 +592,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/318
     addRange "Michael Snoyman" "HaXml" "< 1.25"
 
+    -- https://github.com/fpco/stackage/issues/319
+    addRange "Michael Snoyman" "polyparse" "< 1.10"
+
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
         -- Yay workarounds for unnecessarily old versions
         let peg x y = addRange "Haskell Platform" x y
