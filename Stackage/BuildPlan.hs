@@ -4,6 +4,7 @@
 module Stackage.BuildPlan
     ( readBuildPlan
     , writeBuildPlan
+    , writeBuildPlanCsv
     ) where
 
 import qualified Data.Map          as Map
@@ -155,3 +156,26 @@ getSection title orig =
         if null z
             then return y
             else Left $ "Unconsumed input on line: " ++ x
+
+-- | Used for Hackage distribution purposes.
+writeBuildPlanCsv :: FilePath -> BuildPlan -> IO ()
+writeBuildPlanCsv fp bp =
+    -- Obviously a proper CSV library should be used... but we're minimizing
+    -- deps
+    System.IO.UTF8.writeFile fp $ unlines $ map toRow $ Map.toList fullMap
+  where
+    fullMap = Map.unions
+        [ fmap spiVersion $ bpPackages bp
+        , Map.mapMaybe id $ bpCore bp
+        , bpOptionalCore bp
+        ]
+
+    toRow (PackageName name, version) = concat
+        [ "\""
+        , name
+        , "\",\""
+        , display version
+        , "\",\"http://www.stackage.org/package/"
+        , name
+        , "\""
+        ]

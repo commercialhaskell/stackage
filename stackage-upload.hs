@@ -1,6 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 import           Control.Monad                         (filterM, when)
 import qualified Data.ByteString.Char8                 as S8
+import qualified Data.ByteString.Lazy                  as L
 import           Data.List                             (isInfixOf, isPrefixOf,
                                                         sort)
 import           Network.HTTP.Client
@@ -32,6 +33,7 @@ main = withManager defaultManagerSettings $ \m -> do
                 exitFailure
 
     let uploadDocs = "exclusive" `isInfixOf` alias
+        uploadHackageDistro = alias == "unstable-ghc78-exclusive"
 
     putStrLn $ concat
         [ "Uploading "
@@ -102,6 +104,15 @@ main = withManager defaultManagerSettings $ \m -> do
                 , checkStatus = \_ _ _ -> Nothing
                 }
         httpLbs req3 m >>= print
+
+    when uploadHackageDistro $ do
+        lbs <- L.readFile $ takeDirectory filepath </> "build-plan.csv"
+        let req = "http://hackage.haskell.org/distro/Stackage/packages.csv"
+                { requestHeaders = [("Content-Type", "text/csv")]
+                , requestBody = RequestBodyLBS lbs
+                , checkStatus = \_ _ _ -> Nothing
+                }
+        httpLbs req m >>= print
 
 mkIndex :: String -> [String] -> String
 mkIndex snapid dirs = concat
