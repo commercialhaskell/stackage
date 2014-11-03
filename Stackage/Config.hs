@@ -540,10 +540,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "mtl" "< 2.2"
     addRange "Michael Snoyman" "lifted-base" "< 0.2.2.2"
 
-    -- https://github.com/liyang/thyme/issues/29
-    when (ghcVer <= GhcMajorVersion 7 6) $
-        addRange "Michael Snoyman" "thyme" "< 0.3.5.3"
-
     -- https://github.com/fpco/stackage/issues/224
     when (ghcVer <= GhcMajorVersion 7 6) $ do
         addRange "Michael Snoyman" "zip-archive" "== 0.2.2.1"
