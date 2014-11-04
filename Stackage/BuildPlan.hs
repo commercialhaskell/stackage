@@ -14,6 +14,7 @@ import           Stackage.Types
 import qualified System.IO.UTF8
 import           Data.Char         (isSpace)
 import           Stackage.Util
+import           Data.List         (intercalate)
 
 readBuildPlan :: FilePath -> IO BuildPlan
 readBuildPlan fp = do
@@ -162,8 +163,12 @@ writeBuildPlanCsv :: FilePath -> BuildPlan -> IO ()
 writeBuildPlanCsv fp bp =
     -- Obviously a proper CSV library should be used... but we're minimizing
     -- deps
-    System.IO.UTF8.writeFile fp $ unlines $ map toRow $ Map.toList fullMap
+    System.IO.UTF8.writeFile fp $ unlines' $ map toRow $ Map.toList fullMap
   where
+    -- Hackage server is buggy, and won't accept trailing newlines. See:
+    -- https://github.com/haskell/hackage-server/issues/141#issuecomment-34615935
+    unlines' = intercalate "\n"
+
     fullMap = Map.unions
         [ fmap spiVersion $ bpPackages bp
         , Map.mapMaybe id $ bpCore bp
