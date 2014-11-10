@@ -530,6 +530,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Arash Rouhani <miffoljud@gmail.com>") $ words
         "yesod-text-markdown"
 
+    mapM_ (add "Matvey Aksenov <matvey.aksenov@gmail.com") $ words
+        "terminal-size"
+
     -- https://github.com/fpco/stackage/issues/216
     -- QuickCheck constraint
     -- when (ghcVer == GhcMajorVersion 7 6) $
