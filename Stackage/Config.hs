@@ -600,6 +600,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     -- https://github.com/fpco/stackage/issues/326
     addRange "Michael Snoyman" "hspec" "< 2"
+    addRange "Michael Snoyman" "hspec2" "< 0.6"
 
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
         -- Yay workarounds for unnecessarily old versions
