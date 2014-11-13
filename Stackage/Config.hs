@@ -533,6 +533,11 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Matvey Aksenov <matvey.aksenov@gmail.com") $ words
         "terminal-size"
 
+    mapM_ (add "Nikita Volkov <nikita.y.volkov@mail.ru>") $ 
+        words "hasql hasql-postgres hasql-backend postgresql-binary" ++
+        words "stm-containers slave-thread partial-handler" ++
+        words "base-prelude mtl-prelude"
+
     -- https://github.com/fpco/stackage/issues/216
     -- QuickCheck constraint
     -- when (ghcVer == GhcMajorVersion 7 6) $
