@@ -533,10 +533,10 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Matvey Aksenov <matvey.aksenov@gmail.com") $ words
         "terminal-size"
 
-    -- https://github.com/fpco/stackage/issues/216
-    -- QuickCheck constraint
-    -- when (ghcVer == GhcMajorVersion 7 6) $
-    --     addRange "Michael Snoyman" "repa" "< 3.2.5.1"
+    when (ghcVer == GhcMajorVersion 7 8 && not requireHP) $
+        mapM_ (add "Michael Snoyman") $ words =<<
+            [ "repa repa-io repa-algorithms repa-devil JuicyPixels-repa"
+            ]
 
     -- https://github.com/fpco/stackage/issues/217
     addRange "Michael Snoyman" "transformers" "< 0.4"
