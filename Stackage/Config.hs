@@ -539,6 +539,11 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
             [ "repa repa-io repa-algorithms repa-devil JuicyPixels-repa"
             ]
 
+    mapM_ (add "Nikita Volkov <nikita.y.volkov@mail.ru>") $
+        words "hasql hasql-postgres hasql-backend postgresql-binary" ++
+        words "stm-containers slave-thread partial-handler" ++
+        words "base-prelude mtl-prelude"
+
     -- https://github.com/fpco/stackage/issues/217
     addRange "Michael Snoyman" "transformers" "< 0.4"
     addRange "Michael Snoyman" "mtl" "< 2.2"
