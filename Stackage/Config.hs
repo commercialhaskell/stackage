@@ -545,7 +545,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     mapM_ (add "Nikita Volkov <nikita.y.volkov@mail.ru>") $
         words "hasql hasql-postgres hasql-backend postgresql-binary" ++
-        words "stm-containers slave-thread partial-handler" ++
+        words "stm-containers focus list-t slave-thread partial-handler" ++
         words "base-prelude mtl-prelude"
     addRange "Nikita Volkov <nikita.y.volkov@mail.ru>" "mtl-prelude" "< 2"
 
