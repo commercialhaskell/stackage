@@ -57,6 +57,7 @@ defaultSelectSettings version requireHP = SelectSettings
     , allowedPackage = const $ Right ()
     , useGlobalDatabase = False
     , skippedTests =
+        Set.insert (PackageName "ReadArgs") $ -- old version of hspec
         if version >= GhcMajorVersion 7 8
             then Set.fromList
                     [ PackageName "punycode" -- pulls in encoding
