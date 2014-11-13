@@ -222,6 +222,10 @@ defaultExpectedFailures ghcVer requireHP = execWriter $ do
     -- Requires locally running server
     add "bloodhound"
 
+    -- Requires PostgreSQL running
+    add "postgresql-binary"
+    add "hasql-postgres"
+
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
         -- https://github.com/vincenthz/hs-asn1/issues/11
         add "asn1-encoding"
