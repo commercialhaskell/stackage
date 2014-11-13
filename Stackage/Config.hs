@@ -139,6 +139,7 @@ defaultExpectedFailures ghcVer requireHP = execWriter $ do
         , "attoparsec-conduit blaze-builder-conduit http-client-conduit"
         , "network-conduit zlib-conduit http-client-multipart"
         , "wai-eventsource wai-test"
+        , "hspec-discover"
         ]
 
     -- Cloud Haskell tests seem to be unreliable
