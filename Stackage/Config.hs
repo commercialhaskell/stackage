@@ -417,6 +417,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     mapM_ (add "Adam Bergmark <adam@bergmark.nl>") $ words
         "fay fay-base fay-dom fay-jquery fay-text fay-uri snaplet-fay"
+        
+    mapM_ (add "Rodrigo Setti <rodrigosetti@gmail.com>") $ words
+        "messagepack messagepack-rpc"
 
     mapM_ (add "Boris Lykah <lykahb@gmail.com>") $ words
         "groundhog groundhog-th groundhog-sqlite groundhog-postgresql groundhog-mysql"
