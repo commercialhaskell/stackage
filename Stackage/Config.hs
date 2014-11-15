@@ -366,7 +366,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         "scotty wai-middleware-static"
 
     mapM_ (add "Simon Hengel <sol@typeful.net>") $ words
-        "hspec doctest base-compat"
+        "hspec hspec-wai hspec-wai-json aeson-qq interpolate doctest base-compat"
 
     mapM_ (add "Mario Blazevic <blamario@yahoo.com>") $ words
         "monad-parallel monad-coroutine incremental-parser monoid-subclasses"
