@@ -540,8 +540,10 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     mapM_ (add "Matvey Aksenov <matvey.aksenov@gmail.com") $ words
         "terminal-size"
+    {- https://github.com/fpco/stackage/pull/331
     mapM_ (add "Jyotirmoy Bhattacharya <jyotirmoy@jyotirmoy.net") $ words
         "hakyll"
+    -}
 
     when (ghcVer == GhcMajorVersion 7 8 && not requireHP) $
         mapM_ (add "Michael Snoyman") $ words =<<
