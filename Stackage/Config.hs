@@ -418,7 +418,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Adam Bergmark <adam@bergmark.nl>") $ words
         "fay fay-base fay-dom fay-jquery fay-text fay-uri snaplet-fay"
 
-    when (not requireHP) $
+    when (ghcVer >= GhcMajorVersion 7 8 && not requireHP) $
         mapM_ (add "Rodrigo Setti <rodrigosetti@gmail.com>") $ words
             "messagepack messagepack-rpc"
 
@@ -551,7 +551,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
             [ "repa repa-io repa-algorithms repa-devil JuicyPixels-repa"
             ]
 
-    when (not requireHP) $ do
+    when (ghcVer >= GhcMajorVersion 7 8 && not requireHP) $ do
         mapM_ (add "Nikita Volkov <nikita.y.volkov@mail.ru>") $
             words "hasql hasql-postgres hasql-backend postgresql-binary" ++
             words "stm-containers focus list-t slave-thread partial-handler" ++
