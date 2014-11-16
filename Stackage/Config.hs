@@ -465,7 +465,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         mapM_ (add "John Wiegley") $ words =<<
             -- Removed these: bad semigroups upper bound
             [ "bindings-DSL github monad-extras numbers hlibgit2"
-            , "gitlib gitlib-cmdline gitlib-test"
+            , "gitlib gitlib-cmdline"
+            -- https://github.com/jwiegley/gitlib/issues/39
+            -- , "gitlib-test"
             , "gitlib-libgit2"
             -- https://github.com/jwiegley/gitlib/issues/31
             -- "gitlib-s3"
