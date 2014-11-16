@@ -417,9 +417,10 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     mapM_ (add "Adam Bergmark <adam@bergmark.nl>") $ words
         "fay fay-base fay-dom fay-jquery fay-text fay-uri snaplet-fay"
-        
-    mapM_ (add "Rodrigo Setti <rodrigosetti@gmail.com>") $ words
-        "messagepack messagepack-rpc"
+
+    when (not requireHP) $
+        mapM_ (add "Rodrigo Setti <rodrigosetti@gmail.com>") $ words
+            "messagepack messagepack-rpc"
 
     mapM_ (add "Boris Lykah <lykahb@gmail.com>") $ words
         "groundhog groundhog-th groundhog-sqlite groundhog-postgresql groundhog-mysql"
@@ -550,12 +551,13 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
             [ "repa repa-io repa-algorithms repa-devil JuicyPixels-repa"
             ]
 
-    mapM_ (add "Nikita Volkov <nikita.y.volkov@mail.ru>") $
-        words "hasql hasql-postgres hasql-backend postgresql-binary" ++
-        words "stm-containers focus list-t slave-thread partial-handler" ++
-        words "neat-interpolation cases" ++
-        words "base-prelude mtl-prelude"
-    addRange "Nikita Volkov <nikita.y.volkov@mail.ru>" "mtl-prelude" "< 2"
+    when (not requireHP) $ do
+        mapM_ (add "Nikita Volkov <nikita.y.volkov@mail.ru>") $
+            words "hasql hasql-postgres hasql-backend postgresql-binary" ++
+            words "stm-containers focus list-t slave-thread partial-handler" ++
+            words "neat-interpolation cases" ++
+            words "base-prelude mtl-prelude"
+        addRange "Nikita Volkov <nikita.y.volkov@mail.ru>" "mtl-prelude" "< 2"
 
     -- https://github.com/fpco/stackage/issues/217
     addRange "Michael Snoyman" "transformers" "< 0.4"
