@@ -418,7 +418,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     when (ghcVer >= GhcMajorVersion 7 8 && not requireHP) $
         mapM_ (add "Rodrigo Setti <rodrigosetti@gmail.com>") $ words
-            "messagepack messagepack-rpc"
+            "messagepack"
+            -- https://github.com/rodrigosetti/messagepack-rpc/issues/1
+            -- messagepack-rpc
 
     mapM_ (add "Boris Lykah <lykahb@gmail.com>") $ words
         "groundhog groundhog-th groundhog-sqlite groundhog-postgresql groundhog-mysql"
