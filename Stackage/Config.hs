@@ -150,9 +150,6 @@ defaultExpectedFailures ghcVer requireHP = execWriter $ do
     -- Pulls in monad-peel which does not compile
     when (ghcVer >= GhcMajorVersion 7 8) $ add "monad-control"
 
-    -- issues with pthread
-    mapM_ add $ words "hlibgit2 gitlib-s3 gitlib-libgit2"
-
     -- https://github.com/fpco/stackage/issues/226
     add "options"
 
@@ -463,14 +460,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     when (ghcVer < GhcMajorVersion 7 8) $
         mapM_ (add "John Wiegley") $ words =<<
-            -- Removed these: bad semigroups upper bound
-            [ "bindings-DSL github monad-extras numbers hlibgit2"
-            , "gitlib gitlib-cmdline"
-            -- https://github.com/jwiegley/gitlib/issues/39
-            -- , "gitlib-test"
-            , "gitlib-libgit2"
-            -- https://github.com/jwiegley/gitlib/issues/31
-            -- "gitlib-s3"
+            [ "bindings-DSL github monad-extras numbers"
             ]
 
     mapM_ (add "Aditya Bhargava <adit@adit.io") $ words
