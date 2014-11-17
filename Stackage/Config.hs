@@ -553,7 +553,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
             words "neat-interpolation cases" ++
             words "base-prelude mtl-prelude"
         addRange "Nikita Volkov <nikita.y.volkov@mail.ru>" "mtl-prelude" "< 2"
-        addRange "Nikita Volkov <nikita.y.volkov@mail.ru>" "postgresql-binary" "< 0.4"
 
     -- https://github.com/fpco/stackage/issues/217
     addRange "Michael Snoyman" "transformers" "< 0.4"
