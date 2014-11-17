@@ -281,7 +281,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "random-fu lhs2tex"
         , "Chart Chart-diagrams histogram-fill random-source"
         , "webdriver-snoy" -- Replace with webdriver after: https://github.com/kallisti-dev/hs-webdriver/issues/53
-        -- https://github.com/Soostone/retry/pull/15
+        , "foreign-store"
+        -- https://github.com/Soostone/retry/issues/18
         -- , "retry"
         ]
     when (ghcVer < GhcMajorVersion 7 8) $ do -- No GHC 7.8 support
