@@ -542,6 +542,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         "hakyll"
     -}
 
+    mapM_ (add "Michael Sloan <mgsloan@gmail.com") $ words
+        "th-orphans th-reify-many"
+
     when (ghcVer == GhcMajorVersion 7 8 && not requireHP) $
         mapM_ (add "Michael Snoyman") $ words =<<
             [ "repa repa-io repa-algorithms repa-devil JuicyPixels-repa"
