@@ -375,7 +375,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "diagrams-postscript haxr"
         , "BlogLiterately"
         , "MonadRandom"
-        -- #289: diagrams-builder diagrams-haddock BlogLiterately-diagrams
+        , "diagrams-builder diagrams-haddock BlogLiterately-diagrams"
         ]
     mapM_ (add "Vincent Berthoux <vincent.berthoux@gmail.com>") $ words
        "JuicyPixels"
