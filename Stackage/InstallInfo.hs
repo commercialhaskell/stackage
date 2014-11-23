@@ -126,6 +126,14 @@ getInstallInfo settings = do
             , show now
             ]
 
+        System.IO.UTF8.writeFile (incexc </> "slug") $ concat
+            [ date
+            , "-"
+            , ghcVer
+            , if requireHaskellPlatform settings then "hp" else ""
+            , if isInc then "-inc" else "-exc"
+            ]
+
     return ii
 
 biToSPI :: BuildInfo -> SelectedPackageInfo

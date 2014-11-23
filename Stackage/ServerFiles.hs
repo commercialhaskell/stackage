@@ -37,7 +37,7 @@ createHackageFile isInc hp ii ghcVer date hackageH tarballH = do
     hPutStr tarballH $ concat
         [ "#!/bin/bash -ex\n\ntar czfv "
         , stackageFP
-        , " hackage desc ../build*"
+        , " hackage desc slug ../build*"
         ]
     indextargz <- getTarballName
     indexLBS <- L.readFile indextargz
