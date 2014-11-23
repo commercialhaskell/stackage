@@ -537,13 +537,16 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     mapM_ (add "Matvey Aksenov <matvey.aksenov@gmail.com") $ words
         "terminal-size"
-        
+
     mapM_ (add "Luis G. Torres <lgtorres42@gmail.com") $ words
         "kdt"
     {- https://github.com/fpco/stackage/pull/331
     mapM_ (add "Jyotirmoy Bhattacharya <jyotirmoy@jyotirmoy.net") $ words
         "hakyll"
     -}
+
+    mapM_ (add "Emanuel Borsobom <manny@fpcomplete.com>") $ words
+        "haddock-api text-binary"
 
     mapM_ (add "Michael Sloan <mgsloan@gmail.com") $ words
         "th-orphans th-reify-many"
