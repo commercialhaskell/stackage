@@ -564,6 +564,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
             words "base-prelude mtl-prelude"
         addRange "Nikita Volkov <nikita.y.volkov@mail.ru>" "mtl-prelude" "< 2"
 
+    mapM_ (add "Iustin Pop <iustin@k1024.org>") $ words
+        "prefix-units"
+
     -- https://github.com/fpco/stackage/issues/217
     addRange "Michael Snoyman" "transformers" "< 0.4"
     addRange "Michael Snoyman" "mtl" "< 2.2"
