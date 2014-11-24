@@ -599,9 +599,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     when (ghcVer < GhcMajorVersion 7 8) $
         addRange "Michael Snoyman" "aeson" "< 0.8"
 
-    -- https://github.com/fpco/stackage/issues/274
-    addRange "Michael Snoyman" "pandoc-citeproc" "< 0.5"
-
     -- https://github.com/fpco/stackage/issues/276
     addRange "Michael Snoyman" "network" "< 2.6"
     addRange "Michael Snoyman" "network-uri" "< 2.6"
