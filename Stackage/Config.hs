@@ -546,7 +546,10 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -}
 
     mapM_ (add "Emanuel Borsobom <manny@fpcomplete.com>") $ words
-        "haddock-api text-binary"
+        "text-binary"
+    when (ghcVer >= GhcMajorVersion 7 8) $
+        mapM_ (add "Emanuel Borsobom <manny@fpcomplete.com>") $ words
+            "haddock-api"
 
     mapM_ (add "Michael Sloan <mgsloan@gmail.com") $ words
         "th-orphans th-reify-many"
