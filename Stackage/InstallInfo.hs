@@ -128,7 +128,7 @@ getInstallInfo settings = do
 
         System.IO.UTF8.writeFile (incexc </> "slug") $ concat
             [ date
-            , "-"
+            , "-ghc"
             , ghcVer
             , if requireHaskellPlatform settings then "hp" else ""
             , if isInc then "-inc" else "-exc"
