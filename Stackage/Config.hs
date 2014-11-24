@@ -221,6 +221,7 @@ defaultExpectedFailures ghcVer requireHP = execWriter $ do
 
     -- Requires PostgreSQL running
     add "postgresql-binary"
+    add "hasql"
     add "hasql-postgres"
 
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
