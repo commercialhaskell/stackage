@@ -111,6 +111,7 @@ main = withManager defaultManagerSettings $ \m -> do
                 { requestHeaders = [("Content-Type", "text/csv")]
                 , requestBody = RequestBodyLBS lbs
                 , checkStatus = \_ _ _ -> Nothing
+                , method = "POST"
                 }
         httpLbs req m >>= print
 
