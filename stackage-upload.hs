@@ -2,6 +2,7 @@
 import           Control.Monad                         (filterM, when)
 import qualified Data.ByteString.Char8                 as S8
 import qualified Data.ByteString.Lazy                  as L
+import qualified Data.ByteString.Lazy.Char8            as L8
 import           Data.List                             (isInfixOf, isPrefixOf,
                                                         sort)
 import           Network.HTTP.Client
@@ -109,9 +110,9 @@ main = withManager defaultManagerSettings $ \m -> do
         lbs <- L.readFile $ takeDirectory filepath </> "build-plan.csv"
         let req = "http://hackage.haskell.org/distro/Stackage/packages.csv"
                 { requestHeaders = [("Content-Type", "text/csv")]
-                , requestBody = RequestBodyLBS lbs
+                , requestBody = RequestBodyLBS $ L.intercalate "\n" $ L8.lines lbs
                 , checkStatus = \_ _ _ -> Nothing
-                , method = "POST"
+                , method = "PUT"
                 }
         httpLbs req m >>= print
 
