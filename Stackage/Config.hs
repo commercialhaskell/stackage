@@ -320,6 +320,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Antoine Latter") $ words
         "uuid byteorder"
 
+    mapM_ (add "Philipp Middendorf <pmidden@secure.mailbox.org>") $ words
+        "clock"
+
     mapM_ (add "Stefan Wehr <wehr@factisresearch.com>") $ words
         "HTF xmlgen stm-stats"
     when (ghcVer < GhcMajorVersion 7 8) $ add "Stefan Wehr <wehr@factisresearch.com>" "hscurses"
