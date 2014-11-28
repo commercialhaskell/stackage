@@ -283,6 +283,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "Chart Chart-diagrams histogram-fill random-source"
         , "webdriver"
         , "foreign-store"
+        , "statistics-linreg"
         -- https://github.com/Soostone/retry/issues/18
         -- , "retry"
         ]
@@ -337,8 +338,11 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "tls-debug vhd language-java"
         ]
 
-    mapM_ (add "Chris Done") $ words
-        "statistics-linreg"
+    mapM_ (add "Chris Done") $ words =<<
+        [ "ace check-email freenect frisby gd haskell-docs "
+        , "hostname-validate ini lucid osdkeys pdfinfo present "
+        , "pure-io scrobble sourcemap" ]
+    -- TODO: Add hindent and structured-haskell-mode once they've been ported to HSE 1.16.
     -- https://github.com/isomorphism/these/issues/11
     -- when (ghcVer >= GhcMajorVersion 7 8) $ add "Chris Done" "shell-conduit"
 
