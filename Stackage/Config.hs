@@ -341,10 +341,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Chris Done") $ words =<<
         [ "ace check-email freenect frisby gd haskell-docs "
         , "hostname-validate ini lucid osdkeys pdfinfo present "
-        , "pure-io scrobble sourcemap" ]
+        , "pure-io scrobble sourcemap shell-conduit" ]
     -- TODO: Add hindent and structured-haskell-mode once they've been ported to HSE 1.16.
-    -- https://github.com/isomorphism/these/issues/11
-    -- when (ghcVer >= GhcMajorVersion 7 8) $ add "Chris Done" "shell-conduit"
 
 #if !defined(mingw32_HOST_OS) && !defined(__MINGW32__)
     -- Does not compile on Windows
