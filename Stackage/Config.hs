@@ -591,6 +591,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         addRange "Michael Snoyman" "aeson-utils" "< 0.2.2"
         addRange "Michael Snoyman" "formatting" "< 5"
         addRange "Michael Snoyman" "aws" "< 0.10"
+        addRange "Michael Snoyman" "network" "< 2.6"
+        addRange "Michael Snoyman" "network-uri" "< 2.6"
 
     -- 0.16.2 fixes dependency issues with different version of GHC
     -- and Haskell Platform. Now builds on GHC 7.4-7.8. Version 1.0 is
@@ -602,10 +604,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/271
     when (ghcVer < GhcMajorVersion 7 8) $
         addRange "Michael Snoyman" "aeson" "< 0.8"
-
-    -- https://github.com/fpco/stackage/issues/276
-    addRange "Michael Snoyman" "network" "< 2.6"
-    addRange "Michael Snoyman" "network-uri" "< 2.6"
 
     -- https://github.com/fpco/stackage/issues/279
     addRange "Michael Snoyman" "MonadRandom" "< 0.2"
@@ -653,6 +651,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         peg "texmath" "<= 0.6.6.3"
         peg "checkers" "== 0.3.2"
         peg "HandsomeSoup" "< 0.3.3"
+        peg "network-uri" "< 2.6"
 
 add :: String -> String -> Writer PackageMap ()
 add maintainer package = addRange maintainer package "-any"

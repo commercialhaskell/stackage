@@ -41,8 +41,13 @@ defaultSelectSettings version requireHP = SelectSettings
         (case Map.lookup (PackageName "containers") coreMap of
             Just v | Just range <- simpleParse "< 0.5", v `withinRange` range
                 -> Set.singleton "containers-old"
-            _ -> Set.empty)
-    , disabledFlags = Set.fromList (words "bytestring-in-base test-hlint network-uri")
+            _ -> Set.empty) `Set.union`
+
+        -- Support for network 2.6
+        (if version >= GhcMajorVersion 7 8 && not requireHP
+            then Set.singleton "network-uri"
+            else Set.empty)
+    , disabledFlags = Set.fromList (words "bytestring-in-base test-hlint")
         `Set.union`
         (if version <= GhcMajorVersion 7 4
             then Set.singleton "bytestring-builder"
@@ -53,7 +58,12 @@ defaultSelectSettings version requireHP = SelectSettings
         `Set.union`
         (if version <= GhcMajorVersion 7 6
             then Set.singleton "decoderinterface"
-            else Set.empty)
+            else Set.empty) `Set.union`
+
+        -- Support for network 2.6
+        (if version >= GhcMajorVersion 7 8 && not requireHP
+            then Set.empty
+            else Set.singleton "network-uri")
     , allowedPackage = const $ Right ()
     , useGlobalDatabase = False
     , skippedTests =
