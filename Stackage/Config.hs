@@ -339,13 +339,15 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         ]
 
     mapM_ (add "Chris Done") $ words =<<
-        [ "ace check-email freenect frisby gd"
+        [ "ace check-email freenect gd"
         , "hostname-validate ini lucid osdkeys pdfinfo"
         , "pure-io sourcemap"
         -- https://github.com/nominolo/atto-lisp/issues/15
         -- , "present"
         -- https://github.com/chrisdone/scrobble/issues/1
         -- , "scrobble"
+        -- https://github.com/fpco/stackage/issues/344
+        -- , "frisby"
         ]
 
     -- Requires older haddock currently
