@@ -340,8 +340,11 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     mapM_ (add "Chris Done") $ words =<<
         [ "ace check-email freenect frisby gd haskell-docs "
-        , "hostname-validate ini lucid osdkeys pdfinfo present "
+        , "hostname-validate ini lucid osdkeys pdfinfo"
         , "pure-io scrobble sourcemap shell-conduit" ]
+
+        -- https://github.com/nominolo/atto-lisp/issues/15
+        -- present
     -- TODO: Add hindent and structured-haskell-mode once they've been ported to HSE 1.16.
 
 #if !defined(mingw32_HOST_OS) && !defined(__MINGW32__)
