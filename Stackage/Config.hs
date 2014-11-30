@@ -341,16 +341,21 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Chris Done") $ words =<<
         [ "ace check-email freenect frisby gd"
         , "hostname-validate ini lucid osdkeys pdfinfo"
-        , "pure-io scrobble sourcemap shell-conduit"
+        , "pure-io scrobble sourcemap"
+        -- https://github.com/nominolo/atto-lisp/issues/15
+        -- , "present"
         ]
 
-        -- https://github.com/nominolo/atto-lisp/issues/15
-        -- present
-
     -- Requires older haddock currently
-    when (ghcVer /= GhcMajorVersion 7 8 || requireHP) $
+    when (ghcVer == GhcMajorVersion 7 8 && requireHP) $
         mapM_ (add "Chris Done") $ words =<<
             [ "haskell-docs"
+            ]
+
+    -- Requires too new a process for GHC 7.6
+    when (ghcVer >= GhcMajorVersion 7 8) $
+        mapM_ (add "Chris Done") $ words =<<
+            [ "shell-conduit"
             ]
 
     -- TODO: Add hindent and structured-haskell-mode once they've been ported to HSE 1.16.
