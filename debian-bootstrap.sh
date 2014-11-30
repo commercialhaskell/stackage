@@ -7,6 +7,7 @@
 # wget -O - https://raw.github.com/fpco/stackage/master/debian-bootstrap.sh | bash -ex
 
 sudo add-apt-repository ppa:chris-lea/zeromq
+sudo add-apt-repository ppa:floe/libtisch
 sudo apt-get update
 sudo apt-get install -y build-essential libncurses-dev git libgmp3c2 libgmp3-dev zlib1g-dev libedit2 libedit-dev freeglut3-dev libglu1-mesa-dev libglib2.0-dev libcairo2-dev libpango1.0-dev libgtk2.0-dev zip libdevil-dev llvm libbz2-dev libjudy-dev libmysqlclient-dev libpq-dev libicu-dev libssl-dev nettle-dev libgsl0-dev libblas-dev liblapack-dev \
     libcurl4-openssl-dev \
