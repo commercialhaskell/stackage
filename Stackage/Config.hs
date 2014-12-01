@@ -345,7 +345,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Chris Done") $ words =<<
         [ "ace check-email freenect gd"
         , "hostname-validate ini lucid osdkeys pdfinfo"
-        , "pure-io sourcemap scrobble frisby"
+        , "pure-io sourcemap frisby"
         -- https://github.com/nominolo/atto-lisp/issues/15
         -- , "present"
         ]
@@ -354,6 +354,12 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $
         mapM_ (add "Chris Done") $ words =<<
             [ "haskell-docs"
+            ]
+
+    -- https://github.com/jgoerzen/testpack/issues/10
+    when (ghcVer >= GhcMajorVersion 7 8 && not requireHP) $
+        mapM_ (add "Chris Done") $ words =<<
+            [ "scrobble"
             ]
 
     -- Requires too new a process for GHC 7.6
