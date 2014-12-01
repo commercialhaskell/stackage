@@ -215,6 +215,10 @@ runTestSuite cabalVersion settings testdir docdir
 
         -- Try building docs first in case tests have an expected failure.
         when (buildDocs settings) $ do
+            -- https://github.com/gtk2hs/gtk2hs/issues/79
+            when (packageName `Set.member` buildBeforeHaddock) $
+                getHandle AppendMode $ run "cabal" ["build"] dir
+
             hfs <- readIORef haddockFilesRef
             let hfsOpts = flip map hfs $ \(pkgVer, hf) -> concat
                     [ "--haddock-options=--read-interface="
@@ -270,6 +274,10 @@ runTestSuite cabalVersion settings testdir docdir
     dir = testdir </> package
     getHandle mode = withBinaryFile logfile mode
     package = packageVersionString (packageName, spiVersion)
+
+    buildBeforeHaddock = Set.fromList $ map PackageName $ words =<<
+        [ "gio gtk"
+        ]
 
 copyBuiltInHaddocks docdir = do
     Just ghc <- findExecutable "ghc"
