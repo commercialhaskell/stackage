@@ -224,6 +224,10 @@ defaultExpectedFailures ghcVer requireHP = execWriter $ do
     add "hasql"
     add "hasql-postgres"
 
+    -- https://github.com/gtk2hs/gtk2hs/issues/79
+    add "gio"
+    add "gtk"
+
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
         -- https://github.com/vincenthz/hs-asn1/issues/11
         add "asn1-encoding"
