@@ -100,6 +100,7 @@ build settings' bp = do
                  : "--build-log=logs/$pkg.log"
                  : "--max-backjumps=-1"
                  : "--reorder-goals"
+                 : "--build-summary=build-summary/$pkgid.report"
                  : packageList
         hPutStrLn handle ("cabal " ++ unwords (map (\s -> "'" ++ s ++ "'") args))
         runCabal args handle
