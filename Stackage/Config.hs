@@ -310,7 +310,10 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     addRange "FP Complete <michael@fpcomplete.com>" "kure" "<= 2.4.10"
 
     mapM_ (add "Omari Norman <omari@smileystation.com>") $ words
-        "barecheck quickpull rainbow rainbow-tests"
+        "barecheck rainbow rainbow-tests"
+    when (ghcVer >= GhcMajorVersion 7 8 && not requireHP) $
+        mapM_ (add "Omari Norman <omari@smileystation.com>") $ words
+            "quickpull"
 
     mapM_ (add "Neil Mitchell") $ words
         "hlint hoogle shake derive tagsoup cmdargs safe uniplate nsis js-jquery js-flot extra bake ghcid"
@@ -398,14 +401,18 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "numeric-extras parsers pointed prelude-extras reducers"
         , "streams vector-instances"
         , "approximate bits bytes compensated exceptions fixed gl"
-        , "half lens-aeson linear-accelerate log-domain"
-        , "monad-products monad-st nats zlib-lens"
+        , "half linear-accelerate log-domain"
+        , "monad-products monad-st nats"
         , "ersatz"
         -- hyperloglog
         ]
     when (ghcVer < GhcMajorVersion 7 8) $
         mapM_ (add "Edward Kmett <ekmett@gmail.com>") $ words =<<
             [ "categories comonad-extras recursion-schemes syb-extras"
+            ]
+    when (ghcVer >= GhcMajorVersion 7 8 && not requireHP) $
+        mapM_ (add "Edward Kmett <ekmett@gmail.com>") $ words =<<
+            [ "lens-aeson quickpull zlib-lens"
             ]
     -- Temporary upper bound for some of the above packages
     addRange "Edward Kmett <ekmett@gmail.com>" "generic-deriving" "< 1.7"
