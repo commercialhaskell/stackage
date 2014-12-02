@@ -494,6 +494,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         [ "smallcheck tasty tasty-smallcheck tasty-quickcheck tasty-hunit tasty-golden"
         , "traverse-with-class regex-applicative time-lens"
         , "haskell-names haskell-packages hse-cpp"
+        , "action-permutations amqp curl generics-sop heredoc immortal timezone-olson timezone-series"
         ]
 
     mapM_ (add "George Giorgidze <giorgidze@gmail.com>") $ words
