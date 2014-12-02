@@ -394,11 +394,17 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "graphs monad-products monad-st wl-pprint-extras wl-pprint-terminfo"
         , "numeric-extras parsers pointed prelude-extras reducers"
         , "streams vector-instances"
+        , "approximate bits bytes compensated exceptions fixed gl"
+        , "half lens-aeson linear-accelerate log-domain"
+        , "monad-products monad-st nats zlib-lens"
+        -- ersatz hyperloglog
         ]
     when (ghcVer < GhcMajorVersion 7 8) $
         mapM_ (add "Edward Kmett <ekmett@gmail.com>") $ words =<<
             [ "categories comonad-extras recursion-schemes syb-extras"
             ]
+    -- Temporary upper bound for some of the above packages
+    addRange "Edward Kmett <ekmett@gmail.com>" "generic-deriving" "< 1.7"
 
     mapM_ (add "Andrew Farmer <afarmer@ittc.ku.edu>") $ words
         "scotty wai-middleware-static"
