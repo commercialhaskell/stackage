@@ -234,6 +234,9 @@ defaultExpectedFailures ghcVer requireHP = execWriter $ do
     -- https://github.com/ekmett/gl/issues/3
     add "gl"
 
+    -- Failing doctests
+    add "bits"
+
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
         -- https://github.com/vincenthz/hs-asn1/issues/11
         add "asn1-encoding"
