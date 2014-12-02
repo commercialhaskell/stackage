@@ -237,6 +237,9 @@ defaultExpectedFailures ghcVer requireHP = execWriter $ do
     -- Failing doctests
     add "bits"
 
+    -- No server running
+    add "amqp"
+
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
         -- https://github.com/vincenthz/hs-asn1/issues/11
         add "asn1-encoding"
