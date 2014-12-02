@@ -71,6 +71,7 @@ defaultSelectSettings version requireHP = SelectSettings
         if version >= GhcMajorVersion 7 8
             then Set.fromList
                     [ PackageName "punycode" -- pulls in encoding
+                    , PackageName "ersatz" -- old QuickCheck
                     ]
             else Set.empty
     , selectGhcVersion = version

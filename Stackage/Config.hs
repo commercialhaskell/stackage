@@ -228,6 +228,9 @@ defaultExpectedFailures ghcVer requireHP = execWriter $ do
     add "gio"
     add "gtk"
 
+    -- Requires SAT solver and old QuickCheck
+    add "ersatz"
+
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
         -- https://github.com/vincenthz/hs-asn1/issues/11
         add "asn1-encoding"
@@ -397,7 +400,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "approximate bits bytes compensated exceptions fixed gl"
         , "half lens-aeson linear-accelerate log-domain"
         , "monad-products monad-st nats zlib-lens"
-        -- ersatz hyperloglog
+        , "ersatz"
+        -- hyperloglog
         ]
     when (ghcVer < GhcMajorVersion 7 8) $
         mapM_ (add "Edward Kmett <ekmett@gmail.com>") $ words =<<
