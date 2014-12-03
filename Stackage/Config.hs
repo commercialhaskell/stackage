@@ -626,7 +626,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         ["text-binary BoundedChan MissingH bytestring-lexing bytestring-trie"
         ,"data-accessor data-accessor-mtl file-location fuzzcheck here"
         ,"hlibgit2 hostname-validate interpolatedstring-perl6 iproute"
-        ,"missing-foreign multimap parallel-io retry these"]
+        ,"missing-foreign multimap parallel-io"]
     when (ghcVer >= GhcMajorVersion 7 8) $
         mapM_ (add "Emanuel Borsobom <manny@fpcomplete.com>") $ words
             "haddock-api"
