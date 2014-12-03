@@ -713,6 +713,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     addRange "Michael Snoyman" "nats" "< 1"
     addRange "Michael Snoyman" "void" "< 0.7"
 
+    -- https://github.com/nikita-volkov/stm-containers/issues/3
+    addRange "Michael Snoyman" "free" "< 4.10"
+
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
         -- Yay workarounds for unnecessarily old versions
         let peg x y = addRange "Haskell Platform" x y
