@@ -650,6 +650,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Iustin Pop <iustin@k1024.org>") $ words
         "prefix-units"
 
+    mapM_ (add "Alexander Thiemann <mail@athiemann.net>") $ words
+       "graph-core reroute Spock"
+
     -- https://github.com/fpco/stackage/issues/217
     addRange "Michael Snoyman" "transformers" "< 0.4"
     addRange "Michael Snoyman" "mtl" "< 2.2"
