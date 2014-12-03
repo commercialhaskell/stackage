@@ -415,10 +415,11 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "ersatz"
         -- hyperloglog
         ]
-    when (ghcVer < GhcMajorVersion 7 8) $
+    when (ghcVer < GhcMajorVersion 7 8) $ do
         mapM_ (add "Edward Kmett <ekmett@gmail.com>") $ words =<<
             [ "categories comonad-extras recursion-schemes syb-extras"
             ]
+        addRange "Edward Kmett <ekmett@gmail.com>" "bits" "< 0.4"
     when (ghcVer >= GhcMajorVersion 7 8 && not requireHP) $
         mapM_ (add "Edward Kmett <ekmett@gmail.com>") $ words =<<
             [ "lens-aeson quickpull zlib-lens"
