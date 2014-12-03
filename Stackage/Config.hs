@@ -369,8 +369,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         [ "ace check-email freenect gd"
         , "hostname-validate ini lucid osdkeys pdfinfo"
         , "pure-io sourcemap frisby"
-        -- https://github.com/nominolo/atto-lisp/issues/15
-        -- , "present"
+        , "present"
         ]
 
     -- Requires older haddock currently
