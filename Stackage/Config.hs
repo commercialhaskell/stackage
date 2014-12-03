@@ -248,6 +248,9 @@ defaultExpectedFailures ghcVer requireHP = execWriter $ do
         add "tls"
 
         add "x509"
+
+    -- Old Haddock bug https://github.com/well-typed/generics-sop/issues/2
+    when (ghcVer < GhcMajorVersion 7 8) $ add "generics-sop"
   where
     add = tell . singleton . PackageName
 
