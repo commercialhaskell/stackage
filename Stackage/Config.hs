@@ -409,8 +409,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         , "graphs monad-products monad-st wl-pprint-extras wl-pprint-terminfo"
         , "numeric-extras parsers pointed prelude-extras reducers"
         , "streams vector-instances"
-        , "approximate bits bytes compensated exceptions fixed gl"
-        , "half linear-accelerate log-domain"
+        , "approximate bits bytes compensated exceptions"
+        , "linear-accelerate log-domain"
         , "monad-products monad-st nats"
         , "ersatz"
         -- hyperloglog
@@ -420,6 +420,13 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
             [ "categories comonad-extras recursion-schemes syb-extras"
             ]
         addRange "Edward Kmett <ekmett@gmail.com>" "bits" "< 0.4"
+    when (ghcVer >= GhcMajorVersion 7 8) $
+        mapM_ (add "Edward Kmett <ekmett@gmail.com>") $ words =<<
+            -- https://github.com/ekmett/fixed/issues/1
+            [ "fixed"
+            -- https://github.com/ekmett/half/issues/1
+            , "half gl"
+            ]
     when (ghcVer >= GhcMajorVersion 7 8 && not requireHP) $
         mapM_ (add "Edward Kmett <ekmett@gmail.com>") $ words =<<
             [ "lens-aeson quickpull zlib-lens"
