@@ -459,7 +459,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     if ghcVer >= GhcMajorVersion 7 8
         then add "Ryan Newton <ryan.newton@alum.mit.edu>" "accelerate"
-        else addRange "Ryan Newton <ryan.newton@alum.mit.edu>" "accelerate" "< 0.15"
+        else do
+            addRange "Ryan Newton <ryan.newton@alum.mit.edu>" "accelerate" "< 0.15"
+            addRange "Michael Snoyman" "linear-accelerate" "< 0.2"
 
     mapM_ (add "Dan Burton <danburton.email@gmail.com>") $ words =<<
         [ "basic-prelude composition io-memoize numbers rev-state runmemo"

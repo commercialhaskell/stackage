@@ -68,10 +68,10 @@ defaultSelectSettings version requireHP = SelectSettings
     , useGlobalDatabase = False
     , skippedTests =
         Set.insert (PackageName "ReadArgs") $ -- old version of hspec
+        Set.insert (PackageName "ersatz") $ -- old QuickCheck
         if version >= GhcMajorVersion 7 8
             then Set.fromList
                     [ PackageName "punycode" -- pulls in encoding
-                    , PackageName "ersatz" -- old QuickCheck
                     ]
             else Set.empty
     , selectGhcVersion = version
