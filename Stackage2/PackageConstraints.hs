@@ -51,7 +51,7 @@ packageFlags :: PackageName -> Map FlagName Bool
 packageFlags _ = mempty
 
 tryBuildTest :: PackageName -> Bool
-tryBuildTest = (`member` Old.skippedTests oldSettings)
+tryBuildTest = (`notMember` Old.skippedTests oldSettings)
 
 tryBuildBenchmark :: PackageName -> Bool
 tryBuildBenchmark _ = True
