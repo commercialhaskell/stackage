@@ -1,10 +1,11 @@
-{-# LANGUAGE NoImplicitPrelude, OverloadedStrings #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE OverloadedStrings #-}
 module Stackage2.CorePackages
     ( getCorePackages
     ) where
 
-import Stackage2.Prelude
-import qualified Data.Text as T
+import qualified Data.Text         as T
+import           Stackage2.Prelude
 
 -- | Get a @Map@ of all of the core packages. Core packages are defined as
 -- packages which ship with GHC itself.

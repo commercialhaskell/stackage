@@ -12,7 +12,7 @@ import           Data.Conduit.Process  as X
 import           Data.Typeable         (TypeRep, typeOf)
 import           Distribution.Package  as X (PackageName (PackageName))
 import qualified Distribution.Text     as DT
-import           Distribution.Version  as X (Version (..))
+import           Distribution.Version  as X (Version (..), VersionRange)
 import           System.Exit           (ExitCode (ExitSuccess))
 
 unPackageName :: PackageName -> Text
@@ -71,3 +71,5 @@ withCheckedProcess cp f = do
     ec <- waitForStreamingProcess sph
     checkExitCode cp ec
     return res
+
+newtype Maintainer = Maintainer { unMaintainer :: Text }
