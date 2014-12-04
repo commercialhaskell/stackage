@@ -112,12 +112,11 @@ instance Exception CabalParseException
 -- given criterion.
 getLatestDescriptions :: MonadIO m
                       => (PackageName -> Version -> Bool)
-                      -> m (Map PackageName (Version, GenericPackageDescription))
-getLatestDescriptions f = liftIO $ do
+                      -> (GenericPackageDescription -> IO desc)
+                      -> m (Map PackageName desc)
+getLatestDescriptions f parseDesc = liftIO $ do
     m <- runResourceT $ sourcePackageIndex $$ filterC f' =$ foldlC add mempty
-    forM m $ \ucf -> do
-        gpd <- ucfParse ucf
-        return (ucfVersion ucf, gpd)
+    forM m $ \ucf -> liftIO $ ucfParse ucf >>= parseDesc
   where
     f' ucf = f (ucfName ucf) (ucfVersion ucf)
     add m ucf =

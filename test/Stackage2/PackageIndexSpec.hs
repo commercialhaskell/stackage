@@ -4,6 +4,7 @@ module Stackage2.PackageIndexSpec (spec) where
 import Stackage2.PackageIndex
 import Stackage2.Prelude
 import Test.Hspec
+import Distribution.Package (packageId, pkgVersion)
 
 spec :: Spec
 spec = do
@@ -13,8 +14,8 @@ spec = do
                 [ (asText "base", asText "4.5.0.0")
                 , ("does-not-exist", "9999999999999999999")
                 ])
-        m <- getLatestDescriptions f
+        m <- getLatestDescriptions f return
         length m `shouldBe` 1
         p <- simpleParse $ asText "base"
         v <- simpleParse $ asText "4.5.0.0"
-        (fst <$> m) `shouldBe` singletonMap p v
+        (pkgVersion . packageId <$> m) `shouldBe` singletonMap p v

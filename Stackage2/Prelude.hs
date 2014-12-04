@@ -2,6 +2,7 @@
 {-# LANGUAGE NoImplicitPrelude  #-}
 {-# LANGUAGE OverloadedStrings  #-}
 {-# LANGUAGE TypeFamilies       #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 module Stackage2.Prelude
     ( module X
     , module Stackage2.Prelude
@@ -12,9 +13,11 @@ import           Data.Conduit.Process  as X
 import           Data.Typeable         (TypeRep, typeOf)
 import           Distribution.Package  as X (PackageIdentifier (..),
                                              PackageName (PackageName))
+import           Distribution.PackageDescription  as X (FlagName (..), GenericPackageDescription)
 import qualified Distribution.Text     as DT
 import           Distribution.Version  as X (Version (..), VersionRange)
 import           System.Exit           (ExitCode (ExitSuccess))
+import Data.Aeson (ToJSON, FromJSON)
 
 unPackageName :: PackageName -> Text
 unPackageName (PackageName str) = pack str
@@ -74,3 +77,4 @@ withCheckedProcess cp f = do
     return res
 
 newtype Maintainer = Maintainer { unMaintainer :: Text }
+    deriving (Show, Eq, Ord, Hashable, ToJSON, FromJSON)
