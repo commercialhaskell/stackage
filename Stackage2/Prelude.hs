@@ -28,7 +28,7 @@ simpleParse :: (MonadThrow m, DT.Text a, Typeable a, MonoFoldable text, Element 
             => text -> m a
 simpleParse orig = withTypeRep $ \rep ->
     case DT.simpleParse str of
-        Nothing -> throwM (ParseFailed rep (pack str))
+        Nothing -> throwM (ParseFailedException rep (pack str))
         Just v  -> return v
   where
     str = unpack orig
@@ -42,9 +42,9 @@ simpleParse orig = withTypeRep $ \rep ->
         unwrap :: m a -> a
         unwrap _ = error "unwrap"
 
-data ParseFailed = ParseFailed TypeRep Text
+data ParseFailedException = ParseFailedException TypeRep Text
     deriving (Show, Typeable)
-instance Exception ParseFailed
+instance Exception ParseFailedException
 
 data ProcessExitedUnsuccessfully = ProcessExitedUnsuccessfully CreateProcess ExitCode
     deriving Typeable
