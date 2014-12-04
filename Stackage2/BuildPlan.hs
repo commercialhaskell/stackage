@@ -25,6 +25,7 @@ import Control.Monad.State.Strict (execState, get, put)
 import qualified Data.Map as Map
 import qualified Data.Set as Set
 import Data.Aeson
+import Stackage2.PackageDescription
 
 data BuildPlan desc = BuildPlan
     { bpCore        :: Map PackageName Version
@@ -145,8 +146,8 @@ instance FromJSON TestState where
 newBuildPlan :: MonadIO m => m (BuildPlan FlatComponent)
 newBuildPlan = liftIO $ do
     core <- getCorePackages
-    extraOrig <- getLatestDescriptions (isAllowed core) simplifyDesc
-    let toolNames = concatMap (seTools . fcExtra . pbDesc) extraOrig
+    extraOrig <- getLatestDescriptions (isAllowed core) mkPackageBuild
+    let toolNames = concatMap (seTools . fcExtra . pbDesc) extraOrig -- FIXME extraOrig ==> extra
         extra = populateUsers $ removeUnincluded (Map.keysSet toolNames) extraOrig
     return BuildPlan
         { bpCore = core
@@ -170,7 +171,7 @@ removeUnincluded toolNames orig =
     included :: Set PackageName
     included = flip execState mempty $ do
         mapM_ (add . fst) $ mapToList $ pcPackages defaultPackageConstraints
-        mapM_ add toolNames
+        mapM_ add toolNames -- FIXME remove this
 
     add name = do
         inc <- get
@@ -179,6 +180,7 @@ removeUnincluded toolNames orig =
             case lookup name orig of
                 Nothing -> return ()
                 Just pb -> mapM_ (add . fst) $ mapToList $ fcDeps $ pbDesc pb
+                    -- FIXME add tools here
 
 populateUsers :: Map PackageName (PackageBuild FlatComponent)
               -> Map PackageName (PackageBuild FlatComponent)
@@ -191,83 +193,20 @@ populateUsers orig =
         | dep `member` fcDeps (pbDesc pb) = singletonSet user
         | otherwise = mempty
 
-data SimpleTree = SimpleTree
-    { stDeps :: Map PackageName VersionRange
-    , stConds :: [(Condition ConfVar, SimpleTree, Maybe SimpleTree)]
-    , stExtra :: SimpleExtra
-    }
-    deriving Show
-instance Monoid SimpleTree where
-    mempty = SimpleTree mempty mempty mempty
-    mappend (SimpleTree a b c) (SimpleTree x y z) = SimpleTree
-        (unionWith intersectVersionRanges a x)
-        (b ++ y)
-        (c ++ z)
+isAllowed :: Map PackageName Version -- ^ core
+          -> PackageName -> Version -> Bool
+isAllowed core = \name version ->
+    case lookup name core of
+        Just _ -> False -- never reinstall a core package
+        Nothing ->
+            case lookup name $ pcPackages defaultPackageConstraints of
+                Nothing -> True -- no constraints
+                Just (range, _) -> withinRange version range
 
-data SimpleExtra = SimpleExtra
-    { seTools :: Map PackageName VersionRange
-    }
-    deriving Show
-instance Monoid SimpleExtra where
-    mempty = SimpleExtra mempty
-    mappend (SimpleExtra a) (SimpleExtra x) = SimpleExtra
-        (unionWith intersectVersionRanges a x)
-
-getSimpleTrees :: Bool -- ^ include test suites?
-               -> Bool -- ^ include benchmarks?
-               -> GenericPackageDescription
-               -> [SimpleTree]
-getSimpleTrees includeTests includeBench gpd = concat
-    [ maybe [] (return . go libBuildInfo) $ condLibrary gpd
-    , map (go buildInfo . snd) $ condExecutables gpd
-    , if includeTests
-        then map (go testBuildInfo . snd) $ condTestSuites gpd
-        else []
-    , if includeBench
-        then map (go benchmarkBuildInfo . snd) $ condBenchmarks gpd
-        else []
-    ]
-  where
-    go getExtra (CondNode dat deps comps) = SimpleTree
-        { stDeps = unionsWith intersectVersionRanges
-                 $ map (\(Dependency x y) -> singletonMap x y) deps
-        , stConds = map (goComp getExtra) comps
-        , stExtra = toSimpleExtra $ getExtra dat
-        }
-
-    goComp getExtra (cond, tree1, mtree2) =
-        (cond, go getExtra tree1, go getExtra <$> mtree2)
-
-    toSimpleExtra bi = SimpleExtra
-        { seTools = unionsWith intersectVersionRanges $ flip map (buildTools bi)
-            $ \(Dependency name range) -> singletonMap name range
-        }
-
-data FlatComponent = FlatComponent
-    { fcDeps :: Map PackageName VersionRange
-    , fcExtra :: SimpleExtra
-    }
-    deriving Show
-instance Monoid FlatComponent where
-    mempty = FlatComponent mempty mempty
-    mappend (FlatComponent a b) (FlatComponent x y) = FlatComponent
-        (unionWith intersectVersionRanges a x)
-        (b ++ y)
-
-flattenComponent :: SimpleTree -> FlatComponent
-flattenComponent (SimpleTree deps conds extra) =
-    mconcat $ here : map goCond conds
-  where
-    here = FlatComponent { fcDeps = deps, fcExtra = extra }
-    goCond (cond, tree1, mtree2)
-        | checkCond cond = flattenComponent tree1
-        | otherwise = maybe mempty flattenComponent mtree2
-
-checkCond :: Condition ConfVar -> Bool
-checkCond _ = False -- FIXME
-
-simplifyDesc :: GenericPackageDescription -> IO (PackageBuild FlatComponent)
-simplifyDesc gpd = do
+mkPackageBuild :: Monad m
+               => GenericPackageDescription
+               -> m (PackageBuild FlatComponent)
+mkPackageBuild gpd =
     return PackageBuild
         { pbVersion = version
         , pbMaintainer = fmap snd $ lookup name $ pcPackages defaultPackageConstraints
@@ -288,20 +227,10 @@ simplifyDesc gpd = do
                         -> ExpectFailure
                     | otherwise -> ExpectSuccess
         , pbTryBuildBenchmark = tryBuildBenchmark name
-        , pbDesc = foldMap flattenComponent $ getSimpleTrees
+        , pbDesc = getFlattenedComponent
             (tryBuildTest name)
             (tryBuildBenchmark name)
             gpd
         }
   where
     PackageIdentifier name version = package $ packageDescription gpd
-
-isAllowed :: Map PackageName Version -- ^ core
-          -> PackageName -> Version -> Bool
-isAllowed core = \name version ->
-    case lookup name core of
-        Just _ -> False -- never reinstall a core package
-        Nothing ->
-            case lookup name $ pcPackages defaultPackageConstraints of
-                Nothing -> True -- no constraints
-                Just (range, _) -> withinRange version range
