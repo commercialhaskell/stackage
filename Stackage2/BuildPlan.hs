@@ -20,6 +20,7 @@ import Stackage2.CorePackages
 import Stackage2.PackageConstraints
 import Stackage2.PackageIndex
 import Stackage2.Prelude
+import Stackage2.GithubPings
 import Control.Monad.State.Strict (execState, get, put)
 import qualified Data.Map as Map
 import qualified Data.Set as Set
@@ -77,6 +78,7 @@ instance desc ~ () => FromJSON (BuildPlan desc) where
 data PackageBuild desc = PackageBuild
     { pbVersion           :: Version
     , pbMaintainer        :: Maybe Maintainer
+    , pbGithubPings       :: Set Text
     , pbUsers             :: Set PackageName
     , pbFlags             :: Map FlagName Bool
     , pbTestState         :: TestState
@@ -95,6 +97,7 @@ instance ToJSON (PackageBuild desc) where
         [ maybe [] (\m -> ["maintainer" .= m]) pbMaintainer
         ,
             [ "version" .= asText (display pbVersion)
+            , "github-pings" .= pbGithubPings
             , "users" .= map unPackageName (unpack pbUsers)
             , "flags" .= Map.mapKeysWith const (\(FlagName f) -> asText $ pack f) pbFlags
             , "test-state" .= pbTestState
@@ -106,6 +109,7 @@ instance desc ~ () => FromJSON (PackageBuild desc) where
     parseJSON = withObject "PackageBuild" $ \o -> PackageBuild
         <$> (o .: "version" >>= efail . simpleParse . asText)
         <*> o .:? "maintainer"
+        <*> o .:? "github-pings" .!= mempty
         <*> (Set.map PackageName <$> (o .:? "users" .!= mempty))
         <*> (toFlags <$> (o .:? "flags" .!= mempty))
         <*> o .: "test-state"
@@ -267,6 +271,7 @@ simplifyDesc gpd = do
     return PackageBuild
         { pbVersion = version
         , pbMaintainer = fmap snd $ lookup name $ pcPackages defaultPackageConstraints
+        , pbGithubPings = getGithubPings gpd
         , pbUsers = mempty -- must be filled in later
         , pbFlags = packageFlags name
         , pbTestState =
