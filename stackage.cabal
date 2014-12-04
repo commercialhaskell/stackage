@@ -29,6 +29,9 @@ library
                        Stackage.Select
                        Stackage.GhcPkg
                        Stackage.ServerFiles
+
+                       Stackage2.Prelude
+                       Stackage2.CorePackages
   build-depends:       base >= 4 && < 5
                      , containers
                      , Cabal >= 1.14
@@ -43,12 +46,29 @@ library
                      , time
                      , utf8-string
 
+                     , conduit-extra
+                     , classy-prelude-conduit
+                     , text
+
 executable stackage
   hs-source-dirs:      app
   main-is:             stackage.hs
   build-depends:       base
                      , stackage
                      , containers
+
+test-suite spec
+  type:                exitcode-stdio-1.0
+  default-language:    Haskell2010
+  hs-source-dirs:      test
+  main-is:             Spec.hs
+  other-modules:       Stackage2.CorePackagesSpec
+  build-depends:       base
+                     , stackage
+                     , hspec
+                     , QuickCheck
+                     , text
+                     , classy-prelude-conduit
 
 source-repository head
   type:     git
