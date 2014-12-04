@@ -622,13 +622,16 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -}
 
     mapM_ (add "Emanuel Borsobom <manny@fpcomplete.com>") $ words =<<
-        ["text-binary BoundedChan MissingH bytestring-lexing bytestring-trie"
-        ,"data-accessor data-accessor-mtl file-location fuzzcheck here"
+        ["text-binary BoundedChan bytestring-lexing bytestring-trie"
+        ,"data-accessor data-accessor-mtl file-location here"
         ,"hlibgit2 hostname-validate interpolatedstring-perl6 iproute"
         ,"missing-foreign multimap parallel-io"]
     when (ghcVer >= GhcMajorVersion 7 8) $
         mapM_ (add "Emanuel Borsobom <manny@fpcomplete.com>") $ words
             "haddock-api"
+    when (not requireHP) $
+        mapM_ (add "Emanuel Borsobom <manny@fpcomplete.com>") $ words
+            "fuzzcheck MissingH"
 
     mapM_ (add "Michael Sloan <mgsloan@gmail.com") $ words
         "th-orphans th-reify-many"
