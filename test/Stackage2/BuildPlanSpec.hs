@@ -12,5 +12,4 @@ spec = it "works" $ do
     bp <- newBuildPlan
     let bs = Y.encode bp
         mbp' = Y.decode bs
-    Y.encodeFile "myplan.yaml" bp
     mbp' `shouldBe` Just (() <$ bp)
