@@ -38,9 +38,10 @@ checkDeps allPackages (user, pb) =
                     (dep, Just version)
                     errMap
       where
-        errMap = singletonMap user range
+        errMap = singletonMap (user, pbVersion pb) range
 
-newtype BadBuildPlan = BadBuildPlan (Map (PackageName, Maybe Version) (Map PackageName VersionRange)) -- FIXME add maintainer and Github ping info
+newtype BadBuildPlan =
+    BadBuildPlan (Map (PackageName, Maybe Version) (Map (PackageName, Version) VersionRange)) -- FIXME add maintainer and Github ping info
     deriving Typeable
 instance Exception BadBuildPlan
 instance Show BadBuildPlan where
@@ -60,10 +61,12 @@ instance Show BadBuildPlan where
             , " depended on by:"
             ]
 
-        showUser :: (PackageName, VersionRange) -> String
-        showUser (user, range) = concat
+        showUser :: ((PackageName, Version), VersionRange) -> String
+        showUser ((user, version), range) = concat
             [ "- "
             , display user
+            , "-"
+            , display version
             , " ("
             , display range
             , ")"

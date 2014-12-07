@@ -260,6 +260,7 @@ mkPackageBuild gpd = do
     let overrides = packageFlags name ++ defaultGlobalFlags
         getFlag MkFlag {..} =
             (flagName, fromMaybe flagDefault $ lookup flagName overrides)
+        flags = mapFromList $ map getFlag $ genPackageFlags gpd
     desc <- getFlattenedComponent
         CheckCond
             { ccPackageName = name
@@ -267,7 +268,7 @@ mkPackageBuild gpd = do
             , ccArch = Distribution.System.X86_64
             , ccCompilerFlavor = Distribution.Compiler.GHC
             , ccCompilerVersion = ghcVerCabal
-            , ccFlags = mapFromList $ map getFlag $ genPackageFlags gpd
+            , ccFlags = flags
             }
         (tryBuildTest name)
         (tryBuildBenchmark name)
@@ -277,7 +278,7 @@ mkPackageBuild gpd = do
         , pbMaintainer = fmap snd $ lookup name $ pcPackages defaultPackageConstraints
         , pbGithubPings = getGithubPings gpd
         , pbUsers = mempty -- must be filled in later
-        , pbFlags = packageFlags name
+        , pbFlags = flags
         , pbTestState =
             case () of
                 ()
