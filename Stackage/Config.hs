@@ -707,11 +707,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/341
     addRange "Michael Snoyman" "haskell-names" "< 0.5"
 
-    -- https://github.com/fpco/stackage/issues/350
-    addRange "Michael Snoyman" "semigroups" "< 0.16"
-    addRange "Michael Snoyman" "nats" "< 1"
-    addRange "Michael Snoyman" "void" "< 0.7"
-
     -- https://github.com/nikita-volkov/stm-containers/issues/3
     addRange "Michael Snoyman" "free" "< 4.10"
 
