@@ -54,6 +54,7 @@ defaultGlobalFlags = mapFromList $
     map (, False) (map FlagName $ setToList $ Old.disabledFlags oldSettings)
 
 packageFlags :: PackageName -> Map FlagName Bool
+packageFlags (PackageName "mersenne-random-pure64") = singletonMap (FlagName "small_base") False
 packageFlags _ = mempty
 
 tryBuildTest :: PackageName -> Bool
@@ -64,12 +65,12 @@ tryBuildBenchmark (PackageName name) = pack name `notMember` skippedBenchs
 
 skippedTests :: HashSet Text
 skippedTests = (old ++ ) $ setFromList $ words =<<
-    [ "HTTP"
+    [ "HTTP Octree options"
     ]
   where
     old = setFromList $ map unPackageName $ setToList $ Old.skippedTests oldSettings
 
 skippedBenchs :: HashSet Text
 skippedBenchs = setFromList $ words =<<
-    [ "machines"
+    [ "machines criterion-plus graphviz lifted-base pandoc stm-containers uuid"
     ]
