@@ -66,6 +66,10 @@ tryBuildBenchmark (PackageName name) = pack name `notMember` skippedBenchs
 skippedTests :: HashSet Text
 skippedTests = (old ++ ) $ setFromList $ words =<<
     [ "HTTP Octree options"
+    , "hasql"
+    , "bloodhound fb" -- require old hspec
+    , "diagrams-haddock" -- requires old tasty
+    , "hasql-postgres" -- requires old hasql
     ]
   where
     old = setFromList $ map unPackageName $ setToList $ Old.skippedTests oldSettings
@@ -73,4 +77,5 @@ skippedTests = (old ++ ) $ setFromList $ words =<<
 skippedBenchs :: HashSet Text
 skippedBenchs = setFromList $ words =<<
     [ "machines criterion-plus graphviz lifted-base pandoc stm-containers uuid"
+    , "cases hasql-postgres" -- pulls in criterion-plus, which has restrictive upper bounds
     ]
