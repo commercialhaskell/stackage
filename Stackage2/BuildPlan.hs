@@ -18,7 +18,6 @@ module Stackage2.BuildPlan
 import Distribution.Package            (Dependency (..))
 import Distribution.PackageDescription
 import Distribution.Version            (withinRange, intersectVersionRanges)
-import Stackage2.CorePackages
 import Stackage2.PackageConstraints
 import Stackage2.PackageIndex
 import Stackage2.Prelude
@@ -122,44 +121,23 @@ instance desc ~ () => FromJSON (PackageBuild desc) where
 
         efail = either (fail . show) return
 
-data TestState = ExpectSuccess
-               | ExpectFailure
-               | Don'tBuild -- ^ when the test suite will pull in things we don't want
-    deriving (Show, Eq, Ord, Bounded, Enum)
-
-testStateToText :: TestState -> Text
-testStateToText ExpectSuccess = "expect-success"
-testStateToText ExpectFailure = "expect-failure"
-testStateToText Don'tBuild    = "do-not-build"
-
-instance ToJSON TestState where
-    toJSON = toJSON . testStateToText
-instance FromJSON TestState where
-    parseJSON = withText "TestState" $ \t ->
-        case lookup t states of
-            Nothing -> fail $ "Invalid state: " ++ unpack t
-            Just v -> return v
-      where
-        states = asHashMap $ mapFromList
-               $ map (\x -> (testStateToText x, x)) [minBound..maxBound]
-
-newBuildPlan :: MonadIO m => m (BuildPlan FlatComponent)
-newBuildPlan = liftIO $ do
-    core <- getCorePackages
-    coreExes <- getCoreExecutables
-    extraOrig <- getLatestDescriptions (isAllowed core) mkPackageBuild
+newBuildPlan :: MonadIO m => PackageConstraints -> m (BuildPlan FlatComponent)
+newBuildPlan pc = liftIO $ do
+    extraOrig <- getLatestDescriptions (isAllowed pc) (mkPackageBuild pc)
     let toolMap = makeToolMap extraOrig
-        extra = populateUsers $ removeUnincluded toolMap coreExes extraOrig
+        extra = populateUsers $ removeUnincluded pc toolMap extraOrig
         toolNames :: [ExeName]
         toolNames = concatMap (Map.keys . seTools . fcExtra . pbDesc) extra
     tools <- topologicalSortTools toolMap $ mapFromList $ do
         exeName <- toolNames
-        guard $ exeName `notMember` coreExes
+        guard $ exeName `notMember` pcCoreExecutables pc
         packageName <- maybe mempty setToList $ lookup exeName toolMap
         packageBuild <- maybeToList $ lookup packageName extraOrig
         return (packageName, packageBuild)
+    -- FIXME topologically sort packages? maybe just leave that to the build phase
     return BuildPlan
-        { bpCore = core
+        { bpCore = pcCorePackages pc
+        -- bpCoreExes = pcCoreExecutables pc
         , bpTools = tools
         , bpExtra = extra
         }
@@ -206,16 +184,18 @@ data TopologicalSortException key = NoEmptyDeps (Map key (Set key))
     deriving (Show, Typeable)
 instance (Show key, Typeable key) => Exception (TopologicalSortException key)
 
-removeUnincluded :: Map ExeName (Set PackageName)
-                 -> Set ExeName -- ^ core exes
+removeUnincluded :: PackageConstraints
+                 -> Map ExeName (Set PackageName)
                  -> Map PackageName (PackageBuild FlatComponent)
                  -> Map PackageName (PackageBuild FlatComponent)
-removeUnincluded toolMap coreExes orig =
+removeUnincluded pc toolMap orig =
     mapFromList $ filter (\(x, _) -> x `member` included) $ mapToList orig
   where
+    coreExes = pcCoreExecutables pc
+
     included :: Set PackageName
     included = flip execState mempty $
-        mapM_ (add . fst) $ mapToList $ pcPackages defaultPackageConstraints
+        mapM_ (add . fst) $ mapToList $ pcPackages pc
 
     add name = do
         inc <- get
@@ -240,56 +220,46 @@ populateUsers orig =
         | dep `member` fcDeps (pbDesc pb) = singletonSet user
         | otherwise = mempty
 
-isAllowed :: Map PackageName Version -- ^ core
+isAllowed :: PackageConstraints
           -> PackageName -> Version -> Bool
-isAllowed core = \name version ->
-    case lookup name core of
+isAllowed pc = \name version ->
+    case lookup name $ pcCorePackages pc of
         Just _ -> False -- never reinstall a core package
         Nothing ->
-            case lookup name $ pcPackages defaultPackageConstraints of
+            case lookup name $ pcPackages pc of
                 Nothing -> True -- no constraints
                 Just (range, _) -> withinRange version range
 
 mkPackageBuild :: MonadThrow m
-               => GenericPackageDescription
+               => PackageConstraints
+               -> GenericPackageDescription
                -> m (PackageBuild FlatComponent)
-mkPackageBuild gpd = do
-    let overrides = packageFlags name ++ defaultGlobalFlags
+mkPackageBuild pc gpd = do
+    let overrides = pcFlagOverrides pc name
         getFlag MkFlag {..} =
             (flagName, fromMaybe flagDefault $ lookup flagName overrides)
         flags = mapFromList $ map getFlag $ genPackageFlags gpd
     desc <- getFlattenedComponent
         CheckCond
             { ccPackageName = name
-            , ccOS = Distribution.System.Linux
-            , ccArch = Distribution.System.X86_64
+            , ccOS = pcOS pc
+            , ccArch = pcArch pc
             , ccCompilerFlavor = Distribution.Compiler.GHC
-            , ccCompilerVersion = ghcVerCabal
+            , ccCompilerVersion = pcGhcVersion pc
             , ccFlags = flags
             }
-        (tryBuildTest name)
-        (tryBuildBenchmark name)
+        (pcTests pc name /= Don'tBuild)
+        (pcBuildBenchmark pc name)
         gpd
     return PackageBuild
         { pbVersion = version
-        , pbMaintainer = fmap snd $ lookup name $ pcPackages defaultPackageConstraints
+        , pbMaintainer = fmap snd $ lookup name $ pcPackages pc
         , pbGithubPings = getGithubPings gpd
         , pbUsers = mempty -- must be filled in later
         , pbFlags = flags
-        , pbTestState =
-            case () of
-                ()
-                    | not $ tryBuildTest name -> Don'tBuild
-                    | name `member` pcExpectedFailures defaultPackageConstraints
-                        -> ExpectFailure
-                    | otherwise -> ExpectSuccess
-        , pbHaddockState =
-            case () of
-                ()
-                    | name `member` pcExpectedFailures defaultPackageConstraints
-                        -> ExpectFailure
-                    | otherwise -> ExpectSuccess
-        , pbTryBuildBenchmark = tryBuildBenchmark name
+        , pbTestState = pcTests pc name
+        , pbHaddockState = pcHaddocks pc name
+        , pbTryBuildBenchmark = pcBuildBenchmark pc name
         , pbDesc = desc
         }
   where

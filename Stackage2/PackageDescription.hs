@@ -18,7 +18,6 @@ module Stackage2.PackageDescription
 import Distribution.Package            (Dependency (..))
 import Distribution.PackageDescription
 import Stackage2.CorePackages
-import Stackage2.PackageConstraints
 import Stackage2.PackageIndex
 import Stackage2.Prelude
 import Stackage2.GithubPings

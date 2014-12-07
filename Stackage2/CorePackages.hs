@@ -3,6 +3,7 @@
 module Stackage2.CorePackages
     ( getCorePackages
     , getCoreExecutables
+    , getGhcVersion
     ) where
 
 import qualified Data.Text         as T
@@ -44,3 +45,9 @@ getCoreExecutables = do
             Nothing -> error "No ghc executable found on PATH"
             Just fp -> return $ directory $ fpFromString fp
     (setFromList . map (ExeName . fpToText . filename)) <$> listDirectory dir
+
+getGhcVersion :: IO Version
+getGhcVersion = do
+    withCheckedProcess (proc "ghc" ["--numeric-version"]) $
+        \ClosedStream src Inherited ->
+            (src $$ decodeUtf8C =$ foldC) >>= simpleParse
