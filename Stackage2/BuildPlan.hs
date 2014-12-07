@@ -28,6 +28,8 @@ import qualified Data.Map as Map
 import qualified Data.Set as Set
 import Data.Aeson
 import Stackage2.PackageDescription
+import qualified Distribution.System
+import qualified Distribution.Compiler
 
 data BuildPlan desc = BuildPlan
     { bpCore        :: Map PackageName Version
@@ -251,10 +253,25 @@ isAllowed core = \name version ->
                 Nothing -> True -- no constraints
                 Just (range, _) -> withinRange version range
 
-mkPackageBuild :: Monad m
+mkPackageBuild :: MonadThrow m
                => GenericPackageDescription
                -> m (PackageBuild FlatComponent)
-mkPackageBuild gpd =
+mkPackageBuild gpd = do
+    let overrides = packageFlags name ++ defaultGlobalFlags
+        getFlag MkFlag {..} =
+            (flagName, fromMaybe flagDefault $ lookup flagName overrides)
+    desc <- getFlattenedComponent
+        CheckCond
+            { ccPackageName = name
+            , ccOS = Distribution.System.Linux
+            , ccArch = Distribution.System.X86_64
+            , ccCompilerFlavor = Distribution.Compiler.GHC
+            , ccCompilerVersion = ghcVerCabal
+            , ccFlags = mapFromList $ map getFlag $ genPackageFlags gpd
+            }
+        (tryBuildTest name)
+        (tryBuildBenchmark name)
+        gpd
     return PackageBuild
         { pbVersion = version
         , pbMaintainer = fmap snd $ lookup name $ pcPackages defaultPackageConstraints
@@ -275,10 +292,7 @@ mkPackageBuild gpd =
                         -> ExpectFailure
                     | otherwise -> ExpectSuccess
         , pbTryBuildBenchmark = tryBuildBenchmark name
-        , pbDesc = getFlattenedComponent
-            (tryBuildTest name)
-            (tryBuildBenchmark name)
-            gpd
+        , pbDesc = desc
         }
   where
     PackageIdentifier name version = package $ packageDescription gpd

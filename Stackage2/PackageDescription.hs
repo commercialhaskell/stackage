@@ -1,4 +1,5 @@
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE DeriveFunctor #-}
@@ -11,6 +12,7 @@ module Stackage2.PackageDescription
     ( FlatComponent (..)
     , getFlattenedComponent
     , SimpleExtra (..)
+    , CheckCond (..)
     ) where
 
 import Distribution.Package            (Dependency (..))
@@ -25,6 +27,8 @@ import Control.Monad.State.Strict (execState, get, put)
 import qualified Data.Map as Map
 import qualified Data.Set as Set
 import Data.Aeson
+import Distribution.System (OS, Arch)
+import Distribution.Compiler (CompilerFlavor)
 
 data SimpleTree = SimpleTree
     { stDeps :: Map PackageName VersionRange
@@ -51,12 +55,16 @@ instance Monoid SimpleExtra where
         (b ++ y)
 
 getFlattenedComponent
-    :: Bool -- ^ include test suites?
+    :: MonadThrow m
+    => CheckCond
+    -> Bool -- ^ include test suites?
     -> Bool -- ^ include benchmarks?
     -> GenericPackageDescription
-    -> FlatComponent
-getFlattenedComponent includeTests includeBench gpd =
-    foldMap flattenComponent $ getSimpleTrees includeTests includeBench gpd
+    -> m FlatComponent
+getFlattenedComponent checkCond' includeTests includeBench gpd =
+    liftM fold
+        $ mapM (flattenComponent checkCond')
+        $ getSimpleTrees includeTests includeBench gpd
 
 getSimpleTrees :: Bool -- ^ include test suites?
                -> Bool -- ^ include benchmarks?
@@ -103,14 +111,45 @@ instance Monoid FlatComponent where
         (unionWith intersectVersionRanges a x)
         (b ++ y)
 
-flattenComponent :: SimpleTree -> FlatComponent
-flattenComponent (SimpleTree deps conds extra) =
-    mconcat $ here : map goCond conds
+flattenComponent :: MonadThrow m => CheckCond -> SimpleTree -> m FlatComponent
+flattenComponent checkCond' (SimpleTree deps conds extra) = do
+    conds' <- mapM goCond conds
+    return $ mconcat $ here : conds'
   where
     here = FlatComponent { fcDeps = deps, fcExtra = extra }
-    goCond (cond, tree1, mtree2)
-        | checkCond cond = flattenComponent tree1
-        | otherwise = maybe mempty flattenComponent mtree2
+    goCond (cond, tree1, mtree2) = do
+        b <- checkCond checkCond' cond
+        if b
+            then flattenComponent checkCond' tree1
+            else maybe (return mempty) (flattenComponent checkCond') mtree2
 
-checkCond :: Condition ConfVar -> Bool
-checkCond _ = False -- FIXME
+checkCond :: MonadThrow m => CheckCond -> Condition ConfVar -> m Bool
+checkCond CheckCond {..} cond0 =
+    go cond0
+  where
+    go (Var (OS os)) = return $ os == ccOS
+    go (Var (Arch arch)) = return $ arch == ccArch
+    go (Var (Flag flag)) =
+        case lookup flag ccFlags of
+            Nothing -> throwM $ FlagNotDefined ccPackageName flag cond0
+            Just b -> return b
+    go (Var (Impl flavor range)) = return
+                                 $ flavor == ccCompilerFlavor
+                                && ccCompilerVersion `withinRange` range
+    go (Lit b) = return b
+    go (CNot c) = not `liftM` go c
+    go (CAnd x y) = (&&) `liftM` go x `ap` go y
+    go (COr x y) = (||) `liftM` go x `ap` go y
+
+data CheckCondException = FlagNotDefined PackageName FlagName (Condition ConfVar)
+    deriving (Show, Typeable)
+instance Exception CheckCondException
+
+data CheckCond = CheckCond
+    { ccPackageName :: PackageName -- for debugging only
+    , ccOS :: OS
+    , ccArch :: Arch
+    , ccFlags :: Map FlagName Bool
+    , ccCompilerFlavor :: CompilerFlavor
+    , ccCompilerVersion :: Version
+    }

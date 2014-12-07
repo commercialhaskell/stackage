@@ -9,6 +9,7 @@ module Stackage2.PackageConstraints
     , packageFlags
     , tryBuildTest
     , tryBuildBenchmark
+    , ghcVerCabal
     ) where
 
 import           Stackage2.Prelude
@@ -36,8 +37,13 @@ defaultPackageConstraints = PackageConstraints
     , pcExpectedFailures = Old.defaultExpectedFailures ghcVer False
     }
 
+-- FIXME below here shouldn't be so hard-coded
+
 ghcVer :: Old.GhcMajorVersion
 ghcVer = Old.GhcMajorVersion 7 8
+
+ghcVerCabal :: Version
+ghcVerCabal = Version [7, 8, 3] []
 
 oldSettings :: Old.SelectSettings
 oldSettings = Old.defaultSelectSettings ghcVer False
