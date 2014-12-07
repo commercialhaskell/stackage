@@ -18,6 +18,8 @@ import qualified Distribution.Text     as DT
 import           Distribution.Version  as X (Version (..), VersionRange)
 import           System.Exit           (ExitCode (ExitSuccess))
 import Data.Aeson (ToJSON, FromJSON)
+import qualified Distribution.Version as C
+import Distribution.Version            as X (withinRange)
 
 unPackageName :: PackageName -> Text
 unPackageName (PackageName str) = pack str
@@ -82,3 +84,6 @@ newtype Maintainer = Maintainer { unMaintainer :: Text }
 -- | Name of an executable.
 newtype ExeName = ExeName { unExeName :: Text }
     deriving (Show, Eq, Ord, Hashable, ToJSON, FromJSON, IsString)
+
+intersectVersionRanges :: VersionRange -> VersionRange -> VersionRange
+intersectVersionRanges x y = C.simplifyVersionRange $ C.intersectVersionRanges x y

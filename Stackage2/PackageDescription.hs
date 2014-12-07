@@ -17,7 +17,6 @@ module Stackage2.PackageDescription
 
 import Distribution.Package            (Dependency (..))
 import Distribution.PackageDescription
-import Distribution.Version            (withinRange, intersectVersionRanges)
 import Stackage2.CorePackages
 import Stackage2.PackageConstraints
 import Stackage2.PackageIndex

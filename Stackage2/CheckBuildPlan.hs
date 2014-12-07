@@ -12,7 +12,6 @@ import Stackage2.Prelude
 import Stackage2.BuildPlan
 import Stackage2.PackageDescription
 import Control.Monad.Writer.Strict (execWriter, Writer, tell)
-import Distribution.Version            (intersectVersionRanges, withinRange)
 
 checkBuildPlan :: MonadThrow m => BuildPlan FlatComponent -> m ()
 checkBuildPlan BuildPlan {..}
