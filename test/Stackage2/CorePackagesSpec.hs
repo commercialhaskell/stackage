@@ -12,3 +12,8 @@ spec = do
         m <- getCorePackages
         forM_ (words "ghc containers base") $ \p ->
             m `shouldSatisfy` (member (PackageName p))
+    it "getCoreExecutables includes known executables" $ do
+        s <- getCoreExecutables
+        s `shouldSatisfy` member "ghc"
+        s `shouldSatisfy` member "hsc2hs"
+        s `shouldSatisfy` member "runghc"

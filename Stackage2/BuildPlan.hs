@@ -1,4 +1,6 @@
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE TupleSections #-}
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE DeriveFunctor #-}
@@ -146,32 +148,76 @@ instance FromJSON TestState where
 newBuildPlan :: MonadIO m => m (BuildPlan FlatComponent)
 newBuildPlan = liftIO $ do
     core <- getCorePackages
+    coreExes <- getCoreExecutables
     extraOrig <- getLatestDescriptions (isAllowed core) mkPackageBuild
-    let toolNames = concatMap (seTools . fcExtra . pbDesc) extraOrig -- FIXME extraOrig ==> extra
-        extra = populateUsers $ removeUnincluded (Map.keysSet toolNames) extraOrig
+    let toolMap = makeToolMap extraOrig
+        extra = populateUsers $ removeUnincluded toolMap extraOrig
+        toolNames :: [ExeName]
+        toolNames = concatMap (Map.keys . seTools . fcExtra . pbDesc) extra
+    tools <- topologicalSortTools toolMap $ mapFromList $ do
+        exeName <- toolNames
+        guard $ exeName `notMember` coreExes
+        packageName <- maybe mempty setToList $ lookup exeName toolMap
+        packageBuild <- maybeToList $ lookup packageName extraOrig
+        return (packageName, packageBuild)
     return BuildPlan
         { bpCore = core
-        , bpTools = topologicalSort
-                  $ filter (\(x, _) -> x `member` toolNames)
-                  $ mapToList extra
+        , bpTools = tools
         , bpExtra = extra
         , bpGlobalFlags = defaultGlobalFlags
         }
 
-topologicalSort :: [(PackageName, PackageBuild FlatComponent)]
-                -> Vector (PackageName, Version)
-topologicalSort = fromList . fmap (fmap pbVersion) -- FIXME
+makeToolMap :: Map PackageName (PackageBuild FlatComponent)
+            -> Map ExeName (Set PackageName)
+makeToolMap =
+    unionsWith (++) . map go . mapToList
+  where
+    go (packageName, pb) =
+        foldMap go' $ seProvidedExes $ fcExtra $ pbDesc pb
+      where
+        go' exeName = singletonMap exeName (singletonSet packageName)
 
-removeUnincluded :: Set PackageName -- ^ tool names
+topologicalSortTools :: MonadThrow m
+                     => Map ExeName (Set PackageName)
+                     -> Map PackageName (PackageBuild FlatComponent)
+                     -> m (Vector (PackageName, Version))
+topologicalSortTools toolMap = topologicalSort
+    pbVersion
+    (concatMap (fromMaybe mempty . flip lookup toolMap) . Map.keys . seTools . fcExtra . pbDesc)
+
+topologicalSort :: (Ord key, Show key, MonadThrow m, Typeable key)
+                => (value -> finalValue)
+                -> (value -> Set key) -- ^ deps
+                -> Map key value
+                -> m (Vector (key, finalValue))
+topologicalSort toFinal toDeps =
+    loop id . mapWithKey removeSelfDeps . fmap (toDeps &&& toFinal)
+  where
+    removeSelfDeps k (deps, final) = (deleteSet k deps, final)
+    loop front toProcess | null toProcess = return $ pack $ front []
+    loop front toProcess
+        | null noDeps = throwM $ NoEmptyDeps (map fst toProcess')
+        | otherwise = loop (front . noDeps') (mapFromList hasDeps)
+      where
+        toProcess' = fmap (first removeUnavailable) toProcess
+        allKeys = Map.keysSet toProcess
+        removeUnavailable = asSet . setFromList . filter (`member` allKeys) . setToList
+        (noDeps, hasDeps) = partition (null . fst . snd) $ mapToList toProcess'
+        noDeps' = (map (second snd) noDeps ++)
+
+data TopologicalSortException key = NoEmptyDeps (Map key (Set key))
+    deriving (Show, Typeable)
+instance (Show key, Typeable key) => Exception (TopologicalSortException key)
+
+removeUnincluded :: Map ExeName (Set PackageName)
                  -> Map PackageName (PackageBuild FlatComponent)
                  -> Map PackageName (PackageBuild FlatComponent)
-removeUnincluded toolNames orig =
+removeUnincluded toolMap orig =
     mapFromList $ filter (\(x, _) -> x `member` included) $ mapToList orig
   where
     included :: Set PackageName
-    included = flip execState mempty $ do
+    included = flip execState mempty $
         mapM_ (add . fst) $ mapToList $ pcPackages defaultPackageConstraints
-        mapM_ add toolNames -- FIXME remove this
 
     add name = do
         inc <- get
@@ -179,8 +225,10 @@ removeUnincluded toolNames orig =
             put $ insertSet name inc
             case lookup name orig of
                 Nothing -> return ()
-                Just pb -> mapM_ (add . fst) $ mapToList $ fcDeps $ pbDesc pb
-                    -- FIXME add tools here
+                Just pb -> do
+                    mapM_ (add . fst) $ mapToList $ fcDeps $ pbDesc pb
+                    forM_ (map fst $ mapToList $ seTools $ fcExtra $ pbDesc pb) $
+                        \exeName -> mapM_ add $ fromMaybe mempty $ lookup exeName toolMap
 
 populateUsers :: Map PackageName (PackageBuild FlatComponent)
               -> Map PackageName (PackageBuild FlatComponent)

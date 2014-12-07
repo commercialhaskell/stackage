@@ -40,13 +40,15 @@ instance Monoid SimpleTree where
         (c ++ z)
 
 data SimpleExtra = SimpleExtra
-    { seTools :: Map PackageName VersionRange
+    { seTools :: Map ExeName VersionRange
+    , seProvidedExes :: Set ExeName
     }
     deriving Show
 instance Monoid SimpleExtra where
-    mempty = SimpleExtra mempty
-    mappend (SimpleExtra a) (SimpleExtra x) = SimpleExtra
+    mempty = SimpleExtra mempty mempty
+    mappend (SimpleExtra a b) (SimpleExtra x y) = SimpleExtra
         (unionWith intersectVersionRanges a x)
+        (b ++ y)
 
 getFlattenedComponent
     :: Bool -- ^ include test suites?
@@ -61,29 +63,33 @@ getSimpleTrees :: Bool -- ^ include test suites?
                -> GenericPackageDescription
                -> [SimpleTree]
 getSimpleTrees includeTests includeBench gpd = concat
-    [ maybe [] (return . go libBuildInfo) $ condLibrary gpd
-    , map (go buildInfo . snd) $ condExecutables gpd
+    [ maybe [] (return . go libBuildInfo mempty) $ condLibrary gpd
+    , map (\(x, y) -> go buildInfo (singletonSet $ ExeName $ pack x) y)
+         $ condExecutables gpd
     , if includeTests
-        then map (go testBuildInfo . snd) $ condTestSuites gpd
+        then map (go testBuildInfo mempty . snd) $ condTestSuites gpd
         else []
     , if includeBench
-        then map (go benchmarkBuildInfo . snd) $ condBenchmarks gpd
+        then map (go benchmarkBuildInfo mempty . snd) $ condBenchmarks gpd
         else []
     ]
   where
-    go getExtra (CondNode dat deps comps) = SimpleTree
+    go getBI exes (CondNode dat deps comps) = SimpleTree
         { stDeps = unionsWith intersectVersionRanges
                  $ map (\(Dependency x y) -> singletonMap x y) deps
-        , stConds = map (goComp getExtra) comps
-        , stExtra = toSimpleExtra $ getExtra dat
+        , stConds = map (goComp getBI exes) comps
+        , stExtra = toSimpleExtra (getBI dat) exes
         }
 
-    goComp getExtra (cond, tree1, mtree2) =
-        (cond, go getExtra tree1, go getExtra <$> mtree2)
+    goComp getBI exes (cond, tree1, mtree2) =
+        (cond, go getBI exes tree1, go getBI exes <$> mtree2)
 
-    toSimpleExtra bi = SimpleExtra
+    toSimpleExtra bi exes = SimpleExtra
         { seTools = unionsWith intersectVersionRanges $ flip map (buildTools bi)
-            $ \(Dependency name range) -> singletonMap name range
+            $ \(Dependency name range) -> singletonMap
+                (ExeName $ unPackageName name)
+                range
+        , seProvidedExes = exes
         }
 
 data FlatComponent = FlatComponent

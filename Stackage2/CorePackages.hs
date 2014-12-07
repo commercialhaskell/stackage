@@ -2,10 +2,13 @@
 {-# LANGUAGE OverloadedStrings #-}
 module Stackage2.CorePackages
     ( getCorePackages
+    , getCoreExecutables
     ) where
 
 import qualified Data.Text         as T
+import           Filesystem        (listDirectory)
 import           Stackage2.Prelude
+import           System.Directory  (findExecutable)
 
 -- | Get a @Map@ of all of the core packages. Core packages are defined as
 -- packages which ship with GHC itself.
@@ -31,3 +34,13 @@ getCorePackages =
             | length s > 2 && headEx s == '(' && lastEx s == ')' =
                 initEx $ tailEx s
             | otherwise = s
+
+-- | A list of executables that are shipped with GHC.
+getCoreExecutables :: IO (Set ExeName)
+getCoreExecutables = do
+    mfp <- findExecutable "ghc"
+    dir <-
+        case mfp of
+            Nothing -> error "No ghc executable found on PATH"
+            Just fp -> return $ directory $ fpFromString fp
+    (setFromList . map (ExeName . fpToText . filename)) <$> listDirectory dir

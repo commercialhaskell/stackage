@@ -78,3 +78,7 @@ withCheckedProcess cp f = do
 
 newtype Maintainer = Maintainer { unMaintainer :: Text }
     deriving (Show, Eq, Ord, Hashable, ToJSON, FromJSON)
+
+-- | Name of an executable.
+newtype ExeName = ExeName { unExeName :: Text }
+    deriving (Show, Eq, Ord, Hashable, ToJSON, FromJSON, IsString)
