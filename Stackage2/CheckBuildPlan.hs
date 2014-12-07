@@ -37,10 +37,36 @@ checkDeps allPackages (user, pb) =
                     (dep, Just version)
                     errMap
       where
-        errMap = singletonMap (user, pbVersion pb) range
+        errMap = singletonMap pu range
+        pu = PkgUser
+            { puName = user
+            , puVersion = pbVersion pb
+            , puMaintainer = pbMaintainer pb
+            , puGithubPings = pbGithubPings pb
+            }
+
+data PkgUser = PkgUser
+    { puName :: PackageName
+    , puVersion :: Version
+    , puMaintainer :: Maybe Maintainer
+    , puGithubPings :: Set Text
+    }
+    deriving (Eq, Ord)
+
+pkgUserShow1 :: PkgUser -> String
+pkgUserShow1 PkgUser {..} = concat
+    [ display puName
+    , "-"
+    , display puVersion
+    ]
+
+pkgUserShow2 :: PkgUser -> String
+pkgUserShow2 PkgUser {..} = unwords
+    $ (maybe "No maintainer" (unpack . unMaintainer) puMaintainer ++ ".")
+    : map (("@" ++) . unpack) (setToList puGithubPings)
 
 newtype BadBuildPlan =
-    BadBuildPlan (Map (PackageName, Maybe Version) (Map (PackageName, Version) VersionRange)) -- FIXME add maintainer and Github ping info
+    BadBuildPlan (Map (PackageName, Maybe Version) (Map PkgUser VersionRange))
     deriving Typeable
 instance Exception BadBuildPlan
 instance Show BadBuildPlan where
@@ -60,15 +86,14 @@ instance Show BadBuildPlan where
             , " depended on by:"
             ]
 
-        showUser :: ((PackageName, Version), VersionRange) -> String
-        showUser ((user, version), range) = concat
+        showUser :: (PkgUser, VersionRange) -> String
+        showUser (pu, range) = concat
             [ "- "
-            , display user
-            , "-"
-            , display version
+            , pkgUserShow1 pu
             , " ("
             , display range
-            , ")"
+            , "). "
+            , pkgUserShow2 pu
             ]
 
 instance Monoid BadBuildPlan where
