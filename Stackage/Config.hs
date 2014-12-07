@@ -683,9 +683,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     when (ghcVer < GhcMajorVersion 7 8) $
         addRange "Michael Snoyman" "aeson" "< 0.8"
 
-    -- https://github.com/fpco/stackage/issues/279
-    addRange "Michael Snoyman" "MonadRandom" "< 0.2"
-
     -- https://github.com/fpco/stackage/issues/288
     addRange "Michael Snoyman" "text" "< 1.2"
 
