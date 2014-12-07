@@ -35,7 +35,6 @@ data BuildPlan desc = BuildPlan
     { bpCore        :: Map PackageName Version
     , bpTools       :: Vector (PackageName, Version)
     , bpExtra       :: Map PackageName (PackageBuild desc)
-    , bpGlobalFlags :: Map FlagName Bool
     }
     deriving (Functor, Foldable, Traversable, Show, Eq)
 type instance Element (BuildPlan desc) = desc
@@ -48,7 +47,6 @@ instance ToJSON (BuildPlan desc) where
         [ "core" .= asMap (mapFromList $ map toCore $ mapToList bpCore)
         , "tools" .= map goTool bpTools
         , "extra" .= Map.mapKeysWith const (unPackageName) bpExtra
-        , "global-flags" .= Map.mapKeysWith const (\(FlagName f) -> f) bpGlobalFlags
         ]
       where
         toCore (x, y) = (asText $ display x, asText $ display y)
@@ -61,7 +59,6 @@ instance desc ~ () => FromJSON (BuildPlan desc) where
         <$> ((o .: "core") >>= goCore)
         <*> ((o .: "tools") >>= mapM goTool)
         <*> (goExtra <$> (o .: "extra"))
-        <*> (goFlags <$> (o .: "global-flags"))
       where
         goCore =
             fmap mapFromList . mapM goCore' . mapToList . asHashMap
@@ -78,7 +75,6 @@ instance desc ~ () => FromJSON (BuildPlan desc) where
                 either (fail . show) return . simpleParse . asText)
 
         goExtra = Map.mapKeysWith const PackageName
-        goFlags = Map.mapKeysWith const FlagName
 
 data PackageBuild desc = PackageBuild
     { pbVersion           :: Version
@@ -166,7 +162,6 @@ newBuildPlan = liftIO $ do
         { bpCore = core
         , bpTools = tools
         , bpExtra = extra
-        , bpGlobalFlags = defaultGlobalFlags
         }
 
 makeToolMap :: Map PackageName (PackageBuild FlatComponent)
