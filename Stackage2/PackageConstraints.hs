@@ -57,7 +57,19 @@ packageFlags :: PackageName -> Map FlagName Bool
 packageFlags _ = mempty
 
 tryBuildTest :: PackageName -> Bool
-tryBuildTest = (`notMember` Old.skippedTests oldSettings)
+tryBuildTest (PackageName name) = pack name `notMember` skippedTests
 
 tryBuildBenchmark :: PackageName -> Bool
-tryBuildBenchmark _ = True
+tryBuildBenchmark (PackageName name) = pack name `notMember` skippedBenchs
+
+skippedTests :: HashSet Text
+skippedTests = (old ++ ) $ setFromList $ words =<<
+    [ "HTTP"
+    ]
+  where
+    old = setFromList $ map unPackageName $ setToList $ Old.skippedTests oldSettings
+
+skippedBenchs :: HashSet Text
+skippedBenchs = setFromList $ words =<<
+    [ "machines"
+    ]
