@@ -248,9 +248,6 @@ defaultExpectedFailures ghcVer requireHP = execWriter $ do
         add "tls"
 
         add "x509"
-
-    -- Old Haddock bug https://github.com/well-typed/generics-sop/issues/2
-    when (ghcVer < GhcMajorVersion 7 8) $ add "generics-sop"
   where
     add = tell . singleton . PackageName
 
@@ -686,9 +683,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     when (ghcVer < GhcMajorVersion 7 8) $
         addRange "Michael Snoyman" "aeson" "< 0.8"
 
-    -- https://github.com/fpco/stackage/issues/279
-    addRange "Michael Snoyman" "MonadRandom" "< 0.2"
-
     -- https://github.com/fpco/stackage/issues/288
     addRange "Michael Snoyman" "text" "< 1.2"
 
@@ -710,13 +704,14 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/341
     addRange "Michael Snoyman" "haskell-names" "< 0.5"
 
-    -- https://github.com/fpco/stackage/issues/350
-    addRange "Michael Snoyman" "semigroups" "< 0.16"
-    addRange "Michael Snoyman" "nats" "< 1"
-    addRange "Michael Snoyman" "void" "< 0.7"
-
     -- https://github.com/nikita-volkov/stm-containers/issues/3
     addRange "Michael Snoyman" "free" "< 4.10"
+
+    -- https://github.com/fpco/stackage/issues/354
+    addRange "Michael Snoyman" "JuicyPixels" "< 3.2"
+
+    -- https://github.com/fpco/stackage/issues/355
+    addRange "Michael Snoyman" "hashtables" "< 1.2"
 
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
         -- Yay workarounds for unnecessarily old versions
