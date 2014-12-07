@@ -149,7 +149,7 @@ newBuildPlan = liftIO $ do
     coreExes <- getCoreExecutables
     extraOrig <- getLatestDescriptions (isAllowed core) mkPackageBuild
     let toolMap = makeToolMap extraOrig
-        extra = populateUsers $ removeUnincluded toolMap extraOrig
+        extra = populateUsers $ removeUnincluded toolMap coreExes extraOrig
         toolNames :: [ExeName]
         toolNames = concatMap (Map.keys . seTools . fcExtra . pbDesc) extra
     tools <- topologicalSortTools toolMap $ mapFromList $ do
@@ -207,9 +207,10 @@ data TopologicalSortException key = NoEmptyDeps (Map key (Set key))
 instance (Show key, Typeable key) => Exception (TopologicalSortException key)
 
 removeUnincluded :: Map ExeName (Set PackageName)
+                 -> Set ExeName -- ^ core exes
                  -> Map PackageName (PackageBuild FlatComponent)
                  -> Map PackageName (PackageBuild FlatComponent)
-removeUnincluded toolMap orig =
+removeUnincluded toolMap coreExes orig =
     mapFromList $ filter (\(x, _) -> x `member` included) $ mapToList orig
   where
     included :: Set PackageName
@@ -225,7 +226,8 @@ removeUnincluded toolMap orig =
                 Just pb -> do
                     mapM_ (add . fst) $ mapToList $ fcDeps $ pbDesc pb
                     forM_ (map fst $ mapToList $ seTools $ fcExtra $ pbDesc pb) $
-                        \exeName -> mapM_ add $ fromMaybe mempty $ lookup exeName toolMap
+                        \exeName -> when (exeName `notMember` coreExes)
+                            $ mapM_ add $ fromMaybe mempty $ lookup exeName toolMap
 
 populateUsers :: Map PackageName (PackageBuild FlatComponent)
               -> Map PackageName (PackageBuild FlatComponent)
