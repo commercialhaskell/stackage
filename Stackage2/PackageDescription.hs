@@ -41,11 +41,11 @@ instance Monoid SimpleTree where
         (b ++ y)
         (c ++ z)
 
-data SimpleExtra = SimpleExtra
+data SimpleExtra = SimpleExtra -- FIXME fold into FlatComponent?
     { seTools :: Map ExeName VersionRange
     , seProvidedExes :: Set ExeName
     }
-    deriving Show
+    deriving (Show, Eq)
 instance Monoid SimpleExtra where
     mempty = SimpleExtra mempty mempty
     mappend (SimpleExtra a b) (SimpleExtra x y) = SimpleExtra
@@ -102,7 +102,7 @@ data FlatComponent = FlatComponent
     { fcDeps :: Map PackageName VersionRange
     , fcExtra :: SimpleExtra
     }
-    deriving Show
+    deriving (Show, Eq)
 instance Monoid FlatComponent where
     mempty = FlatComponent mempty mempty
     mappend (FlatComponent a b) (FlatComponent x y) = FlatComponent

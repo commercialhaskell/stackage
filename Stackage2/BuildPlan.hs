@@ -17,7 +17,7 @@ module Stackage2.BuildPlan
 
 import Distribution.Package            (Dependency (..))
 import Distribution.PackageDescription
-import Distribution.Version            (withinRange, intersectVersionRanges)
+import Distribution.Version            (withinRange, anyVersion, simplifyVersionRange)
 import Stackage2.PackageConstraints
 import Stackage2.PackageIndex
 import Stackage2.Prelude
@@ -32,6 +32,10 @@ import qualified Distribution.Compiler
 
 data BuildPlan desc = BuildPlan
     { bpCore        :: Map PackageName Version
+    , bpCoreExecutables :: Set ExeName
+    , bpGhcVersion :: Version
+    , bpOS :: Distribution.System.OS
+    , bpArch :: Distribution.System.Arch
     , bpTools       :: Vector (PackageName, Version)
     , bpExtra       :: Map PackageName (PackageBuild desc)
     }
@@ -44,6 +48,10 @@ instance MonoTraversable (BuildPlan desc)
 instance ToJSON (BuildPlan desc) where
     toJSON BuildPlan {..} = object
         [ "core" .= asMap (mapFromList $ map toCore $ mapToList bpCore)
+        , "core-exes" .= bpCoreExecutables
+        , "ghc-version" .= asText (display bpGhcVersion)
+        , "os" .= asText (display bpOS)
+        , "arch" .= asText (display bpArch)
         , "tools" .= map goTool bpTools
         , "extra" .= Map.mapKeysWith const (unPackageName) bpExtra
         ]
@@ -54,10 +62,15 @@ instance ToJSON (BuildPlan desc) where
             , "version" .= asText (display version)
             ]
 instance desc ~ () => FromJSON (BuildPlan desc) where
-    parseJSON = withObject "BuildPlan" $ \o -> BuildPlan
-        <$> ((o .: "core") >>= goCore)
-        <*> ((o .: "tools") >>= mapM goTool)
-        <*> (goExtra <$> (o .: "extra"))
+    parseJSON = withObject "BuildPlan" $ \o -> do
+        bpCore <- (o .: "core") >>= goCore
+        bpCoreExecutables <- o .: "core-exes"
+        bpGhcVersion <- (o .: "ghc-version") >>= either (fail . show) return . simpleParse . asText
+        bpOS <- o .: "os" >>= either (fail . show) return . simpleParse . asText
+        bpArch <- (o .: "arch") >>= either (fail . show) return . simpleParse . asText
+        bpTools <- (o .: "tools") >>= mapM goTool
+        bpExtra <- goExtra <$> (o .: "extra")
+        return BuildPlan {..}
       where
         goCore =
             fmap mapFromList . mapM goCore' . mapToList . asHashMap
@@ -77,6 +90,8 @@ instance desc ~ () => FromJSON (BuildPlan desc) where
 
 data PackageBuild desc = PackageBuild
     { pbVersion           :: Version
+    , pbVersionRange      :: VersionRange
+    -- ^ This is vital for ensuring old constraints are kept in place when bumping
     , pbMaintainer        :: Maybe Maintainer
     , pbGithubPings       :: Set Text
     , pbUsers             :: Set PackageName
@@ -92,11 +107,21 @@ instance MonoFunctor (PackageBuild desc)
 instance MonoFoldable (PackageBuild desc)
 instance MonoTraversable (PackageBuild desc)
 
+-- | There seems to be a bug in Cabal where serializing and deserializing
+-- version ranges winds up with different representations. So we have a
+-- super-simplifier to deal with that.
+superSimplifyVersionRange :: VersionRange -> VersionRange
+superSimplifyVersionRange vr =
+    fromMaybe (assert False vr') $ simpleParse $ asList $ display vr'
+  where
+    vr' = simplifyVersionRange vr
+
 instance ToJSON (PackageBuild desc) where
     toJSON PackageBuild {..} = object $ concat
         [ maybe [] (\m -> ["maintainer" .= m]) pbMaintainer
         ,
             [ "version" .= asText (display pbVersion)
+            , "version-range" .= asText (display $ superSimplifyVersionRange pbVersionRange)
             , "github-pings" .= pbGithubPings
             , "users" .= map unPackageName (unpack pbUsers)
             , "flags" .= Map.mapKeysWith const (\(FlagName f) -> asText $ pack f) pbFlags
@@ -108,6 +133,7 @@ instance ToJSON (PackageBuild desc) where
 instance desc ~ () => FromJSON (PackageBuild desc) where
     parseJSON = withObject "PackageBuild" $ \o -> PackageBuild
         <$> (o .: "version" >>= efail . simpleParse . asText)
+        <*> (o .: "version-range" >>= fmap superSimplifyVersionRange . efail . simpleParse . asText)
         <*> o .:? "maintainer"
         <*> o .:? "github-pings" .!= mempty
         <*> (Set.map PackageName <$> (o .:? "users" .!= mempty))
@@ -137,7 +163,10 @@ newBuildPlan pc = liftIO $ do
     -- FIXME topologically sort packages? maybe just leave that to the build phase
     return BuildPlan
         { bpCore = pcCorePackages pc
-        -- bpCoreExes = pcCoreExecutables pc
+        , bpCoreExecutables = pcCoreExecutables pc
+        , bpGhcVersion = pcGhcVersion pc
+        , bpOS = pcOS pc
+        , bpArch = pcArch pc
         , bpTools = tools
         , bpExtra = extra
         }
@@ -253,7 +282,9 @@ mkPackageBuild pc gpd = do
         gpd
     return PackageBuild
         { pbVersion = version
-        , pbMaintainer = fmap snd $ lookup name $ pcPackages pc
+        , pbVersionRange = superSimplifyVersionRange
+                         $ maybe anyVersion fst $ lookup name $ pcPackages pc
+        , pbMaintainer = lookup name (pcPackages pc) >>= snd
         , pbGithubPings = getGithubPings gpd
         , pbUsers = mempty -- must be filled in later
         , pbFlags = flags

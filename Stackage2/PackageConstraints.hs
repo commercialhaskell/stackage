@@ -39,18 +39,20 @@ instance FromJSON TestState where
                $ map (\x -> (testStateToText x, x)) [minBound..maxBound]
 
 data PackageConstraints = PackageConstraints
-    { pcPackages :: Map PackageName (VersionRange, Maintainer)
+    { pcPackages :: Map PackageName (VersionRange, Maybe Maintainer)
     -- ^ This does not include core packages or dependencies, just packages
     -- added by some maintainer.
     , pcGhcVersion :: Version
     , pcOS :: OS
     , pcArch :: Arch
-    , pcFlagOverrides :: PackageName -> Map FlagName Bool
+    , pcCorePackages :: Map PackageName Version
+    , pcCoreExecutables :: Set ExeName
+
+    -- Have a single lookup function with all of the package-specific stuff?
     , pcTests :: PackageName -> TestState
     , pcHaddocks :: PackageName -> TestState
     , pcBuildBenchmark :: PackageName -> Bool
-    , pcCorePackages :: Map PackageName Version
-    , pcCoreExecutables :: Set ExeName
+    , pcFlagOverrides :: PackageName -> Map FlagName Bool
     }
 
 -- | The proposed plan from the requirements provided by contributors.
@@ -78,7 +80,7 @@ defaultPackageConstraints = do
             old = setFromList $ map unPackageName $ setToList $ Old.skippedTests oldSettings
 
     return PackageConstraints
-        { pcPackages = fmap (Maintainer . pack . Old.unMaintainer)
+        { pcPackages = fmap (Just . Maintainer . pack . Old.unMaintainer)
                    <$> Old.defaultStablePackages oldGhcVer False
         , pcCorePackages = core
         , pcCoreExecutables = coreExes
