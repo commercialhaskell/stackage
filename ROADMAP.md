@@ -1,15 +1,24 @@
-Processing:
+## Processing
 
-* Get list of core packages
-* Add core packages as strict dependencies
-* Load up package index
-* Calculate matches using newest versions of packages
-* Write out a YAML file with all that information
-* Verify that the build plan can be compiled
-    * Optional: check with cabal-install as well
-* Perform the build
+High level series of steps for processing
 
-Code explanation:
+### Nightlies
+
+1. Get list of core packages
+2. Get build constraints from list of maintained packages
+3. Load up package index
+4. Calculate build plan using newest versions of packages
+5. Write out a YAML file with complete build plan
+6. Verify that the build plan can be compiled
+7. Perform the build
+
+### LTS
+
+1. Load up most recent build plan
+2. Convert build plan into constraints for next build
+3. Continue from step (3) above
+
+## Code explanation
 
 We start off with *constraints*. Constraints state things like "package X has a
 given version range," who the maintainer is for a package, the description of
