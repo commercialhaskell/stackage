@@ -1,127 +1,118 @@
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE RecordWildCards #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE DeriveFunctor #-}
-{-# LANGUAGE DeriveFoldable #-}
-{-# LANGUAGE DeriveTraversable #-}
-{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE DeriveFoldable     #-}
+{-# LANGUAGE DeriveFunctor      #-}
+{-# LANGUAGE DeriveTraversable  #-}
+{-# LANGUAGE FlexibleContexts   #-}
+{-# LANGUAGE NoImplicitPrelude  #-}
+{-# LANGUAGE OverloadedStrings  #-}
+{-# LANGUAGE RecordWildCards    #-}
+{-# LANGUAGE TypeFamilies       #-}
 -- | Manipulate @GenericPackageDescription@ from Cabal into something more
 -- useful for us.
 module Stackage2.PackageDescription
-    ( FlatComponent (..)
-    , getFlattenedComponent
-    , SimpleExtra (..)
+    ( SimpleDesc (..)
+    , toSimpleDesc
     , CheckCond (..)
     ) where
 
-import Distribution.Package            (Dependency (..))
-import Distribution.PackageDescription
-import Stackage2.CorePackages
-import Stackage2.PackageIndex
-import Stackage2.Prelude
-import Stackage2.GithubPings
-import Control.Monad.State.Strict (execState, get, put)
-import qualified Data.Map as Map
-import qualified Data.Set as Set
+import           Control.Monad.State.Strict      (execState, get, put)
+import           Control.Monad.Writer.Strict     (MonadWriter, execWriterT,
+                                                  tell)
+import           Data.Aeson
+import qualified Data.Map                        as Map
+import qualified Data.Set                        as Set
+import           Distribution.Compiler           (CompilerFlavor)
+import           Distribution.Package            (Dependency (..))
+import           Distribution.PackageDescription
+import           Distribution.System             (Arch, OS)
+import           Stackage2.CorePackages
+import           Stackage2.GithubPings
+import           Stackage2.PackageIndex
+import           Stackage2.Prelude
 import Data.Aeson
-import Distribution.System (OS, Arch)
-import Distribution.Compiler (CompilerFlavor)
 
-data SimpleTree = SimpleTree
-    { stDeps :: Map PackageName VersionRange
-    , stConds :: [(Condition ConfVar, SimpleTree, Maybe SimpleTree)]
-    , stExtra :: SimpleExtra
+-- | A simplified package description that tracks:
+--
+-- * Package dependencies
+--
+-- * Build tool dependencies
+--
+-- * Provided executables
+--
+-- It has fully resolved all conditionals
+data SimpleDesc = SimpleDesc
+    { sdPackages     :: Map PackageName VersionRange
+    , sdTools        :: Map ExeName VersionRange
+    , sdProvidedExes :: Set ExeName
     }
-    deriving Show
-instance Monoid SimpleTree where
-    mempty = SimpleTree mempty mempty mempty
-    mappend (SimpleTree a b c) (SimpleTree x y z) = SimpleTree
+    deriving (Show, Eq)
+instance Monoid SimpleDesc where
+    mempty = SimpleDesc mempty mempty mempty
+    mappend (SimpleDesc a b c) (SimpleDesc x y z) = SimpleDesc
         (unionWith intersectVersionRanges a x)
-        (b ++ y)
+        (unionWith intersectVersionRanges b y)
         (c ++ z)
+instance ToJSON SimpleDesc where
+    toJSON SimpleDesc {..} = object
+        [ "packages" .= Map.mapKeysWith const unPackageName (map display sdPackages)
+        , "tools" .= Map.mapKeysWith const unExeName (map display sdTools)
+        , "provided-exes" .= sdProvidedExes
+        ]
+instance FromJSON SimpleDesc where
+    parseJSON = withObject "SimpleDesc" $ \o -> do
+        sdPackages <- (o .: "packages") >>=
+                      either (fail . show) return .
+                      mapM simpleParse .
+                      Map.mapKeysWith const mkPackageName
+        sdTools <- (o .: "tools") >>=
+                   either (fail . show) return .
+                   mapM simpleParse .
+                   Map.mapKeysWith const ExeName
+        sdProvidedExes <- o .: "provided-exes"
+        return SimpleDesc {..}
 
-data SimpleExtra = SimpleExtra -- FIXME fold into FlatComponent?
-    { seTools :: Map ExeName VersionRange
-    , seProvidedExes :: Set ExeName
-    }
-    deriving (Show, Eq)
-instance Monoid SimpleExtra where
-    mempty = SimpleExtra mempty mempty
-    mappend (SimpleExtra a b) (SimpleExtra x y) = SimpleExtra
-        (unionWith intersectVersionRanges a x)
-        (b ++ y)
+-- | Convert a 'GenericPackageDescription' into a 'SimpleDesc' by following the
+-- constraints in the provided 'CheckCond'.
+toSimpleDesc :: MonadThrow m
+             => CheckCond
+             -> GenericPackageDescription
+             -> m SimpleDesc
+toSimpleDesc cc gpd = execWriterT $ do
+    forM_ (condLibrary gpd) $ tellTree cc libBuildInfo
+    forM_ (condExecutables gpd) $ tellTree cc buildInfo . snd
+    tell mempty { sdProvidedExes = setFromList
+                                 $ map (fromString . fst)
+                                 $ condExecutables gpd
+                }
+    when (ccIncludeTests cc) $ forM_ (condTestSuites gpd)
+        $ tellTree cc testBuildInfo . snd
+    when (ccIncludeBenchmarks cc) $ forM_ (condBenchmarks gpd)
+        $ tellTree cc benchmarkBuildInfo . snd
 
-getFlattenedComponent
-    :: MonadThrow m
-    => CheckCond
-    -> GenericPackageDescription
-    -> m FlatComponent
-getFlattenedComponent checkCond' gpd =
-    liftM fold
-        $ mapM (flattenComponent checkCond')
-        $ getSimpleTrees
-            (ccIncludeTests checkCond')
-            (ccIncludeBenchmarks checkCond')
-            gpd
-
-getSimpleTrees :: Bool -- ^ include test suites?
-               -> Bool -- ^ include benchmarks?
-               -> GenericPackageDescription
-               -> [SimpleTree]
-getSimpleTrees includeTests includeBench gpd = concat
-    [ maybe [] (return . go libBuildInfo mempty) $ condLibrary gpd
-    , map (\(x, y) -> go buildInfo (singletonSet $ ExeName $ pack x) y)
-         $ condExecutables gpd
-    , if includeTests
-        then map (go testBuildInfo mempty . snd) $ condTestSuites gpd
-        else []
-    , if includeBench
-        then map (go benchmarkBuildInfo mempty . snd) $ condBenchmarks gpd
-        else []
-    ]
-  where
-    go getBI exes (CondNode dat deps comps) = SimpleTree
-        { stDeps = unionsWith intersectVersionRanges
-                 $ map (\(Dependency x y) -> singletonMap x y) deps
-        , stConds = map (goComp getBI exes) comps
-        , stExtra = toSimpleExtra (getBI dat) exes
-        }
-
-    goComp getBI exes (cond, tree1, mtree2) =
-        (cond, go getBI exes tree1, go getBI exes <$> mtree2)
-
-    toSimpleExtra bi exes = SimpleExtra
-        { seTools = unionsWith intersectVersionRanges $ flip map (buildTools bi)
+-- | Convert a single CondTree to a 'SimpleDesc'.
+tellTree :: (MonadWriter SimpleDesc m, MonadThrow m)
+         => CheckCond
+         -> (a -> BuildInfo)
+         -> CondTree ConfVar [Dependency] a
+         -> m ()
+tellTree cc getBI (CondNode dat deps comps) = do
+    tell mempty
+        { sdPackages = unionsWith intersectVersionRanges $ flip map deps
+            $ \(Dependency x y) -> singletonMap x $ simplifyVersionRange y
+        , sdTools = unionsWith intersectVersionRanges $ flip map (buildTools $ getBI dat)
             $ \(Dependency name range) -> singletonMap
+                -- In practice, cabal files refer to the exe name, not the
+                -- package name.
                 (ExeName $ unPackageName name)
-                range
-        , seProvidedExes = exes
+                (simplifyVersionRange range)
         }
-
-data FlatComponent = FlatComponent
-    { fcDeps :: Map PackageName VersionRange
-    , fcExtra :: SimpleExtra
-    }
-    deriving (Show, Eq)
-instance Monoid FlatComponent where
-    mempty = FlatComponent mempty mempty
-    mappend (FlatComponent a b) (FlatComponent x y) = FlatComponent
-        (unionWith intersectVersionRanges a x)
-        (b ++ y)
-
-flattenComponent :: MonadThrow m => CheckCond -> SimpleTree -> m FlatComponent
-flattenComponent checkCond' (SimpleTree deps conds extra) = do
-    conds' <- mapM goCond conds
-    return $ mconcat $ here : conds'
-  where
-    here = FlatComponent { fcDeps = deps, fcExtra = extra }
-    goCond (cond, tree1, mtree2) = do
-        b <- checkCond checkCond' cond
+    forM_ comps $ \(cond, ontrue, onfalse) -> do
+        b <- checkCond cc cond
         if b
-            then flattenComponent checkCond' tree1
-            else maybe (return mempty) (flattenComponent checkCond') mtree2
+            then tellTree cc getBI ontrue
+            else maybe (return ()) (tellTree cc getBI) onfalse
 
+-- | Resolve a condition to a boolean based on the provided 'CheckCond'.
 checkCond :: MonadThrow m => CheckCond -> Condition ConfVar -> m Bool
 checkCond CheckCond {..} cond0 =
     go cond0
@@ -145,12 +136,12 @@ data CheckCondException = FlagNotDefined PackageName FlagName (Condition ConfVar
 instance Exception CheckCondException
 
 data CheckCond = CheckCond
-    { ccPackageName :: PackageName -- for debugging only
-    , ccOS :: OS
-    , ccArch :: Arch
-    , ccFlags :: Map FlagName Bool
-    , ccCompilerFlavor :: CompilerFlavor
-    , ccCompilerVersion :: Version
-    , ccIncludeTests :: Bool
+    { ccPackageName       :: PackageName -- for debugging only
+    , ccOS                :: OS
+    , ccArch              :: Arch
+    , ccFlags             :: Map FlagName Bool
+    , ccCompilerFlavor    :: CompilerFlavor
+    , ccCompilerVersion   :: Version
+    , ccIncludeTests      :: Bool
     , ccIncludeBenchmarks :: Bool
     }

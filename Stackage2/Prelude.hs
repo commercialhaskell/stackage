@@ -20,6 +20,7 @@ import           System.Exit           (ExitCode (ExitSuccess))
 import Data.Aeson (ToJSON, FromJSON)
 import qualified Distribution.Version as C
 import Distribution.Version            as X (withinRange)
+import qualified Data.Map as Map
 
 unPackageName :: PackageName -> Text
 unPackageName (PackageName str) = pack str
@@ -101,3 +102,29 @@ simplifyVersionRange vr =
     fromMaybe (assert False vr') $ simpleParse $ display vr'
   where
     vr' = C.simplifyVersionRange vr
+
+-- | Topologically sort so that items with dependencies occur after those
+-- dependencies.
+topologicalSort :: (Ord key, Show key, MonadThrow m, Typeable key)
+                => (value -> finalValue)
+                -> (value -> Set key) -- ^ deps
+                -> Map key value
+                -> m (Vector (key, finalValue))
+topologicalSort toFinal toDeps =
+    loop id . mapWithKey removeSelfDeps . fmap (toDeps &&& toFinal)
+  where
+    removeSelfDeps k (deps, final) = (deleteSet k deps, final)
+    loop front toProcess | null toProcess = return $ pack $ front []
+    loop front toProcess
+        | null noDeps = throwM $ NoEmptyDeps (map fst toProcess')
+        | otherwise = loop (front . noDeps') (mapFromList hasDeps)
+      where
+        toProcess' = fmap (first removeUnavailable) toProcess
+        allKeys = Map.keysSet toProcess
+        removeUnavailable = asSet . setFromList . filter (`member` allKeys) . setToList
+        (noDeps, hasDeps) = partition (null . fst . snd) $ mapToList toProcess'
+        noDeps' = (map (second snd) noDeps ++)
+
+data TopologicalSortException key = NoEmptyDeps (Map key (Set key))
+    deriving (Show, Typeable)
+instance (Show key, Typeable key) => Exception (TopologicalSortException key)

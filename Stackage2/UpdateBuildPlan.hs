@@ -15,10 +15,10 @@ import Stackage2.PackageDescription
 import Distribution.Version (orLaterVersion, earlierVersion, anyVersion)
 import qualified Data.Map as Map
 
-updateBuildPlan :: BuildPlan a -> IO (BuildPlan FlatComponent)
+updateBuildPlan :: BuildPlan -> IO BuildPlan
 updateBuildPlan = newBuildPlan . updateBuildConstraints
 
-updateBuildConstraints :: BuildPlan a -> BuildConstraints
+updateBuildConstraints :: BuildPlan -> BuildConstraints
 updateBuildConstraints BuildPlan {..} =
     BuildConstraints {..}
   where
@@ -35,13 +35,13 @@ updateBuildConstraints BuildPlan {..} =
         }
       where
         moldBP = lookup name bpPackages
-        moldPC = pbPackageConstraints <$> moldBP
+        moldPC = ppConstraints <$> moldBP
 
         addBumpRange oldRange =
             case moldBP of
                 Nothing -> oldRange
                 Just bp -> intersectVersionRanges oldRange
-                         $ bumpRange $ pbVersion bp
+                         $ bumpRange $ ppVersion bp
 
     bumpRange version = intersectVersionRanges
         (orLaterVersion version)

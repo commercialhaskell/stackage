@@ -23,14 +23,14 @@ spec = it "works" $ do
     let allPackages = Map.keysSet (bpPackages bp) ++ Map.keysSet (bpPackages bp')
     forM_ allPackages $ \name ->
         (name, lookup name (bpPackages bp')) `shouldBe`
-        (name, lookup name (bpPackages (() <$ bp)))
+        (name, lookup name (bpPackages bp))
 
-    bp' `shouldBe` (() <$ bp)
+    bp' `shouldBe` bp
     bp2 <- updateBuildPlan bp
     dropVersionRanges bp2 `shouldBe` dropVersionRanges bp
   where
     dropVersionRanges bp =
         bp { bpPackages = map go $ bpPackages bp }
       where
-        go pb = pb { pbPackageConstraints = go' $ pbPackageConstraints pb }
+        go pb = pb { ppConstraints = go' $ ppConstraints pb }
         go' pc = pc { pcVersionRange = anyVersion }

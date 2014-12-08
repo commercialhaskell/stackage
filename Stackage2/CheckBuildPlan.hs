@@ -14,20 +14,20 @@ import Stackage2.BuildConstraints
 import Stackage2.PackageDescription
 import Control.Monad.Writer.Strict (execWriter, Writer, tell)
 
-checkBuildPlan :: MonadThrow m => BuildPlan FlatComponent -> m ()
+checkBuildPlan :: MonadThrow m => BuildPlan -> m ()
 checkBuildPlan BuildPlan {..}
     | null errs' = return ()
     | otherwise = throwM errs
   where
-    allPackages = siCorePackages bpSystemInfo ++ map pbVersion bpPackages
+    allPackages = siCorePackages bpSystemInfo ++ map ppVersion bpPackages
     errs@(BadBuildPlan errs') =
         execWriter $ mapM_ (checkDeps allPackages) $ mapToList bpPackages
 
 checkDeps :: Map PackageName Version
-          -> (PackageName, PackageBuild FlatComponent)
+          -> (PackageName, PackagePlan)
           -> Writer BadBuildPlan ()
 checkDeps allPackages (user, pb) =
-    mapM_ go $ mapToList $ fcDeps $ pbDesc pb
+    mapM_ go $ mapToList $ sdPackages $ ppDesc pb
   where
     go (dep, range) =
         case lookup dep allPackages of
@@ -41,9 +41,9 @@ checkDeps allPackages (user, pb) =
         errMap = singletonMap pu range
         pu = PkgUser
             { puName = user
-            , puVersion = pbVersion pb
-            , puMaintainer = pcMaintainer $ pbPackageConstraints pb
-            , puGithubPings = pbGithubPings pb
+            , puVersion = ppVersion pb
+            , puMaintainer = pcMaintainer $ ppConstraints pb
+            , puGithubPings = ppGithubPings pb
             }
 
 data PkgUser = PkgUser
