@@ -12,7 +12,7 @@ import Stackage2.Prelude
 import Stackage2.BuildPlan
 import Stackage2.BuildConstraints
 import Stackage2.PackageDescription
-import Distribution.Version (orLaterVersion, earlierVersion)
+import Distribution.Version (orLaterVersion, earlierVersion, anyVersion)
 import qualified Data.Map as Map
 
 updateBuildPlan :: BuildPlan a -> IO (BuildPlan FlatComponent)
@@ -25,19 +25,23 @@ updateBuildConstraints BuildPlan {..} =
     bcSystemInfo = bpSystemInfo
     bcPackages = Map.keysSet bpPackages
 
-    bcPackageConstraints name =
-        PackageConstraints {..}
+    bcPackageConstraints name = PackageConstraints
+        { pcVersionRange = addBumpRange (maybe anyVersion pcVersionRange moldPC)
+        , pcMaintainer = moldPC >>= pcMaintainer
+        , pcTests = maybe ExpectSuccess pcTests moldPC
+        , pcHaddocks = maybe ExpectSuccess pcHaddocks moldPC
+        , pcBuildBenchmarks = maybe True pcBuildBenchmarks moldPC
+        , pcFlagOverrides = maybe mempty pcFlagOverrides moldPC
+        }
       where
-    {-
-    pcPackages = flip map bpExtra $ \pb ->
-        ( intersectVersionRanges (bumpRange (pbVersion pb)) (pbVersionRange pb)
-        , pbMaintainer pb
-        )
-    pcTests = maybe ExpectSuccess pbTestState . flip lookup bpExtra
-    pcHaddocks = maybe ExpectSuccess pbHaddockState . flip lookup bpExtra
-    pcBuildBenchmark = maybe True pbTryBuildBenchmark . flip lookup bpExtra
-    pcFlagOverrides = maybe mempty pbFlags . flip lookup bpExtra
-    -}
+        moldBP = lookup name bpPackages
+        moldPC = pbPackageConstraints <$> moldBP
+
+        addBumpRange oldRange =
+            case moldBP of
+                Nothing -> oldRange
+                Just bp -> intersectVersionRanges oldRange
+                         $ bumpRange $ pbVersion bp
 
     bumpRange version = intersectVersionRanges
         (orLaterVersion version)
