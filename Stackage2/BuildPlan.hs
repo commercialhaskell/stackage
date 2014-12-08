@@ -1,12 +1,12 @@
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE TupleSections #-}
-{-# LANGUAGE RecordWildCards #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE DeriveFunctor #-}
-{-# LANGUAGE DeriveFoldable #-}
-{-# LANGUAGE DeriveTraversable #-}
-{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE DeriveFoldable     #-}
+{-# LANGUAGE DeriveFunctor      #-}
+{-# LANGUAGE DeriveTraversable  #-}
+{-# LANGUAGE NoImplicitPrelude  #-}
+{-# LANGUAGE OverloadedStrings  #-}
+{-# LANGUAGE RecordWildCards    #-}
+{-# LANGUAGE TupleSections      #-}
+{-# LANGUAGE TypeFamilies       #-}
 -- | Representation of a concrete build plan, and how to generate a new one
 -- based on constraints.
 module Stackage2.BuildPlan
@@ -15,25 +15,22 @@ module Stackage2.BuildPlan
     , newBuildPlan
     ) where
 
-import Distribution.Package            (Dependency (..))
-import Distribution.PackageDescription
-import Distribution.Version            (withinRange, anyVersion, simplifyVersionRange)
-import Stackage2.BuildConstraints
-import Stackage2.PackageIndex
-import Stackage2.Prelude
-import Stackage2.GithubPings
-import Control.Monad.State.Strict (execState, get, put)
-import qualified Data.Map as Map
-import qualified Data.Set as Set
-import Data.Aeson
-import Stackage2.PackageDescription
-import qualified Distribution.System
+import           Control.Monad.State.Strict      (execState, get, put)
+import           Data.Aeson
+import qualified Data.Map                        as Map
+import qualified Data.Set                        as Set
 import qualified Distribution.Compiler
+import           Distribution.PackageDescription
+import           Stackage2.BuildConstraints
+import           Stackage2.GithubPings
+import           Stackage2.PackageDescription
+import           Stackage2.PackageIndex
+import           Stackage2.Prelude
 
 data BuildPlan = BuildPlan
     { bpSystemInfo :: SystemInfo
-    , bpTools       :: Vector (PackageName, Version)
-    , bpPackages :: Map PackageName PackagePlan
+    , bpTools      :: Vector (PackageName, Version)
+    , bpPackages   :: Map PackageName PackagePlan
     }
     deriving (Show, Eq)
 
@@ -62,11 +59,11 @@ instance FromJSON BuildPlan where
                 either (fail . show) return . simpleParse . asText)
 
 data PackagePlan = PackagePlan
-    { ppVersion           :: Version
-    , ppGithubPings       :: Set Text
-    , ppUsers             :: Set PackageName
-    , ppConstraints  :: PackageConstraints
-    , ppDesc              :: SimpleDesc
+    { ppVersion     :: Version
+    , ppGithubPings :: Set Text
+    , ppUsers       :: Set PackageName
+    , ppConstraints :: PackageConstraints
+    , ppDesc        :: SimpleDesc
     }
     deriving (Show, Eq)
 
@@ -80,15 +77,14 @@ instance ToJSON PackagePlan where
         ]
 instance FromJSON PackagePlan where
     parseJSON = withObject "PackageBuild" $ \o -> do
-        ppVersion <- o .: "version" >>= efail . simpleParse . asText
+        ppVersion <- o .: "version"
+                 >>= either (fail . show) return
+                   . simpleParse . asText
         ppGithubPings <- o .:? "github-pings" .!= mempty
         ppUsers <- Set.map PackageName <$> (o .:? "users" .!= mempty)
         ppConstraints <- o .: "constraints"
         ppDesc <- o .: "description"
         return PackagePlan {..}
-      where
-        pbDesc = ()
-        efail = either (fail . show) return
 
 newBuildPlan :: MonadIO m => BuildConstraints -> m BuildPlan
 newBuildPlan bc@BuildConstraints {..} = liftIO $ do

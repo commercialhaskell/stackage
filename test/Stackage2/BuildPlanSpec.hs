@@ -7,7 +7,6 @@ import Stackage2.BuildConstraints
 import Stackage2.UpdateBuildPlan
 import Test.Hspec
 import qualified Data.Yaml as Y
-import Control.Exception (evaluate)
 import Distribution.Version (anyVersion)
 import qualified Data.Map as Map
 

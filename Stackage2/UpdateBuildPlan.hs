@@ -1,6 +1,6 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE RecordWildCards   #-}
 -- | Take an existing build plan and bump all packages to the newest version in
 -- the same major version number.
 module Stackage2.UpdateBuildPlan
@@ -8,12 +8,12 @@ module Stackage2.UpdateBuildPlan
     , updateBuildPlan
     ) where
 
-import Stackage2.Prelude
-import Stackage2.BuildPlan
-import Stackage2.BuildConstraints
-import Stackage2.PackageDescription
-import Distribution.Version (orLaterVersion, earlierVersion, anyVersion)
-import qualified Data.Map as Map
+import qualified Data.Map                     as Map
+import           Distribution.Version         (anyVersion, earlierVersion,
+                                               orLaterVersion)
+import           Stackage2.BuildConstraints
+import           Stackage2.BuildPlan
+import           Stackage2.Prelude
 
 updateBuildPlan :: BuildPlan -> IO BuildPlan
 updateBuildPlan = newBuildPlan . updateBuildConstraints

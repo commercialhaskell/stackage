@@ -1,18 +1,18 @@
-{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE DeriveDataTypeable         #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
-{-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE NoImplicitPrelude          #-}
+{-# LANGUAGE OverloadedStrings          #-}
+{-# LANGUAGE RecordWildCards            #-}
 -- | Confirm that a build plan has a consistent set of dependencies.
 module Stackage2.CheckBuildPlan
     ( checkBuildPlan
     ) where
 
-import Stackage2.Prelude
-import Stackage2.BuildPlan
+import Control.Monad.Writer.Strict  (Writer, execWriter, tell)
 import Stackage2.BuildConstraints
+import Stackage2.BuildPlan
 import Stackage2.PackageDescription
-import Control.Monad.Writer.Strict (execWriter, Writer, tell)
+import Stackage2.Prelude
 
 checkBuildPlan :: MonadThrow m => BuildPlan -> m ()
 checkBuildPlan BuildPlan {..}
@@ -47,9 +47,9 @@ checkDeps allPackages (user, pb) =
             }
 
 data PkgUser = PkgUser
-    { puName :: PackageName
-    , puVersion :: Version
-    , puMaintainer :: Maybe Maintainer
+    { puName        :: PackageName
+    , puVersion     :: Version
+    , puMaintainer  :: Maybe Maintainer
     , puGithubPings :: Set Text
     }
     deriving (Eq, Ord)

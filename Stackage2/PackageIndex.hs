@@ -12,11 +12,11 @@ module Stackage2.PackageIndex
     ) where
 
 import qualified Codec.Archive.Tar                     as Tar
-import qualified Codec.Archive.Tar.Entry               as TarEntry
 import           Data.Conduit.Lazy                     (MonadActive,
                                                         lazyConsume)
 import qualified Data.Text                             as T
-import           Distribution.PackageDescription       (GenericPackageDescription, packageDescription, package)
+import           Distribution.PackageDescription       (package,
+                                                        packageDescription)
 import           Distribution.PackageDescription.Parse (ParseResult (..),
                                                         parsePackageDescription)
 import           Distribution.ParseUtils               (PError)

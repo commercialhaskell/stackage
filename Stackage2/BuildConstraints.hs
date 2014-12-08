@@ -1,7 +1,7 @@
 {-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE RecordWildCards #-}
-{-# LANGUAGE TupleSections #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards   #-}
+{-# LANGUAGE TupleSections     #-}
 -- | The constraints on package selection for a new build plan.
 module Stackage2.BuildConstraints
     ( BuildConstraints (..)
@@ -11,16 +11,16 @@ module Stackage2.BuildConstraints
     , defaultBuildConstraints
     ) where
 
-import           Stackage2.Prelude
-import           Stackage2.CorePackages
-import qualified Stackage.Config as Old
-import qualified Stackage.Types  as Old
-import qualified Stackage.Select as Old
-import Data.Aeson
-import Distribution.System (OS, Arch)
-import Distribution.Version (anyVersion)
+import           Data.Aeson
+import qualified Data.Map               as Map
+import           Distribution.System    (Arch, OS)
 import qualified Distribution.System
-import qualified Data.Map as Map
+import           Distribution.Version   (anyVersion)
+import qualified Stackage.Config        as Old
+import qualified Stackage.Select        as Old
+import qualified Stackage.Types         as Old
+import           Stackage2.CorePackages
+import           Stackage2.Prelude
 
 data TestState = ExpectSuccess
                | ExpectFailure
@@ -44,10 +44,10 @@ instance FromJSON TestState where
                $ map (\x -> (testStateToText x, x)) [minBound..maxBound]
 
 data SystemInfo = SystemInfo
-    { siGhcVersion :: Version
-    , siOS :: OS
-    , siArch :: Arch
-    , siCorePackages :: Map PackageName Version
+    { siGhcVersion      :: Version
+    , siOS              :: OS
+    , siArch            :: Arch
+    , siCorePackages    :: Map PackageName Version
     , siCoreExecutables :: Set ExeName
     }
     deriving (Show, Eq, Ord)
@@ -74,20 +74,20 @@ instance FromJSON SystemInfo where
                    . Map.mapKeysWith const mkPackageName
 
 data BuildConstraints = BuildConstraints
-    { bcPackages :: Set PackageName
+    { bcPackages           :: Set PackageName
     -- ^ This does not include core packages.
     , bcPackageConstraints :: PackageName -> PackageConstraints
 
-    , bcSystemInfo :: SystemInfo
+    , bcSystemInfo         :: SystemInfo
     }
 
 data PackageConstraints = PackageConstraints
-    { pcVersionRange :: VersionRange
-    , pcMaintainer :: Maybe Maintainer
-    , pcTests :: TestState
-    , pcHaddocks :: TestState
+    { pcVersionRange    :: VersionRange
+    , pcMaintainer      :: Maybe Maintainer
+    , pcTests           :: TestState
+    , pcHaddocks        :: TestState
     , pcBuildBenchmarks :: Bool
-    , pcFlagOverrides :: Map FlagName Bool
+    , pcFlagOverrides   :: Map FlagName Bool
     }
     deriving (Show, Eq)
 instance ToJSON PackageConstraints where
@@ -128,8 +128,6 @@ defaultBuildConstraints = do
         defaultGlobalFlags = asMap $ mapFromList $
             map (, True) (map FlagName $ setToList $ Old.flags oldSettings mempty) ++
             map (, False) (map FlagName $ setToList $ Old.disabledFlags oldSettings)
-        tryBuildTest (PackageName name) = pack name `notMember` skippedTests
-        tryBuildBenchmark (PackageName name) = pack name `notMember` skippedBenchs
         expectedFailures = Old.defaultExpectedFailures oldGhcVer False
         skippedTests =
             old ++ extraSkippedTests
@@ -145,7 +143,7 @@ defaultBuildConstraints = do
             pcVersionRange = simplifyVersionRange $ maybe anyVersion fst mold
             pcMaintainer = (Maintainer . pack . Old.unMaintainer . snd) <$> mold
             pcTests
-                | not $ tryBuildTest name = Don'tBuild
+                | unPackageName name `member` skippedTests = Don'tBuild
                 | name `member` expectedFailures = ExpectFailure
                 | otherwise = ExpectSuccess
 

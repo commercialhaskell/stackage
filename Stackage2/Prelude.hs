@@ -1,26 +1,26 @@
-{-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE NoImplicitPrelude  #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE TypeFamilies       #-}
+{-# LANGUAGE DeriveDataTypeable         #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE NoImplicitPrelude          #-}
+{-# LANGUAGE OverloadedStrings          #-}
+{-# LANGUAGE TypeFamilies               #-}
 module Stackage2.Prelude
     ( module X
     , module Stackage2.Prelude
     ) where
 
-import           ClassyPrelude.Conduit as X
-import           Data.Conduit.Process  as X
-import           Data.Typeable         (TypeRep, typeOf)
-import           Distribution.Package  as X (PackageIdentifier (..),
-                                             PackageName (PackageName))
-import           Distribution.PackageDescription  as X (FlagName (..), GenericPackageDescription)
-import qualified Distribution.Text     as DT
-import           Distribution.Version  as X (Version (..), VersionRange)
-import           System.Exit           (ExitCode (ExitSuccess))
-import Data.Aeson (ToJSON, FromJSON)
-import qualified Distribution.Version as C
-import Distribution.Version            as X (withinRange)
-import qualified Data.Map as Map
+import           ClassyPrelude.Conduit           as X
+import           Data.Aeson                      (FromJSON, ToJSON)
+import           Data.Conduit.Process            as X
+import qualified Data.Map                        as Map
+import           Data.Typeable                   (TypeRep, typeOf)
+import           Distribution.Package            as X (PackageIdentifier (..), PackageName (PackageName))
+import           Distribution.PackageDescription as X (FlagName (..), GenericPackageDescription)
+import qualified Distribution.Text               as DT
+import           Distribution.Version            as X (Version (..),
+                                                       VersionRange)
+import           Distribution.Version            as X (withinRange)
+import qualified Distribution.Version            as C
+import           System.Exit                     (ExitCode (ExitSuccess))
 
 unPackageName :: PackageName -> Text
 unPackageName (PackageName str) = pack str
@@ -77,11 +77,19 @@ checkExitCode _ ExitSuccess = return ()
 checkExitCode cp ec = throwM $ ProcessExitedUnsuccessfully cp ec
 
 -- FIXME move into streaming-commons?
+withCheckedProcess :: ( InputSource stdin
+                      , OutputSink stderr
+                      , OutputSink stdout
+                      , MonadIO m
+                      )
+                   => CreateProcess
+                   -> (stdin -> stdout -> stderr -> m b)
+                   -> m b
 withCheckedProcess cp f = do
     (x, y, z, sph) <- streamingProcess cp
     res <- f x y z
     ec <- waitForStreamingProcess sph
-    checkExitCode cp ec
+    liftIO $ checkExitCode cp ec
     return res
 
 newtype Maintainer = Maintainer { unMaintainer :: Text }

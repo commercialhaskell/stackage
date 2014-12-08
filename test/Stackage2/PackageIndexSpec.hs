@@ -4,7 +4,7 @@ module Stackage2.PackageIndexSpec (spec) where
 import Stackage2.PackageIndex
 import Stackage2.Prelude
 import Test.Hspec
-import Distribution.Package (packageId, pkgVersion)
+import Distribution.Package (packageId)
 
 spec :: Spec
 spec = do

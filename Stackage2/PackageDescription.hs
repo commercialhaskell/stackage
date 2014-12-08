@@ -15,21 +15,15 @@ module Stackage2.PackageDescription
     , CheckCond (..)
     ) where
 
-import           Control.Monad.State.Strict      (execState, get, put)
 import           Control.Monad.Writer.Strict     (MonadWriter, execWriterT,
                                                   tell)
 import           Data.Aeson
 import qualified Data.Map                        as Map
-import qualified Data.Set                        as Set
 import           Distribution.Compiler           (CompilerFlavor)
 import           Distribution.Package            (Dependency (..))
 import           Distribution.PackageDescription
 import           Distribution.System             (Arch, OS)
-import           Stackage2.CorePackages
-import           Stackage2.GithubPings
-import           Stackage2.PackageIndex
 import           Stackage2.Prelude
-import Data.Aeson
 
 -- | A simplified package description that tracks:
 --
