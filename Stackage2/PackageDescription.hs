@@ -55,14 +55,15 @@ instance Monoid SimpleExtra where
 getFlattenedComponent
     :: MonadThrow m
     => CheckCond
-    -> Bool -- ^ include test suites?
-    -> Bool -- ^ include benchmarks?
     -> GenericPackageDescription
     -> m FlatComponent
-getFlattenedComponent checkCond' includeTests includeBench gpd =
+getFlattenedComponent checkCond' gpd =
     liftM fold
         $ mapM (flattenComponent checkCond')
-        $ getSimpleTrees includeTests includeBench gpd
+        $ getSimpleTrees
+            (ccIncludeTests checkCond')
+            (ccIncludeBenchmarks checkCond')
+            gpd
 
 getSimpleTrees :: Bool -- ^ include test suites?
                -> Bool -- ^ include benchmarks?
@@ -150,4 +151,6 @@ data CheckCond = CheckCond
     , ccFlags :: Map FlagName Bool
     , ccCompilerFlavor :: CompilerFlavor
     , ccCompilerVersion :: Version
+    , ccIncludeTests :: Bool
+    , ccIncludeBenchmarks :: Bool
     }

@@ -10,6 +10,7 @@ module Stackage2.CheckBuildPlan
 
 import Stackage2.Prelude
 import Stackage2.BuildPlan
+import Stackage2.BuildConstraints
 import Stackage2.PackageDescription
 import Control.Monad.Writer.Strict (execWriter, Writer, tell)
 
@@ -18,9 +19,9 @@ checkBuildPlan BuildPlan {..}
     | null errs' = return ()
     | otherwise = throwM errs
   where
-    allPackages = bpCore ++ map pbVersion bpExtra
+    allPackages = siCorePackages bpSystemInfo ++ map pbVersion bpPackages
     errs@(BadBuildPlan errs') =
-        execWriter $ mapM_ (checkDeps allPackages) $ mapToList bpExtra
+        execWriter $ mapM_ (checkDeps allPackages) $ mapToList bpPackages
 
 checkDeps :: Map PackageName Version
           -> (PackageName, PackageBuild FlatComponent)
@@ -41,7 +42,7 @@ checkDeps allPackages (user, pb) =
         pu = PkgUser
             { puName = user
             , puVersion = pbVersion pb
-            , puMaintainer = pbMaintainer pb
+            , puMaintainer = pcMaintainer $ pbPackageConstraints pb
             , puGithubPings = pbGithubPings pb
             }
 
@@ -53,17 +54,17 @@ data PkgUser = PkgUser
     }
     deriving (Eq, Ord)
 
-pkgUserShow1 :: PkgUser -> String
+pkgUserShow1 :: PkgUser -> Text
 pkgUserShow1 PkgUser {..} = concat
     [ display puName
     , "-"
     , display puVersion
     ]
 
-pkgUserShow2 :: PkgUser -> String
+pkgUserShow2 :: PkgUser -> Text
 pkgUserShow2 PkgUser {..} = unwords
-    $ (maybe "No maintainer" (unpack . unMaintainer) puMaintainer ++ ".")
-    : map (("@" ++) . unpack) (setToList puGithubPings)
+    $ (maybe "No maintainer" unMaintainer puMaintainer ++ ".")
+    : map (cons '@') (setToList puGithubPings)
 
 newtype BadBuildPlan =
     BadBuildPlan (Map (PackageName, Maybe Version) (Map PkgUser VersionRange))
@@ -71,13 +72,13 @@ newtype BadBuildPlan =
 instance Exception BadBuildPlan
 instance Show BadBuildPlan where
     show (BadBuildPlan errs) =
-        concatMap go $ mapToList errs
+        unpack $ concatMap go $ mapToList errs
       where
         go ((dep, mdepVer), users) = unlines
             $ showDepVer dep mdepVer
             : map showUser (mapToList users)
 
-        showDepVer :: PackageName -> Maybe Version -> String
+        showDepVer :: PackageName -> Maybe Version -> Text
         showDepVer dep Nothing = display dep ++ " (not present) depended on by:"
         showDepVer dep (Just version) = concat
             [ display dep
@@ -86,7 +87,7 @@ instance Show BadBuildPlan where
             , " depended on by:"
             ]
 
-        showUser :: (PkgUser, VersionRange) -> String
+        showUser :: (PkgUser, VersionRange) -> Text
         showUser (pu, range) = concat
             [ "- "
             , pkgUserShow1 pu

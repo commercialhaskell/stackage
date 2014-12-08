@@ -24,14 +24,19 @@ import Distribution.Version            as X (withinRange)
 unPackageName :: PackageName -> Text
 unPackageName (PackageName str) = pack str
 
+unFlagName :: FlagName -> Text
+unFlagName (FlagName str) = pack str
+
 mkPackageName :: Text -> PackageName
 mkPackageName = PackageName . unpack
 
-display :: (IsString text, Element text ~ Char, DT.Text a) => a -> text
+mkFlagName :: Text -> FlagName
+mkFlagName = FlagName . unpack
+
+display :: DT.Text a => a -> Text
 display = fromString . DT.display
 
-simpleParse :: (MonadThrow m, DT.Text a, Typeable a, MonoFoldable text, Element text ~ Char)
-            => text -> m a
+simpleParse :: (MonadThrow m, DT.Text a, Typeable a) => Text -> m a
 simpleParse orig = withTypeRep $ \rep ->
     case DT.simpleParse str of
         Nothing -> throwM (ParseFailedException rep (pack str))
@@ -87,3 +92,12 @@ newtype ExeName = ExeName { unExeName :: Text }
 
 intersectVersionRanges :: VersionRange -> VersionRange -> VersionRange
 intersectVersionRanges x y = C.simplifyVersionRange $ C.intersectVersionRanges x y
+
+-- | There seems to be a bug in Cabal where serializing and deserializing
+-- version ranges winds up with different representations. So we have a
+-- super-simplifier to deal with that.
+simplifyVersionRange :: VersionRange -> VersionRange
+simplifyVersionRange vr =
+    fromMaybe (assert False vr') $ simpleParse $ display vr'
+  where
+    vr' = C.simplifyVersionRange vr

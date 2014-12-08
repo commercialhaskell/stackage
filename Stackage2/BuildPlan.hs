@@ -18,7 +18,7 @@ module Stackage2.BuildPlan
 import Distribution.Package            (Dependency (..))
 import Distribution.PackageDescription
 import Distribution.Version            (withinRange, anyVersion, simplifyVersionRange)
-import Stackage2.PackageConstraints
+import Stackage2.BuildConstraints
 import Stackage2.PackageIndex
 import Stackage2.Prelude
 import Stackage2.GithubPings
@@ -31,13 +31,9 @@ import qualified Distribution.System
 import qualified Distribution.Compiler
 
 data BuildPlan desc = BuildPlan
-    { bpCore        :: Map PackageName Version
-    , bpCoreExecutables :: Set ExeName
-    , bpGhcVersion :: Version
-    , bpOS :: Distribution.System.OS
-    , bpArch :: Distribution.System.Arch
+    { bpSystemInfo :: SystemInfo
     , bpTools       :: Vector (PackageName, Version)
-    , bpExtra       :: Map PackageName (PackageBuild desc)
+    , bpPackages :: Map PackageName (PackageBuild desc)
     }
     deriving (Functor, Foldable, Traversable, Show, Eq)
 type instance Element (BuildPlan desc) = desc
@@ -47,58 +43,33 @@ instance MonoTraversable (BuildPlan desc)
 
 instance ToJSON (BuildPlan desc) where
     toJSON BuildPlan {..} = object
-        [ "core" .= asMap (mapFromList $ map toCore $ mapToList bpCore)
-        , "core-exes" .= bpCoreExecutables
-        , "ghc-version" .= asText (display bpGhcVersion)
-        , "os" .= asText (display bpOS)
-        , "arch" .= asText (display bpArch)
+        [ "system-info" .= bpSystemInfo
         , "tools" .= map goTool bpTools
-        , "extra" .= Map.mapKeysWith const (unPackageName) bpExtra
+        , "packages" .= Map.mapKeysWith const unPackageName bpPackages
         ]
       where
-        toCore (x, y) = (asText $ display x, asText $ display y)
-        goTool (name, version) = object
-            [ "name" .= asText (display name)
-            , "version" .= asText (display version)
+        goTool (k, v) = object
+            [ "name" .= display k
+            , "version" .= display v
             ]
 instance desc ~ () => FromJSON (BuildPlan desc) where
     parseJSON = withObject "BuildPlan" $ \o -> do
-        bpCore <- (o .: "core") >>= goCore
-        bpCoreExecutables <- o .: "core-exes"
-        bpGhcVersion <- (o .: "ghc-version") >>= either (fail . show) return . simpleParse . asText
-        bpOS <- o .: "os" >>= either (fail . show) return . simpleParse . asText
-        bpArch <- (o .: "arch") >>= either (fail . show) return . simpleParse . asText
+        bpSystemInfo <- o .: "system-info"
         bpTools <- (o .: "tools") >>= mapM goTool
-        bpExtra <- goExtra <$> (o .: "extra")
+        bpPackages <- Map.mapKeysWith const mkPackageName <$> (o .: "packages")
         return BuildPlan {..}
       where
-        goCore =
-            fmap mapFromList . mapM goCore' . mapToList . asHashMap
-          where
-            goCore' (k, v) = do
-                k' <- either (fail . show) return $ simpleParse $ asText k
-                v' <- either (fail . show) return $ simpleParse $ asText v
-                return (k', v')
-
         goTool = withObject "Tool" $ \o -> (,)
             <$> ((o .: "name") >>=
                 either (fail . show) return . simpleParse . asText)
             <*> ((o .: "version") >>=
                 either (fail . show) return . simpleParse . asText)
 
-        goExtra = Map.mapKeysWith const PackageName
-
 data PackageBuild desc = PackageBuild
     { pbVersion           :: Version
-    , pbVersionRange      :: VersionRange
-    -- ^ This is vital for ensuring old constraints are kept in place when bumping
-    , pbMaintainer        :: Maybe Maintainer
     , pbGithubPings       :: Set Text
     , pbUsers             :: Set PackageName
-    , pbFlags             :: Map FlagName Bool
-    , pbTestState         :: TestState
-    , pbHaddockState      :: TestState
-    , pbTryBuildBenchmark :: Bool
+    , pbPackageConstraints :: PackageConstraints
     , pbDesc              :: desc
     }
     deriving (Functor, Foldable, Traversable, Show, Eq)
@@ -107,69 +78,45 @@ instance MonoFunctor (PackageBuild desc)
 instance MonoFoldable (PackageBuild desc)
 instance MonoTraversable (PackageBuild desc)
 
--- | There seems to be a bug in Cabal where serializing and deserializing
--- version ranges winds up with different representations. So we have a
--- super-simplifier to deal with that.
-superSimplifyVersionRange :: VersionRange -> VersionRange
-superSimplifyVersionRange vr =
-    fromMaybe (assert False vr') $ simpleParse $ asList $ display vr'
-  where
-    vr' = simplifyVersionRange vr
-
 instance ToJSON (PackageBuild desc) where
-    toJSON PackageBuild {..} = object $ concat
-        [ maybe [] (\m -> ["maintainer" .= m]) pbMaintainer
-        ,
-            [ "version" .= asText (display pbVersion)
-            , "version-range" .= asText (display $ superSimplifyVersionRange pbVersionRange)
-            , "github-pings" .= pbGithubPings
-            , "users" .= map unPackageName (unpack pbUsers)
-            , "flags" .= Map.mapKeysWith const (\(FlagName f) -> asText $ pack f) pbFlags
-            , "test-state" .= pbTestState
-            , "haddock-state" .= pbHaddockState
-            , "build-benchmark" .= pbTryBuildBenchmark
-            ]
+    toJSON PackageBuild {..} = object
+        [ "version" .= asText (display pbVersion)
+        , "github-pings" .= pbGithubPings
+        , "users" .= map unPackageName (unpack pbUsers)
+        , "constraints" .= pbPackageConstraints
         ]
 instance desc ~ () => FromJSON (PackageBuild desc) where
-    parseJSON = withObject "PackageBuild" $ \o -> PackageBuild
-        <$> (o .: "version" >>= efail . simpleParse . asText)
-        <*> (o .: "version-range" >>= fmap superSimplifyVersionRange . efail . simpleParse . asText)
-        <*> o .:? "maintainer"
-        <*> o .:? "github-pings" .!= mempty
-        <*> (Set.map PackageName <$> (o .:? "users" .!= mempty))
-        <*> (toFlags <$> (o .:? "flags" .!= mempty))
-        <*> o .: "test-state"
-        <*> o .: "haddock-state"
-        <*> o .: "build-benchmark"
-        <*> pure ()
+    parseJSON = withObject "PackageBuild" $ \o -> do
+        pbVersion <- o .: "version" >>= efail . simpleParse . asText
+        pbGithubPings <- o .:? "github-pings" .!= mempty
+        pbUsers <- Set.map PackageName <$> (o .:? "users" .!= mempty)
+        pbPackageConstraints <- o .: "constraints"
+        return PackageBuild {..}
       where
-        toFlags = Map.mapKeysWith const (FlagName . unpack . asText)
-
+        pbDesc = ()
         efail = either (fail . show) return
 
-newBuildPlan :: MonadIO m => PackageConstraints -> m (BuildPlan FlatComponent)
-newBuildPlan pc = liftIO $ do
-    extraOrig <- getLatestDescriptions (isAllowed pc) (mkPackageBuild pc)
+newBuildPlan :: MonadIO m => BuildConstraints -> m (BuildPlan FlatComponent)
+newBuildPlan bc@BuildConstraints {..} = liftIO $ do
+    extraOrig <- getLatestDescriptions (isAllowed bc) (mkPackageBuild bc)
     let toolMap = makeToolMap extraOrig
-        extra = populateUsers $ removeUnincluded pc toolMap extraOrig
+        extra = populateUsers $ removeUnincluded bc toolMap extraOrig
         toolNames :: [ExeName]
         toolNames = concatMap (Map.keys . seTools . fcExtra . pbDesc) extra
     tools <- topologicalSortTools toolMap $ mapFromList $ do
         exeName <- toolNames
-        guard $ exeName `notMember` pcCoreExecutables pc
+        guard $ exeName `notMember` siCoreExecutables
         packageName <- maybe mempty setToList $ lookup exeName toolMap
         packageBuild <- maybeToList $ lookup packageName extraOrig
         return (packageName, packageBuild)
     -- FIXME topologically sort packages? maybe just leave that to the build phase
     return BuildPlan
-        { bpCore = pcCorePackages pc
-        , bpCoreExecutables = pcCoreExecutables pc
-        , bpGhcVersion = pcGhcVersion pc
-        , bpOS = pcOS pc
-        , bpArch = pcArch pc
+        { bpSystemInfo = bcSystemInfo
         , bpTools = tools
-        , bpExtra = extra
+        , bpPackages = extra
         }
+  where
+    SystemInfo {..} = bcSystemInfo
 
 makeToolMap :: Map PackageName (PackageBuild FlatComponent)
             -> Map ExeName (Set PackageName)
@@ -213,18 +160,19 @@ data TopologicalSortException key = NoEmptyDeps (Map key (Set key))
     deriving (Show, Typeable)
 instance (Show key, Typeable key) => Exception (TopologicalSortException key)
 
-removeUnincluded :: PackageConstraints
+-- | Include only packages which are dependencies of the required packages and
+-- their build tools.
+removeUnincluded :: BuildConstraints
                  -> Map ExeName (Set PackageName)
                  -> Map PackageName (PackageBuild FlatComponent)
                  -> Map PackageName (PackageBuild FlatComponent)
-removeUnincluded pc toolMap orig =
+removeUnincluded BuildConstraints {..} toolMap orig =
     mapFromList $ filter (\(x, _) -> x `member` included) $ mapToList orig
   where
-    coreExes = pcCoreExecutables pc
+    SystemInfo {..} = bcSystemInfo
 
     included :: Set PackageName
-    included = flip execState mempty $
-        mapM_ (add . fst) $ mapToList $ pcPackages pc
+    included = flip execState mempty $ mapM_ add bcPackages
 
     add name = do
         inc <- get
@@ -235,7 +183,7 @@ removeUnincluded pc toolMap orig =
                 Just pb -> do
                     mapM_ (add . fst) $ mapToList $ fcDeps $ pbDesc pb
                     forM_ (map fst $ mapToList $ seTools $ fcExtra $ pbDesc pb) $
-                        \exeName -> when (exeName `notMember` coreExes)
+                        \exeName -> when (exeName `notMember` siCoreExecutables)
                             $ mapM_ add $ fromMaybe mempty $ lookup exeName toolMap
 
 populateUsers :: Map PackageName (PackageBuild FlatComponent)
@@ -249,49 +197,40 @@ populateUsers orig =
         | dep `member` fcDeps (pbDesc pb) = singletonSet user
         | otherwise = mempty
 
-isAllowed :: PackageConstraints
+-- | Check whether the given package/version combo meets the constraints
+-- currently in place.
+isAllowed :: BuildConstraints
           -> PackageName -> Version -> Bool
-isAllowed pc = \name version ->
-    case lookup name $ pcCorePackages pc of
+isAllowed bc = \name version ->
+    case lookup name $ siCorePackages $ bcSystemInfo bc of
         Just _ -> False -- never reinstall a core package
-        Nothing ->
-            case lookup name $ pcPackages pc of
-                Nothing -> True -- no constraints
-                Just (range, _) -> withinRange version range
+        Nothing -> withinRange version $ pcVersionRange $ bcPackageConstraints bc name
 
 mkPackageBuild :: MonadThrow m
-               => PackageConstraints
+               => BuildConstraints
                -> GenericPackageDescription
                -> m (PackageBuild FlatComponent)
-mkPackageBuild pc gpd = do
-    let overrides = pcFlagOverrides pc name
-        getFlag MkFlag {..} =
-            (flagName, fromMaybe flagDefault $ lookup flagName overrides)
-        flags = mapFromList $ map getFlag $ genPackageFlags gpd
-    desc <- getFlattenedComponent
-        CheckCond
-            { ccPackageName = name
-            , ccOS = pcOS pc
-            , ccArch = pcArch pc
-            , ccCompilerFlavor = Distribution.Compiler.GHC
-            , ccCompilerVersion = pcGhcVersion pc
-            , ccFlags = flags
-            }
-        (pcTests pc name /= Don'tBuild)
-        (pcBuildBenchmark pc name)
-        gpd
-    return PackageBuild
-        { pbVersion = version
-        , pbVersionRange = superSimplifyVersionRange
-                         $ maybe anyVersion fst $ lookup name $ pcPackages pc
-        , pbMaintainer = lookup name (pcPackages pc) >>= snd
-        , pbGithubPings = getGithubPings gpd
-        , pbUsers = mempty -- must be filled in later
-        , pbFlags = flags
-        , pbTestState = pcTests pc name
-        , pbHaddockState = pcHaddocks pc name
-        , pbTryBuildBenchmark = pcBuildBenchmark pc name
-        , pbDesc = desc
-        }
+mkPackageBuild bc gpd = do
+    pbDesc <- getFlattenedComponent CheckCond {..} gpd
+    return PackageBuild {..}
   where
-    PackageIdentifier name version = package $ packageDescription gpd
+    PackageIdentifier name pbVersion = package $ packageDescription gpd
+    pbGithubPings = getGithubPings gpd
+    pbPackageConstraints = bcPackageConstraints bc name
+    pbUsers = mempty -- must be filled in later
+
+    ccPackageName = name
+    ccOS = siOS
+    ccArch = siArch
+    ccCompilerFlavor = Distribution.Compiler.GHC
+    ccCompilerVersion = siGhcVersion
+    ccFlags = flags
+    ccIncludeTests = pcTests pbPackageConstraints /= Don'tBuild
+    ccIncludeBenchmarks = pcBuildBenchmarks pbPackageConstraints
+
+    SystemInfo {..} = bcSystemInfo bc
+
+    overrides = pcFlagOverrides pbPackageConstraints
+    getFlag MkFlag {..} =
+        (flagName, fromMaybe flagDefault $ lookup flagName overrides)
+    flags = mapFromList $ map getFlag $ genPackageFlags gpd

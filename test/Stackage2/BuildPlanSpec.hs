@@ -3,7 +3,7 @@ module Stackage2.BuildPlanSpec (spec) where
 
 import Stackage2.BuildPlan
 import Stackage2.Prelude
-import Stackage2.PackageConstraints
+import Stackage2.BuildConstraints
 import Stackage2.UpdateBuildPlan
 import Test.Hspec
 import qualified Data.Yaml as Y
@@ -13,23 +13,24 @@ import qualified Data.Map as Map
 
 spec :: Spec
 spec = it "works" $ do
-    pc <- defaultPackageConstraints
-    bp <- newBuildPlan pc
+    bc <- defaultBuildConstraints
+    bp <- newBuildPlan bc
     let bs = Y.encode bp
-        mbp' = Y.decode bs
+        ebp' = Y.decodeEither bs
 
-    bp' <- maybe (error "decoding failed") return mbp'
+    bp' <- either error return ebp'
 
-    let allPackages = Map.keysSet (bpExtra bp) ++ Map.keysSet (bpExtra bp')
+    let allPackages = Map.keysSet (bpPackages bp) ++ Map.keysSet (bpPackages bp')
     forM_ allPackages $ \name ->
-        (name, lookup name (bpExtra bp')) `shouldBe`
-        (name, lookup name (bpExtra $ () <$ bp))
+        (name, lookup name (bpPackages bp')) `shouldBe`
+        (name, lookup name (bpPackages (() <$ bp)))
 
-    mbp' `shouldBe` Just (() <$ bp)
-    bp2 <- newBuildPlan $ updatePackageConstraints bp
+    bp' `shouldBe` (() <$ bp)
+    bp2 <- updateBuildPlan bp
     dropVersionRanges bp2 `shouldBe` dropVersionRanges bp
   where
     dropVersionRanges bp =
-        bp { bpExtra = map go $ bpExtra bp }
+        bp { bpPackages = map go $ bpPackages bp }
       where
-        go pb = pb { pbVersionRange = anyVersion }
+        go pb = pb { pbPackageConstraints = go' $ pbPackageConstraints pb }
+        go' pc = pc { pcVersionRange = anyVersion }

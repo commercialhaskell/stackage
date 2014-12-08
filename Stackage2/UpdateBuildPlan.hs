@@ -4,36 +4,41 @@
 -- | Take an existing build plan and bump all packages to the newest version in
 -- the same major version number.
 module Stackage2.UpdateBuildPlan
-    ( updatePackageConstraints
+    ( updateBuildConstraints
     , updateBuildPlan
     ) where
 
 import Stackage2.Prelude
 import Stackage2.BuildPlan
-import Stackage2.PackageConstraints
+import Stackage2.BuildConstraints
 import Stackage2.PackageDescription
 import Distribution.Version (orLaterVersion, earlierVersion)
+import qualified Data.Map as Map
 
 updateBuildPlan :: BuildPlan a -> IO (BuildPlan FlatComponent)
-updateBuildPlan = newBuildPlan . updatePackageConstraints
+updateBuildPlan = newBuildPlan . updateBuildConstraints
 
-updatePackageConstraints :: BuildPlan a -> PackageConstraints
-updatePackageConstraints BuildPlan {..} = PackageConstraints
-    { pcPackages = flip map bpExtra $ \pb ->
+updateBuildConstraints :: BuildPlan a -> BuildConstraints
+updateBuildConstraints BuildPlan {..} =
+    BuildConstraints {..}
+  where
+    bcSystemInfo = bpSystemInfo
+    bcPackages = Map.keysSet bpPackages
+
+    bcPackageConstraints name =
+        PackageConstraints {..}
+      where
+    {-
+    pcPackages = flip map bpExtra $ \pb ->
         ( intersectVersionRanges (bumpRange (pbVersion pb)) (pbVersionRange pb)
         , pbMaintainer pb
         )
-    , pcCorePackages = bpCore
-    , pcCoreExecutables = bpCoreExecutables
-    , pcGhcVersion = bpGhcVersion
-    , pcOS = bpOS
-    , pcArch = bpArch
-    , pcTests = maybe ExpectSuccess pbTestState . flip lookup bpExtra
-    , pcHaddocks = maybe ExpectSuccess pbHaddockState . flip lookup bpExtra
-    , pcBuildBenchmark = maybe True pbTryBuildBenchmark . flip lookup bpExtra
-    , pcFlagOverrides = maybe mempty pbFlags . flip lookup bpExtra
-    }
-  where
+    pcTests = maybe ExpectSuccess pbTestState . flip lookup bpExtra
+    pcHaddocks = maybe ExpectSuccess pbHaddockState . flip lookup bpExtra
+    pcBuildBenchmark = maybe True pbTryBuildBenchmark . flip lookup bpExtra
+    pcFlagOverrides = maybe mempty pbFlags . flip lookup bpExtra
+    -}
+
     bumpRange version = intersectVersionRanges
         (orLaterVersion version)
         (earlierVersion $ bumpVersion version)
