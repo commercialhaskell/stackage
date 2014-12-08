@@ -117,7 +117,7 @@ data SelectSettings = SelectSettings
     -- ^ Packages which should be dropped from the list of stable packages,
     -- even if present via the Haskell Platform or @stablePackages@. If these
     -- packages are dependencies of others, they will still be included.
-    , stablePackages         :: Bool -- ^ require Haskell Platform?
+    , stablePackages         :: Bool -- require Haskell Platform?
                              -> Map PackageName (VersionRange, Maintainer)
     , useGlobalDatabase      :: Bool
     -- ^ Instead of checking the Haskell Platform file for core packages, query
