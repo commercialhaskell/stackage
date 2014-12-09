@@ -284,6 +284,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
                 | ghcVer <= GhcMajorVersion 7 6 -> "< 1.17"
                 | ghcVer <= GhcMajorVersion 7 8 -> "< 1.19"
                 | otherwise -> "-any"
+    -- cabal-install is buggy still...
+    addRange "Michael Snoyman" "network" "< 2.6"
+    addRange "Michael Snoyman" "network-uri" "< 2.6"
 
     mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
         [ "web-fpco th-expand-syns configurator smtLib"
