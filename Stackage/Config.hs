@@ -219,10 +219,13 @@ defaultExpectedFailures ghcVer requireHP = execWriter $ do
     -- Requires locally running server
     add "bloodhound"
 
-    -- Requires PostgreSQL running
-    add "postgresql-binary"
-    add "hasql"
-    add "hasql-postgres"
+    -- Too lazy to keep the test dependencies up to date
+    let names = 
+          words "hasql hasql-postgres hasql-backend postgresql-binary" ++
+          words "stm-containers focus list-t slave-thread partial-handler" ++
+          words "neat-interpolation cases" ++
+          words "base-prelude mtl-prelude"
+        in mapM_ add names
 
     -- https://github.com/gtk2hs/gtk2hs/issues/79
     add "gio"
@@ -314,6 +317,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
             [ "criterion"
             , "th-lift singletons th-desugar quickcheck-assertions"
+            , "distributed-process distributed-process-simplelocalnet" --  cloud-haskell"
             ]
 
     addRange "FP Complete <michael@fpcomplete.com>" "kure" "<= 2.4.10"
@@ -651,6 +655,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     mapM_ (add "Alexander Thiemann <mail@athiemann.net>") $ words
        "graph-core reroute Spock"
+       
+    mapM_ (add "Joey Eremondi <joey@eremondi.com>") $ words
+       "prettyclass"
 
     -- https://github.com/fpco/stackage/issues/217
     addRange "Michael Snoyman" "transformers" "< 0.4"
