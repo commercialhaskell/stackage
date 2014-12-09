@@ -317,6 +317,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
             [ "criterion"
             , "th-lift singletons th-desugar quickcheck-assertions"
+            , "distributed-process distributed-process-simplelocalnet" --  cloud-haskell"
             ]
 
     addRange "FP Complete <michael@fpcomplete.com>" "kure" "<= 2.4.10"
