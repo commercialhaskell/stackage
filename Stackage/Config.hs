@@ -219,10 +219,13 @@ defaultExpectedFailures ghcVer requireHP = execWriter $ do
     -- Requires locally running server
     add "bloodhound"
 
-    -- Requires PostgreSQL running
-    add "postgresql-binary"
-    add "hasql"
-    add "hasql-postgres"
+    -- Too lazy to keep the test dependencies up to date
+    let names = 
+          words "hasql hasql-postgres hasql-backend postgresql-binary" ++
+          words "stm-containers focus list-t slave-thread partial-handler" ++
+          words "neat-interpolation cases" ++
+          words "base-prelude mtl-prelude"
+        in mapM_ add names
 
     -- https://github.com/gtk2hs/gtk2hs/issues/79
     add "gio"
