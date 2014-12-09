@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP                        #-}
 {-# LANGUAGE DeriveDataTypeable         #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude          #-}
@@ -58,6 +59,10 @@ data ParseFailedException = ParseFailedException TypeRep Text
     deriving (Show, Typeable)
 instance Exception ParseFailedException
 
+#ifndef MIN_VERSION_streaming_commons
+#define MIN_VERSION_streaming_commons(x, y, z) 1
+#endif
+#if !MIN_VERSION_streaming_commons(0,1,7)
 data ProcessExitedUnsuccessfully = ProcessExitedUnsuccessfully CreateProcess ExitCode
     deriving Typeable
 instance Show ProcessExitedUnsuccessfully where
@@ -91,6 +96,7 @@ withCheckedProcess cp f = do
     ec <- waitForStreamingProcess sph
     liftIO $ checkExitCode cp ec
     return res
+#endif
 
 newtype Maintainer = Maintainer { unMaintainer :: Text }
     deriving (Show, Eq, Ord, Hashable, ToJSON, FromJSON, IsString)
