@@ -653,7 +653,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
        "graph-core reroute Spock"
        
     mapM_ (add "Joey Eremondi <joey@eremondi.com>") $ words
-       "prettyclass"
+       "prettyclass language-glsl union-find aeson-pretty QuasiText"
 
     -- https://github.com/fpco/stackage/issues/217
     addRange "Michael Snoyman" "transformers" "< 0.4"
