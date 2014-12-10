@@ -660,7 +660,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
        "graph-core reroute Spock"
 
     mapM_ (add "Joey Eremondi <joey@eremondi.com>") $ words
-       "prettyclass"
+       "prettyclass language-glsl union-find aeson-pretty QuasiText"
 
     mapM_ (add "Arthur Fayzrakhmanov <heraldhoi@gmail.com>") $ words
         "sodium hdevtools"
