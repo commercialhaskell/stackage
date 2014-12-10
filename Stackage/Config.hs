@@ -472,9 +472,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         "base-unicode-symbols containers-unicode-symbols"
 
     if ghcVer >= GhcMajorVersion 7 8
-        then add "Ryan Newton <ryan.newton@alum.mit.edu>" "accelerate"
+        then add "Trevor L. McDonell <tmcdonell@cse.unsw.edu.au>" "accelerate"
         else do
-            addRange "Ryan Newton <ryan.newton@alum.mit.edu>" "accelerate" "< 0.15"
+            addRange "Trevor L. McDonell <tmcdonell@cse.unsw.edu.au>" "accelerate" "< 0.15"
             addRange "Michael Snoyman" "linear-accelerate" "< 0.2"
 
     mapM_ (add "Dan Burton <danburton.email@gmail.com>") $ words =<<
