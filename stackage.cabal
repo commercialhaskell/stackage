@@ -40,6 +40,8 @@ library
                        Stackage2.UpdateBuildPlan
                        Stackage2.GithubPings
                        Stackage2.PackageDescription
+                       Stackage2.ServerBundle
+                       Stackage2.Upload
   build-depends:       base >= 4 && < 5
                      , containers
                      , Cabal >= 1.14
@@ -60,6 +62,11 @@ library
                      , system-fileio
                      , mtl
                      , aeson
+                     , yaml
+                     , unix-compat
+                     , http-client
+                     , temporary
+                     , data-default-class
 
 executable stackage
   default-language:    Haskell2010
