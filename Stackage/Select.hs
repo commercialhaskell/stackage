@@ -43,10 +43,13 @@ defaultSelectSettings version requireHP = SelectSettings
                 -> Set.singleton "containers-old"
             _ -> Set.empty) `Set.union`
 
+        {-
         -- Support for network 2.6
         (if version >= GhcMajorVersion 7 8 && not requireHP
             then Set.singleton "network-uri"
             else Set.empty)
+        -}
+        Set.empty
     , disabledFlags = Set.fromList (words "bytestring-in-base test-hlint")
         `Set.union`
         (if version <= GhcMajorVersion 7 4
@@ -60,10 +63,13 @@ defaultSelectSettings version requireHP = SelectSettings
             then Set.singleton "decoderinterface"
             else Set.empty) `Set.union`
 
+        {-
         -- Support for network 2.6
         (if version >= GhcMajorVersion 7 8 && not requireHP
             then Set.empty
             else Set.singleton "network-uri")
+        -}
+        Set.singleton "network-uri"
     , allowedPackage = const $ Right ()
     , useGlobalDatabase = False
     , skippedTests =

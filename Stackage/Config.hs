@@ -220,7 +220,7 @@ defaultExpectedFailures ghcVer requireHP = execWriter $ do
     add "bloodhound"
 
     -- Too lazy to keep the test dependencies up to date
-    let names = 
+    let names =
           words "hasql hasql-postgres hasql-backend postgresql-binary" ++
           words "stm-containers focus list-t slave-thread partial-handler" ++
           words "neat-interpolation cases" ++
@@ -284,6 +284,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
                 | ghcVer <= GhcMajorVersion 7 6 -> "< 1.17"
                 | ghcVer <= GhcMajorVersion 7 8 -> "< 1.19"
                 | otherwise -> "-any"
+    -- cabal-install is buggy still...
+    addRange "Michael Snoyman" "network" "< 2.6"
+    addRange "Michael Snoyman" "network-uri" "< 2.6"
 
     mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
         [ "web-fpco th-expand-syns configurator smtLib"
@@ -655,9 +658,12 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     mapM_ (add "Alexander Thiemann <mail@athiemann.net>") $ words
        "graph-core reroute Spock"
-       
+
     mapM_ (add "Joey Eremondi <joey@eremondi.com>") $ words
-       "prettyclass"
+       "prettyclass language-glsl union-find aeson-pretty QuasiText"
+
+    mapM_ (add "Arthur Fayzrakhmanov <heraldhoi@gmail.com>") $ words
+        "sodium hdevtools"
 
     -- https://github.com/fpco/stackage/issues/217
     addRange "Michael Snoyman" "transformers" "< 0.4"
