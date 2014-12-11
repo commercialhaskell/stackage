@@ -203,10 +203,6 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
                 . withTSem sbSem
         wfd libComps buildLibrary
 
-        -- Even if the tests later fail, we can allow other libraries to build
-        -- on top of our successful results
-        atomically $ putTMVar (piResult sbPackageInfo) True
-
         wfd testComps runTests
 
     name = display $ piName sbPackageInfo
@@ -232,10 +228,13 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
 
     log' t = do
         i <- readTVarIO sbActive
+        errs <- readTVarIO sbErrsVar
         pbLog $ encodeUtf8 $ concat
             [ t
-            , " (active: "
+            , " (pending: "
             , tshow i
+            , ", failures: "
+            , tshow $ length errs
             , ")\n"
             ]
     libOut = pbLogDir </> fpFromText namever </> "build.out"
@@ -285,7 +284,11 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
         withMVar sbRegisterMutex $ const $
             run "cabal" ["register"]
 
-        when (pcHaddocks /= Don'tBuild) $ do
+        -- Even if the tests later fail, we can allow other libraries to build
+        -- on top of our successful results
+        atomically $ putTMVar (piResult sbPackageInfo) True
+
+        when (pcHaddocks /= Don'tBuild && hasLibrary (ppDesc $ piPlan sbPackageInfo)) $ do
             log' $ "Haddocks " ++ namever
             hfs <- readTVarIO sbHaddockFiles
             let hfsOpts = flip map (mapToList hfs) $ \(pkgVer, hf) -> concat
@@ -358,6 +361,12 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
             case fromException exc of
                 Just bf -> bf
                 Nothing -> BuildFailureException exc
+
+hasLibrary :: SimpleDesc -> Bool
+hasLibrary sd =
+    any go (sdPackages sd) || any go (sdTools sd)
+  where
+    go = (CompLibrary `member`) . diComponents
 
 renameOrCopy :: FilePath -> FilePath -> IO ()
 renameOrCopy src dest = rename src dest `catchIO` \_ -> copyDir src dest

@@ -128,7 +128,8 @@ defaultBuildConstraints = do
         defaultGlobalFlags = asMap $ mapFromList $
             map (, True) (map FlagName $ setToList $ Old.flags oldSettings mempty) ++
             map (, False) (map FlagName $ setToList $ Old.disabledFlags oldSettings)
-        expectedFailures = Old.defaultExpectedFailures oldGhcVer False
+        expectedFailures = Old.defaultExpectedFailures oldGhcVer False ++
+                           newExpectedFailures
         skippedTests =
             old ++ extraSkippedTests
           where
@@ -181,4 +182,9 @@ skippedBenchs :: HashSet Text
 skippedBenchs = setFromList $ words =<<
     [ "machines criterion-plus graphviz lifted-base pandoc stm-containers uuid"
     , "cases hasql-postgres" -- pulls in criterion-plus, which has restrictive upper bounds
+    ]
+
+newExpectedFailures :: Set PackageName
+newExpectedFailures = setFromList $ map PackageName $ words =<<
+    [ "cautious-file" -- weird problems with cabal test
     ]
