@@ -3,6 +3,7 @@
 {-# LANGUAGE NoImplicitPrelude          #-}
 {-# LANGUAGE OverloadedStrings          #-}
 {-# LANGUAGE RecordWildCards            #-}
+{-# LANGUAGE ViewPatterns               #-}
 -- | Confirm that a build plan has a consistent set of dependencies.
 module Stackage2.CheckBuildPlan
     ( checkBuildPlan
@@ -13,6 +14,9 @@ import Stackage2.BuildConstraints
 import Stackage2.BuildPlan
 import Stackage2.PackageDescription
 import Stackage2.Prelude
+
+-- FIXME check cycles in dependencies, only looking at libraries and
+-- executables
 
 checkBuildPlan :: MonadThrow m => BuildPlan -> m ()
 checkBuildPlan BuildPlan {..}
@@ -29,7 +33,7 @@ checkDeps :: Map PackageName Version
 checkDeps allPackages (user, pb) =
     mapM_ go $ mapToList $ sdPackages $ ppDesc pb
   where
-    go (dep, range) =
+    go (dep, diRange -> range) =
         case lookup dep allPackages of
             Nothing -> tell $ BadBuildPlan $ singletonMap (dep, Nothing) errMap
             Just version

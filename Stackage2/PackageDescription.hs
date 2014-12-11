@@ -13,6 +13,8 @@ module Stackage2.PackageDescription
     ( SimpleDesc (..)
     , toSimpleDesc
     , CheckCond (..)
+    , Component (..)
+    , DepInfo (..)
     ) where
 
 import           Control.Monad.Writer.Strict     (MonadWriter, execWriterT,
@@ -25,6 +27,49 @@ import           Distribution.PackageDescription
 import           Distribution.System             (Arch, OS)
 import           Stackage2.Prelude
 
+data Component = CompLibrary
+               | CompExecutable
+               | CompTestSuite
+               | CompBenchmark
+    deriving (Show, Read, Eq, Ord, Enum, Bounded)
+
+compToText :: Component -> Text
+compToText CompLibrary = "library"
+compToText CompExecutable = "executable"
+compToText CompTestSuite = "test-suite"
+compToText CompBenchmark = "benchmark"
+
+instance ToJSON Component where
+    toJSON = toJSON . compToText
+instance FromJSON Component where
+    parseJSON = withText "Component" $ \t -> maybe
+        (fail $ "Invalid component: " ++ unpack t)
+        return
+        (lookup t comps)
+      where
+        comps = asHashMap $ mapFromList $ map (compToText &&& id) [minBound..maxBound]
+
+data DepInfo = DepInfo
+    { diComponents :: Set Component
+    , diRange :: VersionRange
+    }
+    deriving (Show, Eq)
+
+instance Semigroup DepInfo where
+    DepInfo a x <> DepInfo b y = DepInfo
+        (a <> b)
+        (intersectVersionRanges x y)
+instance ToJSON DepInfo where
+    toJSON DepInfo {..} = object
+        [ "components" .= diComponents
+        , "range" .= display diRange
+        ]
+instance FromJSON DepInfo where
+    parseJSON = withObject "DepInfo" $ \o -> do
+        diComponents <- o .: "components"
+        diRange <- o .: "range" >>= either (fail . show) return . simpleParse
+        return DepInfo {..}
+
 -- | A simplified package description that tracks:
 --
 -- * Package dependencies
@@ -35,33 +80,27 @@ import           Stackage2.Prelude
 --
 -- It has fully resolved all conditionals
 data SimpleDesc = SimpleDesc
-    { sdPackages     :: Map PackageName VersionRange
-    , sdTools        :: Map ExeName VersionRange
+    { sdPackages     :: Map PackageName DepInfo
+    , sdTools        :: Map ExeName DepInfo
     , sdProvidedExes :: Set ExeName
     }
     deriving (Show, Eq)
 instance Monoid SimpleDesc where
     mempty = SimpleDesc mempty mempty mempty
     mappend (SimpleDesc a b c) (SimpleDesc x y z) = SimpleDesc
-        (unionWith intersectVersionRanges a x)
-        (unionWith intersectVersionRanges b y)
+        (unionWith (<>) a x)
+        (unionWith (<>) b y)
         (c ++ z)
 instance ToJSON SimpleDesc where
     toJSON SimpleDesc {..} = object
-        [ "packages" .= Map.mapKeysWith const unPackageName (map display sdPackages)
-        , "tools" .= Map.mapKeysWith const unExeName (map display sdTools)
+        [ "packages" .= Map.mapKeysWith const unPackageName sdPackages
+        , "tools" .= Map.mapKeysWith const unExeName sdTools
         , "provided-exes" .= sdProvidedExes
         ]
 instance FromJSON SimpleDesc where
     parseJSON = withObject "SimpleDesc" $ \o -> do
-        sdPackages <- (o .: "packages") >>=
-                      either (fail . show) return .
-                      mapM simpleParse .
-                      Map.mapKeysWith const mkPackageName
-        sdTools <- (o .: "tools") >>=
-                   either (fail . show) return .
-                   mapM simpleParse .
-                   Map.mapKeysWith const ExeName
+        sdPackages <- Map.mapKeysWith const mkPackageName <$> (o .: "packages")
+        sdTools <- Map.mapKeysWith const ExeName <$> (o .: "tools")
         sdProvidedExes <- o .: "provided-exes"
         return SimpleDesc {..}
 
@@ -72,39 +111,46 @@ toSimpleDesc :: MonadThrow m
              -> GenericPackageDescription
              -> m SimpleDesc
 toSimpleDesc cc gpd = execWriterT $ do
-    forM_ (condLibrary gpd) $ tellTree cc libBuildInfo
-    forM_ (condExecutables gpd) $ tellTree cc buildInfo . snd
+    forM_ (condLibrary gpd) $ tellTree cc CompLibrary libBuildInfo
+    forM_ (condExecutables gpd) $ tellTree cc CompExecutable buildInfo . snd
     tell mempty { sdProvidedExes = setFromList
                                  $ map (fromString . fst)
                                  $ condExecutables gpd
                 }
     when (ccIncludeTests cc) $ forM_ (condTestSuites gpd)
-        $ tellTree cc testBuildInfo . snd
+        $ tellTree cc CompTestSuite testBuildInfo . snd
     when (ccIncludeBenchmarks cc) $ forM_ (condBenchmarks gpd)
-        $ tellTree cc benchmarkBuildInfo . snd
+        $ tellTree cc CompBenchmark benchmarkBuildInfo . snd
 
 -- | Convert a single CondTree to a 'SimpleDesc'.
 tellTree :: (MonadWriter SimpleDesc m, MonadThrow m)
          => CheckCond
+         -> Component
          -> (a -> BuildInfo)
          -> CondTree ConfVar [Dependency] a
          -> m ()
-tellTree cc getBI (CondNode dat deps comps) = do
+tellTree cc component getBI (CondNode dat deps comps) = do
     tell mempty
-        { sdPackages = unionsWith intersectVersionRanges $ flip map deps
-            $ \(Dependency x y) -> singletonMap x $ simplifyVersionRange y
-        , sdTools = unionsWith intersectVersionRanges $ flip map (buildTools $ getBI dat)
+        { sdPackages = unionsWith (<>) $ flip map deps
+            $ \(Dependency x y) -> singletonMap x DepInfo
+                { diComponents = singletonSet component
+                , diRange = simplifyVersionRange y
+                }
+        , sdTools = unionsWith (<>) $ flip map (buildTools $ getBI dat)
             $ \(Dependency name range) -> singletonMap
                 -- In practice, cabal files refer to the exe name, not the
                 -- package name.
                 (ExeName $ unPackageName name)
-                (simplifyVersionRange range)
+                DepInfo
+                    { diComponents = singletonSet component
+                    , diRange = simplifyVersionRange range
+                    }
         }
     forM_ comps $ \(cond, ontrue, onfalse) -> do
         b <- checkCond cc cond
         if b
-            then tellTree cc getBI ontrue
-            else maybe (return ()) (tellTree cc getBI) onfalse
+            then tellTree cc component getBI ontrue
+            else maybe (return ()) (tellTree cc component getBI) onfalse
 
 -- | Resolve a condition to a boolean based on the provided 'CheckCond'.
 checkCond :: MonadThrow m => CheckCond -> Condition ConfVar -> m Bool
