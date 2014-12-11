@@ -101,7 +101,7 @@ waitForDeps toolMap packageMap activeComps bp pi action = do
 
 withCounter counter = bracket_
     (atomically $ modifyTVar counter (+ 1))
-    (atomically $ modifyTVar counter (`subtract` 1))
+    (atomically $ modifyTVar counter (subtract 1))
 
 withTSem sem = bracket_ (atomically $ waitTSem sem) (atomically $ signalTSem sem)
 
@@ -230,7 +230,14 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
     runChild = runIn childDir
     childDir = sbBuildDir </> fpFromText namever
 
-    log' = pbLog . encodeUtf8 . (++ "\n")
+    log' t = do
+        i <- readTVarIO sbActive
+        pbLog $ encodeUtf8 $ concat
+            [ t
+            , " (active: "
+            , tshow i
+            , ")\n"
+            ]
     libOut = pbLogDir </> fpFromText namever </> "build.out"
     libErr = pbLogDir </> fpFromText namever </> "build.err"
     testOut = pbLogDir </> fpFromText namever </> "test.out"
