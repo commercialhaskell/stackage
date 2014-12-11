@@ -309,15 +309,16 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
                     (childDir </> "dist" </> "doc" </> "html" </> fpFromText name)
                     (pbDocDir pb </> fpFromText namever)
 
-                {-
                 enewPath <- tryIO
                           $ canonicalizePath
-                          $ docdir </> package </> packageName' <.> "haddock"
+                          $ pbDocDir pb
+                        </> fpFromText namever
+                        </> fpFromText name <.> "haddock"
                 case enewPath of
-                    Left _ -> return () -- print e
-                    Right newPath -> atomicModifyIORef haddockFilesRef $ \hfs'
-                        -> ((package, newPath) : hfs', ())
-                        -}
+                    Left e -> warn $ tshow e
+                    Right newPath -> atomically
+                                   $ modifyTVar sbHaddockFiles
+                                   $ insertMap namever newPath
 
             case (eres, pcHaddocks) of
                 (Left e, ExpectSuccess) -> throwM e
@@ -345,7 +346,12 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
 
     warn t = atomically $ modifyTVar sbWarningsVar (. (t:))
 
-    updateErrs exc =
+    updateErrs exc = do
+        log' $ concat
+            [ display (piName sbPackageInfo)
+            , ": "
+            , tshow exc
+            ]
         atomically $ modifyTVar sbErrsVar $ insertMap (piName sbPackageInfo) exc'
       where
         exc' =

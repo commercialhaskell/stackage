@@ -232,6 +232,7 @@ runTestSuite cabalVersion settings testdir docdir
                 : "--hyperlink-source"
                 : "--html"
                 : "--hoogle"
+                -- FIXME is this redundant with read-interface above?
                 : "--html-location=../$pkg-$version/"
                 : hfsOpts) dir
             let PackageName packageName' = packageName
