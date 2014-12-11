@@ -214,17 +214,13 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
         ]
 
     runIn wdir outH errH cmd args =
-        withCheckedProcess cp $ \ClosedStream out err -> do
-            void $ async $ out $$ sinkHandle outH
-            void $ async $ err $$ sinkHandle errH
+        withCheckedProcess cp $ \ClosedStream UseProvidedHandle UseProvidedHandle ->
             (return () :: IO ())
       where
         cp = (proc (unpack $ asText cmd) (map (unpack . asText) args))
             { cwd = Just $ fpToString wdir
-            {- FIXME UseProvidedHandle is broken
             , std_out = UseHandle outH
             , std_err = UseHandle errH
-            -}
             , env = Just sbModifiedEnv
             }
     runParent = runIn sbBuildDir

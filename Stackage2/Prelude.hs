@@ -1,4 +1,3 @@
-{-# LANGUAGE CPP                        #-}
 {-# LANGUAGE DeriveDataTypeable         #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude          #-}
@@ -58,45 +57,6 @@ simpleParse orig = withTypeRep $ \rep ->
 data ParseFailedException = ParseFailedException TypeRep Text
     deriving (Show, Typeable)
 instance Exception ParseFailedException
-
-#ifndef MIN_VERSION_streaming_commons
-#define MIN_VERSION_streaming_commons(x, y, z) 1
-#endif
-#if !MIN_VERSION_streaming_commons(0,1,7)
-data ProcessExitedUnsuccessfully = ProcessExitedUnsuccessfully CreateProcess ExitCode
-    deriving Typeable
-instance Show ProcessExitedUnsuccessfully where
-    show (ProcessExitedUnsuccessfully cp ec) = concat
-        [ "Process exited with "
-        , show ec
-        , ": "
-        , showCmdSpec (cmdspec cp)
-        ]
-      where
-        showCmdSpec (ShellCommand str) = str
-        showCmdSpec (RawCommand x xs) = unwords (x:xs)
-instance Exception ProcessExitedUnsuccessfully
-
-checkExitCode :: MonadThrow m => CreateProcess -> ExitCode -> m ()
-checkExitCode _ ExitSuccess = return ()
-checkExitCode cp ec = throwM $ ProcessExitedUnsuccessfully cp ec
-
--- FIXME move into streaming-commons?
-withCheckedProcess :: ( InputSource stdin
-                      , OutputSink stderr
-                      , OutputSink stdout
-                      , MonadIO m
-                      )
-                   => CreateProcess
-                   -> (stdin -> stdout -> stderr -> m b)
-                   -> m b
-withCheckedProcess cp f = do
-    (x, y, z, sph) <- streamingProcess cp
-    res <- f x y z
-    ec <- waitForStreamingProcess sph
-    liftIO $ checkExitCode cp ec
-    return res
-#endif
 
 newtype Maintainer = Maintainer { unMaintainer :: Text }
     deriving (Show, Eq, Ord, Hashable, ToJSON, FromJSON, IsString)
