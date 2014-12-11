@@ -83,25 +83,30 @@ data SimpleDesc = SimpleDesc
     { sdPackages     :: Map PackageName DepInfo
     , sdTools        :: Map ExeName DepInfo
     , sdProvidedExes :: Set ExeName
+    , sdModules      :: Set Text
+    -- ^ modules exported by the library
     }
     deriving (Show, Eq)
 instance Monoid SimpleDesc where
-    mempty = SimpleDesc mempty mempty mempty
-    mappend (SimpleDesc a b c) (SimpleDesc x y z) = SimpleDesc
-        (unionWith (<>) a x)
-        (unionWith (<>) b y)
-        (c ++ z)
+    mempty = SimpleDesc mempty mempty mempty mempty
+    mappend (SimpleDesc a b c d) (SimpleDesc w x y z) = SimpleDesc
+        (unionWith (<>) a w)
+        (unionWith (<>) b x)
+        (c ++ y)
+        (d ++ z)
 instance ToJSON SimpleDesc where
     toJSON SimpleDesc {..} = object
         [ "packages" .= Map.mapKeysWith const unPackageName sdPackages
         , "tools" .= Map.mapKeysWith const unExeName sdTools
         , "provided-exes" .= sdProvidedExes
+        , "modules" .= sdModules
         ]
 instance FromJSON SimpleDesc where
     parseJSON = withObject "SimpleDesc" $ \o -> do
         sdPackages <- Map.mapKeysWith const mkPackageName <$> (o .: "packages")
         sdTools <- Map.mapKeysWith const ExeName <$> (o .: "tools")
         sdProvidedExes <- o .: "provided-exes"
+        sdModules <- o .: "modules"
         return SimpleDesc {..}
 
 -- | Convert a 'GenericPackageDescription' into a 'SimpleDesc' by following the
@@ -111,46 +116,54 @@ toSimpleDesc :: MonadThrow m
              -> GenericPackageDescription
              -> m SimpleDesc
 toSimpleDesc cc gpd = execWriterT $ do
-    forM_ (condLibrary gpd) $ tellTree cc CompLibrary libBuildInfo
-    forM_ (condExecutables gpd) $ tellTree cc CompExecutable buildInfo . snd
+    forM_ (condLibrary gpd) $ tellTree cc CompLibrary libBuildInfo getModules
+    forM_ (condExecutables gpd) $ tellTree cc CompExecutable buildInfo noModules . snd
     tell mempty { sdProvidedExes = setFromList
                                  $ map (fromString . fst)
                                  $ condExecutables gpd
                 }
     when (ccIncludeTests cc) $ forM_ (condTestSuites gpd)
-        $ tellTree cc CompTestSuite testBuildInfo . snd
+        $ tellTree cc CompTestSuite testBuildInfo noModules . snd
     when (ccIncludeBenchmarks cc) $ forM_ (condBenchmarks gpd)
-        $ tellTree cc CompBenchmark benchmarkBuildInfo . snd
+        $ tellTree cc CompBenchmark benchmarkBuildInfo noModules . snd
+  where
+    noModules = const mempty
+    getModules = setFromList . map display . exposedModules
 
 -- | Convert a single CondTree to a 'SimpleDesc'.
 tellTree :: (MonadWriter SimpleDesc m, MonadThrow m)
          => CheckCond
          -> Component
          -> (a -> BuildInfo)
+         -> (a -> Set Text) -- ^ get module names
          -> CondTree ConfVar [Dependency] a
          -> m ()
-tellTree cc component getBI (CondNode dat deps comps) = do
-    tell mempty
-        { sdPackages = unionsWith (<>) $ flip map deps
-            $ \(Dependency x y) -> singletonMap x DepInfo
-                { diComponents = singletonSet component
-                , diRange = simplifyVersionRange y
-                }
-        , sdTools = unionsWith (<>) $ flip map (buildTools $ getBI dat)
-            $ \(Dependency name range) -> singletonMap
-                -- In practice, cabal files refer to the exe name, not the
-                -- package name.
-                (ExeName $ unPackageName name)
-                DepInfo
+tellTree cc component getBI getModules =
+    loop
+  where
+    loop (CondNode dat deps comps) = do
+        tell mempty
+            { sdPackages = unionsWith (<>) $ flip map deps
+                $ \(Dependency x y) -> singletonMap x DepInfo
                     { diComponents = singletonSet component
-                    , diRange = simplifyVersionRange range
+                    , diRange = simplifyVersionRange y
                     }
-        }
-    forM_ comps $ \(cond, ontrue, onfalse) -> do
-        b <- checkCond cc cond
-        if b
-            then tellTree cc component getBI ontrue
-            else maybe (return ()) (tellTree cc component getBI) onfalse
+            , sdTools = unionsWith (<>) $ flip map (buildTools $ getBI dat)
+                $ \(Dependency name range) -> singletonMap
+                    -- In practice, cabal files refer to the exe name, not the
+                    -- package name.
+                    (ExeName $ unPackageName name)
+                    DepInfo
+                        { diComponents = singletonSet component
+                        , diRange = simplifyVersionRange range
+                        }
+            , sdModules = getModules dat
+            }
+        forM_ comps $ \(cond, ontrue, onfalse) -> do
+            b <- checkCond cc cond
+            if b
+                then loop ontrue
+                else maybe (return ()) loop onfalse
 
 -- | Resolve a condition to a boolean based on the provided 'CheckCond'.
 checkCond :: MonadThrow m => CheckCond -> Condition ConfVar -> m Bool
