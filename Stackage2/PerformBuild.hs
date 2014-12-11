@@ -74,7 +74,9 @@ waitForDeps toolMap packageMap activeComps bp pi action = do
         mapM_ checkPackage $ Map.keys $ filterUnused $ sdPackages $ ppDesc $ piPlan pi
         forM_ (Map.keys $ filterUnused $ sdTools $ ppDesc $ piPlan pi) $ \exe -> do
             case lookup exe toolMap >>= fromNullable . map checkPackage . setToList of
-                Nothing -> throwSTM $ ToolMissing exe
+                Nothing
+                    | isCoreExe exe -> return ()
+                    | otherwise -> throwSTM $ ToolMissing exe
                 Just packages -> ofoldl1' (<|>) packages
     action
   where
@@ -95,6 +97,7 @@ waitForDeps toolMap packageMap activeComps bp pi action = do
                 unless res $ throwSTM $ DependencyFailed package
 
     isCore = (`member` siCorePackages (bpSystemInfo bp))
+    isCoreExe = (`member` siCoreExecutables (bpSystemInfo bp))
 
 withCounter counter = bracket_
     (atomically $ modifyTVar counter (+ 1))
