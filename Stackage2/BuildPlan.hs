@@ -13,6 +13,7 @@ module Stackage2.BuildPlan
     ( BuildPlan (..)
     , PackagePlan (..)
     , newBuildPlan
+    , makeToolMap
     ) where
 
 import           Control.Monad.State.Strict      (execState, get, put)
