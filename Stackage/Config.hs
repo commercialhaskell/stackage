@@ -251,6 +251,9 @@ defaultExpectedFailures ghcVer requireHP = execWriter $ do
         add "tls"
 
         add "x509"
+
+    -- Requires a correctly set up Postgres instance
+    add "opaleye"
   where
     add = tell . singleton . PackageName
 
@@ -743,6 +746,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         peg "checkers" "== 0.3.2"
         peg "HandsomeSoup" "< 0.3.3"
         peg "network-uri" "< 2.6"
+
+    mapM_ (add "Tom Ellis <tom-stackage@jaguarpaw.co.uk>") $ words
+        "opaleye product-profunctors"
 
 add :: String -> String -> Writer PackageMap ()
 add maintainer package = addRange maintainer package "-any"
