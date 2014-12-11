@@ -742,7 +742,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         peg "HandsomeSoup" "< 0.3.3"
         peg "network-uri" "< 2.6"
 
-    https://github.com/fpco/stackage/issues/364
     mapM_ (add "Tom Ellis <tom-stackage@jaguarpaw.co.uk>") $ words
         "opaleye product-profunctors"
 
