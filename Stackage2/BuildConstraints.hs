@@ -176,6 +176,7 @@ extraSkippedTests = setFromList $ words =<<
     , "bloodhound fb" -- require old hspec
     , "diagrams-haddock" -- requires old tasty
     , "hasql-postgres" -- requires old hasql
+    , "compdata" -- https://github.com/pa-ba/compdata/issues/4
     ]
 
 skippedBenchs :: HashSet Text
