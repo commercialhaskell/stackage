@@ -254,6 +254,9 @@ defaultExpectedFailures ghcVer requireHP = execWriter $ do
 
     -- Often run out of inotify handles
     add "fsnotify"
+
+    -- Requires a correctly set up Postgres instance
+    add "opaleye"
   where
     add = tell . singleton . PackageName
 
@@ -340,14 +343,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Alan Zimmerman") $ words
         "hjsmin language-javascript"
 
-    {-
-
-    https://github.com/fpco/stackage/issues/320
-
     when (ghcVer >= GhcMajorVersion 7 8 && not requireHP) $
         mapM_ (add "Alfredo Di Napoli <alfredo.dinapoli@gmail.com>") $ words
             "mandrill"
-    -}
 
     mapM_ (add "Jasper Van der Jeugt") $ words
         "blaze-html blaze-markup stylish-haskell"
@@ -475,9 +473,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         "base-unicode-symbols containers-unicode-symbols"
 
     if ghcVer >= GhcMajorVersion 7 8
-        then add "Ryan Newton <ryan.newton@alum.mit.edu>" "accelerate"
+        then add "Trevor L. McDonell <tmcdonell@cse.unsw.edu.au>" "accelerate"
         else do
-            addRange "Ryan Newton <ryan.newton@alum.mit.edu>" "accelerate" "< 0.15"
+            addRange "Trevor L. McDonell <tmcdonell@cse.unsw.edu.au>" "accelerate" "< 0.15"
             addRange "Michael Snoyman" "linear-accelerate" "< 0.2"
 
     mapM_ (add "Dan Burton <danburton.email@gmail.com>") $ words =<<
@@ -726,9 +724,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/354
     addRange "Michael Snoyman" "JuicyPixels" "< 3.2"
 
-    -- https://github.com/fpco/stackage/issues/355
-    addRange "Michael Snoyman" "hashtables" "< 1.2"
-
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
         -- Yay workarounds for unnecessarily old versions
         let peg x y = addRange "Haskell Platform" x y
@@ -749,6 +744,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         peg "checkers" "== 0.3.2"
         peg "HandsomeSoup" "< 0.3.3"
         peg "network-uri" "< 2.6"
+
+    mapM_ (add "Tom Ellis <tom-stackage@jaguarpaw.co.uk>") $ words
+        "opaleye product-profunctors"
 
 add :: String -> String -> Writer PackageMap ()
 add maintainer package = addRange maintainer package "-any"
