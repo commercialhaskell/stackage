@@ -212,14 +212,14 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
         , display $ ppVersion $ piPlan sbPackageInfo
         ]
 
-    runIn wdir outH errH cmd args =
+    runIn wdir outH cmd args =
         withCheckedProcess cp $ \ClosedStream UseProvidedHandle UseProvidedHandle ->
             (return () :: IO ())
       where
         cp = (proc (unpack $ asText cmd) (map (unpack . asText) args))
             { cwd = Just $ fpToString wdir
             , std_out = UseHandle outH
-            , std_err = UseHandle errH
+            , std_err = UseHandle outH
             , env = Just sbModifiedEnv
             }
     runParent = runIn sbBuildDir
@@ -238,9 +238,7 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
             , ")\n"
             ]
     libOut = pbLogDir </> fpFromText namever </> "build.out"
-    libErr = pbLogDir </> fpFromText namever </> "build.err"
     testOut = pbLogDir </> fpFromText namever </> "test.out"
-    testErr = pbLogDir </> fpFromText namever </> "test.err"
     testRunOut = pbLogDir </> fpFromText namever </> "test-run.out"
 
     wf fp inner = do
@@ -268,10 +266,10 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
 
     PackageConstraints {..} = ppConstraints $ piPlan sbPackageInfo
 
-    buildLibrary = wf libOut $ \outH -> wf libErr $ \errH -> do
-        let run = runChild outH errH
+    buildLibrary = wf libOut $ \outH -> do
+        let run = runChild outH
         log' $ "Unpacking " ++ namever
-        runParent outH errH "cabal" ["unpack", namever]
+        runParent outH "cabal" ["unpack", namever]
 
         log' $ "Configuring " ++ namever
         run "cabal" $ "configure" : configArgs
@@ -328,8 +326,8 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
                 (Right (), ExpectFailure) -> warn $ namever ++ ": unexpected Haddock success"
                 _ -> return ()
 
-    runTests = wf testOut $ \outH -> wf testErr $ \errH -> do
-        let run = runChild outH errH
+    runTests = wf testOut $ \outH -> do
+        let run = runChild outH
 
         when (pcTests /= Don'tBuild) $ do
             log' $ "Test configure " ++ namever
