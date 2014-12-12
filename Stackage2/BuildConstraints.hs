@@ -183,6 +183,8 @@ skippedBenchs :: HashSet Text
 skippedBenchs = setFromList $ words =<<
     [ "machines criterion-plus graphviz lifted-base pandoc stm-containers uuid"
     , "cases hasql-postgres" -- pulls in criterion-plus, which has restrictive upper bounds
+    -- https://github.com/vincenthz/hs-crypto-cipher/issues/46
+    , "cipher-aes cipher-blowfish cipher-camellia cipher-des cipher-rc4"
     ]
 
 newExpectedFailures :: Set PackageName
