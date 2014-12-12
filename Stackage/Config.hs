@@ -251,6 +251,9 @@ defaultExpectedFailures ghcVer requireHP = execWriter $ do
         add "tls"
 
         add "x509"
+
+    -- Often run out of inotify handles
+    add "fsnotify"
   where
     add = tell . singleton . PackageName
 
