@@ -101,7 +101,7 @@ getSettings (LTS bumpType) = do
                         return ()
             putStrLn "Committing new LTS file to Git"
             git ["add", fpToString newfile]
-            git ["commit", "Added new LTS release: " ++ show new]
+            git ["commit", "-m", "Added new LTS release: " ++ show new]
             putStrLn "Pushing to Git repository"
             git ["push"]
         }
