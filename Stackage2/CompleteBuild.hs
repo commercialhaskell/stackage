@@ -67,7 +67,7 @@ getSettings (LTS bumpType) = do
             let new =
                     case mlts of
                         Nothing -> LTSVer 0 0
-                        Just old -> incrLTSVer old
+                        Just (LTSVer x _) -> LTSVer (x + 1) 0
             plan' <- defaultBuildConstraints >>= newBuildPlan
             return (new, plan')
         Minor -> do

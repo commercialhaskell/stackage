@@ -90,6 +90,7 @@ executable stackage-nightly
   main-is:             stackage-nightly.hs
   build-depends:       base
                      , stackage
+  ghc-options:         -rtsopts -threaded -with-rtsopts=-N
 
 executable lts-minor-bump
   default-language:    Haskell2010
@@ -97,6 +98,7 @@ executable lts-minor-bump
   main-is:             lts-minor-bump.hs
   build-depends:       base
                      , stackage
+  ghc-options:         -rtsopts -threaded -with-rtsopts=-N
 
 executable lts-major-bump
   default-language:    Haskell2010
@@ -104,6 +106,7 @@ executable lts-major-bump
   main-is:             lts-major-bump.hs
   build-depends:       base
                      , stackage
+  ghc-options:         -rtsopts -threaded -with-rtsopts=-N
 
 test-suite spec
   type:                exitcode-stdio-1.0
