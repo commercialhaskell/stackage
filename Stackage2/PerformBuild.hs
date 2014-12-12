@@ -9,6 +9,7 @@ module Stackage2.PerformBuild
     ( performBuild
     , PerformBuild (..)
     , BuildException (..)
+    , pbDocDir
     ) where
 
 import Stackage2.BuildConstraints
