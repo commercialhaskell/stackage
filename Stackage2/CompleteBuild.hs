@@ -149,7 +149,7 @@ completeBuild buildType = withManager defaultManagerSettings $ \man -> do
             , pbLog = hPut stdout
             , pbJobs = 8
             }
-    performBuild pb
+    performBuild pb >>= mapM_ putStrLn
 
     putStrLn "Uploading bundle to Stackage Server"
     token <- readFile "/auth-token"
