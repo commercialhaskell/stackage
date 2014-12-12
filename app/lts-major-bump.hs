@@ -1,4 +1,4 @@
 import Stackage2.CompleteBuild
 
 main :: IO ()
-main = completeBuild LTS
+main = completeBuild (LTS Major)

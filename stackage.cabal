@@ -74,6 +74,7 @@ library
                      , mono-traversable
                      , async
                      , streaming-commons >= 0.1.7.1
+                     , semigroups
 
 executable stackage
   default-language:    Haskell2010
@@ -90,10 +91,17 @@ executable stackage-nightly
   build-depends:       base
                      , stackage
 
-executable lts-bump
+executable lts-minor-bump
   default-language:    Haskell2010
   hs-source-dirs:      app
-  main-is:             lts-bump.hs
+  main-is:             lts-minor-bump.hs
+  build-depends:       base
+                     , stackage
+
+executable lts-major-bump
+  default-language:    Haskell2010
+  hs-source-dirs:      app
+  main-is:             lts-major-bump.hs
   build-depends:       base
                      , stackage
 

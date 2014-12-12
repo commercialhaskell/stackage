@@ -1,13 +1,16 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE RecordWildCards   #-}
 module Stackage2.CompleteBuild
     ( BuildType (..)
+    , BumpType (..)
     , completeBuild
     ) where
 import Data.Default.Class         (def)
+import Data.Semigroup             (Max (..), Option (..))
+import Data.Text.Read             (decimal)
 import Data.Time
-import Data.Yaml                  (encodeFile)
+import Data.Yaml                  (decodeFileEither, encodeFile)
 import Network.HTTP.Client
 import Stackage2.BuildConstraints
 import Stackage2.BuildPlan
@@ -19,15 +22,20 @@ import Stackage2.UpdateBuildPlan
 import Stackage2.Upload
 import System.IO                  (BufferMode (LineBuffering), hSetBuffering)
 
-data BuildType = Nightly | LTS
+data BuildType = Nightly | LTS BumpType
+    deriving (Show, Read, Eq, Ord)
+
+data BumpType = Major | Minor
+    deriving (Show, Read, Eq, Ord)
 
 data Settings = Settings
-    { plan :: BuildPlan
-    , planFile :: FilePath
-    , buildDir :: FilePath
-    , title :: Text -> Text -- ^ GHC version -> title
-    , slug :: Text
-    , setArgs :: Text -> UploadBundle -> UploadBundle
+    { plan      :: BuildPlan
+    , planFile  :: FilePath
+    , buildDir  :: FilePath
+    , title     :: Text -> Text -- ^ GHC version -> title
+    , slug      :: Text
+    , setArgs   :: Text -> UploadBundle -> UploadBundle
+    , postBuild :: IO ()
     }
 
 getSettings :: BuildType -> IO Settings
@@ -47,15 +55,90 @@ getSettings Nightly = do
         , slug = slug'
         , setArgs = \ghcVer ub -> ub { ubNightly = Just ghcVer }
         , plan = plan'
+        , postBuild = return ()
         }
+getSettings (LTS bumpType) = do
+    Option mlts <- fmap (fmap getMax) $ runResourceT
+        $ sourceDirectory "."
+       $$ foldMapC (Option . fmap Max . parseLTSVer . filename)
+
+    (new, plan') <- case bumpType of
+        Major -> do
+            let new =
+                    case mlts of
+                        Nothing -> LTSVer 0 0
+                        Just old -> incrLTSVer old
+            plan' <- defaultBuildConstraints >>= newBuildPlan
+            return (new, plan')
+        Minor -> do
+            old <- maybe (error "No LTS plans found in current directory") return mlts
+            oldplan <- decodeFileEither (fpToString $ renderLTSVer old)
+                   >>= either throwM return
+            let new = incrLTSVer old
+            plan' <- updateBuildPlan oldplan
+            return (new, plan')
+
+    let newfile = renderLTSVer new
+
+    return Settings
+        { planFile = newfile
+        , buildDir = fpFromText $ "/tmp/stackage-lts-" ++ tshow new
+        , title = \ghcVer -> concat
+            [ "LTS Haskell "
+            , tshow new
+            , ", GHC "
+            , ghcVer
+            ]
+        , slug = "lts-" ++ tshow new
+        , setArgs = \_ ub -> ub { ubLTS = Just $ tshow new }
+        , plan = plan'
+        , postBuild = do
+            let git args = withCheckedProcess
+                    (proc "git" args) $ \ClosedStream Inherited Inherited ->
+                        return ()
+            putStrLn "Committing new LTS file to Git"
+            git ["add", fpToString newfile]
+            git ["commit", "Added new LTS release: " ++ show new]
+            putStrLn "Pushing to Git repository"
+            git ["push"]
+        }
+
+data LTSVer = LTSVer !Int !Int
+    deriving (Eq, Ord)
+instance Show LTSVer where
+    show (LTSVer x y) = concat [show x, ".", show y]
+incrLTSVer :: LTSVer -> LTSVer
+incrLTSVer (LTSVer x y) = LTSVer x (y + 1)
+
+parseLTSVer :: FilePath -> Maybe LTSVer
+parseLTSVer fp = do
+    w <- stripPrefix "lts-" $ fpToText fp
+    x <- stripSuffix ".yaml" w
+    Right (major, y) <- Just $ decimal x
+    z <- stripPrefix "." y
+    Right (minor, "") <- Just $ decimal z
+    return $ LTSVer major minor
+renderLTSVer :: LTSVer -> FilePath
+renderLTSVer lts = fpFromText $ concat
+    [ "lts-"
+    , tshow lts
+    , ".yaml"
+    ]
 
 completeBuild :: BuildType -> IO ()
 completeBuild buildType = withManager defaultManagerSettings $ \man -> do
     hSetBuffering stdout LineBuffering
 
+    putStrLn $ "Loading settings for: " ++ tshow buildType
     Settings {..} <- getSettings buildType
+
+    putStrLn $ "Writing build plan to: " ++ fpToText planFile
     encodeFile (fpToString planFile) plan
+
+    putStrLn "Checking build plan"
     checkBuildPlan plan
+
+    putStrLn "Performing build"
     let pb = PerformBuild
             { pbPlan = plan
             , pbInstallDest = buildDir
@@ -65,24 +148,31 @@ completeBuild buildType = withManager defaultManagerSettings $ \man -> do
             }
     performBuild pb
 
+    putStrLn "Uploading bundle to Stackage Server"
     token <- readFile "/auth-token"
     now <- epochTime
     let ghcVer = display $ siGhcVersion $ bpSystemInfo plan
     ident <- flip uploadBundle man $ setArgs ghcVer def
         { ubContents = serverBundle now (title ghcVer) slug plan
         , ubAuthToken = decodeUtf8 token
-        , ubAlias = Just slug
         }
+    putStrLn $ "New ident: " ++ unSnapshotIdent ident
 
-    uploadDocs UploadDocs
+    putStrLn "Uploading docs to Stackage Server"
+    res1 <- uploadDocs UploadDocs
         { udServer = def
         , udAuthToken = decodeUtf8 token
         , udDocs = pbDocDir pb
         , udSnapshot = ident
-        } man >>= print
+        } man
+    putStrLn $ "Doc upload response: " ++ tshow res1
 
-    creds <- readFile "/hackage-creds"
-    case map encodeUtf8 $ words $ decodeUtf8 creds of
-        [username, password] ->
-            uploadHackageDistro plan username password man >>= print
-        _ -> return ()
+    ecreds <- tryIO $ readFile "/hackage-creds"
+    case map encodeUtf8 $ words $ decodeUtf8 $ either (const "") id ecreds of
+        [username, password] -> do
+            putStrLn "Uploading as Hackage distro"
+            res2 <- uploadHackageDistro plan username password man
+            putStrLn $ "Distro upload response: " ++ tshow res2
+        _ -> putStrLn "No creds found, skipping Hackage distro upload"
+
+    postBuild
