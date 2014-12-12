@@ -21,7 +21,7 @@ import Control.Concurrent.STM.TSem
 import Data.NonNull (fromNullable)
 import Control.Concurrent.Async (async)
 import System.IO.Temp (withSystemTempDirectory)
-import Filesystem (createTree, removeTree, isDirectory, rename, canonicalizePath)
+import Filesystem (createTree, removeTree, isDirectory, rename, canonicalizePath, getWorkingDirectory)
 import System.IO (withBinaryFile, IOMode (WriteMode))
 import Filesystem.Path (parent)
 import qualified Filesystem.Path as F
@@ -113,10 +113,19 @@ pbDataDir pb = pbInstallDest pb </> "share"
 pbDocDir pb = pbInstallDest pb </> "doc"
 
 performBuild :: PerformBuild -> IO [Text]
-performBuild pb@PerformBuild {..} = withBuildDir $ \builddir -> do
+performBuild pb = do
+    cwd <- getWorkingDirectory
+    performBuild' pb
+        { pbInstallDest = cwd </> pbInstallDest pb
+        , pbLogDir = cwd </> pbLogDir pb
+        }
+
+performBuild' :: PerformBuild -> IO [Text]
+performBuild' pb@PerformBuild {..} = withBuildDir $ \builddir -> do
     let removeTree' fp = whenM (isDirectory fp) (removeTree fp)
     mapM_ removeTree' [pbInstallDest, pbLogDir]
 
+    createTree $ parent $ pbDatabase pb
     withCheckedProcess (proc "ghc-pkg" ["init", fpToString (pbDatabase pb)])
         $ \ClosedStream Inherited Inherited -> return ()
     pbLog $ encodeUtf8 "Copying built-in Haddocks\n"

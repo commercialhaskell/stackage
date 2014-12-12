@@ -32,6 +32,7 @@ data Settings = Settings
     { plan      :: BuildPlan
     , planFile  :: FilePath
     , buildDir  :: FilePath
+    , logDir    :: FilePath
     , title     :: Text -> Text -- ^ GHC version -> title
     , slug      :: Text
     , setArgs   :: Text -> UploadBundle -> UploadBundle
@@ -45,7 +46,8 @@ getSettings Nightly = do
     plan' <- defaultBuildConstraints >>= newBuildPlan
     return Settings
         { planFile = fpFromText ("nightly-" ++ day) <.> "yaml"
-        , buildDir = fpFromText $ "/tmp/stackage-nightly-" ++ day
+        , buildDir = fpFromText $ "builds/stackage-nightly-" ++ day
+        , logDir = fpFromText $ "logs/stackage-nightly-" ++ day
         , title = \ghcVer -> concat
             [ "Stackage Nightly "
             , day
@@ -82,7 +84,8 @@ getSettings (LTS bumpType) = do
 
     return Settings
         { planFile = newfile
-        , buildDir = fpFromText $ "/tmp/stackage-lts-" ++ tshow new
+        , buildDir = fpFromText $ "builds/stackage-lts-" ++ tshow new
+        , logDir = fpFromText $ "logs/stackage-lts-" ++ tshow new
         , title = \ghcVer -> concat
             [ "LTS Haskell "
             , tshow new
@@ -142,7 +145,7 @@ completeBuild buildType = withManager defaultManagerSettings $ \man -> do
     let pb = PerformBuild
             { pbPlan = plan
             , pbInstallDest = buildDir
-            , pbLogDir = buildDir </> "logs"
+            , pbLogDir = logDir
             , pbLog = hPut stdout
             , pbJobs = 8
             }
