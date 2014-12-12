@@ -294,6 +294,10 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
 
         -- Even if the tests later fail, we can allow other libraries to build
         -- on top of our successful results
+        --
+        -- FIXME do we need to wait to do this until after Haddocks build?
+        -- otherwise, we could have a race condition and try to build a
+        -- dependency's haddocks before this finishes
         atomically $ putTMVar (piResult sbPackageInfo) True
 
         when (pcHaddocks /= Don'tBuild && not (null $ sdModules $ ppDesc $ piPlan sbPackageInfo)) $ do
