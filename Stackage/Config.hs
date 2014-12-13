@@ -630,7 +630,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         ,"missing-foreign multimap parallel-io"]
     when (ghcVer >= GhcMajorVersion 7 8) $
         mapM_ (add "Emanuel Borsobom <manny@fpcomplete.com>") $ words
-            "haddock-api"
+            "haddock-api git-embed"
     when (not requireHP) $
         mapM_ (add "Emanuel Borsobom <manny@fpcomplete.com>") $ words
             "fuzzcheck MissingH"
