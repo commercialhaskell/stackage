@@ -657,8 +657,11 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Alexander Thiemann <mail@athiemann.net>") $ words
        "graph-core reroute Spock"
 
-    mapM_ (add "Joey Eremondi <joey@eremondi.com>") $ words
-       "prettyclass language-glsl union-find aeson-pretty QuasiText"
+    mapM_ (add "Joey Eremondi <joey@eremondi.com>") $ words =<<
+        [ "prettyclass language-glsl union-find aeson-pretty QuasiText"
+        , "digest zip-archive elm-compiler elm-package elm-core-sources elm-build-lib"
+        ]
+
 
     mapM_ (add "Arthur Fayzrakhmanov <heraldhoi@gmail.com>") $ words
         "sodium hdevtools"
