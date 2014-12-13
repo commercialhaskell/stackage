@@ -11,6 +11,8 @@ module Stackage2.Upload
     , UploadDocs (..)
     , uploadDocs
     , uploadHackageDistro
+    , UploadDocMap (..)
+    , uploadDocMap
     ) where
 
 import Control.Monad.Writer.Strict           (execWriter, tell)
@@ -20,7 +22,7 @@ import Network.HTTP.Client
 import Network.HTTP.Client.MultipartFormData
 import Stackage2.BuildPlan                   (BuildPlan)
 import Stackage2.Prelude
-import Stackage2.ServerBundle                (bpAllPackages)
+import Stackage2.ServerBundle                (bpAllPackages, docsListing)
 import System.IO.Temp                        (withSystemTempFile)
 
 newtype StackageServer = StackageServer { unStackageServer :: Text }
@@ -168,6 +170,35 @@ uploadHackageDistro bp username password =
         , checkStatus = \_ _ _ -> Nothing
         , method = "PUT"
         }
+
+data UploadDocMap = UploadDocMap
+    { udmServer :: StackageServer
+    , udmAuthToken :: Text
+    , udmSnapshot :: SnapshotIdent
+    , udmDocDir :: FilePath
+    , udmPlan :: BuildPlan
+    }
+
+uploadDocMap UploadDocMap {..} man = do
+    docmap <- docsListing udmPlan udmDocDir
+    req1 <- parseUrl $ unpack $ unStackageServer udmServer ++ "/upload-doc-map"
+    req2 <- formDataBody (formData docmap) req1
+    let req3 = req2
+            { method = "PUT"
+            , requestHeaders =
+                [ ("Authorization", encodeUtf8 udmAuthToken)
+                , ("Accept", "application/json")
+                ] ++ requestHeaders req2
+            , redirectCount = 0
+            , checkStatus = \_ _ _ -> Nothing
+            , responseTimeout = Just 300000000
+            }
+    httpLbs req3 man
+  where
+    formData docmap =
+        [ partBS "snapshot" (encodeUtf8 $ unSnapshotIdent udmSnapshot)
+        , partFileRequestBody "docmap" "docmap" $ RequestBodyBS docmap
+        ]
 
 mkIndex :: String -> [String] -> String
 mkIndex snapid dirs = concat

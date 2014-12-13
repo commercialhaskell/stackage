@@ -178,4 +178,13 @@ completeBuild buildType = withManager defaultManagerSettings $ \man -> do
             putStrLn $ "Distro upload response: " ++ tshow res2
         _ -> putStrLn "No creds found, skipping Hackage distro upload"
 
+    putStrLn "Uploading doc map"
+    uploadDocMap UploadDocMap
+        { udmServer = def
+        , udmAuthToken = decodeUtf8 token
+        , udmSnapshot = ident
+        , udmDocDir = pbDocDir pb
+        , udmPlan = plan
+        } man >>= print
+
     postBuild

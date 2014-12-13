@@ -6,6 +6,7 @@ module Stackage2.ServerBundle
     ( serverBundle
     , epochTime
     , bpAllPackages
+    , docsListing
     ) where
 
 import qualified Codec.Archive.Tar          as Tar
@@ -17,6 +18,9 @@ import           Stackage2.BuildConstraints
 import           Stackage2.BuildPlan
 import           Stackage2.Prelude
 import qualified System.PosixCompat.Time    as PC
+import qualified Text.XML as X
+import Text.XML.Cursor
+import Filesystem (isFile)
 
 -- | Get current time
 epochTime :: IO Tar.EpochTime
@@ -61,3 +65,43 @@ serverBundle time title slug bp@BuildPlan {..} = GZip.compress $ Tar.write
         toBuilder (asText "-") ++
         toBuilder (display version) ++
         toBuilder (asText "\n")
+
+docsListing :: BuildPlan
+            -> FilePath -- ^ docs directory
+            -> IO ByteString
+docsListing bp docsDir =
+    fmap (Y.encode . fold) $ mapM go $ mapToList $ bpAllPackages bp
+  where
+    go :: (PackageName, Version) -> IO (Map Text Y.Value)
+    go (package, version) = do -- handleAny (const $ return mempty) $ do
+        let dirname = fpFromText (concat
+                [ display package
+                , "-"
+                , display version
+                ])
+            indexFP = (docsDir </> dirname </> "index.html")
+        ie <- isFile indexFP
+        if ie
+            then do
+                doc <- flip X.readFile indexFP X.def
+                    { X.psDecodeEntities = X.decodeHtmlEntities
+                    }
+                let cursor = fromDocument doc
+                    getPair x = take 1 $ do
+                        href <- attribute "href" x
+                        let name = concat $ x $// content
+                        guard $ not $ null name
+                        return (href, name)
+                    pairs = cursor $// attributeIs "class" "module"
+                                   &/ laxElement "a" >=> getPair
+                m <- fmap fold $ forM pairs $ \(href, name) -> do
+                    let suffix = dirname </> fpFromText href
+                    e <- isFile $ docsDir </> suffix
+                    return $ if e
+                        then asMap $ singletonMap name [fpToText dirname, href]
+                        else mempty
+                return $ singletonMap (display package) $ Y.object
+                    [ "version" Y..= display version
+                    , "modules" Y..= m
+                    ]
+            else return mempty
