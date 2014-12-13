@@ -219,10 +219,13 @@ defaultExpectedFailures ghcVer requireHP = execWriter $ do
     -- Requires locally running server
     add "bloodhound"
 
-    -- Requires PostgreSQL running
-    add "postgresql-binary"
-    add "hasql"
-    add "hasql-postgres"
+    -- Too lazy to keep the test dependencies up to date
+    let names =
+          words "hasql hasql-postgres hasql-backend postgresql-binary" ++
+          words "stm-containers focus list-t slave-thread partial-handler" ++
+          words "neat-interpolation cases" ++
+          words "base-prelude mtl-prelude"
+        in mapM_ add names
 
     -- https://github.com/gtk2hs/gtk2hs/issues/79
     add "gio"
@@ -248,6 +251,9 @@ defaultExpectedFailures ghcVer requireHP = execWriter $ do
         add "tls"
 
         add "x509"
+
+    -- Requires a correctly set up Postgres instance
+    add "opaleye"
   where
     add = tell . singleton . PackageName
 
@@ -281,6 +287,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
                 | ghcVer <= GhcMajorVersion 7 6 -> "< 1.17"
                 | ghcVer <= GhcMajorVersion 7 8 -> "< 1.19"
                 | otherwise -> "-any"
+    -- cabal-install is buggy still...
+    addRange "Michael Snoyman" "network" "< 2.6"
+    addRange "Michael Snoyman" "network-uri" "< 2.6"
 
     mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
         [ "web-fpco th-expand-syns configurator smtLib"
@@ -314,6 +323,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         mapM_ (add "FP Complete <michael@fpcomplete.com>") $ words =<<
             [ "criterion"
             , "th-lift singletons th-desugar quickcheck-assertions"
+            , "distributed-process distributed-process-simplelocalnet" --  cloud-haskell"
             ]
 
     addRange "FP Complete <michael@fpcomplete.com>" "kure" "<= 2.4.10"
@@ -330,14 +340,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     mapM_ (add "Alan Zimmerman") $ words
         "hjsmin language-javascript"
 
-    {-
-
-    https://github.com/fpco/stackage/issues/320
-
     when (ghcVer >= GhcMajorVersion 7 8 && not requireHP) $
         mapM_ (add "Alfredo Di Napoli <alfredo.dinapoli@gmail.com>") $ words
             "mandrill"
-    -}
 
     mapM_ (add "Jasper Van der Jeugt") $ words
         "blaze-html blaze-markup stylish-haskell"
@@ -465,9 +470,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         "base-unicode-symbols containers-unicode-symbols"
 
     if ghcVer >= GhcMajorVersion 7 8
-        then add "Ryan Newton <ryan.newton@alum.mit.edu>" "accelerate"
+        then add "Trevor L. McDonell <tmcdonell@cse.unsw.edu.au>" "accelerate"
         else do
-            addRange "Ryan Newton <ryan.newton@alum.mit.edu>" "accelerate" "< 0.15"
+            addRange "Trevor L. McDonell <tmcdonell@cse.unsw.edu.au>" "accelerate" "< 0.15"
             addRange "Michael Snoyman" "linear-accelerate" "< 0.2"
 
     mapM_ (add "Dan Burton <danburton.email@gmail.com>") $ words =<<
@@ -651,11 +656,15 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     mapM_ (add "Alexander Thiemann <mail@athiemann.net>") $ words
        "graph-core reroute Spock"
-       
+
     mapM_ (add "Joey Eremondi <joey@eremondi.com>") $ words =<<
         [ "prettyclass language-glsl union-find aeson-pretty QuasiText"
         , "digest zip-archive elm-compiler elm-package elm-core-sources elm-build-lib"
         ]
+
+
+    mapM_ (add "Arthur Fayzrakhmanov <heraldhoi@gmail.com>") $ words
+        "sodium hdevtools"
 
     -- https://github.com/fpco/stackage/issues/217
     addRange "Michael Snoyman" "transformers" "< 0.4"
@@ -715,9 +724,6 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
     -- https://github.com/fpco/stackage/issues/354
     addRange "Michael Snoyman" "JuicyPixels" "< 3.2"
 
-    -- https://github.com/fpco/stackage/issues/355
-    addRange "Michael Snoyman" "hashtables" "< 1.2"
-
     when (ghcVer == GhcMajorVersion 7 8 && requireHP) $ do
         -- Yay workarounds for unnecessarily old versions
         let peg x y = addRange "Haskell Platform" x y
@@ -738,6 +744,9 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
         peg "checkers" "== 0.3.2"
         peg "HandsomeSoup" "< 0.3.3"
         peg "network-uri" "< 2.6"
+
+    mapM_ (add "Tom Ellis <tom-stackage@jaguarpaw.co.uk>") $ words
+        "opaleye product-profunctors"
 
 add :: String -> String -> Writer PackageMap ()
 add maintainer package = addRange maintainer package "-any"
