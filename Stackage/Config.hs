@@ -654,7 +654,7 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
        
     mapM_ (add "Joey Eremondi <joey@eremondi.com>") $ 
        words "prettyclass language-glsl union-find aeson-pretty QuasiText" ++
-       words "digest zip-archive elm-compiler elm-package elm-build-lib elm-core-sources Haskelm" 
+       words "digest zip-archive elm-compiler elm-package elm-core-sources elm-build-lib" 
 
     -- https://github.com/fpco/stackage/issues/217
     addRange "Michael Snoyman" "transformers" "< 0.4"
