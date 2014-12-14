@@ -185,6 +185,7 @@ skippedBenchs = setFromList $ words =<<
     , "cases hasql-postgres" -- pulls in criterion-plus, which has restrictive upper bounds
     -- https://github.com/vincenthz/hs-crypto-cipher/issues/46
     , "cipher-aes cipher-blowfish cipher-camellia cipher-des cipher-rc4"
+    , "hasql" -- sometimes falls out-of-sync on hasql-postgres
     ]
 
 newExpectedFailures :: Set PackageName
