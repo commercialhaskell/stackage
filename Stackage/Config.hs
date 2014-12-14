@@ -662,7 +662,8 @@ defaultStablePackages ghcVer requireHP = unPackageMap $ execWriter $ do
 
     mapM_ (add "Joey Eremondi <joey@eremondi.com>") $ words =<<
         [ "prettyclass language-glsl union-find aeson-pretty QuasiText"
-        , "digest zip-archive elm-compiler elm-package elm-core-sources elm-build-lib"
+        , "digest zip-archive elm-compiler elm-core-sources elm-build-lib"
+        -- elm-package
         ]
 
 
