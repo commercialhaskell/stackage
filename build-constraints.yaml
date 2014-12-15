@@ -1,0 +1,938 @@
+# Constraints for brand new builds
+global-flags:
+    blaze_html_0_5: true
+    small_base: true
+    https: true
+    splitbase: true
+    old-locale: true
+    new-base: true
+    bytestring-in-base: false
+    test-hlint: false
+    network-uri: false # network-uri: true
+package-flags:
+    mersenne-random-pure64:
+        small_base: false
+skipped-tests:
+    - ReadArgs # old version of hspec
+    - ersatz # old QuickCheck
+    - punycode # pulls in encoding
+    - HTTP
+    - Octree
+    - options
+    - hasql
+
+    # require old hspec
+    - bloodhound
+    - fb
+
+    # require old tasty
+    - diagrams-haddock
+
+    # requires old hsql
+    - hasql-postgres
+
+    # https://github.com/pa-ba/compdata/issues/4
+    - compdata
+expected-test-failures:
+        # Requires an old version of WAI and Warp for tests
+        - HTTP
+
+        # text and setenv have recursive dependencies in their tests, which
+        # cabal can't (yet) handle
+        - text
+        - setenv
+
+        # The version of GLUT included with the HP does not generate
+        # documentation correctly.
+        - GLUT
+
+        # https://github.com/bos/statistics/issues/42
+        - statistics
+
+        # https://github.com/kazu-yamamoto/simple-sendfile/pull/10
+        - simple-sendfile
+
+        # http://hackage.haskell.org/trac/hackage/ticket/954
+        - diagrams
+
+        # https://github.com/fpco/stackage/issues/24
+        - unix-time
+
+        # With transformers 0.3, it doesn't provide any modules
+        - transformers-compat
+
+        # Tests require shell script and are incompatible with sandboxed package
+        # databases
+        - HTF
+
+        # https://github.com/simonmar/monad-par/issues/28
+        - monad-par
+
+        # Unfortunately network failures seem to happen haphazardly
+        - network
+
+        # https://github.com/ekmett/hyphenation/issues/1
+        - hyphenation
+
+        # Test suite takes too long to run on some systems
+        - punycode
+
+        # http://hub.darcs.net/stepcut/happstack/issue/1
+        - happstack-server
+
+        # Requires a Facebook app.
+        - fb
+
+        # https://github.com/tibbe/hashable/issues/64
+        - hashable
+
+        # https://github.com/vincenthz/language-java/issues/10
+        - language-java
+
+        - threads
+        - crypto-conduit
+        - pandoc
+        - language-ecmascript
+        - hspec
+        - alex
+
+        # https://github.com/basvandijk/concurrent-extra/issues/
+        - concurrent-extra
+
+        # https://github.com/skogsbaer/xmlgen/issues/2
+        - xmlgen
+
+        # Something very strange going on with the test suite, I can't figure
+        # out how to fix it
+        - bson
+
+        # Requires a locally running PostgreSQL server with appropriate users
+        - postgresql-simple
+
+        # Missing files
+        - websockets
+
+        # Some kind of Cabal bug when trying to run tests
+        - thyme
+
+        - shake
+
+        # https://github.com/jgm/pandoc-citeproc/issues/5
+        - pandoc-citeproc
+
+        # Problems with doctest and sandboxing
+        - warp
+        - wai-logger
+
+        # https://github.com/fpco/stackage/issues/163
+        - hTalos
+        - seqloc
+
+        # https://github.com/bos/math-functions/issues/25
+        - math-functions
+
+        # FIXME the test suite fails fairly regularly in builds, though I haven't
+        # discovered why yet
+        - crypto-numbers
+
+        # Test suite is currently failing regularly, needs to be worked out still.
+        - lens
+
+        # Requires too old a version of test-framework
+        - time
+
+        # No code included any more, therefore H- ock fails
+        - attoparsec-conduit
+        - blaze-builder-conduit
+        - comonads-fd
+        - comonad-transformers
+        - groupoids
+        - hamlet
+        - hspec-discover
+        - http-client-conduit
+        - http-client-multipart
+        - network-conduit
+        - profunctor-extras
+        - semigroupoid-extras
+        - shakespeare-css
+        - shakespeare-i18n
+        - shakespeare-js
+        - shakespeare-text
+        - wai-eventsource
+        - wai-test
+        - zlib-conduit
+
+        # Cloud Haskell tests seem to be unreliable
+        - distributed-process
+        - lockfree-queue
+        - network-transport-tcp
+
+        # Pulls in monad-peel which does not compile
+        - monad-control
+
+        # https://github.com/fpco/stackage/issues/226
+        - options
+
+        # https://github.com/gtk2hs/gtk2hs/issues/36
+        - glib
+        - pango
+
+        # https://github.com/acw/bytestring-progress/issues/3
+        - bytestring-progress
+
+        # Seems to require 32-bit functions
+        - nettle
+
+        # Depends on a missing graphviz executable
+        - graphviz
+
+        # No AWS creds available
+        - aws
+
+        # Not sure why...
+        - singletons
+
+        - hspec2
+        - hspec-wai
+
+        # https://github.com/fpco/stackage/issues/285
+        - diagrams-haddock
+        - scientific
+        - json-schema
+
+        # https://github.com/BioHaskell/octree/issues/4
+        - Octree
+
+        # No code until we upgrade to network 2.6
+        - network-uri
+
+        # https://github.com/goldfirere/th-desugar/issues/12
+        - th-desugar
+
+        # https://github.com/haskell/c2hs/issues/108
+        - c2hs
+
+        # https://github.com/jmillikin/haskell-filesystem/issues/3
+        - system-filepath
+
+        # Requires a running webdriver server
+        - webdriver
+        - webdriver-snoy
+
+        # Weird conflicts with sandboxing
+        - ghc-mod
+        - ghcid
+
+        # Requires locally running server
+        - bloodhound
+
+        # Too lazy to keep the test dependencies up to date
+        - base-prelude
+        - cases
+        - focus
+        - hasql
+        - hasql-backend
+        - hasql-postgres
+        - list-t
+        - mtl-prelude
+        - neat-interpolation
+        - partial-handler
+        - postgresql-binary
+        - slave-thread
+        - stm-containers
+
+        # https://github.com/gtk2hs/gtk2hs/issues/79
+        - gio
+        - gtk
+
+        # Requires SAT solver and old QuickCheck
+        - ersatz
+
+        # https://github.com/ekmett/gl/issues/3
+        - gl
+
+        # Failing doctests
+        - bits
+
+        # No server running
+        - amqp
+
+        # Often run out of inotify handles
+        - fsnotify
+
+        # Requires a correctly set up Postgres instance
+        - opaleye
+
+        # weird problems with cabal test
+        - cautious-file
+expected-haddock-failures: []
+skipped-benchmarks:
+        - machines
+        - criterion-plus
+        - graphviz
+        - lifted-base
+        - pandoc
+        - stm-containers
+        - uuid
+
+        # pulls in criterion-plus, which has restrictive upper bounds
+        - cases
+        - hasql-postgres
+
+        # https://github.com/vincenthz/hs-crypto-cipher/issues/46
+        - cipher-aes
+        - cipher-blowfish
+        - cipher-camellia
+        - cipher-des
+        - cipher-rc4
+
+        # sometimes falls out-of-sync on hasql-postgres
+        - hasql
+
+packages:
+    "Michael Snoyman":
+    #"Michael Snoyman michael@snoyman.com @snoyberg":
+        - bzlib-conduit
+        - cabal-install < 1.19
+        - cabal-src
+        - case-insensitive
+        - classy-prelude-yesod
+        - conduit-combinators
+        - conduit-extra
+        - hebrew-time
+        - keter
+        - markdown
+        - mime-mail-ses
+        - monadcryptorandom
+        - network-conduit-tls
+        - persistent
+        - persistent-mysql
+        - persistent-postgresql
+        - persistent-sqlite
+        - persistent-template
+        - process-conduit
+        - random-shuffle
+        - sphinx
+        - stm-conduit
+        - wai-websockets
+        - warp-tls
+        - yackage
+        - yesod
+        - yesod-auth-deskcom
+        - yesod-bin
+        - yesod-eventsource
+        - yesod-fay
+        - yesod-gitrepo
+        - yesod-newsfeed
+        - yesod-sitemap
+        - yesod-static
+        - yesod-test
+        - yesod-websockets
+        - repa
+        - repa-io
+        - repa-algorithms
+        - repa-devil
+        - JuicyPixels-repa
+
+        # cabal-install is buggy still.
+        - network < 2.6
+        - network-uri < 2.6
+
+        # https://github.com/fpco/stackage/issues/288
+        - text < 1.2
+
+        # Force a specific version that's compatible with transformers 0.3
+        - transformers-compat == 0.3.3.3
+
+        # https://github.com/fpco/stackage/issues/291
+        - random < 1.0.1.3
+
+        # https://github.com/fpco/stackage/issues/314
+        - hxt < 9.3.1.9
+
+        # https://github.com/fpco/stackage/issues/318
+        - HaXml < 1.25
+
+        # https://github.com/fpco/stackage/issues/319
+        - polyparse < 1.10
+
+        # https://github.com/nikita-volkov/stm-containers/issues/3
+        - free < 4.10
+
+    #"FP Complete michael@fpcomplete.com @snoyberg":
+    "FP Complete <michael@fpcomplete.com>":
+        - alex
+        - async
+        - aws
+        - base16-bytestring
+        - c2hs
+        - cairo
+        - cassava
+        - Chart
+        - Chart-diagrams
+        - compdata
+        - configurator
+        - convertible
+        - csv-conduit
+        - diagrams-cairo
+        - dimensional
+        - executable-path
+        - fgl
+        - fixed-list
+        - foreign-store
+        - formatting
+        - fpco-api
+        - gtk2hs-buildtools
+        - happy
+        - histogram-fill
+        - hmatrix
+        - hmatrix-gsl
+        - hxt
+        - hxt-relaxng
+        - hybrid-vectors
+        - indents
+        - language-c
+        - lhs2tex
+        - persistent-mongoDB
+        - pretty-class
+        - quandl-api
+        - random-fu
+        - random-source
+        - shelly
+        - smtLib
+        - statistics-linreg
+        - th-expand-syns
+        - thyme
+        - webdriver
+        - web-fpco
+        - criterion
+        - th-lift
+        - singletons
+        - th-desugar
+        - quickcheck-assertions
+        - distributed-process
+        - distributed-process-simplelocalnet
+        # - cloud-haskell
+        - kure <= 2.4.10
+
+    "Omari Norman <omari@smileystation.com>":
+        - barecheck
+        - rainbow
+        - rainbow-tests
+        - quickpull
+
+    "Neil Mitchell":
+        - hlint
+        - hoogle
+        - shake
+        - derive
+        - tagsoup
+        - cmdargs
+        - safe
+        - uniplate
+        - nsis
+        - js-jquery
+        - js-flot
+        - extra
+        - bake
+        - ghcid
+
+    "Alan Zimmerman":
+        - hjsmin
+        - language-javascript
+
+    "Alfredo Di Napoli <alfredo.dinapoli@gmail.com>":
+        - mandrill
+
+    "Jasper Van der Jeugt":
+        - blaze-html
+        - blaze-markup
+        - stylish-haskell
+
+    "Antoine Latter":
+        - byteorder
+        - uuid
+
+    "Philipp Middendorf <pmidden@secure.mailbox.org>":
+        - clock
+
+    "Stefan Wehr <wehr@factisresearch.com>":
+        - HTF
+        - xmlgen
+        - stm-stats
+
+    "Bart Massey <bart.massey+stackage@gmail.com>":
+        - parseargs
+
+    "Vincent Hanquez":
+        - bytedump
+        - certificate
+        - cipher-aes
+        - cipher-rc4
+        - connection
+        - cprng-aes
+        - cpu
+        - cryptocipher
+        - cryptohash
+        - crypto-pubkey-types
+        - crypto-random-api
+        - hit
+        - language-java
+        - language-java
+        - libgit
+        - pem
+        - siphash
+        - socks
+        - tls
+        - tls-debug
+        - vhd
+        - udbus
+        - xenstore
+
+    "Chris Done":
+        - ace
+        - check-email
+        - freenect
+        - frisby
+        - gd
+        - hostname-validate
+        - ini
+        - lucid
+        - osdkeys
+        - pdfinfo
+        - present
+        - pure-io
+        - scrobble
+        - shell-conduit
+        - sourcemap
+        # requires old haddock currently - haskell-docs
+        # TODO: Add hindent and structured-haskell-mode once they've been ported to HSE 1.16.
+
+    # GHC 7.6
+    # "Alberto G. Corona <agocorona@gmail.com>":
+    #    - RefSerialize
+    #    - TCache
+    #    - Workflow
+    #    - MFlow
+
+    "Edward Kmett <ekmett@gmail.com>":
+        - ad
+        - adjunctions
+        - approximate
+        - bifunctors
+        - bits
+        - bound
+        - bytes
+        - charset
+        - comonad
+        - comonads-fd
+        - comonad-transformers
+        - compensated
+        - compressed
+        - concurrent-supply
+        - constraints
+        - contravariant
+        - distributive
+        - either
+        - eq
+        - ersatz
+        - exceptions
+        - free
+        - graphs
+        - groupoids
+        - heaps
+        - hyphenation
+        - integration
+        - intervals
+        - kan-extensions
+        - lca
+        - lens
+        - linear
+        - linear-accelerate
+        - log-domain
+        - machines
+        - monadic-arrays
+        - monad-products
+        - monad-products
+        - monad-st
+        - monad-st
+        - mtl
+        - nats
+        - numeric-extras
+        - parsers
+        - pointed
+        - prelude-extras
+        - profunctor-extras
+        - profunctors
+        - reducers
+        - reducers
+        - reflection
+        - semigroupoid-extras
+        - semigroupoids
+        - semigroups
+        - speculation
+        - streams
+        - tagged
+        - vector-instances
+        - void
+        - wl-pprint-extras
+        - wl-pprint-terminfo
+        - fixed
+        - half
+        - gl
+        - lens-aeson
+        - zlib-lens
+        # Temporary upper bound for some of the above packages
+        - generic-deriving < 1.7
+        # hyperloglog
+
+    "Andrew Farmer <afarmer@ittc.ku.edu>":
+        - scotty
+        - wai-middleware-static
+
+    "Simon Hengel <sol@typeful.net>":
+        - hspec
+        - hspec-wai
+        - hspec-wai-json
+        - aeson-qq
+        - interpolate
+        - doctest
+        - base-compat
+
+    "Mario Blazevic <blamario@yahoo.com>":
+        - monad-parallel
+        - monad-coroutine
+        - incremental-parser
+        - monoid-subclasses
+
+    "Brent Yorgey <byorgey@gmail.com>":
+        - active
+        - BlogLiterately
+        - BlogLiterately-diagrams
+        - diagrams
+        - diagrams-builder
+        - diagrams-contrib
+        - diagrams-core
+        - diagrams-haddock
+        - diagrams-lib
+        - diagrams-postscript
+        - diagrams-svg
+        - dual-tree
+        - force-layout
+        - haxr
+        - MonadRandom
+        - monoid-extras
+        - vector-space-points
+
+    "Vincent Berthoux <vincent.berthoux@gmail.com>":
+        # https://github.com/fpco/stackage/issues/354
+        - JuicyPixels < 3.2
+
+    "Patrick Brisbin":
+        - gravatar
+
+    # https://github.com/fpco/stackage/issues/299
+    # mapM_ (add "Paul Harper <benekastah@gmail.com>") $ words "yesod-auth-oauth2"
+
+    "Felipe Lessa <felipe.lessa@gmail.com>":
+        - esqueleto
+        - fb
+        - fb-persistent
+        - yesod-fb
+        - yesod-auth-fb
+
+    "Alexander Altman <alexanderaltman@me.com>":
+        - base-unicode-symbols
+        - containers-unicode-symbols
+
+    "Trevor L. McDonell <tmcdonell@cse.unsw.edu.au>":
+        - accelerate
+
+    "Dan Burton <danburton.email@gmail.com>":
+        - basic-prelude
+        - composition
+        - io-memoize
+        - numbers
+        - rev-state
+        - runmemo
+        - tardis
+        - lens-family-th
+
+    "Daniel Díaz <dhelta.diaz@gmail.com>":
+        - HaTeX
+        - matrix
+        - binary-list
+
+    "Gabriel Gonzalez <Gabriel439@gmail.com>":
+        - pipes
+        - pipes-parse
+        - pipes-concurrency
+
+    "Chris Allen <cma@bitemyapp.com>":
+        - bloodhound
+
+    "Adam Bergmark <adam@bergmark.nl>":
+        - fay
+        - fay-base
+        - fay-dom
+        - fay-jquery
+        - fay-text
+        - fay-uri
+        - snaplet-fay
+
+    "Rodrigo Setti <rodrigosetti@gmail.com>":
+        - messagepack
+        - messagepack-rpc
+
+    "Boris Lykah <lykahb@gmail.com>":
+        - groundhog
+        - groundhog-th
+        - groundhog-sqlite
+        - groundhog-postgresql
+        - groundhog-mysql
+
+    "Janne Hellsten <jjhellst@gmail.com>":
+        - sqlite-simple
+
+    "Michal J. Gajda":
+        - iterable
+        - Octree
+        - FenwickTree
+        - hPDB
+        - hPDB-examples
+
+    "Roman Cheplyaka <roma@ro-che.info>":
+        - action-permutations
+        - amqp
+        - curl
+        - generics-sop
+
+        # https://github.com/fpco/stackage/issues/341
+        - haskell-names < 0.5
+
+        - haskell-packages
+        - heredoc
+        - hse-cpp
+        - immortal
+        - regex-applicative
+        - smallcheck
+        - tasty
+        - tasty-golden
+        - tasty-hunit
+        - tasty-quickcheck
+        - tasty-smallcheck
+        - time-lens
+        - timezone-olson
+        - timezone-series
+        - traverse-with-class
+
+    "George Giorgidze <giorgidze@gmail.com>":
+        - HCodecs
+        - YampaSynth
+
+    "Phil Hargett <phil@haphazardhouse.net>":
+        - courier
+
+    "Aycan iRiCAN <iricanaycan@gmail.com>":
+        - hdaemonize
+        - hsyslog
+        - hweblib
+
+    "Joachim Breitner <mail@joachim-breitner.de>":
+        - circle-packing
+        - arbtt
+        - ghc-heap-view
+
+    "Aditya Bhargava <adit@adit.io":
+        - HandsomeSoup
+
+    "Clint Adams <clint@debian.org>":
+        - hOpenPGP
+        - openpgp-asciiarmor
+        - MusicBrainz
+        - DAV
+        - hopenpgp-tools
+
+    # https://github.com/fpco/stackage/issues/160
+    "Ketil Malde":
+        - biocore
+        - biofasta
+        - biofastq
+        - biosff
+        - blastxml
+        - bioace
+        - biophd < 0.0.6 || > 0.0.6
+        - biopsl # https://github.com/ingolia/SamTools/issues/3 samtools
+        - seqloc
+        - bioalign
+        - BlastHTTP
+        # The following have out-of-date dependencies currently
+        # biostockholm memexml RNAwolf
+        # , "Biobase BiobaseDotP BiobaseFR3D BiobaseInfernal BiobaseMAF"
+        # , "BiobaseTrainingData BiobaseTurner BiobaseXNA BiobaseVienna"
+        # , "BiobaseTypes BiobaseFasta"
+        # MC-Fold-DP
+
+    "Silk <code@silk.co>":
+        - aeson-utils
+        - arrow-list
+        - attoparsec-expr
+        - bumper
+        - code-builder
+        - fay-builder
+        - generic-aeson
+        - hxt-pickle-utils
+        - imagesize-conduit
+        - imagesize-conduit
+        - json-schema
+        - multipart
+        - regular-xmlpickler
+        - rest-client
+        - rest-core
+        - rest-gen
+        - rest-happstack
+        - rest-snap
+        - rest-stringmap
+        - rest-types
+        - rest-wai
+        - tostring
+        - tostring
+        - uri-encode
+        - uri-encode
+
+    "Simon Michael <simon@joyful.com>":
+        - hledger
+
+    "Mihai Maruseac <mihai.maruseac@gmail.com>":
+        - io-manager
+
+    "Dimitri Sabadie <dimitri.sabadie@gmail.com":
+        - monad-journal
+
+    "Thomas Schilling <nominolo@googlemail.com>":
+        - ghc-syb-utils
+
+    "Boris Buliga <d12frosted@icloud.com>":
+        - ghc-mod
+        - io-choice
+        - system-canonicalpath
+
+    "Yann Esposito <yann.esposito@gmail.com>":
+        - holy-project
+
+    "Paul Rouse <pgr@doynton.org>":
+        - yesod-auth-hashdb
+
+    "Toralf Wittner <tw@dtex.org>":
+        - zeromq4-haskell
+
+    "trupill@gmail.com":
+        - djinn-lib
+        - djinn-ghc
+
+    "Arash Rouhani <miffoljud@gmail.com>":
+        - yesod-text-markdown
+
+    "Matvey Aksenov <matvey.aksenov@gmail.com":
+        - terminal-size
+
+    "Luis G. Torres <lgtorres42@gmail.com":
+        - kdt
+
+    "Emanuel Borsobom <manny@fpcomplete.com>":
+        - BoundedChan
+        - bytestring-lexing
+        - bytestring-trie
+        - data-accessor
+        - data-accessor-mtl
+        - file-location
+        - fuzzcheck
+        - git-embed
+        - haddock-api
+        - here
+        - hlibgit2
+        - hostname-validate
+        - interpolatedstring-perl6
+        - iproute
+        - missing-foreign
+        - MissingH
+        - multimap
+        - parallel-io
+        - text-binary
+
+    "Michael Sloan <mgsloan@gmail.com":
+        - th-orphans
+        - th-reify-many
+
+    "Nikita Volkov <nikita.y.volkov@mail.ru>":
+        - base-prelude
+        - cases
+        - focus
+        - hasql
+        - hasql-backend
+        - hasql-postgres
+        - list-t
+        - mtl-prelude < 2
+        - neat-interpolation
+        - partial-handler
+        - postgresql-binary
+        - slave-thread
+        - stm-containers
+
+    "Iustin Pop <iustin@k1024.org>":
+        - prefix-units
+
+    "Alexander Thiemann <mail@athiemann.net>":
+       - graph-core
+       - reroute
+       - Spock
+
+    "Joey Eremondi <joey@eremondi.com>":
+        - aeson-pretty
+        - digest
+        - elm-build-lib
+        - elm-compiler
+        - elm-core-sources
+        # elm-package
+        - language-glsl
+        - prettyclass
+        - QuasiText
+        - union-find
+        - zip-archive
+
+
+    "Arthur Fayzrakhmanov <heraldhoi@gmail.com>":
+        - sodium
+        - hdevtools
+
+    # 0.16.2 fixes dependency issues with different version of GHC
+    # and Haskell Platform. Now builds on GHC 7.4-7.8. Version 1.0 is
+    # guaranteed to break the API. See
+    # https://travis-ci.org/jswebtools/language-ecmascript for
+    # current build status.
+    "Andrey Chudnov <oss@chudnov.com>":
+        - language-ecmascript >= 0.16.2 && < 1.0
+
+    "Tom Ellis <tom-stackage@jaguarpaw.co.uk>":
+        - opaleye
+        - product-profunctors
+
+github-users:
+    diagrams:
+        - byorgey
+        - fryguybob
+        - jeffreyrosenbluth
+        - bergey
+    yesodweb:
+        - snoyberg
+    fpco:
+        - snoyberg
+    faylang:
+        - bergmark
+    silkapp:
+        - bergmark
+        - hesselink
+    snapframework:
+        - mightybyte
+    haskell-ro:
+        - mihaimaruseac

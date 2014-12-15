@@ -8,6 +8,7 @@ module Stackage2.BuildConstraints
     , PackageConstraints (..)
     , TestState (..)
     , SystemInfo (..)
+    , getSystemInfo
     , defaultBuildConstraints
     ) where
 
@@ -114,13 +115,11 @@ instance FromJSON PackageConstraints where
 -- | The proposed plan from the requirements provided by contributors.
 defaultBuildConstraints :: IO BuildConstraints
 defaultBuildConstraints = do
-    siCorePackages <- getCorePackages
-    siCoreExecutables <- getCoreExecutables
-    siGhcVersion <- getGhcVersion
+    bcSystemInfo <- getSystemInfo
     oldGhcVer <-
-        case siGhcVersion of
+        case siGhcVersion bcSystemInfo of
             Version (x:y:_) _ -> return $ Old.GhcMajorVersion x y
-            _ -> error $ "Didn't not understand GHC version: " ++ show siGhcVersion
+            _ -> error $ "Didn't not understand GHC version: " ++ show (siGhcVersion bcSystemInfo)
 
 
     let oldSettings = Old.defaultSelectSettings oldGhcVer False
@@ -157,13 +156,18 @@ defaultBuildConstraints = do
 
             pcFlagOverrides = packageFlags name ++ defaultGlobalFlags
 
-        -- FIXME consider not hard-coding the next two values
-        siOS   = Distribution.System.Linux
-        siArch = Distribution.System.X86_64
-
-        bcSystemInfo = SystemInfo {..}
-
     return BuildConstraints {..}
+
+getSystemInfo :: IO SystemInfo
+getSystemInfo = do
+    siCorePackages <- getCorePackages
+    siCoreExecutables <- getCoreExecutables
+    siGhcVersion <- getGhcVersion
+    return SystemInfo {..}
+  where
+    -- FIXME consider not hard-coding the next two values
+    siOS   = Distribution.System.Linux
+    siArch = Distribution.System.X86_64
 
 packageFlags :: PackageName -> Map FlagName Bool
 packageFlags (PackageName "mersenne-random-pure64") = singletonMap (FlagName "small_base") False
