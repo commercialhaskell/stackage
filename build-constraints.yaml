@@ -1,298 +1,31 @@
 # Constraints for brand new builds
-global-flags:
-    blaze_html_0_5: true
-    small_base: true
-    https: true
-    splitbase: true
-    old-locale: true
-    new-base: true
-    bytestring-in-base: false
-    test-hlint: false
-    network-uri: false # network-uri: true
-package-flags:
-    mersenne-random-pure64:
-        small_base: false
-skipped-tests:
-    - ReadArgs # old version of hspec
-    - ersatz # old QuickCheck
-    - punycode # pulls in encoding
-    - HTTP
-    - Octree
-    - options
-    - hasql
-
-    # require old hspec
-    - bloodhound
-    - fb
-
-    # require old tasty
-    - diagrams-haddock
-
-    # requires old hsql
-    - hasql-postgres
-
-    # https://github.com/pa-ba/compdata/issues/4
-    - compdata
-
-    # https://github.com/fpco/stackage/issues/368
-    - lifted-base
-expected-test-failures:
-    # Requires an old version of WAI and Warp for tests
-    - HTTP
-
-    # text and setenv have recursive dependencies in their tests, which
-    # cabal can't (yet) handle
-    - text
-    - setenv
-
-    # The version of GLUT included with the HP does not generate
-    # documentation correctly.
-    - GLUT
-
-    # https://github.com/bos/statistics/issues/42
-    - statistics
-
-    # https://github.com/kazu-yamamoto/simple-sendfile/pull/10
-    - simple-sendfile
-
-    # http://hackage.haskell.org/trac/hackage/ticket/954
-    - diagrams
-
-    # https://github.com/fpco/stackage/issues/24
-    - unix-time
-
-    # With transformers 0.3, it doesn't provide any modules
-    - transformers-compat
-
-    # Tests require shell script and are incompatible with sandboxed package
-    # databases
-    - HTF
-
-    # https://github.com/simonmar/monad-par/issues/28
-    - monad-par
-
-    # Unfortunately network failures seem to happen haphazardly
-    - network
-
-    # https://github.com/ekmett/hyphenation/issues/1
-    - hyphenation
-
-    # Test suite takes too long to run on some systems
-    - punycode
-
-    # http://hub.darcs.net/stepcut/happstack/issue/1
-    - happstack-server
-
-    # Requires a Facebook app.
-    - fb
-
-    # https://github.com/tibbe/hashable/issues/64
-    - hashable
-
-    # https://github.com/vincenthz/language-java/issues/10
-    - language-java
-
-    - threads
-    - crypto-conduit
-    - pandoc
-    - language-ecmascript
-    - hspec
-    - alex
-
-    # https://github.com/basvandijk/concurrent-extra/issues/
-    - concurrent-extra
-
-    # https://github.com/skogsbaer/xmlgen/issues/2
-    - xmlgen
-
-    # Something very strange going on with the test suite, I can't figure
-    # out how to fix it
-    - bson
-
-    # Requires a locally running PostgreSQL server with appropriate users
-    - postgresql-simple
-
-    # Missing files
-    - websockets
-
-    # Some kind of Cabal bug when trying to run tests
-    - thyme
-
-    - shake
-
-    # https://github.com/jgm/pandoc-citeproc/issues/5
-    - pandoc-citeproc
-
-    # Problems with doctest and sandboxing
-    - warp
-    - wai-logger
-
-    # https://github.com/fpco/stackage/issues/163
-    - hTalos
-    - seqloc
-
-    # https://github.com/bos/math-functions/issues/25
-    - math-functions
-
-    # FIXME the test suite fails fairly regularly in builds, though I haven't
-    # discovered why yet
-    - crypto-numbers
-
-    # Test suite is currently failing regularly, needs to be worked out still.
-    - lens
-
-    # Requires too old a version of test-framework
-    - time
-
-    # No code included any more, therefore H- ock fails
-    - attoparsec-conduit
-    - blaze-builder-conduit
-    - comonads-fd
-    - comonad-transformers
-    - groupoids
-    - hamlet
-    - hspec-discover
-    - http-client-conduit
-    - http-client-multipart
-    - network-conduit
-    - profunctor-extras
-    - semigroupoid-extras
-    - shakespeare-css
-    - shakespeare-i18n
-    - shakespeare-js
-    - shakespeare-text
-    - wai-eventsource
-    - wai-test
-    - zlib-conduit
-
-    # Cloud Haskell tests seem to be unreliable
-    - distributed-process
-    - lockfree-queue
-    - network-transport-tcp
-
-    # Pulls in monad-peel which does not compile
-    - monad-control
-
-    # https://github.com/fpco/stackage/issues/226
-    - options
-
-    # https://github.com/gtk2hs/gtk2hs/issues/36
-    - glib
-    - pango
-
-    # https://github.com/acw/bytestring-progress/issues/3
-    - bytestring-progress
-
-    # Seems to require 32-bit functions
-    - nettle
-
-    # Depends on a missing graphviz executable
-    - graphviz
-
-    # No AWS creds available
-    - aws
-
-    # Not sure why...
-    - singletons
-
-    - hspec2
-    - hspec-wai
-
-    # https://github.com/fpco/stackage/issues/285
-    - diagrams-haddock
-    - scientific
-    - json-schema
-
-    # https://github.com/BioHaskell/octree/issues/4
-    - Octree
-
-    # No code until we upgrade to network 2.6
-    - network-uri
-
-    # https://github.com/goldfirere/th-desugar/issues/12
-    - th-desugar
-
-    # https://github.com/haskell/c2hs/issues/108
-    - c2hs
-
-    # https://github.com/jmillikin/haskell-filesystem/issues/3
-    - system-filepath
-
-    # Requires a running webdriver server
-    - webdriver
-    - webdriver-snoy
-
-    # Weird conflicts with sandboxing
-    - ghc-mod
-    - ghcid
-
-    # Requires locally running server
-    - bloodhound
-
-    # Too lazy to keep the test dependencies up to date
-    - base-prelude
-    - cases
-    - focus
-    - hasql
-    - hasql-backend
-    - hasql-postgres
-    - list-t
-    - mtl-prelude
-    - neat-interpolation
-    - partial-handler
-    - postgresql-binary
-    - slave-thread
-    - stm-containers
-
-    # https://github.com/gtk2hs/gtk2hs/issues/79
-    - gio
-    - gtk
-
-    # Requires SAT solver and old QuickCheck
-    - ersatz
-
-    # https://github.com/ekmett/gl/issues/3
-    - gl
-
-    # Failing doctests
-    - bits
-
-    # No server running
-    - amqp
-
-    # Often run out of inotify handles
-    - fsnotify
-
-    # Requires a correctly set up Postgres instance
-    - opaleye
-
-    # weird problems with cabal test
-    - cautious-file
-expected-haddock-failures: []
-skipped-benchmarks:
-    - machines
-    - criterion-plus
-    - graphviz
-    - lifted-base
-    - pandoc
-    - stm-containers
-    - uuid
-
-    # pulls in criterion-plus, which has restrictive upper bounds
-    - cases
-    - hasql-postgres
-
-    # https://github.com/vincenthz/hs-crypto-cipher/issues/46
-    - cipher-aes
-    - cipher-blowfish
-    - cipher-camellia
-    - cipher-des
-    - cipher-rc4
-
-    # sometimes falls out-of-sync on hasql-postgres
-    - hasql
-
 packages:
+    "Stackage upper bounds":
+        # cabal-install is buggy still.
+        - network < 2.6
+        - network-uri < 2.6
+
+        # https://github.com/fpco/stackage/issues/288
+        - text < 1.2
+
+        # Force a specific version that's compatible with transformers 0.3
+        - transformers-compat == 0.3.3.3
+
+        # https://github.com/fpco/stackage/issues/291
+        - random < 1.0.1.3
+
+        # https://github.com/fpco/stackage/issues/314
+        - hxt < 9.3.1.9
+
+        # https://github.com/fpco/stackage/issues/318
+        - HaXml < 1.25
+
+        # https://github.com/fpco/stackage/issues/319
+        - polyparse < 1.10
+
+        # https://github.com/nikita-volkov/stm-containers/issues/3
+        - free < 4.10
+
     "Michael Snoyman michael@snoyman.com @snoyberg":
         - bzlib-conduit
         - cabal-install < 1.19
@@ -335,32 +68,6 @@ packages:
         - repa-algorithms
         - repa-devil
         - JuicyPixels-repa
-
-    "Stackage upper bounds":
-        # cabal-install is buggy still.
-        - network < 2.6
-        - network-uri < 2.6
-
-        # https://github.com/fpco/stackage/issues/288
-        - text < 1.2
-
-        # Force a specific version that's compatible with transformers 0.3
-        - transformers-compat == 0.3.3.3
-
-        # https://github.com/fpco/stackage/issues/291
-        - random < 1.0.1.3
-
-        # https://github.com/fpco/stackage/issues/314
-        - hxt < 9.3.1.9
-
-        # https://github.com/fpco/stackage/issues/318
-        - HaXml < 1.25
-
-        # https://github.com/fpco/stackage/issues/319
-        - polyparse < 1.10
-
-        # https://github.com/nikita-volkov/stm-containers/issues/3
-        - free < 4.10
 
     "FP Complete michael@fpcomplete.com @snoyberg":
         - alex
@@ -919,6 +626,317 @@ packages:
         - opaleye
         - product-profunctors
 
+# Global flags are applied to all packages
+global-flags:
+    blaze_html_0_5: true
+    small_base: true
+    https: true
+    splitbase: true
+    old-locale: true
+    new-base: true
+    bytestring-in-base: false
+    test-hlint: false
+    network-uri: false # network-uri: true
+
+# Package flags are applied to individual packages, and override the values of
+# global-flags
+package-flags:
+    mersenne-random-pure64:
+        small_base: false
+
+# By skipping a test suite, we do not pull in the build dependencies
+skipped-tests:
+    - ReadArgs # old version of hspec
+    - ersatz # old QuickCheck
+    - punycode # pulls in encoding
+    - HTTP
+    - Octree
+    - options
+    - hasql
+
+    # require old hspec
+    - bloodhound
+    - fb
+
+    # require old tasty
+    - diagrams-haddock
+
+    # requires old hsql
+    - hasql-postgres
+
+    # https://github.com/pa-ba/compdata/issues/4
+    - compdata
+
+    # https://github.com/fpco/stackage/issues/368
+    - lifted-base
+
+# Tests which we should build and run, but which are expected to fail. We
+# should not fail a build based on a test failure for one of these packages.
+expected-test-failures:
+    # Requires an old version of WAI and Warp for tests
+    - HTTP
+
+    # text and setenv have recursive dependencies in their tests, which
+    # cabal can't (yet) handle
+    - text
+    - setenv
+
+    # The version of GLUT included with the HP does not generate
+    # documentation correctly.
+    - GLUT
+
+    # https://github.com/bos/statistics/issues/42
+    - statistics
+
+    # https://github.com/kazu-yamamoto/simple-sendfile/pull/10
+    - simple-sendfile
+
+    # http://hackage.haskell.org/trac/hackage/ticket/954
+    - diagrams
+
+    # https://github.com/fpco/stackage/issues/24
+    - unix-time
+
+    # With transformers 0.3, it doesn't provide any modules
+    - transformers-compat
+
+    # Tests require shell script and are incompatible with sandboxed package
+    # databases
+    - HTF
+
+    # https://github.com/simonmar/monad-par/issues/28
+    - monad-par
+
+    # Unfortunately network failures seem to happen haphazardly
+    - network
+
+    # https://github.com/ekmett/hyphenation/issues/1
+    - hyphenation
+
+    # Test suite takes too long to run on some systems
+    - punycode
+
+    # http://hub.darcs.net/stepcut/happstack/issue/1
+    - happstack-server
+
+    # Requires a Facebook app.
+    - fb
+
+    # https://github.com/tibbe/hashable/issues/64
+    - hashable
+
+    # https://github.com/vincenthz/language-java/issues/10
+    - language-java
+
+    - threads
+    - crypto-conduit
+    - pandoc
+    - language-ecmascript
+    - hspec
+    - alex
+
+    # https://github.com/basvandijk/concurrent-extra/issues/
+    - concurrent-extra
+
+    # https://github.com/skogsbaer/xmlgen/issues/2
+    - xmlgen
+
+    # Something very strange going on with the test suite, I can't figure
+    # out how to fix it
+    - bson
+
+    # Requires a locally running PostgreSQL server with appropriate users
+    - postgresql-simple
+
+    # Missing files
+    - websockets
+
+    # Some kind of Cabal bug when trying to run tests
+    - thyme
+
+    - shake
+
+    # https://github.com/jgm/pandoc-citeproc/issues/5
+    - pandoc-citeproc
+
+    # Problems with doctest and sandboxing
+    - warp
+    - wai-logger
+
+    # https://github.com/fpco/stackage/issues/163
+    - hTalos
+    - seqloc
+
+    # https://github.com/bos/math-functions/issues/25
+    - math-functions
+
+    # FIXME the test suite fails fairly regularly in builds, though I haven't
+    # discovered why yet
+    - crypto-numbers
+
+    # Test suite is currently failing regularly, needs to be worked out still.
+    - lens
+
+    # Requires too old a version of test-framework
+    - time
+
+    # No code included any more, therefore H- ock fails
+    - attoparsec-conduit
+    - blaze-builder-conduit
+    - comonads-fd
+    - comonad-transformers
+    - groupoids
+    - hamlet
+    - hspec-discover
+    - http-client-conduit
+    - http-client-multipart
+    - network-conduit
+    - profunctor-extras
+    - semigroupoid-extras
+    - shakespeare-css
+    - shakespeare-i18n
+    - shakespeare-js
+    - shakespeare-text
+    - wai-eventsource
+    - wai-test
+    - zlib-conduit
+
+    # Cloud Haskell tests seem to be unreliable
+    - distributed-process
+    - lockfree-queue
+    - network-transport-tcp
+
+    # Pulls in monad-peel which does not compile
+    - monad-control
+
+    # https://github.com/fpco/stackage/issues/226
+    - options
+
+    # https://github.com/gtk2hs/gtk2hs/issues/36
+    - glib
+    - pango
+
+    # https://github.com/acw/bytestring-progress/issues/3
+    - bytestring-progress
+
+    # Seems to require 32-bit functions
+    - nettle
+
+    # Depends on a missing graphviz executable
+    - graphviz
+
+    # No AWS creds available
+    - aws
+
+    # Not sure why...
+    - singletons
+
+    - hspec2
+    - hspec-wai
+
+    # https://github.com/fpco/stackage/issues/285
+    - diagrams-haddock
+    - scientific
+    - json-schema
+
+    # https://github.com/BioHaskell/octree/issues/4
+    - Octree
+
+    # No code until we upgrade to network 2.6
+    - network-uri
+
+    # https://github.com/goldfirere/th-desugar/issues/12
+    - th-desugar
+
+    # https://github.com/haskell/c2hs/issues/108
+    - c2hs
+
+    # https://github.com/jmillikin/haskell-filesystem/issues/3
+    - system-filepath
+
+    # Requires a running webdriver server
+    - webdriver
+    - webdriver-snoy
+
+    # Weird conflicts with sandboxing
+    - ghc-mod
+    - ghcid
+
+    # Requires locally running server
+    - bloodhound
+
+    # Too lazy to keep the test dependencies up to date
+    - base-prelude
+    - cases
+    - focus
+    - hasql
+    - hasql-backend
+    - hasql-postgres
+    - list-t
+    - mtl-prelude
+    - neat-interpolation
+    - partial-handler
+    - postgresql-binary
+    - slave-thread
+    - stm-containers
+
+    # https://github.com/gtk2hs/gtk2hs/issues/79
+    - gio
+    - gtk
+
+    # Requires SAT solver and old QuickCheck
+    - ersatz
+
+    # https://github.com/ekmett/gl/issues/3
+    - gl
+
+    # Failing doctests
+    - bits
+
+    # No server running
+    - amqp
+
+    # Often run out of inotify handles
+    - fsnotify
+
+    # Requires a correctly set up Postgres instance
+    - opaleye
+
+    # weird problems with cabal test
+    - cautious-file
+
+# Haddocks which are expected to fail. Same concept as expected test failures.
+expected-haddock-failures: []
+
+# Benchmarks which should not be built. Note that Stackage does *not* generally
+# build benchmarks. The difference here will be whether dependencies for these
+# benchmarks are included or not.
+skipped-benchmarks:
+    - machines
+    - criterion-plus
+    - graphviz
+    - lifted-base
+    - pandoc
+    - stm-containers
+    - uuid
+
+    # pulls in criterion-plus, which has restrictive upper bounds
+    - cases
+    - hasql-postgres
+
+    # https://github.com/vincenthz/hs-crypto-cipher/issues/46
+    - cipher-aes
+    - cipher-blowfish
+    - cipher-camellia
+    - cipher-des
+    - cipher-rc4
+
+    # sometimes falls out-of-sync on hasql-postgres
+    - hasql
+
+# Mapping from Github account holding a package to the Github users who should
+# be pinged on failure. If no value is specified here, then the owning account
+# will be pinged.
 github-users:
     diagrams:
         - byorgey

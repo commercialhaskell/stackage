@@ -16,25 +16,23 @@ Get your package included
 -------------------------
 
 In order to get your package included in the set of stable packages, you should
-send a pull request against this repository. In the `build-constraints.yaml` file,
-there's a function called `defaultStablePackages`. In general, to add a set of
+send a pull request against this repository. In the [`build-constraints.yaml`](https://github.com/fpco/stackage/blob/master/build-constraints.yaml) file,
+there's a section called `packages`. In general, to add a set of
 packages, you would add:
 
-    mapM_ (add "your-email-address") $ words
-        "package1 package2 package3"
+    "My Name myemail@example.com @mygithubuser":
+        - package1
+        - package2
+        - package3
 
 You can follow the examples of the other sets of packages in that function.
-Once you've done this, you can confirm that your newly added packages are
-compatible with the rest of stackage by building the package set following the
-instructions below.
+Once you've done this, you can send a pull request to get your package
+included.
 
 __NOTE__: In order to ease the process of adding new packages, we no longer
 require new submissions to be tested on your own system before sending a pull
 request. If you believe your package works with the newest versions of all
-dependencies, you may send a pull request without testing first. If you do so,
-please be sure to state this in the pull request so that the Stackage
-maintainers (e.g., Michael) will know to do basic sanity checking before
-merging.
+dependencies, you may send a pull request without testing first.
 
 You should also read the [maintainers
 agreement](https://github.com/fpco/stackage/wiki/Maintainers-Agreement).
