@@ -207,9 +207,6 @@ toBC ConstraintFile {..} = do
         pcHaddocks
             | name `member` cfExpectedHaddockFailures = ExpectFailure
 
-            -- Temporary to match old behavior
-            | name `member` cfExpectedTestFailures = ExpectFailure
-
             | otherwise = ExpectSuccess
         pcFlagOverrides = fromMaybe mempty (lookup name cfPackageFlags) ++
                           cfGlobalFlags
