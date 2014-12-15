@@ -1,13 +1,13 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ViewPatterns      #-}
-module Stackage2.GithubPings
+module Stackage.GithubPings
     ( getGithubPings
     ) where
 
 import Distribution.PackageDescription
-import Stackage2.BuildConstraints
-import Stackage2.Prelude
+import Stackage.BuildConstraints
+import Stackage.Prelude
 
 -- | Determine accounts to be pinged on Github based on various metadata in the
 -- package description.

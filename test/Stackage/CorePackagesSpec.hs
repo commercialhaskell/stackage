@@ -1,8 +1,8 @@
 {-# LANGUAGE OverloadedStrings, NoImplicitPrelude #-}
-module Stackage2.CorePackagesSpec (spec) where
+module Stackage.CorePackagesSpec (spec) where
 
-import Stackage2.CorePackages
-import Stackage2.Prelude
+import Stackage.CorePackages
+import Stackage.Prelude
 import Test.Hspec
 
 spec :: Spec

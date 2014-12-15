@@ -1,7 +1,7 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards   #-}
-module Stackage2.CompleteBuild
+module Stackage.CompleteBuild
     ( BuildType (..)
     , BumpType (..)
     , completeBuild
@@ -12,14 +12,14 @@ import Data.Text.Read             (decimal)
 import Data.Time
 import Data.Yaml                  (decodeFileEither, encodeFile)
 import Network.HTTP.Client
-import Stackage2.BuildConstraints
-import Stackage2.BuildPlan
-import Stackage2.CheckBuildPlan
-import Stackage2.PerformBuild
-import Stackage2.Prelude
-import Stackage2.ServerBundle
-import Stackage2.UpdateBuildPlan
-import Stackage2.Upload
+import Stackage.BuildConstraints
+import Stackage.BuildPlan
+import Stackage.CheckBuildPlan
+import Stackage.PerformBuild
+import Stackage.Prelude
+import Stackage.ServerBundle
+import Stackage.UpdateBuildPlan
+import Stackage.Upload
 import System.IO                  (BufferMode (LineBuffering), hSetBuffering)
 
 data BuildType = Nightly | LTS BumpType

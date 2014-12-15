@@ -5,7 +5,7 @@
 {-# LANGUAGE RankNTypes         #-}
 {-# LANGUAGE ViewPatterns       #-}
 -- | Dealing with the 00-index file and all its cabal files.
-module Stackage2.PackageIndex
+module Stackage.PackageIndex
     ( sourcePackageIndex
     , UnparsedCabalFile (..)
     , getLatestDescriptions
@@ -20,7 +20,7 @@ import           Distribution.PackageDescription       (package,
 import           Distribution.PackageDescription.Parse (ParseResult (..),
                                                         parsePackageDescription)
 import           Distribution.ParseUtils               (PError)
-import           Stackage2.Prelude
+import           Stackage.Prelude
 import           System.Directory                      (getAppUserDataDirectory)
 
 -- | Name of the 00-index.tar downloaded from Hackage.

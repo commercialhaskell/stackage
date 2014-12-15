@@ -5,15 +5,15 @@
 {-# LANGUAGE RecordWildCards            #-}
 {-# LANGUAGE ViewPatterns               #-}
 -- | Confirm that a build plan has a consistent set of dependencies.
-module Stackage2.CheckBuildPlan
+module Stackage.CheckBuildPlan
     ( checkBuildPlan
     ) where
 
 import Control.Monad.Writer.Strict  (Writer, execWriter, tell)
-import Stackage2.BuildConstraints
-import Stackage2.BuildPlan
-import Stackage2.PackageDescription
-import Stackage2.Prelude
+import Stackage.BuildConstraints
+import Stackage.BuildPlan
+import Stackage.PackageDescription
+import Stackage.Prelude
 
 -- FIXME check cycles in dependencies, only looking at libraries and
 -- executables

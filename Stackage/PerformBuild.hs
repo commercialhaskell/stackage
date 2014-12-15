@@ -5,17 +5,17 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE NoImplicitPrelude  #-}
 {-# LANGUAGE OverloadedStrings  #-}
-module Stackage2.PerformBuild
+module Stackage.PerformBuild
     ( performBuild
     , PerformBuild (..)
     , BuildException (..)
     , pbDocDir
     ) where
 
-import Stackage2.BuildConstraints
-import Stackage2.PackageDescription
-import Stackage2.BuildPlan
-import Stackage2.Prelude hiding (pi)
+import Stackage.BuildConstraints
+import Stackage.PackageDescription
+import Stackage.BuildPlan
+import Stackage.Prelude hiding (pi)
 import qualified Data.Map as Map
 import Control.Concurrent.STM.TSem
 import Data.NonNull (fromNullable)

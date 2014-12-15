@@ -2,7 +2,7 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards   #-}
-module Stackage2.ServerBundle
+module Stackage.ServerBundle
     ( serverBundle
     , epochTime
     , bpAllPackages
@@ -14,9 +14,9 @@ import qualified Codec.Archive.Tar.Entry    as Tar
 import qualified Codec.Compression.GZip     as GZip
 import qualified Data.Yaml                  as Y
 import           Foreign.C.Types            (CTime (CTime))
-import           Stackage2.BuildConstraints
-import           Stackage2.BuildPlan
-import           Stackage2.Prelude
+import           Stackage.BuildConstraints
+import           Stackage.BuildPlan
+import           Stackage.Prelude
 import qualified System.PosixCompat.Time    as PC
 import qualified Text.XML as X
 import Text.XML.Cursor

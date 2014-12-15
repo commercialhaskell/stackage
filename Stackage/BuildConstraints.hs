@@ -3,7 +3,7 @@
 {-# LANGUAGE RecordWildCards   #-}
 {-# LANGUAGE TupleSections     #-}
 -- | The constraints on package selection for a new build plan.
-module Stackage2.BuildConstraints
+module Stackage.BuildConstraints
     ( BuildConstraints (..)
     , PackageConstraints (..)
     , TestState (..)
@@ -23,8 +23,8 @@ import           Distribution.Version        (anyVersion)
 import           Distribution.Version        (anyVersion)
 import           Filesystem                  (isFile)
 import           Network.HTTP.Client         (Manager, httpLbs, responseBody)
-import           Stackage2.CorePackages
-import           Stackage2.Prelude
+import           Stackage.CorePackages
+import           Stackage.Prelude
 
 data TestState = ExpectSuccess
                | ExpectFailure

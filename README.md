@@ -5,7 +5,7 @@ stackage
 
 __NOTE__ This repository is for package authors to get their code into
 Stackage. If you simply want to use Stackage as an end user, please follow the
-instructions on http://www.stackage.org/.
+instructions on [http://www.stackage.org/](http://www.stackage.org).
 
 A note about the codebase: the goal is to minimize dependencies and have
 the maximum range of supported compiler versions. Therefore, we avoid
@@ -16,7 +16,7 @@ Get your package included
 -------------------------
 
 In order to get your package included in the set of stable packages, you should
-send a pull request against this repository. In the `Stackage.Config` module,
+send a pull request against this repository. In the `build-constraints.yaml` file,
 there's a function called `defaultStablePackages`. In general, to add a set of
 packages, you would add:
 

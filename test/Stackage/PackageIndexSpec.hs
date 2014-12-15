@@ -1,8 +1,8 @@
 {-# LANGUAGE OverloadedStrings, NoImplicitPrelude #-}
-module Stackage2.PackageIndexSpec (spec) where
+module Stackage.PackageIndexSpec (spec) where
 
-import Stackage2.PackageIndex
-import Stackage2.Prelude
+import Stackage.PackageIndex
+import Stackage.Prelude
 import Test.Hspec
 import Distribution.Package (packageId)
 

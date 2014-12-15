@@ -9,7 +9,7 @@
 {-# LANGUAGE TypeFamilies       #-}
 -- | Manipulate @GenericPackageDescription@ from Cabal into something more
 -- useful for us.
-module Stackage2.PackageDescription
+module Stackage.PackageDescription
     ( SimpleDesc (..)
     , toSimpleDesc
     , CheckCond (..)
@@ -25,7 +25,7 @@ import           Distribution.Compiler           (CompilerFlavor)
 import           Distribution.Package            (Dependency (..))
 import           Distribution.PackageDescription
 import           Distribution.System             (Arch, OS)
-import           Stackage2.Prelude
+import           Stackage.Prelude
 
 data Component = CompLibrary
                | CompExecutable

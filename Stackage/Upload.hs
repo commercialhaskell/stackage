@@ -4,7 +4,7 @@
 {-# LANGUAGE OverloadedStrings          #-}
 {-# LANGUAGE RecordWildCards            #-}
 {-# LANGUAGE TupleSections              #-}
-module Stackage2.Upload
+module Stackage.Upload
     ( UploadBundle (..)
     , SnapshotIdent (..)
     , uploadBundle
@@ -20,9 +20,9 @@ import Data.Default.Class                    (Default (..))
 import Filesystem                            (isDirectory, isFile)
 import Network.HTTP.Client
 import Network.HTTP.Client.MultipartFormData
-import Stackage2.BuildPlan                   (BuildPlan)
-import Stackage2.Prelude
-import Stackage2.ServerBundle                (bpAllPackages, docsListing)
+import Stackage.BuildPlan                   (BuildPlan)
+import Stackage.Prelude
+import Stackage.ServerBundle                (bpAllPackages, docsListing)
 import System.IO.Temp                        (withSystemTempFile)
 
 newtype StackageServer = StackageServer { unStackageServer :: Text }

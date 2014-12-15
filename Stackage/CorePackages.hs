@@ -1,6 +1,6 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
-module Stackage2.CorePackages
+module Stackage.CorePackages
     ( getCorePackages
     , getCoreExecutables
     , getGhcVersion
@@ -8,7 +8,7 @@ module Stackage2.CorePackages
 
 import qualified Data.Text         as T
 import           Filesystem        (listDirectory)
-import           Stackage2.Prelude
+import           Stackage.Prelude
 import           System.Directory  (findExecutable)
 
 -- | Get a @Map@ of all of the core packages. Core packages are defined as

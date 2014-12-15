@@ -3,9 +3,9 @@
 {-# LANGUAGE NoImplicitPrelude          #-}
 {-# LANGUAGE OverloadedStrings          #-}
 {-# LANGUAGE TypeFamilies               #-}
-module Stackage2.Prelude
+module Stackage.Prelude
     ( module X
-    , module Stackage2.Prelude
+    , module Stackage.Prelude
     ) where
 
 import           ClassyPrelude.Conduit           as X

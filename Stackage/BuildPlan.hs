@@ -9,7 +9,7 @@
 {-# LANGUAGE TypeFamilies       #-}
 -- | Representation of a concrete build plan, and how to generate a new one
 -- based on constraints.
-module Stackage2.BuildPlan
+module Stackage.BuildPlan
     ( BuildPlan (..)
     , PackagePlan (..)
     , newBuildPlan
@@ -22,11 +22,11 @@ import qualified Data.Map                        as Map
 import qualified Data.Set                        as Set
 import qualified Distribution.Compiler
 import           Distribution.PackageDescription
-import           Stackage2.BuildConstraints
-import           Stackage2.GithubPings
-import           Stackage2.PackageDescription
-import           Stackage2.PackageIndex
-import           Stackage2.Prelude
+import           Stackage.BuildConstraints
+import           Stackage.GithubPings
+import           Stackage.PackageDescription
+import           Stackage.PackageIndex
+import           Stackage.Prelude
 
 data BuildPlan = BuildPlan
     { bpSystemInfo :: SystemInfo

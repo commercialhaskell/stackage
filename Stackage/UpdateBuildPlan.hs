@@ -3,7 +3,7 @@
 {-# LANGUAGE RecordWildCards   #-}
 -- | Take an existing build plan and bump all packages to the newest version in
 -- the same major version number.
-module Stackage2.UpdateBuildPlan
+module Stackage.UpdateBuildPlan
     ( updateBuildConstraints
     , updateBuildPlan
     ) where
@@ -11,9 +11,9 @@ module Stackage2.UpdateBuildPlan
 import qualified Data.Map                     as Map
 import           Distribution.Version         (anyVersion, earlierVersion,
                                                orLaterVersion)
-import           Stackage2.BuildConstraints
-import           Stackage2.BuildPlan
-import           Stackage2.Prelude
+import           Stackage.BuildConstraints
+import           Stackage.BuildPlan
+import           Stackage.Prelude
 
 updateBuildPlan :: BuildPlan -> IO BuildPlan
 updateBuildPlan = newBuildPlan . updateBuildConstraints

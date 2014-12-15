@@ -1,10 +1,10 @@
 {-# LANGUAGE OverloadedStrings, NoImplicitPrelude #-}
-module Stackage2.BuildPlanSpec (spec) where
+module Stackage.BuildPlanSpec (spec) where
 
-import Stackage2.BuildPlan
-import Stackage2.Prelude
-import Stackage2.BuildConstraints
-import Stackage2.UpdateBuildPlan
+import Stackage.BuildPlan
+import Stackage.Prelude
+import Stackage.BuildConstraints
+import Stackage.UpdateBuildPlan
 import Test.Hspec
 import qualified Data.Yaml as Y
 import Distribution.Version (anyVersion)
@@ -12,7 +12,7 @@ import qualified Data.Map as Map
 
 spec :: Spec
 spec = it "works" $ do
-    bc <- defaultBuildConstraints
+    bc <- defaultBuildConstraints (error "manager should not be used")
     bp <- newBuildPlan bc
     let bs = Y.encode bp
         ebp' = Y.decodeEither bs
