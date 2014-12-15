@@ -41,6 +41,7 @@ instance ToJSON BuildPlan where
         [ "system-info" .= bpSystemInfo
         , "tools" .= map goTool bpTools
         , "packages" .= Map.mapKeysWith const unPackageName bpPackages
+        , "github-users" .= bpGithubUsers
         ]
       where
         goTool (k, v) = object
