@@ -680,180 +680,6 @@ skipped-tests:
     # https://github.com/pa-ba/compdata/issues/4
     - compdata
 
-# Tests which we should build and run, but which are expected to fail. We
-# should not fail a build based on a test failure for one of these packages.
-expected-test-failures:
-    # Requires an old version of WAI and Warp for tests
-    - HTTP
-
-    # text and setenv have recursive dependencies in their tests, which
-    # cabal can't (yet) handle
-    - text
-    - setenv
-
-    # The version of GLUT included with the HP does not generate
-    # documentation correctly.
-    - GLUT
-
-    # https://github.com/bos/statistics/issues/42
-    - statistics
-
-    # https://github.com/kazu-yamamoto/simple-sendfile/pull/10
-    - simple-sendfile
-
-    # http://hackage.haskell.org/trac/hackage/ticket/954
-    - diagrams
-
-    # https://github.com/fpco/stackage/issues/24
-    - unix-time
-
-    # With transformers 0.3, it doesn't provide any modules
-    - transformers-compat
-
-    # Tests require shell script and are incompatible with sandboxed package
-    # databases
-    - HTF
-
-    # https://github.com/simonmar/monad-par/issues/28
-    - monad-par
-
-    # Unfortunately network failures seem to happen haphazardly
-    - network
-
-    # https://github.com/ekmett/hyphenation/issues/1
-    - hyphenation
-
-    # Test suite takes too long to run on some systems
-    - punycode
-
-    # http://hub.darcs.net/stepcut/happstack/issue/1
-    - happstack-server
-
-    # Requires a Facebook app.
-    - fb
-
-    # https://github.com/tibbe/hashable/issues/64
-    - hashable
-
-    # https://github.com/vincenthz/language-java/issues/10
-    - language-java
-
-    - threads
-    - crypto-conduit
-    - pandoc
-    - language-ecmascript
-    - hspec
-    - alex
-
-    # https://github.com/basvandijk/concurrent-extra/issues/
-    - concurrent-extra
-
-    # https://github.com/skogsbaer/xmlgen/issues/2
-    - xmlgen
-
-    # Something very strange going on with the test suite, I can't figure
-    # out how to fix it
-    - bson
-
-    # Requires a locally running PostgreSQL server with appropriate users
-    - postgresql-simple
-
-    # Missing files
-    - websockets
-
-    # Some kind of Cabal bug when trying to run tests
-    - thyme
-
-    - shake
-
-    # https://github.com/jgm/pandoc-citeproc/issues/5
-    - pandoc-citeproc
-
-    # Problems with doctest and sandboxing
-    - warp
-    - wai-logger
-
-    # https://github.com/fpco/stackage/issues/163
-    - hTalos
-    - seqloc
-
-    # https://github.com/bos/math-functions/issues/25
-    - math-functions
-
-    # FIXME the test suite fails fairly regularly in builds, though I haven't
-    # discovered why yet
-    - crypto-numbers
-
-    # Test suite is currently failing regularly, needs to be worked out still.
-    - lens
-
-    # Requires too old a version of test-framework
-    - time
-
-    # Cloud Haskell tests seem to be unreliable
-    - distributed-process
-    - lockfree-queue
-    - network-transport-tcp
-
-    # Pulls in monad-peel which does not compile
-    - monad-control
-
-    # https://github.com/fpco/stackage/issues/226
-    - options
-
-    # https://github.com/gtk2hs/gtk2hs/issues/36
-    - glib
-    - pango
-
-    # https://github.com/acw/bytestring-progress/issues/3
-    - bytestring-progress
-
-    # Seems to require 32-bit functions
-    - nettle
-
-    # Depends on a missing graphviz executable
-    - graphviz
-
-    # No AWS creds available
-    - aws
-
-    # Not sure why...
-    - singletons
-
-    - hspec2
-    - hspec-wai
-
-    # https://github.com/fpco/stackage/issues/285
-    - diagrams-haddock
-    - scientific
-    - json-schema
-
-    # https://github.com/BioHaskell/octree/issues/4
-    - Octree
-
-    # No code until we upgrade to network 2.6
-    - network-uri
-
-    # https://github.com/goldfirere/th-desugar/issues/12
-    - th-desugar
-
-    # https://github.com/haskell/c2hs/issues/108
-    - c2hs
-
-    # https://github.com/jmillikin/haskell-filesystem/issues/3
-    - system-filepath
-
-    # Requires a running webdriver server
-    - webdriver
-    - webdriver-snoy
-
-    # Weird conflicts with sandboxing
-    - ghc-mod
-    - ghcid
-
-    # Requires locally running server
-    - bloodhound
-
     # Too lazy to keep the test dependencies up to date
     - base-prelude
     - cases
@@ -869,15 +695,108 @@ expected-test-failures:
     - slave-thread
     - stm-containers
 
-    # https://github.com/gtk2hs/gtk2hs/issues/79
-    - gio
-    - gtk
+# Tests which we should build and run, but which are expected to fail. We
+# should not fail a build based on a test failure for one of these packages.
+expected-test-failures:
+    # Requires an old version of WAI and Warp for tests
+    - HTTP
+
+    # text and setenv have recursive dependencies in their tests, which
+    # cabal can't (yet) handle
+    - text
+    - setenv
+
+    # https://github.com/bos/statistics/issues/42
+    - statistics
+
+    # https://github.com/kazu-yamamoto/simple-sendfile/pull/10
+    - simple-sendfile
+
+    # Tests require shell script and are incompatible with sandboxed package
+    # databases
+    - HTF
+
+    # Unfortunately network failures seem to happen haphazardly
+    - network
+
+    # Test suite takes too long to run on some systems
+    - punycode
+
+    # Requires a Facebook app.
+    - fb
+
+    # https://github.com/vincenthz/language-java/issues/10
+    - language-java
+
+    - threads
+    - crypto-conduit
+
+    # https://github.com/basvandijk/concurrent-extra/issues/
+    - concurrent-extra
+
+    # https://github.com/skogsbaer/xmlgen/issues/2
+    - xmlgen
+
+    # Requires a locally running PostgreSQL server with appropriate users
+    - postgresql-simple
+
+    # Some kind of Cabal bug when trying to run tests
+    - thyme
+
+    - shake
+
+    # Problems with doctest and sandboxing
+    - warp
+    - wai-logger
+
+    # https://github.com/fpco/stackage/issues/163
+    - hTalos
+
+    # https://github.com/bos/math-functions/issues/25
+    - math-functions
+
+    # Requires too old a version of test-framework
+    - time
+
+    # Cloud Haskell tests seem to be unreliable
+    - distributed-process
+    - lockfree-queue
+    - network-transport-tcp
+
+    # https://github.com/fpco/stackage/issues/226
+    - options
+
+    # Depends on a missing graphviz executable
+    - graphviz
+
+    # No AWS creds available
+    - aws
+
+    # Not sure why...
+    - singletons
+
+    # https://github.com/BioHaskell/octree/issues/4
+    - Octree
+
+    # https://github.com/goldfirere/th-desugar/issues/12
+    - th-desugar
+
+    # https://github.com/jmillikin/haskell-filesystem/issues/3
+    - system-filepath
+
+    # Requires a running webdriver server
+    - webdriver
+    - webdriver-snoy
+
+    # Weird conflicts with sandboxing
+    - ghc-mod
+    - ghcid
+
+    # Requires locally running server
+    - bloodhound
 
     # Requires SAT solver and old QuickCheck
     - ersatz
-
-    # https://github.com/ekmett/gl/issues/3
-    - gl
 
     # Failing doctests
     - bits
