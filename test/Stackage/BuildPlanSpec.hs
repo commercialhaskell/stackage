@@ -24,9 +24,10 @@ spec = it "works" $ do
         (name, lookup name (bpPackages bp')) `shouldBe`
         (name, lookup name (bpPackages bp))
 
-    bp' `shouldBe` bp
+    bpGithubUsers bp' `shouldBe` bpGithubUsers bp
+    when (bp' /= bp) $ error "bp' /= bp"
     bp2 <- updateBuildPlan bp
-    dropVersionRanges bp2 `shouldBe` dropVersionRanges bp
+    when (dropVersionRanges bp2 /= dropVersionRanges bp) $ error "bp2 /= bp"
   where
     dropVersionRanges bp =
         bp { bpPackages = map go $ bpPackages bp }
