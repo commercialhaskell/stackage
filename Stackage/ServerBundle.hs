@@ -24,7 +24,7 @@ import Filesystem (isFile)
 
 -- | Get current time
 epochTime :: IO Tar.EpochTime
-epochTime = (\(CTime t) -> t) <$> PC.epochTime
+epochTime = (\(CTime t) -> fromIntegral t) <$> PC.epochTime
 
 -- | All package/versions in a build plan, including core packages.
 --
