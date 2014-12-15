@@ -12,14 +12,17 @@ module Stackage2.BuildConstraints
     , defaultBuildConstraints
     ) where
 
+import           Control.Monad.Writer.Strict (execWriter, tell)
 import           Data.Aeson
-import qualified Data.Map               as Map
-import           Distribution.System    (Arch, OS)
+import qualified Data.Map                    as Map
+import           Data.Yaml                   (decodeEither', decodeFileEither)
+import           Distribution.Package        (Dependency (..))
+import           Distribution.System         (Arch, OS)
 import qualified Distribution.System
-import           Distribution.Version   (anyVersion)
-import qualified Stackage.Config        as Old
-import qualified Stackage.Select        as Old
-import qualified Stackage.Types         as Old
+import           Distribution.Version        (anyVersion)
+import           Distribution.Version        (anyVersion)
+import           Filesystem                  (isFile)
+import           Network.HTTP.Client         (Manager, httpLbs, responseBody)
 import           Stackage2.CorePackages
 import           Stackage2.Prelude
 
@@ -80,6 +83,9 @@ data BuildConstraints = BuildConstraints
     , bcPackageConstraints :: PackageName -> PackageConstraints
 
     , bcSystemInfo         :: SystemInfo
+
+    , bcGithubUsers        :: Map Text (Set Text)
+    -- ^ map an account to set of pingees
     }
 
 data PackageConstraints = PackageConstraints
@@ -113,50 +119,19 @@ instance FromJSON PackageConstraints where
         return PackageConstraints {..}
 
 -- | The proposed plan from the requirements provided by contributors.
-defaultBuildConstraints :: IO BuildConstraints
-defaultBuildConstraints = do
-    bcSystemInfo <- getSystemInfo
-    oldGhcVer <-
-        case siGhcVersion bcSystemInfo of
-            Version (x:y:_) _ -> return $ Old.GhcMajorVersion x y
-            _ -> error $ "Didn't not understand GHC version: " ++ show (siGhcVersion bcSystemInfo)
-
-
-    let oldSettings = Old.defaultSelectSettings oldGhcVer False
-        oldStable = Old.defaultStablePackages oldGhcVer False
-        defaultGlobalFlags = asMap $ mapFromList $
-            map (, True) (map FlagName $ setToList $ Old.flags oldSettings mempty) ++
-            map (, False) (map FlagName $ setToList $ Old.disabledFlags oldSettings)
-        expectedFailures = Old.defaultExpectedFailures oldGhcVer False ++
-                           newExpectedFailures
-        skippedTests =
-            old ++ extraSkippedTests
-          where
-            old = setFromList $ map unPackageName $ setToList $ Old.skippedTests oldSettings
-
-        bcPackages = Map.keysSet oldStable
-        bcPackageConstraints name =
-            PackageConstraints {..}
-          where
-            mold = lookup name $ oldStable
-
-            pcVersionRange = simplifyVersionRange $ maybe anyVersion fst mold
-            pcMaintainer = (Maintainer . pack . Old.unMaintainer . snd) <$> mold
-            pcTests
-                | unPackageName name `member` skippedTests = Don'tBuild
-                | name `member` expectedFailures = ExpectFailure
-                | otherwise = ExpectSuccess
-
-            pcBuildBenchmarks = unPackageName name `notMember` skippedBenchs
-
-            -- FIXME ultimately separate haddock and test failures in specification
-            pcHaddocks
-                | name `member` expectedFailures = ExpectFailure
-                | otherwise = ExpectSuccess
-
-            pcFlagOverrides = packageFlags name ++ defaultGlobalFlags
-
-    return BuildConstraints {..}
+--
+-- Checks the current directory for a build-constraints.yaml file and uses it
+-- if present. If not, downloads from Github.
+defaultBuildConstraints :: Manager -> IO BuildConstraints
+defaultBuildConstraints man = do
+    e <- isFile fp
+    if e
+        then decodeFileEither (fpToString fp) >>= either throwIO toBC
+        else httpLbs req man >>=
+             either throwIO toBC . decodeEither' . toStrict . responseBody
+  where
+    fp = "build-constraints.yaml"
+    req = "https://raw.githubusercontent.com/fpco/stackage/master/build-constraints.yaml"
 
 getSystemInfo :: IO SystemInfo
 getSystemInfo = do
@@ -169,30 +144,74 @@ getSystemInfo = do
     siOS   = Distribution.System.Linux
     siArch = Distribution.System.X86_64
 
-packageFlags :: PackageName -> Map FlagName Bool
-packageFlags (PackageName "mersenne-random-pure64") = singletonMap (FlagName "small_base") False
-packageFlags _ = mempty
+loadBuildConstraints fp = decodeFileEither fp >>= either throwIO toBC
 
-extraSkippedTests :: HashSet Text
-extraSkippedTests = setFromList $ words =<<
-    [ "HTTP Octree options"
-    , "hasql"
-    , "bloodhound fb" -- require old hspec
-    , "diagrams-haddock" -- requires old tasty
-    , "hasql-postgres" -- requires old hasql
-    , "compdata" -- https://github.com/pa-ba/compdata/issues/4
-    ]
+data ConstraintFile = ConstraintFile
+    { cfGlobalFlags             :: Map FlagName Bool
+    , cfPackageFlags            :: Map PackageName (Map FlagName Bool)
+    , cfSkippedTests            :: Set PackageName
+    , cfExpectedTestFailures    :: Set PackageName
+    , cfExpectedHaddockFailures :: Set PackageName
+    , cfSkippedBenchmarks       :: Set PackageName
+    , cfPackages                :: Map Maintainer (Vector Dependency)
+    , cfGithubUsers             :: Map Text (Set Text)
+    }
 
-skippedBenchs :: HashSet Text
-skippedBenchs = setFromList $ words =<<
-    [ "machines criterion-plus graphviz lifted-base pandoc stm-containers uuid"
-    , "cases hasql-postgres" -- pulls in criterion-plus, which has restrictive upper bounds
-    -- https://github.com/vincenthz/hs-crypto-cipher/issues/46
-    , "cipher-aes cipher-blowfish cipher-camellia cipher-des cipher-rc4"
-    , "hasql" -- sometimes falls out-of-sync on hasql-postgres
-    ]
+instance FromJSON ConstraintFile where
+    parseJSON = withObject "ConstraintFile" $ \o -> do
+        cfGlobalFlags <- goFlagMap <$> o .: "global-flags"
+        cfPackageFlags <- (goPackageMap . fmap goFlagMap) <$> o .: "package-flags"
+        cfSkippedTests <- getPackages o "skipped-tests"
+        cfExpectedTestFailures <- getPackages o "expected-test-failures"
+        cfExpectedHaddockFailures <- getPackages o "expected-haddock-failures"
+        cfSkippedBenchmarks <- getPackages o "skipped-benchmarks"
+        cfPackages <- o .: "packages"
+                  >>= mapM (mapM toDep)
+                    . Map.mapKeysWith const Maintainer
+        cfGithubUsers <- o .: "github-users"
+        return ConstraintFile {..}
+      where
+        goFlagMap = Map.mapKeysWith const FlagName
+        goPackageMap = Map.mapKeysWith const PackageName
+        getPackages o name = (setFromList . map PackageName) <$> o .: name
 
-newExpectedFailures :: Set PackageName
-newExpectedFailures = setFromList $ map PackageName $ words =<<
-    [ "cautious-file" -- weird problems with cabal test
-    ]
+        toDep :: Monad m => Text -> m Dependency
+        toDep = either (fail . show) return . simpleParse
+
+toBC :: ConstraintFile -> IO BuildConstraints
+toBC ConstraintFile {..} = do
+    bcSystemInfo <- getSystemInfo
+    return BuildConstraints {..}
+  where
+    combine (maintainer, range1) (_, range2) =
+        (maintainer, intersectVersionRanges range1 range2)
+    revmap = unionsWith combine $ ($ []) $ execWriter
+           $ forM_ (mapToList cfPackages)
+           $ \(maintainer, deps) -> forM_ deps
+           $ \(Dependency name range) ->
+            tell (singletonMap name (maintainer, range):)
+
+    bcPackages = Map.keysSet revmap
+
+    bcPackageConstraints name =
+        PackageConstraints {..}
+      where
+        mpair = lookup name revmap
+        pcMaintainer = fmap fst mpair
+        pcVersionRange = maybe anyVersion snd mpair
+        pcTests
+            | name `member` cfSkippedTests = Don'tBuild
+            | name `member` cfExpectedTestFailures = ExpectFailure
+            | otherwise = ExpectSuccess
+        pcBuildBenchmarks = name `notMember` cfSkippedBenchmarks
+        pcHaddocks
+            | name `member` cfExpectedHaddockFailures = ExpectFailure
+
+            -- Temporary to match old behavior
+            | name `member` cfExpectedTestFailures = ExpectFailure
+
+            | otherwise = ExpectSuccess
+        pcFlagOverrides = fromMaybe mempty (lookup name cfPackageFlags) ++
+                          cfGlobalFlags
+
+    bcGithubUsers = cfGithubUsers

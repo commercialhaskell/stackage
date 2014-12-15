@@ -24,6 +24,7 @@ updateBuildConstraints BuildPlan {..} =
   where
     bcSystemInfo = bpSystemInfo
     bcPackages = Map.keysSet bpPackages
+    bcGithubUsers = bpGithubUsers
 
     bcPackageConstraints name = PackageConstraints
         { pcVersionRange = addBumpRange (maybe anyVersion pcVersionRange moldPC)

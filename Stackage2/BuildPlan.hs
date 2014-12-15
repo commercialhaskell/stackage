@@ -32,6 +32,7 @@ data BuildPlan = BuildPlan
     { bpSystemInfo :: SystemInfo
     , bpTools      :: Vector (PackageName, Version)
     , bpPackages   :: Map PackageName PackagePlan
+    , bpGithubUsers :: Map Text (Set Text)
     }
     deriving (Show, Eq)
 
@@ -51,6 +52,7 @@ instance FromJSON BuildPlan where
         bpSystemInfo <- o .: "system-info"
         bpTools <- (o .: "tools") >>= mapM goTool
         bpPackages <- Map.mapKeysWith const mkPackageName <$> (o .: "packages")
+        bpGithubUsers <- o .:? "github-users" .!= mempty
         return BuildPlan {..}
       where
         goTool = withObject "Tool" $ \o -> (,)
@@ -105,6 +107,7 @@ newBuildPlan bc@BuildConstraints {..} = liftIO $ do
         { bpSystemInfo = bcSystemInfo
         , bpTools = tools
         , bpPackages = packages
+        , bpGithubUsers = bcGithubUsers
         }
   where
     SystemInfo {..} = bcSystemInfo
@@ -182,7 +185,7 @@ mkPackagePlan bc gpd = do
     return PackagePlan {..}
   where
     PackageIdentifier name ppVersion = package $ packageDescription gpd
-    ppGithubPings = getGithubPings gpd
+    ppGithubPings = getGithubPings bc gpd
     ppConstraints = bcPackageConstraints bc name
     ppUsers = mempty -- must be filled in later
 

@@ -39,11 +39,11 @@ data Settings = Settings
     , postBuild :: IO ()
     }
 
-getSettings :: BuildType -> IO Settings
-getSettings Nightly = do
+getSettings :: Manager -> BuildType -> IO Settings
+getSettings man Nightly = do
     day <- tshow . utctDay <$> getCurrentTime
     let slug' = "nightly-" ++ day
-    plan' <- defaultBuildConstraints >>= newBuildPlan
+    plan' <- defaultBuildConstraints man >>= newBuildPlan
     return Settings
         { planFile = fpFromText ("nightly-" ++ day) <.> "yaml"
         , buildDir = fpFromText $ "builds/stackage-nightly-" ++ day
@@ -59,7 +59,7 @@ getSettings Nightly = do
         , plan = plan'
         , postBuild = return ()
         }
-getSettings (LTS bumpType) = do
+getSettings man (LTS bumpType) = do
     Option mlts <- fmap (fmap getMax) $ runResourceT
         $ sourceDirectory "."
        $$ foldMapC (Option . fmap Max . parseLTSVer . filename)
@@ -70,7 +70,7 @@ getSettings (LTS bumpType) = do
                     case mlts of
                         Nothing -> LTSVer 0 0
                         Just (LTSVer x _) -> LTSVer (x + 1) 0
-            plan' <- defaultBuildConstraints >>= newBuildPlan
+            plan' <- defaultBuildConstraints man >>= newBuildPlan
             return (new, plan')
         Minor -> do
             old <- maybe (error "No LTS plans found in current directory") return mlts
@@ -133,7 +133,7 @@ completeBuild buildType = withManager defaultManagerSettings $ \man -> do
     hSetBuffering stdout LineBuffering
 
     putStrLn $ "Loading settings for: " ++ tshow buildType
-    Settings {..} <- getSettings buildType
+    Settings {..} <- getSettings man buildType
 
     putStrLn $ "Writing build plan to: " ++ fpToText planFile
     encodeFile (fpToString planFile) plan
