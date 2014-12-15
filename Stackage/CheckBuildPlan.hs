@@ -14,6 +14,7 @@ import Stackage.BuildConstraints
 import Stackage.BuildPlan
 import Stackage.PackageDescription
 import Stackage.Prelude
+import qualified Data.Text as T
 
 -- FIXME check cycles in dependencies, only looking at libraries and
 -- executables
@@ -97,7 +98,9 @@ instance Show BadBuildPlan where
             [ "- "
             , pkgUserShow1 pu
             , " ("
-            , display range
+            -- add a space after < to avoid confusing Markdown processors (like
+            -- Github's issue tracker)
+            , T.replace "<" "< " $ display range
             , "). "
             , pkgUserShow2 pu
             ]
