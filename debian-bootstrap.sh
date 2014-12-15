@@ -27,13 +27,3 @@ wget http://hackage.haskell.org/packages/archive/cabal-install/1.18.0.5/cabal-in
 tar zxfv cabal-install-1.18.0.5.tar.gz
 cd cabal-install-1.18.0.5/
 bash bootstrap.sh
-cd ..
-git clone --recursive https://github.com/fpco/stackage
-cd stackage
-cabal update
-cabal install
-
-stackage select && \
-    stackage check && \
-    stackage build && \
-    stackage test

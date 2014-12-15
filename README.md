@@ -42,41 +42,14 @@ agreement](https://github.com/fpco/stackage/wiki/Maintainers-Agreement).
 Build the package set
 ---------------------
 
-As this project is just starting, we don't really have a solid set of steps. In
-general, the following set of commands should be good for getting started:
+Generally, building the package set should be done only by the Jenkins machine
+or by the official maintainers, as the process does require quite a bit of
+setup on the local machine. That said, you'll likely be able to get a stable
+build by running:
 
     cabal update
-    git clone https://github.com/fpco/stackage
-    cd stackage
-    cabal sandbox init # requires cabal-install 1.18
-    cabal install --only-dependencies
-    cabal configure
-    cabal build
-    ./patching/scripts/create-tarballs.sh
-    ./dist/build/stackage/stackage select
-    ./dist/build/stackage/stackage check
-    ./dist/build/stackage/stackage build # takes a *long* time
-    ./dist/build/stackage/stackage test # also takes a *long* time
+    cabal install stackage
+    stackage nightly
 
-Notes
------
-
-Make sure to have Cabal-1.16 installed in either your global or user database,
-regardless of any sandboxing, as custom build types require it to be present.
-You must build with cabal-install 1.16, due to several important bug fixes.
-
-Using a non-Haskell Platform versions of GHC
---------------------------------------------
-
-By default, Stackage bases itself off of the Haskell Platform for determining
-which packages are core packages, and locks down package versions to match the
-Haskell Platform selections. This works fine when you are compiling with the
-same version of GHC as the Haskell Platform was built on. If you're using a
-different version of GHC, you'll probably need to use the following options for
-the `select` call:
-
-    --no-platform --use-global-db
-
-The former says to disregard Haskell Platform package versions, and the latter
-says to determine which packages are core packages based on their presence in
-the global package database.
+The code itself
+---------------
