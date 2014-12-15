@@ -645,6 +645,12 @@ package-flags:
     mersenne-random-pure64:
         small_base: false
 
+    # Use system libraries to speed up compilation and get bug fixes
+    persistent-sqlite:
+        systemlib: true
+    yaml:
+        system-libyaml: true
+
 # By skipping a test suite, we do not pull in the build dependencies
 skipped-tests:
     - ReadArgs # old version of hspec
