@@ -79,7 +79,8 @@ instance Show BadBuildPlan where
         unpack $ concatMap go $ mapToList errs
       where
         go ((dep, mdepVer), users) = unlines
-            $ showDepVer dep mdepVer
+            $ ""
+            : showDepVer dep mdepVer
             : map showUser (mapToList users)
 
         showDepVer :: PackageName -> Maybe Version -> Text
