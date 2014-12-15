@@ -14,6 +14,7 @@ sudo apt-get install -y build-essential libncurses-dev git libgmp3c2 libgmp3-dev
     libfreenect-dev \
     libnotify-dev \
     libgd2-xpm-dev \
+    libyaml-dev \
     libzmq3-dev
 wget http://www.haskell.org/ghc/dist/7.4.2/ghc-7.4.2-x86_64-unknown-linux.tar.bz2
 tar jxfv ghc-7.4.2-x86_64-unknown-linux.tar.bz2
