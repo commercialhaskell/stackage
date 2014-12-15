@@ -90,7 +90,7 @@ sourcePackageIndex = do
                 return gpd
 
     parseNameVersion t1 = do
-        let (p', t2) = break (== '/') t1
+        let (p', t2) = break (== '/') $ T.replace "\\" "/" t1
         p <- simpleParse p'
         t3 <- maybe (throwM $ InvalidCabalPath t1 "no slash") return
             $ stripPrefix "/" t2
