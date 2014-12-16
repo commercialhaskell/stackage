@@ -148,6 +148,7 @@ completeBuild buildType = withManager defaultManagerSettings $ \man -> do
             , pbLogDir = logDir
             , pbLog = hPut stdout
             , pbJobs = 8
+            , pbGlobalInstall = False
             }
     performBuild pb >>= mapM_ putStrLn
 

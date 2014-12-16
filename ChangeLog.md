@@ -1,3 +1,8 @@
+## 0.2.0.0
+
+* Minor fixes
+* `pbGlobalInstall`
+
 ## 0.1.0.0
 
 First version of Stackage which is made available as its own package. The

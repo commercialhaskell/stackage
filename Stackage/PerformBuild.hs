@@ -18,6 +18,7 @@ import Stackage.BuildPlan
 import Stackage.Prelude hiding (pi)
 import qualified Data.Map as Map
 import Control.Concurrent.STM.TSem
+import Control.Monad.Writer.Strict (execWriter, tell)
 import Data.NonNull (fromNullable)
 import Control.Concurrent.Async (async)
 import System.IO.Temp (withSystemTempDirectory)
@@ -55,6 +56,8 @@ data PerformBuild = PerformBuild
     , pbLog :: ByteString -> IO ()
     , pbLogDir :: FilePath
     , pbJobs :: Int
+    , pbGlobalInstall :: Bool
+    -- ^ Register packages in the global database
     }
 
 data PackageInfo = PackageInfo
@@ -106,7 +109,9 @@ withCounter counter = bracket_
 
 withTSem sem = bracket_ (atomically $ waitTSem sem) (atomically $ signalTSem sem)
 
-pbDatabase pb = pbInstallDest pb </> "pkgdb"
+pbDatabase pb
+    | pbGlobalInstall pb = Nothing
+    | otherwise = Just $ pbInstallDest pb </> "pkgdb"
 pbBinDir pb = pbInstallDest pb </> "bin"
 pbLibDir pb = pbInstallDest pb </> "lib"
 pbDataDir pb = pbInstallDest pb </> "share"
@@ -125,9 +130,10 @@ performBuild' pb@PerformBuild {..} = withBuildDir $ \builddir -> do
     let removeTree' fp = whenM (isDirectory fp) (removeTree fp)
     mapM_ removeTree' [pbInstallDest, pbLogDir]
 
-    createTree $ parent $ pbDatabase pb
-    withCheckedProcess (proc "ghc-pkg" ["init", fpToString (pbDatabase pb)])
-        $ \ClosedStream Inherited Inherited -> return ()
+    forM_ (pbDatabase pb) $ \db -> do
+        createTree $ parent db
+        withCheckedProcess (proc "ghc-pkg" ["init", fpToString db])
+            $ \ClosedStream Inherited Inherited -> return ()
     pbLog $ encodeUtf8 "Copying built-in Haddocks\n"
     copyBuiltInHaddocks (pbDocDir pb)
 
@@ -157,8 +163,11 @@ performBuild' pb@PerformBuild {..} = withBuildDir $ \builddir -> do
         , sbBuildDir = builddir
         , sbPackageInfo = pi
         , sbRegisterMutex = mutex
-        , sbModifiedEnv = ("HASKELL_PACKAGE_SANDBOX", fpToString $ pbDatabase pb)
-                        : map fixEnv env
+        , sbModifiedEnv = maybe
+            id
+            (\db -> (("HASKELL_PACKAGE_SANDBOX", fpToString db):))
+            (pbDatabase pb)
+            (map fixEnv env)
         , sbHaddockFiles = haddockFiles
         }
 
@@ -255,16 +264,17 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
         createTree $ parent fp
         withBinaryFile (fpToString fp) WriteMode inner
 
-    configArgs =
-        [ "--package-db=clear"
-        , "--package-db=global"
-        , "--package-db=" ++ fpToText (pbDatabase pb)
-        , "--libdir=" ++ fpToText (pbLibDir pb)
-        , "--bindir=" ++ fpToText (pbBinDir pb)
-        , "--datadir=" ++ fpToText (pbDataDir pb)
-        , "--docdir=" ++ fpToText (pbDocDir pb)
-        , "--flags=" ++ flags
-        ]
+    configArgs = ($ []) $ execWriter $ do
+        tell' "--package-db=clear"
+        tell' "--package-db=global"
+        forM_ (pbDatabase pb) $ \db -> tell' $ "--package-db=" ++ fpToText db
+        tell' $ "--libdir=" ++ fpToText (pbLibDir pb)
+        tell' $ "--bindir=" ++ fpToText (pbBinDir pb)
+        tell' $ "--datadir=" ++ fpToText (pbDataDir pb)
+        tell' $ "--docdir=" ++ fpToText (pbDocDir pb)
+        tell' $ "--flags=" ++ flags
+      where
+        tell' x = tell (x:)
 
     flags :: Text
     flags = unwords $ map go $ mapToList pcFlagOverrides
