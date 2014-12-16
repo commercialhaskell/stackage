@@ -9,12 +9,12 @@ module Stackage.CheckBuildPlan
     ( checkBuildPlan
     ) where
 
-import Control.Monad.Writer.Strict  (Writer, execWriter, tell)
-import Stackage.BuildConstraints
-import Stackage.BuildPlan
-import Stackage.PackageDescription
-import Stackage.Prelude
-import qualified Data.Text as T
+import           Control.Monad.Writer.Strict (Writer, execWriter, tell)
+import qualified Data.Text                   as T
+import           Stackage.BuildConstraints
+import           Stackage.BuildPlan
+import           Stackage.PackageDescription
+import           Stackage.Prelude
 
 -- FIXME check cycles in dependencies, only looking at libraries and
 -- executables

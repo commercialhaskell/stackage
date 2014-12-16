@@ -9,18 +9,18 @@ module Stackage.ServerBundle
     , docsListing
     ) where
 
-import qualified Codec.Archive.Tar          as Tar
-import qualified Codec.Archive.Tar.Entry    as Tar
-import qualified Codec.Compression.GZip     as GZip
-import qualified Data.Yaml                  as Y
-import           Foreign.C.Types            (CTime (CTime))
+import qualified Codec.Archive.Tar         as Tar
+import qualified Codec.Archive.Tar.Entry   as Tar
+import qualified Codec.Compression.GZip    as GZip
+import qualified Data.Yaml                 as Y
+import           Filesystem                (isFile)
+import           Foreign.C.Types           (CTime (CTime))
 import           Stackage.BuildConstraints
 import           Stackage.BuildPlan
 import           Stackage.Prelude
-import qualified System.PosixCompat.Time    as PC
-import qualified Text.XML as X
-import Text.XML.Cursor
-import Filesystem (isFile)
+import qualified System.PosixCompat.Time   as PC
+import qualified Text.XML                  as X
+import           Text.XML.Cursor
 
 -- | Get current time
 epochTime :: IO Tar.EpochTime

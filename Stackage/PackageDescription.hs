@@ -51,7 +51,7 @@ instance FromJSON Component where
 
 data DepInfo = DepInfo
     { diComponents :: Set Component
-    , diRange :: VersionRange
+    , diRange      :: VersionRange
     }
     deriving (Show, Eq)
 

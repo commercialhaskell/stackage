@@ -8,9 +8,9 @@ module Stackage.UpdateBuildPlan
     , updateBuildPlan
     ) where
 
-import qualified Data.Map                     as Map
-import           Distribution.Version         (anyVersion, earlierVersion,
-                                               orLaterVersion)
+import qualified Data.Map                  as Map
+import           Distribution.Version      (anyVersion, earlierVersion,
+                                            orLaterVersion)
 import           Stackage.BuildConstraints
 import           Stackage.BuildPlan
 import           Stackage.Prelude

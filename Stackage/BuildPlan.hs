@@ -29,9 +29,9 @@ import           Stackage.PackageIndex
 import           Stackage.Prelude
 
 data BuildPlan = BuildPlan
-    { bpSystemInfo :: SystemInfo
-    , bpTools      :: Vector (PackageName, Version)
-    , bpPackages   :: Map PackageName PackagePlan
+    { bpSystemInfo  :: SystemInfo
+    , bpTools       :: Vector (PackageName, Version)
+    , bpPackages    :: Map PackageName PackagePlan
     , bpGithubUsers :: Map Text (Set Text)
     }
     deriving (Show, Eq)

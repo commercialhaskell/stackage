@@ -6,11 +6,11 @@ module Stackage.CompleteBuild
     , BumpType (..)
     , completeBuild
     ) where
-import Data.Default.Class         (def)
-import Data.Semigroup             (Max (..), Option (..))
-import Data.Text.Read             (decimal)
+import Data.Default.Class        (def)
+import Data.Semigroup            (Max (..), Option (..))
+import Data.Text.Read            (decimal)
 import Data.Time
-import Data.Yaml                  (decodeFileEither, encodeFile)
+import Data.Yaml                 (decodeFileEither, encodeFile)
 import Network.HTTP.Client
 import Stackage.BuildConstraints
 import Stackage.BuildPlan
@@ -20,7 +20,7 @@ import Stackage.Prelude
 import Stackage.ServerBundle
 import Stackage.UpdateBuildPlan
 import Stackage.Upload
-import System.IO                  (BufferMode (LineBuffering), hSetBuffering)
+import System.IO                 (BufferMode (LineBuffering), hSetBuffering)
 
 data BuildType = Nightly | LTS BumpType
     deriving (Show, Read, Eq, Ord)

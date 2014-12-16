@@ -6,10 +6,10 @@ module Stackage.CorePackages
     , getGhcVersion
     ) where
 
-import qualified Data.Text         as T
-import           Filesystem        (listDirectory)
+import qualified Data.Text        as T
+import           Filesystem       (listDirectory)
 import           Stackage.Prelude
-import           System.Directory  (findExecutable)
+import           System.Directory (findExecutable)
 
 -- | Get a @Map@ of all of the core packages. Core packages are defined as
 -- packages which ship with GHC itself.

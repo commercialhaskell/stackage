@@ -1,10 +1,10 @@
 -- | Perform an actual build, generate a binary package database and a
 -- documentation directory in the process.
-{-# LANGUAGE CPP #-}
+{-# LANGUAGE CPP                #-}
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE NoImplicitPrelude  #-}
 {-# LANGUAGE OverloadedStrings  #-}
+{-# LANGUAGE RecordWildCards    #-}
 module Stackage.PerformBuild
     ( performBuild
     , PerformBuild (..)
@@ -12,22 +12,25 @@ module Stackage.PerformBuild
     , pbDocDir
     ) where
 
-import Stackage.BuildConstraints
-import Stackage.PackageDescription
-import Stackage.BuildPlan
-import Stackage.Prelude hiding (pi)
-import qualified Data.Map as Map
-import Control.Concurrent.STM.TSem
-import Control.Monad.Writer.Strict (execWriter, tell)
-import Data.NonNull (fromNullable)
-import Control.Concurrent.Async (async)
-import System.IO.Temp (withSystemTempDirectory)
-import Filesystem (createTree, removeTree, isDirectory, rename, canonicalizePath, getWorkingDirectory)
-import System.IO (withBinaryFile, IOMode (WriteMode))
-import Filesystem.Path (parent)
-import qualified Filesystem.Path as F
-import System.Environment (getEnvironment)
-import System.Directory (findExecutable)
+import           Control.Concurrent.Async    (async)
+import           Control.Concurrent.STM.TSem
+import           Control.Monad.Writer.Strict (execWriter, tell)
+import qualified Data.Map                    as Map
+import           Data.NonNull                (fromNullable)
+import           Filesystem                  (canonicalizePath, createTree,
+                                              getWorkingDirectory, isDirectory,
+                                              removeTree, rename)
+import           Filesystem.Path             (parent)
+import qualified Filesystem.Path             as F
+import           Stackage.BuildConstraints
+import           Stackage.BuildPlan
+import           Stackage.PackageDescription
+import           Stackage.Prelude            hiding (pi)
+import           System.Directory            (findExecutable)
+import           System.Environment          (getEnvironment)
+import           System.IO                   (IOMode (WriteMode),
+                                              withBinaryFile)
+import           System.IO.Temp              (withSystemTempDirectory)
 
 data BuildException = BuildException (Map PackageName BuildFailure) [Text]
     deriving Typeable
@@ -51,18 +54,18 @@ data BuildFailure = DependencyFailed PackageName
 instance Exception BuildFailure
 
 data PerformBuild = PerformBuild
-    { pbPlan :: BuildPlan
-    , pbInstallDest :: FilePath
-    , pbLog :: ByteString -> IO ()
-    , pbLogDir :: FilePath
-    , pbJobs :: Int
+    { pbPlan          :: BuildPlan
+    , pbInstallDest   :: FilePath
+    , pbLog           :: ByteString -> IO ()
+    , pbLogDir        :: FilePath
+    , pbJobs          :: Int
     , pbGlobalInstall :: Bool
     -- ^ Register packages in the global database
     }
 
 data PackageInfo = PackageInfo
-    { piPlan :: PackagePlan
-    , piName :: PackageName
+    { piPlan   :: PackagePlan
+    , piName   :: PackageName
     , piResult :: TMVar Bool
     }
 
@@ -200,17 +203,17 @@ performBuild' pb@PerformBuild {..} = withBuildDir $ \builddir -> do
 #endif
 
 data SingleBuild = SingleBuild
-    { sbSem :: TSem
-    , sbErrsVar :: TVar (Map PackageName BuildFailure)
-    , sbWarningsVar :: TVar ([Text] -> [Text])
-    , sbActive :: TVar Int
-    , sbToolMap :: Map ExeName (Set PackageName)
-    , sbPackageMap :: Map PackageName PackageInfo
-    , sbBuildDir :: FilePath
-    , sbPackageInfo :: PackageInfo
+    { sbSem           :: TSem
+    , sbErrsVar       :: TVar (Map PackageName BuildFailure)
+    , sbWarningsVar   :: TVar ([Text] -> [Text])
+    , sbActive        :: TVar Int
+    , sbToolMap       :: Map ExeName (Set PackageName)
+    , sbPackageMap    :: Map PackageName PackageInfo
+    , sbBuildDir      :: FilePath
+    , sbPackageInfo   :: PackageInfo
     , sbRegisterMutex :: MVar ()
-    , sbModifiedEnv :: [(String, String)]
-    , sbHaddockFiles :: TVar (Map Text FilePath) -- ^ package-version, .haddock file
+    , sbModifiedEnv   :: [(String, String)]
+    , sbHaddockFiles  :: TVar (Map Text FilePath) -- ^ package-version, .haddock file
     }
 
 singleBuild :: PerformBuild -> SingleBuild -> IO ()
