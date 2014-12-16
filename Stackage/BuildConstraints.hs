@@ -20,7 +20,6 @@ import           Distribution.Package        (Dependency (..))
 import           Distribution.System         (Arch, OS)
 import qualified Distribution.System
 import           Distribution.Version        (anyVersion)
-import           Distribution.Version        (anyVersion)
 import           Filesystem                  (isFile)
 import           Network.HTTP.Client         (Manager, httpLbs, responseBody)
 import           Stackage.CorePackages
@@ -143,8 +142,6 @@ getSystemInfo = do
     -- FIXME consider not hard-coding the next two values
     siOS   = Distribution.System.Linux
     siArch = Distribution.System.X86_64
-
-loadBuildConstraints fp = decodeFileEither fp >>= either throwIO toBC
 
 data ConstraintFile = ConstraintFile
     { cfGlobalFlags             :: Map FlagName Bool

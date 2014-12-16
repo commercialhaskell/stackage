@@ -20,7 +20,6 @@ import           Distribution.Version            as X (Version (..),
                                                        VersionRange)
 import           Distribution.Version            as X (withinRange)
 import qualified Distribution.Version            as C
-import           System.Exit                     (ExitCode (ExitSuccess))
 
 unPackageName :: PackageName -> Text
 unPackageName (PackageName str) = pack str

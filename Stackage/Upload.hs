@@ -90,6 +90,7 @@ data UploadDocs = UploadDocs
     , udSnapshot  :: SnapshotIdent
     }
 
+uploadDocs :: UploadDocs -> Manager -> IO (Response LByteString)
 uploadDocs (UploadDocs (StackageServer host) fp0 token ident) man = do
     fe <- isFile fp0
     if fe
@@ -179,6 +180,7 @@ data UploadDocMap = UploadDocMap
     , udmPlan :: BuildPlan
     }
 
+uploadDocMap :: UploadDocMap -> Manager -> IO (Response LByteString)
 uploadDocMap UploadDocMap {..} man = do
     docmap <- docsListing udmPlan udmDocDir
     req1 <- parseUrl $ unpack $ unStackageServer udmServer ++ "/upload-doc-map"

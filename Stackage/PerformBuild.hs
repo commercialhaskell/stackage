@@ -103,15 +103,21 @@ waitForDeps toolMap packageMap activeComps bp pi action = do
     isCore = (`member` siCorePackages (bpSystemInfo bp))
     isCoreExe = (`member` siCoreExecutables (bpSystemInfo bp))
 
+withCounter :: TVar Int -> IO a -> IO a
 withCounter counter = bracket_
     (atomically $ modifyTVar counter (+ 1))
     (atomically $ modifyTVar counter (subtract 1))
 
+withTSem :: TSem -> IO a -> IO a
 withTSem sem = bracket_ (atomically $ waitTSem sem) (atomically $ signalTSem sem)
 
+-- | Returns @Nothing@ if installing to a global database
+pbDatabase :: PerformBuild -> Maybe FilePath
 pbDatabase pb
     | pbGlobalInstall pb = Nothing
     | otherwise = Just $ pbInstallDest pb </> "pkgdb"
+
+pbBinDir, pbLibDir, pbDataDir, pbDocDir :: PerformBuild -> FilePath
 pbBinDir pb = pbInstallDest pb </> "bin"
 pbLibDir pb = pbInstallDest pb </> "lib"
 pbDataDir pb = pbInstallDest pb </> "share"
@@ -260,9 +266,9 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
     testOut = pbLogDir </> fpFromText namever </> "test.out"
     testRunOut = pbLogDir </> fpFromText namever </> "test-run.out"
 
-    wf fp inner = do
+    wf fp inner' = do
         createTree $ parent fp
-        withBinaryFile (fpToString fp) WriteMode inner
+        withBinaryFile (fpToString fp) WriteMode inner'
 
     configArgs = ($ []) $ execWriter $ do
         tell' "--package-db=clear"
@@ -279,9 +285,9 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
     flags :: Text
     flags = unwords $ map go $ mapToList pcFlagOverrides
       where
-        go (name, isOn) = concat
+        go (name', isOn) = concat
             [ if isOn then "" else "-"
-            , unFlagName name
+            , unFlagName name'
             ]
 
     PackageConstraints {..} = ppConstraints $ piPlan sbPackageInfo
