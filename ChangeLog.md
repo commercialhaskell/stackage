@@ -1,3 +1,7 @@
+## 0.2.1.0
+
+* Use TLS manager (to download from Github)
+
 ## 0.2.0.0
 
 * Minor fixes

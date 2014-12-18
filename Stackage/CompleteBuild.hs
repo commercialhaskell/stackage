@@ -12,6 +12,7 @@ import Data.Text.Read            (decimal)
 import Data.Time
 import Data.Yaml                 (decodeFileEither, encodeFile)
 import Network.HTTP.Client
+import Network.HTTP.Client.TLS   (tlsManagerSettings)
 import Stackage.BuildConstraints
 import Stackage.BuildPlan
 import Stackage.CheckBuildPlan
@@ -129,7 +130,7 @@ renderLTSVer lts = fpFromText $ concat
     ]
 
 completeBuild :: BuildType -> IO ()
-completeBuild buildType = withManager defaultManagerSettings $ \man -> do
+completeBuild buildType = withManager tlsManagerSettings $ \man -> do
     hSetBuffering stdout LineBuffering
 
     putStrLn $ "Loading settings for: " ++ tshow buildType
