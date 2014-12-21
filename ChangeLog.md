@@ -1,3 +1,7 @@
+## 0.2.1.1
+
+Run postBuild earlier to avoid problems from broken doc uploads.
+
 ## 0.2.1.0
 
 * Use TLS manager (to download from Github)
