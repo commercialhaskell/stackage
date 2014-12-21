@@ -163,6 +163,8 @@ completeBuild buildType = withManager tlsManagerSettings $ \man -> do
         }
     putStrLn $ "New ident: " ++ unSnapshotIdent ident
 
+    postBuild `catchAny` print
+
     putStrLn "Uploading docs to Stackage Server"
     res1 <- uploadDocs UploadDocs
         { udServer = def
@@ -188,5 +190,3 @@ completeBuild buildType = withManager tlsManagerSettings $ \man -> do
         , udmDocDir = pbDocDir pb
         , udmPlan = plan
         } man >>= print
-
-    postBuild
