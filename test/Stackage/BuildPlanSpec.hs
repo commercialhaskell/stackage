@@ -9,10 +9,12 @@ import Test.Hspec
 import qualified Data.Yaml as Y
 import Distribution.Version (anyVersion)
 import qualified Data.Map as Map
+import Network.HTTP.Client (withManager)
+import Network.HTTP.Client.TLS (tlsManagerSettings)
 
 spec :: Spec
-spec = it "works" $ do
-    bc <- defaultBuildConstraints (error "manager should not be used")
+spec = it "works" $ withManager tlsManagerSettings $ \man -> do
+    bc <- defaultBuildConstraints man
     bp <- newBuildPlan bc
     let bs = Y.encode bp
         ebp' = Y.decodeEither bs
