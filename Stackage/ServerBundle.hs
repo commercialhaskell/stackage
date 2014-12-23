@@ -12,6 +12,7 @@ module Stackage.ServerBundle
 import qualified Codec.Archive.Tar         as Tar
 import qualified Codec.Archive.Tar.Entry   as Tar
 import qualified Codec.Compression.GZip    as GZip
+import qualified Data.Map                  as M
 import qualified Data.Yaml                 as Y
 import           Filesystem                (isFile)
 import           Foreign.C.Types           (CTime (CTime))
@@ -43,6 +44,7 @@ serverBundle time title slug bp@BuildPlan {..} = GZip.compress $ Tar.write
     , fe "hackage" hackage
     , fe "slug" (fromStrict $ encodeUtf8 slug)
     , fe "desc" (fromStrict $ encodeUtf8 title)
+    , fe "core" corePackagesList
     ]
   where
     fe name contents =
@@ -65,6 +67,13 @@ serverBundle time title slug bp@BuildPlan {..} = GZip.compress $ Tar.write
         toBuilder (asText "-") ++
         toBuilder (display version) ++
         toBuilder (asText "\n")
+
+    corePackagesList =
+        builderToLazy $ toBuilder $
+            intercalate
+              "\n"
+              (map (\(PackageName name) -> name)
+                   (M.keys $ siCorePackages bpSystemInfo))
 
 docsListing :: BuildPlan
             -> FilePath -- ^ docs directory
