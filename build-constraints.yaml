@@ -94,9 +94,20 @@ packages:
         - singletons
         - th-desugar
         - quickcheck-assertions
-        - distributed-process
+
         - distributed-process-simplelocalnet
-        - cloud-haskell
+        # cloud-haskell
+        - rank1dynamic
+        - distributed-static
+        - network-transport
+        - distributed-process
+        - distributed-process-extras
+        - distributed-process-async
+        - distributed-process-client-server
+        - distributed-process-supervisor
+        - distributed-process-task
+        - distributed-process-execution
+
         - kure <= 2.4.10
 
     "Omari Norman <omari@smileystation.com>":
@@ -697,6 +708,11 @@ skipped-tests:
     - postgresql-binary
     - slave-thread
     - stm-containers
+
+    # Cloud Haskell out-of-date dependencies
+    - distributed-process-async
+    - distributed-process-client-server
+    - distributed-process-extras
 
 # Tests which we should build and run, but which are expected to fail. We
 # should not fail a build based on a test failure for one of these packages.
