@@ -69,11 +69,9 @@ serverBundle time title slug bp@BuildPlan {..} = GZip.compress $ Tar.write
         toBuilder (asText "\n")
 
     corePackagesList =
-        builderToLazy $ toBuilder $
-            intercalate
-              "\n"
-              (map (\(PackageName name) -> name)
-                   (M.keys $ siCorePackages bpSystemInfo))
+        builderToLazy $ toBuilder $ unlines $
+            map (\(PackageName name) -> name)
+                (M.keys $ siCorePackages bpSystemInfo)
 
 docsListing :: BuildPlan
             -> FilePath -- ^ docs directory
