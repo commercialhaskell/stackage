@@ -1,3 +1,7 @@
+## 0.2.1.4
+
+Generate a `core` file in bundles.
+
 ## 0.2.1.1
 
 Run postBuild earlier to avoid problems from broken doc uploads.
