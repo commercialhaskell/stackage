@@ -67,7 +67,10 @@ uploadBundle UploadBundle {..} man = do
             }
     res <- httpLbs req3 man
     case lookup "x-stackage-ident" $ responseHeaders res of
-        Just snapid -> return $ SnapshotIdent $ decodeUtf8 snapid
+        Just snapid -> do
+            forM_ (lookup "location" $ responseHeaders res) $ \loc ->
+                putStrLn $ "Check upload progress at: " ++ decodeUtf8 loc
+            return $ SnapshotIdent $ decodeUtf8 snapid
         Nothing -> error $ "An error occurred: " ++ show res
   where
     params = mapMaybe (\(x, y) -> (x, ) <$> y)
