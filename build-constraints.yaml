@@ -2,7 +2,7 @@
 packages:
     "Michael Snoyman michael@snoyman.com @snoyberg":
         - bzlib-conduit
-        - cabal-install < 1.19 # GHC 7.10 bumpd to 1.22
+        - cabal-install
         - cabal-src
         - case-insensitive
         - classy-prelude-yesod
@@ -264,7 +264,7 @@ packages:
         - monad-products
         - monad-st
         - monad-st
-        - mtl < 2.2 # GHC 7.10 bump
+        - mtl
         - nats
         - numeric-extras
         - parsers
@@ -596,7 +596,7 @@ packages:
         - hasql-backend
         - hasql-postgres
         - list-t
-        - mtl-prelude < 2 # GHC 7.10 bump
+        - mtl-prelude
         - neat-interpolation
         - partial-handler
         - postgresql-binary
@@ -705,10 +705,6 @@ packages:
 
     "Stackage upper bounds":
 
-        # Force a specific version that's compatible with transformers 0.3
-        - transformers-compat == 0.3.3.3
-        - mtl-compat < 0.2 # https://github.com/fpco/stackage/issues/446
-
         # https://github.com/fpco/stackage/issues/291
         - random < 1.0.1.3
 
@@ -769,23 +765,11 @@ package-flags:
         simplelocalnet: true
         p2p: true
 
-    # GHC 7.10: Remove this
-    # Note that the flag is lower-cased, because that's what Cabal does
-    # Perhaps the codebase should automatically lower case flag names?
-    storable-complex:
-        instanceinbase: false
-
     logfloat:
         splitbase: true
 
     curl:
         new-base: true
-
-    # GHC 7.10 remove
-    aeson:
-        old-locale: true
-    tttool:
-        old-locale: true
 
     hxt:
         network-uri: true
