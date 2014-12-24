@@ -51,7 +51,7 @@ instance Default UploadBundle where
 newtype SnapshotIdent = SnapshotIdent { unSnapshotIdent :: Text }
     deriving (Show, Eq, Ord, Hashable, IsString)
 
-uploadBundle :: UploadBundle -> Manager -> IO SnapshotIdent
+uploadBundle :: UploadBundle -> Manager -> IO (SnapshotIdent, Maybe Text)
 uploadBundle UploadBundle {..} man = do
     req1 <- parseUrl $ unpack $ unStackageServer ubServer ++ "/upload"
     req2 <- formDataBody formData req1
@@ -67,10 +67,10 @@ uploadBundle UploadBundle {..} man = do
             }
     res <- httpLbs req3 man
     case lookup "x-stackage-ident" $ responseHeaders res of
-        Just snapid -> do
-            forM_ (lookup "location" $ responseHeaders res) $ \loc ->
-                putStrLn $ "Check upload progress at: " ++ decodeUtf8 loc
-            return $ SnapshotIdent $ decodeUtf8 snapid
+        Just snapid -> return
+            ( SnapshotIdent $ decodeUtf8 snapid
+            , decodeUtf8 <$> lookup "location" (responseHeaders res)
+            )
         Nothing -> error $ "An error occurred: " ++ show res
   where
     params = mapMaybe (\(x, y) -> (x, ) <$> y)

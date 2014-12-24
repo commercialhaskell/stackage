@@ -157,11 +157,13 @@ completeBuild buildType = withManager tlsManagerSettings $ \man -> do
     token <- readFile "/auth-token"
     now <- epochTime
     let ghcVer = display $ siGhcVersion $ bpSystemInfo plan
-    ident <- flip uploadBundle man $ setArgs ghcVer def
+    (ident, mloc) <- flip uploadBundle man $ setArgs ghcVer def
         { ubContents = serverBundle now (title ghcVer) slug plan
         , ubAuthToken = decodeUtf8 token
         }
     putStrLn $ "New ident: " ++ unSnapshotIdent ident
+    forM_ mloc $ \loc ->
+        putStrLn $ "Track progress at: " ++ loc
 
     postBuild `catchAny` print
 

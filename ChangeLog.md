@@ -1,3 +1,7 @@
+## 0.3.0.0
+
+* Return progress URL from uploadBundle
+
 ## 0.2.1.4
 
 Generate a `core` file in bundles.
