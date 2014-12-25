@@ -5,6 +5,7 @@ module Stackage.CompleteBuild
     ( BuildType (..)
     , BumpType (..)
     , completeBuild
+    , justCheck
     ) where
 import Data.Default.Class        (def)
 import Data.Semigroup            (Max (..), Option (..))
@@ -128,6 +129,25 @@ renderLTSVer lts = fpFromText $ concat
     , tshow lts
     , ".yaml"
     ]
+
+-- | Generate and check a new build plan, but do not execute it.
+--
+-- Since 0.3.1
+justCheck :: IO ()
+justCheck = withManager tlsManagerSettings $ \man -> do
+    putStrLn "Loading build constraints"
+    bc <- defaultBuildConstraints man
+
+    putStrLn "Creating build plan"
+    plan <- newBuildPlan bc
+
+    putStrLn $ "Writing build plan to check-plan.yaml"
+    encodeFile "check-plan.yaml" plan
+
+    putStrLn "Checking plan"
+    checkBuildPlan plan
+
+    putStrLn "Plan seems valid!"
 
 completeBuild :: BuildType -> IO ()
 completeBuild buildType = withManager tlsManagerSettings $ \man -> do
