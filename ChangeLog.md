@@ -1,3 +1,7 @@
+## 0.3.0.1
+
+Pre-fetch all packages from Hackage to catch Hackage downtime early.
+
 ## 0.3.0.0
 
 * Return progress URL from uploadBundle

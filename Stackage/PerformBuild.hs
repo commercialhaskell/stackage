@@ -136,6 +136,22 @@ performBuild pb = do
 
 performBuild' :: PerformBuild -> IO [Text]
 performBuild' pb@PerformBuild {..} = withBuildDir $ \builddir -> do
+    -- First make sure to fetch all of the dependencies... just in case Hackage
+    -- has an outage. Don't feel like wasting hours of CPU time.
+    pbLog $ encodeUtf8 "Pre-fetching all packages\n"
+    let toDownload = flip map (mapToList $ bpPackages pbPlan)
+            $ \(name, plan) -> unpack $ concat
+                [ display name
+                , "-"
+                , display $ ppVersion plan
+                ]
+    withCheckedProcess
+        (proc "cabal"
+            $ "fetch"
+            : "--no-dependencies"
+            : toDownload)
+        $ \ClosedStream Inherited Inherited -> return ()
+
     let removeTree' fp = whenM (isDirectory fp) (removeTree fp)
     mapM_ removeTree' [pbInstallDest, pbLogDir]
 
