@@ -412,16 +412,6 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
 renameOrCopy :: FilePath -> FilePath -> IO ()
 renameOrCopy src dest = rename src dest `catchIO` \_ -> copyDir src dest
 
-copyDir :: FilePath -> FilePath -> IO ()
-copyDir src dest =
-    runResourceT $ sourceDirectoryDeep False src $$ mapM_C go
-  where
-    src' = src </> ""
-    go fp = forM_ (F.stripPrefix src' fp) $ \suffix -> do
-        let dest' = dest </> suffix
-        liftIO $ createTree $ parent dest'
-        sourceFile fp $$ (sinkFile dest' :: Sink ByteString (ResourceT IO) ())
-
 copyBuiltInHaddocks :: FilePath -> IO ()
 copyBuiltInHaddocks docdir = do
     mghc <- findExecutable "ghc"

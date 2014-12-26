@@ -1,3 +1,7 @@
+## 0.4.0
+
+* Upload bundle V2 stuff
+
 ## 0.3.1
 
 * Added `justCheck` and `stackage check` command line.
