@@ -46,4 +46,5 @@ sudo apt-get install -y \
     libnotify-dev \
     libgd2-xpm-dev \
     libyaml-dev \
+    liblzma-dev \
     libzmq3-dev
