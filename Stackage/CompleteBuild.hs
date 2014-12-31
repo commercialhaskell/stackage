@@ -155,12 +155,14 @@ justCheck = withManager tlsManagerSettings $ \man -> do
 
     putStrLn "Plan seems valid!"
 
+-- | Make a complete plan, build, test and upload bundle, docs and
+-- distro.
 completeBuild :: BuildType -> BuildFlags -> IO ()
 completeBuild buildType buildFlags = withManager tlsManagerSettings $ \man -> do
     hSetBuffering stdout LineBuffering
 
     putStrLn $ "Loading settings for: " ++ tshow buildType
-    Settings {..} <- getSettings man buildType
+    settings@Settings {..} <- getSettings man buildType
 
     putStrLn $ "Writing build plan to: " ++ fpToText planFile
     encodeFile (fpToString planFile) plan
@@ -180,6 +182,12 @@ completeBuild buildType buildFlags = withManager tlsManagerSettings $ \man -> do
             }
     performBuild pb >>= mapM_ putStrLn
 
+    finallyUpload settings man pb
+
+-- | The final part of the complete build process: uploading a bundle,
+-- docs and a distro to hackage.
+finallyUpload :: Settings -> Manager -> PerformBuild -> IO ()
+finallyUpload Settings{..} man pb = do
     putStrLn "Uploading bundle to Stackage Server"
     token <- readFile "/auth-token"
     now <- epochTime
