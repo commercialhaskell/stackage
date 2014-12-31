@@ -62,6 +62,7 @@ data PerformBuild = PerformBuild
     , pbGlobalInstall :: Bool
     -- ^ Register packages in the global database
     , pbEnableTests        :: Bool
+    , pbEnableLibProfiling :: Bool
     }
 
 data PackageInfo = PackageInfo
@@ -299,6 +300,8 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
         tell' $ "--datadir=" ++ fpToText (pbDataDir pb)
         tell' $ "--docdir=" ++ fpToText (pbDocDir pb)
         tell' $ "--flags=" ++ flags
+        when (pbEnableLibProfiling && pcEnableLibProfile) $
+            tell' "--enable-library-profiling"
       where
         tell' x = tell (x:)
 

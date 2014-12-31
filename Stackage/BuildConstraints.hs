@@ -88,12 +88,13 @@ data BuildConstraints = BuildConstraints
     }
 
 data PackageConstraints = PackageConstraints
-    { pcVersionRange    :: VersionRange
-    , pcMaintainer      :: Maybe Maintainer
-    , pcTests           :: TestState
-    , pcHaddocks        :: TestState
-    , pcBuildBenchmarks :: Bool
-    , pcFlagOverrides   :: Map FlagName Bool
+    { pcVersionRange     :: VersionRange
+    , pcMaintainer       :: Maybe Maintainer
+    , pcTests            :: TestState
+    , pcHaddocks         :: TestState
+    , pcBuildBenchmarks  :: Bool
+    , pcFlagOverrides    :: Map FlagName Bool
+    , pcEnableLibProfile :: Bool
     }
     deriving (Show, Eq)
 instance ToJSON PackageConstraints where
@@ -115,6 +116,7 @@ instance FromJSON PackageConstraints where
         pcBuildBenchmarks <- o .: "build-benchmarks"
         pcFlagOverrides <- Map.mapKeysWith const mkFlagName <$> o .: "flags"
         pcMaintainer <- o .:? "maintainer"
+        pcEnableLibProfile <- fmap (fromMaybe False) (o .:? "library-profiling")
         return PackageConstraints {..}
 
 -- | The proposed plan from the requirements provided by contributors.
@@ -152,6 +154,7 @@ data ConstraintFile = ConstraintFile
     , cfSkippedBenchmarks       :: Set PackageName
     , cfPackages                :: Map Maintainer (Vector Dependency)
     , cfGithubUsers             :: Map Text (Set Text)
+    , cfSkippedLibProfiling     :: Set PackageName
     }
 
 instance FromJSON ConstraintFile where
@@ -162,6 +165,7 @@ instance FromJSON ConstraintFile where
         cfExpectedTestFailures <- getPackages o "expected-test-failures"
         cfExpectedHaddockFailures <- getPackages o "expected-haddock-failures"
         cfSkippedBenchmarks <- getPackages o "skipped-benchmarks"
+        cfSkippedLibProfiling <- getPackages o "skipped-profiling"
         cfPackages <- o .: "packages"
                   >>= mapM (mapM toDep)
                     . Map.mapKeysWith const Maintainer
@@ -196,6 +200,7 @@ toBC ConstraintFile {..} = do
         mpair = lookup name revmap
         pcMaintainer = fmap fst mpair
         pcVersionRange = maybe anyVersion snd mpair
+        pcEnableLibProfile = not (name `member` cfSkippedLibProfiling)
         pcTests
             | name `member` cfSkippedTests = Don'tBuild
             | name `member` cfExpectedTestFailures = ExpectFailure

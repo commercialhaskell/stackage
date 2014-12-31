@@ -66,4 +66,7 @@ main =
             not
             (switch
                  (long "skip-upload" <>
-                  help "Skip uploading bundle, docs, etc."))
+                  help "Skip uploading bundle, docs, etc.")) <*>
+        switch
+            (long "enable-library-profiling" <>
+             help "Enable profiling when building")

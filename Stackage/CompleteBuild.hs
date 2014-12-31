@@ -27,8 +27,9 @@ import System.IO                 (BufferMode (LineBuffering), hSetBuffering)
 
 -- | Flags passed in from the command line.
 data BuildFlags = BuildFlags
-    { bfEnableTests :: !Bool
-    , bfDoUpload    :: !Bool
+    { bfEnableTests      :: !Bool
+    , bfDoUpload         :: !Bool
+    , bfEnableLibProfile :: !Bool
     } deriving (Show)
 
 data BuildType = Nightly | LTS BumpType
@@ -180,6 +181,7 @@ completeBuild buildType buildFlags = withManager tlsManagerSettings $ \man -> do
             , pbJobs = 8
             , pbGlobalInstall = False
             , pbEnableTests = bfEnableTests buildFlags
+            , pbEnableLibProfiling = bfEnableLibProfile buildFlags
             }
     performBuild pb >>= mapM_ putStrLn
 
