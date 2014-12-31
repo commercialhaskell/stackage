@@ -61,4 +61,9 @@ main =
             not
             (switch
                  (long "skip-tests" <>
-                  help "Skip build and running the test suites"))
+                  help "Skip build and running the test suites")) <*>
+        fmap
+            not
+            (switch
+                 (long "skip-upload" <>
+                  help "Skip uploading bundle, docs, etc."))

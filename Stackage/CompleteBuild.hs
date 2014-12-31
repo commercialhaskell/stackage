@@ -28,6 +28,7 @@ import System.IO                 (BufferMode (LineBuffering), hSetBuffering)
 -- | Flags passed in from the command line.
 data BuildFlags = BuildFlags
     { bfEnableTests :: !Bool
+    , bfDoUpload    :: !Bool
     } deriving (Show)
 
 data BuildType = Nightly | LTS BumpType
@@ -182,7 +183,8 @@ completeBuild buildType buildFlags = withManager tlsManagerSettings $ \man -> do
             }
     performBuild pb >>= mapM_ putStrLn
 
-    finallyUpload settings man pb
+    when (bfDoUpload buildFlags) $
+        finallyUpload settings man pb
 
 -- | The final part of the complete build process: uploading a bundle,
 -- docs and a distro to hackage.
