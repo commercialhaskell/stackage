@@ -30,6 +30,7 @@ data BuildFlags = BuildFlags
     { bfEnableTests      :: !Bool
     , bfDoUpload         :: !Bool
     , bfEnableLibProfile :: !Bool
+    , bfVerbose          :: !Bool
     } deriving (Show)
 
 data BuildType = Nightly | LTS BumpType
@@ -182,6 +183,7 @@ completeBuild buildType buildFlags = withManager tlsManagerSettings $ \man -> do
             , pbGlobalInstall = False
             , pbEnableTests = bfEnableTests buildFlags
             , pbEnableLibProfiling = bfEnableLibProfile buildFlags
+            , pbVerbose = bfVerbose buildFlags
             }
     performBuild pb >>= mapM_ putStrLn
 

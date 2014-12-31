@@ -69,4 +69,7 @@ main =
                   help "Skip uploading bundle, docs, etc.")) <*>
         switch
             (long "enable-library-profiling" <>
-             help "Enable profiling when building")
+             help "Enable profiling when building") <*>
+        switch
+            (long "verbose" <> short 'v' <>
+             help "Output verbose detail about the build steps")

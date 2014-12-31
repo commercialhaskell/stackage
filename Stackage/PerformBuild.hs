@@ -63,6 +63,7 @@ data PerformBuild = PerformBuild
     -- ^ Register packages in the global database
     , pbEnableTests        :: Bool
     , pbEnableLibProfiling :: Bool
+    , pbVerbose            :: Bool
     }
 
 data PackageInfo = PackageInfo
@@ -316,7 +317,8 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
     PackageConstraints {..} = ppConstraints $ piPlan sbPackageInfo
 
     buildLibrary = wf libOut $ \outH -> do
-        let run = runChild outH
+        let run a b = do when pbVerbose $ log' (unwords (a : b))
+                         runChild outH a b
         log' $ "Unpacking " ++ namever
         runParent outH "cabal" ["unpack", namever]
 
