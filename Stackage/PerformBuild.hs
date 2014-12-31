@@ -61,6 +61,7 @@ data PerformBuild = PerformBuild
     , pbJobs          :: Int
     , pbGlobalInstall :: Bool
     -- ^ Register packages in the global database
+    , pbEnableTests        :: Bool
     }
 
 data PackageInfo = PackageInfo
@@ -378,7 +379,7 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
     runTests = wf testOut $ \outH -> do
         let run = runChild outH
 
-        when (pcTests /= Don'tBuild) $ do
+        when (pbEnableTests && pcTests /= Don'tBuild) $ do
             log' $ "Test configure " ++ namever
             run "cabal" $ "configure" : "--enable-tests" : configArgs
 

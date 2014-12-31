@@ -4,6 +4,7 @@
 module Stackage.CompleteBuild
     ( BuildType (..)
     , BumpType (..)
+    , BuildFlags (..)
     , completeBuild
     , justCheck
     ) where
@@ -23,6 +24,11 @@ import Stackage.ServerBundle
 import Stackage.UpdateBuildPlan
 import Stackage.Upload
 import System.IO                 (BufferMode (LineBuffering), hSetBuffering)
+
+-- | Flags passed in from the command line.
+data BuildFlags = BuildFlags
+    { bfEnableTests :: !Bool
+    } deriving (Show)
 
 data BuildType = Nightly | LTS BumpType
     deriving (Show, Read, Eq, Ord)
@@ -149,8 +155,8 @@ justCheck = withManager tlsManagerSettings $ \man -> do
 
     putStrLn "Plan seems valid!"
 
-completeBuild :: BuildType -> IO ()
-completeBuild buildType = withManager tlsManagerSettings $ \man -> do
+completeBuild :: BuildType -> BuildFlags -> IO ()
+completeBuild buildType buildFlags = withManager tlsManagerSettings $ \man -> do
     hSetBuffering stdout LineBuffering
 
     putStrLn $ "Loading settings for: " ++ tshow buildType
@@ -170,6 +176,7 @@ completeBuild buildType = withManager tlsManagerSettings $ \man -> do
             , pbLog = hPut stdout
             , pbJobs = 8
             , pbGlobalInstall = False
+            , pbEnableTests = bfEnableTests buildFlags
             }
     performBuild pb >>= mapM_ putStrLn
 
