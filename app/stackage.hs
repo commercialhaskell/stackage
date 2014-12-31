@@ -1,3 +1,5 @@
+{-# LANGUAGE TupleSections #-}
+
 module Main where
 
 import Control.Monad
@@ -9,38 +11,54 @@ import Stackage.CompleteBuild
 
 main :: IO ()
 main =
-  join (execParser
-          (info (helpOption <*> versionOption <*> config)
-                (header "Stackage" <>
-                 fullDesc)))
-  where helpOption =
-          abortOption
-            ShowHelpText
-            (long "help" <>
-             help "Show this help text")
-        versionOption =
-          infoOption
+    join $
+    execParser $
+    info
+        (helpOption <*> versionOption <*> config)
+        (header "Stackage" <>
+         fullDesc)
+  where
+    helpOption =
+        abortOption ShowHelpText $
+        long "help" <>
+        help "Show this help text"
+    versionOption =
+        infoOption
             ("fpbuild version " ++ showVersion version)
             (long "version" <>
              help "Show fpbuild version")
-        config =
-          subparser (mconcat [cmnd completeBuild
-                                   (pure Nightly)
-                                   "nightly"
-                                   "Build, test and upload the Nightly snapshot"
-                             ,cmnd completeBuild
-                                   (pure (LTS Major))
-                                   "lts-major"
-                                   "Build, test and upload the LTS (major) snapshot"
-                             ,cmnd completeBuild
-                                   (pure (LTS Minor))
-                                   "lts-minor"
-                                   "Build, test and upload the LTS (minor) snapshot"
-                             ,cmnd (const justCheck)
-                                   (pure ())
-                                   "check"
-                                   "Just check that the build plan is ok"])
-        cmnd exec parse name desc =
-          (command name
-                   (info (fmap exec parse)
-                         (progDesc desc)))
+    config =
+        subparser $
+        mconcat
+            [ cmnd
+                  (uncurry completeBuild)
+                  (fmap (Nightly, ) buildFlags)
+                  "nightly"
+                  "Build, test and upload the Nightly snapshot"
+            , cmnd
+                  (uncurry completeBuild)
+                  (fmap (LTS Major, ) buildFlags)
+                  "lts-major"
+                  "Build, test and upload the LTS (major) snapshot"
+            , cmnd
+                  (uncurry completeBuild)
+                  (fmap (LTS Minor, ) buildFlags)
+                  "lts-minor"
+                  "Build, test and upload the LTS (minor) snapshot"
+            , cmnd
+                  (const justCheck)
+                  (pure ())
+                  "check"
+                  "Just check that the build plan is ok"]
+    cmnd exec parse name desc =
+        command name $
+        info
+            (fmap exec parse)
+            (progDesc desc)
+    buildFlags =
+        BuildFlags <$>
+        fmap
+            not
+            (switch
+                 (long "skip-tests" <>
+                  help "Skip build and running the test suites"))
