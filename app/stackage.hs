@@ -1,16 +1,46 @@
+module Main where
+
+import Control.Monad
+import Data.Monoid
+import Data.Version
+import Options.Applicative
+import Paths_stackage (version)
 import Stackage.CompleteBuild
-import System.Environment (getArgs)
 
 main :: IO ()
-main = do
-    args <- getArgs
-    case args of
-        [x] | Just y <- lookup x m -> y
-        _ -> error $ "Expected one argument, one of: " ++ unwords (map fst m)
-  where
-    m =
-        [ ("nightly", completeBuild Nightly)
-        , ("lts-major", completeBuild $ LTS Major)
-        , ("lts-minor", completeBuild $ LTS Minor)
-        , ("check", justCheck)
-        ]
+main =
+  join (execParser
+          (info (helpOption <*> versionOption <*> config)
+                (header "Stackage" <>
+                 fullDesc)))
+  where helpOption =
+          abortOption
+            ShowHelpText
+            (long "help" <>
+             help "Show this help text")
+        versionOption =
+          infoOption
+            ("fpbuild version " ++ showVersion version)
+            (long "version" <>
+             help "Show fpbuild version")
+        config =
+          subparser (mconcat [cmnd completeBuild
+                                   (pure Nightly)
+                                   "nightly"
+                                   "Build, test and upload the Nightly snapshot"
+                             ,cmnd completeBuild
+                                   (pure (LTS Major))
+                                   "lts-major"
+                                   "Build, test and upload the LTS (major) snapshot"
+                             ,cmnd completeBuild
+                                   (pure (LTS Minor))
+                                   "lts-minor"
+                                   "Build, test and upload the LTS (minor) snapshot"
+                             ,cmnd (const justCheck)
+                                   (pure ())
+                                   "check"
+                                   "Just check that the build plan is ok"])
+        cmnd exec parse name desc =
+          (command name
+                   (info (fmap exec parse)
+                         (progDesc desc)))
