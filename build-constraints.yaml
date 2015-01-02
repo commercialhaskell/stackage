@@ -649,18 +649,6 @@ packages:
         # for language-ecmascript as well.
         - language-ecmascript < 0.17
 
-# Global flags are applied to all packages
-global-flags:
-    blaze_html_0_5: true
-    small_base: true
-    https: true
-    splitbase: true
-    old-locale: true
-    new-base: true
-    bytestring-in-base: false
-    test-hlint: false
-    network-uri: true
-
 # Package flags are applied to individual packages, and override the values of
 # global-flags
 package-flags:
@@ -683,6 +671,26 @@ package-flags:
     # Perhaps the codebase should automatically lower case flag names?
     storable-complex:
         instanceinbase: false
+
+    logfloat:
+        splitbase: true
+
+    curl:
+        new-base: true
+
+    # GHC 7.10 remove
+    aeson:
+        old-locale: true
+
+    hxt:
+        network-uri: true
+    hxt-http:
+        network-uri: true
+    hxt-relaxng:
+        network-uri: true
+
+    pandoc:
+        https: true
 
 # By skipping a test suite, we do not pull in the build dependencies
 skipped-tests:

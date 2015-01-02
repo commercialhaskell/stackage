@@ -146,8 +146,7 @@ getSystemInfo = do
     siArch = Distribution.System.X86_64
 
 data ConstraintFile = ConstraintFile
-    { cfGlobalFlags             :: Map FlagName Bool
-    , cfPackageFlags            :: Map PackageName (Map FlagName Bool)
+    { cfPackageFlags            :: Map PackageName (Map FlagName Bool)
     , cfSkippedTests            :: Set PackageName
     , cfExpectedTestFailures    :: Set PackageName
     , cfExpectedHaddockFailures :: Set PackageName
@@ -159,7 +158,6 @@ data ConstraintFile = ConstraintFile
 
 instance FromJSON ConstraintFile where
     parseJSON = withObject "ConstraintFile" $ \o -> do
-        cfGlobalFlags <- goFlagMap <$> o .: "global-flags"
         cfPackageFlags <- (goPackageMap . fmap goFlagMap) <$> o .: "package-flags"
         cfSkippedTests <- getPackages o "skipped-tests"
         cfExpectedTestFailures <- getPackages o "expected-test-failures"
@@ -210,7 +208,6 @@ toBC ConstraintFile {..} = do
             | name `member` cfExpectedHaddockFailures = ExpectFailure
 
             | otherwise = ExpectSuccess
-        pcFlagOverrides = fromMaybe mempty (lookup name cfPackageFlags) ++
-                          cfGlobalFlags
+        pcFlagOverrides = fromMaybe mempty $ lookup name cfPackageFlags
 
     bcGithubUsers = cfGithubUsers
