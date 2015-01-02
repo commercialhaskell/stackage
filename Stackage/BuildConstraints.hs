@@ -104,6 +104,7 @@ instance ToJSON PackageConstraints where
         , "haddocks" .= pcHaddocks
         , "build-benchmarks" .= pcBuildBenchmarks
         , "flags" .= Map.mapKeysWith const unFlagName pcFlagOverrides
+        , "library-profiling" .= pcEnableLibProfile
         ]
       where
         addMaintainer = maybe id (\m -> (("maintainer" .= m):)) pcMaintainer
