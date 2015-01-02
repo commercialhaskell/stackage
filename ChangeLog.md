@@ -1,3 +1,9 @@
+## 0.4.0
+
+* Command line uses optparse-applicative with additional options
+* Library profiling support during build
+* Remove cfGlobalFlags (just use package-specific flags)
+
 ## 0.3.1
 
 * Added `justCheck` and `stackage check` command line.
