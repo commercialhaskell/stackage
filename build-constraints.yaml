@@ -678,6 +678,12 @@ package-flags:
         simplelocalnet: true
         p2p: true
 
+    # GHC 7.10: Remove this
+    # Note that the flag is lower-cased, because that's what Cabal does
+    # Perhaps the codebase should automatically lower case flag names?
+    storable-complex:
+        instanceinbase: false
+
 # By skipping a test suite, we do not pull in the build dependencies
 skipped-tests:
     - ReadArgs # old version of hspec
