@@ -7,6 +7,7 @@
 -- | Confirm that a build plan has a consistent set of dependencies.
 module Stackage.CheckBuildPlan
     ( checkBuildPlan
+    , BadBuildPlan
     ) where
 
 import           Control.Monad.Writer.Strict (Writer, execWriter, tell)

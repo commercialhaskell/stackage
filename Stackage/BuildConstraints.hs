@@ -10,6 +10,7 @@ module Stackage.BuildConstraints
     , SystemInfo (..)
     , getSystemInfo
     , defaultBuildConstraints
+    , toBC
     ) where
 
 import           Control.Monad.Writer.Strict (execWriter, tell)
