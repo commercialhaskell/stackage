@@ -15,7 +15,8 @@ import Network.HTTP.Client.TLS (tlsManagerSettings)
 spec :: Spec
 spec = it "works" $ withManager tlsManagerSettings $ \man -> do
     bc <- defaultBuildConstraints man
-    bp <- newBuildPlan bc
+    pkgs <- getLatestAllowedPlans bc
+    bp <- newBuildPlan pkgs bc
     let bs = Y.encode bp
         ebp' = Y.decodeEither bs
 
@@ -28,7 +29,7 @@ spec = it "works" $ withManager tlsManagerSettings $ \man -> do
 
     bpGithubUsers bp' `shouldBe` bpGithubUsers bp
     when (bp' /= bp) $ error "bp' /= bp"
-    bp2 <- updateBuildPlan bp
+    bp2 <- updateBuildPlan pkgs bp
     when (dropVersionRanges bp2 /= dropVersionRanges bp) $ error "bp2 /= bp"
   where
     dropVersionRanges bp =

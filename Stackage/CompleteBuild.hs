@@ -54,7 +54,9 @@ getSettings :: Manager -> BuildType -> IO Settings
 getSettings man Nightly = do
     day <- tshow . utctDay <$> getCurrentTime
     let slug' = "nightly-" ++ day
-    plan' <- defaultBuildConstraints man >>= newBuildPlan
+    bc <- defaultBuildConstraints man
+    pkgs <- getLatestAllowedPlans bc
+    plan' <- newBuildPlan pkgs bc
     return Settings
         { planFile = fpFromText ("nightly-" ++ day) <.> "yaml"
         , buildDir = fpFromText $ "builds/stackage-nightly-" ++ day
@@ -81,14 +83,18 @@ getSettings man (LTS bumpType) = do
                     case mlts of
                         Nothing -> LTSVer 0 0
                         Just (LTSVer x _) -> LTSVer (x + 1) 0
-            plan' <- defaultBuildConstraints man >>= newBuildPlan
+            bc <- defaultBuildConstraints man
+            pkgs <- getLatestAllowedPlans bc
+            plan' <- newBuildPlan pkgs bc
             return (new, plan')
         Minor -> do
             old <- maybe (error "No LTS plans found in current directory") return mlts
             oldplan <- decodeFileEither (fpToString $ renderLTSVer old)
                    >>= either throwM return
             let new = incrLTSVer old
-            plan' <- updateBuildPlan oldplan
+            let bc = updateBuildConstraints oldplan
+            pkgs <- getLatestAllowedPlans bc
+            plan' <- newBuildPlan pkgs bc
             return (new, plan')
 
     let newfile = renderLTSVer new
@@ -148,7 +154,8 @@ justCheck = withManager tlsManagerSettings $ \man -> do
     bc <- defaultBuildConstraints man
 
     putStrLn "Creating build plan"
-    plan <- newBuildPlan bc
+    plans <- getLatestAllowedPlans bc
+    plan <- newBuildPlan plans bc
 
     putStrLn $ "Writing build plan to check-plan.yaml"
     encodeFile "check-plan.yaml" plan

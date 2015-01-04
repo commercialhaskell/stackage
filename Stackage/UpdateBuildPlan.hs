@@ -15,8 +15,9 @@ import           Stackage.BuildConstraints
 import           Stackage.BuildPlan
 import           Stackage.Prelude
 
-updateBuildPlan :: BuildPlan -> IO BuildPlan
-updateBuildPlan = newBuildPlan . updateBuildConstraints
+updateBuildPlan :: Map PackageName PackagePlan -> BuildPlan -> IO BuildPlan
+updateBuildPlan packagesOrig
+ = newBuildPlan packagesOrig . updateBuildConstraints
 
 updateBuildConstraints :: BuildPlan -> BuildConstraints
 updateBuildConstraints BuildPlan {..} =
