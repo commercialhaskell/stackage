@@ -19,6 +19,7 @@ import           Stackage.Prelude
 -- FIXME check cycles in dependencies, only looking at libraries and
 -- executables
 
+-- | Check the build plan for missing deps, wrong versions, etc.
 checkBuildPlan :: MonadThrow m => BuildPlan -> m ()
 checkBuildPlan BuildPlan {..}
     | null errs' = return ()
@@ -28,6 +29,10 @@ checkBuildPlan BuildPlan {..}
     errs@(BadBuildPlan errs') =
         execWriter $ mapM_ (checkDeps allPackages) $ mapToList bpPackages
 
+-- | For a given package name and plan, check that its dependencies are:
+--
+-- 1. Existent (existing in the provided package map)
+-- 2. Within version range
 checkDeps :: Map PackageName Version
           -> (PackageName, PackagePlan)
           -> Writer BadBuildPlan ()
