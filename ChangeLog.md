@@ -1,3 +1,7 @@
+## 0.4.0.1
+
+* Print "Still Alive" while checking, to avoid Travis timeouts.
+
 ## 0.4.0
 
 * Command line uses optparse-applicative with additional options
