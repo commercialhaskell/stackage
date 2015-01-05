@@ -8,6 +8,9 @@ module Stackage.CompleteBuild
     , completeBuild
     , justCheck
     ) where
+
+import Control.Concurrent        (threadDelay)
+import Control.Concurrent.Async  (withAsync)
 import Data.Default.Class        (def)
 import Data.Semigroup            (Max (..), Option (..))
 import Data.Text.Read            (decimal)
@@ -145,11 +148,20 @@ renderLTSVer lts = fpFromText $ concat
     , ".yaml"
     ]
 
+-- | Just print a message saying "still alive" every second, to appease Travis.
+stillAlive :: IO () -> IO ()
+stillAlive inner =
+    withAsync printer $ const inner
+  where
+    printer = forever $ do
+        threadDelay 1000000
+        putStrLn "Still alive"
+
 -- | Generate and check a new build plan, but do not execute it.
 --
 -- Since 0.3.1
 justCheck :: IO ()
-justCheck = withManager tlsManagerSettings $ \man -> do
+justCheck = stillAlive $ withManager tlsManagerSettings $ \man -> do
     putStrLn "Loading build constraints"
     bc <- defaultBuildConstraints man
 
