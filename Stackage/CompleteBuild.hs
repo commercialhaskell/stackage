@@ -148,14 +148,15 @@ renderLTSVer lts = fpFromText $ concat
     , ".yaml"
     ]
 
--- | Just print a message saying "still alive" every second, to appease Travis.
+-- | Just print a message saying "still alive" every minute, to appease Travis.
 stillAlive :: IO () -> IO ()
 stillAlive inner =
-    withAsync printer $ const inner
+    withAsync (printer 1) $ const inner
   where
-    printer = forever $ do
-        threadDelay 1000000
-        putStrLn "Still alive"
+    printer i = forever $ do
+        threadDelay 60000000
+        putStrLn $ "Still alive: " ++ tshow i
+        printer $! i + 1
 
 -- | Generate and check a new build plan, but do not execute it.
 --
