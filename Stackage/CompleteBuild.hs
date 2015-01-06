@@ -7,6 +7,7 @@ module Stackage.CompleteBuild
     , BuildFlags (..)
     , completeBuild
     , justCheck
+    , justUploadNightly
     ) where
 
 import Control.Concurrent        (threadDelay)
@@ -53,28 +54,38 @@ data Settings = Settings
     , postBuild :: IO ()
     }
 
+nightlyPlanFile :: Text -- ^ day
+                -> FilePath
+nightlyPlanFile day = fpFromText ("nightly-" ++ day) <.> "yaml"
+
+nightlySettings :: Text -- ^ day
+                -> BuildPlan
+                -> Settings
+nightlySettings day plan' = Settings
+    { planFile = nightlyPlanFile day
+    , buildDir = fpFromText $ "builds/stackage-nightly-" ++ day
+    , logDir = fpFromText $ "logs/stackage-nightly-" ++ day
+    , title = \ghcVer -> concat
+        [ "Stackage Nightly "
+        , day
+        , ", GHC "
+        , ghcVer
+        ]
+    , slug = slug'
+    , setArgs = \ghcVer ub -> ub { ubNightly = Just ghcVer }
+    , plan = plan'
+    , postBuild = return ()
+    }
+  where
+    slug' = "nightly-" ++ day
+
 getSettings :: Manager -> BuildType -> IO Settings
 getSettings man Nightly = do
     day <- tshow . utctDay <$> getCurrentTime
-    let slug' = "nightly-" ++ day
     bc <- defaultBuildConstraints man
     pkgs <- getLatestAllowedPlans bc
     plan' <- newBuildPlan pkgs bc
-    return Settings
-        { planFile = fpFromText ("nightly-" ++ day) <.> "yaml"
-        , buildDir = fpFromText $ "builds/stackage-nightly-" ++ day
-        , logDir = fpFromText $ "logs/stackage-nightly-" ++ day
-        , title = \ghcVer -> concat
-            [ "Stackage Nightly "
-            , day
-            , ", GHC "
-            , ghcVer
-            ]
-        , slug = slug'
-        , setArgs = \ghcVer ub -> ub { ubNightly = Just ghcVer }
-        , plan = plan'
-        , postBuild = return ()
-        }
+    return $ nightlySettings day plan'
 getSettings man (LTS bumpType) = do
     Option mlts <- fmap (fmap getMax) $ runResourceT
         $ sourceDirectory "."
@@ -178,6 +189,19 @@ justCheck = stillAlive $ withManager tlsManagerSettings $ \man -> do
 
     putStrLn "Plan seems valid!"
 
+getPerformBuild :: BuildFlags -> Settings -> PerformBuild
+getPerformBuild buildFlags Settings {..} = PerformBuild
+    { pbPlan = plan
+    , pbInstallDest = buildDir
+    , pbLogDir = logDir
+    , pbLog = hPut stdout
+    , pbJobs = 8
+    , pbGlobalInstall = False
+    , pbEnableTests = bfEnableTests buildFlags
+    , pbEnableLibProfiling = bfEnableLibProfile buildFlags
+    , pbVerbose = bfVerbose buildFlags
+    }
+
 -- | Make a complete plan, build, test and upload bundle, docs and
 -- distro.
 completeBuild :: BuildType -> BuildFlags -> IO ()
@@ -194,26 +218,23 @@ completeBuild buildType buildFlags = withManager tlsManagerSettings $ \man -> do
     checkBuildPlan plan
 
     putStrLn "Performing build"
-    let pb = PerformBuild
-            { pbPlan = plan
-            , pbInstallDest = buildDir
-            , pbLogDir = logDir
-            , pbLog = hPut stdout
-            , pbJobs = 8
-            , pbGlobalInstall = False
-            , pbEnableTests = bfEnableTests buildFlags
-            , pbEnableLibProfiling = bfEnableLibProfile buildFlags
-            , pbVerbose = bfVerbose buildFlags
-            }
-    performBuild pb >>= mapM_ putStrLn
+    performBuild (getPerformBuild buildFlags settings) >>= mapM_ putStrLn
 
     when (bfDoUpload buildFlags) $
-        finallyUpload settings man pb
+        finallyUpload settings man
+
+justUploadNightly
+    :: Text -- ^ nightly date
+    -> IO ()
+justUploadNightly day = do
+    plan <- decodeFileEither (fpToString $ nightlyPlanFile day)
+        >>= either throwM return
+    withManager tlsManagerSettings $ finallyUpload $ nightlySettings day plan
 
 -- | The final part of the complete build process: uploading a bundle,
 -- docs and a distro to hackage.
-finallyUpload :: Settings -> Manager -> PerformBuild -> IO ()
-finallyUpload Settings{..} man pb = do
+finallyUpload :: Settings -> Manager -> IO ()
+finallyUpload settings@Settings{..} man = do
     putStrLn "Uploading bundle to Stackage Server"
     token <- readFile "/auth-token"
     now <- epochTime
@@ -253,3 +274,5 @@ finallyUpload Settings{..} man pb = do
         , udmDocDir = pbDocDir pb
         , udmPlan = plan
         } man >>= print
+  where
+    pb = getPerformBuild (error "finallyUpload.buildFlags") settings

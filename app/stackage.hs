@@ -4,6 +4,7 @@ module Main where
 
 import Control.Monad
 import Data.Monoid
+import Data.String (fromString)
 import Data.Version
 import Options.Applicative
 import Paths_stackage (version)
@@ -46,6 +47,11 @@ main =
                   "lts-minor"
                   "Build, test and upload the LTS (minor) snapshot"
             , cmnd
+                  justUploadNightly
+                  nightlyUploadFlags
+                  "upload-nightly"
+                  "Upload an already-built nightly snapshot"
+            , cmnd
                   (const justCheck)
                   (pure ())
                   "check"
@@ -73,3 +79,7 @@ main =
         switch
             (long "verbose" <> short 'v' <>
              help "Output verbose detail about the build steps")
+
+    nightlyUploadFlags = fromString <$> strArgument
+        (metavar "DATE" <>
+         help "Date, in YYYY-MM-DD format")

@@ -1,6 +1,7 @@
-## 0.4.0.1
+## 0.4.1
 
-* Print "Still Alive" while checking, to avoid Travis timeouts.
+* Print "Still Alive" while checking, to avoid Travis timeouts
+* Include `stackage upload-nightly` command
 
 ## 0.4.0
 
