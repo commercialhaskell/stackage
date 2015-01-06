@@ -24,4 +24,4 @@ RUN cd /tmp/stackage && cabal install
 RUN cp $HOME/.cabal/bin/stackage /usr/local/bin
 RUN rm -rf $HOME/.cabal $HOME/.ghc /tmp/stackage
 
-RUN cd /home/stackage && cabal update && stackage nightly
+RUN cd /home/stackage && cabal update && stackage check
