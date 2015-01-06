@@ -10,10 +10,10 @@
 # instructions, see:
 #    http://www.stackage.org/install
 
-sudo add-apt-repository -y ppa:chris-lea/zeromq
-sudo add-apt-repository -y ppa:floe/libtisch
-sudo apt-get update
-sudo apt-get install -y \
+add-apt-repository -y ppa:chris-lea/zeromq
+add-apt-repository -y ppa:floe/libtisch
+apt-get update
+apt-get install -y \
     build-essential \
     libncurses-dev \
     git \
