@@ -29,7 +29,15 @@ spec = do
     it "nonexistent package fails to check" $ badBuildPlan $ makePackageSet
         [("foo", [0, 0, 0], [("nonexistent", thisV [0, 0, 0])])
         ,("bar", [0, 0, 0], [])]
-    it "default package set checks ok" $ check defaultBuildConstraints getLatestAllowedPlans
+    it "mutual cycles fail to check" $ badBuildPlan $ makePackageSet
+        [("foo", [0, 0, 0], [("bar", thisV [0, 0, 0])])
+        ,("bar", [0, 0, 0], [("foo", thisV [0, 0, 0])])]
+    it "nested cycles fail to check" $ badBuildPlan $ makePackageSet
+        [("foo", [0, 0, 0], [("bar", thisV [0, 0, 0])])
+        ,("bar", [0, 0, 0], [("mu", thisV [0, 0, 0])])
+        ,("mu", [0, 0, 0], [("foo", thisV [0, 0, 0])])]
+    it "default package set checks ok" $
+      check defaultBuildConstraints getLatestAllowedPlans
 
 -- | Checking should be considered a bad build plan.
 badBuildPlan :: (BuildConstraints -> IO (Map PackageName PackagePlan))
