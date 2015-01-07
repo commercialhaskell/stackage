@@ -64,6 +64,8 @@ data PerformBuild = PerformBuild
     , pbEnableTests        :: Bool
     , pbEnableLibProfiling :: Bool
     , pbVerbose            :: Bool
+    , pbAllowNewer         :: Bool
+    -- ^ Pass --allow-newer to cabal configure
     }
 
 data PackageInfo = PackageInfo
@@ -293,6 +295,7 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
         withBinaryFile (fpToString fp) WriteMode inner'
 
     configArgs = ($ []) $ execWriter $ do
+        when pbAllowNewer $ tell' "--allow-newer"
         tell' "--package-db=clear"
         tell' "--package-db=global"
         forM_ (pbDatabase pb) $ \db -> tell' $ "--package-db=" ++ fpToText db

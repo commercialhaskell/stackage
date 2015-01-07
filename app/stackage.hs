@@ -78,7 +78,10 @@ main =
              help "Enable profiling when building") <*>
         switch
             (long "verbose" <> short 'v' <>
-             help "Output verbose detail about the build steps")
+             help "Output verbose detail about the build steps") <*>
+        switch
+            (long "skip-check" <>
+             help "Skip the check phase, and pass --allow-newer to cabal configure")
 
     nightlyUploadFlags = fromString <$> strArgument
         (metavar "DATE" <>

@@ -35,6 +35,7 @@ data BuildFlags = BuildFlags
     , bfDoUpload         :: !Bool
     , bfEnableLibProfile :: !Bool
     , bfVerbose          :: !Bool
+    , bfSkipCheck        :: !Bool
     } deriving (Show)
 
 data BuildType = Nightly | LTS BumpType
@@ -200,6 +201,7 @@ getPerformBuild buildFlags Settings {..} = PerformBuild
     , pbEnableTests = bfEnableTests buildFlags
     , pbEnableLibProfiling = bfEnableLibProfile buildFlags
     , pbVerbose = bfVerbose buildFlags
+    , pbAllowNewer = bfSkipCheck buildFlags
     }
 
 -- | Make a complete plan, build, test and upload bundle, docs and
@@ -214,8 +216,11 @@ completeBuild buildType buildFlags = withManager tlsManagerSettings $ \man -> do
     putStrLn $ "Writing build plan to: " ++ fpToText planFile
     encodeFile (fpToString planFile) plan
 
-    putStrLn "Checking build plan"
-    checkBuildPlan plan
+    if bfSkipCheck buildFlags
+        then putStrLn "Skipping build plan check"
+        else do
+            putStrLn "Checking build plan"
+            checkBuildPlan plan
 
     putStrLn "Performing build"
     performBuild (getPerformBuild buildFlags settings) >>= mapM_ putStrLn
