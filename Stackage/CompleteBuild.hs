@@ -5,9 +5,12 @@ module Stackage.CompleteBuild
     ( BuildType (..)
     , BumpType (..)
     , BuildFlags (..)
+    , Settings (..)
     , completeBuild
     , justCheck
     , justUploadNightly
+    , getPerformBuild
+    , nightlySettings
     ) where
 
 import Control.Concurrent        (threadDelay)
