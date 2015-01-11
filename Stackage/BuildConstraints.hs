@@ -11,6 +11,8 @@ module Stackage.BuildConstraints
     , getSystemInfo
     , defaultBuildConstraints
     , toBC
+    , BuildConstraintsSource (..)
+    , loadBuildConstraints
     ) where
 
 import           Control.Monad.Writer.Strict (execWriter, tell)
@@ -22,7 +24,7 @@ import           Distribution.System         (Arch, OS)
 import qualified Distribution.System
 import           Distribution.Version        (anyVersion)
 import           Filesystem                  (isFile)
-import           Network.HTTP.Client         (Manager, httpLbs, responseBody)
+import           Network.HTTP.Client         (Manager, httpLbs, responseBody, Request)
 import           Stackage.CorePackages
 import           Stackage.Prelude
 
@@ -126,15 +128,32 @@ instance FromJSON PackageConstraints where
 -- Checks the current directory for a build-constraints.yaml file and uses it
 -- if present. If not, downloads from Github.
 defaultBuildConstraints :: Manager -> IO BuildConstraints
-defaultBuildConstraints man = do
-    e <- isFile fp
-    if e
-        then decodeFileEither (fpToString fp) >>= either throwIO toBC
-        else httpLbs req man >>=
-             either throwIO toBC . decodeEither' . toStrict . responseBody
+defaultBuildConstraints = loadBuildConstraints BCSDefault
+
+data BuildConstraintsSource
+    = BCSDefault
+    | BCSFile FilePath
+    | BCSWeb Request
+    deriving (Show)
+
+loadBuildConstraints :: BuildConstraintsSource -> Manager -> IO BuildConstraints
+loadBuildConstraints bcs man = do
+    case bcs of
+        BCSDefault -> do
+            e <- isFile fp0
+            if e
+                then loadFile fp0
+                else loadReq req0
+        BCSFile fp -> loadFile fp
+        BCSWeb req -> loadReq req
   where
-    fp = "build-constraints.yaml"
-    req = "https://raw.githubusercontent.com/fpco/stackage/master/build-constraints.yaml"
+    fp0 = "build-constraints.yaml"
+    req0 = "https://raw.githubusercontent.com/fpco/stackage/master/build-constraints.yaml"
+
+    loadFile fp = decodeFileEither (fpToString fp) >>= either throwIO toBC
+    loadReq req = httpLbs req man >>=
+                  either throwIO toBC . decodeEither' . toStrict . responseBody
+
 
 getSystemInfo :: IO SystemInfo
 getSystemInfo = do

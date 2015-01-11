@@ -27,6 +27,7 @@ import Stackage.Prelude
 import Stackage.ServerBundle
 import Stackage.UpdateBuildPlan
 import Stackage.Upload
+import System.Environment        (lookupEnv)
 import System.IO                 (BufferMode (LineBuffering), hSetBuffering)
 
 -- | Flags passed in from the command line.
@@ -241,12 +242,18 @@ justUploadNightly day = do
 finallyUpload :: Settings -> Manager -> IO ()
 finallyUpload settings@Settings{..} man = do
     putStrLn "Uploading bundle to Stackage Server"
-    token <- readFile "/auth-token"
+
+    mtoken <- lookupEnv "STACKAGE_AUTH_TOKEN"
+    token <-
+        case mtoken of
+            Nothing -> decodeUtf8 <$> readFile "/auth-token"
+            Just token -> return $ pack token
+
     now <- epochTime
     let ghcVer = display $ siGhcVersion $ bpSystemInfo plan
     (ident, mloc) <- flip uploadBundle man $ setArgs ghcVer def
         { ubContents = serverBundle now (title ghcVer) slug plan
-        , ubAuthToken = decodeUtf8 token
+        , ubAuthToken = token
         }
     putStrLn $ "New ident: " ++ unSnapshotIdent ident
     forM_ mloc $ \loc ->
@@ -257,7 +264,7 @@ finallyUpload settings@Settings{..} man = do
     putStrLn "Uploading docs to Stackage Server"
     res1 <- uploadDocs UploadDocs
         { udServer = def
-        , udAuthToken = decodeUtf8 token
+        , udAuthToken = token
         , udDocs = pbDocDir pb
         , udSnapshot = ident
         } man
@@ -274,7 +281,7 @@ finallyUpload settings@Settings{..} man = do
     putStrLn "Uploading doc map"
     uploadDocMap UploadDocMap
         { udmServer = def
-        , udmAuthToken = decodeUtf8 token
+        , udmAuthToken = token
         , udmSnapshot = ident
         , udmDocDir = pbDocDir pb
         , udmPlan = plan

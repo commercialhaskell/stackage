@@ -197,7 +197,7 @@ performBuild' pb@PerformBuild {..} = withBuildDir $ \builddir -> do
             id
             (\db -> (("HASKELL_PACKAGE_SANDBOX", fpToString db):))
             (pbDatabase pb)
-            (map fixEnv env)
+            (filter allowedEnv $ map fixEnv env)
         , sbHaddockFiles = haddockFiles
         }
 
@@ -215,6 +215,8 @@ performBuild' pb@PerformBuild {..} = withBuildDir $ \builddir -> do
         | toUpper p == "PATH" = (p, fpToString (pbBinDir pb) ++ pathSep : x)
         | otherwise = (p, x)
 
+    allowedEnv (k, _) = k `notMember` bannedEnvs
+
     -- | Separate for the PATH environment variable
     pathSep :: Char
 #ifdef mingw32_HOST_OS
@@ -222,6 +224,12 @@ performBuild' pb@PerformBuild {..} = withBuildDir $ \builddir -> do
 #else
     pathSep = ':'
 #endif
+
+-- | Environment variables we don't allow to be passed on to child processes.
+bannedEnvs :: Set String
+bannedEnvs = setFromList
+    [ "STACKAGE_AUTH_TOKEN"
+    ]
 
 data SingleBuild = SingleBuild
     { sbSem           :: TSem

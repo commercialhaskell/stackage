@@ -1,3 +1,8 @@
+## 0.5.1
+
+* `loadBuildConstraints`
+* More command line options
+
 ## 0.5.0
 
 * Print "Still Alive" while checking, to avoid Travis timeouts
