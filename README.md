@@ -68,7 +68,7 @@ some modifications to `build-constraints.yaml` are valid, try the following:
 Similarly, if you'd like to perform an entire build, you can replace the last step with:
 
 ```
-$ docker run -it --rm -v $(pwd):/stackage -w /stackage snoyberg/stackage /bin/bash -c 'cabal update && stackage build --skip-upload'
+$ docker run -it --rm -v $(pwd):/stackage -w /stackage snoyberg/stackage /bin/bash -c 'cabal update && stackage nightly --skip-upload'
 ```
 
 ## Processing
