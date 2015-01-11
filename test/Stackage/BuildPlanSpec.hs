@@ -47,6 +47,12 @@ spec = do
         ,("mtl",[2,2,1],[("base",anyV)
                         ,("transformers",anyV)])
         ,("transformers",[0,4,1,0],[("base",anyV)])]
+    it "shake build" $ shakeBuild $ makePackageSet
+        [("acme-strtok", [0,1,0,3], [("mtl", thisV [2, 2, 1])])
+        ,("acme-dont", [1,1], [])
+        ,("mtl",[2,2,1],[("base",anyV)
+                        ,("transformers",anyV)])
+        ,("transformers",[0,4,1,0],[("base",anyV)])]
     it "default package set checks ok" $
       check defaultBuildConstraints getLatestAllowedPlans
     -}
@@ -90,6 +96,31 @@ basicBuild getPlans _ = do
                 , bfEnableLibProfile = False
                 , bfVerbose          = False
                 }
+
+-- | Perform a shake build.
+shakeBuild :: (BuildConstraints -> IO (Map PackageName PackagePlan))
+             -> void
+             -> IO ()
+shakeBuild getPlans _ = do
+    withManager
+        tlsManagerSettings
+        (\man ->
+              do settings@Settings{..} <- getTestSettings
+                                              man
+                                              Nightly
+                                              fullBuildConstraints
+                                              getPlans
+                 let pb =
+                         (getPerformBuild buildFlags settings)
+                 print (pbPlan pb)
+                 Shake.performBuild pb)
+    where buildType =
+              Nightly
+          buildFlags =
+              BuildFlags {bfEnableTests = False
+                         ,bfDoUpload = False
+                         ,bfEnableLibProfile = False
+                         ,bfVerbose = False}
 
 -- | Check build plan with the given package set getter.
 check :: (Manager -> IO BuildConstraints)
