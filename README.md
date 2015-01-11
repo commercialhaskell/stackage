@@ -49,6 +49,28 @@ build by running:
     cabal install stackage
     stackage nightly
 
+### Docker
+
+Note: This method is currently considered experimental.
+
+If you'd like to check a build plan, or perform an entire build, without
+specially configuring your system, Docker may be a good approach. To check if
+some modifications to `build-constraints.yaml` are valid, try the following:
+
+1. Create a local clone of the `stackage` repo
+2. Make modifications to your local `build-constraints.yaml`
+3. Inside the `stackage` working directory, run the following:
+
+   ```
+   $ docker run -it --rm -v $(pwd):/stackage -w /stackage snoyberg/stackage /bin/bash -c 'cabal update && stackage check'
+   ```
+
+Similarly, if you'd like to perform an entire build, you can replace the last step with:
+
+```
+$ docker run -it --rm -v $(pwd):/stackage -w /stackage snoyberg/stackage /bin/bash -c 'cabal update && stackage build --skip-upload'
+```
+
 ## Processing
 
 The following describes at a high level the series of steps for processing
