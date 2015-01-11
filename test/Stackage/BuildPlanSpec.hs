@@ -48,11 +48,11 @@ spec = do
                         ,("transformers",anyV)])
         ,("transformers",[0,4,1,0],[("base",anyV)])]
     it "shake build" $ shakeBuild $ makePackageSet
-        [("acme-strtok", [0,1,0,3], [("mtl", thisV [2, 2, 1])])
+        [("acme-strtok", [0,1,0,3], [("mtl", thisV [2, 1, 3, 1])])
         ,("acme-dont", [1,1], [])
-        ,("mtl",[2,2,1],[("base",anyV)
-                        ,("transformers",anyV)])
-        ,("transformers",[0,4,1,0],[("base",anyV)])]
+        ,("mtl",[2,1,3,1],[("base",anyV)
+                          ,("transformers",anyV)])
+        ,("transformers",[0,3,0,0],[("base",anyV)])]
     it "default package set checks ok" $
       check defaultBuildConstraints getLatestAllowedPlans
     -}
