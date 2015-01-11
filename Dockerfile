@@ -20,8 +20,8 @@ ENV PATH /opt/ghc/7.8.4/bin:/opt/cabal/1.20/bin:/usr/local/sbin:/usr/local/bin:/
 
 RUN cabal update
 ADD . /tmp/stackage
-RUN cd /tmp/stackage && cabal install
-RUN cp $HOME/.cabal/bin/stackage /usr/local/bin
+RUN cd /tmp/stackage && cabal install . hscolour
+RUN cp $HOME/.cabal/bin/* /usr/local/bin
 RUN rm -rf $HOME/.cabal $HOME/.ghc /tmp/stackage
 
 RUN cd /home/stackage && cabal update && stackage check
