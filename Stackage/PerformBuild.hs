@@ -10,6 +10,7 @@ module Stackage.PerformBuild
     , PerformBuild (..)
     , BuildException (..)
     , pbDocDir
+    , copyBuiltInHaddocks
     ) where
 
 import           Control.Concurrent.Async    (async)
