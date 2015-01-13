@@ -88,7 +88,9 @@ packageTarget pb shakeDir name plan = do
               (M.keys (sdPackages (ppDesc plan))))
     pwd <- liftIO getCurrentDirectory
     env <- liftIO (fmap (Env . (++ defaultEnv pwd)) getEnvironment)
-    () <- cmd (Cwd shakeDir) "cabal" "unpack" nameVer
+    unpacked <- liftIO (doesDirectoryExist (shakeDir <//> nameVer))
+    unless unpacked
+           (cmd (Cwd shakeDir) "cabal" "unpack" nameVer)
     () <- cmd cwd env "cabal" "configure" (opts pwd)
     () <- cmd cwd env "cabal" "build"
     () <- cmd cwd env "cabal" "copy"
