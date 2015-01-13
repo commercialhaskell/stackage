@@ -1,20 +1,28 @@
+{-# LANGUAGE ScopedTypeVariables #-}
+
 -- | Build everything with Shake.
 
 module Stackage.ShakeBuild where
 
+import           Data.Monoid
 import           Stackage.BuildConstraints
 import           Stackage.BuildPlan
 import           Stackage.PackageDescription
-import           Stackage.PerformBuild (PerformBuild(..),copyBuiltInHaddocks)
+import           Stackage.PerformBuild (PerformBuild(..),copyBuiltInHaddocks,renameOrCopy)
+import           Stackage.Prelude (unFlagName)
 
+import           Control.Concurrent.STM
+import           Control.Concurrent.STM.TVar
+import           Control.Exception
 import           Control.Monad hiding (forM_)
+import           Data.Map.Strict (Map)
 import qualified Data.Map.Strict as M
+import qualified Data.Set as S
 import qualified Data.Text as T
 import           Development.Shake hiding (doesFileExist,doesDirectoryExist)
 import           Distribution.Package (PackageName)
 import           Distribution.Text (display)
 import qualified Filesystem.Path.CurrentOS as FP
-import           Stackage.Prelude (unFlagName)
 import           System.Directory
 import           System.Environment
 
@@ -23,15 +31,17 @@ performBuild :: PerformBuild -> IO ()
 performBuild pb = do
     shakeDir <- fmap (<//> "shake/") (getCurrentDirectory >>= canonicalizePath)
     createDirectoryIfMissing True shakeDir
+    haddockFiles <- liftIO (newTVarIO mempty)
     withArgs
         []
         (shakeArgs
-             shakeOptions {shakeFiles = shakeDir}
-             (shakePlan pb shakeDir))
+             shakeOptions {shakeFiles = shakeDir
+                          ,shakeVerbosity = Diagnostic}
+             (shakePlan haddockFiles pb shakeDir))
 
 -- | The complete build plan as far as Shake is concerned.
-shakePlan :: PerformBuild -> FilePath -> Rules ()
-shakePlan pb shakeDir = do
+shakePlan :: TVar (Map String FilePath) -> PerformBuild -> FilePath -> Rules ()
+shakePlan haddockFiles pb shakeDir = do
     fetched <- target (targetForFetched shakeDir) $
                fetchedTarget shakeDir pb
     db <- target
@@ -47,7 +57,7 @@ shakePlan pb shakeDir = do
                            target
                                (targetForPackage shakeDir name)
                                (do need [db, fetched]
-                                   packageTarget pb shakeDir name plan)
+                                   packageTarget haddockFiles pb shakeDir name plan)
     want packageTargets
     where corePackages =
               M.keys $ siCorePackages $ bpSystemInfo $ pbPlan pb
@@ -68,9 +78,34 @@ databaseTarget shakeDir pb =
        makeFile (targetForDb' shakeDir)
   where dir = buildDatabase pb
 
--- | Database location.
-buildDatabase :: PerformBuild -> FilePattern
-buildDatabase pb = FP.encodeString (pbInstallDest pb) <//> "pkgdb"
+-- | Build, test and generate documentation for the package.
+packageTarget :: TVar (Map String FilePath)
+              -> PerformBuild -> FilePath -> PackageName -> PackagePlan
+              -> Action ()
+packageTarget haddockFiles pb shakeDir name plan = do
+    need (map (targetForPackage shakeDir)
+              (M.keys (sdPackages (ppDesc plan))))
+    pwd <- liftIO getCurrentDirectory
+    env <- liftIO (fmap (Env . (++ defaultEnv pwd)) getEnvironment)
+    unpack shakeDir nameVer
+    configure pkgDir env pb plan
+    () <- cmd cwd env "cabal" "build"
+    register pkgDir env
+    when (pcHaddocks (ppConstraints plan) /= Don'tBuild) $
+        (generateHaddocks haddockFiles pb pkgDir env name nameVer)
+    makeFile (targetForPackage shakeDir name)
+    where cwd =
+              Cwd pkgDir
+          defaultEnv pwd =
+              [ ( "HASKELL_PACKAGE_SANDBOX"
+                , pwd <//>
+                  buildDatabase pb)
+              | pbGlobalInstall pb]
+          pkgDir = shakeDir <//> nameVer
+          nameVer =
+              display name ++
+              "-" ++
+              display (ppVersion plan)
 
 -- | Make sure all package archives have been fetched.
 fetchedTarget :: FilePath -> PerformBuild -> Action ()
@@ -86,49 +121,94 @@ fetchedTarget shakeDir pb = do
                         (pbPlan pb)))
     makeFile (targetForFetched shakeDir)
 
--- | Build, test and generate documentation for the package.
-packageTarget :: PerformBuild -> FilePath -> PackageName -> PackagePlan -> Action ()
-packageTarget pb shakeDir name plan = do
-    need (map (targetForPackage shakeDir)
-              (M.keys (sdPackages (ppDesc plan))))
-    pwd <- liftIO getCurrentDirectory
-    env <- liftIO (fmap (Env . (++ defaultEnv pwd)) getEnvironment)
+-- | Unpack the package.
+unpack :: FilePath -> String -> Action ()
+unpack shakeDir nameVer = do
     unpacked <- liftIO (doesDirectoryExist pkgDir)
-    unless unpacked $
-        cmd (Cwd shakeDir) "cabal" "unpack" nameVer
-    configured <- liftIO (doesFileExist (pkgDir <//> "dist" <//> "setup-config"))
-    unless configured $
-        cmd cwd env "cabal" "configure" (opts shakeDir pb plan pwd)
-    () <- cmd cwd env "cabal" "build"
-    () <- cmd cwd env "cabal" "copy"
-    () <- cmd cwd env "cabal" "register"
-    makeFile (targetForPackage shakeDir name)
-    where cwd =
-              Cwd pkgDir
-          defaultEnv pwd =
-              [ ( "HASKELL_PACKAGE_SANDBOX"
-                , pwd <//>
-                  buildDatabase pb)
-              | pbGlobalInstall pb]
-          pkgDir = shakeDir <//> nameVer
-          nameVer =
-              display name ++
-              "-" ++
-              display (ppVersion plan)
+    unless unpacked (cmd (Cwd shakeDir) "cabal" "unpack" nameVer)
+    where pkgDir =
+              shakeDir <//> nameVer
 
--- | Make @cabal configure@ options for a package.
-opts :: FilePath -> PerformBuild -> PackagePlan -> FilePattern -> [String]
-opts shakeDir pb plan pwd =
-    [ "--package-db=clear"
-    , "--package-db=global"
-    , "--libdir=" ++ pwd <//> pbLibDir pb
-    , "--bindir=" ++ pwd <//> pbBinDir pb
-    , "--datadir=" ++ pwd <//> pbDataDir pb
-    , "--docdir=" ++ pwd <//> pbDocDir pb
-    , "--flags=" ++ planFlags plan] ++
-    ["--package-db=" ++
-     pwd <//>
-     buildDatabase pb | not (pbGlobalInstall pb)]
+-- | Configure the given package.
+configure :: FilePath -> CmdOption -> PerformBuild -> PackagePlan -> Action ()
+configure pkgDir env pb plan = do
+    configured <- liftIO
+                      (doesFileExist
+                           (pkgDir <//> "dist" <//> "setup-config"))
+    unless
+        configured
+        (do pwd <- liftIO getCurrentDirectory
+            cmd (Cwd pkgDir) env "cabal" "configure" (opts pwd))
+  where opts pwd =
+            [ "--package-db=clear"
+            , "--package-db=global"
+            , "--libdir=" ++ pwd <//> pbLibDir pb
+            , "--bindir=" ++ pwd <//> pbBinDir pb
+            , "--datadir=" ++ pwd <//> pbDataDir pb
+            , "--docdir=" ++ pwd <//> pbDocDir pb
+            , "--flags=" ++ planFlags plan] ++
+            ["--package-db=" ++
+             pwd <//>
+             buildDatabase pb | not (pbGlobalInstall pb)]
+
+-- | Register the package.
+--
+-- TODO: Do a mutex lock in here. Does Shake already support doing
+-- this out of the box?
+register :: FilePath -> CmdOption -> Action ()
+register pkgDir env =
+    do () <- cmd cwd env "cabal" "copy"
+       cmd cwd env "cabal" "register"
+  where cwd = Cwd pkgDir
+
+-- | Generate haddocks for the package.
+generateHaddocks
+    :: TVar (Map String FilePath)
+    -> PerformBuild
+    -> FilePath
+    -> CmdOption
+    -> PackageName
+    -> FilePattern
+    -> Action ()
+generateHaddocks haddockFiles pb pkgDir env name nameVer = do
+    hfs <- liftIO (readTVarIO haddockFiles)
+    () <- cmd
+              (Cwd pkgDir)
+              env
+              "cabal"
+              "haddock"
+              "--hyperlink-source"
+              "--html"
+              "--hoogle"
+              "--html-location=../$pkg-$version/"
+              (map
+                   (\(pkgVer,hf) ->
+                         concat
+                             [ "--haddock-options=--read-interface="
+                             , "../"
+                             , pkgVer
+                             , "/,"
+                             , hf])
+                   (M.toList hfs))
+    liftIO
+        (renameOrCopy
+             (FP.decodeString
+                  (pkgDir <//> "dist" <//> "doc" <//> "html" <//> display name))
+             (FP.decodeString
+                  (pbDocDir pb <//> nameVer)))
+    enewPath <- liftIO
+                    (try $
+                     canonicalizePath
+                         (pbDocDir pb <//> nameVer <//> display name ++
+                          ".haddock"))
+    case enewPath of
+        Left (e :: IOException) ->
+            return () -- FIXME: log it with Shake.
+        Right newPath ->
+            liftIO
+                (atomically $
+                 modifyTVar haddockFiles $
+                 M.insert nameVer newPath)
 
 -- | Generate a flags string for the package plan.
 planFlags :: PackagePlan -> String
@@ -140,6 +220,10 @@ planFlags plan = unwords $ map go $ M.toList (pcFlagOverrides (ppConstraints pla
                   then ""
                   else "-"
             , T.unpack (unFlagName name')]
+
+-- | Database location.
+buildDatabase :: PerformBuild -> FilePattern
+buildDatabase pb = FP.encodeString (pbInstallDest pb) <//> "pkgdb"
 
 -- | Get the target file for confirming that all packages have been
 -- pre-fetched.
