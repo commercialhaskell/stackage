@@ -10,7 +10,7 @@ import           Stackage.PerformBuild (PerformBuild(..),copyBuiltInHaddocks)
 import           Control.Monad hiding (forM_)
 import qualified Data.Map.Strict as M
 import qualified Data.Text as T
-import           Development.Shake hiding (doesDirectoryExist)
+import           Development.Shake hiding (doesFileExist,doesDirectoryExist)
 import           Distribution.Package (PackageName)
 import           Distribution.Text (display)
 import qualified Filesystem.Path.CurrentOS as FP
@@ -96,7 +96,9 @@ packageTarget pb shakeDir name plan = do
     unpacked <- liftIO (doesDirectoryExist pkgDir)
     unless unpacked $
         cmd (Cwd shakeDir) "cabal" "unpack" nameVer
-    () <- cmd cwd env "cabal" "configure" (opts shakeDir pb plan pwd)
+    configured <- liftIO (doesFileExist (pkgDir <//> "dist" <//> "setup-config"))
+    unless configured $
+        cmd cwd env "cabal" "configure" (opts shakeDir pb plan pwd)
     () <- cmd cwd env "cabal" "build"
     () <- cmd cwd env "cabal" "copy"
     () <- cmd cwd env "cabal" "register"
