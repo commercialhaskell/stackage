@@ -88,10 +88,10 @@ packageTarget pb shakeDir name plan = do
               (M.keys (sdPackages (ppDesc plan))))
     pwd <- liftIO getCurrentDirectory
     env <- liftIO (fmap (Env . (++ defaultEnv pwd)) getEnvironment)
-    unpacked <- liftIO (doesDirectoryExist (shakeDir <//> nameVer))
-    unless unpacked
-           (cmd (Cwd shakeDir) "cabal" "unpack" nameVer)
-    () <- cmd cwd env "cabal" "configure" (opts pwd)
+    unpacked <- liftIO (doesDirectoryExist pkgDir)
+    unless unpacked $
+        cmd (Cwd shakeDir) "cabal" "unpack" nameVer
+    () <- cmd cwd env "cabal" "configure" (opts shakeDir pb plan pwd)
     () <- cmd cwd env "cabal" "build"
     () <- cmd cwd env "cabal" "copy"
     () <- cmd cwd env "cabal" "register"
@@ -102,36 +102,36 @@ packageTarget pb shakeDir name plan = do
               [ ( "HASKELL_PACKAGE_SANDBOX"
                 , pwd <//>
                   targetForDb shakeDir pb)]
-          opts pwd =
-              [ "--package-db=clear"
-              , "--package-db=global"
-              , "--libdir=" ++ pwd <//> pbLibDir pb
-              , "--bindir=" ++ pwd <//> pbBinDir pb
-              , "--datadir=" ++ pwd <//> pbDataDir pb
-              , "--docdir=" ++ pwd <//> pbDocDir pb
-              , "--flags=" ++ flags] ++
-              ["--package-db=" ++
-               pwd <//>
-               targetForDb shakeDir pb | not (pbGlobalInstall pb)]
-          pkgDir =
-              shakeDir <//> nameVer
+          pkgDir = shakeDir <//> nameVer
           nameVer =
               display name ++
               "-" ++
               display (ppVersion plan)
-          flags =
-              unwords $
-              map go $
-              M.toList
-                  (pcFlagOverrides
-                       (ppConstraints plan))
-            where
-              go (name',isOn) =
-                  concat
-                      [ if isOn
-                            then ""
-                            else "-"
-                      , T.unpack (unFlagName name')]
+
+-- | Make @cabal configure@ options for a package.
+opts :: FilePath -> PerformBuild -> PackagePlan -> FilePattern -> [String]
+opts shakeDir pb plan pwd =
+    [ "--package-db=clear"
+    , "--package-db=global"
+    , "--libdir=" ++ pwd <//> pbLibDir pb
+    , "--bindir=" ++ pwd <//> pbBinDir pb
+    , "--datadir=" ++ pwd <//> pbDataDir pb
+    , "--docdir=" ++ pwd <//> pbDocDir pb
+    , "--flags=" ++ planFlags plan] ++
+    ["--package-db=" ++
+     pwd <//>
+     targetForDb shakeDir pb | not (pbGlobalInstall pb)]
+
+-- | Generate a flags string for the package plan.
+planFlags :: PackagePlan -> String
+planFlags plan = unwords $ map go $ M.toList (pcFlagOverrides (ppConstraints plan))
+  where
+    go (name',isOn) =
+        concat
+            [ if isOn
+                  then ""
+                  else "-"
+            , T.unpack (unFlagName name')]
 
 -- | Get the target file for confirming that all packages have been
 -- pre-fetched.
