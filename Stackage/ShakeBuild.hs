@@ -94,29 +94,42 @@ packageTarget pb shakeDir name plan = do
     () <- cmd cwd env "cabal" "copy"
     () <- cmd cwd env "cabal" "register"
     makeFile (targetForPackage shakeDir name)
-    where cwd = Cwd pkgDir
-          defaultEnv pwd = [("HASKELL_PACKAGE_SANDBOX",pwd <//> targetForDb shakeDir pb)]
-          opts pwd = ["--package-db=clear"
-                     ,"--package-db=global"
-                     ,"--libdir=" ++ pwd <//> pbLibDir pb
-                     ,"--bindir=" ++ pwd <//> pbBinDir pb
-                     ,"--datadir=" ++ pwd <//> pbDataDir pb
-                     ,"--docdir=" ++ pwd <//> pbDocDir pb
-                     ,"--flags=" ++ flags] ++
-                     ["--package-db=" ++ pwd <//> targetForDb shakeDir pb
-                     |not (pbGlobalInstall pb)]
+    where cwd =
+              Cwd pkgDir
+          defaultEnv pwd =
+              [ ( "HASKELL_PACKAGE_SANDBOX"
+                , pwd <//>
+                  targetForDb shakeDir pb)]
+          opts pwd =
+              [ "--package-db=clear"
+              , "--package-db=global"
+              , "--libdir=" ++ pwd <//> pbLibDir pb
+              , "--bindir=" ++ pwd <//> pbBinDir pb
+              , "--datadir=" ++ pwd <//> pbDataDir pb
+              , "--docdir=" ++ pwd <//> pbDocDir pb
+              , "--flags=" ++ flags] ++
+              ["--package-db=" ++
+               pwd <//>
+               targetForDb shakeDir pb | not (pbGlobalInstall pb)]
           pkgDir =
               shakeDir <//> nameVer
           nameVer =
               display name ++
               "-" ++
               display (ppVersion plan)
-          flags = unwords $ map go $ M.toList (pcFlagOverrides (ppConstraints plan))
-                where
-                  go (name', isOn) = concat
-                      [ if isOn then "" else "-"
-                      , T.unpack (unFlagName name')
-                      ]
+          flags =
+              unwords $
+              map go $
+              M.toList
+                  (pcFlagOverrides
+                       (ppConstraints plan))
+            where
+              go (name',isOn) =
+                  concat
+                      [ if isOn
+                            then ""
+                            else "-"
+                      , T.unpack (unFlagName name')]
 
 -- | Get the target file for confirming that all packages have been
 -- pre-fetched.
