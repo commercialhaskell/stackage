@@ -35,7 +35,7 @@ shakePlan pb shakeDir = do
     fetched <- target (targetForFetched shakeDir) $
                fetchedTarget shakeDir pb
     db <- target
-              (targetForDb shakeDir pb)
+              (targetForDb' shakeDir)
               (databaseTarget shakeDir pb)
     _ <- forM corePackages $
          \name ->
@@ -59,13 +59,18 @@ shakePlan pb shakeDir = do
 -- create the target file.
 databaseTarget :: FilePath -> PerformBuild -> Action ()
 databaseTarget shakeDir pb =
-    if pbGlobalInstall pb
-       then liftIO (createDirectoryIfMissing True dir)
-       else do liftIO (createDirectoryIfMissing True (dir))
-               liftIO (removeDirectoryRecursive dir)
-               () <- cmd "ghc-pkg" "init" dir
-               liftIO (copyBuiltInHaddocks (FP.decodeString (pbDocDir pb)))
-  where dir = targetForDb shakeDir pb
+    do if pbGlobalInstall pb
+          then return ()
+          else do liftIO (createDirectoryIfMissing True dir)
+                  liftIO (removeDirectoryRecursive dir)
+                  () <- cmd "ghc-pkg" "init" dir
+                  liftIO (copyBuiltInHaddocks (FP.decodeString (pbDocDir pb)))
+       makeFile (targetForDb' shakeDir)
+  where dir = buildDatabase pb
+
+-- | Database location.
+buildDatabase :: PerformBuild -> FilePattern
+buildDatabase pb = FP.encodeString (pbInstallDest pb) <//> "pkgdb"
 
 -- | Make sure all package archives have been fetched.
 fetchedTarget :: FilePath -> PerformBuild -> Action ()
@@ -101,7 +106,8 @@ packageTarget pb shakeDir name plan = do
           defaultEnv pwd =
               [ ( "HASKELL_PACKAGE_SANDBOX"
                 , pwd <//>
-                  targetForDb shakeDir pb)]
+                  buildDatabase pb)
+              | pbGlobalInstall pb]
           pkgDir = shakeDir <//> nameVer
           nameVer =
               display name ++
@@ -120,7 +126,7 @@ opts shakeDir pb plan pwd =
     , "--flags=" ++ planFlags plan] ++
     ["--package-db=" ++
      pwd <//>
-     targetForDb shakeDir pb | not (pbGlobalInstall pb)]
+     buildDatabase pb | not (pbGlobalInstall pb)]
 
 -- | Generate a flags string for the package plan.
 planFlags :: PackagePlan -> String
@@ -145,11 +151,9 @@ targetForPackage shakeDir name =
     shakeDir <//> "packages" <//> display name
 
 -- | Get a package database path.
-targetForDb :: FilePath -> PerformBuild -> FilePath
-targetForDb shakeDir pb =
-    if pbGlobalInstall pb
-       then shakeDir <//> "pkgdb-global"
-       else FP.encodeString (pbInstallDest pb) <//> "pkgdb"
+targetForDb' :: FilePath -> FilePath
+targetForDb' shakeDir =
+    shakeDir <//> "pkgdb"
 
 -- | Declare a target, returning the target name.
 target :: FilePattern -> Action () -> Rules FilePattern
