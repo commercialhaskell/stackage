@@ -1,3 +1,7 @@
+## 0.5.2
+
+* Upload LTS to Hackage with the name LTSHaskell
+
 ## 0.5.1
 
 * `loadBuildConstraints`
