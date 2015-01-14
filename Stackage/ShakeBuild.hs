@@ -11,6 +11,7 @@ import           Stackage.CheckBuildPlan
 import           Stackage.PackageDescription
 import           Stackage.PerformBuild (PerformBuild(..),copyBuiltInHaddocks,renameOrCopy)
 import           Stackage.Prelude (unFlagName)
+import           System.Exit
 
 import           Control.Concurrent.STM
 import           Control.Concurrent.STM.TVar
@@ -52,7 +53,7 @@ shakePlan :: TVar (Map String FilePath)
 shakePlan haddockFiles registerLock pb shakeDir = do
     fetched <- target (targetForFetched shakeDir) $
                fetchedTarget shakeDir pb
-    db <- target (targetForDb' shakeDir) $
+    db <- target (targetForDb shakeDir) $
           databaseTarget shakeDir pb
     _ <- forM corePackages $
          \name ->
@@ -69,10 +70,40 @@ shakePlan haddockFiles registerLock pb shakeDir = do
                                   shakeDir
                                   name
                                   plan
-    want packageTargets
+    haddockTargets <- forM normalPackages $
+                      \(name,plan) ->
+                           target (targetForDocs shakeDir name) $
+                           do need [targetForPackage shakeDir name]
+                              packageDocs haddockFiles shakeDir pb plan name
+    if True
+        then want haddockTargets
+        else want packageTargets
     where corePackages = M.keys $ siCorePackages $ bpSystemInfo $ pbPlan pb
           normalPackages = filter (not . (`elem` corePackages) . fst) $
               M.toList $ bpPackages $ pbPlan pb
+
+-- | Generate haddock docs for the package.
+packageDocs :: TVar (Map String FilePath)
+            -> FilePattern
+            -> PerformBuild
+            -> PackagePlan
+            -> PackageName
+            -> Action ()
+packageDocs haddockFiles shakeDir pb plan name = do
+    pwd <- liftIO getCurrentDirectory
+    env <- liftIO (fmap (Env . (++ defaultEnv pwd)) getEnvironment)
+    when
+        (haddocksFlag /= Don'tBuild &&
+         not (S.null $ sdModules $ ppDesc plan)) $
+        generateHaddocks haddockFiles pb pkgDir env name nameVer haddocksFlag
+    makeFile (targetForDocs shakeDir name)
+    where haddocksFlag = pcHaddocks $ ppConstraints plan
+          defaultEnv pwd = [( "HASKELL_PACKAGE_SANDBOX"
+                            , pwd <//> buildDatabase pb) | pbGlobalInstall pb]
+          pkgDir = shakeDir <//> nameVer
+          nameVer = display name ++
+              "-" ++
+              display (ppVersion plan)
 
 -- | Initialize the database if there one needs to be, and in any case
 -- create the target file.
@@ -85,7 +116,7 @@ databaseTarget shakeDir pb = do
             liftIO (removeDirectoryRecursive dir)
             () <- cmd "ghc-pkg" "init" dir
             liftIO $ copyBuiltInHaddocks $ FP.decodeString $ pbDocDir pb
-    makeFile (targetForDb' shakeDir)
+    makeFile (targetForDb shakeDir)
     where dir = buildDatabase pb
 
 -- | Build, test and generate documentation for the package.
@@ -115,9 +146,6 @@ packageTarget haddockFiles registerLock pb shakeDir name plan = do
           nameVer = display name ++
               "-" ++
               display (ppVersion plan)
-
-{-when (pcHaddocks (ppConstraints plan) /= Don'tBuild) $
-(generateHaddocks haddockFiles pb pkgDir env name nameVer)-}
 
 -- | Make sure all package archives have been fetched.
 fetchedTarget :: FilePath -> PerformBuild -> Action ()
@@ -182,43 +210,54 @@ generateHaddocks :: TVar (Map String FilePath)
                  -> CmdOption
                  -> PackageName
                  -> FilePattern
+                 -> TestState
                  -> Action ()
-generateHaddocks haddockFiles pb pkgDir env name nameVer = do
+generateHaddocks haddockFiles pb pkgDir env name nameVer expected = do
     hfs <- liftIO $ readTVarIO haddockFiles
-    () <- cmd
-              (Cwd pkgDir)
-              env
-              "cabal"
-              "haddock"
-              "--hyperlink-source"
-              "--html"
-              "--hoogle"
-              "--html-location=../$pkg-$version/"
-              (map
-                   (\(pkgVer,hf) ->
-                         concat
-                             [ "--haddock-options=--read-interface="
-                             , "../"
-                             , pkgVer
-                             , "/,"
-                             , hf])
-                   (M.toList hfs))
-    liftIO $
-        renameOrCopy
-            (FP.decodeString
-                 (pkgDir <//> "dist" <//> "doc" <//> "html" <//> display name))
-            (FP.decodeString
-                 (pbDocDir pb <//> nameVer))
-    enewPath <- liftIO $
-                try $
-                canonicalizePath
-                    (pbDocDir pb <//> nameVer <//> display name ++ ".haddock")
-    case enewPath of
-        Left (e :: IOException) -> return () -- FIXME: log it with Shake.
-        Right newPath -> liftIO $
-            atomically $
-            modifyTVar haddockFiles $
-            M.insert nameVer newPath
+    exitCode <- cmd
+                    (Cwd pkgDir)
+                    env
+                    "cabal"
+                    "haddock"
+                    "--hyperlink-source"
+                    "--html"
+                    "--hoogle"
+                    "--html-location=../$pkg-$version/"
+                    (map
+                         (\(pkgVer,hf) ->
+                               concat
+                                   [ "--haddock-options=--read-interface="
+                                   , "../"
+                                   , pkgVer
+                                   , "/,"
+                                   , hf])
+                         (M.toList hfs))
+    case (exitCode,expected) of
+      (ExitSuccess,ExpectFailure) -> return () -- FIXME: warn.
+      (ExitFailure{},ExpectSuccess) -> throw exitCode -- FIXME: report it
+      _ -> return ()
+    copy
+    where copy = do
+              liftIO $
+                  do let orig = pkgDir <//> "dist" <//> "doc" <//> "html" <//>
+                             (display name)
+                     exists <- doesDirectoryExist orig
+                     when exists $
+                         renameOrCopy
+                             (FP.decodeString orig)
+                             (FP.decodeString
+                                  (pbDocDir pb <//> nameVer))
+              enewPath <- liftIO $
+                          try $
+                          canonicalizePath
+                              (pbDocDir pb <//> nameVer <//> display name ++
+                               ".haddock")
+              case enewPath of
+                  Left (e :: IOException) -> return () -- FIXME: log it with Shake.
+                  Right newPath -> liftIO $
+                      atomically $
+                      modifyTVar haddockFiles $
+                      M.insert nameVer newPath
 
 -- | Generate a flags string for the package plan.
 planFlags :: PackagePlan -> String
@@ -248,9 +287,14 @@ targetForPackage :: FilePath -> PackageName -> FilePath
 targetForPackage shakeDir name =
     shakeDir <//> "packages" <//> display name
 
+-- | Get the target file for a package.
+targetForDocs :: FilePath -> PackageName -> FilePath
+targetForDocs shakeDir name =
+    shakeDir <//> "docs" <//> display name
+
 -- | Get a package database path.
-targetForDb' :: FilePath -> FilePath
-targetForDb' shakeDir =
+targetForDb :: FilePath -> FilePath
+targetForDb shakeDir =
     shakeDir <//> "pkgdb"
 
 -- | Declare a target, returning the target name.
