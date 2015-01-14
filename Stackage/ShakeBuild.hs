@@ -84,10 +84,7 @@ databaseTarget shakeDir pb = do
             liftIO (createDirectoryIfMissing True dir)
             liftIO (removeDirectoryRecursive dir)
             () <- cmd "ghc-pkg" "init" dir
-            liftIO
-                (copyBuiltInHaddocks
-                     (FP.decodeString
-                          (pbDocDir pb)))
+            liftIO $ copyBuiltInHaddocks $ FP.decodeString $ pbDocDir pb
     makeFile (targetForDb' shakeDir)
     where dir = buildDatabase pb
 
