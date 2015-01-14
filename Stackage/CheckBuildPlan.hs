@@ -8,6 +8,7 @@
 -- | Confirm that a build plan has a consistent set of dependencies.
 module Stackage.CheckBuildPlan
     ( checkBuildPlan
+    , libAndExe
     , BadBuildPlan
     ) where
 
@@ -29,10 +30,13 @@ checkBuildPlan BuildPlan {..}
                   map (ppVersion &&& M.keys . M.filter libAndExe . sdPackages . ppDesc) bpPackages
     errs@(BadBuildPlan errs') =
         execWriter $ mapM_ (checkDeps allPackages) $ mapToList bpPackages
-    -- Only looking at libraries and executables, benchmarks and tests
-    -- are allowed to create cycles (e.g. test-framework depends on
-    -- text, which uses test-framework in its test-suite).
-    libAndExe (DepInfo cs _) = any (flip elem [CompLibrary,CompExecutable]) cs
+
+
+-- Only looking at libraries and executables, benchmarks and tests
+-- are allowed to create cycles (e.g. test-framework depends on
+-- text, which uses test-framework in its test-suite).
+libAndExe :: DepInfo -> Bool
+libAndExe (DepInfo cs _) = any (flip elem [CompLibrary,CompExecutable]) cs
 
 -- | For a given package name and plan, check that its dependencies are:
 --
