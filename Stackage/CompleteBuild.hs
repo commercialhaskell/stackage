@@ -54,6 +54,7 @@ data Settings = Settings
     , slug      :: Text
     , setArgs   :: Text -> UploadBundle -> UploadBundle
     , postBuild :: IO ()
+    , distroName :: Text -- ^ distro name on Hackage
     }
 
 nightlyPlanFile :: Text -- ^ day
@@ -77,6 +78,7 @@ nightlySettings day plan' = Settings
     , setArgs = \ghcVer ub -> ub { ubNightly = Just ghcVer }
     , plan = plan'
     , postBuild = return ()
+    , distroName = "Stackage"
     }
   where
     slug' = "nightly-" ++ day
@@ -137,6 +139,7 @@ getSettings man (LTS bumpType) = do
             git ["commit", "-m", "Added new LTS release: " ++ show new]
             putStrLn "Pushing to Git repository"
             git ["push"]
+        , distroName = "LTSHaskell"
         }
 
 data LTSVer = LTSVer !Int !Int
@@ -274,7 +277,7 @@ finallyUpload settings@Settings{..} man = do
     case map encodeUtf8 $ words $ decodeUtf8 $ either (const "") id ecreds of
         [username, password] -> do
             putStrLn "Uploading as Hackage distro"
-            res2 <- uploadHackageDistro plan username password man
+            res2 <- uploadHackageDistroNamed distroName plan username password man
             putStrLn $ "Distro upload response: " ++ tshow res2
         _ -> putStrLn "No creds found, skipping Hackage distro upload"
 

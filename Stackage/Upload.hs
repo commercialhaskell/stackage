@@ -11,6 +11,7 @@ module Stackage.Upload
     , UploadDocs (..)
     , uploadDocs
     , uploadHackageDistro
+    , uploadHackageDistroNamed
     , UploadDocMap (..)
     , uploadDocMap
     ) where
@@ -149,8 +150,28 @@ uploadHackageDistro :: BuildPlan
                     -> ByteString -- ^ Hackage password
                     -> Manager
                     -> IO (Response LByteString)
-uploadHackageDistro bp username password =
-    httpLbs (applyBasicAuth username password req)
+uploadHackageDistro = uploadHackageDistroNamed "Stackage"
+
+uploadHackageDistroNamed
+    :: Text -- ^ distro name
+    -> BuildPlan
+    -> ByteString -- ^ Hackage username
+    -> ByteString -- ^ Hackage password
+    -> Manager
+    -> IO (Response LByteString)
+uploadHackageDistroNamed name bp username password manager = do
+    req1 <- parseUrl $ concat
+        [ "http://hackage.haskell.org/distro/"
+        , unpack name
+        , "/packages.csv"
+        ]
+    let req2 = req1
+                { requestHeaders = [("Content-Type", "text/csv")]
+                , requestBody = RequestBodyLBS csv
+                , checkStatus = \_ _ _ -> Nothing
+                , method = "PUT"
+                }
+    httpLbs (applyBasicAuth username password req2) manager
   where
     csv = encodeUtf8
         $ builderToLazy
@@ -167,13 +188,6 @@ uploadHackageDistro bp username password =
         "\",\"http://www.stackage.org/package/" ++
         (toBuilder $ display name) ++
         "\""
-
-    req = "http://hackage.haskell.org/distro/Stackage/packages.csv"
-        { requestHeaders = [("Content-Type", "text/csv")]
-        , requestBody = RequestBodyLBS csv
-        , checkStatus = \_ _ _ -> Nothing
-        , method = "PUT"
-        }
 
 data UploadDocMap = UploadDocMap
     { udmServer    :: StackageServer
