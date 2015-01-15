@@ -78,9 +78,7 @@ shakePlan haddockFiles registerLock pb shakeDir = do
                            target (targetForDocs shakeDir name (ppVersion plan)) $
                            do need [targetForPackage shakeDir name (ppVersion plan)]
                               packageDocs haddockFiles shakeDir pb plan name
-    if True
-       then want haddockTargets
-       else want packageTargets
+    want haddockTargets
     where versionMappings = M.toList (M.map ppVersion (bpPackages (pbPlan pb)))
           corePackages = M.keys $ siCorePackages $ bpSystemInfo $ pbPlan pb
           normalPackages = filter (not . (`elem` corePackages) . fst) $
@@ -104,7 +102,7 @@ packageDocs haddockFiles shakeDir pb plan name = do
     where haddocksFlag = pcHaddocks $ ppConstraints plan
           defaultEnv pwd = [( "HASKELL_PACKAGE_SANDBOX"
                             , pwd <//> buildDatabase shakeDir) | pbGlobalInstall pb]
-          pkgDir = shakeDir <//> nameVer
+          pkgDir = shakeDir <//> "packages" <//> nameVer
           nameVer = display name ++
               "-" ++
               display (ppVersion plan)
@@ -139,7 +137,7 @@ packageTarget haddockFiles registerLock pb shakeDir name plan = do
         M.keys $ M.filter libAndExe $ sdPackages $ ppDesc plan
     pwd <- liftIO getCurrentDirectory
     env <- liftIO (fmap (Env . (++ defaultEnv pwd)) getEnvironment)
-    unpack shakeDir nameVer
+    unpack shakeDir name nameVer
     configure shakeDir pkgDir env pb plan
     () <- cmd cwd env "cabal" "build" "--ghc-options=-O0"
     register pkgDir env registerLock
@@ -148,7 +146,7 @@ packageTarget haddockFiles registerLock pb shakeDir name plan = do
           cwd = Cwd pkgDir
           defaultEnv pwd = [( "HASKELL_PACKAGE_SANDBOX"
                             , pwd <//> buildDatabase shakeDir) | pbGlobalInstall pb]
-          pkgDir = shakeDir <//> nameVer
+          pkgDir = shakeDir <//> "packages" <//> nameVer
           nameVer = display name ++
               "-" ++
               display (ppVersion plan)
@@ -166,26 +164,25 @@ fetchedTarget shakeDir pb = do
     makeFile (targetForFetched shakeDir)
 
 -- | Unpack the package.
-unpack :: FilePath -> String -> Action ()
-unpack shakeDir nameVer = do
-    unpacked <- liftIO (doesDirectoryExist pkgDir)
+unpack :: FilePath -> PackageName -> String -> Action ()
+unpack shakeDir name nameVer = do
+    unpacked <- liftIO (doesFileExist (pkgDir <//> display name ++ ".cabal"))
     unless unpacked $
-        cmd (Cwd shakeDir) "cabal" "unpack" nameVer
-    where pkgDir = shakeDir <//> nameVer
+        do liftIO (catch (removeDirectoryRecursive pkgDir)
+                         (\(_ :: IOException) -> return ()))
+           cmd (Cwd (shakeDir <//> "packages")) "cabal" "unpack" nameVer
+    where pkgDir = shakeDir <//> "packages" <//> nameVer
 
 -- | Configure the given package.
 configure :: FilePath -> FilePath -> CmdOption -> PerformBuild -> PackagePlan -> Action ()
 configure shakeDir pkgDir env pb plan = do
-    configured <- liftIO $ doesFileExist $ pkgDir <//> "dist" <//>
-                                           "setup-config"
-    unless configured $
-        do pwd <- liftIO getCurrentDirectory
-           cmd
-               (Cwd pkgDir)
-               env
-               "cabal"
-               "configure"
-               (opts pwd)
+    pwd <- liftIO getCurrentDirectory
+    cmd
+        (Cwd pkgDir)
+        env
+        "cabal"
+        "configure"
+        (opts pwd)
     where opts pwd = [ "--package-db=clear"
                      , "--package-db=global"
                      , "--libdir=" ++ pbLibDir shakeDir
@@ -287,12 +284,12 @@ buildDatabase shakeDir = shakeDir <//> "pkgdb"
 -- pre-fetched.
 targetForFetched :: FilePath -> FilePath
 targetForFetched shakeDir =
-    shakeDir <//> "fetched"
+    shakeDir <//> "packages-fetched"
 
 -- | Get the target file for a package.
 targetForPackage :: FilePath -> PackageName -> Version -> FilePath
 targetForPackage shakeDir name version =
-    shakeDir <//> "packages" <//> nameVer
+    shakeDir <//> "packages" <//> nameVer <//> "dist" <//> "shake-build"
   where nameVer = display name ++
             "-" ++
             display version
@@ -300,7 +297,7 @@ targetForPackage shakeDir name version =
 -- | Get the target file for a package.
 targetForDocs :: FilePath -> PackageName -> Version -> FilePath
 targetForDocs shakeDir name version =
-    shakeDir <//> "docs" <//> nameVer
+    shakeDir <//> "packages" <//> nameVer <//> "dist" <//> "shake-docs"
   where nameVer = display name ++
             "-" ++
             display version
@@ -308,7 +305,7 @@ targetForDocs shakeDir name version =
 -- | Get a package database path.
 targetForDb :: FilePath -> FilePath
 targetForDb shakeDir =
-    shakeDir <//> "pkgdb-built"
+    shakeDir <//> "pkgdb-initialized"
 
 -- | Declare a target, returning the target name.
 target :: FilePattern -> Action () -> Rules FilePattern
