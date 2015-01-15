@@ -4,33 +4,39 @@
 
 module Stackage.ShakeBuild where
 
-import           Control.Concurrent.MVar
-import           Data.List
-import           Data.Maybe
-import           Data.Version
 import           Stackage.BuildConstraints
 import           Stackage.BuildPlan
 import           Stackage.CheckBuildPlan
 import           Stackage.PackageDescription
 import           Stackage.PerformBuild (PerformBuild(..),copyBuiltInHaddocks,renameOrCopy)
 import           Stackage.Prelude (unFlagName)
-import           System.Exit
 
+import           Control.Concurrent.MVar
 import           Control.Concurrent.STM
 import           Control.Concurrent.STM.TVar
 import           Control.Exception
 import           Control.Monad hiding (forM_)
+import           Data.Conduit
+import qualified Data.Conduit.List as CL
+import           Data.Conduit.Process
+import qualified Data.Conduit.Text as CT
+import           Data.List
 import           Data.Map.Strict (Map)
 import qualified Data.Map.Strict as M
+import           Data.Maybe
 import           Data.Monoid
 import qualified Data.Set as S
+import           Data.Text (Text)
 import qualified Data.Text as T
+import qualified Data.Text.Encoding as T
+import           Data.Version
 import           Development.Shake hiding (doesFileExist,doesDirectoryExist)
 import           Distribution.Package (PackageName)
 import           Distribution.Text (display)
 import qualified Filesystem.Path.CurrentOS as FP
 import           System.Directory
 import           System.Environment
+import           System.Exit
 
 -- | Run the shake builder.
 performBuild :: PerformBuild -> IO ()
@@ -39,6 +45,7 @@ performBuild pb = do
     createDirectoryIfMissing True shakeDir
     haddockFiles <- liftIO (newTVarIO mempty)
     registerLock <- liftIO (newMVar ())
+    cleanOldPackages pb
     withArgs [] $
         shakeArgs
             shakeOptions
@@ -97,15 +104,12 @@ packageDocs haddockFiles shakeDir pb plan name = do
     when
         (haddocksFlag /= Don'tBuild &&
          not (S.null $ sdModules $ ppDesc plan)) $
-        generateHaddocks haddockFiles pb shakeDir pkgDir env name nameVer haddocksFlag
+        generateHaddocks haddockFiles pb shakeDir (pkgDir shakeDir name version) env name version haddocksFlag
     makeFile (targetForDocs shakeDir name (ppVersion plan))
-    where haddocksFlag = pcHaddocks $ ppConstraints plan
+    where version = ppVersion plan
+          haddocksFlag = pcHaddocks $ ppConstraints plan
           defaultEnv pwd = [( "HASKELL_PACKAGE_SANDBOX"
                             , pwd <//> buildDatabase shakeDir) | pbGlobalInstall pb]
-          pkgDir = shakeDir <//> "packages" <//> nameVer
-          nameVer = display name ++
-              "-" ++
-              display (ppVersion plan)
 
 -- | Initialize the database if there one needs to be, and in any case
 -- create the target file.
@@ -137,19 +141,17 @@ packageTarget haddockFiles registerLock pb shakeDir name plan = do
         M.keys $ M.filter libAndExe $ sdPackages $ ppDesc plan
     pwd <- liftIO getCurrentDirectory
     env <- liftIO (fmap (Env . (++ defaultEnv pwd)) getEnvironment)
-    unpack shakeDir name nameVer
-    configure shakeDir pkgDir env pb plan
+    unpack shakeDir name version
+    configure shakeDir dir env pb plan
     () <- cmd cwd env "cabal" "build" "--ghc-options=-O0"
-    register pkgDir env registerLock
-    makeFile (targetForPackage shakeDir name (ppVersion plan))
-    where versionMappings = M.toList (M.map ppVersion (bpPackages (pbPlan pb)))
-          cwd = Cwd pkgDir
+    register dir env registerLock
+    makeFile (targetForPackage shakeDir name version)
+    where dir = pkgDir shakeDir name version
+          version = ppVersion plan
+          versionMappings = M.toList (M.map ppVersion (bpPackages (pbPlan pb)))
+          cwd = Cwd dir
           defaultEnv pwd = [( "HASKELL_PACKAGE_SANDBOX"
                             , pwd <//> buildDatabase shakeDir) | pbGlobalInstall pb]
-          pkgDir = shakeDir <//> "packages" <//> nameVer
-          nameVer = display name ++
-              "-" ++
-              display (ppVersion plan)
 
 -- | Make sure all package archives have been fetched.
 fetchedTarget :: FilePath -> PerformBuild -> Action ()
@@ -164,14 +166,23 @@ fetchedTarget shakeDir pb = do
     makeFile (targetForFetched shakeDir)
 
 -- | Unpack the package.
-unpack :: FilePath -> PackageName -> String -> Action ()
-unpack shakeDir name nameVer = do
-    unpacked <- liftIO (doesFileExist (pkgDir <//> display name ++ ".cabal"))
+unpack :: FilePath -> PackageName -> Version -> Action ()
+unpack shakeDir name version = do
+    unpacked <- liftIO $
+                doesFileExist $
+                pkgDir shakeDir name version <//>
+                display name ++
+                ".cabal"
     unless unpacked $
-        do liftIO (catch (removeDirectoryRecursive pkgDir)
-                         (\(_ :: IOException) -> return ()))
-           cmd (Cwd (shakeDir <//> "packages")) "cabal" "unpack" nameVer
-    where pkgDir = shakeDir <//> "packages" <//> nameVer
+        do liftIO $
+               catch (removeDirectoryRecursive (pkgDir shakeDir name version)) $
+               \(_ :: IOException) ->
+                    return ()
+           cmd
+               (Cwd (shakeDir <//> "packages"))
+               "cabal"
+               "unpack"
+               (nameVer name version)
 
 -- | Configure the given package.
 configure :: FilePath -> FilePath -> CmdOption -> PerformBuild -> PackagePlan -> Action ()
@@ -213,10 +224,10 @@ generateHaddocks :: TVar (Map String FilePath)
                  -> FilePath
                  -> CmdOption
                  -> PackageName
-                 -> FilePattern
+                 -> Version
                  -> TestState
                  -> Action ()
-generateHaddocks haddockFiles pb shakeDir pkgDir env name nameVer expected = do
+generateHaddocks haddockFiles pb shakeDir pkgDir env name version expected = do
     hfs <- liftIO $ readTVarIO haddockFiles
     exitCode <- cmd
                     (Cwd pkgDir)
@@ -236,32 +247,32 @@ generateHaddocks haddockFiles pb shakeDir pkgDir env name nameVer expected = do
                                    , "/,"
                                    , hf])
                          (M.toList hfs))
-    case (exitCode,expected) of
-      (ExitSuccess,ExpectFailure) -> return () -- FIXME: warn.
-      (ExitFailure{},ExpectSuccess) -> throw exitCode -- FIXME: report it
-      _ -> return ()
+    case (exitCode, expected) of
+        (ExitSuccess,ExpectFailure) -> return () -- FIXME: warn.
+        (ExitFailure{},ExpectSuccess) -> throw exitCode -- FIXME: report it
+        _ -> return ()
     copy
-    where copy = do
+    where ident = nameVer name version
+          copy = do
               liftIO $
-                  do let orig = pkgDir <//> "dist" <//> "doc" <//> "html" <//>
-                             (display name)
+                  do let orig = pkgDocDir shakeDir name version
                      exists <- doesDirectoryExist orig
                      when exists $
                          renameOrCopy
                              (FP.decodeString orig)
                              (FP.decodeString
-                                  (pbDocDir shakeDir <//> nameVer))
+                                  (pbDocDir shakeDir <//> ident))
               enewPath <- liftIO $
                           try $
                           canonicalizePath
-                              (pbDocDir shakeDir <//> nameVer <//> display name ++
+                              (pbDocDir shakeDir <//> ident <//> display name ++
                                ".haddock")
               case enewPath of
                   Left (e :: IOException) -> return () -- FIXME: log it with Shake.
                   Right newPath -> liftIO $
                       atomically $
                       modifyTVar haddockFiles $
-                      M.insert nameVer newPath
+                      M.insert (ident) newPath
 
 -- | Generate a flags string for the package plan.
 planFlags :: PackagePlan -> String
@@ -280,6 +291,23 @@ planFlags plan = unwords $
 buildDatabase :: FilePath -> FilePattern
 buildDatabase shakeDir = shakeDir <//> "pkgdb"
 
+-- | Print the name and version.
+nameVer :: PackageName -> Version -> String
+nameVer name version = display name ++ "-" ++ display version
+
+-- | The directory for the package's docs.
+pkgDocDir :: FilePath -> PackageName -> Version -> FilePath
+pkgDocDir shakeDir name version = pkgDir shakeDir name version <//>
+    "dist" <//>
+    "doc" <//>
+    "html" <//>
+    (display name)
+
+--  | The package directory.
+pkgDir :: FilePath -> PackageName -> Version -> FilePath
+pkgDir shakeDir name version = shakeDir <//> "packages" <//>
+    (nameVer name version)
+
 -- | Get the target file for confirming that all packages have been
 -- pre-fetched.
 targetForFetched :: FilePath -> FilePath
@@ -289,18 +317,12 @@ targetForFetched shakeDir =
 -- | Get the target file for a package.
 targetForPackage :: FilePath -> PackageName -> Version -> FilePath
 targetForPackage shakeDir name version =
-    shakeDir <//> "packages" <//> nameVer <//> "dist" <//> "shake-build"
-  where nameVer = display name ++
-            "-" ++
-            display version
+    shakeDir <//> "packages" <//> nameVer name version <//> "dist" <//> "shake-build"
 
 -- | Get the target file for a package.
 targetForDocs :: FilePath -> PackageName -> Version -> FilePath
 targetForDocs shakeDir name version =
-    shakeDir <//> "packages" <//> nameVer <//> "dist" <//> "shake-docs"
-  where nameVer = display name ++
-            "-" ++
-            display version
+    shakeDir <//> "packages" <//> nameVer name version <//> "dist" <//> "shake-docs"
 
 -- | Get a package database path.
 targetForDb :: FilePath -> FilePath
@@ -322,3 +344,16 @@ pbBinDir shakeDir = shakeDir <//> "bin"
 pbLibDir shakeDir = shakeDir <//> "lib"
 pbDataDir shakeDir = shakeDir <//> "share"
 pbDocDir shakeDir = shakeDir <//> "doc"
+
+-- | Clean up old versions of packages that are no longer in use.
+cleanOldPackages :: PerformBuild -> IO ()
+cleanOldPackages pb = do undefined
+                         undefined
+
+-- | Get globally available packages.
+getGlobalPackages :: FilePath -> IO [Text]
+getGlobalPackages shakeDir =
+  do (_,ps) <- sourceProcessWithConsumer
+                 (proc "ghc-pkg" ["list","--simple-output","-f",buildDatabase shakeDir])
+                 (CT.decodeUtf8 $= CT.lines $= CL.consume)
+     return (T.words (T.unlines ps))
