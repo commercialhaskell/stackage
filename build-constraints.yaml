@@ -705,9 +705,6 @@ packages:
         # https://github.com/fpco/lts-haskell/issues/5
         - ChasingBottoms < 1.3.0.10 || > 1.3.0.10
 
-        # https://github.com/TomMD/DRBG/issues/7
-        - DRBG < 0.5.4 || > 0.5.4
-
 # Package flags are applied to individual packages, and override the values of
 # global-flags
 package-flags:
@@ -943,6 +940,9 @@ expected-test-failures:
 
     # Tests can fail when the build plan fails, which happens arbitrarily.
     - stackage
+
+    # https://github.com/TomMD/DRBG/issues/7
+    - DRBG
 
 # Haddocks which are expected to fail. Same concept as expected test failures.
 expected-haddock-failures:
