@@ -349,43 +349,74 @@ pbLibDir shakeDir = shakeDir <//> "lib"
 pbDataDir shakeDir = shakeDir <//> "share"
 pbDocDir shakeDir = shakeDir <//> "doc"
 
+-- | Reason for purging a package.
+data PurgeReason
+    = NoLongerIncluded
+    | Replaced Version
+    | Broken
+
 -- | Clean up old versions of packages that are no longer in use.
 cleanOldPackages :: PerformBuild -> FilePath -> IO ()
 cleanOldPackages pb shakeDir = do
     putStrLn "Collecting garbage"
     pkgs <- getRegisteredPackages shakeDir
     forM_ pkgs $
-       \(PackageIdentifier name version) ->
-            case M.lookup name versions of
-                Just version'
-                    | version' == version ->
-                        return ()
-                Just newVersion -> purgePackage shakeDir name version (Just newVersion)
-                Nothing -> purgePackage shakeDir name version Nothing
+        \(PackageIdentifier name version) ->
+             case M.lookup name versions of
+                 Just version'
+                     | version' == version ->
+                         return ()
+                 Just newVersion -> purgePackage
+                         shakeDir
+                         name
+                         version
+                         (Replaced newVersion)
+                 Nothing -> purgePackage shakeDir name version NoLongerIncluded
+    broken <- getBrokenPackages shakeDir
+    forM_
+        broken
+        (\(PackageIdentifier name version) ->
+              purgePackage shakeDir name version Broken)
     where versions = (M.map ppVersion . bpPackages . pbPlan) pb
 
 -- | Purge the given package and version.
-purgePackage :: FilePath -> PackageName -> Version -> Maybe Version -> IO ()
-purgePackage shakeDir name version newVersion = do
-    putStrLn $ "Cleaning up unused package: " ++ ident ++ " (" ++ reason ++ ")"
+purgePackage :: FilePath -> PackageName -> Version -> PurgeReason -> IO ()
+purgePackage shakeDir name version reason = do
+    putStr $ "Purging package: " ++ ident ++ " (" ++ showReason ++ ") ... "
     unregister
     delete
-    where reason =
-              case newVersion of
-                Just version' -> "replaced by " ++ ordinal ++ " " ++ display version'
+    putStrLn "done."
+    where showReason =
+              case reason of
+                Replaced version' -> "replaced by " ++ ordinal ++ " " ++ display version'
                     where ordinal | version' > version = "newer"
                                   | otherwise          = "older"
-                Nothing -> "no longer included"
+                NoLongerIncluded -> "no longer included"
+                Broken -> "broken"
           ident = nameVer name version
-          unregister = void $
-              readProcessWithExitCode
-                  "ghc-pkg"
-                  ["unregister", "-f", buildDatabase shakeDir, "--force", ident]
-                  ""
+          unregister = do
+              void (readProcessWithExitCode
+                        "ghc-pkg"
+                        ["unregister", "-f", buildDatabase shakeDir, "--force", ident]
+                        "")
+              void (readProcessWithExitCode
+                        "ghc-pkg"
+                        ["recache", "-f", buildDatabase shakeDir]
+                        "")
           delete = removeDirectoryRecursive $
               pkgDir shakeDir name version
 
--- | Get globally available packages.
+-- | Get broken packages.
+getBrokenPackages :: FilePath -> IO [PackageIdentifier]
+getBrokenPackages shakeDir = do
+    (_,ps) <- sourceProcessWithConsumer
+                  (proc'
+                       "ghc-pkg"
+                       ["check", "--simple-output", "-f", buildDatabase shakeDir])
+                  (CT.decodeUtf8 $= CT.lines $= CL.consume)
+    return (mapMaybe parsePackageIdent (T.words (T.unlines ps)))
+
+-- | Get available packages.
 getRegisteredPackages :: FilePath -> IO [PackageIdentifier]
 getRegisteredPackages shakeDir = do
     (_,ps) <- sourceProcessWithConsumer
