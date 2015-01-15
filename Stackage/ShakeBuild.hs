@@ -4,6 +4,7 @@
 
 module Stackage.ShakeBuild where
 
+import           Control.Monad
 import           Stackage.BuildConstraints
 import           Stackage.BuildPlan
 import           Stackage.CheckBuildPlan
@@ -31,8 +32,11 @@ import qualified Data.Text as T
 import qualified Data.Text.Encoding as T
 import           Data.Version
 import           Development.Shake hiding (doesFileExist,doesDirectoryExist)
+import           Distribution.Compat.ReadP
+import           Distribution.Package
 import           Distribution.Package (PackageName)
 import           Distribution.Text (display)
+import           Distribution.Text (parse)
 import qualified Filesystem.Path.CurrentOS as FP
 import           System.Directory
 import           System.Environment
@@ -45,7 +49,7 @@ performBuild pb = do
     createDirectoryIfMissing True shakeDir
     haddockFiles <- liftIO (newTVarIO mempty)
     registerLock <- liftIO (newMVar ())
-    cleanOldPackages pb
+    cleanOldPackages pb shakeDir
     withArgs [] $
         shakeArgs
             shakeOptions
@@ -346,14 +350,56 @@ pbDataDir shakeDir = shakeDir <//> "share"
 pbDocDir shakeDir = shakeDir <//> "doc"
 
 -- | Clean up old versions of packages that are no longer in use.
-cleanOldPackages :: PerformBuild -> IO ()
-cleanOldPackages pb = do undefined
-                         undefined
+cleanOldPackages :: PerformBuild -> FilePath -> IO ()
+cleanOldPackages pb shakeDir = do
+    putStrLn "Collecting garbage"
+    pkgs <- getRegisteredPackages shakeDir
+    forM_ pkgs $
+       \(PackageIdentifier name version) ->
+            case M.lookup name versions of
+                Just version'
+                    | version' == version ->
+                        return ()
+                Just newVersion -> purgePackage shakeDir name version (Just newVersion)
+                Nothing -> purgePackage shakeDir name version Nothing
+    where versions = (M.map ppVersion . bpPackages . pbPlan) pb
+
+-- | Purge the given package and version.
+purgePackage :: FilePath -> PackageName -> Version -> Maybe Version -> IO ()
+purgePackage shakeDir name version newVersion = do
+    putStrLn $ "Cleaning up unused package: " ++ ident ++ " (" ++ reason ++ ")"
+    unregister
+    delete
+    where reason =
+              case newVersion of
+                Just version' -> "replaced by " ++ ordinal ++ " " ++ display version'
+                    where ordinal | version' > version = "newer"
+                                  | otherwise          = "older"
+                Nothing -> "no longer included"
+          ident = nameVer name version
+          unregister = void $
+              readProcessWithExitCode
+                  "ghc-pkg"
+                  ["unregister", "-f", buildDatabase shakeDir, "--force", ident]
+                  ""
+          delete = removeDirectoryRecursive $
+              pkgDir shakeDir name version
 
 -- | Get globally available packages.
-getGlobalPackages :: FilePath -> IO [Text]
-getGlobalPackages shakeDir =
-  do (_,ps) <- sourceProcessWithConsumer
-                 (proc "ghc-pkg" ["list","--simple-output","-f",buildDatabase shakeDir])
-                 (CT.decodeUtf8 $= CT.lines $= CL.consume)
-     return (T.words (T.unlines ps))
+getRegisteredPackages :: FilePath -> IO [PackageIdentifier]
+getRegisteredPackages shakeDir = do
+    (_,ps) <- sourceProcessWithConsumer
+                  (proc'
+                       "ghc-pkg"
+                       ["list", "--simple-output", "-f", buildDatabase shakeDir])
+                  (CT.decodeUtf8 $= CT.lines $= CL.consume)
+    return (mapMaybe parsePackageIdent (T.words (T.unlines ps)))
+
+-- | Parse a package identifier: foo-1.2.3
+parsePackageIdent :: Text -> Maybe PackageIdentifier
+parsePackageIdent = fmap fst .
+    listToMaybe .
+    filter (null . snd) .
+    readP_to_S parse . T.unpack
+
+proc' = proc
