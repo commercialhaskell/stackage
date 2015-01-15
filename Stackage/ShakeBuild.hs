@@ -399,10 +399,6 @@ purgePackage shakeDir name version reason = do
                         "ghc-pkg"
                         ["unregister", "-f", buildDatabase shakeDir, "--force", ident]
                         "")
-              void (readProcessWithExitCode
-                        "ghc-pkg"
-                        ["recache", "-f", buildDatabase shakeDir]
-                        "")
           delete = removeDirectoryRecursive $
               pkgDir shakeDir name version
 
