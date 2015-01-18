@@ -93,6 +93,7 @@ shakePlan haddockFiles registerLock pb shakeDir = do
     build <- target (targetForBuild pb)
                     (do need haddockTargets
                         copyToBuild pb shakeDir)
+    want haddockTargets
     want [build]
     where versionMappings = M.toList (M.map ppVersion (bpPackages (pbPlan pb)))
           corePackages = M.keys $ siCorePackages $ bpSystemInfo $ pbPlan pb
@@ -102,15 +103,19 @@ shakePlan haddockFiles registerLock pb shakeDir = do
 -- | Copy the build as a whole to builds/.
 copyToBuild :: PerformBuild -> String -> Action ()
 copyToBuild pb shakeDir = do
+    liftIO (putStrLn ("Copying snapshot to " ++ FP.encodeString (pbInstallDest pb)))
     copy pbBinDir
     copy pbLibDir
     copy pbDataDir
     copy pbDocDir
     makeFile (targetForBuild pb)
     where copy mkPath = liftIO $
-              copyDir
-                  (FP.decodeString $ mkPath shakeDir)
-                  (FP.decodeString $ mkPath $ FP.encodeString $ pbInstallDest pb)
+              do putStrLn ("Copying " ++ mkPath shakeDir)
+                 copyDir
+                     here
+                     there
+            where here = (FP.decodeString $ mkPath shakeDir)
+                  there = (FP.decodeString $ mkPath $ FP.encodeString $ pbInstallDest pb)
 
 -- | Generate haddock docs for the package.
 packageDocs :: TVar (Map String FilePath)
