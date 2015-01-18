@@ -26,6 +26,7 @@ import Stackage.BuildConstraints
 import Stackage.BuildPlan
 import Stackage.CheckBuildPlan
 import Stackage.PerformBuild
+import qualified Stackage.ShakeBuild as Shake
 import Stackage.Prelude
 import Stackage.ServerBundle
 import Stackage.UpdateBuildPlan
@@ -230,7 +231,7 @@ completeBuild buildType buildFlags = withManager tlsManagerSettings $ \man -> do
             checkBuildPlan plan
 
     putStrLn "Performing build"
-    performBuild (getPerformBuild buildFlags settings) >>= mapM_ putStrLn
+    Shake.performBuild (getPerformBuild buildFlags settings) -- >>= mapM_ putStrLn
 
     when (bfDoUpload buildFlags) $
         finallyUpload settings man

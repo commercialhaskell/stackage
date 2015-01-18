@@ -4,12 +4,13 @@
 
 module Stackage.ShakeBuild where
 
+import           Control.Concurrent
 import           Control.Monad
 import           Stackage.BuildConstraints
 import           Stackage.BuildPlan
 import           Stackage.CheckBuildPlan
 import           Stackage.PackageDescription
-import           Stackage.PerformBuild (PerformBuild(..),copyBuiltInHaddocks,renameOrCopy)
+import           Stackage.PerformBuild (PerformBuild(..),copyBuiltInHaddocks,renameOrCopy,copyDir)
 import           Stackage.Prelude (unFlagName)
 
 import           Control.Concurrent.MVar
@@ -89,11 +90,27 @@ shakePlan haddockFiles registerLock pb shakeDir = do
                            target (targetForDocs shakeDir name (ppVersion plan)) $
                            do need [targetForPackage shakeDir name (ppVersion plan)]
                               packageDocs haddockFiles shakeDir pb plan name
-    want haddockTargets
+    build <- target (targetForBuild pb)
+                    (do need haddockTargets
+                        copyToBuild pb shakeDir)
+    want [build]
     where versionMappings = M.toList (M.map ppVersion (bpPackages (pbPlan pb)))
           corePackages = M.keys $ siCorePackages $ bpSystemInfo $ pbPlan pb
           normalPackages = filter (not . (`elem` corePackages) . fst) $
               M.toList $ bpPackages $ pbPlan pb
+
+-- | Copy the build as a whole to builds/.
+copyToBuild :: PerformBuild -> String -> Action ()
+copyToBuild pb shakeDir = do
+    copy pbBinDir
+    copy pbLibDir
+    copy pbDataDir
+    copy pbDocDir
+    makeFile (targetForBuild pb)
+    where copy mkPath = liftIO $
+              copyDir
+                  (FP.decodeString $ mkPath shakeDir)
+                  (FP.decodeString $ mkPath $ FP.encodeString $ pbInstallDest pb)
 
 -- | Generate haddock docs for the package.
 packageDocs :: TVar (Map String FilePath)
@@ -328,6 +345,10 @@ targetForDocs :: FilePath -> PackageName -> Version -> FilePath
 targetForDocs shakeDir name version =
     shakeDir <//> "packages" <//> nameVer name version <//> "dist" <//> "shake-docs"
 
+-- | Target for the complete, copied build under builds/date/.
+targetForBuild :: PerformBuild -> FilePattern
+targetForBuild pb = FP.encodeString (pbInstallDest pb) <//> "shake-built"
+
 -- | Get a package database path.
 targetForDb :: FilePath -> FilePath
 targetForDb shakeDir =
@@ -360,6 +381,24 @@ cleanOldPackages :: PerformBuild -> FilePath -> IO ()
 cleanOldPackages pb shakeDir = do
     putStrLn "Collecting garbage"
     pkgs <- getRegisteredPackages shakeDir
+    let toRemove = mapMaybe
+                (\(PackageIdentifier name version) ->
+                      case M.lookup name versions of
+                          Just version'
+                              | version' == version ->
+                                  Nothing
+                          Just newVersion -> Just
+                                  (name, version, (Replaced newVersion))
+                          Nothing -> Just (name, version, NoLongerIncluded))
+                pkgs
+    broken <- getBrokenPackages shakeDir
+    unless (null toRemove)
+           (putStrLn ("There are " ++ show (length toRemove) ++ " packages to be purged."))
+    unless (null broken)
+           (putStrLn ("There are " ++ show (length broken) ++ " broken packages to be purged."))
+    when (length broken + length toRemove > 0)
+         (do putStrLn "Waiting 3 seconds before proceeding to remove ..."
+             threadDelay (1000 * 1000 * 3))
     forM_ pkgs $
         \(PackageIdentifier name version) ->
              case M.lookup name versions of
@@ -372,7 +411,6 @@ cleanOldPackages pb shakeDir = do
                          version
                          (Replaced newVersion)
                  Nothing -> purgePackage shakeDir name version NoLongerIncluded
-    broken <- getBrokenPackages shakeDir
     forM_
         broken
         (\(PackageIdentifier name version) ->

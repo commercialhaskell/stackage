@@ -12,6 +12,7 @@ module Stackage.PerformBuild
     , pbDocDir
     , copyBuiltInHaddocks
     , renameOrCopy
+    , copyDir
     ) where
 
 import           Control.Concurrent.Async    (async)
