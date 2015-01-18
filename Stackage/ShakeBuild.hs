@@ -50,7 +50,9 @@ performBuild pb = do
     createDirectoryIfMissing True shakeDir
     haddockFiles <- liftIO (newTVarIO mempty)
     registerLock <- liftIO (newMVar ())
-    cleanOldPackages pb shakeDir
+    pkgs <- getRegisteredPackages shakeDir
+    cleanOldPackages pb shakeDir pkgs
+    printNewPackages pb pkgs
     withArgs [] $
         shakeArgs
             shakeOptions
@@ -381,9 +383,34 @@ data PurgeReason
     | Replaced Version
     | Broken
 
+-- | Print the new packages.
+printNewPackages :: PerformBuild -> [PackageIdentifier] -> IO (Map PackageName Version)
+printNewPackages pb pkgs = do
+    unless
+        (M.null new)
+        (do putStrLn
+                ("There are " ++
+                 show (M.size new) ++
+                 " packages to build and install: ")
+            forM_
+                (take maxDisplay (M.toList new))
+                (\(name,ver) ->
+                      putStrLn (display name))
+            when (M.size new > maxDisplay)
+                 (putStrLn ("And " ++ show (M.size new - maxDisplay) ++ " more.")))
+    return new
+    where maxDisplay = 10
+          new = M.filterWithKey
+                  (\name ver ->
+                        isNothing (find ((== name) . pkgName) pkgs))
+                  versions
+          versions = (M.map ppVersion .
+                      M.filter (not . S.null . sdModules . ppDesc) .
+                      bpPackages . pbPlan) pb
+
 -- | Clean up old versions of packages that are no longer in use.
-cleanOldPackages :: PerformBuild -> FilePath -> IO ()
-cleanOldPackages pb shakeDir = do
+cleanOldPackages :: PerformBuild -> FilePath -> [PackageIdentifier] -> IO ()
+cleanOldPackages pb shakeDir pkgs = do
     putStrLn "Collecting garbage"
     pkgs <- getRegisteredPackages shakeDir
     let toRemove = mapMaybe
@@ -396,12 +423,10 @@ cleanOldPackages pb shakeDir = do
                                   (name, version, (Replaced newVersion))
                           Nothing -> Just (name, version, NoLongerIncluded))
                 pkgs
-    broken <- getBrokenPackages shakeDir
+
     unless (null toRemove)
            (putStrLn ("There are " ++ show (length toRemove) ++ " packages to be purged."))
-    unless (null broken)
-           (putStrLn ("There are " ++ show (length broken) ++ " broken packages to be purged."))
-    when (length broken + length toRemove > 0)
+    when (length toRemove > 0)
          (do putStrLn "Waiting 3 seconds before proceeding to remove ..."
              threadDelay (1000 * 1000 * 3))
     forM_ pkgs $
@@ -416,6 +441,12 @@ cleanOldPackages pb shakeDir = do
                          version
                          (Replaced newVersion)
                  Nothing -> purgePackage shakeDir name version NoLongerIncluded
+    broken <- getBrokenPackages shakeDir
+    unless (null broken)
+           (putStrLn ("There are " ++ show (length broken) ++ " broken packages to be purged."))
+    when (length broken > 0)
+         (do putStrLn "Waiting 3 seconds before proceeding to remove ..."
+             threadDelay (1000 * 1000 * 3))
     forM_
         broken
         (\(PackageIdentifier name version) ->
