@@ -88,7 +88,9 @@ waitForDeps toolMap packageMap activeComps bp pi action = do
             case lookup exe toolMap >>= fromNullable . map checkPackage . setToList of
                 Nothing
                     | isCoreExe exe -> return ()
-                    | otherwise -> throwSTM $ ToolMissing exe
+                    -- https://github.com/jgm/zip-archive/issues/23
+                    -- | otherwise -> throwSTM $ ToolMissing exe
+                    | otherwise -> return ()
                 Just packages -> ofoldl1' (<|>) packages
     action
   where
