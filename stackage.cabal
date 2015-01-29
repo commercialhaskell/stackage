@@ -24,6 +24,7 @@ library
                        Stackage.CheckBuildPlan
                        Stackage.UpdateBuildPlan
                        Stackage.GithubPings
+                       Stackage.InstallBuild
                        Stackage.PackageDescription
                        Stackage.ServerBundle
                        Stackage.Upload
@@ -70,6 +71,7 @@ executable stackage
   build-depends:       base
                      , stackage
                      , optparse-applicative >= 0.11
+                     , system-filepath
   ghc-options:         -rtsopts -threaded -with-rtsopts=-N
 
 test-suite spec
