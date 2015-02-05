@@ -16,7 +16,7 @@ RUN rm /tmp/debian-bootstrap.sh
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y cabal-install-1.20 ghc-7.8.4
 
-ENV PATH /home/stackage/.cabal/bin:/opt/ghc/7.8.4/bin:/opt/cabal/1.20/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ENV PATH /home/stackage/.cabal/bin:/usr/local/sbin:/usr/local/bin:/opt/ghc/7.8.4/bin:/opt/cabal/1.20/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 RUN cabal update
 ADD . /tmp/stackage
