@@ -16,11 +16,11 @@ RUN rm /tmp/debian-bootstrap.sh
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y cabal-install-1.20 ghc-7.8.4
 
-ENV PATH /opt/ghc/7.8.4/bin:/opt/cabal/1.20/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ENV PATH /home/stackage/.cabal/bin:/opt/ghc/7.8.4/bin:/opt/cabal/1.20/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 RUN cabal update
 ADD . /tmp/stackage
-RUN cd /tmp/stackage && cabal install . hscolour
+RUN cd /tmp/stackage && cabal install . hscolour cabal-install --constraint "Cabal < 1.22"
 RUN cp $HOME/.cabal/bin/* /usr/local/bin
 RUN rm -rf $HOME/.cabal $HOME/.ghc /tmp/stackage
 
