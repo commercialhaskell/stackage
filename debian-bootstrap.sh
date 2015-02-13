@@ -12,6 +12,7 @@
 
 add-apt-repository -y ppa:chris-lea/zeromq
 add-apt-repository -y ppa:floe/libtisch
+add-apt-repository -y ppa:zoogie/sdl2-snapshots
 apt-get update
 apt-get install -y \
     build-essential \
@@ -47,4 +48,5 @@ apt-get install -y \
     libgd2-xpm-dev \
     libyaml-dev \
     liblzma-dev \
+    libsdl2-dev \
     libzmq3-dev
