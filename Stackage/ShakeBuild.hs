@@ -12,6 +12,7 @@ module Stackage.ShakeBuild where
 import           Stackage.BuildConstraints
 import           Stackage.BuildPlan
 import           Stackage.CheckBuildPlan
+import           Stackage.GhcPkg
 import           Stackage.PackageDescription
 import           Stackage.PerformBuild (PerformBuild(..),copyBuiltInHaddocks,renameOrCopy)
 import           Stackage.Prelude (unFlagName)
@@ -21,25 +22,18 @@ import           Control.Concurrent.STM
 import           Control.Exception
 import           Control.Monad
 import           Control.Monad.IO.Class
-import           Data.Conduit
-import qualified Data.Conduit.List as CL
-import           Data.Conduit.Process
-import qualified Data.Conduit.Text as CT
 import           Data.List
 import           Data.Map.Strict (Map)
 import qualified Data.Map.Strict as M
 import           Data.Maybe
 import           Data.Monoid
 import qualified Data.Set as S
-import           Data.Text (Text)
 import qualified Data.Text as T
 import           Data.Version
-import           Development.Shake.FilePath hiding (Env)
 import qualified Development.Shake.FilePath as Shake
-import           Distribution.Compat.ReadP
+import           Development.Shake.FilePath hiding (Env)
 import           Distribution.Package
 import           Distribution.Text (display)
-import           Distribution.Text (parse)
 import qualified Filesystem as FP
 import           Filesystem.Path.CurrentOS (FilePath)
 import qualified Filesystem.Path.CurrentOS as FP
@@ -47,14 +41,18 @@ import           Prelude hiding (FilePath)
 import           System.Environment
 import           System.Exit
 
+-- | Reader environment used generally throughout the build process.
 data Env = Env
-    {envCur      :: FilePath
-    ,envShake :: FilePath
-    ,envHadLock  :: TVar (Map String FilePath)
-    ,envRegLock  :: MVar ()
-    ,envPB       :: PerformBuild
-    ,envRegistered :: [PackageIdentifier]
+    {envCur        :: FilePath                   -- ^ Current directory.
+    ,envShake      :: FilePath                   -- ^ Shake directory.
+    ,envHaddocks   :: TVar (Map String FilePath) -- ^ Haddock files.
+    ,envRegLock    :: MVar ()                    -- ^ Package registering lock.
+    ,envPB         :: PerformBuild               -- ^ Build perform settings.
+    ,envRegistered :: [PackageIdentifier]        -- ^ Registered packages.
     }
+
+--------------------------------------------------------------------------------
+-- Main entry point
 
 -- | Run the shake builder.
 performBuild :: PerformBuild -> IO ()
@@ -64,14 +62,14 @@ performBuild pb' = do
     FP.createTree shakeDir
     haddockFiles <- liftIO (newTVarIO mempty)
     registerLock <- liftIO (newMVar ())
-    pkgs <- getRegisteredPackages shakeDir
+    pkgs <- getRegisteredPackages (buildDatabase shakeDir)
     let !pb = pb'
             { pbInstallDest = cur <> pbInstallDest pb'
             }
         !env = Env
             { envCur = cur
             , envShake = shakeDir
-            , envHadLock = haddockFiles
+            , envHaddocks = haddockFiles
             , envRegLock = registerLock
             , envPB = pb
             , envRegistered = pkgs
@@ -79,6 +77,9 @@ performBuild pb' = do
     cleanOldPackages env
     printNewPackages env
     startShake 2 shakeDir (shakePlan env)
+
+--------------------------------------------------------------------------------
+-- The whole Shake plan
 
 -- | The complete build plan as far as Shake is concerned.
 shakePlan :: Env -> Rules ()
@@ -106,6 +107,190 @@ shakePlan env@Env{..} = do
           normalPackages = filter (not . (`elem` corePackages) . fst) $
               M.toList $ bpPackages $ pbPlan envPB
 
+--------------------------------------------------------------------------------
+-- Target file paths
+
+-- | Get the target file for confirming that all packages have been
+-- pre-fetched.
+targetForFetched :: Env -> Target
+targetForFetched Env{..} = Target (envShake <> "packages-fetched")
+
+-- | Get the target file for a package.
+targetForPackage :: FilePath -> PackageName -> Version -> Target
+targetForPackage shakeDir name version = Target $
+    shakeDir <> "packages" <>
+    FP.decodeString (nameVer name version)
+    <> "dist" <> "shake-build"
+
+-- | Get the target file for a package.
+targetForDocs :: FilePath -> PackageName -> Version -> Target
+targetForDocs shakeDir name version = Target $
+    shakeDir <> "packages" <>
+    FP.decodeString
+        (nameVer name version) <>
+    "dist" <> "shake-docs"
+
+-- | Target for the complete, copied build under builds/date/.
+targetForBuild :: PerformBuild -> Target
+targetForBuild pb =  Target $ (pbInstallDest pb) <> "shake-built"
+
+-- | Get a package database path.
+targetForDb :: Env -> Target
+targetForDb Env{..} = Target $ envShake <> "pkgdb-initialized"
+
+--------------------------------------------------------------------------------
+-- Locations, names and environments used. Just to avoid "magic
+-- strings".
+
+-- | Print the name and version.
+nameVer :: PackageName -> Version -> String
+nameVer name version = display name ++ "-" ++ display version
+
+-- | Default environment for running commands.
+defaultEnv :: PerformBuild -> FilePath -> FilePath -> [(String, String)]
+defaultEnv pb shakeDir pwd =
+    [( "HASKELL_PACKAGE_SANDBOX"
+     , FP.encodeString (pwd <> buildDatabase shakeDir))
+    | pbGlobalInstall pb]
+
+-- | Database location.
+buildDatabase :: FilePath -> FilePath
+buildDatabase shakeDir = shakeDir <> "pkgdb"
+
+-- | The directory for the package's docs.
+pkgDocDir :: Env -> PackageName -> Version -> FilePath
+pkgDocDir env@Env{..} name version = pkgDir env name version <>
+    "dist" <>
+    "doc" <>
+    "html" <>
+    (FP.decodeString (display name))
+
+--  | The package directory.
+pkgDir :: Env -> PackageName -> Version -> FilePath
+pkgDir Env{..} name version = envShake <> "packages" <>
+    (FP.decodeString (nameVer name version))
+
+-- | Installation paths.
+pbBinDir, pbLibDir, pbDataDir, pbDocDir :: PerformBuild -> FilePath
+pbBinDir root =  (pbInstallDest root) <> "bin"
+pbLibDir root =  (pbInstallDest root) <> "lib"
+pbDataDir root =  (pbInstallDest root) <> "share"
+pbDocDir root =  (pbInstallDest root) <> "doc"
+
+--------------------------------------------------------------------------------
+-- Pre-build messages
+
+-- | Print the new packages.
+printNewPackages :: Env -> IO ()
+printNewPackages Env{..} = do
+    unless
+        (M.null new)
+        (do putStrLn
+                ("There are " ++
+                 show (M.size new) ++
+                 " packages to build and install: ")
+            forM_
+                (map fst (take maxDisplay (M.toList new)))
+                (putStrLn . display)
+            when (M.size new > maxDisplay)
+                 (putStrLn ("And " ++ show (M.size new - maxDisplay) ++ " more.")))
+    where maxDisplay = 10
+          new = M.filterWithKey
+                  (\name _ ->
+                        isNothing (find ((== name) . pkgName) envRegistered))
+                  versions
+          versions = (M.map ppVersion .
+                      M.filter (not . S.null . sdModules . ppDesc) .
+                      bpPackages . pbPlan) envPB
+
+--------------------------------------------------------------------------------
+-- Clean/purging of old packages
+
+-- | Reason for purging a package.
+data PurgeReason
+    = NoLongerIncluded
+    | Replaced Version
+    | Broken
+
+-- | Clean up old versions of packages that are no longer in use.
+cleanOldPackages :: Env -> IO ()
+cleanOldPackages env@Env{..} = do
+    putStrLn "Collecting garbage"
+    pkgs <- getRegisteredPackages (buildDatabase envShake)
+    let toRemove = mapMaybe
+                (\(PackageIdentifier name version) ->
+                      case M.lookup name versions of
+                          Just version'
+                              | version' == version ->
+                                  Nothing
+                          Just newVersion -> Just
+                                  (name, version, (Replaced newVersion))
+                          Nothing -> Just (name, version, NoLongerIncluded))
+                pkgs
+    unless (null toRemove)
+           (putStrLn ("There are " ++ show (length toRemove) ++ " packages to be purged."))
+    when (length toRemove > 0)
+         (do putStrLn "Waiting 3 seconds before proceeding to remove ..."
+             threadDelay (1000 * 1000 * 3))
+    forM_ pkgs $
+        \(PackageIdentifier name version) ->
+             case M.lookup name versions of
+                 Just version'
+                     | version' == version ->
+                         return ()
+                 Just newVersion -> purgePackage
+                         env
+                         name
+                         version
+                         (Replaced newVersion)
+                 Nothing -> purgePackage env name version NoLongerIncluded
+    broken <- getBrokenPackages (buildDatabase envShake)
+    unless (null broken)
+           (putStrLn ("There are " ++ show (length broken) ++ " broken packages to be purged."))
+    when (length broken > 0)
+         (do putStrLn "Waiting 3 seconds before proceeding to remove ..."
+             threadDelay (1000 * 1000 * 3))
+    forM_
+        broken
+        (\(PackageIdentifier name version) ->
+              purgePackage env name version Broken)
+    where versions = (M.map ppVersion . bpPackages . pbPlan) envPB
+
+-- | Purge the given package and version.
+purgePackage :: Env -> PackageName -> Version -> PurgeReason -> IO ()
+purgePackage env name version reason = do
+    putStr $ "Purging package: " ++ ident ++ " (" ++ showReason ++ ") ... "
+    unregisterPackage (buildDatabase (envShake env)) name
+    remove
+    putStrLn "done."
+    where showReason =
+              case reason of
+                Replaced version' -> "replaced by " ++ ordinal ++ " " ++ display version'
+                    where ordinal | version' > version = "newer"
+                                  | otherwise          = "older"
+                NoLongerIncluded -> "no longer included"
+                Broken -> "broken"
+          ident = nameVer name version
+          remove = FP.removeTree $
+              pkgDir env name version
+
+--------------------------------------------------------------------------------
+-- Target actions
+
+-- | Initialize the database if there one needs to be, and in any case
+-- create the target file.
+databaseTarget :: Env -> Action ()
+databaseTarget env  = do
+    if pbGlobalInstall (envPB env)
+        then return ()
+        else do
+            liftIO (FP.removeTree dir)
+            liftIO (FP.createTree dir)
+            () <- cmd "ghc-pkg" "init" (FP.encodeString dir)
+            liftIO $ copyBuiltInHaddocks $ pbDocDir (envPB env)
+    makeTargetFile (targetForDb env)
+    where dir = buildDatabase (envShake env)
+
 -- | Generate haddock docs for the package.
 packageDocs :: Env -> PackagePlan -> PackageName -> Action ()
 packageDocs env@Env{..} plan name = do
@@ -123,27 +308,6 @@ packageDocs env@Env{..} plan name = do
     makeTargetFile (targetForDocs envShake name (ppVersion plan))
     where version = ppVersion plan
           haddocksFlag = pcHaddocks $ ppConstraints plan
-
--- | Default environment for running commands.
-defaultEnv :: PerformBuild -> FilePath -> FilePath -> [(String, String)]
-defaultEnv pb shakeDir pwd =
-    [( "HASKELL_PACKAGE_SANDBOX"
-     , FP.encodeString (pwd <> buildDatabase shakeDir))
-    | pbGlobalInstall pb]
-
--- | Initialize the database if there one needs to be, and in any case
--- create the target file.
-databaseTarget :: Env -> Action ()
-databaseTarget env  = do
-    if pbGlobalInstall (envPB env)
-        then return ()
-        else do
-            liftIO (FP.removeTree dir)
-            liftIO (FP.createTree dir)
-            () <- cmd "ghc-pkg" "init" (FP.encodeString dir)
-            liftIO $ copyBuiltInHaddocks $ pbDocDir (envPB env)
-    makeTargetFile (targetForDb env)
-    where dir = buildDatabase (envShake env)
 
 -- | Build, test and generate documentation for the package.
 packageTarget :: Env -> PackageName -> PackagePlan -> Action ()
@@ -174,6 +338,9 @@ fetchedTarget env@Env{..} = do
           M.toList $ bpPackages $ pbPlan envPB
     makeTargetFile (targetForFetched env)
 
+--------------------------------------------------------------------------------
+-- Package actions
+
 -- | Unpack the package.
 unpack :: Env -> PackageName -> Version -> Action ()
 unpack env@Env{..} name version = do
@@ -202,14 +369,16 @@ configure Env{..} pdir env plan =
             , "--bindir=" ++ FP.encodeString (pbBinDir envPB)
             , "--datadir=" ++ FP.encodeString (pbDataDir envPB)
             , "--docdir=" ++ FP.encodeString (pbDocDir envPB)
-            , "--flags=" ++ planFlags plan] ++
+            , "--flags=" ++ planFlags] ++
             ["--package-db=" ++ FP.encodeString (buildDatabase envShake)
             | not (pbGlobalInstall envPB)]
+        planFlags = unwords $
+           map go $ M.toList (pcFlagOverrides (ppConstraints plan))
+           where go (name',isOn) = concat
+                         [ if isOn then "" else "-" , T.unpack (unFlagName name')]
+
 
 -- | Register the package.
---
--- TODO: Do a mutex lock in here. Does Shake already support doing
--- this out of the box?
 register :: FilePath -> CmdOption -> MVar () -> Action ()
 register pdir env registerLock = do
     () <- cmd cwd env "cabal" "copy"
@@ -221,7 +390,7 @@ register pdir env registerLock = do
 -- | Generate haddocks for the package.
 generateHaddocks :: Env -> FilePath -> CmdOption -> PackageName -> Version -> TestState -> Action ()
 generateHaddocks env@Env{..} pdir envmap name version expected = do
-    hfs <- liftIO $ readTVarIO envHadLock
+    hfs <- liftIO $ readTVarIO envHaddocks
     exitCode <-
         cmd
             (Cwd (FP.encodeString pdir))
@@ -253,210 +422,12 @@ generateHaddocks env@Env{..} pdir envmap name version expected = do
                 do let orig = pkgDocDir env name version
                    exists <- FP.isDirectory orig
                    when exists $
-                       renameOrCopy
-                           orig
-                           (pbDocDir envPB <> FP.decodeString ident)
-            enewPath <-
-                liftIO $
-                try $
+                       renameOrCopy orig (pbDocDir envPB <> FP.decodeString ident)
+            enewPath <- liftIO $ try $
                 FP.canonicalizePath
                     (pbDocDir envPB <> FP.decodeString ident <>
                      FP.decodeString (display name ++ ".haddock"))
             case enewPath of
                 Left (_ :: IOException) -> return () -- FIXME: log it with Shake.
-                Right newPath -> liftIO $ atomically $ modifyTVar envHadLock $
+                Right newPath -> liftIO $ atomically $ modifyTVar envHaddocks $
                     M.insert (ident) newPath
-
--- | Generate a flags string for the package plan.
-planFlags :: PackagePlan -> String
-planFlags plan = unwords $
-    map go $ M.toList (pcFlagOverrides (ppConstraints plan))
-    where go (name',isOn) = concat
-                  [ if isOn then "" else "-" , T.unpack (unFlagName name')]
-
--- | Database location.
-buildDatabase :: FilePath -> FilePath
-buildDatabase shakeDir = shakeDir <> "pkgdb"
-
--- | Print the name and version.
-nameVer :: PackageName -> Version -> String
-nameVer name version = display name ++ "-" ++ display version
-
--- | The directory for the package's docs.
-pkgDocDir :: Env -> PackageName -> Version -> FilePath
-pkgDocDir env@Env{..} name version = pkgDir env name version <>
-    "dist" <>
-    "doc" <>
-    "html" <>
-    (FP.decodeString (display name))
-
---  | The package directory.
-pkgDir :: Env -> PackageName -> Version -> FilePath
-pkgDir Env{..} name version = envShake <> "packages" <>
-    (FP.decodeString (nameVer name version))
-
--- | Get the target file for confirming that all packages have been
--- pre-fetched.
-targetForFetched :: Env -> Target
-targetForFetched Env{..} =
-    Target (envShake <> "packages-fetched")
-
--- | Get the target file for a package.
-targetForPackage :: FilePath -> PackageName -> Version -> Target
-targetForPackage shakeDir name version = Target $
-    shakeDir <> "packages" <>
-    FP.decodeString
-        (nameVer name version) <>
-    "dist" <>
-    "shake-build"
-
--- | Get the target file for a package.
-targetForDocs :: FilePath -> PackageName -> Version -> Target
-targetForDocs shakeDir name version = Target $
-    shakeDir <> "packages" <>
-    FP.decodeString
-        (nameVer name version) <>
-    "dist" <>
-    "shake-docs"
-
--- | Target for the complete, copied build under builds/date/.
-targetForBuild :: PerformBuild -> Target
-targetForBuild pb =  Target $ (pbInstallDest pb) <> "shake-built"
-
--- | Get a package database path.
-targetForDb :: Env -> Target
-targetForDb Env{..} =
-    Target $ envShake <> "pkgdb-initialized"
-
--- | Make a file of this name.
-makeTargetFile :: Target -> Action ()
-makeTargetFile fp = liftIO $ FP.writeFile (unTarget fp) ""
-
-pbBinDir, pbLibDir, pbDataDir, pbDocDir :: PerformBuild -> FilePath
-pbBinDir root =  (pbInstallDest root) <> "bin"
-pbLibDir root =  (pbInstallDest root) <> "lib"
-pbDataDir root =  (pbInstallDest root) <> "share"
-pbDocDir root =  (pbInstallDest root) <> "doc"
-
--- | Reason for purging a package.
-data PurgeReason
-    = NoLongerIncluded
-    | Replaced Version
-    | Broken
-
--- | Print the new packages.
-printNewPackages :: Env -> IO ()
-printNewPackages Env{..} = do
-    unless
-        (M.null new)
-        (do putStrLn
-                ("There are " ++
-                 show (M.size new) ++
-                 " packages to build and install: ")
-            forM_
-                (map fst (take maxDisplay (M.toList new)))
-                (putStrLn . display)
-            when (M.size new > maxDisplay)
-                 (putStrLn ("And " ++ show (M.size new - maxDisplay) ++ " more.")))
-    where maxDisplay = 10
-          new = M.filterWithKey
-                  (\name _ ->
-                        isNothing (find ((== name) . pkgName) envRegistered))
-                  versions
-          versions = (M.map ppVersion .
-                      M.filter (not . S.null . sdModules . ppDesc) .
-                      bpPackages . pbPlan) envPB
-
--- | Clean up old versions of packages that are no longer in use.
-cleanOldPackages :: Env -> IO ()
-cleanOldPackages env@Env{..} = do
-    putStrLn "Collecting garbage"
-    pkgs <- getRegisteredPackages envShake
-    let toRemove = mapMaybe
-                (\(PackageIdentifier name version) ->
-                      case M.lookup name versions of
-                          Just version'
-                              | version' == version ->
-                                  Nothing
-                          Just newVersion -> Just
-                                  (name, version, (Replaced newVersion))
-                          Nothing -> Just (name, version, NoLongerIncluded))
-                pkgs
-    unless (null toRemove)
-           (putStrLn ("There are " ++ show (length toRemove) ++ " packages to be purged."))
-    when (length toRemove > 0)
-         (do putStrLn "Waiting 3 seconds before proceeding to remove ..."
-             threadDelay (1000 * 1000 * 3))
-    forM_ pkgs $
-        \(PackageIdentifier name version) ->
-             case M.lookup name versions of
-                 Just version'
-                     | version' == version ->
-                         return ()
-                 Just newVersion -> purgePackage
-                         env
-                         name
-                         version
-                         (Replaced newVersion)
-                 Nothing -> purgePackage env name version NoLongerIncluded
-    broken <- getBrokenPackages envShake
-    unless (null broken)
-           (putStrLn ("There are " ++ show (length broken) ++ " broken packages to be purged."))
-    when (length broken > 0)
-         (do putStrLn "Waiting 3 seconds before proceeding to remove ..."
-             threadDelay (1000 * 1000 * 3))
-    forM_
-        broken
-        (\(PackageIdentifier name version) ->
-              purgePackage env name version Broken)
-    where versions = (M.map ppVersion . bpPackages . pbPlan) envPB
-
--- | Purge the given package and version.
-purgePackage :: Env -> PackageName -> Version -> PurgeReason -> IO ()
-purgePackage env name version reason = do
-    putStr $ "Purging package: " ++ ident ++ " (" ++ showReason ++ ") ... "
-    unregister
-    remove
-    putStrLn "done."
-    where showReason =
-              case reason of
-                Replaced version' -> "replaced by " ++ ordinal ++ " " ++ display version'
-                    where ordinal | version' > version = "newer"
-                                  | otherwise          = "older"
-                NoLongerIncluded -> "no longer included"
-                Broken -> "broken"
-          ident = nameVer name version
-          unregister = do
-              void (readProcessWithExitCode
-                        "ghc-pkg"
-                        ["unregister", "-f", FP.encodeString (buildDatabase (envShake env)), "--force", ident]
-                        "")
-          remove = FP.removeTree $
-              pkgDir env name version
-
--- | Get broken packages.
-getBrokenPackages :: FilePath -> IO [PackageIdentifier]
-getBrokenPackages shakeDir = do
-    (_,ps) <- sourceProcessWithConsumer
-                  (proc
-                       "ghc-pkg"
-                       ["check", "--simple-output", "-f", FP.encodeString (buildDatabase shakeDir)])
-                  (CT.decodeUtf8 $= CT.lines $= CL.consume)
-    return (mapMaybe parsePackageIdent (T.words (T.unlines ps)))
-
--- | Get available packages.
-getRegisteredPackages :: FilePath -> IO [PackageIdentifier]
-getRegisteredPackages shakeDir = do
-    (_,ps) <- sourceProcessWithConsumer
-                  (proc
-                       "ghc-pkg"
-                       ["list", "--simple-output", "-f", FP.encodeString (buildDatabase shakeDir)])
-                  (CT.decodeUtf8 $= CT.lines $= CL.consume)
-    return (mapMaybe parsePackageIdent (T.words (T.unlines ps)))
-
--- | Parse a package identifier: foo-1.2.3
-parsePackageIdent :: Text -> Maybe PackageIdentifier
-parsePackageIdent = fmap fst .
-    listToMaybe .
-    filter (null . snd) .
-    readP_to_S parse . T.unpack

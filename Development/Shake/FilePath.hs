@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 -- | Useful 'System.FilePath' wrapper around Shake.
 
 module Development.Shake.FilePath
@@ -10,12 +12,14 @@ module Development.Shake.FilePath
     ,Rules
     ,Action
     ,CmdOption(..)
-    ,Shake.cmd)
+    ,Shake.cmd
+    ,makeTargetFile)
     where
 
 import           Control.Monad.IO.Class
 import           Development.Shake (Rules,Action,CmdOption(..))
 import qualified Development.Shake as Shake
+import qualified Filesystem as FP
 import           Filesystem.Path.CurrentOS (FilePath)
 import qualified Filesystem.Path.CurrentOS as FP
 import           Prelude hiding (FilePath)
@@ -54,3 +58,7 @@ need xs = Shake.need $
 want :: [Target] -> Rules ()
 want xs = Shake.want
         (map (FP.encodeString . unTarget) xs)
+
+-- | Make an empty file of this name.
+makeTargetFile :: Target -> Action ()
+makeTargetFile fp = liftIO $ FP.writeFile (unTarget fp) ""
