@@ -324,6 +324,8 @@ packageTarget env@Env{..} name plan = do
     unpack env name version
     configure env dir envmap plan
     () <- cmd cwd envmap "cabal" "build" ("--ghc-options=" <> pbGhcOptions envPB)
+    when (pbEnableTests envPB)
+         (cmd cwd envmap "cabal" "test")
     register dir envmap envRegLock
     makeTargetFile (targetForPackage envShake name version)
     where dir = pkgDir env name version
