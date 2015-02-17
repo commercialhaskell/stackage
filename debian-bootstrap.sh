@@ -18,6 +18,9 @@ apt-get install -y \
     build-essential \
     libncurses-dev \
     git \
+    wget \
+    m4 \
+    texlive-binaries \
     libgmp3c2 \
     libgmp3-dev \
     zlib1g-dev \
@@ -38,7 +41,6 @@ apt-get install -y \
     libpq-dev \
     libicu-dev \
     libssl-dev \
-    nettle-dev \
     libgsl0-dev \
     libblas-dev \
     liblapack-dev \
@@ -50,3 +52,15 @@ apt-get install -y \
     liblzma-dev \
     libsdl2-dev \
     libzmq3-dev
+
+mkdir /tmp/nettle-build
+(
+cd /tmp/nettle-build
+wget https://ftp.gnu.org/gnu/nettle/nettle-2.7.1.tar.gz
+tar zxf nettle-2.7.1.tar.gz
+cd nettle-2.7.1
+./configure
+make
+make install
+)
+rm -rf /tmp/nettle-build
