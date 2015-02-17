@@ -90,7 +90,13 @@ main =
              help "Output verbose detail about the build steps") <*>
         switch
             (long "skip-check" <>
-             help "Skip the check phase, and pass --allow-newer to cabal configure")
+             help "Skip the check phase, and pass --allow-newer to cabal configure") <*>
+        option
+            auto
+            (long "ghc-options" <>
+             metavar "OPTIONS" <>
+             showDefault <>
+             help "GHC options")
 
     nightlyUploadFlags = fromString <$> strArgument
         (metavar "DATE" <>

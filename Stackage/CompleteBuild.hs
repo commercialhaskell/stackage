@@ -1,6 +1,7 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards   #-}
+{-# OPTIONS_GHC -fno-warn-type-defaults #-}
 module Stackage.CompleteBuild
     ( BuildType (..)
     , BumpType (..)
@@ -41,6 +42,7 @@ data BuildFlags = BuildFlags
     , bfEnableLibProfile :: !Bool
     , bfVerbose          :: !Bool
     , bfSkipCheck        :: !Bool
+    , bfGhcOptions       :: !String
     } deriving (Show)
 
 data BuildType = Nightly | LTS BumpType
@@ -210,6 +212,7 @@ getPerformBuild buildFlags Settings {..} = PerformBuild
     , pbEnableLibProfiling = bfEnableLibProfile buildFlags
     , pbVerbose = bfVerbose buildFlags
     , pbAllowNewer = bfSkipCheck buildFlags
+    , pbGhcOptions = bfGhcOptions buildFlags
     }
 
 -- | Make a complete plan, build, test and upload bundle, docs and

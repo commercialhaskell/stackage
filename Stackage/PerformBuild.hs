@@ -69,6 +69,7 @@ data PerformBuild = PerformBuild
     , pbVerbose            :: Bool
     , pbAllowNewer         :: Bool
     -- ^ Pass --allow-newer to cabal configure
+    , pbGhcOptions :: String
     }
 
 data PackageInfo = PackageInfo

@@ -323,7 +323,7 @@ packageTarget env@Env{..} name plan = do
     envmap <- liftIO (fmap (Shake.Env . (++ defaultEnv envPB pwd)) getEnvironment)
     unpack env name version
     configure env dir envmap plan
-    () <- cmd cwd envmap "cabal" "build" "--ghc-options=-O0"
+    () <- cmd cwd envmap "cabal" "build" ("--ghc-options=" <> pbGhcOptions envPB)
     register dir envmap envRegLock
     makeTargetFile (targetForPackage envShake name version)
     where dir = pkgDir env name version
