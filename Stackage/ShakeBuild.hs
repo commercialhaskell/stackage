@@ -15,7 +15,7 @@ import           Stackage.CheckBuildPlan
 import           Stackage.GhcPkg
 import           Stackage.PackageDescription
 import           Stackage.PerformBuild (PerformBuild(..),copyBuiltInHaddocks,renameOrCopy)
-import           Stackage.Prelude (unFlagName)
+import           Stackage.Prelude (unFlagName,unExeName)
 
 import           Control.Concurrent
 import           Control.Concurrent.STM
@@ -76,6 +76,7 @@ performBuild pb' = do
             , envPB = pb
             , envRegistered = pkgs
             }
+    checkBuildTools env
     cleanOldPackages env
     printNewPackages env
     startShake num shakeDir (shakePlan env)
@@ -204,6 +205,31 @@ printNewPackages Env{..} = do
           versions = (M.map ppVersion .
                       M.filter (not . S.null . sdModules . ppDesc) .
                       bpPackages . pbPlan) envPB
+
+--------------------------------------------------------------------------------
+-- Checking for build tools
+
+-- | Check that all build tools are available.
+-- https://github.com/jgm/zip-archive/issues/23
+checkBuildTools :: Env -> IO ()
+checkBuildTools Env{..} =
+    forM_ normalPackages
+          (\(pname,plan) -> mapM_ (checkTool pname) (M.keys (sdTools (ppDesc plan))))
+  where normalPackages = filter (not . (`elem` corePackages) . fst) $
+            M.toList $ bpPackages $ pbPlan envPB
+          where corePackages = M.keys $ siCorePackages $ bpSystemInfo $ pbPlan envPB
+        checkTool pname name =
+            case M.lookup name (makeToolMap (bpPackages (pbPlan envPB))) of
+              Nothing
+                  | not (isCoreExe name) ->
+                      putStrLn ("Warning: No executable " <>
+                                T.unpack (unExeName name) <>
+                                " for " <> display pname)
+
+              Just pkgs
+                  -> return ()
+              _ -> return ()
+        isCoreExe = (`S.member` siCoreExecutables (bpSystemInfo (pbPlan envPB)))
 
 --------------------------------------------------------------------------------
 -- Clean/purging of old packages
