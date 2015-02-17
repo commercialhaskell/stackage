@@ -37,6 +37,7 @@ apt-get install -y \
     llvm \
     libbz2-dev \
     libjudy-dev \
+    libsqlite3-dev \
     libmysqlclient-dev \
     libpq-dev \
     libicu-dev \
@@ -51,6 +52,7 @@ apt-get install -y \
     libyaml-dev \
     liblzma-dev \
     libsdl2-dev \
+    libxss-dev \
     libzmq3-dev
 
 mkdir /tmp/nettle-build
@@ -59,7 +61,7 @@ cd /tmp/nettle-build
 wget https://ftp.gnu.org/gnu/nettle/nettle-2.7.1.tar.gz
 tar zxf nettle-2.7.1.tar.gz
 cd nettle-2.7.1
-./configure
+./configure --prefix=/usr
 make
 make install
 )
