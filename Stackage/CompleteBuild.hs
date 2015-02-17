@@ -70,7 +70,7 @@ nightlySettings :: Text -- ^ day
                 -> Settings
 nightlySettings day plan' = Settings
     { planFile = nightlyPlanFile day
-    , buildDir = fpFromText $ "builds/stackage-nightly-" ++ day
+    , buildDir = fpFromText $ "nightly"
     , logDir = fpFromText $ "logs/stackage-nightly-" ++ day
     , title = \ghcVer -> concat
         [ "Stackage Nightly "

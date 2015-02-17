@@ -60,13 +60,14 @@ performBuild pb' = do
     cur <- FP.getWorkingDirectory
     let shakeDir = cur <> "shake/"
     FP.createTree shakeDir
+    FP.createTree (buildDatabase pb')
     haddockFiles <- liftIO (newTVarIO mempty)
     registerLock <- liftIO (newMVar ())
-    pkgs <- getRegisteredPackages (buildDatabase shakeDir)
     let !pb = pb'
-            { pbInstallDest = cur <> pbInstallDest pb'
-            }
-        !env = Env
+             { pbInstallDest = cur <> pbInstallDest pb'
+             }
+    pkgs <- getRegisteredPackages (buildDatabase pb)
+    let !env = Env
             { envCur = cur
             , envShake = shakeDir
             , envHaddocks = haddockFiles
@@ -136,7 +137,7 @@ targetForBuild pb =  Target $ (pbInstallDest pb) <> "shake-built"
 
 -- | Get a package database path.
 targetForDb :: Env -> Target
-targetForDb Env{..} = Target $ envShake <> "pkgdb-initialized"
+targetForDb Env{..} = Target $ (pbInstallDest envPB) <> "pkgdb-initialized"
 
 --------------------------------------------------------------------------------
 -- Locations, names and environments used. Just to avoid "magic
@@ -147,15 +148,15 @@ nameVer :: PackageName -> Version -> String
 nameVer name version = display name ++ "-" ++ display version
 
 -- | Default environment for running commands.
-defaultEnv :: PerformBuild -> FilePath -> FilePath -> [(String, String)]
-defaultEnv pb shakeDir pwd =
+defaultEnv :: PerformBuild -> FilePath -> [(String, String)]
+defaultEnv pb pwd =
     [( "HASKELL_PACKAGE_SANDBOX"
-     , FP.encodeString (pwd <> buildDatabase shakeDir))
+     , FP.encodeString (pwd <> buildDatabase pb))
     | pbGlobalInstall pb]
 
 -- | Database location.
-buildDatabase :: FilePath -> FilePath
-buildDatabase shakeDir = shakeDir <> "pkgdb"
+buildDatabase :: PerformBuild -> FilePath
+buildDatabase pb = (pbInstallDest pb) <> "pkgdb"
 
 -- | The directory for the package's docs.
 pkgDocDir :: Env -> PackageName -> Version -> FilePath
@@ -216,7 +217,7 @@ data PurgeReason
 cleanOldPackages :: Env -> IO ()
 cleanOldPackages env@Env{..} = do
     putStrLn "Collecting garbage"
-    pkgs <- getRegisteredPackages (buildDatabase envShake)
+    pkgs <- getRegisteredPackages (buildDatabase envPB)
     let toRemove = mapMaybe
                 (\(PackageIdentifier name version) ->
                       case M.lookup name versions of
@@ -244,7 +245,7 @@ cleanOldPackages env@Env{..} = do
                          version
                          (Replaced newVersion)
                  Nothing -> purgePackage env name version NoLongerIncluded
-    broken <- getBrokenPackages (buildDatabase envShake)
+    broken <- getBrokenPackages (buildDatabase envPB)
     unless (null broken)
            (putStrLn ("There are " ++ show (length broken) ++ " broken packages to be purged."))
     when (length broken > 0)
@@ -260,7 +261,7 @@ cleanOldPackages env@Env{..} = do
 purgePackage :: Env -> PackageName -> Version -> PurgeReason -> IO ()
 purgePackage env name version reason = do
     putStr $ "Purging package: " ++ ident ++ " (" ++ showReason ++ ") ... "
-    unregisterPackage (buildDatabase (envShake env)) name
+    unregisterPackage (buildDatabase (envPB env)) name
     remove
     putStrLn "done."
     where showReason =
@@ -284,18 +285,18 @@ databaseTarget env  = do
     if pbGlobalInstall (envPB env)
         then return ()
         else do
-            liftIO (FP.removeTree dir)
             liftIO (FP.createTree dir)
+            liftIO (FP.removeTree dir)
             () <- cmd "ghc-pkg" "init" (FP.encodeString dir)
             liftIO $ copyBuiltInHaddocks $ pbDocDir (envPB env)
     makeTargetFile (targetForDb env)
-    where dir = buildDatabase (envShake env)
+    where dir = buildDatabase (envPB env)
 
 -- | Generate haddock docs for the package.
 packageDocs :: Env -> PackagePlan -> PackageName -> Action ()
 packageDocs env@Env{..} plan name = do
     pwd <- liftIO FP.getWorkingDirectory
-    envmap <- liftIO (fmap (Shake.Env . (++ defaultEnv envPB envShake pwd)) getEnvironment)
+    envmap <- liftIO (fmap (Shake.Env . (++ defaultEnv envPB pwd)) getEnvironment)
     when (haddocksFlag /= Don'tBuild &&
           not (S.null $ sdModules $ ppDesc plan)) $
         generateHaddocks
@@ -318,7 +319,7 @@ packageTarget env@Env{..} name plan = do
         filter (/= name) $
         M.keys $ M.filter libAndExe $ sdPackages $ ppDesc plan
     pwd <- liftIO FP.getWorkingDirectory
-    envmap <- liftIO (fmap (Shake.Env . (++ defaultEnv envPB envShake pwd)) getEnvironment)
+    envmap <- liftIO (fmap (Shake.Env . (++ defaultEnv envPB pwd)) getEnvironment)
     unpack env name version
     configure env dir envmap plan
     () <- cmd cwd envmap "cabal" "build" "--ghc-options=-O0"
@@ -370,7 +371,7 @@ configure Env{..} pdir env plan =
             , "--datadir=" ++ FP.encodeString (pbDataDir envPB)
             , "--docdir=" ++ FP.encodeString (pbDocDir envPB)
             , "--flags=" ++ planFlags] ++
-            ["--package-db=" ++ FP.encodeString (buildDatabase envShake)
+            ["--package-db=" ++ FP.encodeString (buildDatabase envPB)
             | not (pbGlobalInstall envPB)]
         planFlags = unwords $
            map go $ M.toList (pcFlagOverrides (ppConstraints plan))
