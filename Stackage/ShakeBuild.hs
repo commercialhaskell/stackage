@@ -57,6 +57,7 @@ data Env = Env
 -- | Run the shake builder.
 performBuild :: PerformBuild -> IO ()
 performBuild pb' = do
+    num <- getNumCapabilities
     cur <- FP.getWorkingDirectory
     let shakeDir = cur <> "shake/"
     FP.createTree shakeDir
@@ -77,7 +78,7 @@ performBuild pb' = do
             }
     cleanOldPackages env
     printNewPackages env
-    startShake 2 shakeDir (shakePlan env)
+    startShake num shakeDir (shakePlan env)
 
 --------------------------------------------------------------------------------
 -- The whole Shake plan
