@@ -181,7 +181,7 @@ pkgDir Env{..} name version = envShake <> "packages" <>
 --  | The package directory.
 pkgLogFile :: Env -> PackageName -> Version -> FilePath
 pkgLogFile env@Env{..} name version = pkgDir env name version <>
-    "log.txt"
+    "dist" <> "log.txt"
 
 -- | Installation paths.
 pbBinDir, pbLibDir, pbDataDir, pbDocDir :: PerformBuild -> FilePath
