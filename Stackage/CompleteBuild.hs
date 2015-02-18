@@ -125,7 +125,7 @@ getSettings man (LTS bumpType) = do
 
     return Settings
         { planFile = newfile
-        , buildDir = fpFromText $ "builds/stackage-lts-" ++ tshow new
+        , buildDir = fpFromText $ "builds/stackage-lts"
         , logDir = fpFromText $ "logs/stackage-lts-" ++ tshow new
         , title = \ghcVer -> concat
             [ "LTS Haskell "
