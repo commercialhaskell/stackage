@@ -1,4 +1,6 @@
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE TypeSynonymInstances #-}
 {-# LANGUAGE BangPatterns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ScopedTypeVariables #-}
@@ -22,13 +24,16 @@ import           Control.Concurrent.STM
 import           Control.Exception
 import           Control.Monad
 import           Control.Monad.IO.Class
+import           Data.ByteString (ByteString)
 import           Data.List
 import           Data.Map.Strict (Map)
 import qualified Data.Map.Strict as M
 import           Data.Maybe
 import           Data.Monoid
 import qualified Data.Set as S
+import           Data.Text (Text)
 import qualified Data.Text as T
+import qualified Data.Text.Encoding as T
 import           Data.Version
 import qualified Development.Shake.FilePath as Shake
 import           Development.Shake.FilePath hiding (Env)
@@ -37,7 +42,7 @@ import           Distribution.Text (display)
 import qualified Filesystem as FP
 import           Filesystem.Path.CurrentOS (FilePath)
 import qualified Filesystem.Path.CurrentOS as FP
-import           Prelude hiding (FilePath)
+import           Prelude hiding (log,FilePath)
 import           System.Environment
 import           System.Exit
 
@@ -185,18 +190,26 @@ pbDocDir root =  (pbInstallDest root) <> "doc"
 
 -- | Print the new packages.
 printNewPackages :: Env -> IO ()
-printNewPackages Env{..} = do
+printNewPackages env@Env{..} = do
     unless
         (M.null new)
-        (do putStrLn
+        (do log
+                env
+                Normal
                 ("There are " ++
                  show (M.size new) ++
                  " packages to build and install: ")
             forM_
                 (map fst (take maxDisplay (M.toList new)))
-                (putStrLn . display)
-            when (M.size new > maxDisplay)
-                 (putStrLn ("And " ++ show (M.size new - maxDisplay) ++ " more.")))
+                (logLn env Verbose . display)
+            when
+                (M.size new > maxDisplay)
+                (log
+                     env
+                     Verbose
+                     ("And " ++
+                      show (M.size new - maxDisplay) ++
+                      " more.")))
     where maxDisplay = 10
           new = M.filterWithKey
                   (\name _ ->
@@ -212,7 +225,7 @@ printNewPackages Env{..} = do
 -- | Check that all build tools are available.
 -- https://github.com/jgm/zip-archive/issues/23
 checkBuildTools :: Env -> IO ()
-checkBuildTools Env{..} =
+checkBuildTools env@Env{..} =
     forM_ normalPackages
           (\(pname,plan) -> mapM_ (checkTool pname) (M.keys (sdTools (ppDesc plan))))
   where normalPackages = filter (not . (`elem` corePackages) . fst) $
@@ -222,11 +235,11 @@ checkBuildTools Env{..} =
             case M.lookup name (makeToolMap (bpPackages (pbPlan envPB))) of
               Nothing
                   | not (isCoreExe name) ->
-                      putStrLn ("Warning: No executable " <>
-                                T.unpack (unExeName name) <>
-                                " for " <> display pname)
+                      logLn env Normal ("Warning: No executable " <>
+                                      T.unpack (unExeName name) <>
+                                      " for " <> display pname)
 
-              Just pkgs
+              Just _
                   -> return ()
               _ -> return ()
         isCoreExe = (`S.member` siCoreExecutables (bpSystemInfo (pbPlan envPB)))
@@ -243,7 +256,7 @@ data PurgeReason
 -- | Clean up old versions of packages that are no longer in use.
 cleanOldPackages :: Env -> IO ()
 cleanOldPackages env@Env{..} = do
-    putStrLn "Collecting garbage"
+    logLn env Verbose "Collecting garbage"
     pkgs <- getRegisteredPackages (buildDatabase envPB)
     let toRemove = mapMaybe
                 (\(PackageIdentifier name version) ->
@@ -256,9 +269,9 @@ cleanOldPackages env@Env{..} = do
                           Nothing -> Just (name, version, NoLongerIncluded))
                 pkgs
     unless (null toRemove)
-           (putStrLn ("There are " ++ show (length toRemove) ++ " packages to be purged."))
+           (logLn env Verbose ("There are " ++ show (length toRemove) ++ " packages to be purged."))
     when (length toRemove > 0)
-         (do putStrLn "Waiting 3 seconds before proceeding to remove ..."
+         (do logLn env Verbose "Waiting 3 seconds before proceeding to remove ..."
              threadDelay (1000 * 1000 * 3))
     forM_ pkgs $
         \(PackageIdentifier name version) ->
@@ -274,9 +287,9 @@ cleanOldPackages env@Env{..} = do
                  Nothing -> purgePackage env name version NoLongerIncluded
     broken <- getBrokenPackages (buildDatabase envPB)
     unless (null broken)
-           (putStrLn ("There are " ++ show (length broken) ++ " broken packages to be purged."))
+           (logLn env Verbose ("There are " ++ show (length broken) ++ " broken packages to be purged."))
     when (length broken > 0)
-         (do putStrLn "Waiting 3 seconds before proceeding to remove ..."
+         (do logLn env Verbose "Waiting 3 seconds before proceeding to remove ..."
              threadDelay (1000 * 1000 * 3))
     forM_
         broken
@@ -287,10 +300,10 @@ cleanOldPackages env@Env{..} = do
 -- | Purge the given package and version.
 purgePackage :: Env -> PackageName -> Version -> PurgeReason -> IO ()
 purgePackage env name version reason = do
-    putStr $ "Purging package: " ++ ident ++ " (" ++ showReason ++ ") ... "
+    log env Verbose $ "Purging package: " ++ ident ++ " (" ++ showReason ++ ") ... "
     unregisterPackage (buildDatabase (envPB env)) name
     remove
-    putStrLn "done."
+    logLn env Verbose "done."
     where showReason =
               case reason of
                 Replaced version' -> "replaced by " ++ ordinal ++ " " ++ display version'
@@ -461,3 +474,33 @@ generateHaddocks env@Env{..} pdir envmap name version expected = do
                 Left (_ :: IOException) -> return () -- FIXME: log it with Shake.
                 Right newPath -> liftIO $ atomically $ modifyTVar envHaddocks $
                     M.insert (ident) newPath
+
+--------------------------------------------------------------------------------
+-- Logging utilities
+
+data Verbosity
+    = Verbose
+    | Normal
+
+-- | Convenience.
+class ToBS a where toBS :: a -> ByteString
+instance ToBS String where toBS = toBS . T.pack
+instance ToBS Text where toBS = T.encodeUtf8
+instance ToBS ByteString where toBS = id
+
+-- | Log to wherever is configured by the calling code.
+logLn :: (MonadIO m,ToBS str) => Env -> Verbosity -> str -> m ()
+logLn env v s = log env v (toBS s <> "\n")
+
+-- | Log to wherever is configured by the calling code.
+log :: (MonadIO m,ToBS str) => Env -> Verbosity -> str -> m ()
+log env v s = when
+        (pbVerbose (envPB env) ==
+         bool)
+        (liftIO
+             (pbLog
+                  (envPB env)
+                  (toBS s)))
+    where bool = case v of
+                  Verbose -> True
+                  Normal -> False
