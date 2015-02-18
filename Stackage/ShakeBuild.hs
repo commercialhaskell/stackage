@@ -373,14 +373,14 @@ packageTarget env@Env{..} name plan = do
                when exists (FP.removeFile logFile))
     configure env name logFile dir plan
     prefix <- packageCmdPrefix name
-    let pkgCabal :: (MonadIO m) => [String] -> m ()
-        pkgCabal = succeed . cabal env prefix logFile dir
-    pkgCabal ["build","--ghc-options=" <> pbGhcOptions envPB]
+    let pkgCabal :: (MonadIO m) => Verbosity -> [String] -> m ()
+        pkgCabal verbosity = succeed . cabal env verbosity prefix logFile dir
+    pkgCabal Normal ["build","--ghc-options=" <> pbGhcOptions envPB]
     when (pbEnableTests envPB)
-         (succeed (cabal env prefix logFile dir ["test"]))
-    pkgCabal ["copy"]
+         (succeed (cabal env Normal prefix logFile dir ["test"]))
+    pkgCabal Verbose ["copy"]
     liftIO (withMVar envRegLock
-                     (const (pkgCabal ["register"])))
+                     (const (pkgCabal Verbose ["register"])))
     makeTargetFile (targetForPackage envShake name version)
     where logFile = (pkgLogFile env name version)
           dir = pkgDir env name version
@@ -420,7 +420,7 @@ unpack env@Env{..} name version = do
 configure :: Env -> PackageName -> FilePath -> FilePath -> PackagePlan -> Action ()
 configure env@Env{..} name logfile pdir plan =
     do prefix <- packageCmdPrefix name
-       succeed (cabal env prefix logfile pdir ("configure" : opts))
+       succeed (cabal env Verbose prefix logfile pdir ("configure" : opts))
     where
         opts =
             [ "--package-db=clear"
@@ -445,6 +445,7 @@ generateHaddocks env@Env{..} logfile pdir name version expected = do
     exitCode <-
         cabal
              env
+             Normal
              prefix
              logfile
              pdir
@@ -463,8 +464,11 @@ generateHaddocks env@Env{..} logfile pdir name version expected = do
                             , FP.encodeString hf])
                   (M.toList hfs))
     case (exitCode, expected) of
-        (ExitSuccess,ExpectFailure) -> return () -- FIXME: warn.
-        (ExitFailure{},ExpectSuccess) -> throw exitCode -- FIXME: report it
+        (ExitSuccess,ExpectFailure) ->
+            logLn env Normal (prefix <> "expected failure for haddock generation, but it succeeded!")
+        (ExitFailure{},ExpectSuccess) ->
+            do logLn env Normal (prefix <> "expected success for haddock, but it failed!")
+               throw exitCode -- FIXME: report it
         _ -> return ()
     copy
     where
@@ -494,11 +498,11 @@ packageCmdPrefix name =
 
 -- | Run a command with the right envornment, logs the command being
 -- run and its output as verbose mode.
-cabal :: MonadIO m => Env -> Text -> FilePath -> FilePath -> [String] -> m ExitCode
-cabal env prefix logfile cwd args = do
+cabal :: MonadIO m => Env -> Verbosity -> Text -> FilePath -> FilePath -> [String] -> m ExitCode
+cabal env verbosity prefix logfile cwd args = do
     pwd <- liftIO FP.getWorkingDirectory
     envmap <- liftIO $ fmap (++ defaultEnv (envPB env) pwd) $ getEnvironment
-    logLn env Normal (prefix <> T.pack (fromMaybe "" (listToMaybe args)) <> " ...")
+    logLn env verbosity (prefix <> T.pack (fromMaybe "" (listToMaybe args)))
     logLn env Verbose (prefix <> T.pack (unwords (cmd' : map show args)))
     code <- liftIO $ flip catch exitFailing
                    $ withBinaryFile (FP.encodeString logfile) AppendMode $ \outH ->
