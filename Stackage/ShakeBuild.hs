@@ -56,6 +56,7 @@ data Env = Env
     ,envPB         :: PerformBuild               -- ^ Build perform settings.
     ,envRegistered :: [PackageIdentifier]        -- ^ Registered packages.
     ,envMsgLock    :: MVar ()                    -- ^ A lock for printing to the log.
+    ,envStatus     :: TVar ExitCode
     }
 
 --------------------------------------------------------------------------------
@@ -76,6 +77,7 @@ performBuild pb' = do
              }
     pkgs <- getRegisteredPackages (buildDatabase pb)
     msgLock <- newMVar ()
+    status <- newTVarIO ExitSuccess
     let !env = Env
             { envCur = cur
             , envShake = shakeDir
@@ -84,11 +86,16 @@ performBuild pb' = do
             , envPB = pb
             , envRegistered = pkgs
             , envMsgLock = msgLock
+            , envStatus = status
             }
     checkBuildTools env
     cleanOldPackages env
     printNewPackages env
     startShake num shakeDir (shakePlan env)
+    st <- readTVarIO status
+    case st of
+      ExitSuccess -> return ()
+      _  -> throw st
 
 --------------------------------------------------------------------------------
 -- The whole Shake plan
@@ -377,7 +384,12 @@ packageTarget env@Env{..} name plan = do
         pkgCabal verbosity = succeed . cabal env verbosity prefix logFile dir
     pkgCabal Normal ["build","--ghc-options=" <> pbGhcOptions envPB]
     when (pbEnableTests envPB)
-         (succeed (cabal env Normal prefix logFile dir ["test"]))
+         (do result <- cabal env Normal prefix logFile dir ["test"]
+             case result of
+               ExitFailure{} ->
+                   do logLn env Normal (prefix <> "TEST SUITE FAILED")
+                      failed env result
+               _ -> return ())
     pkgCabal Verbose ["copy"]
     liftIO (withMVar envRegLock
                      (const (pkgCabal Verbose ["register"])))
@@ -468,7 +480,7 @@ generateHaddocks env@Env{..} logfile pdir name version expected = do
             logLn env Normal (prefix <> "expected failure for haddock generation, but it succeeded!")
         (ExitFailure{},ExpectSuccess) ->
             do logLn env Normal (prefix <> "expected success for haddock, but it failed!")
-               throw exitCode -- FIXME: report it
+               failed env exitCode
         _ -> return ()
     copy
     where
@@ -528,6 +540,12 @@ cabal env verbosity prefix logfile cwd args = do
           exitFailing (ProcessExitedUnsuccessfully _ code) = do
               FP.readFile logfile >>= logLn env Normal
               return code
+
+-- | A result failed.
+failed :: MonadIO m => Env -> ExitCode -> m ()
+failed env code = liftIO
+        (atomically
+             (writeTVar (envStatus env) code))
 
 -- | The action must return a success code or an exception is thrown.
 succeed :: MonadIO m
