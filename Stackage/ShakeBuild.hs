@@ -188,7 +188,7 @@ pkgDir Env{..} name version = envShake <> "packages" <>
 --  | The package directory.
 pkgLogFile :: Env -> PackageName -> Version -> FilePath
 pkgLogFile env@Env{..} name version = pkgDir env name version <>
-    "dist" <> "log.txt"
+    "dist" <> "stackage-log.txt"
 
 -- | Installation paths.
 pbBinDir, pbLibDir, pbDataDir, pbDocDir :: PerformBuild -> FilePath
@@ -394,7 +394,7 @@ packageTarget env@Env{..} name plan = do
     liftIO (withMVar envRegLock
                      (const (pkgCabal Verbose ["register"])))
     makeTargetFile (targetForPackage envShake name version)
-    where logFile = (pkgLogFile env name version)
+    where logFile = pkgLogFile env name version
           dir = pkgDir env name version
           version = ppVersion plan
           versionMappings = M.toList (M.map ppVersion (bpPackages (pbPlan envPB)))
@@ -516,6 +516,7 @@ cabal env verbosity prefix logfile cwd args = do
     envmap <- liftIO $ fmap (++ defaultEnv (envPB env) pwd) $ getEnvironment
     logLn env verbosity (prefix <> T.pack (fromMaybe "" (listToMaybe args)))
     logLn env Verbose (prefix <> T.pack (unwords (cmd' : map show args)))
+    liftIO (FP.createTree (FP.directory logfile))
     code <- liftIO $ flip catch exitFailing
                    $ withBinaryFile (FP.encodeString logfile) AppendMode $ \outH ->
         do withCheckedProcess
