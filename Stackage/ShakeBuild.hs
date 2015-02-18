@@ -512,11 +512,12 @@ cabal env prefix logfile cwd args = do
                (\ClosedStream UseProvidedHandle UseProvidedHandle ->
                      (return ()))
            return ExitSuccess
-    logLn env Normal
-              (prefix <> T.pack (fromMaybe "" (listToMaybe args)) <> ": " <>
-               case code of
-                 ExitFailure{} -> "FAIL"
-                 ExitSuccess{} -> "OK")
+    case code of
+      ExitFailure{} ->
+          logLn env Normal
+                    (prefix <> T.pack (fromMaybe "" (listToMaybe args)) <> ": " <>
+                     "FAIL")
+      ExitSuccess{} -> return ()
     return code
     where cmd' = "cabal" :: String
           exitFailing :: ProcessExitedUnsuccessfully -> IO ExitCode
