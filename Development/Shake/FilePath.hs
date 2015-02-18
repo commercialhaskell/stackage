@@ -12,12 +12,13 @@ module Development.Shake.FilePath
     ,Rules
     ,Action
     ,CmdOption(..)
+    ,Progress(..)
     ,Shake.cmd
     ,makeTargetFile)
     where
 
 import           Control.Monad.IO.Class
-import           Development.Shake (Rules,Action,CmdOption(..))
+import           Development.Shake (Rules,Action,CmdOption(..),Progress(..))
 import qualified Development.Shake as Shake
 import qualified Filesystem as FP
 import           Filesystem.Path.CurrentOS (FilePath)
@@ -31,13 +32,15 @@ newtype Target = Target
     }
 
 -- | Start Shake with the given data directory.
-startShake :: MonadIO m => Int -> FilePath -> Rules () -> m ()
+startShake :: MonadIO m
+           => Int -> FilePath -> Rules () -> m ()
 startShake threads dir rules =
     liftIO (withArgs [] $
                 Shake.shakeArgs
                           Shake.shakeOptions
                           { Shake.shakeFiles = FP.encodeString dir
                           , Shake.shakeThreads = threads
+                          , Shake.shakeVerbosity = Shake.Quiet
                           } $
                 rules)
 

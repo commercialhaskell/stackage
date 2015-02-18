@@ -9,7 +9,7 @@
 
 -- | Build everything with Shake.
 
-module Stackage.ShakeBuild where
+module Stackage.ShakeBuild (performBuild) where
 
 import           Stackage.BuildConstraints
 import           Stackage.BuildPlan
@@ -31,11 +31,11 @@ import qualified Data.Map.Strict as M
 import           Data.Maybe
 import           Data.Monoid
 import qualified Data.Set as S
+import           Data.Streaming.Process
 import           Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Text.Encoding as T
 import           Data.Version
-import qualified Development.Shake.FilePath as Shake
 import           Development.Shake.FilePath hiding (Env)
 import           Distribution.Package
 import           Distribution.Text (display)
@@ -45,6 +45,7 @@ import qualified Filesystem.Path.CurrentOS as FP
 import           Prelude hiding (log,FilePath)
 import           System.Environment
 import           System.Exit
+import           System.IO (withBinaryFile,IOMode(AppendMode))
 
 -- | Reader environment used generally throughout the build process.
 data Env = Env
@@ -54,6 +55,7 @@ data Env = Env
     ,envRegLock    :: MVar ()                    -- ^ Package registering lock.
     ,envPB         :: PerformBuild               -- ^ Build perform settings.
     ,envRegistered :: [PackageIdentifier]        -- ^ Registered packages.
+    ,envMsgLock    :: MVar ()                    -- ^ A lock for printing to the log.
     }
 
 --------------------------------------------------------------------------------
@@ -67,12 +69,13 @@ performBuild pb' = do
     let shakeDir = cur <> "shake/"
     FP.createTree shakeDir
     FP.createTree (buildDatabase pb')
-    haddockFiles <- liftIO (newTVarIO mempty)
-    registerLock <- liftIO (newMVar ())
+    haddockFiles <- newTVarIO mempty
+    registerLock <- newMVar ()
     let !pb = pb'
              { pbInstallDest = cur <> pbInstallDest pb'
              }
     pkgs <- getRegisteredPackages (buildDatabase pb)
+    msgLock <- newMVar ()
     let !env = Env
             { envCur = cur
             , envShake = shakeDir
@@ -80,6 +83,7 @@ performBuild pb' = do
             , envRegLock = registerLock
             , envPB = pb
             , envRegistered = pkgs
+            , envMsgLock = msgLock
             }
     checkBuildTools env
     cleanOldPackages env
@@ -138,10 +142,6 @@ targetForDocs shakeDir name version = Target $
         (nameVer name version) <>
     "dist" <> "shake-docs"
 
--- | Target for the complete, copied build under builds/date/.
-targetForBuild :: PerformBuild -> Target
-targetForBuild pb =  Target $ (pbInstallDest pb) <> "shake-built"
-
 -- | Get a package database path.
 targetForDb :: Env -> Target
 targetForDb Env{..} = Target $ (pbInstallDest envPB) <> "pkgdb-initialized"
@@ -178,6 +178,11 @@ pkgDir :: Env -> PackageName -> Version -> FilePath
 pkgDir Env{..} name version = envShake <> "packages" <>
     (FP.decodeString (nameVer name version))
 
+--  | The package directory.
+pkgLogFile :: Env -> PackageName -> Version -> FilePath
+pkgLogFile env@Env{..} name version = pkgDir env name version <>
+    "log.txt"
+
 -- | Installation paths.
 pbBinDir, pbLibDir, pbDataDir, pbDocDir :: PerformBuild -> FilePath
 pbBinDir root =  (pbInstallDest root) <> "bin"
@@ -193,31 +198,36 @@ printNewPackages :: Env -> IO ()
 printNewPackages env@Env{..} = do
     unless
         (M.null new)
-        (do log
+        (do logLn
                 env
                 Normal
                 ("There are " ++
                  show (M.size new) ++
-                 " packages to build and install: ")
+                 " packages to build and install.")
             forM_
                 (map fst (take maxDisplay (M.toList new)))
                 (logLn env Verbose . display)
             when
                 (M.size new > maxDisplay)
-                (log
-                     env
-                     Verbose
-                     ("And " ++
-                      show (M.size new - maxDisplay) ++
-                      " more.")))
+                (logLn
+                       env
+                       Verbose
+                       ("And " ++
+                        show (M.size new - maxDisplay) ++
+                        " more.")))
     where maxDisplay = 10
-          new = M.filterWithKey
-                  (\name _ ->
-                        isNothing (find ((== name) . pkgName) envRegistered))
-                  versions
-          versions = (M.map ppVersion .
-                      M.filter (not . S.null . sdModules . ppDesc) .
-                      bpPackages . pbPlan) envPB
+          new = newPackages env
+
+-- | Get new packages from the env.
+newPackages :: Env -> Map PackageName Version
+newPackages Env{..} = new
+  where new = M.filterWithKey
+                (\name _ ->
+                      isNothing (find ((== name) . pkgName) envRegistered))
+                versions
+        versions = (M.map ppVersion .
+                    M.filter (not . S.null . sdModules . ppDesc) .
+                    bpPackages . pbPlan) envPB
 
 --------------------------------------------------------------------------------
 -- Checking for build tools
@@ -269,7 +279,8 @@ cleanOldPackages env@Env{..} = do
                           Nothing -> Just (name, version, NoLongerIncluded))
                 pkgs
     unless (null toRemove)
-           (logLn env Verbose ("There are " ++ show (length toRemove) ++ " packages to be purged."))
+           (logLn env Verbose ("There are " ++ show (length toRemove)
+                               ++ " packages to be purged."))
     when (length toRemove > 0)
          (do logLn env Verbose "Waiting 3 seconds before proceeding to remove ..."
              threadDelay (1000 * 1000 * 3))
@@ -287,7 +298,8 @@ cleanOldPackages env@Env{..} = do
                  Nothing -> purgePackage env name version NoLongerIncluded
     broken <- getBrokenPackages (buildDatabase envPB)
     unless (null broken)
-           (logLn env Verbose ("There are " ++ show (length broken) ++ " broken packages to be purged."))
+           (logLn env Verbose ("There are " ++ show (length broken)
+                               ++ " broken packages to be purged."))
     when (length broken > 0)
          (do logLn env Verbose "Waiting 3 seconds before proceeding to remove ..."
              threadDelay (1000 * 1000 * 3))
@@ -300,10 +312,10 @@ cleanOldPackages env@Env{..} = do
 -- | Purge the given package and version.
 purgePackage :: Env -> PackageName -> Version -> PurgeReason -> IO ()
 purgePackage env name version reason = do
-    log env Verbose $ "Purging package: " ++ ident ++ " (" ++ showReason ++ ") ... "
+    log env Normal $ "Purging package: " ++ ident ++ " (" ++ showReason ++ ") ... "
     unregisterPackage (buildDatabase (envPB env)) name
     remove
-    logLn env Verbose "done."
+    logLn env Normal "done."
     where showReason =
               case reason of
                 Replaced version' -> "replaced by " ++ ordinal ++ " " ++ display version'
@@ -335,14 +347,12 @@ databaseTarget env  = do
 -- | Generate haddock docs for the package.
 packageDocs :: Env -> PackagePlan -> PackageName -> Action ()
 packageDocs env@Env{..} plan name = do
-    pwd <- liftIO FP.getWorkingDirectory
-    envmap <- liftIO (fmap (Shake.Env . (++ defaultEnv envPB pwd)) getEnvironment)
     when (haddocksFlag /= Don'tBuild &&
           not (S.null $ sdModules $ ppDesc plan)) $
         generateHaddocks
             env
+            (pkgLogFile env name version)
             (pkgDir env name version)
-            envmap
             name
             version
             haddocksFlag
@@ -358,19 +368,24 @@ packageTarget env@Env{..} name plan = do
         mapMaybe (\p -> find ((==p) . fst) versionMappings) $
         filter (/= name) $
         M.keys $ M.filter libAndExe $ sdPackages $ ppDesc plan
-    pwd <- liftIO FP.getWorkingDirectory
-    envmap <- liftIO (fmap (Shake.Env . (++ defaultEnv envPB pwd)) getEnvironment)
     unpack env name version
-    configure env dir envmap plan
-    () <- cmd cwd envmap "cabal" "build" ("--ghc-options=" <> pbGhcOptions envPB)
+    liftIO (do exists <- FP.isFile logFile
+               when exists (FP.removeFile logFile))
+    configure env name logFile dir plan
+    prefix <- packageCmdPrefix name
+    let pkgCabal :: (MonadIO m) => [String] -> m ()
+        pkgCabal = succeed . cabal env prefix logFile dir
+    pkgCabal ["build","--ghc-options=" <> pbGhcOptions envPB]
     when (pbEnableTests envPB)
-         (cmd cwd envmap "cabal" "test")
-    register dir envmap envRegLock
+         (succeed (cabal env prefix logFile dir ["test"]))
+    pkgCabal ["copy"]
+    liftIO (withMVar envRegLock
+                     (const (pkgCabal ["register"])))
     makeTargetFile (targetForPackage envShake name version)
-    where dir = pkgDir env name version
+    where logFile = (pkgLogFile env name version)
+          dir = pkgDir env name version
           version = ppVersion plan
           versionMappings = M.toList (M.map ppVersion (bpPackages (pbPlan envPB)))
-          cwd = Cwd (FP.encodeString dir)
 
 -- | Make sure all package archives have been fetched.
 fetchedTarget :: Env -> Action ()
@@ -399,11 +414,13 @@ unpack env@Env{..} name version = do
                "cabal"
                "unpack"
                (nameVer name version)
+               "-v0"
 
 -- | Configure the given package.
-configure :: Env -> FilePath -> CmdOption -> PackagePlan -> Action ()
-configure Env{..} pdir env plan =
-    cmd (Cwd (FP.encodeString pdir)) env "cabal" "configure" opts
+configure :: Env -> PackageName -> FilePath -> FilePath -> PackagePlan -> Action ()
+configure env@Env{..} name logfile pdir plan =
+    do prefix <- packageCmdPrefix name
+       succeed (cabal env prefix logfile pdir ("configure" : opts))
     where
         opts =
             [ "--package-db=clear"
@@ -420,39 +437,31 @@ configure Env{..} pdir env plan =
            where go (name',isOn) = concat
                          [ if isOn then "" else "-" , T.unpack (unFlagName name')]
 
-
--- | Register the package.
-register :: FilePath -> CmdOption -> MVar () -> Action ()
-register pdir env registerLock = do
-    () <- cmd cwd env "cabal" "copy"
-    liftIO (takeMVar registerLock)
-    () <- cmd cwd env "cabal" "register"
-    liftIO (putMVar registerLock ())
-    where cwd = Cwd (FP.encodeString pdir)
-
 -- | Generate haddocks for the package.
-generateHaddocks :: Env -> FilePath -> CmdOption -> PackageName -> Version -> TestState -> Action ()
-generateHaddocks env@Env{..} pdir envmap name version expected = do
+generateHaddocks :: Env -> FilePath -> FilePath -> PackageName -> Version -> TestState -> Action ()
+generateHaddocks env@Env{..} logfile pdir name version expected = do
     hfs <- liftIO $ readTVarIO envHaddocks
+    prefix <- packageCmdPrefix name
     exitCode <-
-        cmd
-            (Cwd (FP.encodeString pdir))
-            envmap
-            "cabal"
-            "haddock"
-            "--hyperlink-source"
-            "--html"
-            "--hoogle"
-            "--html-location=../$pkg-$version/"
-            (map
-                 (\(pkgVer,hf) ->
-                       concat
-                           [ "--haddock-options=--read-interface="
-                           , "../"
-                           , pkgVer
-                           , "/,"
-                           , FP.encodeString hf])
-                 (M.toList hfs))
+        cabal
+             env
+             prefix
+             logfile
+             pdir
+             (["haddock"
+              ,"--hyperlink-source"
+              ,"--html"
+              ,"--hoogle"
+              ,"--html-location=../$pkg-$version/"] ++
+              map
+                  (\(pkgVer,hf) ->
+                        concat
+                            [ "--haddock-options=--read-interface="
+                            , "../"
+                            , pkgVer
+                            , "/,"
+                            , FP.encodeString hf])
+                  (M.toList hfs))
     case (exitCode, expected) of
         (ExitSuccess,ExpectFailure) -> return () -- FIXME: warn.
         (ExitFailure{},ExpectSuccess) -> throw exitCode -- FIXME: report it
@@ -476,6 +485,55 @@ generateHaddocks env@Env{..} pdir envmap name version expected = do
                     M.insert (ident) newPath
 
 --------------------------------------------------------------------------------
+-- Running commands
+
+-- | Get a command prefix including progress.
+packageCmdPrefix :: MonadIO m => PackageName -> m Text
+packageCmdPrefix name =
+    return (T.pack (display name) <> ": ")
+
+-- | Run a command with the right envornment, logs the command being
+-- run and its output as verbose mode.
+cabal :: MonadIO m => Env -> Text -> FilePath -> FilePath -> [String] -> m ExitCode
+cabal env prefix logfile cwd args = do
+    pwd <- liftIO FP.getWorkingDirectory
+    envmap <- liftIO $ fmap (++ defaultEnv (envPB env) pwd) $ getEnvironment
+    logLn env Normal (prefix <> T.pack (fromMaybe "" (listToMaybe args)) <> " ...")
+    logLn env Verbose (prefix <> T.pack (unwords (cmd' : map show args)))
+    code <- liftIO $ flip catch exitFailing
+                   $ withBinaryFile (FP.encodeString logfile) AppendMode $ \outH ->
+        do withCheckedProcess
+               (proc cmd' args)
+               { cwd = Just (FP.encodeString cwd)
+               , std_err = UseHandle outH
+               , std_out = UseHandle outH
+               , env = Just envmap
+               }
+               (\ClosedStream UseProvidedHandle UseProvidedHandle ->
+                     (return ()))
+           return ExitSuccess
+    logLn env Normal
+              (prefix <> T.pack (fromMaybe "" (listToMaybe args)) <> ": " <>
+               case code of
+                 ExitFailure{} -> "FAIL"
+                 ExitSuccess{} -> "OK")
+    return code
+    where cmd' = "cabal" :: String
+          exitFailing :: ProcessExitedUnsuccessfully -> IO ExitCode
+          exitFailing (ProcessExitedUnsuccessfully _ code) = do
+              FP.readFile logfile >>= logLn env Normal
+              return code
+
+-- | The action must return a success code or an exception is thrown.
+succeed :: MonadIO m
+        => m ExitCode -> m ()
+succeed m = do
+    v <- m
+    case v of
+        ExitFailure{} -> throw v
+        ExitSuccess -> return ()
+
+--------------------------------------------------------------------------------
 -- Logging utilities
 
 data Verbosity
@@ -494,13 +552,14 @@ logLn env v s = log env v (toBS s <> "\n")
 
 -- | Log to wherever is configured by the calling code.
 log :: (MonadIO m,ToBS str) => Env -> Verbosity -> str -> m ()
-log env v s = when
-        (pbVerbose (envPB env) ==
-         bool)
-        (liftIO
-             (pbLog
-                  (envPB env)
-                  (toBS s)))
-    where bool = case v of
+log env v s =
+    when ((bool && verbose) || not bool)
+         (liftIO
+              (withMVar (envMsgLock env)
+                        (const (pbLog
+                                    (envPB env)
+                                    (toBS s)))))
+    where verbose = pbVerbose (envPB env)
+          bool = case v of
                   Verbose -> True
                   Normal -> False
