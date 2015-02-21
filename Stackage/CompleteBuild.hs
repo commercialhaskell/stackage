@@ -33,6 +33,7 @@ import System.IO                 (BufferMode (LineBuffering), hSetBuffering)
 -- | Flags passed in from the command line.
 data BuildFlags = BuildFlags
     { bfEnableTests      :: !Bool
+    , bfEnableHaddock    :: !Bool
     , bfDoUpload         :: !Bool
     , bfEnableLibProfile :: !Bool
     , bfVerbose          :: !Bool
@@ -203,6 +204,7 @@ getPerformBuild buildFlags Settings {..} = PerformBuild
     , pbJobs = 8
     , pbGlobalInstall = False
     , pbEnableTests = bfEnableTests buildFlags
+    , pbEnableHaddock = bfEnableHaddock buildFlags
     , pbEnableLibProfiling = bfEnableLibProfile buildFlags
     , pbVerbose = bfVerbose buildFlags
     , pbAllowNewer = bfSkipCheck buildFlags

@@ -62,6 +62,7 @@ data PerformBuild = PerformBuild
     , pbGlobalInstall :: Bool
     -- ^ Register packages in the global database
     , pbEnableTests        :: Bool
+    , pbEnableHaddock      :: Bool
     , pbEnableLibProfiling :: Bool
     , pbVerbose            :: Bool
     , pbAllowNewer         :: Bool
@@ -354,7 +355,7 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
         -- dependency's haddocks before this finishes
         atomically $ putTMVar (piResult sbPackageInfo) True
 
-        when (pcHaddocks /= Don'tBuild && not (null $ sdModules $ ppDesc $ piPlan sbPackageInfo)) $ do
+        when (pbEnableHaddock && pcHaddocks /= Don'tBuild && not (null $ sdModules $ ppDesc $ piPlan sbPackageInfo)) $ do
             log' $ "Haddocks " ++ namever
             hfs <- readTVarIO sbHaddockFiles
             let hfsOpts = flip map (mapToList hfs) $ \(pkgVer, hf) -> concat
