@@ -80,6 +80,11 @@ main =
         fmap
             not
             (switch
+                 (long "skip-haddock" <>
+                  help "Skip generating haddock documentation")) <*>
+        fmap
+            not
+            (switch
                  (long "skip-upload" <>
                   help "Skip uploading bundle, docs, etc.")) <*>
         switch
@@ -136,6 +141,11 @@ main =
             (switch
                 (long "skip-tests" <>
                  help "Skip build and running the test suites")) <*>
+        fmap
+            not
+            (switch
+                 (long "skip-haddock" <>
+                  help "Skip generating haddock documentation")) <*>
         switch
             (long "enable-library-profiling" <>
              help "Enable profiling when building") <*>
