@@ -378,8 +378,9 @@ packageTarget env@Env{..} name plan = do
     unpack env name version
     liftIO (do exists <- FP.isFile logFile
                when exists (FP.removeFile logFile))
-    configure env name logFile dir plan
     prefix <- packageCmdPrefix name
+    cabal env Verbose prefix logFile dir ["clean"]
+    configure env name logFile dir plan False
     let pkgCabal :: (MonadIO m) => Verbosity -> [String] -> m ()
         pkgCabal verbosity = succeed . cabal env verbosity prefix logFile dir
     pkgCabal Normal ["build","--ghc-options=" <> pbGhcOptions envPB]
