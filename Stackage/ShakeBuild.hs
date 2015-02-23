@@ -384,12 +384,15 @@ packageTarget env@Env{..} name plan = do
     let pkgCabal :: (MonadIO m) => Verbosity -> [String] -> m ()
         pkgCabal verbosity = succeed . cabal env verbosity prefix logFile dir
     pkgCabal Normal ["build","--ghc-options=" <> pbGhcOptions envPB]
-    when (pbEnableTests envPB)
-         (do result <- cabal env Normal prefix logFile dir ["test"]
-             case result of
-               ExitFailure{} ->
+    when (pbEnableTests envPB && pcTests (ppConstraints plan) /= Don'tBuild)
+         (do configure env name logFile dir plan True
+             result <- cabal env Normal prefix logFile dir ["test"]
+             case (result,pcTests (ppConstraints plan)) of
+               (ExitFailure{},ExpectSuccess) ->
                    do logLn env Normal (prefix <> "TEST SUITE FAILED")
                       failed env result
+               (ExitSuccess,ExpectFailure) ->
+                   logLn env Normal (prefix <> "Unexpected test suite success!")
                _ -> return ())
     pkgCabal Verbose ["copy"]
     liftIO (withMVar envRegLock
