@@ -433,8 +433,8 @@ unpack env@Env{..} name version = do
                "-v0"
 
 -- | Configure the given package.
-configure :: Env -> PackageName -> FilePath -> FilePath -> PackagePlan -> Action ()
-configure env@Env{..} name logfile pdir plan =
+configure :: Env -> PackageName -> FilePath -> FilePath -> PackagePlan -> Bool -> Action ()
+configure env@Env{..} name logfile pdir plan enableTests =
     do prefix <- packageCmdPrefix name
        succeed (cabal env Verbose prefix logfile pdir ("configure" : opts))
     where
@@ -447,7 +447,8 @@ configure env@Env{..} name logfile pdir plan =
             , "--docdir=" ++ FP.encodeString (pbDocDir envPB)
             , "--flags=" ++ planFlags] ++
             ["--package-db=" ++ FP.encodeString (buildDatabase envPB)
-            | not (pbGlobalInstall envPB)]
+            | not (pbGlobalInstall envPB)] ++
+            ["--enable-tests" | enableTests]
         planFlags = unwords $
            map go $ M.toList (pcFlagOverrides (ppConstraints plan))
            where go (name',isOn) = concat
