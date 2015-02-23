@@ -315,8 +315,9 @@ packages:
 
     "Brent Yorgey <byorgey@gmail.com>":
         - active
-        - BlogLiterately
-        - BlogLiterately-diagrams
+        # Temporarily disabled due to restrictive lens upper bound
+        #- BlogLiterately
+        #- BlogLiterately-diagrams
         - diagrams
         - diagrams-builder
         - diagrams-contrib
@@ -389,8 +390,11 @@ packages:
         - fay-jquery
         - fay-text
         - fay-uri
-        - fclabels
         - snaplet-fay
+
+    "Sebastiaan Visser <haskell@fvisser.nl>":
+        - clay
+        - fclabels
 
     "Rodrigo Setti <rodrigosetti@gmail.com>":
         - messagepack
@@ -702,26 +706,25 @@ packages:
     "Gabríel Arthúr Pétursson gabriel@system.is":
         - sdl2
 
+    "Leon Mergen leon@solatis.com":
+        - network-attoparsec
+
+    "Timothy Jones git@zmthy.io @zmthy":
+        - cabal-test-quickcheck
+        - http-media
+
     "Stackage upper bounds":
 
         # Force a specific version that's compatible with transformers 0.3
-        - transformers-compat == 0.3.3.3
-        - mtl-compat < 0.2 # https://github.com/fpco/stackage/issues/446
+        - transformers-compat == 0.4.0.3
 
         # https://github.com/fpco/stackage/issues/291
         - random < 1.0.1.3
-
-        # https://github.com/fpco/stackage/issues/389
-        - lens < 4.7
-        - hsdev < 0.1.3.3
 
         # https://github.com/fpco/stackage/issues/390
         # NOTE: When this issue is resolved, remove the expected test failure
         # for language-ecmascript as well.
         - language-ecmascript < 0.17
-
-        # https://github.com/fpco/stackage/issues/402
-        - vector-space < 0.9
 
         # https://github.com/fpco/stackage/issues/407
         - HStringTemplate < 0.8
@@ -747,12 +750,14 @@ packages:
 
         # https://github.com/fpco/stackage/issues/442
         - blaze-builder < 0.4
+        - blaze-markup < 0.7
+        - blaze-html < 0.8
 
         # https://github.com/fpco/stackage/issues/443
         - exceptions < 0.7
-
-        # https://github.com/fpco/stackage/issues/445
-        - semigroupoids < 4.3
+        - rest-client < 0.5
+        - rest-types < 1.13
+        - rest-core < 0.35
 
 # Package flags are applied to individual packages, and override the values of
 # global-flags
@@ -1010,6 +1015,19 @@ expected-test-failures:
 
     # https://github.com/haskell-distributed/distributed-process-execution/issues/2
     - distributed-process-execution
+
+    # Seems to depend on mtl being installed in user package database, which
+    # isn't always the case (e.g., build server)
+    - happy
+
+    # https://github.com/jberryman/directory-tree/issues/4
+    - directory-tree
+
+    # https://github.com/zmthy/http-media/issues/11
+    - http-media
+
+    # https://github.com/ekmett/semigroupoids/issues/18
+    - semigroupoids
 
 # Haddocks which are expected to fail. Same concept as expected test failures.
 expected-haddock-failures:
