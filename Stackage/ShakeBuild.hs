@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE TypeSynonymInstances #-}
@@ -19,6 +20,7 @@ import           Stackage.PackageDescription
 import           Stackage.PerformBuild (PerformBuild(..),copyBuiltInHaddocks,renameOrCopy)
 import           Stackage.Prelude (unFlagName,unExeName)
 
+import           Data.Char
 import           Control.Concurrent
 import           Control.Concurrent.STM
 import           Control.Exception
@@ -109,7 +111,7 @@ shakePlan env@Env{..} = do
         \(name,version) ->
            let fp = targetForPackage envShake name version
            in target fp (makeTargetFile fp)
-    void $ forM normalPackages $
+    builds <- forM normalPackages $
         \(name,plan) ->
              target (targetForPackage envShake name (ppVersion plan)) $
              do need [db, fetched]
@@ -120,7 +122,14 @@ shakePlan env@Env{..} = do
              target (targetForDocs envShake name (ppVersion plan)) $
              do need [targetForPackage envShake name (ppVersion plan)]
                 packageDocs env plan name
-    want haddockTargets
+    tests <- forM normalPackages $
+        \(name,plan) ->
+             target (targetForTest envShake name (ppVersion plan)) $
+             do need (haddockTargets <> [db, fetched])
+                testTarget env name plan
+    if pbEnableTests envPB
+       then want tests
+       else want haddockTargets
     where versionMappings = M.toList (M.map ppVersion (bpPackages (pbPlan envPB)))
           corePackages = M.keys $ siCorePackages $ bpSystemInfo $ pbPlan envPB
           normalPackages = filter (not . (`elem` corePackages) . fst) $
@@ -140,6 +149,13 @@ targetForPackage shakeDir name version = Target $
     shakeDir <> "packages" <>
     FP.decodeString (nameVer name version)
     <> "dist" <> "shake-build"
+
+-- | Get the target file for a package.
+targetForTest :: FilePath -> PackageName -> Version -> Target
+targetForTest shakeDir name version = Target $
+    shakeDir <> "packages" <>
+    FP.decodeString (nameVer name version)
+    <> "dist" <> "shake-test"
 
 -- | Get the target file for a package.
 targetForDocs :: FilePath -> PackageName -> Version -> Target
@@ -162,11 +178,29 @@ nameVer :: PackageName -> Version -> String
 nameVer name version = display name ++ "-" ++ display version
 
 -- | Default environment for running commands.
-defaultEnv :: PerformBuild -> FilePath -> [(String, String)]
-defaultEnv pb pwd =
-    [( "HASKELL_PACKAGE_SANDBOX"
-     , FP.encodeString (pwd <> buildDatabase pb))
-    | pbGlobalInstall pb]
+defaultEnv :: PerformBuild -> FilePath -> [(String, String)] -> [(String, String)]
+defaultEnv pb pwd env = sandbox ++ rest
+    where sandbox = [( "HASKELL_PACKAGE_SANDBOX"
+                     , FP.encodeString
+                           (pwd <> buildDatabase pb)) | not (pbGlobalInstall pb)]
+          rest = map addPath env
+            where
+              addPath (key,val)
+                  | map toUpper key == "PATH" =
+                      ( key
+                      , FP.encodeString
+                            (pbBinDir pb) <>
+                        pathSep <>
+                        val)
+                  | otherwise = (key,val)
+
+-- | Platform-independent PATH environment separator.
+pathSep :: String
+#ifdef mingw32_HOST_OS
+pathSep = ";"
+#else
+pathSep = ":"
+#endif
 
 -- | Database location.
 buildDatabase :: PerformBuild -> FilePath
@@ -189,6 +223,11 @@ pkgDir Env{..} name version = envShake <> "packages" <>
 pkgLogFile :: Env -> PackageName -> Version -> FilePath
 pkgLogFile env@Env{..} name version = pkgDir env name version <>
     "dist" <> "stackage-log.txt"
+
+--  | The package directory.
+testLogFile :: Env -> PackageName -> Version -> FilePath
+testLogFile env@Env{..} name version = pkgDir env name version <>
+    "dist" <> "stackage-test-log.txt"
 
 -- | Installation paths.
 pbBinDir, pbLibDir, pbDataDir, pbDocDir :: PerformBuild -> FilePath
@@ -384,6 +423,26 @@ packageTarget env@Env{..} name plan = do
     let pkgCabal :: (MonadIO m) => Verbosity -> [String] -> m ()
         pkgCabal verbosity = succeed . cabal env verbosity prefix logFile dir
     pkgCabal Normal ["build","--ghc-options=" <> pbGhcOptions envPB]
+    pkgCabal Verbose ["copy"]
+    liftIO (withMVar envRegLock
+                     (const (pkgCabal Verbose ["register"])))
+    makeTargetFile (targetForPackage envShake name version)
+    where logFile = pkgLogFile env name version
+          dir = pkgDir env name version
+          version = ppVersion plan
+          versionMappings = M.toList (M.map ppVersion (bpPackages (pbPlan envPB)))
+
+-- | Build, test and generate documentation for the package.
+testTarget :: Env -> PackageName -> PackagePlan -> Action ()
+testTarget env@Env{..} name plan = do
+    need $
+        map (\(pname,pver) -> targetForPackage envShake pname pver) $
+        mapMaybe (\p -> find ((==p) . fst) versionMappings) $
+        M.keys $ sdPackages $ ppDesc plan
+    unpack env name version
+    liftIO (do exists <- FP.isFile logFile
+               when exists (FP.removeFile logFile))
+    prefix <- packageCmdPrefix name
     when (pbEnableTests envPB && pcTests (ppConstraints plan) /= Don'tBuild)
          (do configure env name logFile dir plan True
              result <- cabal env Normal prefix logFile dir ["test"]
@@ -394,11 +453,8 @@ packageTarget env@Env{..} name plan = do
                (ExitSuccess,ExpectFailure) ->
                    logLn env Normal (prefix <> "Unexpected test suite success!")
                _ -> return ())
-    pkgCabal Verbose ["copy"]
-    liftIO (withMVar envRegLock
-                     (const (pkgCabal Verbose ["register"])))
-    makeTargetFile (targetForPackage envShake name version)
-    where logFile = pkgLogFile env name version
+    makeTargetFile (targetForTest envShake name version)
+    where logFile = testLogFile env name version
           dir = pkgDir env name version
           version = ppVersion plan
           versionMappings = M.toList (M.map ppVersion (bpPackages (pbPlan envPB)))
@@ -518,7 +574,7 @@ packageCmdPrefix name =
 cabal :: MonadIO m => Env -> Verbosity -> Text -> FilePath -> FilePath -> [String] -> m ExitCode
 cabal env verbosity prefix logfile cwd args = do
     pwd <- liftIO FP.getWorkingDirectory
-    envmap <- liftIO $ fmap (++ defaultEnv (envPB env) pwd) $ getEnvironment
+    envmap <- liftIO $ fmap (defaultEnv (envPB env) pwd) $ getEnvironment
     logLn env verbosity (prefix <> T.pack (fromMaybe "" (listToMaybe args)))
     logLn env Verbose (prefix <> T.pack (unwords (cmd' : map show args)))
     liftIO (FP.createTree (FP.directory logfile))
