@@ -125,7 +125,7 @@ shakePlan env@Env{..} = do
     tests <- forM normalPackages $
         \(name,plan) ->
              target (targetForTest envShake name (ppVersion plan)) $
-             do need (haddockTargets <> [db, fetched])
+             do need haddockTargets
                 testTarget env name plan
     if pbEnableTests envPB
        then want tests
@@ -409,11 +409,8 @@ packageDocs env@Env{..} plan name = do
 -- | Build, test and generate documentation for the package.
 packageTarget :: Env -> PackageName -> PackagePlan -> Action ()
 packageTarget env@Env{..} name plan = do
-    need $
-        map (\(pname,pver) -> targetForPackage envShake pname pver) $
-        mapMaybe (\p -> find ((==p) . fst) versionMappings) $
-        filter (/= name) $
-        M.keys $ M.filter libAndExe $ sdPackages $ ppDesc plan
+    need libraryDependencies
+    need toolDependencies
     unpack env name version
     liftIO (do exists <- FP.isFile logFile
                when exists (FP.removeFile logFile))
@@ -431,14 +428,27 @@ packageTarget env@Env{..} name plan = do
           dir = pkgDir env name version
           version = ppVersion plan
           versionMappings = M.toList (M.map ppVersion (bpPackages (pbPlan envPB)))
+          toolMappings = makeToolMap (bpPackages (pbPlan envPB))
+          libraryDependencies =
+              packagesToTargets $
+              filter (/= name) $
+              M.keys $ M.filter libAndExe $
+              sdPackages $ ppDesc plan
+          toolDependencies =
+              packagesToTargets $
+              filter (/= name) $
+              S.toList $ mconcat $
+              mapMaybe (\exename -> M.lookup exename toolMappings) $
+              M.keys $ M.filter libAndExe $ sdTools $ ppDesc plan
+          packagesToTargets =
+              map (\(pname,pver) -> targetForPackage envShake pname pver) .
+              mapMaybe (\p -> find ((==p) . fst) versionMappings)
 
 -- | Build, test and generate documentation for the package.
 testTarget :: Env -> PackageName -> PackagePlan -> Action ()
 testTarget env@Env{..} name plan = do
-    need $
-        map (\(pname,pver) -> targetForPackage envShake pname pver) $
-        mapMaybe (\p -> find ((==p) . fst) versionMappings) $
-        M.keys $ sdPackages $ ppDesc plan
+    need libraryDependencies
+    need toolDependencies
     unpack env name version
     liftIO (do exists <- FP.isFile logFile
                when exists (FP.removeFile logFile))
@@ -458,6 +468,18 @@ testTarget env@Env{..} name plan = do
           dir = pkgDir env name version
           version = ppVersion plan
           versionMappings = M.toList (M.map ppVersion (bpPackages (pbPlan envPB)))
+          toolMappings = makeToolMap (bpPackages (pbPlan envPB))
+          libraryDependencies =
+              packagesToTargets $ M.keys $ sdPackages $ ppDesc plan
+          toolDependencies =
+              packagesToTargets $
+              S.toList $ mconcat $
+              mapMaybe (\exename ->
+                       M.lookup exename toolMappings) $
+              M.keys $ sdTools $ ppDesc plan
+          packagesToTargets =
+              map (\(pname,pver) -> targetForPackage envShake pname pver) .
+              mapMaybe (\p -> find ((==p) . fst) versionMappings)
 
 -- | Make sure all package archives have been fetched.
 fetchedTarget :: Env -> Action ()
@@ -475,18 +497,19 @@ fetchedTarget env@Env{..} = do
 unpack :: Env -> PackageName -> Version -> Action ()
 unpack env@Env{..} name version = do
     unpacked <- liftIO $ FP.isFile $
-        pkgDir env name version <>
+        dir <>
         FP.decodeString
             (display name ++ ".cabal")
     unless unpacked $
-        do liftIO $ catch (FP.removeTree (pkgDir env name version)) $
-               \(_ :: IOException) -> return ()
+        do liftIO $ catch (FP.removeTree dir) $
+               \(e :: IOException) -> log env Normal ("Remove ex: " <> show e <> "\n")
            cmd
                (Cwd (FP.encodeString (envShake <> "packages")))
                "cabal"
                "unpack"
                (nameVer name version)
                "-v0"
+  where dir = pkgDir env name version
 
 -- | Configure the given package.
 configure :: Env -> PackageName -> FilePath -> FilePath -> PackagePlan -> Bool -> Action ()
