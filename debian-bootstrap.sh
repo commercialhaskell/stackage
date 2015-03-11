@@ -20,7 +20,7 @@ apt-get install -y \
     git \
     wget \
     m4 \
-    texlive-binaries \
+    texlive-full \
     libgmp3c2 \
     libgmp3-dev \
     zlib1g-dev \
