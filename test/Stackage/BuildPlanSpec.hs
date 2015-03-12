@@ -92,6 +92,7 @@ basicBuild getPlans _ = do
                 { bfEnableTests      = False
                 , bfDoUpload         = False
                 , bfEnableLibProfile = False
+                , bfEnableExecDyn    = False
                 , bfVerbose          = False
                 }
 
@@ -117,6 +118,7 @@ shakeBuild getPlans _ = do
               BuildFlags {bfEnableTests = False
                          ,bfDoUpload = False
                          ,bfEnableLibProfile = False
+                         ,bfEnableExecDyn = False
                          ,bfVerbose = False}
 
 -- | Check build plan with the given package set getter.

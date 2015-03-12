@@ -41,6 +41,7 @@ data BuildFlags = BuildFlags
     , bfEnableHaddock    :: !Bool
     , bfDoUpload         :: !Bool
     , bfEnableLibProfile :: !Bool
+    , bfEnableExecDyn    :: !Bool
     , bfVerbose          :: !Bool
     , bfSkipCheck        :: !Bool
     , bfGhcOptions       :: !String
