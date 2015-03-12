@@ -18,19 +18,21 @@ import qualified Filesystem.Path.CurrentOS as FP
 import Data.Map (Map)
 import Data.Version (Version)
 import Stackage.Prelude
+import Filesystem (removeTree)
 
 setupPackageDatabase
     :: Maybe FilePath -- ^ database location, Nothing if using global DB
+    -> FilePath -- ^ documentation root
     -> Map PackageName Version -- ^ packages and versions to be installed
     -> IO (Set PackageName) -- ^ packages remaining in the database after cleanup
-setupPackageDatabase mdb toInstall = do
+setupPackageDatabase mdb docDir toInstall = do
     registered1 <- getRegisteredPackages flags
-    forM_ registered1 $ \(PackageIdentifier name version) ->
+    forM_ registered1 $ \pi@(PackageIdentifier name version) ->
         case lookup name toInstall of
-            Just version' | version /= version' -> unregisterPackage flags name
+            Just version' | version /= version' -> unregisterPackage docDir flags pi
             _ -> return ()
     broken <- getBrokenPackages flags
-    forM_ broken $ \(PackageIdentifier name _) -> unregisterPackage flags name
+    forM_ broken $ unregisterPackage docDir flags
     foldMap (\(PackageIdentifier name _) -> singletonSet name)
         <$> getRegisteredPackages flags
   where
@@ -71,9 +73,12 @@ parsePackageIdent = fmap fst .
     readP_to_S parse . T.unpack
 
 -- | Unregister a package.
-unregisterPackage :: [String] -> PackageName -> IO ()
-unregisterPackage flags ident = do
+unregisterPackage :: FilePath -- ^ doc directory
+                  -> [String] -> PackageIdentifier -> IO ()
+unregisterPackage docDir flags ident@(PackageIdentifier name _) = do
     void (readProcessWithExitCode
               "ghc-pkg"
-              ("unregister": flags ++ ["--force", unpack $ display ident])
+              ("unregister": flags ++ ["--force", unpack $ display name])
               "")
+
+    void $ tryIO $ removeTree $ docDir </> fpFromText (display ident)

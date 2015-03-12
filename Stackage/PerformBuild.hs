@@ -194,6 +194,7 @@ performBuild' pb@PerformBuild {..} = withBuildDir $ \builddir -> do
 
     registeredPackages <- setupPackageDatabase
         (pbDatabase pb)
+        (pbDocDir pb)
         (ppVersion <$> bpPackages pbPlan)
 
     forM_ packageMap $ \pi -> void $ async $ singleBuild pb registeredPackages
@@ -366,7 +367,6 @@ singleBuild pb@PerformBuild {..} registeredPackages SingleBuild {..} =
 
         unless (pname `member` registeredPackages) $ withConfiged $ do
             deletePreviousResults pb pname
-            -- FIXME delete old Haddocks?
 
             log' $ "Building " ++ namever
             run "cabal" ["build"]
