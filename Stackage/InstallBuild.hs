@@ -30,6 +30,7 @@ data InstallFlags = InstallFlags
     , ifEnableTests        :: !Bool
     , ifEnableHaddock      :: !Bool
     , ifEnableLibProfiling :: !Bool
+    , ifEnableExecDyn      :: !Bool
     , ifVerbose            :: !Bool
     , ifSkipCheck          :: !Bool
     } deriving (Show)
