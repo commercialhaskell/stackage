@@ -527,7 +527,8 @@ configure env@Env{..} name logfile pdir plan enableTests =
             , "--flags=" ++ planFlags] ++
             ["--package-db=" ++ FP.encodeString (buildDatabase envPB)
             | not (pbGlobalInstall envPB)] ++
-            ["--enable-tests" | enableTests]
+            ["--enable-tests" | enableTests] ++
+            ["--enable-executable-dynamic" | pbEnableExecDyn envPB]
         planFlags = unwords $
            map go $ M.toList (pcFlagOverrides (ppConstraints plan))
            where go (name',isOn) = concat
