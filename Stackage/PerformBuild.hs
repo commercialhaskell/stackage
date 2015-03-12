@@ -195,6 +195,7 @@ performBuild' pb@PerformBuild {..} = withBuildDir $ \builddir -> do
     registeredPackages <- setupPackageDatabase
         (pbDatabase pb)
         (pbDocDir pb)
+        pbLog
         (ppVersion <$> bpPackages pbPlan)
 
     forM_ packageMap $ \pi -> void $ async $ singleBuild pb registeredPackages

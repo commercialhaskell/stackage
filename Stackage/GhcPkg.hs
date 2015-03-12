@@ -1,7 +1,10 @@
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE OverloadedStrings #-}
 -- | General commands related to ghc-pkg.
 
-module Stackage.GhcPkg where
+module Stackage.GhcPkg
+    ( setupPackageDatabase
+    ) where
 
 import           Data.Conduit
 import qualified Data.Conduit.List as CL
@@ -23,16 +26,17 @@ import Filesystem (removeTree)
 setupPackageDatabase
     :: Maybe FilePath -- ^ database location, Nothing if using global DB
     -> FilePath -- ^ documentation root
+    -> (ByteString -> IO ()) -- ^ logging
     -> Map PackageName Version -- ^ packages and versions to be installed
     -> IO (Set PackageName) -- ^ packages remaining in the database after cleanup
-setupPackageDatabase mdb docDir toInstall = do
+setupPackageDatabase mdb docDir log' toInstall = do
     registered1 <- getRegisteredPackages flags
     forM_ registered1 $ \pi@(PackageIdentifier name version) ->
         case lookup name toInstall of
-            Just version' | version /= version' -> unregisterPackage docDir flags pi
+            Just version' | version /= version' -> unregisterPackage log' docDir flags pi
             _ -> return ()
     broken <- getBrokenPackages flags
-    forM_ broken $ unregisterPackage docDir flags
+    forM_ broken $ unregisterPackage log' docDir flags
     foldMap (\(PackageIdentifier name _) -> singletonSet name)
         <$> getRegisteredPackages flags
   where
@@ -73,9 +77,11 @@ parsePackageIdent = fmap fst .
     readP_to_S parse . T.unpack
 
 -- | Unregister a package.
-unregisterPackage :: FilePath -- ^ doc directory
+unregisterPackage :: (ByteString -> IO ()) -- ^ log func
+                  -> FilePath -- ^ doc directory
                   -> [String] -> PackageIdentifier -> IO ()
-unregisterPackage docDir flags ident@(PackageIdentifier name _) = do
+unregisterPackage log' docDir flags ident@(PackageIdentifier name _) = do
+    log' $ "Unregistering " ++ encodeUtf8 (display ident)
     void (readProcessWithExitCode
               "ghc-pkg"
               ("unregister": flags ++ ["--force", unpack $ display name])
