@@ -10,6 +10,9 @@ module Stackage.PerformBuild
     , PerformBuild (..)
     , BuildException (..)
     , pbDocDir
+    , copyBuiltInHaddocks
+    , renameOrCopy
+    , copyDir
     ) where
 
 import           Control.Concurrent.Async    (async)
@@ -67,6 +70,7 @@ data PerformBuild = PerformBuild
     , pbVerbose            :: Bool
     , pbAllowNewer         :: Bool
     -- ^ Pass --allow-newer to cabal configure
+    , pbGhcOptions :: String
     }
 
 data PackageInfo = PackageInfo

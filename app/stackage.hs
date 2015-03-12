@@ -3,11 +3,12 @@
 module Main where
 
 import Control.Monad
+import Data.Maybe
 import Data.Monoid
 import Data.String (fromString)
 import Data.Version
-import Options.Applicative
 import Filesystem.Path.CurrentOS (decodeString)
+import Options.Applicative
 import Paths_stackage (version)
 import Stackage.CompleteBuild
 import Stackage.InstallBuild
@@ -95,7 +96,12 @@ main =
              help "Output verbose detail about the build steps") <*>
         switch
             (long "skip-check" <>
-             help "Skip the check phase, and pass --allow-newer to cabal configure")
+             help "Skip the check phase, and pass --allow-newer to cabal configure") <*>
+        fmap (fromMaybe "")
+             (optional (strOption
+                               (long "ghc-options" <>
+                                showDefault <>
+                                help "GHC options")))
 
     nightlyUploadFlags = fromString <$> strArgument
         (metavar "DATE" <>

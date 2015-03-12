@@ -91,7 +91,7 @@ instance FromJSON PackagePlan where
         ppDesc <- o .: "description"
         return PackagePlan {..}
 
--- | Make a build plan given these package set and build constraints.
+-- | Make a build plan given this package set and build constraints.
 newBuildPlan :: MonadIO m => Map PackageName PackagePlan -> BuildConstraints -> m BuildPlan
 newBuildPlan packagesOrig bc@BuildConstraints {..} = liftIO $ do
     let toolMap = makeToolMap packagesOrig

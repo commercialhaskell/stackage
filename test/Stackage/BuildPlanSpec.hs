@@ -1,3 +1,4 @@
+{-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE OverloadedStrings, NoImplicitPrelude #-}
 module Stackage.BuildPlanSpec (spec) where
@@ -13,8 +14,11 @@ import           Network.HTTP.Client.TLS (tlsManagerSettings)
 import           Stackage.BuildConstraints
 import           Stackage.BuildPlan
 import           Stackage.CheckBuildPlan
+import           Stackage.CompleteBuild
 import           Stackage.PackageDescription
+import           Stackage.PerformBuild
 import           Stackage.Prelude
+import qualified Stackage.ShakeBuild as Shake
 import           Stackage.UpdateBuildPlan
 import           Test.Hspec
 
@@ -37,6 +41,18 @@ spec = do
         ,("bar", [0, 0, 0], [("mu", thisV [0, 0, 0])])
         ,("mu", [0, 0, 0], [("foo", thisV [0, 0, 0])])]
     {- Shouldn't be testing this actually
+    it "basic build" $ basicBuild $ makePackageSet
+        [("acme-strtok", [0,1,0,3], [("mtl", thisV [2, 2, 1])])
+        ,("acme-dont", [1,1], [])
+        ,("mtl",[2,2,1],[("base",anyV)
+                        ,("transformers",anyV)])
+        ,("transformers",[0,4,1,0],[("base",anyV)])]
+    it "shake build" $ shakeBuild $ makePackageSet
+        [("acme-strtok", [0,1,0,3], [("mtl", thisV [2, 1, 3, 1])])
+        ,("acme-dont", [1,1], [])
+        ,("mtl",[2,1,3,1],[("base",anyV)
+                          ,("transformers",anyV)])
+        ,("transformers",[0,3,0,0],[("base",anyV)])]
     it "default package set checks ok" $
       check defaultBuildConstraints getLatestAllowedPlans
     -}
@@ -52,6 +68,56 @@ badBuildPlan m _ = do
             return ()
         Right () ->
             error "Expected bad build plan."
+
+-- | Perform a basic build.
+basicBuild :: (BuildConstraints -> IO (Map PackageName PackagePlan))
+             -> void
+             -> IO ()
+basicBuild getPlans _ = do
+    withManager
+        tlsManagerSettings
+        (\man ->
+              do settings@Settings{..} <- getTestSettings man
+                                                          Nightly
+                                                          fullBuildConstraints
+                                                          getPlans
+                 let pb = (getPerformBuild buildFlags settings)
+                 logs <- performBuild
+                             pb
+                 mapM_ putStrLn logs)
+    where buildType =
+              Nightly
+          buildFlags =
+              BuildFlags
+                { bfEnableTests      = False
+                , bfDoUpload         = False
+                , bfEnableLibProfile = False
+                , bfVerbose          = False
+                }
+
+-- | Perform a shake build.
+shakeBuild :: (BuildConstraints -> IO (Map PackageName PackagePlan))
+             -> void
+             -> IO ()
+shakeBuild getPlans _ = do
+    withManager
+        tlsManagerSettings
+        (\man ->
+              do settings@Settings{..} <- getTestSettings
+                                              man
+                                              Nightly
+                                              fullBuildConstraints
+                                              getPlans
+                 let pb =
+                         (getPerformBuild buildFlags settings)
+                 Shake.performBuild pb)
+    where buildType =
+              Nightly
+          buildFlags =
+              BuildFlags {bfEnableTests = False
+                         ,bfDoUpload = False
+                         ,bfEnableLibProfile = False
+                         ,bfVerbose = False}
 
 -- | Check build plan with the given package set getter.
 check :: (Manager -> IO BuildConstraints)
@@ -115,7 +181,7 @@ makePackageSet ps _ =
                         {pcVersionRange = anyV
                         ,pcMaintainer = Nothing
                         ,pcTests = Don'tBuild
-                        ,pcHaddocks = Don'tBuild
+                        ,pcHaddocks = ExpectSuccess
                         ,pcBuildBenchmarks = False
                         ,pcFlagOverrides = mempty
                         ,pcEnableLibProfile = False}
@@ -133,6 +199,23 @@ thisV ver = thisVersion (Version ver [])
 -- | Accept any version.
 anyV :: VersionRange
 anyV = anyVersion
+
+-- | Get settings for doing test builds.
+getTestSettings :: Manager -> BuildType -> (Manager -> IO BuildConstraints) -> (BuildConstraints -> IO (Map PackageName PackagePlan)) -> IO Settings
+getTestSettings man Nightly readPlanFile getPlans = do
+    day <- tshow . utctDay <$> getCurrentTime
+    bc <- readPlanFile man
+    plans <- getPlans bc
+    bp <- newBuildPlan plans bc
+    return $ nightlySettings day bp
+
+-- | Test plan.
+fullBuildConstraints :: void -> IO BuildConstraints
+fullBuildConstraints _ =
+    decodeFileEither
+        (fpToString fp) >>=
+    either throwIO toBC
+    where fp = "test/full-build-constraints.yaml"
 
 -- | Test plan.
 testBuildConstraints :: void -> IO BuildConstraints

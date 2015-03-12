@@ -53,6 +53,7 @@ getPerformBuild plan InstallFlags{..} =
     , pbEnableLibProfiling = ifEnableLibProfiling
     , pbVerbose            = ifVerbose
     , pbAllowNewer         = ifSkipCheck
+    , pbGhcOptions         = []
     }
 
 -- | Install stackage from an existing build plan.

@@ -1,13 +1,17 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards   #-}
+{-# OPTIONS_GHC -fno-warn-type-defaults #-}
 module Stackage.CompleteBuild
     ( BuildType (..)
     , BumpType (..)
     , BuildFlags (..)
+    , Settings (..)
     , completeBuild
     , justCheck
     , justUploadNightly
+    , getPerformBuild
+    , nightlySettings
     ) where
 
 import Control.Concurrent        (threadDelay)
@@ -23,6 +27,7 @@ import Stackage.BuildConstraints
 import Stackage.BuildPlan
 import Stackage.CheckBuildPlan
 import Stackage.PerformBuild
+import qualified Stackage.ShakeBuild as Shake
 import Stackage.Prelude
 import Stackage.ServerBundle
 import Stackage.UpdateBuildPlan
@@ -38,6 +43,7 @@ data BuildFlags = BuildFlags
     , bfEnableLibProfile :: !Bool
     , bfVerbose          :: !Bool
     , bfSkipCheck        :: !Bool
+    , bfGhcOptions       :: !String
     } deriving (Show)
 
 data BuildType = Nightly | LTS BumpType
@@ -67,7 +73,7 @@ nightlySettings :: Text -- ^ day
                 -> Settings
 nightlySettings day plan' = Settings
     { planFile = nightlyPlanFile day
-    , buildDir = fpFromText $ "builds/stackage-nightly-" ++ day
+    , buildDir = fpFromText $ "nightly"
     , logDir = fpFromText $ "logs/stackage-nightly-" ++ day
     , title = \ghcVer -> concat
         [ "Stackage Nightly "
@@ -120,7 +126,7 @@ getSettings man (LTS bumpType) = do
 
     return Settings
         { planFile = newfile
-        , buildDir = fpFromText $ "builds/stackage-lts-" ++ tshow new
+        , buildDir = fpFromText $ "builds/stackage-lts"
         , logDir = fpFromText $ "logs/stackage-lts-" ++ tshow new
         , title = \ghcVer -> concat
             [ "LTS Haskell "
@@ -208,6 +214,7 @@ getPerformBuild buildFlags Settings {..} = PerformBuild
     , pbEnableLibProfiling = bfEnableLibProfile buildFlags
     , pbVerbose = bfVerbose buildFlags
     , pbAllowNewer = bfSkipCheck buildFlags
+    , pbGhcOptions = bfGhcOptions buildFlags
     }
 
 -- | Make a complete plan, build, test and upload bundle, docs and
@@ -229,7 +236,7 @@ completeBuild buildType buildFlags = withManager tlsManagerSettings $ \man -> do
             checkBuildPlan plan
 
     putStrLn "Performing build"
-    performBuild (getPerformBuild buildFlags settings) >>= mapM_ putStrLn
+    Shake.performBuild (getPerformBuild buildFlags settings) -- >>= mapM_ putStrLn
 
     when (bfDoUpload buildFlags) $
         finallyUpload settings man
