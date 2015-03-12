@@ -52,6 +52,7 @@ getPerformBuild plan InstallFlags{..} =
     , pbEnableTests        = ifEnableTests
     , pbEnableHaddock      = ifEnableHaddock
     , pbEnableLibProfiling = ifEnableLibProfiling
+    , pbEnableExecDyn      = ifEnableExecDyn
     , pbVerbose            = ifVerbose
     , pbAllowNewer         = ifSkipCheck
     , pbGhcOptions         = []
