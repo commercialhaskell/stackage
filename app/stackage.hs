@@ -91,6 +91,9 @@ main =
             (long "enable-library-profiling" <>
              help "Enable profiling when building") <*>
         switch
+            (long "enable-executable-dynamic" <>
+             help "Enable dynamic executables when building") <*>
+        switch
             (long "verbose" <> short 'v' <>
              help "Output verbose detail about the build steps") <*>
         switch
