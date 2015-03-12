@@ -206,6 +206,7 @@ getPerformBuild buildFlags Settings {..} = PerformBuild
     , pbEnableTests = bfEnableTests buildFlags
     , pbEnableHaddock = bfEnableHaddock buildFlags
     , pbEnableLibProfiling = bfEnableLibProfile buildFlags
+    , pbEnableExecDyn = bfEnableExecDyn buildFlags
     , pbVerbose = bfVerbose buildFlags
     , pbAllowNewer = bfSkipCheck buildFlags
     }
