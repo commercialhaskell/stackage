@@ -81,7 +81,7 @@ unregisterPackage :: (ByteString -> IO ()) -- ^ log func
                   -> FilePath -- ^ doc directory
                   -> [String] -> PackageIdentifier -> IO ()
 unregisterPackage log' docDir flags ident@(PackageIdentifier name _) = do
-    log' $ "Unregistering " ++ encodeUtf8 (display ident)
+    log' $ "Unregistering " ++ encodeUtf8 (display ident) ++ "\n"
     void (readProcessWithExitCode
               "ghc-pkg"
               ("unregister": flags ++ ["--force", unpack $ display name])
