@@ -120,7 +120,7 @@ instance FromJSON PackageConstraints where
         pcBuildBenchmarks <- o .: "build-benchmarks"
         pcFlagOverrides <- Map.mapKeysWith const mkFlagName <$> o .: "flags"
         pcMaintainer <- o .:? "maintainer"
-        pcEnableLibProfile <- fmap (fromMaybe False) (o .:? "library-profiling")
+        pcEnableLibProfile <- fmap (fromMaybe True) (o .:? "library-profiling")
         return PackageConstraints {..}
 
 -- | The proposed plan from the requirements provided by contributors.
