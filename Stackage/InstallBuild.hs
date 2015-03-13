@@ -30,6 +30,7 @@ data InstallFlags = InstallFlags
     , ifEnableTests        :: !Bool
     , ifEnableHaddock      :: !Bool
     , ifEnableLibProfiling :: !Bool
+    , ifEnableExecDyn      :: !Bool
     , ifVerbose            :: !Bool
     , ifSkipCheck          :: !Bool
     } deriving (Show)
@@ -51,6 +52,7 @@ getPerformBuild plan InstallFlags{..} =
     , pbEnableTests        = ifEnableTests
     , pbEnableHaddock      = ifEnableHaddock
     , pbEnableLibProfiling = ifEnableLibProfiling
+    , pbEnableExecDyn      = ifEnableExecDyn
     , pbVerbose            = ifVerbose
     , pbAllowNewer         = ifSkipCheck
     }

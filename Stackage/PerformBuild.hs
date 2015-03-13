@@ -65,6 +65,7 @@ data PerformBuild = PerformBuild
     , pbEnableTests        :: Bool
     , pbEnableHaddock      :: Bool
     , pbEnableLibProfiling :: Bool
+    , pbEnableExecDyn      :: Bool
     , pbVerbose            :: Bool
     , pbAllowNewer         :: Bool
     -- ^ Pass --allow-newer to cabal configure
@@ -334,6 +335,7 @@ singleBuild pb@PerformBuild {..} registeredPackages SingleBuild {..} =
         tell' $ "--flags=" ++ flags
         when (pbEnableLibProfiling && pcEnableLibProfile) $
             tell' "--enable-library-profiling"
+        when pbEnableExecDyn $ tell' "--enable-executable-dynamic"
       where
         tell' x = tell (x:)
 
