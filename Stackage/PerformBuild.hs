@@ -367,8 +367,10 @@ singleBuild pb@PerformBuild {..} registeredPackages SingleBuild {..} =
                     writeIORef isConfiged True
                 inner
 
-        unless (pname `member` registeredPackages) $ withConfiged $ do
-            deletePreviousResults pb pname
+        prevBuildResult <- getPreviousResult pb Build pident
+        unless (prevBuildResult == PRSuccess) $ withConfiged $ do
+          assert (pname `notMember` registeredPackages) $ do
+            deletePreviousResults pb pident
 
             log' $ "Building " ++ namever
             run "cabal" ["build"]
@@ -377,6 +379,8 @@ singleBuild pb@PerformBuild {..} registeredPackages SingleBuild {..} =
             run "cabal" ["copy"]
             withMVar sbRegisterMutex $ const $
                 run "cabal" ["register"]
+
+            savePreviousResult pb Build pident True
 
         -- Even if the tests later fail, we can allow other libraries to build
         -- on top of our successful results
@@ -497,7 +501,7 @@ copyBuiltInHaddocks docdir = do
 ------------- Previous results
 
 -- | The previous actions that can be run
-data ResultType = Haddock | Test
+data ResultType = Build | Haddock | Test
     deriving (Show, Enum, Eq, Ord, Bounded, Read)
 
 -- | The result generated on a previous run
