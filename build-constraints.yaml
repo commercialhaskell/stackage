@@ -2,7 +2,7 @@
 packages:
     "Michael Snoyman michael@snoyman.com @snoyberg":
         - bzlib-conduit
-        - cabal-install < 1.19
+        - cabal-install < 1.19 # GHC 7.10 bumpd to 1.22
         - cabal-src
         - case-insensitive
         - classy-prelude-yesod
@@ -27,7 +27,10 @@ packages:
         - warp-tls
         - yackage
         - yesod
+        - yesod-auth
+        - yesod-auth-oauth
         - yesod-auth-deskcom
+        - authenticate-oauth
         - yesod-bin
         - yesod-eventsource
         - yesod-fay
@@ -42,6 +45,11 @@ packages:
         - repa-algorithms
         - repa-devil
         - JuicyPixels-repa
+        - cereal-conduit
+        - binary-conduit
+        - lzma-conduit
+        - mutable-containers
+        - hpc-coveralls
 
     "FP Complete michael@fpcomplete.com @snoyberg":
         - alex
@@ -64,7 +72,7 @@ packages:
         - fixed-list
         - foreign-store
         - formatting
-        - fpco-api
+        #- fpco-api
         - gtk2hs-buildtools
         - happy
         - histogram-fill
@@ -105,18 +113,18 @@ packages:
         - distributed-process-async
         - distributed-process-client-server
         - distributed-process-supervisor
-
-        # https://github.com/fpco/stackage/issues/381
-        #- distributed-process-task
-        #- distributed-process-execution
+        - distributed-process-task
+        - distributed-process-execution
 
         - kure
 
     "Omari Norman <omari@smileystation.com>":
         - barecheck
         - rainbow
-        - rainbow-tests
         - quickpull
+        - multiarg
+        - prednote
+        - cartel
 
     "Neil Mitchell":
         - hlint
@@ -144,6 +152,7 @@ packages:
     "Jasper Van der Jeugt":
         - blaze-html
         - blaze-markup
+        - hakyll
         - stylish-haskell
 
     "Antoine Latter":
@@ -175,7 +184,6 @@ packages:
         - crypto-random-api
         - hit
         - language-java
-        - language-java
         - libgit
         - pem
         - siphash
@@ -202,8 +210,11 @@ packages:
         - scrobble
         - shell-conduit
         - sourcemap
+        - hindent
+        - descriptive
+        - wrap
         # requires old haddock currently - haskell-docs
-        # TODO: Add hindent and structured-haskell-mode once they've been ported to HSE 1.16.
+        # TODO: Add structured-haskell-mode once they've been ported to HSE 1.16.
 
     # GHC 7.6
     # "Alberto G. Corona <agocorona@gmail.com>":
@@ -253,7 +264,7 @@ packages:
         - monad-products
         - monad-st
         - monad-st
-        - mtl < 2.2
+        - mtl < 2.2 # GHC 7.10 bump
         - nats
         - numeric-extras
         - parsers
@@ -304,8 +315,9 @@ packages:
 
     "Brent Yorgey <byorgey@gmail.com>":
         - active
-        - BlogLiterately
-        - BlogLiterately-diagrams
+        # Temporarily disabled due to restrictive lens upper bound
+        #- BlogLiterately
+        #- BlogLiterately-diagrams
         - diagrams
         - diagrams-builder
         - diagrams-contrib
@@ -325,6 +337,8 @@ packages:
         - JuicyPixels
         - FontyFruity
         - Rasterific
+        - svg-tree
+        - rasterific-svg
 
     "Patrick Brisbin":
         - gravatar
@@ -365,6 +379,7 @@ packages:
         - pipes
         - pipes-parse
         - pipes-concurrency
+        - pipes-safe
 
     "Chris Allen <cma@bitemyapp.com>":
         - bloodhound
@@ -377,6 +392,10 @@ packages:
         - fay-text
         - fay-uri
         - snaplet-fay
+
+    "Sebastiaan Visser <haskell@fvisser.nl>":
+        - clay
+        - fclabels
 
     "Rodrigo Setti <rodrigosetti@gmail.com>":
         - messagepack
@@ -399,9 +418,11 @@ packages:
         - hPDB
         - hPDB-examples
 
-        # https://github.com/fpco/stackage/pull/382#issuecomment-68182467
-        # - wordpass
-        # - json-autotype
+        - wordpass
+        - json-autotype
+
+    "Dominic Steinitz <dominic@steinitz.org>":
+        - yarr
 
     "Roman Cheplyaka <roma@ro-che.info>":
         - action-permutations
@@ -431,6 +452,7 @@ packages:
     "George Giorgidze <giorgidze@gmail.com>":
         - HCodecs
         - YampaSynth
+        - set-monad
 
     "Phil Hargett <phil@haphazardhouse.net>":
         - courier
@@ -444,6 +466,8 @@ packages:
         - circle-packing
         - arbtt
         - ghc-heap-view
+        - tttool
+        - gipeda
 
     "Aditya Bhargava <adit@adit.io":
         - HandsomeSoup
@@ -453,7 +477,8 @@ packages:
         - openpgp-asciiarmor
         - MusicBrainz
         - DAV
-        - hopenpgp-tools
+        # https://github.com/fpco/stackage/issues/463
+        #- hopenpgp-tools
 
     # https://github.com/fpco/stackage/issues/160
     "Ketil Malde":
@@ -483,8 +508,8 @@ packages:
         - code-builder
         - fay-builder
         - generic-aeson
+        - generic-xmlpickler
         - hxt-pickle-utils
-        - imagesize-conduit
         - imagesize-conduit
         - json-schema
         - multipart
@@ -498,8 +523,6 @@ packages:
         - rest-types
         - rest-wai
         - tostring
-        - tostring
-        - uri-encode
         - uri-encode
 
     "Simon Michael <simon@joyful.com>":
@@ -509,7 +532,10 @@ packages:
         - io-manager
 
     "Dimitri Sabadie <dimitri.sabadie@gmail.com":
+        # https://github.com/fpco/stackage/pull/461#issuecomment-76914158
+        # - al
         - monad-journal
+        - smoothie
 
     "Thomas Schilling <nominolo@googlemail.com>":
         - ghc-syb-utils
@@ -543,6 +569,7 @@ packages:
 
     "Emanuel Borsobom <manny@fpcomplete.com>":
         - BoundedChan
+        - broadcast-chan
         - bytestring-lexing
         - bytestring-trie
         - data-accessor
@@ -553,6 +580,7 @@ packages:
         - haddock-api
         - here
         - hlibgit2
+        - gitlib-libgit2
         - hostname-validate
         - interpolatedstring-perl6
         - iproute
@@ -561,6 +589,7 @@ packages:
         - multimap
         - parallel-io
         - text-binary
+        - wl-pprint-text
 
     "Michael Sloan <mgsloan@gmail.com":
         - th-orphans
@@ -574,7 +603,7 @@ packages:
         - hasql-backend
         - hasql-postgres
         - list-t
-        - mtl-prelude < 2
+        - mtl-prelude < 2 # GHC 7.10 bump
         - neat-interpolation
         - partial-handler
         - postgresql-binary
@@ -588,6 +617,11 @@ packages:
        - graph-core
        - reroute
        - Spock
+       - Spock-digestive
+       - Spock-worker
+       - users
+       - users-test
+       - users-postgresql-simple
 
     "Joey Eremondi <joey@eremondi.com>":
         - aeson-pretty
@@ -618,42 +652,137 @@ packages:
         - shake-language-c
 
     "Marcin Mrotek <marcin.jan.mrotek@gmail.com>":
+        - diagrams-hsqml
         - type-list
-        
+        - vinyl-utils
+
+    "Marcin Mrotek <marcin.jan.mrotek@gmail.com>":
+        - type-list
+
     "David Turner <dave.c.turner@gmail.com>":
         - alarmclock
         - bank-holidays-england
 
+    "Haskell Servant jkarni@gmail.com @jkarni":
+        - servant
+        - servant-client
+        - servant-docs
+        - servant-jquery
+        - servant-server
+
+    "Alexandr Ruchkin voidex@live.com @mvoidex":
+        - hdocs
+        - hsdev
+
+    "Aleksey Kliger aleksey@lambdageek.org @lambdageek":
+        - unbound-generics
+
+    "Alois Cochard alois.cochard@gmail.com @aloiscochard":
+        - codex
+        - machines-directory
+        - machines-io
+        - machines-process
+        # on behalf of Bryan O'Sullivan @bos
+        - wreq
+
+    "Andraz Bajt andraz@bajt.me @edofic":
+        - effect-handlers
+        - koofr-client
+        - snowflake
+
+    "Leza M. Lutonda lemol-c@hotmail.com @lemol":
+        - HaskellNet
+
+    "Jens Petersen juhpetersen@gmail.com @juhp":
+        - cabal-rpm
+
+    "Renzo Carbonara renzocarbonara@gmail.com @k0001":
+        - network-simple
+        - pipes-aeson
+        - pipes-attoparsec
+        - pipes-binary
+        - pipes-network
+
+    "Tomas Carnecky":
+        - rethinkdb-client-driver
+
+    "Alexandr Kurilin alex@kurilin.net @alex_kurilin":
+        - bcrypt
+
+    "Jeffrey Rosenbluth jeffrey.rosenbluth@gmail.com":
+        - palette
+        - diagrams-canvas
+        - diagrams-rasterific
+        - lucid-svg
+
+    "Gabríel Arthúr Pétursson gabriel@system.is":
+        - sdl2
+
+    "Leon Mergen leon@solatis.com @solatis":
+        - network-attoparsec
+        - network-anonymous-i2p
+
+    "Timothy Jones git@zmthy.io @zmthy":
+        - cabal-test-quickcheck
+        - http-media
+
+    "Greg V greg@unrelenting.technology @myfreeweb":
+        - gitson
+        - pcre-heavy
+
+    "Francesco Mazzoli f@mazzo.li @bitonic":
+        - language-c-quote
+
+    "Sönke Hahn soenkehahn@gmail.com @soenkehahn":
+        - string-conversions
+
+    "Oleg Grenrus oleg.grenrus@iki.fi @phadej":
+        - waitra
+
     "Stackage upper bounds":
 
         # Force a specific version that's compatible with transformers 0.3
-        - transformers-compat == 0.3.3.3
+        - transformers-compat == 0.4.0.3
 
-        # https://github.com/fpco/stackage/issues/291
-        - random < 1.0.1.3
+        # https://github.com/fpco/stackage/issues/390
+        # NOTE: When this issue is resolved, remove the expected test failure
+        # for language-ecmascript as well.
+        - language-ecmascript < 0.17
 
-        # https://github.com/fpco/stackage/issues/318
-        - HaXml < 1.25
+        # https://github.com/fpco/stackage/issues/407
+        - HStringTemplate < 0.8
 
-        # https://github.com/fpco/stackage/issues/319
-        - polyparse < 1.10
+        # https://github.com/fpco/stackage/issues/410
+        - elm-package < 0.4
 
-        # https://github.com/fpco/stackage/issues/370
-        - monad-control < 1
-        - hasql < 0.5
-        - list-t < 0.4
+        # https://github.com/fpco/stackage/issues/415
+        - hackage-db < 1.12
 
-# Global flags are applied to all packages
-global-flags:
-    blaze_html_0_5: true
-    small_base: true
-    https: true
-    splitbase: true
-    old-locale: true
-    new-base: true
-    bytestring-in-base: false
-    test-hlint: false
-    network-uri: true
+        # https://github.com/fpco/stackage/issues/424
+        - control-monad-free < 0.6
+
+        # https://github.com/fpco/stackage/issues/426
+        - utf8-string < 1
+
+        # https://github.com/fpco/stackage/issues/440
+        - th-orphans < 0.9
+        - file-location < 0.4.7
+
+        # https://github.com/fpco/stackage/issues/442
+        - blaze-builder < 0.4
+        - blaze-markup < 0.7
+        - blaze-html < 0.8
+
+        # https://github.com/fpco/stackage/issues/443
+        - exceptions < 0.7
+        - rest-client < 0.5
+        - rest-types < 1.13
+        - rest-core < 0.35
+        - rest-gen < 0.17
+        - rest-wai < 0.1.0.7
+
+        # https://github.com/fpco/stackage/issues/467
+        - lens < 4.8
 
 # Package flags are applied to individual packages, and override the values of
 # global-flags
@@ -671,6 +800,44 @@ package-flags:
         tcp: true
         simplelocalnet: true
         p2p: true
+
+    # GHC 7.10: Remove this
+    # Note that the flag is lower-cased, because that's what Cabal does
+    # Perhaps the codebase should automatically lower case flag names?
+    storable-complex:
+        instanceinbase: false
+
+    logfloat:
+        splitbase: true
+
+    curl:
+        new-base: true
+
+    # GHC 7.10 remove
+    aeson:
+        old-locale: true
+    tttool:
+        old-locale: true
+
+    hxt:
+        network-uri: true
+    hxt-http:
+        network-uri: true
+    hxt-relaxng:
+        network-uri: true
+
+    pandoc:
+        https: true
+
+    text:
+        integer-simple: false
+
+    tar:
+        old-time: false
+
+    mtl-compat:
+        two-point-one: true
+        two-point-two: false
 
 # By skipping a test suite, we do not pull in the build dependencies
 skipped-tests:
@@ -718,16 +885,14 @@ skipped-tests:
     # https://github.com/fpco/stackage/pull/380#issuecomment-68060871
     - Rasterific
 
+    # https://github.com/Soostone/retry/issues/18
+    - retry
+
 # Tests which we should build and run, but which are expected to fail. We
 # should not fail a build based on a test failure for one of these packages.
 expected-test-failures:
     # Requires an old version of WAI and Warp for tests
     - HTTP
-
-    # text and setenv have recursive dependencies in their tests, which
-    # cabal can't (yet) handle
-    - text
-    - setenv
 
     # https://github.com/bos/statistics/issues/42
     - statistics
@@ -852,6 +1017,61 @@ expected-test-failures:
     - crypto-numbers
     - distributed-process-task
 
+    # https://github.com/vincenthz/hs-crypto-pubkey/issues/17
+    - crypto-pubkey
+
+    # https://github.com/jswebtools/language-ecmascript/issues/60
+    - language-ecmascript
+
+    # https://github.com/kazu-yamamoto/unix-time/issues/29
+    - unix-time
+
+    # Tests can fail when the build plan fails, which happens arbitrarily.
+    - stackage
+
+    # https://github.com/TomMD/DRBG/issues/7
+    - DRBG
+
+    # https://github.com/bos/wreq/issues/53
+    - wreq
+
+    # Requires local database running
+    - rethinkdb-client-driver
+
+    # https://github.com/haskell-distributed/distributed-process-execution/issues/2
+    - distributed-process-execution
+
+    # Seems to depend on mtl being installed in user package database, which
+    # isn't always the case (e.g., build server)
+    - happy
+
+    # https://github.com/jberryman/directory-tree/issues/4
+    - directory-tree
+
+    # https://github.com/zmthy/http-media/issues/11
+    - http-media
+
+    # https://github.com/ekmett/semigroupoids/issues/18
+    - semigroupoids
+
+    # https://github.com/ndmitchell/hoogle/issues/101
+    - hoogle
+
+    # https://github.com/myfreeweb/gitson/issues/1
+    - gitson
+
+    # https://github.com/jcristovao/enclosed-exceptions/issues/6
+    - enclosed-exceptions
+
+    # Expects a running PostgreSQL server
+    - users-postgresql-simple
+
+    # Problems with linking with system libraries on Ubuntu 12.04
+    - nettle
+
+    # Requires locally running services
+    - network-anonymous-i2p
+
 # Haddocks which are expected to fail. Same concept as expected test failures.
 expected-haddock-failures:
     # https://github.com/acw/bytestring-progress/issues/4
@@ -859,6 +1079,12 @@ expected-haddock-failures:
 
     # https://github.com/ekmett/gl/issues/4
     - gl
+
+    # https://github.com/leventov/yarr/issues/5
+    - yarr
+
+    # https://github.com/wereHamster/rethinkdb-client-driver/issues/1
+    - rethinkdb-client-driver
 
 # Benchmarks which should not be built. Note that Stackage does *not* generally
 # build benchmarks. The difference here will be whether dependencies for these
@@ -886,6 +1112,10 @@ skipped-benchmarks:
     # sometimes falls out-of-sync on hasql-postgres
     - hasql
 
+skipped-profiling:
+    # https://github.com/nomeata/ghc-heap-view/commit/8d198eb8fbbad2ce0c4527c781659f35b8909c04#diff-8288955e209cfbead5b318a8598be9c0R10
+    - ghc-heap-view
+
 # Mapping from Github account holding a package to the Github users who should
 # be pinged on failure. If no value is specified here, then the owning account
 # will be pinged.
@@ -908,3 +1138,5 @@ github-users:
         - mightybyte
     haskell-ro:
         - mihaimaruseac
+    elm-lang:
+        - JoeyEremondi

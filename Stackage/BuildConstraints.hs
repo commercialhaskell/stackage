@@ -10,6 +10,9 @@ module Stackage.BuildConstraints
     , SystemInfo (..)
     , getSystemInfo
     , defaultBuildConstraints
+    , toBC
+    , BuildConstraintsSource (..)
+    , loadBuildConstraints
     ) where
 
 import           Control.Monad.Writer.Strict (execWriter, tell)
@@ -21,7 +24,7 @@ import           Distribution.System         (Arch, OS)
 import qualified Distribution.System
 import           Distribution.Version        (anyVersion)
 import           Filesystem                  (isFile)
-import           Network.HTTP.Client         (Manager, httpLbs, responseBody)
+import           Network.HTTP.Client         (Manager, httpLbs, responseBody, Request)
 import           Stackage.CorePackages
 import           Stackage.Prelude
 
@@ -88,12 +91,13 @@ data BuildConstraints = BuildConstraints
     }
 
 data PackageConstraints = PackageConstraints
-    { pcVersionRange    :: VersionRange
-    , pcMaintainer      :: Maybe Maintainer
-    , pcTests           :: TestState
-    , pcHaddocks        :: TestState
-    , pcBuildBenchmarks :: Bool
-    , pcFlagOverrides   :: Map FlagName Bool
+    { pcVersionRange     :: VersionRange
+    , pcMaintainer       :: Maybe Maintainer
+    , pcTests            :: TestState
+    , pcHaddocks         :: TestState
+    , pcBuildBenchmarks  :: Bool
+    , pcFlagOverrides    :: Map FlagName Bool
+    , pcEnableLibProfile :: Bool
     }
     deriving (Show, Eq)
 instance ToJSON PackageConstraints where
@@ -103,6 +107,7 @@ instance ToJSON PackageConstraints where
         , "haddocks" .= pcHaddocks
         , "build-benchmarks" .= pcBuildBenchmarks
         , "flags" .= Map.mapKeysWith const unFlagName pcFlagOverrides
+        , "library-profiling" .= pcEnableLibProfile
         ]
       where
         addMaintainer = maybe id (\m -> (("maintainer" .= m):)) pcMaintainer
@@ -115,6 +120,7 @@ instance FromJSON PackageConstraints where
         pcBuildBenchmarks <- o .: "build-benchmarks"
         pcFlagOverrides <- Map.mapKeysWith const mkFlagName <$> o .: "flags"
         pcMaintainer <- o .:? "maintainer"
+        pcEnableLibProfile <- fmap (fromMaybe True) (o .:? "library-profiling")
         return PackageConstraints {..}
 
 -- | The proposed plan from the requirements provided by contributors.
@@ -122,15 +128,32 @@ instance FromJSON PackageConstraints where
 -- Checks the current directory for a build-constraints.yaml file and uses it
 -- if present. If not, downloads from Github.
 defaultBuildConstraints :: Manager -> IO BuildConstraints
-defaultBuildConstraints man = do
-    e <- isFile fp
-    if e
-        then decodeFileEither (fpToString fp) >>= either throwIO toBC
-        else httpLbs req man >>=
-             either throwIO toBC . decodeEither' . toStrict . responseBody
+defaultBuildConstraints = loadBuildConstraints BCSDefault
+
+data BuildConstraintsSource
+    = BCSDefault
+    | BCSFile FilePath
+    | BCSWeb Request
+    deriving (Show)
+
+loadBuildConstraints :: BuildConstraintsSource -> Manager -> IO BuildConstraints
+loadBuildConstraints bcs man = do
+    case bcs of
+        BCSDefault -> do
+            e <- isFile fp0
+            if e
+                then loadFile fp0
+                else loadReq req0
+        BCSFile fp -> loadFile fp
+        BCSWeb req -> loadReq req
   where
-    fp = "build-constraints.yaml"
-    req = "https://raw.githubusercontent.com/fpco/stackage/master/build-constraints.yaml"
+    fp0 = "build-constraints.yaml"
+    req0 = "https://raw.githubusercontent.com/fpco/stackage/master/build-constraints.yaml"
+
+    loadFile fp = decodeFileEither (fpToString fp) >>= either throwIO toBC
+    loadReq req = httpLbs req man >>=
+                  either throwIO toBC . decodeEither' . toStrict . responseBody
+
 
 getSystemInfo :: IO SystemInfo
 getSystemInfo = do
@@ -144,24 +167,24 @@ getSystemInfo = do
     siArch = Distribution.System.X86_64
 
 data ConstraintFile = ConstraintFile
-    { cfGlobalFlags             :: Map FlagName Bool
-    , cfPackageFlags            :: Map PackageName (Map FlagName Bool)
+    { cfPackageFlags            :: Map PackageName (Map FlagName Bool)
     , cfSkippedTests            :: Set PackageName
     , cfExpectedTestFailures    :: Set PackageName
     , cfExpectedHaddockFailures :: Set PackageName
     , cfSkippedBenchmarks       :: Set PackageName
     , cfPackages                :: Map Maintainer (Vector Dependency)
     , cfGithubUsers             :: Map Text (Set Text)
+    , cfSkippedLibProfiling     :: Set PackageName
     }
 
 instance FromJSON ConstraintFile where
     parseJSON = withObject "ConstraintFile" $ \o -> do
-        cfGlobalFlags <- goFlagMap <$> o .: "global-flags"
         cfPackageFlags <- (goPackageMap . fmap goFlagMap) <$> o .: "package-flags"
         cfSkippedTests <- getPackages o "skipped-tests"
         cfExpectedTestFailures <- getPackages o "expected-test-failures"
         cfExpectedHaddockFailures <- getPackages o "expected-haddock-failures"
         cfSkippedBenchmarks <- getPackages o "skipped-benchmarks"
+        cfSkippedLibProfiling <- getPackages o "skipped-profiling"
         cfPackages <- o .: "packages"
                   >>= mapM (mapM toDep)
                     . Map.mapKeysWith const Maintainer
@@ -196,6 +219,7 @@ toBC ConstraintFile {..} = do
         mpair = lookup name revmap
         pcMaintainer = fmap fst mpair
         pcVersionRange = maybe anyVersion snd mpair
+        pcEnableLibProfile = not (name `member` cfSkippedLibProfiling)
         pcTests
             | name `member` cfSkippedTests = Don'tBuild
             | name `member` cfExpectedTestFailures = ExpectFailure
@@ -205,7 +229,6 @@ toBC ConstraintFile {..} = do
             | name `member` cfExpectedHaddockFailures = ExpectFailure
 
             | otherwise = ExpectSuccess
-        pcFlagOverrides = fromMaybe mempty (lookup name cfPackageFlags) ++
-                          cfGlobalFlags
+        pcFlagOverrides = fromMaybe mempty $ lookup name cfPackageFlags
 
     bcGithubUsers = cfGithubUsers

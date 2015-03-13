@@ -1,5 +1,5 @@
 name:                stackage
-version:             0.4.0
+version:             0.5.2
 synopsis:            "Stable Hackage," tools for creating a vetted set of packages from Hackage.
 description:         Please see <http://www.stackage.org/package/stackage> for a description and documentation.
 homepage:            https://github.com/fpco/stackage
@@ -12,6 +12,7 @@ build-type:          Simple
 cabal-version:       >=1.10
 extra-source-files:  README.md
                      ChangeLog.md
+                     test/test-build-constraints.yaml
 
 library
   default-language:    Haskell2010
@@ -22,7 +23,9 @@ library
                        Stackage.BuildPlan
                        Stackage.CheckBuildPlan
                        Stackage.UpdateBuildPlan
+                       Stackage.GhcPkg
                        Stackage.GithubPings
+                       Stackage.InstallBuild
                        Stackage.PackageDescription
                        Stackage.ServerBundle
                        Stackage.Upload
@@ -62,6 +65,7 @@ library
                      , streaming-commons >= 0.1.7.1
                      , semigroups
                      , xml-conduit
+                     , conduit
 
 executable stackage
   default-language:    Haskell2010
@@ -69,6 +73,8 @@ executable stackage
   main-is:             stackage.hs
   build-depends:       base
                      , stackage
+                     , optparse-applicative >= 0.11
+                     , system-filepath
   ghc-options:         -rtsopts -threaded -with-rtsopts=-N
 
 test-suite spec

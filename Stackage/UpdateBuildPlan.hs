@@ -15,8 +15,9 @@ import           Stackage.BuildConstraints
 import           Stackage.BuildPlan
 import           Stackage.Prelude
 
-updateBuildPlan :: BuildPlan -> IO BuildPlan
-updateBuildPlan = newBuildPlan . updateBuildConstraints
+updateBuildPlan :: Map PackageName PackagePlan -> BuildPlan -> IO BuildPlan
+updateBuildPlan packagesOrig
+ = newBuildPlan packagesOrig . updateBuildConstraints
 
 updateBuildConstraints :: BuildPlan -> BuildConstraints
 updateBuildConstraints BuildPlan {..} =
@@ -33,6 +34,7 @@ updateBuildConstraints BuildPlan {..} =
         , pcHaddocks = maybe ExpectSuccess pcHaddocks moldPC
         , pcBuildBenchmarks = maybe True pcBuildBenchmarks moldPC
         , pcFlagOverrides = maybe mempty pcFlagOverrides moldPC
+        , pcEnableLibProfile = maybe False pcEnableLibProfile moldPC
         }
       where
         moldBP = lookup name bpPackages

@@ -14,6 +14,7 @@ module Stackage.BuildPlan
     , PackagePlan (..)
     , newBuildPlan
     , makeToolMap
+    , getLatestAllowedPlans
     ) where
 
 import           Control.Monad.State.Strict      (execState, get, put)
@@ -90,9 +91,9 @@ instance FromJSON PackagePlan where
         ppDesc <- o .: "description"
         return PackagePlan {..}
 
-newBuildPlan :: MonadIO m => BuildConstraints -> m BuildPlan
-newBuildPlan bc@BuildConstraints {..} = liftIO $ do
-    packagesOrig <- getLatestDescriptions (isAllowed bc) (mkPackagePlan bc)
+-- | Make a build plan given these package set and build constraints.
+newBuildPlan :: MonadIO m => Map PackageName PackagePlan -> BuildConstraints -> m BuildPlan
+newBuildPlan packagesOrig bc@BuildConstraints {..} = liftIO $ do
     let toolMap = makeToolMap packagesOrig
         packages = populateUsers $ removeUnincluded bc toolMap packagesOrig
         toolNames :: [ExeName]
@@ -205,3 +206,9 @@ mkPackagePlan bc gpd = do
     getFlag MkFlag {..} =
         (flagName, fromMaybe flagDefault $ lookup flagName overrides)
     flags = mapFromList $ map getFlag $ genPackageFlags gpd
+
+getLatestAllowedPlans :: MonadIO m => BuildConstraints -> m (Map PackageName PackagePlan)
+getLatestAllowedPlans bc =
+    getLatestDescriptions
+        (isAllowed bc)
+        (mkPackagePlan bc)

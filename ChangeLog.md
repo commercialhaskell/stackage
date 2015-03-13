@@ -1,6 +1,27 @@
-## 0.4.0
+## Unreleased
 
 * Upload bundle V2 stuff
+
+## 0.5.2
+
+* Upload LTS to Hackage with the name LTSHaskell
+
+## 0.5.1
+
+* `loadBuildConstraints`
+* More command line options
+
+## 0.5.0
+
+* Print "Still Alive" while checking, to avoid Travis timeouts
+* Include `stackage upload-nightly` command
+* Optional plan checking
+
+## 0.4.0
+
+* Command line uses optparse-applicative with additional options
+* Library profiling support during build
+* Remove cfGlobalFlags (just use package-specific flags)
 
 ## 0.3.1
 
