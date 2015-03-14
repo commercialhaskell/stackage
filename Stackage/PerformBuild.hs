@@ -198,6 +198,7 @@ performBuild' pb@PerformBuild {..} = withBuildDir $ \builddir -> do
         (pbDocDir pb)
         pbLog
         (ppVersion <$> bpPackages pbPlan)
+        (deletePreviousResults pb)
 
     forM_ packageMap $ \pi -> void $ async $ singleBuild pb registeredPackages
       SingleBuild

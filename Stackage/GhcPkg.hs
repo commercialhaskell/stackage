@@ -28,15 +28,16 @@ setupPackageDatabase
     -> FilePath -- ^ documentation root
     -> (ByteString -> IO ()) -- ^ logging
     -> Map PackageName Version -- ^ packages and versions to be installed
+    -> (PackageIdentifier -> IO ()) -- ^ callback to be used when unregistering a package
     -> IO (Set PackageName) -- ^ packages remaining in the database after cleanup
-setupPackageDatabase mdb docDir log' toInstall = do
+setupPackageDatabase mdb docDir log' toInstall onUnregister = do
     registered1 <- getRegisteredPackages flags
     forM_ registered1 $ \pi@(PackageIdentifier name version) ->
         case lookup name toInstall of
-            Just version' | version /= version' -> unregisterPackage log' docDir flags pi
+            Just version' | version /= version' -> unregisterPackage log' onUnregister docDir flags pi
             _ -> return ()
     broken <- getBrokenPackages flags
-    forM_ broken $ unregisterPackage log' docDir flags
+    forM_ broken $ unregisterPackage log' onUnregister docDir flags
     foldMap (\(PackageIdentifier name _) -> singletonSet name)
         <$> getRegisteredPackages flags
   where
@@ -78,10 +79,12 @@ parsePackageIdent = fmap fst .
 
 -- | Unregister a package.
 unregisterPackage :: (ByteString -> IO ()) -- ^ log func
+                  -> (PackageIdentifier -> IO ()) -- ^ callback to be used when unregistering a package
                   -> FilePath -- ^ doc directory
                   -> [String] -> PackageIdentifier -> IO ()
-unregisterPackage log' docDir flags ident@(PackageIdentifier name _) = do
+unregisterPackage log' onUnregister docDir flags ident@(PackageIdentifier name _) = do
     log' $ "Unregistering " ++ encodeUtf8 (display ident) ++ "\n"
+    onUnregister ident
     void (readProcessWithExitCode
               "ghc-pkg"
               ("unregister": flags ++ ["--force", unpack $ display name])
