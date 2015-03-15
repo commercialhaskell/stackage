@@ -68,7 +68,7 @@ nightlySettings :: Text -- ^ day
                 -> Settings
 nightlySettings day plan' = Settings
     { planFile = nightlyPlanFile day
-    , buildDir = fpFromText $ "builds/stackage-nightly-" ++ day
+    , buildDir = fpFromText $ "builds/nightly"
     , logDir = fpFromText $ "logs/stackage-nightly-" ++ day
     , title = \ghcVer -> concat
         [ "Stackage Nightly "
@@ -121,7 +121,7 @@ getSettings man (LTS bumpType) = do
 
     return Settings
         { planFile = newfile
-        , buildDir = fpFromText $ "builds/stackage-lts-" ++ tshow new
+        , buildDir = fpFromText $ "builds/lts"
         , logDir = fpFromText $ "logs/stackage-lts-" ++ tshow new
         , title = \ghcVer -> concat
             [ "LTS Haskell "
