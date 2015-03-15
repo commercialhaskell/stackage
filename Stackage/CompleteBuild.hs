@@ -57,6 +57,8 @@ data Settings = Settings
     , setArgs   :: Text -> UploadBundle -> UploadBundle
     , postBuild :: IO ()
     , distroName :: Text -- ^ distro name on Hackage
+    , snapshotType :: SnapshotType
+    , bundleDest :: FilePath
     }
 
 nightlyPlanFile :: Text -- ^ day
@@ -81,6 +83,8 @@ nightlySettings day plan' = Settings
     , plan = plan'
     , postBuild = return ()
     , distroName = "Stackage"
+    , snapshotType = STNightly
+    , bundleDest = fpFromText $ "stackage-nightly-" ++ tshow day ++ ".bundle"
     }
   where
     slug' = "nightly-" ++ day
@@ -142,6 +146,10 @@ getSettings man (LTS bumpType) = do
             putStrLn "Pushing to Git repository"
             git ["push"]
         , distroName = "LTSHaskell"
+        , snapshotType =
+            case new of
+                LTSVer x y -> STLTS x y
+        , bundleDest = fpFromText $ "stackage-lts-" ++ tshow new ++ ".bundle"
         }
 
 data LTSVer = LTSVer !Int !Int
@@ -231,7 +239,16 @@ completeBuild buildType buildFlags = withManager tlsManagerSettings $ \man -> do
             checkBuildPlan plan
 
     putStrLn "Performing build"
-    performBuild (getPerformBuild buildFlags settings) >>= mapM_ putStrLn
+    let pb = getPerformBuild buildFlags settings
+    performBuild pb >>= mapM_ putStrLn
+
+    putStrLn $ "Creating bundle (v2) at: " ++ fpToText bundleDest
+    createBundleV2 CreateBundleV2
+        { cb2Plan = plan
+        , cb2Type = snapshotType
+        , cb2DocsDir = pbDocDir pb
+        , cb2Dest = bundleDest
+        }
 
     when (bfDoUpload buildFlags) $
         finallyUpload settings man
