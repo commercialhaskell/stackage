@@ -85,9 +85,20 @@ unregisterPackage :: (ByteString -> IO ()) -- ^ log func
 unregisterPackage log' onUnregister docDir flags ident@(PackageIdentifier name _) = do
     log' $ "Unregistering " ++ encodeUtf8 (display ident) ++ "\n"
     onUnregister ident
+
+    -- Delete libraries
+    sourceProcessWithConsumer
+        (proc "ghc-pkg" ("describe" : flags ++ [unpack $ display ident]))
+        (CT.decodeUtf8
+         $= CT.lines
+         $= CL.mapMaybe parseLibraryDir
+         $= CL.mapM_ (void . tryIO . removeTree))
+
     void (readProcessWithExitCode
               "ghc-pkg"
               ("unregister": flags ++ ["--force", unpack $ display name])
               "")
 
     void $ tryIO $ removeTree $ docDir </> fpFromText (display ident)
+  where
+    parseLibraryDir = fmap fpFromText . stripPrefix "library-dirs: "
