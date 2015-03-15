@@ -84,7 +84,7 @@ nightlySettings day plan' = Settings
     , postBuild = return ()
     , distroName = "Stackage"
     , snapshotType = STNightly
-    , bundleDest = fpFromText $ "stackage-nightly-" ++ tshow day ++ ".bundle"
+    , bundleDest = fpFromText $ "stackage-nightly-" ++ day ++ ".bundle"
     }
   where
     slug' = "nightly-" ++ day
