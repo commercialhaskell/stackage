@@ -1086,6 +1086,10 @@ expected-haddock-failures:
     # https://github.com/wereHamster/rethinkdb-client-driver/issues/1
     - rethinkdb-client-driver
 
+    # Requires build before haddock, which doesn't always happen in incremental
+    # builds. Could consider special-casing this requirement.
+    - gtk
+
 # Benchmarks which should not be built. Note that Stackage does *not* generally
 # build benchmarks. The difference here will be whether dependencies for these
 # benchmarks are included or not.
