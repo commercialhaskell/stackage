@@ -30,7 +30,7 @@ import           Stackage.Prelude            hiding (pi)
 import           System.Directory            (findExecutable)
 import           System.Environment          (getEnvironment)
 import           System.IO                   (IOMode (WriteMode),
-                                              withBinaryFile)
+                                              openBinaryFile)
 import           System.IO.Temp              (withSystemTempDirectory)
 
 data BuildException = BuildException (Map PackageName BuildFailure) [Text]
@@ -291,11 +291,12 @@ singleBuild pb@PerformBuild {..} registeredPackages SingleBuild {..} =
         , display $ ppVersion $ piPlan sbPackageInfo
         ]
 
-    runIn wdir outH cmd args =
-        withCheckedProcess cp $ \ClosedStream UseProvidedHandle UseProvidedHandle ->
+    runIn wdir getOutH cmd args = do
+        outH <- getOutH
+        withCheckedProcess (cp outH) $ \ClosedStream UseProvidedHandle UseProvidedHandle ->
             (return () :: IO ())
       where
-        cp = (proc (unpack $ asText cmd) (map (unpack . asText) args))
+        cp outH = (proc (unpack $ asText cmd) (map (unpack . asText) args))
             { cwd = Just $ fpToString wdir
             , std_out = UseHandle outH
             , std_err = UseHandle outH
@@ -321,8 +322,21 @@ singleBuild pb@PerformBuild {..} registeredPackages SingleBuild {..} =
     testRunOut = pbLogDir </> fpFromText namever </> "test-run.out"
 
     wf fp inner' = do
-        createTree $ parent fp
-        withBinaryFile (fpToString fp) WriteMode inner'
+        ref <- newIORef Nothing
+        let cleanup = do
+                mh <- readIORef ref
+                forM_ mh hClose
+            getH = do
+                mh <- readIORef ref
+                case mh of
+                    Just h -> return h
+                    Nothing -> mask_ $ do
+                        createTree $ parent fp
+                        h <- openBinaryFile (fpToString fp) WriteMode
+                        writeIORef ref $ Just h
+                        return h
+
+        inner' getH `finally` cleanup
 
     configArgs = ($ []) $ execWriter $ do
         when pbAllowNewer $ tell' "--allow-newer"
@@ -350,15 +364,15 @@ singleBuild pb@PerformBuild {..} registeredPackages SingleBuild {..} =
 
     PackageConstraints {..} = ppConstraints $ piPlan sbPackageInfo
 
-    buildLibrary = wf libOut $ \outH -> do
+    buildLibrary = wf libOut $ \getOutH -> do
         let run a b = do when pbVerbose $ log' (unwords (a : b))
-                         runChild outH a b
+                         runChild getOutH a b
 
         isUnpacked <- newIORef False
         let withUnpacked inner = do
                 unlessM (readIORef isUnpacked) $ do
                     log' $ "Unpacking " ++ namever
-                    runParent outH "cabal" ["unpack", namever]
+                    runParent getOutH "cabal" ["unpack", namever]
                     writeIORef isUnpacked True
                 inner
 
@@ -440,8 +454,8 @@ singleBuild pb@PerformBuild {..} registeredPackages SingleBuild {..} =
 
         return withUnpacked
 
-    runTests withUnpacked = wf testOut $ \outH -> do
-        let run = runChild outH
+    runTests withUnpacked = wf testOut $ \getOutH -> do
+        let run = runChild getOutH
 
         prevTestResult <- getPreviousResult pb Test pident
         let needTest = pbEnableTests
