@@ -1,4 +1,4 @@
-## Unreleased
+## 0.6.0
 
 * Upload bundle V2 stuff
 

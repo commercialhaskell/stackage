@@ -16,6 +16,8 @@ module Stackage.Upload
     , uploadDocMap
     , uploadBundleV2
     , UploadBundleV2 (..)
+    , def
+    , unStackageServer
     ) where
 
 import Control.Monad.Writer.Strict           (execWriter, tell)
@@ -224,6 +226,7 @@ data UploadBundleV2 = UploadBundleV2
 uploadBundleV2 :: UploadBundleV2 -> Manager -> IO Text
 uploadBundleV2 UploadBundleV2 {..} man = IO.withBinaryFile (fpToString ub2Bundle) IO.ReadMode $ \h -> do
     size <- IO.hFileSize h
+    putStrLn $ "Bundle size: " ++ tshow size
     req1 <- parseUrl $ unpack $ unStackageServer ub2Server ++ "/upload2"
     let req2 = req1
             { method = "PUT"
