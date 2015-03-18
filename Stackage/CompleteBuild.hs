@@ -42,6 +42,7 @@ data BuildFlags = BuildFlags
     , bfSkipCheck        :: !Bool
     , bfUploadV1         :: !Bool
     , bfServer           :: !StackageServer
+    , bfBuildHoogle      :: !Bool
     } deriving (Show)
 
 data BuildType = Nightly | LTS BumpType
@@ -221,6 +222,7 @@ getPerformBuild buildFlags Settings {..} = PerformBuild
     , pbEnableExecDyn = bfEnableExecDyn buildFlags
     , pbVerbose = bfVerbose buildFlags
     , pbAllowNewer = bfSkipCheck buildFlags
+    , pbBuildHoogle = bfBuildHoogle buildFlags
     }
 
 -- | Make a complete plan, build, test and upload bundle, docs and

@@ -69,6 +69,10 @@ data PerformBuild = PerformBuild
     , pbVerbose            :: Bool
     , pbAllowNewer         :: Bool
     -- ^ Pass --allow-newer to cabal configure
+    , pbBuildHoogle        :: Bool
+    -- ^ Should we build Hoogle database?
+    --
+    -- May be disabled due to: https://ghc.haskell.org/trac/ghc/ticket/9921
     }
 
 data PackageInfo = PackageInfo
@@ -421,12 +425,13 @@ singleBuild pb@PerformBuild {..} registeredPackages SingleBuild {..} =
                     , "/,"
                     , fpToText hf
                     ]
-                args = "haddock"
-                     : "--hyperlink-source"
-                     : "--html"
-                     : "--hoogle"
-                     : "--html-location=../$pkg-$version/"
-                     : hfsOpts
+                args = ($ hfsOpts) $ execWriter $ do
+                        let tell' x = tell (x:)
+                        tell' "haddock"
+                        tell' "--hyperlink-source"
+                        tell' "--html"
+                        when pbBuildHoogle $ tell' "--hoogle"
+                        tell' "--html-location=../$pkg-$version/"
 
             eres <- tryAny $ run "cabal" args
 
