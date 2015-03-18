@@ -110,8 +110,13 @@ main =
             (long "skip-check" <>
              help "Skip the check phase, and pass --allow-newer to cabal configure") <*>
         switch
-            (long "upload-v2" <>
-             help "Use the V2 upload code")
+            (long "upload-v1" <>
+             help "Use the V1 upload code") <*>
+        (fmap fromString (strOption
+            (long "server-url" <>
+             metavar "SERVER-URL" <>
+             showDefault <> value (T.unpack $ unStackageServer def) <>
+             help "Server to upload bundle to")))
 
     nightlyUploadFlags = fromString <$> strArgument
         (metavar "DATE" <>

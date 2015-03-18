@@ -1,3 +1,7 @@
+## 0.6.1
+
+* Switch to V2 upload by default
+
 ## 0.6.0
 
 * Upload bundle V2 stuff

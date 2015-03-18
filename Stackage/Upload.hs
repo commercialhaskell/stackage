@@ -17,6 +17,7 @@ module Stackage.Upload
     , uploadBundleV2
     , UploadBundleV2 (..)
     , def
+    , StackageServer
     , unStackageServer
     ) where
 

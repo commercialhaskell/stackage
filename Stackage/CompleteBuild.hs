@@ -40,7 +40,8 @@ data BuildFlags = BuildFlags
     , bfEnableExecDyn    :: !Bool
     , bfVerbose          :: !Bool
     , bfSkipCheck        :: !Bool
-    , bfUploadV2         :: !Bool
+    , bfUploadV1         :: !Bool
+    , bfServer           :: !StackageServer
     } deriving (Show)
 
 data BuildType = Nightly | LTS BumpType
@@ -253,7 +254,11 @@ completeBuild buildType buildFlags = withManager tlsManagerSettings $ \man -> do
         }
 
     when (bfDoUpload buildFlags) $
-        finallyUpload (bfUploadV2 buildFlags) settings man
+        finallyUpload
+            (not $ bfUploadV1 buildFlags)
+            (bfServer buildFlags)
+            settings
+            man
 
 justUploadNightly
     :: Text -- ^ nightly date
@@ -261,7 +266,7 @@ justUploadNightly
 justUploadNightly day = do
     plan <- decodeFileEither (fpToString $ nightlyPlanFile day)
         >>= either throwM return
-    withManager tlsManagerSettings $ finallyUpload False $ nightlySettings day plan
+    withManager tlsManagerSettings $ finallyUpload False def $ nightlySettings day plan
 
 getStackageAuthToken :: IO Text
 getStackageAuthToken = do
@@ -273,8 +278,9 @@ getStackageAuthToken = do
 -- | The final part of the complete build process: uploading a bundle,
 -- docs and a distro to hackage.
 finallyUpload :: Bool -- ^ use v2 upload
+              -> StackageServer
               -> Settings -> Manager -> IO ()
-finallyUpload useV2 settings@Settings{..} man = do
+finallyUpload useV2 server settings@Settings{..} man = do
     putStrLn "Uploading bundle to Stackage Server"
 
     token <- getStackageAuthToken
@@ -282,7 +288,7 @@ finallyUpload useV2 settings@Settings{..} man = do
     if useV2
         then do
             res <- flip uploadBundleV2 man UploadBundleV2
-                { ub2Server = def
+                { ub2Server = server
                 , ub2AuthToken = token
                 , ub2Bundle = bundleDest
                 }
