@@ -116,7 +116,12 @@ main =
             (long "server-url" <>
              metavar "SERVER-URL" <>
              showDefault <> value (T.unpack $ unStackageServer def) <>
-             help "Server to upload bundle to")))
+             help "Server to upload bundle to"))) <*>
+        fmap
+            not
+            (switch
+                 (long "skip-hoogle" <>
+                  help "Skip generating Hoogle input files"))
 
     nightlyUploadFlags = fromString <$> strArgument
         (metavar "DATE" <>
@@ -178,7 +183,12 @@ main =
              help "Output verbose detail about the build steps") <*>
         switch
             (long "skip-check" <>
-             help "Skip the check phase, and pass --allow-newer to cabal configure")
+             help "Skip the check phase, and pass --allow-newer to cabal configure") <*>
+        fmap
+            not
+            (switch
+                 (long "skip-hoogle" <>
+                  help "Skip generating Hoogle input files"))
 
     uploadv2 (path, url) = withManager tlsManagerSettings $ \man -> do
         token <- getStackageAuthToken
