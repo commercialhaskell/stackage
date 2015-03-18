@@ -10,7 +10,11 @@ import Options.Applicative
 import Filesystem.Path.CurrentOS (decodeString)
 import Paths_stackage (version)
 import Stackage.CompleteBuild
+import Stackage.Upload
 import Stackage.InstallBuild
+import Network.HTTP.Client (withManager)
+import Network.HTTP.Client.TLS (tlsManagerSettings)
+import qualified Data.Text as T
 
 main :: IO ()
 main =
@@ -62,7 +66,13 @@ main =
                   installBuild
                   installFlags
                   "install"
-                  "Install a snapshot from an existing build plan"]
+                  "Install a snapshot from an existing build plan"
+            , cmnd
+                  uploadv2
+                  uploadv2Flags
+                  "upload2"
+                  "Upload a pre-existing v2 bundle"
+            ]
 
     cmnd exec parse name desc =
         command name $
@@ -98,7 +108,10 @@ main =
              help "Output verbose detail about the build steps") <*>
         switch
             (long "skip-check" <>
-             help "Skip the check phase, and pass --allow-newer to cabal configure")
+             help "Skip the check phase, and pass --allow-newer to cabal configure") <*>
+        switch
+            (long "upload-v2" <>
+             help "Use the V2 upload code")
 
     nightlyUploadFlags = fromString <$> strArgument
         (metavar "DATE" <>
@@ -161,3 +174,22 @@ main =
         switch
             (long "skip-check" <>
              help "Skip the check phase, and pass --allow-newer to cabal configure")
+
+    uploadv2 (path, url) = withManager tlsManagerSettings $ \man -> do
+        token <- getStackageAuthToken
+        res <- flip uploadBundleV2 man UploadBundleV2
+            { ub2AuthToken = token
+            , ub2Server = fromString url
+            , ub2Bundle = decodeString path
+            }
+        putStrLn $ "New URL: " ++ T.unpack res
+
+    uploadv2Flags = (,)
+        <$> (strArgument
+                (metavar "BUNDLE-PATH" <>
+                 help "Bundle path"))
+        <*> strOption
+                (long "server-url" <>
+                 metavar "SERVER-URL" <>
+                 showDefault <> value (T.unpack $ unStackageServer def) <>
+                 help "Server to upload bundle to")

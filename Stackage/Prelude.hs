@@ -20,6 +20,9 @@ import           Distribution.Version            as X (Version (..),
                                                        VersionRange)
 import           Distribution.Version            as X (withinRange)
 import qualified Distribution.Version            as C
+import           Filesystem                      (createTree)
+import           Filesystem.Path                 (parent)
+import qualified Filesystem.Path                 as F
 
 unPackageName :: PackageName -> Text
 unPackageName (PackageName str) = pack str
@@ -101,3 +104,13 @@ topologicalSort toFinal toDeps =
 data TopologicalSortException key = NoEmptyDeps (Map key (Set key))
     deriving (Show, Typeable)
 instance (Show key, Typeable key) => Exception (TopologicalSortException key)
+
+copyDir :: FilePath -> FilePath -> IO ()
+copyDir src dest =
+    runResourceT $ sourceDirectoryDeep False src $$ mapM_C go
+  where
+    src' = src </> ""
+    go fp = forM_ (F.stripPrefix src' fp) $ \suffix -> do
+        let dest' = dest </> suffix
+        liftIO $ createTree $ parent dest'
+        sourceFile fp $$ (sinkFile dest' :: Sink ByteString (ResourceT IO) ())

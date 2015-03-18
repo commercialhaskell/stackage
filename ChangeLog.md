@@ -1,3 +1,7 @@
+## 0.6.0
+
+* Upload bundle V2 stuff
+
 ## 0.5.2
 
 * Upload LTS to Hackage with the name LTSHaskell
