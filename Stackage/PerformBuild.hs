@@ -92,7 +92,7 @@ waitForDeps toolMap packageMap activeComps bp pi action = do
                 Nothing
                     | isCoreExe exe -> return ()
                     -- https://github.com/jgm/zip-archive/issues/23
-                    -- | otherwise -> throwSTM $ ToolMissing exe
+                    -- - | otherwise -> throwSTM $ ToolMissing exe
                     | otherwise -> return ()
                 Just packages -> ofoldl1' (<|>) packages
     action
