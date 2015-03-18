@@ -14,17 +14,26 @@ module Stackage.Upload
     , uploadHackageDistroNamed
     , UploadDocMap (..)
     , uploadDocMap
+    , uploadBundleV2
+    , UploadBundleV2 (..)
+    , def
+    , StackageServer
+    , unStackageServer
     ) where
 
 import Control.Monad.Writer.Strict           (execWriter, tell)
 import Data.Default.Class                    (Default (..))
+import Data.Function                         (fix)
 import Filesystem                            (isDirectory, isFile)
 import Network.HTTP.Client
+import qualified Network.HTTP.Client.Conduit as HCC
 import Network.HTTP.Client.MultipartFormData
 import Stackage.BuildPlan                    (BuildPlan)
 import Stackage.Prelude
-import Stackage.ServerBundle                 (bpAllPackages, docsListing)
+import Stackage.ServerBundle                 (bpAllPackages, docsListing, writeIndexStyle)
 import System.IO.Temp                        (withSystemTempFile)
+import qualified System.IO as IO
+import qualified Data.Yaml as Y
 
 newtype StackageServer = StackageServer { unStackageServer :: Text }
     deriving (Show, Eq, Ord, Hashable, IsString)
@@ -107,17 +116,7 @@ uploadDocs (UploadDocs (StackageServer host) fp0 token ident) man = do
   where
     uploadDocsDir = withSystemTempFile "haddocks.tar.xz" $ \fp h -> do
         hClose h
-        dirs <- fmap sort
-              $ runResourceT
-              $ sourceDirectory fp0
-             $$ filterMC (liftIO . isDirectory)
-             =$ mapC (fpToString . filename)
-             =$ sinkList
-        writeFile (fp0 </> "index.html") $ mkIndex
-            (unpack $ unSnapshotIdent ident)
-            dirs
-        writeFile (fp0 </> "style.css") styleCss
-        -- FIXME write index.html, style.css
+        dirs <- writeIndexStyle (Just $ unSnapshotIdent ident) fp0
         let cp = (proc "tar" $ "cJf" : fp : "index.html" : "style.css" : dirs)
                 { cwd = Just $ fpToString fp0
                 }
@@ -201,7 +200,7 @@ uploadDocMap :: UploadDocMap -> Manager -> IO (Response LByteString)
 uploadDocMap UploadDocMap {..} man = do
     docmap <- docsListing udmPlan udmDocDir
     req1 <- parseUrl $ unpack $ unStackageServer udmServer ++ "/upload-doc-map"
-    req2 <- formDataBody (formData docmap) req1
+    req2 <- formDataBody (formData $ Y.encode docmap) req1
     let req3 = req2
             { method = "PUT"
             , requestHeaders =
@@ -219,61 +218,55 @@ uploadDocMap UploadDocMap {..} man = do
         , partFileRequestBody "docmap" "docmap" $ RequestBodyBS docmap
         ]
 
-mkIndex :: String -> [String] -> String
-mkIndex snapid dirs = concat
-    [ "<!DOCTYPE html>\n<html lang='en'><head><title>Haddocks index</title>"
-    , "<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>"
-    , "<link rel='stylesheet' href='style.css'>"
-    , "<link rel='shortcut icon' href='http://www.stackage.org/static/img/favicon.ico' />"
-    , "</head>"
-    , "<body><div class='container'>"
-    , "<div class='row'><div class='span12 col-md-12'>"
-    , "<h1>Haddock documentation index</h1>"
-    , "<p class='return'><a href=\"http://www.stackage.org/stackage/"
-    , snapid
-    , "\">Return to snapshot</a></p><ul>"
-    , concatMap toLI dirs
-    , "</ul></div></div></div></body></html>"
-    ]
-  where
-    toLI name = concat
-        [ "<li><a href='"
-        , name
-        , "/index.html'>"
-        , name
-        , "</a></li>"
-        ]
+data UploadBundleV2 = UploadBundleV2
+    { ub2Server :: StackageServer
+    , ub2AuthToken :: Text
+    , ub2Bundle :: FilePath
+    }
 
-styleCss :: String
-styleCss = concat
-    [ "@media (min-width: 530px) {"
-    , "ul { -webkit-column-count: 2; -moz-column-count: 2; column-count: 2 }"
-    , "}"
-    , "@media (min-width: 760px) {"
-    , "ul { -webkit-column-count: 3; -moz-column-count: 3; column-count: 3 }"
-    , "}"
-    , "ul {"
-    , "  margin-left: 0;"
-    , "  padding-left: 0;"
-    , "  list-style-type: none;"
-    , "}"
-    , "body {"
-    , "  background: #f0f0f0;"
-    , "  font-family: 'Lato', sans-serif;"
-    , "  text-shadow: 1px 1px 1px #ffffff;"
-    , "  font-size: 20px;"
-    , "  line-height: 30px;"
-    , "  padding-bottom: 5em;"
-    , "}"
-    , "h1 {"
-    , "  font-weight: normal;"
-    , "  color: #06537d;"
-    , "  font-size: 45px;"
-    , "}"
-    , ".return a {"
-    , "  color: #06537d;"
-    , "  font-style: italic;"
-    , "}"
-    , ".return {"
-    , "  margin-bottom: 1em;"
-    , "}"]
+uploadBundleV2 :: UploadBundleV2 -> Manager -> IO Text
+uploadBundleV2 UploadBundleV2 {..} man = IO.withBinaryFile (fpToString ub2Bundle) IO.ReadMode $ \h -> do
+    size <- IO.hFileSize h
+    putStrLn $ "Bundle size: " ++ tshow size
+    req1 <- parseUrl $ unpack $ unStackageServer ub2Server ++ "/upload2"
+    let req2 = req1
+            { method = "PUT"
+            , requestHeaders =
+                [ ("Authorization", encodeUtf8 ub2AuthToken)
+                , ("Accept", "application/json")
+                , ("Content-Type", "application/x-tar")
+                ]
+            , requestBody = HCC.requestBodySource (fromIntegral size)
+                          $ sourceHandle h $= printProgress size
+            }
+        sink = decodeUtf8C =$ fix (\loop -> do
+            mx <- peekC
+            case mx of
+                Nothing -> error $ "uploadBundleV2: premature end of stream"
+                Just _ -> do
+                    l <- lineC $ takeCE 4096 =$ foldC
+                    let (cmd, msg') = break (== ':') l
+                        msg = dropWhile (== ' ') $ dropWhile (== ':') msg'
+                    case cmd of
+                        "CONT" -> do
+                            putStrLn msg
+                            loop
+                        "FAILURE" -> error $ "uploadBundleV2 failed: " ++ unpack msg
+                        "SUCCESS" -> return msg
+                        _ -> error $ "uploadBundleV2: unknown command " ++ unpack cmd
+            )
+    withResponse req2 man $ \res -> HCC.bodyReaderSource (responseBody res) $$ sink
+  where
+    printProgress total =
+        loop 0 0
+      where
+        loop sent lastPercent =
+            await >>= maybe (putStrLn "Upload complete") go
+          where
+            go bs = do
+                yield bs
+                let sent' = sent + fromIntegral (length bs)
+                    percent = sent' * 100 `div` total
+                when (percent /= lastPercent)
+                    $ putStrLn $ "Upload progress: " ++ tshow percent ++ "%"
+                loop sent' percent

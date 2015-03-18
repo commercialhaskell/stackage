@@ -1,5 +1,5 @@
 name:                stackage
-version:             0.5.2
+version:             0.6.0.1
 synopsis:            "Stable Hackage," tools for creating a vetted set of packages from Hackage.
 description:         Please see <http://www.stackage.org/package/stackage> for a description and documentation.
 homepage:            https://github.com/fpco/stackage
@@ -23,6 +23,7 @@ library
                        Stackage.BuildPlan
                        Stackage.CheckBuildPlan
                        Stackage.UpdateBuildPlan
+                       Stackage.GhcPkg
                        Stackage.GithubPings
                        Stackage.InstallBuild
                        Stackage.PackageDescription
@@ -54,6 +55,7 @@ library
                      , yaml
                      , unix-compat
                      , http-client
+                     , http-conduit
                      , http-client-tls
                      , temporary
                      , data-default-class
@@ -63,6 +65,7 @@ library
                      , streaming-commons >= 0.1.7.1
                      , semigroups
                      , xml-conduit
+                     , conduit
 
 executable stackage
   default-language:    Haskell2010
@@ -72,6 +75,9 @@ executable stackage
                      , stackage
                      , optparse-applicative >= 0.11
                      , system-filepath
+                     , http-client
+                     , http-client-tls
+                     , text
   ghc-options:         -rtsopts -threaded -with-rtsopts=-N
 
 test-suite spec

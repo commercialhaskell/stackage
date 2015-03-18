@@ -19,17 +19,18 @@ import qualified Data.Map                    as Map
 import           Data.NonNull                (fromNullable)
 import           Filesystem                  (canonicalizePath, createTree,
                                               getWorkingDirectory, isDirectory,
-                                              removeTree, rename)
+                                              removeTree, rename, isFile, removeFile)
 import           Filesystem.Path             (parent)
 import qualified Filesystem.Path             as F
 import           Stackage.BuildConstraints
 import           Stackage.BuildPlan
+import           Stackage.GhcPkg
 import           Stackage.PackageDescription
 import           Stackage.Prelude            hiding (pi)
 import           System.Directory            (findExecutable)
 import           System.Environment          (getEnvironment)
 import           System.IO                   (IOMode (WriteMode),
-                                              withBinaryFile)
+                                              openBinaryFile)
 import           System.IO.Temp              (withSystemTempDirectory)
 
 data BuildException = BuildException (Map PackageName BuildFailure) [Text]
@@ -62,7 +63,9 @@ data PerformBuild = PerformBuild
     , pbGlobalInstall :: Bool
     -- ^ Register packages in the global database
     , pbEnableTests        :: Bool
+    , pbEnableHaddock      :: Bool
     , pbEnableLibProfiling :: Bool
+    , pbEnableExecDyn      :: Bool
     , pbVerbose            :: Bool
     , pbAllowNewer         :: Bool
     -- ^ Pass --allow-newer to cabal configure
@@ -89,7 +92,7 @@ waitForDeps toolMap packageMap activeComps bp pi action = do
                 Nothing
                     | isCoreExe exe -> return ()
                     -- https://github.com/jgm/zip-archive/issues/23
-                    -- | otherwise -> throwSTM $ ToolMissing exe
+                    -- - | otherwise -> throwSTM $ ToolMissing exe
                     | otherwise -> return ()
                 Just packages -> ofoldl1' (<|>) packages
     action
@@ -133,6 +136,10 @@ pbLibDir pb = pbInstallDest pb </> "lib"
 pbDataDir pb = pbInstallDest pb </> "share"
 pbDocDir pb = pbInstallDest pb </> "doc"
 
+-- | Directory keeping previous result info
+pbPrevResDir :: PerformBuild -> FilePath
+pbPrevResDir pb = pbInstallDest pb </> "prevres"
+
 performBuild :: PerformBuild -> IO [Text]
 performBuild pb = do
     cwd <- getWorkingDirectory
@@ -160,12 +167,13 @@ performBuild' pb@PerformBuild {..} = withBuildDir $ \builddir -> do
         $ \ClosedStream Inherited Inherited -> return ()
 
     let removeTree' fp = whenM (isDirectory fp) (removeTree fp)
-    mapM_ removeTree' [pbInstallDest, pbLogDir]
+    removeTree' pbLogDir
 
-    forM_ (pbDatabase pb) $ \db -> do
-        createTree $ parent db
-        withCheckedProcess (proc "ghc-pkg" ["init", fpToString db])
-            $ \ClosedStream Inherited Inherited -> return ()
+    forM_ (pbDatabase pb) $ \db ->
+        unlessM (isFile $ db </> "package.cache") $ do
+            createTree $ parent db
+            withCheckedProcess (proc "ghc-pkg" ["init", fpToString db])
+                $ \ClosedStream Inherited Inherited -> return ()
     pbLog $ encodeUtf8 "Copying built-in Haddocks\n"
     copyBuiltInHaddocks (pbDocDir pb)
     pbLog $ encodeUtf8 "Finished copying built-in Haddocks\n"
@@ -186,7 +194,15 @@ performBuild' pb@PerformBuild {..} = withBuildDir $ \builddir -> do
     env <- getEnvironment
     haddockFiles <- newTVarIO mempty
 
-    forM_ packageMap $ \pi -> void $ async $ singleBuild pb SingleBuild
+    registeredPackages <- setupPackageDatabase
+        (pbDatabase pb)
+        (pbDocDir pb)
+        pbLog
+        (ppVersion <$> bpPackages pbPlan)
+        (deletePreviousResults pb)
+
+    forM_ packageMap $ \pi -> void $ async $ singleBuild pb registeredPackages
+      SingleBuild
         { sbSem = sem
         , sbErrsVar = errsVar
         , sbWarningsVar = warningsVar
@@ -248,8 +264,10 @@ data SingleBuild = SingleBuild
     , sbHaddockFiles  :: TVar (Map Text FilePath) -- ^ package-version, .haddock file
     }
 
-singleBuild :: PerformBuild -> SingleBuild -> IO ()
-singleBuild pb@PerformBuild {..} SingleBuild {..} =
+singleBuild :: PerformBuild
+            -> Set PackageName -- ^ registered packages
+            -> SingleBuild -> IO ()
+singleBuild pb@PerformBuild {..} registeredPackages SingleBuild {..} =
       withCounter sbActive
     $ handle updateErrs
     $ (`finally` void (atomically $ tryPutTMVar (piResult sbPackageInfo) False))
@@ -261,22 +279,25 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
         let wfd comps =
                 waitForDeps sbToolMap sbPackageMap comps pbPlan sbPackageInfo
                 . withTSem sbSem
-        wfd libComps buildLibrary
+        withUnpacked <- wfd libComps buildLibrary
 
-        wfd testComps runTests
+        wfd testComps (runTests withUnpacked)
 
-    name = display $ piName sbPackageInfo
+    pname = piName sbPackageInfo
+    pident = PackageIdentifier pname (ppVersion $ piPlan sbPackageInfo)
+    name = display pname
     namever = concat
         [ name
         , "-"
         , display $ ppVersion $ piPlan sbPackageInfo
         ]
 
-    runIn wdir outH cmd args =
-        withCheckedProcess cp $ \ClosedStream UseProvidedHandle UseProvidedHandle ->
+    runIn wdir getOutH cmd args = do
+        outH <- getOutH
+        withCheckedProcess (cp outH) $ \ClosedStream UseProvidedHandle UseProvidedHandle ->
             (return () :: IO ())
       where
-        cp = (proc (unpack $ asText cmd) (map (unpack . asText) args))
+        cp outH = (proc (unpack $ asText cmd) (map (unpack . asText) args))
             { cwd = Just $ fpToString wdir
             , std_out = UseHandle outH
             , std_err = UseHandle outH
@@ -302,8 +323,21 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
     testRunOut = pbLogDir </> fpFromText namever </> "test-run.out"
 
     wf fp inner' = do
-        createTree $ parent fp
-        withBinaryFile (fpToString fp) WriteMode inner'
+        ref <- newIORef Nothing
+        let cleanup = do
+                mh <- readIORef ref
+                forM_ mh hClose
+            getH = do
+                mh <- readIORef ref
+                case mh of
+                    Just h -> return h
+                    Nothing -> mask_ $ do
+                        createTree $ parent fp
+                        h <- openBinaryFile (fpToString fp) WriteMode
+                        writeIORef ref $ Just h
+                        return h
+
+        inner' getH `finally` cleanup
 
     configArgs = ($ []) $ execWriter $ do
         when pbAllowNewer $ tell' "--allow-newer"
@@ -317,6 +351,7 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
         tell' $ "--flags=" ++ flags
         when (pbEnableLibProfiling && pcEnableLibProfile) $
             tell' "--enable-library-profiling"
+        when pbEnableExecDyn $ tell' "--enable-executable-dynamic"
       where
         tell' x = tell (x:)
 
@@ -330,22 +365,40 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
 
     PackageConstraints {..} = ppConstraints $ piPlan sbPackageInfo
 
-    buildLibrary = wf libOut $ \outH -> do
+    buildLibrary = wf libOut $ \getOutH -> do
         let run a b = do when pbVerbose $ log' (unwords (a : b))
-                         runChild outH a b
-        log' $ "Unpacking " ++ namever
-        runParent outH "cabal" ["unpack", namever]
+                         runChild getOutH a b
 
-        log' $ "Configuring " ++ namever
-        run "cabal" $ "configure" : configArgs
+        isUnpacked <- newIORef False
+        let withUnpacked inner = do
+                unlessM (readIORef isUnpacked) $ do
+                    log' $ "Unpacking " ++ namever
+                    runParent getOutH "cabal" ["unpack", namever]
+                    writeIORef isUnpacked True
+                inner
 
-        log' $ "Building " ++ namever
-        run "cabal" ["build"]
+        isConfiged <- newIORef False
+        let withConfiged inner = withUnpacked $ do
+                unlessM (readIORef isConfiged) $ do
+                    log' $ "Configuring " ++ namever
+                    run "cabal" $ "configure" : configArgs
+                    writeIORef isConfiged True
+                inner
 
-        log' $ "Copying/registering " ++ namever
-        run "cabal" ["copy"]
-        withMVar sbRegisterMutex $ const $
-            run "cabal" ["register"]
+        prevBuildResult <- getPreviousResult pb Build pident
+        unless (prevBuildResult == PRSuccess) $ withConfiged $ do
+          assert (pname `notMember` registeredPackages) $ do
+            deletePreviousResults pb pident
+
+            log' $ "Building " ++ namever
+            run "cabal" ["build"]
+
+            log' $ "Copying/registering " ++ namever
+            run "cabal" ["copy"]
+            withMVar sbRegisterMutex $ const $
+                run "cabal" ["register"]
+
+            savePreviousResult pb Build pident True
 
         -- Even if the tests later fail, we can allow other libraries to build
         -- on top of our successful results
@@ -355,7 +408,11 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
         -- dependency's haddocks before this finishes
         atomically $ putTMVar (piResult sbPackageInfo) True
 
-        when (pcHaddocks /= Don'tBuild && not (null $ sdModules $ ppDesc $ piPlan sbPackageInfo)) $ do
+        prevHaddockResult <- getPreviousResult pb Haddock pident
+        let needHaddock = pbEnableHaddock
+                       && checkPrevResult prevHaddockResult pcHaddocks
+                       && not (null $ sdModules $ ppDesc $ piPlan sbPackageInfo)
+        when needHaddock $ withConfiged $ do
             log' $ "Haddocks " ++ namever
             hfs <- readTVarIO sbHaddockFiles
             let hfsOpts = flip map (mapToList hfs) $ \(pkgVer, hf) -> concat
@@ -389,15 +446,21 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
                                    $ modifyTVar sbHaddockFiles
                                    $ insertMap namever newPath
 
+            savePreviousResult pb Haddock pident $ either (const False) (const True) eres
             case (eres, pcHaddocks) of
                 (Left e, ExpectSuccess) -> throwM e
                 (Right (), ExpectFailure) -> warn $ namever ++ ": unexpected Haddock success"
                 _ -> return ()
 
-    runTests = wf testOut $ \outH -> do
-        let run = runChild outH
+        return withUnpacked
 
-        when (pbEnableTests && pcTests /= Don'tBuild) $ do
+    runTests withUnpacked = wf testOut $ \getOutH -> do
+        let run = runChild getOutH
+
+        prevTestResult <- getPreviousResult pb Test pident
+        let needTest = pbEnableTests
+                    && checkPrevResult prevTestResult pcTests
+        when needTest $ withUnpacked $ do
             log' $ "Test configure " ++ namever
             run "cabal" $ "configure" : "--enable-tests" : configArgs
 
@@ -408,6 +471,7 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
                 log' $ "Test run " ++ namever
                 run "cabal" ["test", "--log=" ++ fpToText testRunOut]
 
+            savePreviousResult pb Test pident $ either (const False) (const True) eres
             case (eres, pcTests) of
                 (Left e, ExpectSuccess) -> throwM e
                 (Right (), ExpectFailure) -> warn $ namever ++ ": unexpected test success"
@@ -434,16 +498,6 @@ singleBuild pb@PerformBuild {..} SingleBuild {..} =
 renameOrCopy :: FilePath -> FilePath -> IO ()
 renameOrCopy src dest = rename src dest `catchIO` \_ -> copyDir src dest
 
-copyDir :: FilePath -> FilePath -> IO ()
-copyDir src dest =
-    runResourceT $ sourceDirectoryDeep False src $$ mapM_C go
-  where
-    src' = src </> ""
-    go fp = forM_ (F.stripPrefix src' fp) $ \suffix -> do
-        let dest' = dest </> suffix
-        liftIO $ createTree $ parent dest'
-        sourceFile fp $$ (sinkFile dest' :: Sink ByteString (ResourceT IO) ())
-
 copyBuiltInHaddocks :: FilePath -> IO ()
 copyBuiltInHaddocks docdir = do
     mghc <- findExecutable "ghc"
@@ -453,3 +507,52 @@ copyBuiltInHaddocks docdir = do
             src <- canonicalizePath
                 (parent (fpFromString ghc) </> "../share/doc/ghc/html/libraries")
             copyDir src docdir
+
+------------- Previous results
+
+-- | The previous actions that can be run
+data ResultType = Build | Haddock | Test
+    deriving (Show, Enum, Eq, Ord, Bounded, Read)
+
+-- | The result generated on a previous run
+data PrevResult = PRNoResult | PRSuccess | PRFailure
+    deriving (Show, Enum, Eq, Ord, Bounded, Read)
+
+-- | Check if we should rerun based on a PrevResult and the expected status
+checkPrevResult :: PrevResult -> TestState -> Bool
+checkPrevResult _          Don'tBuild    = False
+checkPrevResult PRNoResult _             = True
+checkPrevResult PRSuccess  _             = False
+checkPrevResult PRFailure  ExpectSuccess = True
+checkPrevResult PRFailure  _             = False
+
+withPRPath :: PerformBuild -> ResultType -> PackageIdentifier -> (FilePath -> IO a) -> IO a
+withPRPath pb rt ident inner = do
+    createTree $ parent fp
+    inner fp
+  where
+    fp = pbPrevResDir pb </> fpFromString (show rt) </> fpFromText (display ident)
+
+successBS, failureBS :: ByteString
+successBS = "success"
+failureBS = "failure"
+
+getPreviousResult :: PerformBuild -> ResultType -> PackageIdentifier -> IO PrevResult
+getPreviousResult w x y = withPRPath w x y $ \fp -> do
+    eres <- tryIO $ readFile fp
+    return $ case eres of
+        Right bs
+            | bs == successBS -> PRSuccess
+            | bs == failureBS -> PRFailure
+        _                     -> PRNoResult
+
+savePreviousResult :: PerformBuild -> ResultType -> PackageIdentifier -> Bool -> IO ()
+savePreviousResult pb rt ident res =
+    withPRPath pb rt ident $ \fp -> writeFile fp $
+        if res then successBS else failureBS
+
+deletePreviousResults :: PerformBuild -> PackageIdentifier -> IO ()
+deletePreviousResults pb name =
+    forM_ [minBound..maxBound] $ \rt ->
+    withPRPath pb rt name $ \fp ->
+    void $ tryIO $ removeFile fp

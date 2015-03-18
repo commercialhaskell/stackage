@@ -379,6 +379,7 @@ packages:
         - pipes
         - pipes-parse
         - pipes-concurrency
+        - pipes-safe
 
     "Chris Allen <cma@bitemyapp.com>":
         - bloodhound
@@ -390,8 +391,11 @@ packages:
         - fay-jquery
         - fay-text
         - fay-uri
-        - fclabels
         - snaplet-fay
+
+    "Sebastiaan Visser <haskell@fvisser.nl>":
+        - clay
+        - fclabels
 
     "Rodrigo Setti <rodrigosetti@gmail.com>":
         - messagepack
@@ -473,7 +477,8 @@ packages:
         - openpgp-asciiarmor
         - MusicBrainz
         - DAV
-        - hopenpgp-tools
+        # https://github.com/fpco/stackage/issues/463
+        #- hopenpgp-tools
 
     # https://github.com/fpco/stackage/issues/160
     "Ketil Malde":
@@ -503,8 +508,8 @@ packages:
         - code-builder
         - fay-builder
         - generic-aeson
+        - generic-xmlpickler
         - hxt-pickle-utils
-        - imagesize-conduit
         - imagesize-conduit
         - json-schema
         - multipart
@@ -518,8 +523,6 @@ packages:
         - rest-types
         - rest-wai
         - tostring
-        - tostring
-        - uri-encode
         - uri-encode
 
     "Simon Michael <simon@joyful.com>":
@@ -529,7 +532,10 @@ packages:
         - io-manager
 
     "Dimitri Sabadie <dimitri.sabadie@gmail.com":
+        # https://github.com/fpco/stackage/pull/461#issuecomment-76914158
+        # - al
         - monad-journal
+        - smoothie
 
     "Thomas Schilling <nominolo@googlemail.com>":
         - ghc-syb-utils
@@ -574,6 +580,7 @@ packages:
         - haddock-api
         - here
         - hlibgit2
+        - gitlib-libgit2
         - hostname-validate
         - interpolatedstring-perl6
         - iproute
@@ -612,6 +619,9 @@ packages:
        - Spock
        - Spock-digestive
        - Spock-worker
+       - users
+       - users-test
+       - users-postgresql-simple
 
     "Joey Eremondi <joey@eremondi.com>":
         - aeson-pretty
@@ -640,6 +650,11 @@ packages:
 
     "Samplecount stefan@samplecount.com @kaoskorobase":
         - shake-language-c
+
+    "Marcin Mrotek <marcin.jan.mrotek@gmail.com>":
+        - diagrams-hsqml
+        - type-list
+        - vinyl-utils
 
     "Marcin Mrotek <marcin.jan.mrotek@gmail.com>":
         - type-list
@@ -703,18 +718,36 @@ packages:
     "Gabríel Arthúr Pétursson gabriel@system.is":
         - sdl2
 
-    "Stackage upper bounds":
+    "Leon Mergen leon@solatis.com @solatis":
+        - network-attoparsec
+        - network-anonymous-i2p
 
-        # https://github.com/fpco/stackage/issues/291
-        - random < 1.0.1.3
+    "Timothy Jones git@zmthy.io @zmthy":
+        - cabal-test-quickcheck
+        - http-media
+
+    "Greg V greg@unrelenting.technology @myfreeweb":
+        - gitson
+        - pcre-heavy
+
+    "Francesco Mazzoli f@mazzo.li @bitonic":
+        - language-c-quote
+
+    "Sönke Hahn soenkehahn@gmail.com @soenkehahn":
+        - string-conversions
+
+    "Oleg Grenrus oleg.grenrus@iki.fi @phadej":
+        - waitra
+    
+    "Adam C. Foltzer acfoltzer@galois.com @acfoltzer":
+        - gitrev
+
+    "Stackage upper bounds":
 
         # https://github.com/fpco/stackage/issues/390
         # NOTE: When this issue is resolved, remove the expected test failure
         # for language-ecmascript as well.
         - language-ecmascript < 0.17
-
-        # https://github.com/fpco/stackage/issues/402
-        - vector-space < 0.9
 
         # https://github.com/fpco/stackage/issues/407
         - HStringTemplate < 0.8
@@ -731,22 +764,32 @@ packages:
         # https://github.com/fpco/stackage/issues/426
         - utf8-string < 1
 
-        # https://github.com/d12frosted/CanonicalPath/issues/3
-        - system-canonicalpath < 0.3
-
         # https://github.com/fpco/stackage/issues/440
         - th-orphans < 0.9
         - file-location < 0.4.7
+        - th-desugar < 1.5.1
 
         # https://github.com/fpco/stackage/issues/442
         - blaze-builder < 0.4
+        - blaze-markup < 0.7
+        - blaze-html < 0.8
 
         # https://github.com/fpco/stackage/issues/443
         - exceptions < 0.7
-        - resourcet < 1.1.4
+        - rest-client < 0.5
+        - rest-types < 1.13
+        - rest-core < 0.35
+        - rest-gen < 0.17
+        - rest-wai < 0.1.0.7
 
-        # https://github.com/fpco/stackage/issues/445
-        - semigroupoids < 4.3
+        # https://github.com/fpco/stackage/issues/467
+        - lens < 4.8
+
+        # https://github.com/fpco/stackage/issues/476
+        - vector-space < 0.10
+
+        # https://github.com/ekmett/linear/issues/70
+        - linear < 1.18
 
 # Package flags are applied to individual packages, and override the values of
 # global-flags
@@ -918,9 +961,6 @@ expected-test-failures:
     # https://github.com/BioHaskell/octree/issues/4
     - Octree
 
-    # https://github.com/goldfirere/th-desugar/issues/12
-    - th-desugar
-
     # https://github.com/jmillikin/haskell-filesystem/issues/3
     - system-filepath
 
@@ -993,19 +1033,51 @@ expected-test-failures:
     # https://github.com/haskell-distributed/distributed-process-execution/issues/2
     - distributed-process-execution
 
+    # Seems to depend on mtl being installed in user package database, which
+    # isn't always the case (e.g., build server)
+    - happy
+
+    # https://github.com/jberryman/directory-tree/issues/4
+    - directory-tree
+
+    # https://github.com/zmthy/http-media/issues/11
+    - http-media
+
+    # https://github.com/ekmett/semigroupoids/issues/18
+    - semigroupoids
+
+    # https://github.com/ndmitchell/hoogle/issues/101
+    - hoogle
+
+    # https://github.com/myfreeweb/gitson/issues/1
+    - gitson
+
+    # https://github.com/jcristovao/enclosed-exceptions/issues/6
+    - enclosed-exceptions
+
+    # Expects a running PostgreSQL server
+    - users-postgresql-simple
+
+    # Problems with linking with system libraries on Ubuntu 12.04
+    - nettle
+
+    # Requires locally running services
+    - network-anonymous-i2p
+
 # Haddocks which are expected to fail. Same concept as expected test failures.
 expected-haddock-failures:
     # https://github.com/acw/bytestring-progress/issues/4
     - bytestring-progress
-
-    # https://github.com/ekmett/gl/issues/4
-    - gl
 
     # https://github.com/leventov/yarr/issues/5
     - yarr
 
     # https://github.com/wereHamster/rethinkdb-client-driver/issues/1
     - rethinkdb-client-driver
+
+    # Requires build before haddock, which doesn't always happen in incremental
+    # builds. Could consider special-casing this requirement.
+    - gtk
 
 # Benchmarks which should not be built. Note that Stackage does *not* generally
 # build benchmarks. The difference here will be whether dependencies for these

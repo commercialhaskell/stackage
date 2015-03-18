@@ -28,7 +28,9 @@ data InstallFlags = InstallFlags
     , ifJobs               :: !Int
     , ifGlobalInstall      :: !Bool
     , ifEnableTests        :: !Bool
+    , ifEnableHaddock      :: !Bool
     , ifEnableLibProfiling :: !Bool
+    , ifEnableExecDyn      :: !Bool
     , ifVerbose            :: !Bool
     , ifSkipCheck          :: !Bool
     } deriving (Show)
@@ -48,7 +50,9 @@ getPerformBuild plan InstallFlags{..} =
     , pbJobs               = ifJobs
     , pbGlobalInstall      = ifGlobalInstall
     , pbEnableTests        = ifEnableTests
+    , pbEnableHaddock      = ifEnableHaddock
     , pbEnableLibProfiling = ifEnableLibProfiling
+    , pbEnableExecDyn      = ifEnableExecDyn
     , pbVerbose            = ifVerbose
     , pbAllowNewer         = ifSkipCheck
     }
