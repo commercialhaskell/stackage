@@ -1,6 +1,8 @@
 stackage
 ========
 
+[![Build Status](https://travis-ci.org/fpco/stackage.svg?branch=master)](https://travis-ci.org/fpco/stackage)
+
 "Stable Hackage," tools for creating a vetted set of packages from Hackage.
 
 __NOTE__ This repository is for package authors to get their code into
