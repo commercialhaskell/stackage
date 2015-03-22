@@ -55,7 +55,7 @@ build by running:
 
 ### Docker
 
-Note: This method is currently considered experimental.
+Note: This method has been disabled for now, but may be enabled again in the future.
 
 If you'd like to check a build plan, or perform an entire build, without
 specially configuring your system, Docker may be a good approach. To check if
