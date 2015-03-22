@@ -627,10 +627,11 @@ packages:
     "Joey Eremondi <joey@eremondi.com>":
         - aeson-pretty
         - digest
-        - elm-build-lib
-        - elm-compiler
+        # See: https://github.com/elm-lang/elm-compiler/commit/e714001a928b3834b62555fc350909c95d380ef4
+        #- elm-build-lib
+        #- elm-compiler
         - elm-core-sources
-        - elm-package
+        #- elm-package
         - language-glsl
         - prettyclass
         - QuasiText
@@ -750,14 +751,6 @@ packages:
 
         # Force a specific version that's compatible with transformers 0.3
         - transformers-compat == 0.4.0.3
-
-        # https://github.com/fpco/stackage/issues/390
-        # NOTE: When this issue is resolved, remove the expected test failure
-        # for language-ecmascript as well.
-        - language-ecmascript < 0.17
-
-        # https://github.com/fpco/stackage/issues/410
-        - elm-package < 0.4
 
         # https://github.com/fpco/stackage/issues/415
         - hackage-db < 1.12
@@ -1041,9 +1034,6 @@ expected-test-failures:
 
     # https://github.com/vincenthz/hs-crypto-pubkey/issues/17
     - crypto-pubkey
-
-    # https://github.com/jswebtools/language-ecmascript/issues/60
-    - language-ecmascript
 
     # https://github.com/kazu-yamamoto/unix-time/issues/29
     - unix-time
