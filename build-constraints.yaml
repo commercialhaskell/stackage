@@ -67,6 +67,7 @@ packages:
         - csv-conduit
         - diagrams-cairo
         - dimensional
+        - executable-hash
         - executable-path
         - fgl
         - fixed-list
@@ -92,6 +93,8 @@ packages:
         - shelly
         - smtLib
         - stackage
+        - stackage-curator
+        - stackage-types
         - statistics-linreg
         - th-expand-syns
         - thyme
@@ -742,6 +745,9 @@ packages:
     "Adam C. Foltzer acfoltzer@galois.com @acfoltzer":
         - gitrev
 
+    "Luke Taylor tekul.hs@gmail.com @tekul":
+        - jose-jwt
+
     "Stackage upper bounds":
 
         # https://github.com/fpco/stackage/issues/390
@@ -768,6 +774,7 @@ packages:
         - th-orphans < 0.9
         - file-location < 0.4.7
         - th-desugar < 1.5.1
+        - singletons < 1.1.1
 
         # https://github.com/fpco/stackage/issues/442
         - blaze-builder < 0.4
@@ -790,6 +797,15 @@ packages:
 
         # https://github.com/ekmett/linear/issues/70
         - linear < 1.18
+
+        # https://github.com/fpco/stackage/issues/479
+        - QuickCheck < 2.8
+
+        # https://github.com/fpco/stackage/issues/483
+        - rethinkdb-client-driver < 0.0.15
+
+        # https://github.com/fpco/stackage/issues/485
+        - parsec < 3.1.9
 
 # Package flags are applied to individual packages, and override the values of
 # global-flags
@@ -833,6 +849,10 @@ package-flags:
     mtl-compat:
         two-point-one: false
         two-point-two: false
+
+    # https://github.com/fpco/stackage/pull/482#issuecomment-83635207
+    jose-jwt:
+        doctest: false
 
 # By skipping a test suite, we do not pull in the build dependencies
 skipped-tests:

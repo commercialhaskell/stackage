@@ -1,16 +1,22 @@
 stackage
 ========
 
+[![Build Status](https://travis-ci.org/fpco/stackage.svg?branch=master)](https://travis-ci.org/fpco/stackage)
+
 "Stable Hackage," tools for creating a vetted set of packages from Hackage.
 
 __NOTE__ This repository is for package authors to get their code into
 Stackage. If you simply want to use Stackage as an end user, please follow the
 instructions on [http://www.stackage.org/](http://www.stackage.org).
 
-A note about the codebase: the goal is to minimize dependencies and have
-the maximum range of supported compiler versions. Therefore, we avoid
-anything "complicated." For example, instead of using the text package,
-we use Strings everywhere.
+The Stackage project consists of multiple repositories. This repository
+contains the metadata on packages to be included in future builds and some
+project information. In addition, we have the following repositories:
+
+* [stackage-server](https://github.com/fpco/stackage-server) [![Build Status](https://travis-ci.org/fpco/stackage-server.svg?branch=master)](https://travis-ci.org/fpco/stackage-server)
+* [stackage-curator](https://github.com/fpco/stackage-curator) [![Build Status](https://travis-ci.org/fpco/stackage-curator.svg?branch=master)](https://travis-ci.org/fpco/stackage-curator)
+* [stackage-types](https://github.com/fpco/stackage-types) [![Build Status](https://travis-ci.org/fpco/stackage-types.svg?branch=master)](https://travis-ci.org/fpco/stackage-types)
+* [lts-haskell](https://github.com/fpco/lts-haskell)
 
 Get your package included
 -------------------------
@@ -51,7 +57,7 @@ build by running:
 
 ### Docker
 
-Note: This method is currently considered experimental.
+Note: This method has been disabled for now, but may be enabled again in the future.
 
 If you'd like to check a build plan, or perform an entire build, without
 specially configuring your system, Docker may be a good approach. To check if

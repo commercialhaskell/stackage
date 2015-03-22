@@ -19,7 +19,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y cabal-install-1.20 ghc-7.8
 ENV PATH /home/stackage/.cabal/bin:/usr/local/sbin:/usr/local/bin:/opt/ghc/7.8.4/bin:/opt/cabal/1.20/bin:/opt/alex/3.1.3/bin:/opt/happy/1.19.4/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 RUN cabal update
-ADD . /tmp/stackage
-RUN cd /tmp/stackage && cabal install . hscolour cabal-install --constraint "Cabal < 1.22" && cp $HOME/.cabal/bin/* /usr/local/bin && rm -rf $HOME/.cabal $HOME/.ghc /tmp/stackage
+RUN cabal install hscolour cabal-install --constraint "Cabal < 1.22" && cp $HOME/.cabal/bin/* /usr/local/bin && rm -rf $HOME/.cabal $HOME/.ghc /tmp/stackage
+RUN wget https://s3.amazonaws.com/stackage-travis/stackage-curator.bz2 && bunzip2 stackage-curator.bz2 && chmod +x stackage-curator && mv stackage-curator /usr/local/bin
 
-RUN cd /home/stackage && cabal update && stackage check
+RUN cd /home/stackage && cabal update && stackage-curator check
