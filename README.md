@@ -43,6 +43,21 @@ dependencies, you may send a pull request without testing first.
 You should also read the [maintainers
 agreement](https://github.com/fpco/stackage/wiki/Maintainers-Agreement).
 
+Package Author Guidelines
+-------------------------
+
+There are some basic rules to get your package to play nice with Stackage. Here
+are some quick guidelines to hopefully make this easier:
+
+* Make sure that your code is buildability and testable from Hackage. Often
+  times, authors test their builds locally, but the tarball that gets uploaded
+  to Hackage is missing some necessary files.
+* Make your code compatible with the newest versions of all dependencies.
+* Make your code compatible with the versions of libraries that ship with GHC ([more information on lenient lower bounds](https://www.fpcomplete.com/blog/2014/05/lenient-lower-bounds)).
+
+There are certainly many other tips that could be added here. If you think of
+any, please send a pull request!
+
 Build the package set
 ---------------------
 
