@@ -51,7 +51,9 @@ are some quick guidelines to hopefully make this easier:
 
 * Make sure that your code is buildability and testable from Hackage. Often
   times, authors test their builds locally, but the tarball that gets uploaded
-  to Hackage is missing some necessary files.
+  to Hackage is missing some necessary files. The best way to do this is to
+  set up a Travis job to do it for you. We recommend the
+  [multi-ghc-travis](https://github.com/hvr/multi-ghc-travis) approach.
 * Make your code compatible with the newest versions of all dependencies.
 * Make your code compatible with the versions of libraries that ship with GHC ([more information on lenient lower bounds](https://www.fpcomplete.com/blog/2014/05/lenient-lower-bounds)).
 
