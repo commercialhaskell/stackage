@@ -20,6 +20,6 @@ ENV PATH /home/stackage/.cabal/bin:/usr/local/sbin:/usr/local/bin:/opt/ghc/7.8.4
 
 RUN cabal update
 RUN cabal install hscolour cabal-install --constraint "Cabal < 1.22" && cp $HOME/.cabal/bin/* /usr/local/bin && rm -rf $HOME/.cabal $HOME/.ghc /tmp/stackage
-RUN wget https://s3.amazonaws.com/stackage-travis/stackage-curator.bz2 && bunzip2 stackage-curator.bz2 && chmod +x stackage-curator && mv stackage-curator /usr/local/bin
+RUN wget https://s3.amazonaws.com/stackage-travis/stackage-curator/stackage-curator.bz2 && bunzip2 stackage-curator.bz2 && chmod +x stackage-curator && mv stackage-curator /usr/local/bin
 
 RUN cd /home/stackage && cabal update && stackage-curator check

@@ -122,9 +122,7 @@ packages:
         - kure
 
     "Omari Norman <omari@smileystation.com>":
-        - barecheck
         - rainbow
-        - quickpull
         - multiarg
         - prednote
         - cartel
@@ -322,10 +320,13 @@ packages:
         #- BlogLiterately
         #- BlogLiterately-diagrams
         - diagrams
-        - diagrams-builder
+
+        # https://github.com/fpco/stackage/issues/443
+        #- diagrams-builder
+        #- diagrams-haddock
+
         - diagrams-contrib
         - diagrams-core
-        - diagrams-haddock
         - diagrams-lib
         - diagrams-postscript
         - diagrams-svg
@@ -373,10 +374,12 @@ packages:
         - tardis
         - lens-family-th
 
-    "Daniel Díaz <dhelta.diaz@gmail.com>":
+    "Daniel Díaz dhelta.diaz@gmail.com @Daniel-Diaz":
         - HaTeX
         - matrix
         - binary-list
+        - haskintex
+        - post-mess-age
 
     "Gabriel Gonzalez <Gabriel439@gmail.com>":
         - pipes
@@ -480,8 +483,7 @@ packages:
         - openpgp-asciiarmor
         - MusicBrainz
         - DAV
-        # https://github.com/fpco/stackage/issues/463
-        #- hopenpgp-tools
+        - hopenpgp-tools
 
     # https://github.com/fpco/stackage/issues/160
     "Ketil Malde":
@@ -629,10 +631,11 @@ packages:
     "Joey Eremondi <joey@eremondi.com>":
         - aeson-pretty
         - digest
-        - elm-build-lib
-        - elm-compiler
+        # See: https://github.com/elm-lang/elm-compiler/commit/e714001a928b3834b62555fc350909c95d380ef4
+        #- elm-build-lib
+        #- elm-compiler
         - elm-core-sources
-        - elm-package
+        #- elm-package
         - language-glsl
         - prettyclass
         - QuasiText
@@ -741,25 +744,81 @@ packages:
 
     "Oleg Grenrus oleg.grenrus@iki.fi @phadej":
         - waitra
-    
+
     "Adam C. Foltzer acfoltzer@galois.com @acfoltzer":
+        - cryptol
         - gitrev
 
     "Luke Taylor tekul.hs@gmail.com @tekul":
         - jose-jwt
 
+    "Brendan Hay brendan.g.hay@gmail.com @brendanhay":
+        - amazonka
+        - amazonka-core
+        - amazonka-autoscaling
+        - amazonka-cloudformation
+        - amazonka-cloudfront
+        - amazonka-cloudhsm
+        - amazonka-cloudsearch-domains
+        - amazonka-cloudsearch
+        - amazonka-cloudtrail
+        - amazonka-cloudwatch-logs
+        - amazonka-cloudwatch
+        - amazonka-codedeploy
+        - amazonka-cognito-identity
+        - amazonka-cognito-sync
+        - amazonka-config
+        - amazonka-datapipeline
+        - amazonka-directconnect
+        - amazonka-dynamodb
+        - amazonka-ec2
+        - amazonka-ecs
+        - amazonka-elasticache
+        - amazonka-elasticbeanstalk
+        - amazonka-elastictranscoder
+        - amazonka-elb
+        - amazonka-emr
+        - amazonka-glacier
+        - amazonka-iam
+        - amazonka-importexport
+        - amazonka-kinesis
+        - amazonka-kms
+        - amazonka-lambda
+        - amazonka-opsworks
+        - amazonka-rds
+        - amazonka-redshift
+        - amazonka-route53-domains
+        - amazonka-route53
+        - amazonka-s3
+        - amazonka-sdb
+        - amazonka-ses
+        - amazonka-sns
+        - amazonka-sqs
+        - amazonka-ssm
+        - amazonka-storagegateway
+        - amazonka-sts
+        - amazonka-support
+        - amazonka-swf
+        - ede
+        - pagerduty
+        - semver
+        - text-manipulate
+
+    "Nick Partridge nkpart@gmail.com @nkpart":
+        - cabal-file-th
+
+    "Gershom Bazerman <gershomb@gmail.com> @gbaz":
+        - jmacro
+        - jmacro-rpc
+        - jmacro-rpc-happstack
+        - jmacro-rpc-snap
+        - mbox
+        - kmeans
+        - boolsimplifier
+        - cubicspline
+        - maximal-cliques
+
     "Stackage upper bounds":
-
-        # https://github.com/fpco/stackage/issues/390
-        # NOTE: When this issue is resolved, remove the expected test failure
-        # for language-ecmascript as well.
-        - language-ecmascript < 0.17
-
-        # https://github.com/fpco/stackage/issues/407
-        - HStringTemplate < 0.8
-
-        # https://github.com/fpco/stackage/issues/410
-        - elm-package < 0.4
 
         # https://github.com/fpco/stackage/issues/415
         - hackage-db < 1.12
@@ -767,27 +826,12 @@ packages:
         # https://github.com/fpco/stackage/issues/424
         - control-monad-free < 0.6
 
-        # https://github.com/fpco/stackage/issues/426
-        - utf8-string < 1
-
-        # https://github.com/fpco/stackage/issues/440
-        - th-orphans < 0.9
-        - file-location < 0.4.7
-        - th-desugar < 1.5.1
-        - singletons < 1.1.1
-
         # https://github.com/fpco/stackage/issues/442
         - blaze-builder < 0.4
+
+        # https://github.com/fpco/stackage/issues/487
         - blaze-markup < 0.7
         - blaze-html < 0.8
-
-        # https://github.com/fpco/stackage/issues/443
-        - exceptions < 0.7
-        - rest-client < 0.5
-        - rest-types < 1.13
-        - rest-core < 0.35
-        - rest-gen < 0.17
-        - rest-wai < 0.1.0.7
 
         # https://github.com/fpco/stackage/issues/467
         - lens < 4.8
@@ -804,8 +848,8 @@ packages:
         # https://github.com/fpco/stackage/issues/483
         - rethinkdb-client-driver < 0.0.15
 
-        # https://github.com/fpco/stackage/issues/485
-        - parsec < 3.1.9
+        # https://github.com/fpco/stackage/issues/494
+        - criterion < 1.1
 
 # Package flags are applied to individual packages, and override the values of
 # global-flags
@@ -1032,9 +1076,6 @@ expected-test-failures:
     # https://github.com/vincenthz/hs-crypto-pubkey/issues/17
     - crypto-pubkey
 
-    # https://github.com/jswebtools/language-ecmascript/issues/60
-    - language-ecmascript
-
     # https://github.com/kazu-yamamoto/unix-time/issues/29
     - unix-time
 
@@ -1124,6 +1165,9 @@ skipped-benchmarks:
 
     # sometimes falls out-of-sync on hasql-postgres
     - hasql
+
+    # https://github.com/fpco/stackage/issues/488
+    - uuid-types
 
 skipped-profiling:
     # https://github.com/nomeata/ghc-heap-view/commit/8d198eb8fbbad2ce0c4527c781659f35b8909c04#diff-8288955e209cfbead5b318a8598be9c0R10
