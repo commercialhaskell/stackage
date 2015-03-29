@@ -67,12 +67,13 @@ packages:
         - csv-conduit
         - diagrams-cairo
         - dimensional
+        - executable-hash
         - executable-path
         - fgl
         - fixed-list
         - foreign-store
         - formatting
-        - fpco-api
+        #- fpco-api
         - gtk2hs-buildtools
         - happy
         - histogram-fill
@@ -92,6 +93,8 @@ packages:
         - shelly
         - smtLib
         - stackage
+        - stackage-curator
+        - stackage-types
         - statistics-linreg
         - th-expand-syns
         - thyme
@@ -119,10 +122,10 @@ packages:
         - kure
 
     "Omari Norman <omari@smileystation.com>":
-        - barecheck
         - rainbow
-        - rainbow-tests
-        - quickpull
+        - multiarg
+        - prednote
+        - cartel
 
     "Neil Mitchell":
         - hlint
@@ -150,6 +153,7 @@ packages:
     "Jasper Van der Jeugt":
         - blaze-html
         - blaze-markup
+        - hakyll
         - stylish-haskell
 
     "Antoine Latter":
@@ -181,7 +185,6 @@ packages:
         - crypto-random-api
         - hit
         - language-java
-        - language-java
         - libgit
         - pem
         - siphash
@@ -208,15 +211,17 @@ packages:
         - scrobble
         - shell-conduit
         - sourcemap
+        - hindent
+        - descriptive
+        - wrap
         # requires old haddock currently - haskell-docs
-        # TODO: Add hindent and structured-haskell-mode once they've been ported to HSE 1.16.
+        # TODO: Add structured-haskell-mode once they've been ported to HSE 1.16.
 
-    # GHC 7.6
-    # "Alberto G. Corona <agocorona@gmail.com>":
-    #    - RefSerialize
-    #    - TCache
-    #    - Workflow
-    #    - MFlow
+    "Alberto G. Corona <agocorona@gmail.com>":
+        - RefSerialize
+        - TCache
+        - Workflow
+        - MFlow
 
     "Edward Kmett <ekmett@gmail.com>":
         - ad
@@ -311,13 +316,17 @@ packages:
 
     "Brent Yorgey <byorgey@gmail.com>":
         - active
-        - BlogLiterately
-        - BlogLiterately-diagrams
+        # Temporarily disabled due to restrictive lens upper bound
+        #- BlogLiterately
+        #- BlogLiterately-diagrams
         - diagrams
-        - diagrams-builder
+
+        # https://github.com/fpco/stackage/issues/443
+        #- diagrams-builder
+        #- diagrams-haddock
+
         - diagrams-contrib
         - diagrams-core
-        - diagrams-haddock
         - diagrams-lib
         - diagrams-postscript
         - diagrams-svg
@@ -332,6 +341,8 @@ packages:
         - JuicyPixels
         - FontyFruity
         - Rasterific
+        - svg-tree
+        - rasterific-svg
 
     "Patrick Brisbin":
         - gravatar
@@ -363,15 +374,20 @@ packages:
         - tardis
         - lens-family-th
 
-    "Daniel Díaz <dhelta.diaz@gmail.com>":
+    "Daniel Díaz dhelta.diaz@gmail.com @Daniel-Diaz":
         - HaTeX
         - matrix
         - binary-list
+        - haskintex
+        - post-mess-age
+        - include-file
 
     "Gabriel Gonzalez <Gabriel439@gmail.com>":
         - pipes
         - pipes-parse
         - pipes-concurrency
+        - pipes-safe
+        - turtle
 
     "Chris Allen <cma@bitemyapp.com>":
         - bloodhound
@@ -383,8 +399,11 @@ packages:
         - fay-jquery
         - fay-text
         - fay-uri
-        - fclabels
         - snaplet-fay
+
+    "Sebastiaan Visser <haskell@fvisser.nl>":
+        - clay
+        - fclabels
 
     "Rodrigo Setti <rodrigosetti@gmail.com>":
         - messagepack
@@ -418,10 +437,7 @@ packages:
         - amqp
         - curl
         - generics-sop
-
-        # https://github.com/fpco/stackage/issues/341
-        - haskell-names < 0.5
-
+        - haskell-names
         - haskell-packages
         - heredoc
         - hse-cpp
@@ -455,6 +471,8 @@ packages:
         - circle-packing
         - arbtt
         - ghc-heap-view
+        - tttool
+        - gipeda
 
     "Aditya Bhargava <adit@adit.io":
         - HandsomeSoup
@@ -494,8 +512,8 @@ packages:
         - code-builder
         - fay-builder
         - generic-aeson
+        - generic-xmlpickler
         - hxt-pickle-utils
-        - imagesize-conduit
         - imagesize-conduit
         - json-schema
         - multipart
@@ -509,8 +527,6 @@ packages:
         - rest-types
         - rest-wai
         - tostring
-        - tostring
-        - uri-encode
         - uri-encode
 
     "Simon Michael <simon@joyful.com>":
@@ -520,7 +536,10 @@ packages:
         - io-manager
 
     "Dimitri Sabadie <dimitri.sabadie@gmail.com":
+        # https://github.com/fpco/stackage/pull/461#issuecomment-76914158
+        # - al
         - monad-journal
+        - smoothie
 
     "Thomas Schilling <nominolo@googlemail.com>":
         - ghc-syb-utils
@@ -565,6 +584,7 @@ packages:
         - haddock-api
         - here
         - hlibgit2
+        - gitlib-libgit2
         - hostname-validate
         - interpolatedstring-perl6
         - iproute
@@ -603,14 +623,18 @@ packages:
        - Spock
        - Spock-digestive
        - Spock-worker
+       - users
+       - users-test
+       - users-postgresql-simple
 
     "Joey Eremondi <joey@eremondi.com>":
         - aeson-pretty
         - digest
-        - elm-build-lib
-        - elm-compiler
+        # See: https://github.com/elm-lang/elm-compiler/commit/e714001a928b3834b62555fc350909c95d380ef4
+        #- elm-build-lib
+        #- elm-compiler
         - elm-core-sources
-        - elm-package
+        #- elm-package
         - language-glsl
         - prettyclass
         - QuasiText
@@ -631,6 +655,11 @@ packages:
 
     "Samplecount stefan@samplecount.com @kaoskorobase":
         - shake-language-c
+
+    "Marcin Mrotek <marcin.jan.mrotek@gmail.com>":
+        - diagrams-hsqml
+        - type-list
+        - vinyl-utils
 
     "Marcin Mrotek <marcin.jan.mrotek@gmail.com>":
         - type-list
@@ -672,48 +701,169 @@ packages:
     "Jens Petersen juhpetersen@gmail.com @juhp":
         - cabal-rpm
 
+    "Renzo Carbonara renzocarbonara@gmail.com @k0001":
+        - network-simple
+        - pipes-aeson
+        - pipes-attoparsec
+        - pipes-binary
+        - pipes-network
+
+    "Tomas Carnecky":
+        - rethinkdb-client-driver
+
+    "Alexandr Kurilin alex@kurilin.net @alex_kurilin":
+        - bcrypt
+
+    "Jeffrey Rosenbluth jeffrey.rosenbluth@gmail.com":
+        - palette
+        - diagrams-canvas
+        - diagrams-rasterific
+        - lucid-svg
+
+    "Gabríel Arthúr Pétursson gabriel@system.is":
+        - sdl2
+
+    "Leon Mergen leon@solatis.com @solatis":
+        - network-attoparsec
+        - network-anonymous-i2p
+
+    "Timothy Jones git@zmthy.io @zmthy":
+        - cabal-test-quickcheck
+        - http-media
+
+    "Greg V greg@unrelenting.technology @myfreeweb":
+        - gitson
+        - pcre-heavy
+
+    "Francesco Mazzoli f@mazzo.li @bitonic":
+        - language-c-quote
+
+    "Sönke Hahn soenkehahn@gmail.com @soenkehahn":
+        - string-conversions
+
+    "Oleg Grenrus oleg.grenrus@iki.fi @phadej":
+        - waitra
+
+    "Adam C. Foltzer acfoltzer@galois.com @acfoltzer":
+        - cryptol
+        - gitrev
+
+    "Luke Taylor tekul.hs@gmail.com @tekul":
+        - jose-jwt
+
+    "Brendan Hay brendan.g.hay@gmail.com @brendanhay":
+        - amazonka
+        - amazonka-core
+        - amazonka-autoscaling
+        - amazonka-cloudformation
+        - amazonka-cloudfront
+        - amazonka-cloudhsm
+        - amazonka-cloudsearch-domains
+        - amazonka-cloudsearch
+        - amazonka-cloudtrail
+        - amazonka-cloudwatch-logs
+        - amazonka-cloudwatch
+        - amazonka-codedeploy
+        - amazonka-cognito-identity
+        - amazonka-cognito-sync
+        - amazonka-config
+        - amazonka-datapipeline
+        - amazonka-directconnect
+        - amazonka-dynamodb
+        - amazonka-ec2
+        - amazonka-ecs
+        - amazonka-elasticache
+        - amazonka-elasticbeanstalk
+        - amazonka-elastictranscoder
+        - amazonka-elb
+        - amazonka-emr
+        - amazonka-glacier
+        - amazonka-iam
+        - amazonka-importexport
+        - amazonka-kinesis
+        - amazonka-kms
+        - amazonka-lambda
+        - amazonka-opsworks
+        - amazonka-rds
+        - amazonka-redshift
+        - amazonka-route53-domains
+        - amazonka-route53
+        - amazonka-s3
+        - amazonka-sdb
+        - amazonka-ses
+        - amazonka-sns
+        - amazonka-sqs
+        - amazonka-ssm
+        - amazonka-storagegateway
+        - amazonka-sts
+        - amazonka-support
+        - amazonka-swf
+        - ede
+        - pagerduty
+        - semver
+        - text-manipulate
+
+    "Nick Partridge nkpart@gmail.com @nkpart":
+        - cabal-file-th
+
+    "Gershom Bazerman <gershomb@gmail.com> @gbaz":
+        - jmacro
+        - jmacro-rpc
+        - jmacro-rpc-happstack
+        - jmacro-rpc-snap
+        - mbox
+        - kmeans
+        - boolsimplifier
+        - cubicspline
+        - maximal-cliques
+
+    "Alexander Bondarenko <aenor.realm@gmail.com> @wiz":
+        - soap
+        - soap-tls
+        - soap-openssl
+
     "Stackage upper bounds":
+        # GHC 7.8 uppdate bound
+        - haddock-api < 2.16
+        - haddock-library < 1.2
+        - hdocs < 0.4.2
 
         # Force a specific version that's compatible with transformers 0.3
-        - transformers-compat == 0.3.3.3
-
-        # https://github.com/fpco/stackage/issues/291
-        - random < 1.0.1.3
-
-        # https://github.com/fpco/stackage/issues/370
-        - monad-control < 1
-        - lifted-async < 0.3
-        - scotty < 0.9.1
-        - hoauth2 < 0.4.4
-
-        # https://github.com/fpco/stackage/issues/389
-        - lens < 4.7
-
-        # https://github.com/fpco/stackage/issues/390
-        # NOTE: When this issue is resolved, remove the expected test failure
-        # for language-ecmascript as well.
-        - language-ecmascript < 0.17
-
-        # https://github.com/fpco/stackage/issues/398
-        - monoid-subclasses < 0.4
-
-        # https://github.com/fpco/stackage/issues/401
-        - happstack-server < 7.4
-
-        # https://github.com/fpco/stackage/issues/402
-        - vector-space < 0.9
-
-        # https://github.com/fpco/stackage/issues/407
-        - HStringTemplate < 0.8
-
-        # https://github.com/fpco/stackage/issues/410
-        - elm-package < 0.4
-
-        # https://github.com/fpco/lts-haskell/issues/5
-        - ChasingBottoms < 1.3.0.10 || > 1.3.0.10
+        - transformers-compat == 0.4.0.3
 
         # https://github.com/fpco/stackage/issues/415
         - hackage-db < 1.12
+
+        # https://github.com/fpco/stackage/issues/442
+        - blaze-builder < 0.4
+
+        # https://github.com/fpco/stackage/issues/487
+        - blaze-markup < 0.7
+        - blaze-html < 0.8
+
+        # https://github.com/fpco/stackage/issues/467
+        - lens < 4.8
+
+        # https://github.com/fpco/stackage/issues/476
+        - vector-space < 0.10
+
+        # https://github.com/fpco/stackage/issues/479
+        - QuickCheck < 2.8
+
+        # https://github.com/fpco/stackage/issues/483
+        - rethinkdb-client-driver < 0.0.15
+
+        # https://github.com/fpco/stackage/issues/494
+        - criterion < 1.1
+
+        # https://github.com/fpco/stackage/issues/497
+        - primitive < 0.6
+
+        # https://github.com/jgm/pandoc/issues/2036
+        - highlighting-kate < 0.5.13
+
+        # https://github.com/bos/mwc-random/issues/45
+        - mwc-random < 0.13.3.1
 
 # Package flags are applied to individual packages, and override the values of
 # global-flags
@@ -747,6 +897,10 @@ package-flags:
     # GHC 7.10 remove
     aeson:
         old-locale: true
+    tttool:
+        old-locale: true
+    amazonka-core:
+        old-locale: true
 
     hxt:
         network-uri: true
@@ -760,6 +914,17 @@ package-flags:
 
     text:
         integer-simple: false
+
+    tar:
+        old-time: false
+
+    mtl-compat:
+        two-point-one: true
+        two-point-two: false
+
+    # https://github.com/fpco/stackage/pull/482#issuecomment-83635207
+    jose-jwt:
+        doctest: false
 
 # By skipping a test suite, we do not pull in the build dependencies
 skipped-tests:
@@ -888,9 +1053,6 @@ expected-test-failures:
     # https://github.com/BioHaskell/octree/issues/4
     - Octree
 
-    # https://github.com/goldfirere/th-desugar/issues/12
-    - th-desugar
-
     # https://github.com/jmillikin/haskell-filesystem/issues/3
     - system-filepath
 
@@ -942,9 +1104,6 @@ expected-test-failures:
     # https://github.com/vincenthz/hs-crypto-pubkey/issues/17
     - crypto-pubkey
 
-    # https://github.com/jswebtools/language-ecmascript/issues/60
-    - language-ecmascript
-
     # https://github.com/kazu-yamamoto/unix-time/issues/29
     - unix-time
 
@@ -957,19 +1116,60 @@ expected-test-failures:
     # https://github.com/bos/wreq/issues/53
     - wreq
 
-    # https://github.com/vincenthz/tasty-kat/issues/1
-    - tasty-kat
+    # Requires local database running
+    - rethinkdb-client-driver
+
+    # https://github.com/haskell-distributed/distributed-process-execution/issues/2
+    - distributed-process-execution
+
+    # Seems to depend on mtl being installed in user package database, which
+    # isn't always the case (e.g., build server)
+    - happy
+
+    # https://github.com/jberryman/directory-tree/issues/4
+    - directory-tree
+
+    # https://github.com/zmthy/http-media/issues/11
+    - http-media
+
+    # https://github.com/ekmett/semigroupoids/issues/18
+    - semigroupoids
+
+    # https://github.com/ndmitchell/hoogle/issues/101
+    - hoogle
+
+    # https://github.com/myfreeweb/gitson/issues/1
+    - gitson
+
+    # https://github.com/jcristovao/enclosed-exceptions/issues/6
+    - enclosed-exceptions
+
+    # Expects a running PostgreSQL server
+    - users-postgresql-simple
+
+    # Problems with linking with system libraries on Ubuntu 12.04
+    - nettle
+
+    # Requires locally running services
+    - network-anonymous-i2p
+
+    # Tests not reliable on non-Windows systems
+    - nsis
 
 # Haddocks which are expected to fail. Same concept as expected test failures.
 expected-haddock-failures:
     # https://github.com/acw/bytestring-progress/issues/4
     - bytestring-progress
 
-    # https://github.com/ekmett/gl/issues/4
-    - gl
-
     # https://github.com/leventov/yarr/issues/5
     - yarr
+
+    # https://github.com/wereHamster/rethinkdb-client-driver/issues/1
+    - rethinkdb-client-driver
+
+    # Requires build before haddock, which doesn't always happen in incremental
+    # builds. Could consider special-casing this requirement.
+    - gtk
 
 # Benchmarks which should not be built. Note that Stackage does *not* generally
 # build benchmarks. The difference here will be whether dependencies for these
@@ -997,7 +1197,12 @@ skipped-benchmarks:
     # sometimes falls out-of-sync on hasql-postgres
     - hasql
 
-skipped-profiling: []
+    # https://github.com/fpco/stackage/issues/488
+    - uuid-types
+
+skipped-profiling:
+    # https://github.com/nomeata/ghc-heap-view/commit/8d198eb8fbbad2ce0c4527c781659f35b8909c04#diff-8288955e209cfbead5b318a8598be9c0R10
+    - ghc-heap-view
 
 # Mapping from Github account holding a package to the Github users who should
 # be pinged on failure. If no value is specified here, then the owning account
