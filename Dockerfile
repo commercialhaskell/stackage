@@ -14,7 +14,7 @@ ADD debian-bootstrap.sh /tmp/debian-bootstrap.sh
 RUN DEBIAN_FRONTEND=noninteractive bash /tmp/debian-bootstrap.sh
 RUN rm /tmp/debian-bootstrap.sh
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y cabal-install-1.20 ghc-7.8.4 alex-3.1.3 happy-1.19.4
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y cabal-install-1.20 ghc-7.8.4 alex-3.1.3 happy-1.19.4 sudo
 
 ENV PATH /home/stackage/.cabal/bin:/usr/local/sbin:/usr/local/bin:/opt/ghc/7.8.4/bin:/opt/cabal/1.20/bin:/opt/alex/3.1.3/bin:/opt/happy/1.19.4/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
