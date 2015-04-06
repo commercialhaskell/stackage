@@ -10,9 +10,6 @@
 # instructions, see:
 #    http://www.stackage.org/install
 
-add-apt-repository -y ppa:chris-lea/zeromq
-add-apt-repository -y ppa:floe/libtisch
-add-apt-repository -y ppa:zoogie/sdl2-snapshots
 apt-get update
 apt-get install -y \
     build-essential \
@@ -21,7 +18,6 @@ apt-get install -y \
     wget \
     m4 \
     texlive-full \
-    libgmp3c2 \
     libgmp3-dev \
     zlib1g-dev \
     libedit2 \
