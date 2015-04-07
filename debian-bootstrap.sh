@@ -10,6 +10,8 @@
 # instructions, see:
 #    http://www.stackage.org/install
 
+add-apt-repository -y ppa:zoogie/sdl2-snapshots
+
 apt-get update
 apt-get install -y \
     build-essential \
