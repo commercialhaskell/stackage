@@ -19,7 +19,6 @@ packages:
         - persistent-postgresql
         - persistent-sqlite
         - persistent-template
-        - process-conduit
         - random-shuffle
         - sphinx
         - stm-conduit
@@ -50,6 +49,7 @@ packages:
         - lzma-conduit
         - mutable-containers
         - hpc-coveralls
+        - monad-unlift
 
     "FP Complete michael@fpcomplete.com @snoyberg":
         - alex
@@ -120,6 +120,15 @@ packages:
         - distributed-process-execution
 
         - kure
+
+        - ide-backend
+        - ide-backend-server
+        - ide-backend-rts
+
+        - hackage-mirror
+        - wai-middleware-consul
+        - monad-logger-json
+        - monad-logger-syslog
 
     "Omari Norman <omari@smileystation.com>":
         - rainbow
@@ -217,12 +226,11 @@ packages:
         # requires old haddock currently - haskell-docs
         # TODO: Add structured-haskell-mode once they've been ported to HSE 1.16.
 
-    # GHC 7.6
-    # "Alberto G. Corona <agocorona@gmail.com>":
-    #    - RefSerialize
-    #    - TCache
-    #    - Workflow
-    #    - MFlow
+    "Alberto G. Corona <agocorona@gmail.com>":
+        - RefSerialize
+        - TCache
+        - Workflow
+        - MFlow
 
     "Edward Kmett <ekmett@gmail.com>":
         - ad
@@ -291,9 +299,8 @@ packages:
         - gl
         - lens-aeson
         - zlib-lens
-        # Temporary upper bound for some of the above packages
-        - generic-deriving < 1.7
-        # hyperloglog
+        - generic-deriving
+        - hyperloglog
 
     "Andrew Farmer <afarmer@ittc.ku.edu>":
         - scotty
@@ -313,6 +320,7 @@ packages:
         - monad-coroutine
         - incremental-parser
         - monoid-subclasses
+        - picoparsec
 
     "Brent Yorgey <byorgey@gmail.com>":
         - active
@@ -380,12 +388,15 @@ packages:
         - binary-list
         - haskintex
         - post-mess-age
+        - include-file
 
     "Gabriel Gonzalez <Gabriel439@gmail.com>":
         - pipes
         - pipes-parse
         - pipes-concurrency
         - pipes-safe
+        - turtle
+        - foldl
 
     "Chris Allen <cma@bitemyapp.com>":
         - bloodhound
@@ -434,11 +445,7 @@ packages:
         - action-permutations
         - amqp
         - curl
-        - generics-sop
-
-        # https://github.com/fpco/stackage/issues/341
-        - haskell-names < 0.5
-
+        - haskell-names
         - haskell-packages
         - heredoc
         - hse-cpp
@@ -474,6 +481,8 @@ packages:
         - ghc-heap-view
         - tttool
         - gipeda
+        - list-fusion-probe
+        - haskell-spacegoo
 
     "Aditya Bhargava <adit@adit.io":
         - HandsomeSoup
@@ -532,6 +541,8 @@ packages:
 
     "Simon Michael <simon@joyful.com>":
         - hledger
+        - shelltestrunner
+        - hledger-web
 
     "Mihai Maruseac <mihai.maruseac@gmail.com>":
         - io-manager
@@ -684,7 +695,8 @@ packages:
         - unbound-generics
 
     "Alois Cochard alois.cochard@gmail.com @aloiscochard":
-        - codex
+        # https://github.com/fpco/stackage/issues/415
+        # - codex
         - machines-directory
         - machines-io
         - machines-process
@@ -743,6 +755,8 @@ packages:
         - string-conversions
 
     "Oleg Grenrus oleg.grenrus@iki.fi @phadej":
+        - edit-distance
+        - lattices
         - waitra
 
     "Adam C. Foltzer acfoltzer@galois.com @acfoltzer":
@@ -818,38 +832,75 @@ packages:
         - cubicspline
         - maximal-cliques
 
+    "Alexander Bondarenko <aenor.realm@gmail.com> @wiz":
+        - soap
+        - soap-tls
+        - soap-openssl
+
+    "Andres Löh <andres@well-typed.com> @kosmikus":
+        - generics-sop
+
+    "Vivian McPhail <haskell.vivian.mcphail@gmail.com>":
+        - hmatrix-gsl-stats
+        - hstatistics
+        - hsignal
+        - plot
+        - plot-gtk
+        - plot-gtk3
+        - vector-buffer
+        - hmatrix-repa
+        
+    "Noam Lewis <jones.noamle@gmail.com> @sinelaw":
+        - xml-to-json
+        - xml-to-json-fast
+    
+    "Tim Baumann <tim@timbaumann.info> @timjb":
+        - aeson-schema
+
+    "David Fox <dsf@seereason.com> @ddssff":
+        - debian
+        - cabal-debian
+
+    "Stefan Saasen <stefan@saasen.me>":
+        - jwt
+        
+    "Sven Bartscher sven.bartscher@weltraumschlangen.de @kritzefitz":
+        - setlocale
+
     "Stackage upper bounds":
-
-        # https://github.com/fpco/stackage/issues/415
-        - hackage-db < 1.12
-
-        # https://github.com/fpco/stackage/issues/424
-        - control-monad-free < 0.6
-
-        # https://github.com/fpco/stackage/issues/442
-        - blaze-builder < 0.4
-
-        # https://github.com/fpco/stackage/issues/487
-        - blaze-markup < 0.7
-        - blaze-html < 0.8
-
         # https://github.com/fpco/stackage/issues/467
         - lens < 4.8
 
         # https://github.com/fpco/stackage/issues/476
         - vector-space < 0.10
 
-        # https://github.com/ekmett/linear/issues/70
-        - linear < 1.18
-
         # https://github.com/fpco/stackage/issues/479
         - QuickCheck < 2.8
+        - cabal-test-quickcheck < 0.1.5
 
-        # https://github.com/fpco/stackage/issues/483
-        - rethinkdb-client-driver < 0.0.15
+        # https://github.com/jgm/pandoc/issues/2036
+        - highlighting-kate < 0.5.13
 
-        # https://github.com/fpco/stackage/issues/494
-        - criterion < 1.1
+        # https://github.com/fpco/stackage/issues/509
+        - srcloc < 0.5
+
+        # https://github.com/fpco/stackage/issues/515
+        - exception-transformers < 0.4
+        - exception-mtl < 0.4
+
+        # https://github.com/fpco/stackage/issues/517
+        - generic-deriving < 1.7
+
+        # https://github.com/fpco/stackage/issues/524
+        - repa < 3.4
+        - repa-algorithms < 3.4
+        - repa-io < 3.4
+
+        # https://github.com/Happstack/happstack-server/issues/6
+        - happstack-server < 7.4.3
+
+        # https://github.com/fpco/stackage/issues/531
+        - sbv < 4.3
 
 # Package flags are applied to individual packages, and override the values of
 # global-flags
@@ -883,6 +934,7 @@ package-flags:
 
     pandoc:
         https: true
+        old-locale: false
 
     text:
         integer-simple: false
@@ -897,6 +949,12 @@ package-flags:
     # https://github.com/fpco/stackage/pull/482#issuecomment-83635207
     jose-jwt:
         doctest: false
+
+    time-locale-compat:
+        old-locale: false
+
+    HsOpenSSL:
+        fast-bignum: false
 
 # By skipping a test suite, we do not pull in the build dependencies
 skipped-tests:
@@ -1125,6 +1183,15 @@ expected-test-failures:
     # Requires locally running services
     - network-anonymous-i2p
 
+    # Tests not reliable on non-Windows systems
+    - nsis
+
+    # Just a temporary package with a flimsy, inherited test suite
+    - Cabal-ide-backend
+
+    # Requires running server
+    - consul-haskell
+
 # Haddocks which are expected to fail. Same concept as expected test failures.
 expected-haddock-failures:
     # https://github.com/acw/bytestring-progress/issues/4
@@ -1139,6 +1206,9 @@ expected-haddock-failures:
     # Requires build before haddock, which doesn't always happen in incremental
     # builds. Could consider special-casing this requirement.
     - gtk
+
+    # Not sure why, but it's a temporary package anyway
+    - Cabal-ide-backend
 
 # Benchmarks which should not be built. Note that Stackage does *not* generally
 # build benchmarks. The difference here will be whether dependencies for these
@@ -1166,8 +1236,10 @@ skipped-benchmarks:
     # sometimes falls out-of-sync on hasql-postgres
     - hasql
 
-    # https://github.com/fpco/stackage/issues/488
-    - uuid-types
+    # https://github.com/fpco/stackage/issues/494
+    - case-insensitive
+    - postgresql-binary
+    - scientific
 
 skipped-profiling:
     # https://github.com/nomeata/ghc-heap-view/commit/8d198eb8fbbad2ce0c4527c781659f35b8909c04#diff-8288955e209cfbead5b318a8598be9c0R10
