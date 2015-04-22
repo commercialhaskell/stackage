@@ -7,7 +7,7 @@ RUN mkdir /home/stackage -p
 RUN locale-gen en_US.UTF-8
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common python-software-properties
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common python-software-properties git
 RUN DEBIAN_FRONTEND=noninteractive add-apt-repository ppa:hvr/ghc -y
 
 ADD debian-bootstrap.sh /tmp/debian-bootstrap.sh
