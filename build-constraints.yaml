@@ -108,7 +108,8 @@ packages:
         - statistics-linreg
         - th-expand-syns
         - thyme
-        - webdriver
+        # https://github.com/kallisti-dev/hs-webdriver/issues/71
+        # - webdriver
         - web-fpco
         - criterion
         - th-lift
@@ -303,7 +304,8 @@ packages:
         - semigroupoids
         - semigroups
         - speculation
-        - streams
+        # https://github.com/ekmett/streams/issues/11
+        # - streams GHC 7.10
         - tagged
         - vector-instances
         - void
@@ -1068,7 +1070,6 @@ skipped-tests:
     - Cabal-ide-backend
 
     # QuickCheck 2.8
-    - ChasingBottoms
     - bson
     - cabal-install
     - exceptions
@@ -1076,7 +1077,6 @@ skipped-tests:
     - pandoc
     - testpack
     - vector
-    - unordered-containers
 
 # Tests which we should build and run, but which are expected to fail. We
 # should not fail a build based on a test failure for one of these packages.
@@ -1276,14 +1276,14 @@ expected-test-failures:
     # https://github.com/simonmar/alex/issues/62 GHC 7.10
     - alex
 
-    # https://github.com/hspec/nanospec/issues/2 GHC 7.10
-    - nanospec
-
     # https://github.com/mvoidex/hdocs/issues/5 GHC 7.10
     - hdocs
 
     # https://github.com/kazu-yamamoto/http-date/issues/6 GHC 7.10
     - http-date
+
+    # https://github.com/haskell-suite/haskell-names/issues/63
+    - haskell-names
 
 # Haddocks which are expected to fail. Same concept as expected test failures.
 expected-haddock-failures:
