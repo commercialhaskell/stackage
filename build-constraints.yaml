@@ -439,7 +439,8 @@ packages:
 
     "Boris Lykah <lykahb@gmail.com>":
         - groundhog
-        - groundhog-th
+        # https://github.com/lykahb/groundhog/issues/38 GHC 7.10
+        # - groundhog-th
         - groundhog-sqlite
         - groundhog-postgresql
         - groundhog-mysql
@@ -1299,6 +1300,7 @@ expected-haddock-failures:
     # Requires build before haddock, which doesn't always happen in incremental
     # builds. Could consider special-casing this requirement.
     - gtk
+    - gtk3
 
     # Not sure why, but it's a temporary package anyway
     - Cabal-ide-backend
