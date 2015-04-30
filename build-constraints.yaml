@@ -43,7 +43,7 @@ packages:
         - repa-io
         - repa-algorithms
         - repa-devil
-        - JuicyPixels-repa
+        #- JuicyPixels-repa GHC 7.10
         - cereal-conduit
         - binary-conduit
         - lzma-conduit
@@ -209,7 +209,8 @@ packages:
         - tls
         - tls-debug
         - vhd
-        - udbus
+        # https://github.com/vincenthz/hs-udbus/issues/4
+        # - udbus GHC 7.10
         - xenstore
 
     "Chris Done":
@@ -1259,6 +1260,12 @@ expected-test-failures:
     - hedis
     - redis-io
 
+    # https://code.google.com/p/scrapyourboilerplate/issues/detail?id=26&thanks=26&ts=1430372304, GHC 7.10
+    - syb
+
+    # https://github.com/lymar/hastache/issues/47 GHC 7.10
+    - hastache
+
 # Haddocks which are expected to fail. Same concept as expected test failures.
 expected-haddock-failures:
     # https://github.com/acw/bytestring-progress/issues/4
@@ -1276,6 +1283,9 @@ expected-haddock-failures:
 
     # Not sure why, but it's a temporary package anyway
     - Cabal-ide-backend
+
+    # https://github.com/goldfirere/singletons/issues/120
+    - singletons
 
 # Benchmarks which should not be built. Note that Stackage does *not* generally
 # build benchmarks. The difference here will be whether dependencies for these
