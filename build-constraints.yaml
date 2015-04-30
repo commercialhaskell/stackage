@@ -84,7 +84,8 @@ packages:
         - hmatrix-gsl
         - hxt
         - hxt-relaxng
-        - hybrid-vectors
+        # https://github.com/ekmett/hybrid-vectors/issues/1
+        # - hybrid-vectors GHC 7.10
         - indents
         - language-c
         - lhs2tex
@@ -446,7 +447,8 @@ packages:
         - Octree
         - FenwickTree
         - hPDB
-        - hPDB-examples
+        # https://github.com/BioHaskell/hPDB-examples/issues/1
+        #- hPDB-examples GHC 7.10
 
         - wordpass
         - json-autotype
@@ -693,7 +695,9 @@ packages:
         - product-profunctors
 
     "Samplecount stefan@samplecount.com @kaoskorobase":
-        - shake-language-c
+        []
+        # https://github.com/samplecount/shake-language-c/issues/25
+        # - shake-language-c GHC 7.10
 
     "Marcin Mrotek <marcin.jan.mrotek@gmail.com>":
         - diagrams-hsqml
@@ -860,10 +864,11 @@ packages:
         - cabal-file-th
 
     "Gershom Bazerman <gershomb@gmail.com> @gbaz":
-        - jmacro
-        - jmacro-rpc
-        - jmacro-rpc-happstack
-        - jmacro-rpc-snap
+        # http://hub.darcs.net/gershomb/jmacro/issue/1 GHC 7.10
+        #- jmacro
+        #- jmacro-rpc
+        #- jmacro-rpc-happstack
+        #- jmacro-rpc-snap
         - mbox
         - kmeans
         - boolsimplifier
@@ -944,9 +949,6 @@ packages:
 
         # https://github.com/fpco/stackage/issues/517
         - generic-deriving < 1.7
-
-        # https://github.com/Happstack/happstack-server/issues/6
-        - happstack-server < 7.4.3
 
         # https://github.com/fpco/stackage/issues/531
         - sbv < 4.3
@@ -1265,6 +1267,12 @@ expected-test-failures:
 
     # https://github.com/lymar/hastache/issues/47 GHC 7.10
     - hastache
+
+    # https://github.com/timjb/aeson-schema/issues/13 GHC 7.10
+    - aeson-schema
+
+    # https://github.com/simonmar/alex/issues/62 GHC 7.10
+    - alex
 
 # Haddocks which are expected to fail. Same concept as expected test failures.
 expected-haddock-failures:
