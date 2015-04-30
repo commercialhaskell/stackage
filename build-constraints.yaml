@@ -60,7 +60,9 @@ packages:
         - cairo
         - cassava
         - Chart
-        - Chart-diagrams
+
+        # https://github.com/fpco/stackage/issues/541
+        # - Chart-diagrams
         - compdata
         - configurator
         - convertible
@@ -95,6 +97,10 @@ packages:
         - stackage
         - stackage-curator
         - stackage-types
+        - stackage-update
+        - stackage-upload
+        - stackage-cli
+        - stackage-install
         - statistics-linreg
         - th-expand-syns
         - thyme
@@ -373,6 +379,7 @@ packages:
         - accelerate
 
     "Dan Burton <danburton.email@gmail.com>":
+        - yesod-gitrev
         - basic-prelude
         - composition
         - io-memoize
@@ -568,6 +575,15 @@ packages:
         - yesod-auth-hashdb
 
     "Toralf Wittner <tw@dtex.org>":
+        - bytestring-conversion
+        - cql
+        - cql-io
+        - redis-resp
+        - redis-io
+        - swagger
+        - tinylog
+        - wai-predicates
+        - wai-routing
         - zeromq4-haskell
 
     "trupill@gmail.com":
@@ -737,6 +753,12 @@ packages:
         - sdl2
 
     "Leon Mergen leon@solatis.com @solatis":
+        - base58string
+        - bitcoin-block
+        - bitcoin-script
+        - bitcoin-tx
+        - bitcoin-types
+        - hexstring
         - network-attoparsec
         - network-anonymous-i2p
 
@@ -762,6 +784,7 @@ packages:
     "Adam C. Foltzer acfoltzer@galois.com @acfoltzer":
         - cryptol
         - gitrev
+        - persistent-refs
 
     "Luke Taylor tekul.hs@gmail.com @tekul":
         - jose-jwt
@@ -798,6 +821,7 @@ packages:
         - amazonka-kinesis
         - amazonka-kms
         - amazonka-lambda
+        - amazonka-ml
         - amazonka-opsworks
         - amazonka-rds
         - amazonka-redshift
@@ -813,6 +837,7 @@ packages:
         - amazonka-sts
         - amazonka-support
         - amazonka-swf
+        - amazonka-workspaces
         - ede
         - pagerduty
         - semver
@@ -863,18 +888,41 @@ packages:
 
     "Stefan Saasen <stefan@saasen.me>":
         - jwt
+        
+    "Sven Bartscher sven.bartscher@weltraumschlangen.de @kritzefitz":
+        - setlocale
+
+    "Taylor Fausak <taylor@fausak.me> @tfausak":
+        - flow
+
+    "Marios Titas <redneb@gmx.com> @redneb":
+        - btrfs
+        - disk-free-space
+        - hxt-css
+        - islink
+        - linux-file-extents
+        - linux-namespaces
+        
+    "Will Coster <willcoster@gmail.com> @fimad":
+        - scalpel
+        
+    "Smirnov Alexey <chemistmail@gmail.com> @chemist":
+        - snmp
+        - agentx
+    
+    "David Raymond Christiansen <david@davidchristiansen.dk> @david-christiansen":
+        - annotated-wl-pprint
 
     "Stackage upper bounds":
         # GHC 7.8 uppdate bound
         - haddock-api < 2.16
         - haddock-library < 1.2
         - hdocs < 0.4.2
+        - haskell-packages < 0.3
+        - compdata < 0.10
 
         # Force a specific version that's compatible with transformers 0.3
         - transformers-compat == 0.4.0.3
-
-        # https://github.com/fpco/stackage/issues/467
-        - lens < 4.8
 
         # https://github.com/fpco/stackage/issues/476
         - vector-space < 0.10
@@ -904,8 +952,14 @@ packages:
         # https://github.com/Happstack/happstack-server/issues/6
         - happstack-server < 7.4.3
 
-        # https://github.com/mgajda/json-autotype/issues/5
-        - json-autotype < 0.4
+        # https://github.com/fpco/stackage/issues/531
+        - sbv < 4.3
+
+        # https://github.com/fpco/stackage/issues/537
+        - zlib < 0.6
+
+        # https://github.com/fpco/stackage/issues/549
+        - tttool < 1.4
 
 # Package flags are applied to individual packages, and override the values of
 # global-flags
@@ -975,6 +1029,13 @@ package-flags:
         pretty-new: false
     cabal-debian:
         pretty-112: false
+
+    hledger:
+        old-locale: true
+    hledger-lib:
+        old-locale: true
+    hledger-web:
+        old-locale: true
 
 # By skipping a test suite, we do not pull in the build dependencies
 skipped-tests:
@@ -1211,6 +1272,8 @@ expected-test-failures:
 
     # Requires running server
     - consul-haskell
+    - hedis
+    - redis-io
 
 # Haddocks which are expected to fail. Same concept as expected test failures.
 expected-haddock-failures:
@@ -1226,6 +1289,9 @@ expected-haddock-failures:
     # Requires build before haddock, which doesn't always happen in incremental
     # builds. Could consider special-casing this requirement.
     - gtk
+
+    # Not sure why, but it's a temporary package anyway
+    - Cabal-ide-backend
 
 # Benchmarks which should not be built. Note that Stackage does *not* generally
 # build benchmarks. The difference here will be whether dependencies for these
