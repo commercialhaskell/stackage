@@ -92,7 +92,8 @@ packages:
         - lhs2tex
         - persistent-mongoDB
         - pretty-class
-        - quandl-api
+        # https://github.com/pvdbrand/quandl-api/issues/2 GHC 7.10
+        #- quandl-api
         - random-fu
         - random-source
         - shelly
@@ -455,8 +456,7 @@ packages:
         - Octree
         - FenwickTree
         - hPDB
-        # https://github.com/BioHaskell/hPDB-examples/issues/1
-        #- hPDB-examples GHC 7.10
+        - hPDB-examples
 
         - wordpass
         - json-autotype
@@ -482,9 +482,8 @@ packages:
         - tasty-quickcheck
         - tasty-smallcheck
         - time-lens
-        # GHC 7.10
-        #- timezone-olson
-        #- timezone-series
+        - timezone-olson
+        - timezone-series
         - traverse-with-class
 
     "George Giorgidze <giorgidze@gmail.com>":
@@ -515,7 +514,7 @@ packages:
     "Clint Adams <clint@debian.org>":
         #- hOpenPGP GHC 7.10, via syb-with-class
         - openpgp-asciiarmor
-        - MusicBrainz
+        # - MusicBrainz GHC 7.10, time 1.5
         - DAV
         #- hopenpgp-tools GHC 7.10, via syb-with-class
 
@@ -1304,6 +1303,9 @@ expected-test-failures:
 
     # https://github.com/acid-state/safecopy/issues/25 GHC 7.10
     - safecopy
+
+    # https://github.com/ekmett/linear/issues/75 GHC 7.10
+    - linear
 
 # Haddocks which are expected to fail. Same concept as expected test failures.
 expected-haddock-failures:
