@@ -7,14 +7,14 @@ RUN mkdir /home/stackage -p
 RUN locale-gen en_US.UTF-8
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common python-software-properties
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common python-software-properties git
 RUN DEBIAN_FRONTEND=noninteractive add-apt-repository ppa:hvr/ghc -y
 
 ADD debian-bootstrap.sh /tmp/debian-bootstrap.sh
 RUN DEBIAN_FRONTEND=noninteractive bash /tmp/debian-bootstrap.sh
 RUN rm /tmp/debian-bootstrap.sh
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y cabal-install-1.20 ghc-7.8.4 alex-3.1.3 happy-1.19.4 sudo
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y cabal-install-1.20 ghc-7.8.4 ghc-7.8.4-htmldocs alex-3.1.3 happy-1.19.4 sudo
 
 ENV PATH /home/stackage/.cabal/bin:/usr/local/sbin:/usr/local/bin:/opt/ghc/7.8.4/bin:/opt/cabal/1.20/bin:/opt/alex/3.1.3/bin:/opt/happy/1.19.4/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
