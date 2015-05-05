@@ -2,7 +2,7 @@
 packages:
     "Michael Snoyman michael@snoyman.com @snoyberg":
         - bzlib-conduit
-        - cabal-install < 1.19 # GHC 7.10 bumpd to 1.22
+        - cabal-install
         - cabal-src
         - case-insensitive
         - classy-prelude-yesod
@@ -43,7 +43,7 @@ packages:
         - repa-io
         - repa-algorithms
         - repa-devil
-        - JuicyPixels-repa
+        #- JuicyPixels-repa GHC 7.10
         - cereal-conduit
         - binary-conduit
         - lzma-conduit
@@ -63,6 +63,7 @@ packages:
 
         # https://github.com/fpco/stackage/issues/541
         # - Chart-diagrams
+
         - compdata
         - configurator
         - convertible
@@ -72,7 +73,8 @@ packages:
         - executable-hash
         - executable-path
         - fgl
-        - fixed-list
+        # https://github.com/jvranish/FixedList/issues/1
+        #- fixed-list GHC 7.10
         - foreign-store
         - formatting
         #- fpco-api
@@ -83,13 +85,15 @@ packages:
         - hmatrix-gsl
         - hxt
         - hxt-relaxng
-        - hybrid-vectors
+        # https://github.com/ekmett/hybrid-vectors/issues/1
+        # - hybrid-vectors GHC 7.10
         - indents
         - language-c
         - lhs2tex
         - persistent-mongoDB
         - pretty-class
-        - quandl-api
+        # https://github.com/pvdbrand/quandl-api/issues/2 GHC 7.10
+        #- quandl-api
         - random-fu
         - random-source
         - shelly
@@ -105,7 +109,8 @@ packages:
         - statistics-linreg
         - th-expand-syns
         - thyme
-        - webdriver
+        # https://github.com/kallisti-dev/hs-webdriver/issues/71
+        # - webdriver
         - web-fpco
         - criterion
         - th-lift
@@ -113,18 +118,19 @@ packages:
         - th-desugar
         - quickcheck-assertions
 
-        - distributed-process-simplelocalnet
+        # Cloud Haskell not yet updated to GHC 7.10
+        #- distributed-process-simplelocalnet
         # cloud-haskell
-        - rank1dynamic
-        - distributed-static
+        #- rank1dynamic
+        #- distributed-static
         - network-transport
-        - distributed-process
-        - distributed-process-extras
-        - distributed-process-async
-        - distributed-process-client-server
-        - distributed-process-supervisor
-        - distributed-process-task
-        - distributed-process-execution
+        #- distributed-process
+        #- distributed-process-extras
+        #- distributed-process-async
+        #- distributed-process-client-server
+        #- distributed-process-supervisor
+        #- distributed-process-task
+        #- distributed-process-execution
 
         - kure
 
@@ -189,7 +195,6 @@ packages:
 
     "Vincent Hanquez":
         - bytedump
-        - certificate
         - cipher-aes
         - cipher-rc4
         - connection
@@ -201,14 +206,16 @@ packages:
         - crypto-random-api
         - hit
         - language-java
-        - libgit
+        # https://github.com/vincenthz/hs-libgit/issues/4
+        # - libgit GHC 7.10
         - pem
         - siphash
         - socks
         - tls
         - tls-debug
         - vhd
-        - udbus
+        # https://github.com/vincenthz/hs-udbus/issues/4
+        # - udbus GHC 7.10
         - xenstore
 
     "Chris Done":
@@ -222,9 +229,10 @@ packages:
         - lucid
         - osdkeys
         - pdfinfo
-        - present
+        #- present GHC 7.10, via atto-lisp
         - pure-io
-        - scrobble
+        # https://github.com/jgoerzen/testpack/issues/11
+        #- scrobble GHC 7.10, for QuickCheck 2.8 via testpack
         - shell-conduit
         - sourcemap
         - hindent
@@ -237,7 +245,8 @@ packages:
         - RefSerialize
         - TCache
         - Workflow
-        - MFlow
+        # https://github.com/agocorona/MFlow/issues/60 GHC 7.10
+        # - MFlow
 
     "Edward Kmett <ekmett@gmail.com>":
         - ad
@@ -251,7 +260,8 @@ packages:
         - comonad
         - comonads-fd
         - comonad-transformers
-        - compensated
+        # https://github.com/ekmett/compensated/issues/5
+        #- compensated GHC 7.10
         - compressed
         - concurrent-supply
         - constraints
@@ -259,7 +269,8 @@ packages:
         - distributive
         - either
         - eq
-        - ersatz
+        # https://github.com/ekmett/ersatz/issues/11 GHC 7.10
+        # - ersatz
         - exceptions
         - free
         - graphs
@@ -280,7 +291,7 @@ packages:
         - monad-products
         - monad-st
         - monad-st
-        - mtl < 2.2 # GHC 7.10 bump
+        - mtl
         - nats
         - numeric-extras
         - parsers
@@ -295,7 +306,8 @@ packages:
         - semigroupoids
         - semigroups
         - speculation
-        - streams
+        # https://github.com/ekmett/streams/issues/11
+        # - streams GHC 7.10
         - tagged
         - vector-instances
         - void
@@ -447,7 +459,8 @@ packages:
         - json-autotype
 
     "Dominic Steinitz <dominic@steinitz.org>":
-        - yarr
+        []
+        # - yarr GHC 7.10
 
     "Roman Cheplyaka <roma@ro-che.info>":
         - action-permutations
@@ -486,7 +499,7 @@ packages:
     "Joachim Breitner <mail@joachim-breitner.de>":
         - circle-packing
         - arbtt
-        - ghc-heap-view
+        # - ghc-heap-view GHC 7.10
         - tttool
         - gipeda
         - list-fusion-probe
@@ -496,18 +509,18 @@ packages:
         - HandsomeSoup
 
     "Clint Adams <clint@debian.org>":
-        - hOpenPGP
+        #- hOpenPGP GHC 7.10, via syb-with-class
         - openpgp-asciiarmor
-        - MusicBrainz
+        # - MusicBrainz GHC 7.10, time 1.5
         - DAV
-        - hopenpgp-tools
+        #- hopenpgp-tools GHC 7.10, via syb-with-class
 
     # https://github.com/fpco/stackage/issues/160
     "Ketil Malde":
         - biocore
         - biofasta
         - biofastq
-        - biosff
+        # - biosff GHC 7.10
         - blastxml
         - bioace
         - biophd < 0.0.6 || > 0.0.6
@@ -565,7 +578,8 @@ packages:
         - ghc-syb-utils
 
     "Boris Buliga <d12frosted@icloud.com>":
-        - ghc-mod
+        # https://github.com/kazu-yamamoto/ghc-mod/issues/437 GHC 7.10
+        # - ghc-mod
         - io-choice
         - system-canonicalpath
 
@@ -618,7 +632,8 @@ packages:
         - interpolatedstring-perl6
         - iproute
         - missing-foreign
-        - MissingH
+        # https://github.com/jgoerzen/testpack/issues/11
+        #- MissingH GHC 7.10, for QuickCheck 2.8 via testpack
         - multimap
         - parallel-io
         - text-binary
@@ -636,8 +651,8 @@ packages:
         - hasql-backend
         - hasql-postgres
         - list-t
-        - mtl-prelude < 2 # GHC 7.10 bump
-        - neat-interpolation
+        - mtl-prelude
+        #- neat-interpolation GHC 7.10
         - partial-handler
         - postgresql-binary
         - slave-thread
@@ -664,7 +679,8 @@ packages:
         #- elm-compiler
         - elm-core-sources
         #- elm-package
-        - language-glsl
+        # https://github.com/noteed/language-glsl/issues/11
+        #- language-glsl GHC 7.10
         - prettyclass
         - QuasiText
         - union-find
@@ -706,7 +722,8 @@ packages:
 
     "Alexandr Ruchkin voidex@live.com @mvoidex":
         - hdocs
-        - hsdev
+        # https://github.com/kazu-yamamoto/ghc-mod/issues/437 GHC 7.10
+        # - hsdev
 
     "Aleksey Kliger aleksey@lambdageek.org @lambdageek":
         - unbound-generics
@@ -714,11 +731,12 @@ packages:
     "Alois Cochard alois.cochard@gmail.com @aloiscochard":
         # https://github.com/fpco/stackage/issues/415
         # - codex
-        - machines-directory
+        #- machines-directory GHC 7.10
         - machines-io
         - machines-process
         # on behalf of Bryan O'Sullivan @bos
-        - wreq
+        # https://github.com/bos/wreq/issues/61
+        # - wreq GHC 7.10
 
     "Andraz Bajt andraz@bajt.me @edofic":
         - effect-handlers
@@ -746,7 +764,7 @@ packages:
 
     "Jeffrey Rosenbluth jeffrey.rosenbluth@gmail.com":
         - palette
-        - diagrams-canvas
+        #- diagrams-canvas GHC 7.10, via blank-canvas
         - diagrams-rasterific
         - lucid-svg
 
@@ -780,7 +798,7 @@ packages:
         - string-conversions
 
     "Oleg Grenrus oleg.grenrus@iki.fi @phadej":
-        - edit-distance
+        #- edit-distance GHC 7.10
         - lattices
         - waitra
 
@@ -850,10 +868,11 @@ packages:
         - cabal-file-th
 
     "Gershom Bazerman <gershomb@gmail.com> @gbaz":
-        - jmacro
-        - jmacro-rpc
-        - jmacro-rpc-happstack
-        - jmacro-rpc-snap
+        # http://hub.darcs.net/gershomb/jmacro/issue/1 GHC 7.10
+        #- jmacro
+        #- jmacro-rpc
+        #- jmacro-rpc-happstack
+        #- jmacro-rpc-snap
         - mbox
         - kmeans
         - boolsimplifier
@@ -861,9 +880,11 @@ packages:
         - maximal-cliques
 
     "Alexander Bondarenko <aenor.realm@gmail.com> @wiz":
-        - soap
-        - soap-tls
-        - soap-openssl
+        []
+        # GHC 7.10, via iconv
+        #- soap
+        #- soap-tls
+        #- soap-openssl
 
     "Andres Löh <andres@well-typed.com> @kosmikus":
         - generics-sop
@@ -928,23 +949,8 @@ packages:
         - aeson-better-errors
 
     "Stackage upper bounds":
-        # GHC 7.8 uppdate bound
-        - haddock-api < 2.16
-        - haddock-library < 1.2
-        - hdocs < 0.4.2
-        - haskell-packages < 0.3
-        - compdata < 0.10
-
-        # Force a specific version that's compatible with transformers 0.3
-        - transformers-compat == 0.4.0.3
-        - mtl-compat == 0.2.1.1
-
         # https://github.com/fpco/stackage/issues/476
         - vector-space < 0.10
-
-        # https://github.com/fpco/stackage/issues/479
-        - QuickCheck < 2.8
-        - cabal-test-quickcheck < 0.1.5
 
         # https://github.com/jgm/pandoc/issues/2036
         - highlighting-kate < 0.5.13
@@ -958,14 +964,6 @@ packages:
 
         # https://github.com/fpco/stackage/issues/517
         - generic-deriving < 1.7
-
-        # https://github.com/fpco/stackage/issues/524
-        - repa < 3.4
-        - repa-algorithms < 3.4
-        - repa-io < 3.4
-
-        # https://github.com/Happstack/happstack-server/issues/6
-        - happstack-server < 7.4.3
 
         # https://github.com/fpco/stackage/issues/537
         - zlib < 0.6
@@ -990,25 +988,11 @@ package-flags:
         simplelocalnet: true
         p2p: true
 
-    # GHC 7.10: Remove this
-    # Note that the flag is lower-cased, because that's what Cabal does
-    # Perhaps the codebase should automatically lower case flag names?
-    storable-complex:
-        instanceinbase: false
-
     logfloat:
         splitbase: true
 
     curl:
         new-base: true
-
-    # GHC 7.10 remove
-    aeson:
-        old-locale: true
-    tttool:
-        old-locale: true
-    amazonka-core:
-        old-locale: true
 
     hxt:
         network-uri: true
@@ -1019,6 +1003,7 @@ package-flags:
 
     pandoc:
         https: true
+        old-locale: false
 
     text:
         integer-simple: false
@@ -1027,27 +1012,21 @@ package-flags:
         old-time: false
 
     mtl-compat:
-        two-point-one: true
+        two-point-one: false
         two-point-two: false
 
     # https://github.com/fpco/stackage/pull/482#issuecomment-83635207
     jose-jwt:
         doctest: false
 
-    arbtt:
-        old-locale: true
+    time-locale-compat:
+        old-locale: false
 
-    debian:
-        pretty-new: false
-    cabal-debian:
-        pretty-112: false
+    HsOpenSSL:
+        fast-bignum: false
 
-    hledger:
-        old-locale: true
-    hledger-lib:
-        old-locale: true
-    hledger-web:
-        old-locale: true
+    cabal-rpm:
+        old-locale: false
 
 # By skipping a test suite, we do not pull in the build dependencies
 skipped-tests:
@@ -1097,6 +1076,19 @@ skipped-tests:
 
     # https://github.com/Soostone/retry/issues/18
     - retry
+
+    # Just a temporary package with a flimsy, inherited test suite
+    - Cabal-ide-backend
+
+    # QuickCheck 2.8
+    - bson
+    - cabal-install
+    - exceptions
+    - graphviz
+    - pandoc
+    - testpack
+    - vector
+    - Cabal
 
 # Tests which we should build and run, but which are expected to fail. We
 # should not fail a build based on a test failure for one of these packages.
@@ -1279,13 +1271,37 @@ expected-test-failures:
     # Tests not reliable on non-Windows systems
     - nsis
 
-    # Just a temporary package with a flimsy, inherited test suite
-    - Cabal-ide-backend
-
     # Requires running server
     - consul-haskell
     - hedis
     - redis-io
+
+    # https://code.google.com/p/scrapyourboilerplate/issues/detail?id=26&thanks=26&ts=1430372304, GHC 7.10
+    - syb
+
+    # https://github.com/lymar/hastache/issues/47 GHC 7.10
+    - hastache
+
+    # https://github.com/simonmar/alex/issues/62 GHC 7.10
+    - alex
+
+    # https://github.com/kazu-yamamoto/http-date/issues/6 GHC 7.10
+    - http-date
+
+    # https://github.com/haskell-suite/haskell-names/issues/63 GHC 7.10
+    - haskell-names
+
+    # https://github.com/bos/text/issues/118 GHC 7.10
+    - text
+
+    # https://github.com/ekmett/hyperloglog/issues/10 GHC 7.10
+    - hyperloglog
+
+    # https://github.com/acid-state/safecopy/issues/25 GHC 7.10
+    - safecopy
+
+    # https://github.com/ekmett/linear/issues/75 GHC 7.10
+    - linear
 
 # Haddocks which are expected to fail. Same concept as expected test failures.
 expected-haddock-failures:
@@ -1301,6 +1317,7 @@ expected-haddock-failures:
     # Requires build before haddock, which doesn't always happen in incremental
     # builds. Could consider special-casing this requirement.
     - gtk
+    - gtk3
 
     # Not sure why, but it's a temporary package anyway
     - Cabal-ide-backend

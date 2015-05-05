@@ -4,6 +4,7 @@ set -eux
 
 ROOT=$(cd $(dirname $0) ; pwd)
 TARGET=$1
+IMAGE=snoyberg/stackage:$(echo $TARGET | cut -d- -f 1)
 TROOT=$ROOT/$(echo $TARGET | cut -d. -f 1)
 PLAN_FILE=current-plan.yaml
 BUNDLE_FILE=current.bundle
@@ -68,6 +69,6 @@ ARGS_BUILD="$ARGS_COMMON -v $CABAL_DIR:/home/stackage/.cabal:ro -v $GHC_DIR:/hom
 ARGS_UPLOAD="$ARGS_COMMON -v $AUTH_TOKEN:/auth-token:ro -v $HACKAGE_CREDS:/hackage-creds:ro -v $CURATOR_DIR:/home/stackage/.stackage-curator -v $SSH_DIR:/home/ubuntu/.ssh:ro -v $GITCONFIG:/home/stackage/.gitconfig:ro"
 
 # Use cabal update first to initialize ~/.cabal.config, then use stackage-curator update to get it securely
-docker run $ARGS_PREBUILD snoyberg/stackage /bin/bash -c "cabal update && stackage-curator update && stackage-curator create-plan --plan-file $PLAN_FILE --target $TARGET ${CONSTRAINTS:-} && stackage-curator check --plan-file $PLAN_FILE && stackage-curator fetch --plan-file $PLAN_FILE && cabal install random cabal-install"
-docker run $ARGS_BUILD snoyberg/stackage stackage-curator make-bundle --plan-file $PLAN_FILE --bundle-file $BUNDLE_FILE --target $TARGET
-docker run $ARGS_UPLOAD snoyberg/stackage /bin/bash -c "stackage-curator upload --bundle-file $BUNDLE_FILE && stackage-curator hackage-distro --plan-file $PLAN_FILE --target $TARGET && stackage-curator upload-github --plan-file $PLAN_FILE --target $TARGET"
+docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "cabal update && stackage-curator update && stackage-curator create-plan --plan-file $PLAN_FILE --target $TARGET ${CONSTRAINTS:-} && stackage-curator check --plan-file $PLAN_FILE && stackage-curator fetch --plan-file $PLAN_FILE && cabal install random cabal-install"
+docker run $ARGS_BUILD $IMAGE stackage-curator make-bundle --plan-file $PLAN_FILE --bundle-file $BUNDLE_FILE --target $TARGET
+docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "stackage-curator upload --bundle-file $BUNDLE_FILE && stackage-curator hackage-distro --plan-file $PLAN_FILE --target $TARGET && stackage-curator upload-github --plan-file $PLAN_FILE --target $TARGET"
