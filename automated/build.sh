@@ -12,7 +12,7 @@ BUNDLE_FILE=current.bundle
 CABAL_DIR=$ROOT/cabal
 GHC_DIR=$ROOT/ghc
 CURATOR_DIR=$ROOT/stackage-curator
-UPDATE_DIR=$ROOT/stackage-update
+DOT_STACKAGE_DIR=$ROOT/dot-stackage
 WORKDIR=$TROOT/work
 SSH_DIR=$ROOT/ssh-$(echo $TARGET | cut -d- -f 1)
 
@@ -20,7 +20,7 @@ mkdir -p \
 	"$CABAL_DIR" \
 	"$GHC_DIR" \
 	"$CURATOR_DIR" \
-	"$UPDATE_DIR" \
+	"$DOT_STACKAGE_DIR" \
 	"$WORKDIR" \
 	"$SSH_DIR"
 
@@ -64,7 +64,7 @@ chmod +x stackage-curator
 )
 
 ARGS_COMMON="--rm -u $USER -v $WORKDIR:/home/stackage/work -w /home/stackage/work -v $BINDIR/stackage-curator:/usr/local/bin/stackage-curator:ro -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro"
-ARGS_PREBUILD="$ARGS_COMMON -v $CABAL_DIR:/home/stackage/.cabal -v $GHC_DIR:/home/stackage/.ghc -v $UPDATE_DIR:/home/stackage/.stackage-update"
+ARGS_PREBUILD="$ARGS_COMMON -v $CABAL_DIR:/home/stackage/.cabal -v $GHC_DIR:/home/stackage/.ghc -v $DOT_STACKAGE_DIR:/home/stackage/.stackage"
 ARGS_BUILD="$ARGS_COMMON -v $CABAL_DIR:/home/stackage/.cabal:ro -v $GHC_DIR:/home/stackage/.ghc:ro"
 ARGS_UPLOAD="$ARGS_COMMON -v $AUTH_TOKEN:/auth-token:ro -v $HACKAGE_CREDS:/hackage-creds:ro -v $CURATOR_DIR:/home/stackage/.stackage-curator -v $SSH_DIR:/home/ubuntu/.ssh:ro -v $GITCONFIG:/home/stackage/.gitconfig:ro"
 
