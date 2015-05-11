@@ -5,7 +5,14 @@ set -eux
 ROOT=$(cd $(dirname $0) ; pwd)
 TARGET=$1
 IMAGE=snoyberg/stackage:$(echo $TARGET | cut -d- -f 1)
-TROOT=$ROOT/$(echo $TARGET | cut -d. -f 1)
+
+if [ "$IMAGE" -eq "nightly"]
+then
+    TROOT=$ROOT/nightly
+else
+    TROOT=$ROOT/$(echo $TARGET | cut -d. -f 1)
+fi
+
 PLAN_FILE=current-plan.yaml
 BUNDLE_FILE=current.bundle
 
