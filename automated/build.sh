@@ -7,7 +7,7 @@ TARGET=$1
 TAG=$(echo $TARGET | cut -d- -f 1)
 IMAGE=snoyberg/stackage:$TAG
 
-if [ "$TAG" -eq "nightly"]
+if [ "$TAG" = "nightly" ]
 then
     TROOT=$ROOT/nightly
 else
