@@ -4,9 +4,10 @@ set -eux
 
 ROOT=$(cd $(dirname $0) ; pwd)
 TARGET=$1
-IMAGE=snoyberg/stackage:$(echo $TARGET | cut -d- -f 1)
+TAG=$(echo $TARGET | cut -d- -f 1)
+IMAGE=snoyberg/stackage:$TAG
 
-if [ "$IMAGE" -eq "nightly"]
+if [ "$TAG" -eq "nightly"]
 then
     TROOT=$ROOT/nightly
 else
