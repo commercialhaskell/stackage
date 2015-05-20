@@ -53,6 +53,7 @@ apt-get install -y \
     libxss-dev \
     libgtk-3-dev \
     libxml2-dev \
+    libgsasl7-dev \
     libzmq3-dev
 
 mkdir /tmp/nettle-build
