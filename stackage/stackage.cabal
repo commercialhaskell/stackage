@@ -1,0 +1,29 @@
+name:                stackage
+version:             0.7.3.2
+synopsis:            Dummy package forcing installation of other Stackage packages
+homepage:            https://www.stackage.org/
+license:             MIT
+license-file:        LICENSE
+author:              Michael Snoyman
+maintainer:          michael@snoyman.com
+category:            Development
+build-type:          Simple
+extra-source-files:  README.md ChangeLog.md
+cabal-version:       >=1.10
+
+library
+  exposed-modules:     Stackage.Dummy
+  build-depends:       base < 10
+                     , stackage-cli >= 0.1.0
+                     , stackage-update
+                     , stackage-upload
+                     , stackage-install
+                     , stackage-build-plan
+                     , stackage-cabal >= 0.1.1
+                     , stackage-sandbox >= 0.1.1
+                     , stackage-setup >= 0.0.1
+  default-language:    Haskell2010
+
+source-repository head
+  type:     git
+  location: git://github.com/fpco/stackage.git
