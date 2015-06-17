@@ -55,6 +55,7 @@ apt-get install -y \
     libxml2-dev \
     libgsasl7-dev \
     libphash0-dev \
+    libopenal-dev \
     libzmq3-dev
 
 mkdir /tmp/nettle-build
