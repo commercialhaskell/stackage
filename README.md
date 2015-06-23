@@ -18,6 +18,15 @@ project information. In addition, we have the following repositories:
 * [stackage-types](https://github.com/fpco/stackage-types) [![Build Status](https://travis-ci.org/fpco/stackage-types.svg?branch=master)](https://travis-ci.org/fpco/stackage-types)
 * [lts-haskell](https://github.com/fpco/lts-haskell)
 * [stackage-nightly](https://github.com/fpco/stackage-nightly)
+
+We strongly recommend using the Haskell tool stack for doing builds, which
+includes built-in Stackage support:
+
+* [stack](https://github.com/commercialhaskell/stack) [![Build Status](https://travis-ci.org/commercialhaskell/stack.svg?branch=master)](https://travis-ci.org/commercialhaskell/stack)
+
+We also support some add-on tools to cabal-install to make its usage with
+Stackage both easier and more secure:
+
 * [stackage-cli](https://github.com/fpco/stackage-cli) [![Build Status](https://travis-ci.org/fpco/stackage-cli.svg?branch=master)](https://travis-ci.org/fpco/stackage-cli)
 * [stackage-update](https://github.com/fpco/stackage-update) [![Build Status](https://travis-ci.org/fpco/stackage-update.svg?branch=master)](https://travis-ci.org/fpco/stackage-update)
 * [stackage-upload](https://github.com/fpco/stackage-upload) [![Build Status](https://travis-ci.org/fpco/stackage-upload.svg?branch=master)](https://travis-ci.org/fpco/stackage-upload)
