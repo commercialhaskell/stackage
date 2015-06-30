@@ -13,6 +13,7 @@ packages:
         - hebrew-time
         - keter
         - markdown
+        - mime-mail
         - mime-mail-ses
         - monadcryptorandom
         - network-conduit-tls
@@ -98,6 +99,7 @@ packages:
         - random-source
         - shelly
         - smtLib
+        - stack < 9.9.9
         - stackage
         # Temporary block while system-filepath issues worked out
         # - stackage-curator
@@ -114,8 +116,7 @@ packages:
         - statistics-linreg
         - th-expand-syns
         - thyme
-        # https://github.com/kallisti-dev/hs-webdriver/issues/71
-        # - webdriver
+        - webdriver
         - web-fpco
         - criterion
         - th-lift
@@ -257,7 +258,6 @@ packages:
         # - MFlow
 
     "Edward Kmett <ekmett@gmail.com>":
-        - algebra
         - ad
         - adjunctions
         - approximate
@@ -266,7 +266,7 @@ packages:
         - bound
         - bytes
         - charset
-        - comonad
+        - comonad > 4.2.7 || < 4.2.7
         - comonads-fd
         - comonad-transformers
         # https://github.com/ekmett/compensated/issues/5
@@ -353,13 +353,10 @@ packages:
     "Brent Yorgey <byorgey@gmail.com>":
         - active
         - BlogLiterately
-        # - BlogLiterately-diagrams GHC 7.10
+        - BlogLiterately-diagrams
         - diagrams
-
-        # https://github.com/fpco/stackage/issues/443
-        #- diagrams-builder
-        #- diagrams-haddock
-
+        - diagrams-builder
+        - diagrams-haddock
         - diagrams-contrib
         - diagrams-core
         - diagrams-lib
@@ -386,12 +383,25 @@ packages:
     "Paul Harper <benekastah@gmail.com>":
         - yesod-auth-oauth2
 
-    "Felipe Lessa <felipe.lessa@gmail.com>":
+    "Felipe Lessa <felipe.lessa@gmail.com> @meteficha":
+        - country-codes
         - esqueleto
         - fb
         - fb-persistent
+        - mangopay
+        - nonce
+        - serversession
+        - serversession-backend-acid-state
+        - serversession-backend-persistent
+        - serversession-backend-redis
+        - serversession-frontend-snap
+        # <https://github.com/singpolyma/wai-session/pull/7>
+        # - serversession-frontend-wai
+        - serversession-frontend-yesod
+        - thumbnail-plus
         - yesod-fb
         - yesod-auth-fb
+        - yesod-mangopay
 
     "Alexander Altman <alexanderaltman@me.com>":
         - base-unicode-symbols
@@ -428,6 +438,9 @@ packages:
         - turtle
         - foldl
 
+    "Arash Rouhani <miffoljud@gmail.com>":
+        - yesod-text-markdown
+
     "Chris Allen <cma@bitemyapp.com>":
         - bloodhound
 
@@ -461,7 +474,7 @@ packages:
     "Janne Hellsten <jjhellst@gmail.com>":
         - sqlite-simple
 
-    "Michal J. Gajda":
+    "Michal J. Gajda <maintainer@migamake.com>":
         - iterable
         - Octree
         - FenwickTree
@@ -470,6 +483,7 @@ packages:
 
         - wordpass
         - json-autotype
+        - posix-realtime
 
     "Dominic Steinitz <dominic@steinitz.org>":
         []
@@ -485,6 +499,7 @@ packages:
         - hse-cpp
         - immortal
         - regex-applicative
+        - lexer-applicative
         - smallcheck
         - tasty
         - tasty-golden
@@ -495,6 +510,7 @@ packages:
         - timezone-olson
         - timezone-series
         - traverse-with-class
+        - tuples-homogenous-h98
 
     "George Giorgidze <giorgidze@gmail.com>":
         - HCodecs
@@ -529,7 +545,9 @@ packages:
         #- hopenpgp-tools GHC 7.10, via syb-with-class
 
     "Joey Hess <id@joeyh.name>":
-        - git-annex
+        []
+        # https://github.com/fpco/stackage/issues/638
+        # - git-annex
 
     # https://github.com/fpco/stackage/issues/160
     "Ketil Malde":
@@ -585,10 +603,11 @@ packages:
         - io-manager
 
     "Dimitri Sabadie <dimitri.sabadie@gmail.com":
-        # https://github.com/fpco/stackage/pull/461#issuecomment-76914158
-        # - al
+        # - al --FIXME temporary, figure out why it's not working with stackage-build
         - monad-journal
         - smoothie
+        - hid
+        - msi-kb-backlit
 
     "Thomas Schilling <nominolo@googlemail.com>":
         - ghc-syb-utils
@@ -802,6 +821,7 @@ packages:
         - hexstring
         - network-attoparsec
         - network-anonymous-i2p
+        - network-anonymous-tor
 
     "Timothy Jones git@zmthy.io @zmthy":
         - http-media
@@ -922,6 +942,8 @@ packages:
     "Noam Lewis <jones.noamle@gmail.com> @sinelaw":
         - xml-to-json
         - xml-to-json-fast
+        - base-orphans
+        - digits
 
     "Tim Baumann <tim@timbaumann.info> @timjb":
         - aeson-schema
@@ -936,6 +958,9 @@ packages:
     "Sven Bartscher sven.bartscher@weltraumschlangen.de @kritzefitz":
         - setlocale
 
+    "John Chee <cheecheeo+stackage@gmail.com> @chee1bot":
+        - cgi
+
     "Taylor Fausak <taylor@fausak.me> @tfausak":
         - flow
 
@@ -948,7 +973,10 @@ packages:
         - linux-namespaces
 
     "Will Coster <willcoster@gmail.com> @fimad":
+        - prometheus-client
+        - prometheus-metrics-ghc
         - scalpel
+        - wai-middleware-prometheus
 
     "Smirnov Alexey <chemistmail@gmail.com> @chemist":
         - snmp
@@ -972,10 +1000,12 @@ packages:
         - tasty-hspec
 
     "Christiaan Baaij <christiaan.baaij@gmail.com> @christiaanb":
+        - ghc-tcplugins-extra
         - ghc-typelits-natnormalise
         - clash-prelude
         - clash-lib
         - clash-vhdl
+        - clash-verilog
         - clash-systemverilog
         - clash-ghc
 
@@ -985,6 +1015,10 @@ packages:
         - markup
         - webpage
         - composition-extra
+        - digestive-foundation-lucid
+        - ltext
+        - pred-trie
+        - poly-arity
 
     "Fumiaki Kinoshita <fumiexcel@gmail.com> @fumieval":
         - control-bool
@@ -1003,7 +1037,10 @@ packages:
 
     "Michael Thompson <what_is_it_to_do_anything@yahoo.com> @michaelt":
         - pipes-text
-    
+        - lens-simple
+        - lens-family-core
+        - lens-family
+
     "Justin Le <justin@jle.im> @mstksg":
         - auto
         - tagged-binary
@@ -1015,49 +1052,73 @@ packages:
         - flowdock
         - growler
         - engine-io-growler
-        # https://github.com/iand675/metrics/issues/2
-        # - metrics
+        - metrics
         - pipes-wai
         - serf
         - uri-templater
         - librato
-        
+
+    "Michael Xavier <michael@michaelxavier.net> @MichaelXavier":
+        - angel
+        - uri-bytestring
+        - phash
+        - cron
+
+    "Lars Kuhtz <lakuhtz@gmail.com> @larskuhtz":
+        - wai-cors
+
+    "Sam Rijs <srijs@airpost.net>":
+        - ndjson-conduit
+        - attoparsec-trans
+
+    "Anupam Jain <ajnsit@gmail.com>":
+        - wai-routes
+    "Daniel Patterson <dbp@dbpmail.net>":
+        - hspec-snap
+
+    "Mathieu Boespflug <mboes@tweag.net> @mboes":
+        - netwire
+        - th-lift
+
+    "Alcides Viamontes <a.viamontes.esquivel@gmail.com>":
+        - second-transfer
+
+    "Hirotomo Moriwaki <philopon.dependence@gmail.com> @philopon":
+        - apiary
+        - apiary-logger
+        - apiary-persistent
+        - apiary-websockets
+        - apiary-cookie
+        - apiary-session
+        - apiary-clientsession
+        - apiary-authenticate
+        - apiary-eventsource
+        - apiary-mongoDB
+        - apiary-memcached
+        - types-compat
+        - web-routing
+        - bytestring-read
+        - memcached-binary
+
+    "Kai Zhang <kai@kzhang.org> @kaizhang":
+        - clustering
+        - matrices
+
+    "Michel Boucey <michel.boucey@gmail.com> @MichelBoucey":
+        - IPv6Addr
+        - ip6addr
+        - cayley-client
+    
+    "koral koral@mailoo.org @k0ral":
+        - timerep
+
     "Stackage upper bounds":
-        # https://github.com/fpco/stackage/issues/476
-        - vector-space < 0.10
-
-        # https://github.com/fpco/stackage/issues/509
-        - srcloc < 0.5
-
-        # https://github.com/fpco/stackage/issues/515
-        - exception-transformers < 0.4
-        - exception-mtl < 0.4
-
-        # https://github.com/fpco/stackage/issues/517
-        - generic-deriving < 1.7
-
         # https://github.com/fpco/stackage/issues/537
         - zlib < 0.6
-
-        # https://github.com/fpco/stackage/issues/549
-        - tttool < 1.4
 
         # https://github.com/fpco/stackage/issues/572
         - attoparsec < 0.13
         - aeson < 0.8.1.0
-        - jose-jwt < 0.6
-
-        # https://github.com/fpco/stackage/issues/577
-        - MonadRandom < 0.4
-
-        # https://github.com/fpco/stackage/issues/579
-        - wai-app-static < 3.1
-        - yesod-static < 1.5
-        - keter < 1.4
-
-        # https://github.com/fpco/stackage/issues/581
-        - xml-conduit < 1.3
-        - html-conduit < 1.2
 
         # https://github.com/fpco/stackage/issues/588
         - semigroupoids < 4.5
@@ -1070,15 +1131,26 @@ packages:
         - machines < 0.5
         - free < 4.12
 
-        # https://github.com/fpco/stackage/issues/591
-        - th-orphans < 0.12
-
         # https://github.com/fpco/stackage/issues/602
         - errors < 2
 
-        # https://github.com/fpco/stackage/issues/607
-        - pandoc < 1.14
-        - highlighting-kate < 0.5.13
+        # https://github.com/fpco/stackage/issues/615
+        - syb < 0.5
+
+        # https://github.com/gtk2hs/gtk2hs/issues/109
+        - gtk < 0.13.8
+
+        # https://github.com/fpco/stackage/issues/639
+        - mainland-pretty < 0.3
+
+        # https://github.com/fpco/stackage/issues/646
+        - clock < 0.5
+
+        # https://github.com/fpco/stackage/issues/653
+        - base-orphans < 0.4
+
+        # https://github.com/fpco/stackage/issues/654
+        - generic-deriving < 1.8
 
 # Package flags are applied to individual packages, and override the values of
 # global-flags
@@ -1189,6 +1261,24 @@ skipped-tests:
     - vector
     - Cabal
     - MissingH
+
+    # Upper bound on src-log, see: https://github.com/fpco/stackage/issues/509
+    - language-c-quote
+
+    # https://github.com/fpco/stackage/issues/602
+    - aws
+
+    # https://github.com/fpco/stackage/issues/622
+    - ad
+    - bound
+    - heaps
+    - hyphenation
+    - linear
+    - machines
+    - semigroupoids
+
+    # https://github.com/kaizhang/clustering/issues/2
+    - clustering
 
 # Tests which we should build and run, but which are expected to fail. We
 # should not fail a build based on a test failure for one of these packages.
@@ -1379,9 +1469,6 @@ expected-test-failures:
     # https://github.com/simonmar/alex/issues/62 GHC 7.10
     - alex
 
-    # https://github.com/haskell-suite/haskell-names/issues/63 GHC 7.10
-    - haskell-names
-
     # https://github.com/ekmett/hyperloglog/issues/10 GHC 7.10
     - hyperloglog
 
@@ -1413,8 +1500,36 @@ expected-test-failures:
     # https://github.com/kazu-yamamoto/dns/issues/29
     - dns
 
-    # https://github.com/haskell-servant/servant/issues/98
-    - servant-client
+    # No PhantomJS available
+    - wai-cors
+
+    # Permissions failure when creating /home/stackage/.stack. We _should_ fix
+    # this in the build scripts here...
+    - stack
+
+    # https://github.com/kazu-yamamoto/http2/issues/4
+    - http2
+
+    # https://github.com/alcidesv/second-transfer/issues/1
+    - second-transfer
+
+    # https://github.com/prowdsponsor/mangopay/issues/30
+    - mangopay
+
+    # https://github.com/MichaelXavier/Angel/issues/43
+    - angel
+
+    # https://github.com/MichaelXavier/phash/issues/4
+    - phash
+
+    # Requires memcached on the server
+    - memcached-binary
+
+    # Requires redis on the build machine
+    - serversession-backend-redis
+
+    # Unstated dependency on HList-PP
+    - Rlang-QQ
 
 # Haddocks which are expected to fail. Same concept as expected test failures.
 expected-haddock-failures:
@@ -1466,6 +1581,15 @@ skipped-benchmarks:
     - postgresql-binary
     - scientific
 
+    # Pulls in discount which depends on extra C libraries
+    - cmark
+
+    # Old criterion
+    - acid-state
+
+    # https://github.com/kaizhang/clustering/issues/2
+    - clustering
+
 skipped-profiling:
     # https://github.com/nomeata/ghc-heap-view/commit/8d198eb8fbbad2ce0c4527c781659f35b8909c04#diff-8288955e209cfbead5b318a8598be9c0R10
     - ghc-heap-view
@@ -1494,3 +1618,5 @@ github-users:
         - mihaimaruseac
     elm-lang:
         - JoeyEremondi
+    prowdsponsor:
+        - meteficha
