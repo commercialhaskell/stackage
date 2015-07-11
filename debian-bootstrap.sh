@@ -57,7 +57,8 @@ apt-get install -y \
     libphash0-dev \
     libopenal-dev \
     libhidapi-dev \
-    libzmq3-dev
+    libzmq3-dev \
+    libpcap0.8-dev
 
 mkdir /tmp/nettle-build
 (
