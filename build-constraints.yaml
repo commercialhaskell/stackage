@@ -1162,9 +1162,25 @@ packages:
 
     "Index Int <vlad.z.4096@gmail.com>":
         - transformers-lift
+        - ether
 
     "Juan Pedro Villa Isaza jvilla@stackbuilders.com @jpvillaisaza":
         - inflections
+        - twitter-feed
+
+    "Sergey Alirzaev <zl29ah@gmail.com>":
+        - monad-peel
+        - Network-NineP
+
+    "Oliver Charles <ollie@ocharles.org.uk>":
+        - engine-io
+        - diff3
+        - digestive-functors-aeson
+        - exhaustive
+        # Needs pkg-config libsystemd
+        # - libsystemd-journal
+        - network-carbon
+        - socket-io
 
     "Scott Murphy scott.murphy@plowtech.net @smurphy8":
         - binary-search 
@@ -1178,9 +1194,6 @@ packages:
         - attoparsec < 0.13
         - aeson < 0.8.1.0
         - smoothie < 0.3.2
-
-        # https://github.com/fpco/stackage/issues/602
-        - errors < 2
 
         # https://github.com/gtk2hs/gtk2hs/issues/109
         - gtk < 0.13.8
@@ -1252,6 +1265,9 @@ package-flags:
 
     cabal-rpm:
         old-locale: false
+
+    NineP:
+        bytestring-in-base: false
 
 # By skipping a test suite, we do not pull in the build dependencies
 skipped-tests:
@@ -1587,6 +1603,12 @@ expected-test-failures:
 
     # https://github.com/rcallahan/xlsior/issues/1
     - xlsior
+
+    # https://github.com/stackbuilders/inflections-hs/issues/10
+    - inflections
+
+    # https://github.com/stackbuilders/twitter-feed/issues/12
+    - twitter-feed
 
 # Haddocks which are expected to fail. Same concept as expected test failures.
 expected-haddock-failures:
