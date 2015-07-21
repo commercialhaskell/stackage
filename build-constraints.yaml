@@ -150,6 +150,11 @@ packages:
         - monad-logger-json
         - monad-logger-syslog
 
+        - fsnotify
+        - hinotify
+        - hfsevents
+        - Win32-notify
+
     "Omari Norman <omari@smileystation.com>":
         - rainbow
         - rainbox
@@ -1272,6 +1277,12 @@ package-flags:
 
     NineP:
         bytestring-in-base: false
+
+# Used for packages that cannot be built on Linux
+skipped-builds:
+    - hfsevents
+    - Win32
+    - Win32-notify
 
 # By skipping a test suite, we do not pull in the build dependencies
 skipped-tests:
