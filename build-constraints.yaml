@@ -1662,7 +1662,8 @@ expected-haddock-failures:
     # Requires build before haddock, which doesn't always happen in incremental
     # builds. Could consider special-casing this requirement.
     - gtk
-    - gtk3
+    # https://github.com/fpco/stackage/issues/725
+    - gtk3 < 0.14
 
     # Not sure why, but it's a temporary package anyway
     - Cabal-ide-backend
