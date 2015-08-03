@@ -187,7 +187,8 @@ packages:
     "Jasper Van der Jeugt":
         - blaze-html
         - blaze-markup
-        - hakyll
+        # https://github.com/fpco/stackage/issues/710
+        - hakyll < 4.7.2.1
         - stylish-haskell
         - psqueues
         - websockets
@@ -552,7 +553,7 @@ packages:
         #- hopenpgp-tools GHC 7.10, via syb-with-class
 
     "Joey Hess <id@joeyh.name>":
-        - git-annex
+        - git-annex < 5.20150731
 
     # https://github.com/fpco/stackage/issues/160
     "Ketil Malde":
@@ -1226,6 +1227,14 @@ packages:
     "Andrés Sicard-Ramírez <asr@eafit.edu.co> @asr":
         - Agda
 
+    "James Cook <mokus@deepbondi.net> @mokus0":
+        - dependent-sum
+        - dependent-sum-template
+        - dependent-map
+        - dice
+        - hstatsd
+        - misfortune
+
     "Stackage upper bounds":
         # https://github.com/fpco/stackage/issues/537
         - zlib < 0.6
@@ -1641,6 +1650,9 @@ expected-test-failures:
 
     # https://github.com/kazu-yamamoto/logger/issues/42
     - wai-logger
+
+    # https://github.com/zalora/getopt-generics/issues/47
+    - getopt-generics
 
 # Haddocks which are expected to fail. Same concept as expected test failures.
 expected-haddock-failures:
