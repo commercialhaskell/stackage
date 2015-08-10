@@ -58,6 +58,7 @@ apt-get install -y \
     libopenal-dev \
     libhidapi-dev \
     libzmq3-dev \
+    libmagic-dev \
     libpcap0.8-dev
 
 mkdir /tmp/nettle-build
