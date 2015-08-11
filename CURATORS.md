@@ -52,6 +52,10 @@ docker rm $(docker ps -a -q)
 docker rmi $(docker images -q)
 ```
 
+You should also delete the cache directories on the stackage-build server to
+force all packages to be rebuilt. See: [issue
+#746](https://github.com/fpco/stackage/issues/746).
+
 ## stackage-build server
 
 You'll need to get your SSH public key added to the machine. ~/.ssh/config info:
