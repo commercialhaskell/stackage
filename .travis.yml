@@ -14,10 +14,10 @@ install:
 
  # Install GHC and cabal-install
  - ./stack setup 7.10
- - ./stack --resolver nightly-2015-08-12 build cabal-install
+ - ./stack --resolver ghc-7.10 build stackage-update
 
  # Update the index
- - travis_retry ./stack exec cabal update
+ - travis_retry ./stack exec stackage-update
 
 script:
  - ./stack --resolver 7.10 exec ./stackage-curator check
