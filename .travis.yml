@@ -17,10 +17,10 @@ install:
  - ./stack --resolver ghc-7.10 build stackage-update
 
  # Update the index
- - travis_retry ./stack exec stackage-update
+ - travis_retry ./stack --resolver ghc-7.10 exec stackage-update
 
 script:
- - ./stack --resolver 7.10 exec ./stackage-curator check
+ - ./stack --resolver ghc-7.10 exec ./stackage-curator check
 
 cache:
   directories:
