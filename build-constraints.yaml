@@ -231,6 +231,12 @@ packages:
         - vhd
         - xenstore
 
+    "Jonathan Daugherty <cygnus@foobox.com>":
+        - brick
+        - dbmigrations
+        - text-zipper
+        - vty
+
     "Chris Done":
         - ace
         - check-email
@@ -1296,6 +1302,9 @@ packages:
 # Package flags are applied to individual packages, and override the values of
 # global-flags
 package-flags:
+    brick:
+        demos: true
+
     mersenne-random-pure64:
         small_base: false
 
@@ -1351,6 +1360,7 @@ skipped-builds:
 
 # By skipping a test suite, we do not pull in the build dependencies
 skipped-tests:
+    - dbmigrations
     - ReadArgs # old version of hspec
     - ersatz # old QuickCheck
     - punycode # pulls in encoding
