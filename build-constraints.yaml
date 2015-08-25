@@ -247,7 +247,7 @@ packages:
         - lucid
         - osdkeys
         - pdfinfo
-        #- present GHC 7.10, via atto-lisp
+        #- present GHC 7.10, via https://github.com/nominolo/atto-lisp/issues/18
         - pure-io
         # https://github.com/jgoerzen/testpack/issues/11
         #- scrobble GHC 7.10, for QuickCheck 2.8 via testpack
@@ -499,7 +499,8 @@ packages:
 
     "Dominic Steinitz <dominic@steinitz.org>":
         []
-        # - yarr GHC 7.10
+        # GHC 7.10 https://github.com/leventov/yarr/pull/7
+        # - yarr
 
     "Roman Cheplyaka <roma@ro-che.info>":
         - action-permutations
@@ -560,7 +561,6 @@ packages:
     "Joey Hess <id@joeyh.name>":
         - git-annex < 5.20150731
 
-    # https://github.com/fpco/stackage/issues/160
     "Ketil Malde":
         - biocore
         - biofasta
@@ -569,8 +569,10 @@ packages:
         - blastxml
         - bioace
         # https://github.com/BioHaskell/biophd/issues/3
-        # - biophd
-        - biopsl # https://github.com/ingolia/SamTools/issues/3 samtools
+        - biophd < 0.0.5 || > 0.0.8
+        - biopsl
+        # https://github.com/ingolia/SamTools/issues/3
+        # - samtools
         - seqloc
         - bioalign
         - BlastHTTP
@@ -781,8 +783,7 @@ packages:
 
     "Alexandr Ruchkin voidex@live.com @mvoidex":
         - hdocs
-        # https://github.com/kazu-yamamoto/ghc-mod/issues/437 GHC 7.10
-        # - hsdev
+        - hsdev
 
     "Aleksey Kliger aleksey@lambdageek.org @lambdageek":
         - unbound-generics
@@ -959,11 +960,9 @@ packages:
         - maximal-cliques
 
     "Alexander Bondarenko <aenor.realm@gmail.com> @wiz":
-        []
-        # GHC 7.10, via iconv
-        #- soap
-        #- soap-tls
-        #- soap-openssl
+        - soap
+        - soap-tls
+        - soap-openssl
 
     "Andres Löh <andres@well-typed.com> @kosmikus":
         - generics-sop
@@ -1120,7 +1119,7 @@ packages:
         - nationstates
 
     "Mathieu Boespflug <mboes@tweag.net> @mboes":
-        # https://github.com/fpco/stackage/issues/590
+        # profunctors https://github.com/fpco/stackage/issues/590
         # netwire
         - th-lift
 
