@@ -60,6 +60,7 @@ apt-get install -y \
     libzmq3-dev \
     libmagic-dev \
     libudev-dev \
+    libfftw3-dev \
     libpcap0.8-dev
 
 mkdir /tmp/nettle-build
