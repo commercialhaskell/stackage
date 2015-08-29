@@ -73,7 +73,7 @@ chmod +x stackage-curator
 ARGS_COMMON="--rm -u $USER -v $WORKDIR:/home/stackage/work -w /home/stackage/work -v $BINDIR/stackage-curator:/usr/local/bin/stackage-curator:ro -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro"
 ARGS_PREBUILD="$ARGS_COMMON -v $CABAL_DIR:/home/stackage/.cabal -v $GHC_DIR:/home/stackage/.ghc -v $DOT_STACKAGE_DIR:/home/stackage/.stackage"
 ARGS_BUILD="$ARGS_COMMON -v $CABAL_DIR:/home/stackage/.cabal:ro -v $GHC_DIR:/home/stackage/.ghc:ro"
-ARGS_UPLOAD="$ARGS_COMMON -e AWS_ACCESS_KEY=$AWS_ACCESS_KEY -e AWS_SECRET_KEY=$AWS_SECRET_KEY -v $AUTH_TOKEN:/auth-token:ro -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:/home/stackage/.stackage -v $SSH_DIR:/home/ubuntu/.ssh:ro -v $GITCONFIG:/home/stackage/.gitconfig:ro -v $CABAL_DIR:/home/stackage/.cabal:ro"
+ARGS_UPLOAD="$ARGS_COMMON -e AWS_ACCESS_KEY=$AWS_ACCESS_KEY -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY -e AWS_SECRET_KEY=$AWS_SECRET_KEY -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_KEY -v $AUTH_TOKEN:/auth-token:ro -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:/home/stackage/.stackage -v $SSH_DIR:/home/ubuntu/.ssh:ro -v $GITCONFIG:/home/stackage/.gitconfig:ro -v $CABAL_DIR:/home/stackage/.cabal:ro"
 
 # Use cabal update first to initialize ~/.cabal.config, then use stackage-curator update to get it securely
 docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "stackage-curator check-target-available --target $TARGET"
