@@ -61,6 +61,7 @@ apt-get install -y \
     libmagic-dev \
     libudev-dev \
     libfftw3-dev \
+    libxau-dev \
     libpcap0.8-dev
 
 mkdir /tmp/nettle-build
