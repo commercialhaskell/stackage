@@ -53,8 +53,7 @@ docker rmi $(docker images -q)
 ```
 
 You should also delete the cache directories on the stackage-build server to
-force all packages to be rebuilt. See: [issue
-#746](https://github.com/fpco/stackage/issues/746).
+force all packages to be rebuilt. See: [issue#746](https://github.com/fpco/stackage/issues/746).
 
 ## stackage-build server
 
