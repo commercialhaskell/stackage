@@ -38,12 +38,20 @@ to refer to the issue for workarounds added to that file.
 * __Skipping tests and benchmarks__ If the upper bound is only in a test suite or benchmark, you can add the relevant package to skipped-tests or skipped-benchmarks. For example, if conduit had an upper bound on criterion for a benchmark, you could added conduit as a skipped benchmark.
 * __Excluding packages__ In an extreme case of a non-responsive maintainer, you can remove the package entirely from Stackage. We try to avoid that whenever possible
 
-## Upgrading GHC versions
+## Updating the content of the Docker image used for building
 
+### Adding Debian packages for required system tools or libraries
+Additional (non-Haskell) system libraries or tools should be added to `stackage/debian-bootstrap.sh`.
+Committing the changes should trigger a DOckerHub. Normally only the master branch needs to be updated
+since new packages are not added to the current lts release.
+
+### Upgrading GHC version
 The Dockerfile contains information on which GHC versions should be used. You
 can modify it and push it to Github to trigger a DockerHub build. The master
-branch is used for nightlies, and the lts branch for LTS. Once a new Docker
-image is available, you'll need to pull it onto the stackage-build server (see
+branch is used for nightlies, and the lts branch for LTS.
+
+### Getting the new image to the build server
+Once a new Docker image is available, you'll need to pull it onto the stackage-build server (see
 below). Instead of pulling an unbounded number of images, I typically just
 delete all of the old images and let the new ones get downloaded:
 
@@ -52,7 +60,7 @@ docker rm $(docker ps -a -q)
 docker rmi $(docker images -q)
 ```
 
-You should also delete the cache directories on the stackage-build server to
+For a new GHC version you should also delete the cache directories on the stackage-build server to
 force all packages to be rebuilt. See: [issue#746](https://github.com/fpco/stackage/issues/746).
 
 ## stackage-build server
