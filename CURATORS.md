@@ -42,7 +42,7 @@ to refer to the issue for workarounds added to that file.
 
 ### Adding Debian packages for required system tools or libraries
 Additional (non-Haskell) system libraries or tools should be added to `stackage/debian-bootstrap.sh`.
-Committing the changes should trigger a DOckerHub. Normally only the master branch needs to be updated
+Committing the changes should trigger a DockerHub. Normally only the master branch needs to be updated
 since new packages are not added to the current lts release.
 
 ### Upgrading GHC version
@@ -59,6 +59,8 @@ delete all of the old images and let the new ones get downloaded:
 docker rm $(docker ps -a -q)
 docker rmi $(docker images -q)
 ```
+
+but `docker pull snoyberg/stackage:nightly` can also be run instead just to update the nightly image say.
 
 For a new GHC version you should also delete the cache directories on the stackage-build server to
 force all packages to be rebuilt. See: [issue#746](https://github.com/fpco/stackage/issues/746).
