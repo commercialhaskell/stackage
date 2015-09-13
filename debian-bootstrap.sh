@@ -1,7 +1,7 @@
 #!/bin/bash -ex
 
 # Work in progress: create a list of commands necessary to get Stackage
-# up-and-running on a freshly installed Debian-based system (includin Ubuntu).
+# up-and-running on a freshly installed Debian-based system (including Ubuntu).
 
 # Quick start:
 # wget -O - https://raw.github.com/fpco/stackage/master/debian-bootstrap.sh | bash -ex
