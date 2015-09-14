@@ -72,7 +72,6 @@ packages:
         - dimensional
         - executable-hash
         - executable-path
-        - fgl
         - fixed-list
         - foreign-store
         - formatting
@@ -639,11 +638,13 @@ packages:
         - ghc-syb-utils
 
     "Boris Buliga <d12frosted@icloud.com>":
-        # https://github.com/kazu-yamamoto/ghc-mod/issues/437 GHC 7.10
-        # - ghc-mod
         - io-choice
         # https://github.com/d12frosted/CanonicalPath/issues/5
         # - system-canonicalpath
+
+    "Daniel Gröber <dxld@darkboxed.org>":
+        - ghc-mod
+        - cabal-helper == 0.5.3.0
 
     "Yann Esposito <yann.esposito@gmail.com>":
         - holy-project
@@ -698,7 +699,6 @@ packages:
         - multimap
         - parallel-io
         - text-binary
-        - wl-pprint-text
         - Chart-cairo
         - ghc-events
         - monad-extras
@@ -1016,6 +1016,8 @@ packages:
 
     "Mateusz Kowalczyk <fuuzetsu@fuuzetsu.co.uk> @Fuuzetsu":
         - aeson-schema
+        - inline-r
+        - H
 
     "David Fox <dsf@seereason.com> @ddssff":
         - debian
@@ -1366,8 +1368,7 @@ packages:
 
     "Dmitry Ivanov <ethercrow@gmail.com> @ethercrow":
         - charsetdetect-ae
-        # https://github.com/fpco/stackage/issues/794
-        # - docopt
+        - docopt
         - dynamic-state
         - dyre
         - io-storage
@@ -1388,7 +1389,7 @@ packages:
 
     "Spencer Janssen <spencerjanssen@gmail.com>":
         - Xauth
-    
+
     "Stefan Berthold":
         - smallcaps
 
@@ -1399,10 +1400,35 @@ packages:
 
     "Devan Stormont <stormont@gmail.com>":
         - forecast-io
-        
+
     "Sean Hunt <scshunt@csclub.uwaterloo.ca @scshunt":
         - cheapskate
-    
+
+    "Ivan Miljenovic <Ivan.Miljenovic@gmail.com> @ivan-m":
+        - fgl
+        - fgl-arbitrary
+        - graphviz
+        - wl-pprint-text
+
+    "Sharif Olorin <sio@tesser.org> @olorin":
+        - quickcheck-text
+        - nagios-check
+
+    "Peter Simons simons@cryp.to @peti":
+        - funcmp
+        - hackage-db
+        - hledger-interest
+        - hopenssl
+        - hsdns
+        - hsemail
+        - hsyslog
+        - language-nix
+        - nix-paths
+        - streamproc
+
+    "Christoph Hegemann <christoph.hegemann1337@gmail.com":
+        - psc-ide
+
     "Jinjing Wang <nfjinjing@gmail.com> @nfjinjing":
         - moesocks
 
@@ -1425,6 +1451,11 @@ packages:
 
         # 0.5.2.0 is deprecated
         # - cabal-helper < 0.5.2.0 || > 0.5.2.0
+
+        # https://github.com/fpco/stackage/issues/827
+        - semigroups < 0.17
+        - reducers < 3.12
+        - text-show < 2.1
 
 # Package flags are applied to individual packages, and override the values of
 # global-flags
@@ -1478,6 +1509,9 @@ package-flags:
 
     NineP:
         bytestring-in-base: false
+
+    nix-paths:
+        allow-relative-paths: true
 
 # Used for packages that cannot be built on Linux
 skipped-builds:
@@ -1542,7 +1576,6 @@ skipped-tests:
     - bson
     - cabal-install
     - exceptions
-    - graphviz
     - pandoc
     - testpack
     - vector
@@ -1632,9 +1665,6 @@ expected-test-failures:
     # https://github.com/fpco/stackage/issues/226
     - options
 
-    # Depends on a missing graphviz executable
-    - graphviz
-
     # No AWS creds available
     - aws
 
@@ -1650,7 +1680,6 @@ expected-test-failures:
     - webdriver-angular
 
     # Weird conflicts with sandboxing
-    - ghc-mod
     - ghcid
 
     # Requires locally running server
