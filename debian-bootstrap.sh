@@ -64,6 +64,7 @@ apt-get install -y \
     libxau-dev \
     nodejs \
     npm \
+    libadns1-dev \
     libpcap0.8-dev
 
 mkdir /tmp/nettle-build
