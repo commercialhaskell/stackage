@@ -65,6 +65,7 @@ apt-get install -y \
     nodejs \
     npm \
     libadns1-dev \
+    r-base-dev \
     libpcap0.8-dev
 
 mkdir /tmp/nettle-build
