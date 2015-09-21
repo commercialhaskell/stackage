@@ -11,6 +11,7 @@
 #    http://www.stackage.org/install
 
 add-apt-repository -y ppa:zoogie/sdl2-snapshots
+add-apt-repository -y ppa:marutter/rrutter
 
 apt-get update
 apt-get install -y \
@@ -65,6 +66,8 @@ apt-get install -y \
     nodejs \
     npm \
     libadns1-dev \
+    r-base \
+    r-base-dev \
     libpcap0.8-dev
 
 mkdir /tmp/nettle-build
