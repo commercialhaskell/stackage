@@ -12,6 +12,7 @@
 
 add-apt-repository -y ppa:zoogie/sdl2-snapshots
 add-apt-repository -y ppa:marutter/rrutter
+add-apt-repository -y ppa:openstack-ubuntu-testing/icehouse
 
 apt-get update
 apt-get install -y \
@@ -68,6 +69,8 @@ apt-get install -y \
     libadns1-dev \
     r-base \
     r-base-dev \
+    libleveldb-dev \
+    libsnappy-dev \
     libpcap0.8-dev
 
 mkdir /tmp/nettle-build
