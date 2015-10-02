@@ -21,3 +21,5 @@ ENV PATH /home/stackage/.cabal/bin:/usr/local/sbin:/usr/local/bin:/opt/ghc/7.10.
 RUN cabal update
 RUN cabal install hscolour cabal-install && cp $HOME/.cabal/bin/* /usr/local/bin && rm -rf $HOME/.cabal $HOME/.ghc /tmp/stackage
 RUN wget https://s3.amazonaws.com/stackage-travis/stackage-curator/stackage-curator.bz2 && bunzip2 stackage-curator.bz2 && chmod +x stackage-curator && mv stackage-curator /usr/local/bin
+# Get new hyperlinked Haddocks
+RUN wget https://s3.amazonaws.com/download.fpcomplete.com/michael/haddock-2015-10-02.bz2 && bunzip2 haddock-2015-10-02.bz2 && rm -f /opt/ghc/7.10.2/bin/haddock && mv haddock-2015-10-02 /opt/ghc/7.10.2/bin/haddock
