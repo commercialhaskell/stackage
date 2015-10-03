@@ -530,8 +530,7 @@ packages:
         - regex-applicative
         - lexer-applicative
         - smallcheck
-        # Upper bound per https://github.com/fpco/stackage/issues/817
-        - tasty < 0.11
+        - tasty
         - tasty-golden
         - tasty-hunit
         - tasty-quickcheck
@@ -1690,6 +1689,12 @@ skipped-tests:
 
     # https://github.com/fpco/stackage/issues/668
     - second-transfer
+
+    # Require old tasty.
+    # https://github.com/fpco/stackage/issues/817
+    - tar
+    - uuid
+    - uuid-types
 
 # Tests which we should build and run, but which are expected to fail. We
 # should not fail a build based on a test failure for one of these packages.
