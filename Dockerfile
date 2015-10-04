@@ -22,4 +22,4 @@ RUN cabal update
 RUN cabal install hscolour cabal-install && cp $HOME/.cabal/bin/* /usr/local/bin && rm -rf $HOME/.cabal $HOME/.ghc /tmp/stackage
 RUN wget https://s3.amazonaws.com/stackage-travis/stackage-curator/stackage-curator.bz2 && bunzip2 stackage-curator.bz2 && chmod +x stackage-curator && mv stackage-curator /usr/local/bin
 # Get new hyperlinked Haddocks
-#RUN wget https://s3.amazonaws.com/download.fpcomplete.com/michael/haddock-2015-10-02.bz2 && bunzip2 haddock-2015-10-02.bz2 && rm -f /opt/ghc/7.10.2/bin/haddock && mv haddock-2015-10-02 /opt/ghc/7.10.2/bin/haddock && chmod +x /opt/ghc/7.10.2/bin/haddock
+RUN mkdir -p /opt/haddock && cd /opt/haddock && wget https://s3.amazonaws.com/download.fpcomplete.com/michael/haddock-2.16.2.tar.gz && tar zxf haddock-2.16.2.tar.gz && rm -f /opt/ghc/7.10.2/bin/haddock && ln -s /opt/haddock/2.16.2/bin/haddock /opt/ghc/7.10.2/bin/haddock
