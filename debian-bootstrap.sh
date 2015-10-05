@@ -71,7 +71,8 @@ apt-get install -y \
     r-base-dev \
     libleveldb-dev \
     libsnappy-dev \
-    libpcap0.8-dev
+    libpcap0.8-dev \
+    libusb-1.0-0-dev
 
 mkdir /tmp/nettle-build
 (
