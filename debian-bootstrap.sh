@@ -17,62 +17,62 @@ add-apt-repository -y ppa:openstack-ubuntu-testing/icehouse
 apt-get update
 apt-get install -y \
     build-essential \
-    libncurses-dev \
-    git \
-    wget \
-    m4 \
-    texlive-full \
-    libgmp3-dev \
-    zlib1g-dev \
-    libedit2 \
-    libedit-dev \
     freeglut3-dev \
-    libglu1-mesa-dev \
-    libglib2.0-dev \
-    libcairo2-dev \
-    libpango1.0-dev \
-    libgtk2.0-dev \
-    zip \
-    libdevil-dev \
-    llvm \
-    libbz2-dev \
-    libjudy-dev \
-    libsqlite3-dev \
-    libmysqlclient-dev \
-    libpq-dev \
-    libicu-dev \
-    libssl-dev \
-    libgsl0-dev \
+    git \
+    libadns1-dev \
     libblas-dev \
-    liblapack-dev \
+    libbz2-dev \
+    libcairo2-dev \
     libcurl4-openssl-dev \
-    libfreenect-dev \
-    libnotify-dev \
-    libgd2-xpm-dev \
-    libyaml-dev \
-    liblzma-dev \
-    libsdl2-dev \
-    libxss-dev \
-    libgtk-3-dev \
-    libxml2-dev \
-    libgsasl7-dev \
-    libphash0-dev \
-    libopenal-dev \
-    libhidapi-dev \
-    libzmq3-dev \
-    libmagic-dev \
-    libudev-dev \
+    libdevil-dev \
+    libedit-dev \
+    libedit2 \
     libfftw3-dev \
+    libfreenect-dev \
+    libgd2-xpm-dev \
+    libglib2.0-dev \
+    libglu1-mesa-dev \
+    libgmp3-dev \
+    libgsasl7-dev \
+    libgsl0-dev \
+    libgtk-3-dev \
+    libgtk2.0-dev \
+    libhidapi-dev \
+    libicu-dev \
+    libjudy-dev \
+    liblapack-dev \
+    libleveldb-dev \
+    liblzma-dev \
+    libmagic-dev \
+    libmysqlclient-dev \
+    libncurses-dev \
+    libnotify-dev \
+    libopenal-dev \
+    libpango1.0-dev \
+    libpcap0.8-dev \
+    libphash0-dev \
+    libpq-dev \
+    libsdl2-dev \
+    libsnappy-dev \
+    libsqlite3-dev \
+    libssl-dev \
+    libudev-dev \
+    libusb-1.0-0-dev \
     libxau-dev \
+    libxml2-dev \
+    libxss-dev \
+    libyaml-dev \
+    libzmq3-dev \
+    llvm \
+    m4 \
     nodejs \
     npm \
-    libadns1-dev \
     r-base \
     r-base-dev \
-    libleveldb-dev \
-    libsnappy-dev \
-    libpcap0.8-dev \
-    libusb-1.0-0-dev
+    texlive-full \
+    wget \
+    zip \
+    zlib1g-dev
 
 mkdir /tmp/nettle-build
 (
