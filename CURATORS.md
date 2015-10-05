@@ -45,6 +45,8 @@ Additional (non-Haskell) system libraries or tools should be added to `stackage/
 Committing the changes should trigger a DockerHub. Normally only the master branch needs to be updated
 since new packages are not added to the current lts release.
 
+Use [Ubuntu Package content search](http://packages.ubuntu.com/) to determine which package provides particular dev files (it defaults to trusty which is the same version as the server).
+
 ### Upgrading GHC version
 The Dockerfile contains information on which GHC versions should be used. You
 can modify it and push it to Github to trigger a DockerHub build. The master
@@ -107,8 +109,10 @@ develop this advice over time. For now: if you're not sure, ask Michael for
 guidance.
 
 ### Timing
+A cronjob on the build server keeps trying to build nightly unless it has already succeeded.
 
-Nightly builds should be run once a day. A common technique I use is, after a
+(Nightly builds should be run once a day. A common technique I use is, after a
 build succeeds, write something like `sleep 20h;
-/opt/stackage-build/stackage/automated/build.sh nightly-2015-01-02`. LTS minor
-bumps typically are run on Sundays.
+/opt/stackage-build/stackage/automated/build.sh nightly-2015-01-02`.)
+
+LTS minor bumps typically are run on Sundays.
