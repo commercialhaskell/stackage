@@ -1552,6 +1552,9 @@ packages:
         # https://github.com/fpco/stackage/issues/880
         - http-types < 0.9
 
+# end of packages
+
+
 # Package flags are applied to individual packages, and override the values of
 # global-flags
 package-flags:
@@ -1608,11 +1611,15 @@ package-flags:
     nix-paths:
         allow-relative-paths: true
 
+# end of package-flags
+
+
 # Used for packages that cannot be built on Linux
 skipped-builds:
     - hfsevents
     - Win32
     - Win32-notify
+
 
 # By skipping a test suite, we do not pull in the build dependencies
 skipped-tests:
@@ -1698,6 +1705,9 @@ skipped-tests:
     - tar
     - uuid
     - uuid-types
+
+# end of skipped-tests
+
 
 # Tests which we should build and run, but which are expected to fail. We
 # should not fail a build based on a test failure for one of these packages.
@@ -1996,6 +2006,9 @@ expected-test-failures:
     # https://github.com/alcidesv/second-transfer/issues/3
     - second-transfer
 
+# end of expected-test-failures
+
+
 # Haddocks which are expected to fail. Same concept as expected test failures.
 expected-haddock-failures:
     # https://github.com/acw/bytestring-progress/issues/4
@@ -2020,6 +2033,9 @@ expected-haddock-failures:
 
     # fedora/haskell/cabal-rpm/f23/
     - persistent-mysql
+
+# end of expected-haddock-failures
+
 
 # Benchmarks which should not be built. Note that Stackage does *not* generally
 # build benchmarks. The difference here will be whether dependencies for these
@@ -2064,9 +2080,13 @@ skipped-benchmarks:
     # https://github.com/liyang/true-name/issues/2
     - fast-builder
 
+# end of skipped-benchmarks
+
+
 skipped-profiling:
     # https://github.com/nomeata/ghc-heap-view/commit/8d198eb8fbbad2ce0c4527c781659f35b8909c04#diff-8288955e209cfbead5b318a8598be9c0R10
     - ghc-heap-view
+
 
 # Mapping from Github account holding a package to the Github users who should
 # be pinged on failure. If no value is specified here, then the owning account
@@ -2104,3 +2124,5 @@ github-users:
     lambdabot:
         - DanBurton
         - mokus0
+
+# end of github-users
