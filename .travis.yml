@@ -1,21 +1,27 @@
-env:
- - CABALVER=1.20 GHCVER=7.8.4
+sudo: false
 
-# Note: the distinction between `before_install` and `install` is not important.
-before_install:
- - travis_retry sudo add-apt-repository -y ppa:hvr/ghc
- - travis_retry sudo apt-get update
- - travis_retry sudo apt-get install cabal-install-$CABALVER ghc-$GHCVER # see note about happy/alex
- - export PATH=/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:$PATH
+language: haskell
 
 install:
- - cabal --version
- - echo "$(ghc --version) [$(ghc --print-project-git-commit-id 2> /dev/null || echo '?')]"
- - travis_retry cabal update
+ # Get stackage-curator
  - wget https://s3.amazonaws.com/stackage-travis/stackage-curator/stackage-curator.bz2
  - bunzip2 stackage-curator.bz2
  - chmod +x stackage-curator
 
-# Here starts the actual work to be performed for the package under test; any command which exits with a non-zero exit code causes the build to fail.
+ # Get stack
+ - travis_retry curl -L https://github.com/commercialhaskell/stack/releases/download/v0.1.3.0/stack-0.1.3.0-x86_64-linux-gmp4.gz | gunzip > stack
+ - chmod +x stack
+
+ # Install GHC and cabal-install
+ - ./stack setup 7.10.2
+ - ./stack --resolver ghc-7.10 build stackage-update
+
+ # Update the index
+ - travis_retry ./stack --resolver ghc-7.10 exec stackage-update
+
 script:
- - ./stackage-curator check
+ - ./stack --resolver ghc-7.10 exec ./stackage-curator check
+
+cache:
+  directories:
+    - $HOME/.stack
