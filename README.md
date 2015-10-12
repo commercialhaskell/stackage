@@ -5,7 +5,7 @@ stackage
 
 "Stable Hackage": creating a vetted set of packages from Hackage.
 
-__NOTE__ This repository is for package authors to get their packages into
+__NOTE__ This repository is for package authors and maintainers to get their packages into
 Stackage. If you simply want to use Stackage as an end user, please follow the
 instructions on [http://www.stackage.org/](http://www.stackage.org).
 
