@@ -55,6 +55,10 @@ require new submissions to be tested on your own system before sending a pull
 request. If you believe your package works with the newest versions of all
 dependencies, you may send a pull request without testing first.
 
+Please use commit messages like "add foo-bar" or "add johndev's packages"
+(`build-constraints.yaml` is the most frequently changed file in this git repo
+so commit messages like "update build-constraints.yaml" are not helpful).
+
 You should also read the [maintainers
 agreement](https://github.com/fpco/stackage/wiki/Maintainers-Agreement).
 
