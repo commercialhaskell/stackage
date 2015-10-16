@@ -3,9 +3,9 @@ stackage
 
 [![Build Status](https://travis-ci.org/fpco/stackage.svg?branch=master)](https://travis-ci.org/fpco/stackage)
 
-"Stable Hackage," tools for creating a vetted set of packages from Hackage.
+"Stable Hackage": creating a vetted set of packages from Hackage.
 
-__NOTE__ This repository is for package authors to get their code into
+__NOTE__ This repository is for package authors and maintainers to get their packages into
 Stackage. If you simply want to use Stackage as an end user, please follow the
 instructions on [http://www.stackage.org/](http://www.stackage.org).
 
@@ -17,6 +17,21 @@ project information. In addition, we have the following repositories:
 * [stackage-curator](https://github.com/fpco/stackage-curator) [![Build Status](https://travis-ci.org/fpco/stackage-curator.svg?branch=master)](https://travis-ci.org/fpco/stackage-curator)
 * [stackage-types](https://github.com/fpco/stackage-types) [![Build Status](https://travis-ci.org/fpco/stackage-types.svg?branch=master)](https://travis-ci.org/fpco/stackage-types)
 * [lts-haskell](https://github.com/fpco/lts-haskell)
+* [stackage-nightly](https://github.com/fpco/stackage-nightly)
+
+We strongly recommend using the Haskell tool stack for doing builds, which
+includes built-in Stackage support:
+
+* [stack](https://github.com/commercialhaskell/stack) [![Build Status](https://travis-ci.org/commercialhaskell/stack.svg?branch=master)](https://travis-ci.org/commercialhaskell/stack)
+
+We also support some add-on tools to cabal-install to make its usage with
+Stackage both easier and more secure:
+
+* [stackage-cli](https://github.com/fpco/stackage-cli) [![Build Status](https://travis-ci.org/fpco/stackage-cli.svg?branch=master)](https://travis-ci.org/fpco/stackage-cli)
+* [stackage-update](https://github.com/fpco/stackage-update) [![Build Status](https://travis-ci.org/fpco/stackage-update.svg?branch=master)](https://travis-ci.org/fpco/stackage-update)
+* [stackage-upload](https://github.com/fpco/stackage-upload) [![Build Status](https://travis-ci.org/fpco/stackage-upload.svg?branch=master)](https://travis-ci.org/fpco/stackage-upload)
+* [stackage-install](https://github.com/fpco/stackage-install) [![Build Status](https://travis-ci.org/fpco/stackage-install.svg?branch=master)](https://travis-ci.org/fpco/stackage-install)
+* [stackage-build-plan](https://github.com/fpco/stackage-build-plan) [![Build Status](https://travis-ci.org/fpco/stackage-build-plan.svg?branch=master)](https://travis-ci.org/fpco/stackage-build-plan)
 
 Get your package included
 -------------------------
@@ -39,6 +54,10 @@ __NOTE__: In order to ease the process of adding new packages, we no longer
 require new submissions to be tested on your own system before sending a pull
 request. If you believe your package works with the newest versions of all
 dependencies, you may send a pull request without testing first.
+
+Please use commit messages like "add foo-bar" or "add johndev's packages"
+(`build-constraints.yaml` is the most frequently changed file in this git repo
+so commit messages like "update build-constraints.yaml" are not helpful).
 
 You should also read the [maintainers
 agreement](https://github.com/fpco/stackage/wiki/Maintainers-Agreement).

@@ -1,7 +1,7 @@
 #!/bin/bash -ex
 
 # Work in progress: create a list of commands necessary to get Stackage
-# up-and-running on a freshly installed Debian-based system (includin Ubuntu).
+# up-and-running on a freshly installed Debian-based system (including Ubuntu).
 
 # Quick start:
 # wget -O - https://raw.github.com/fpco/stackage/master/debian-bootstrap.sh | bash -ex
@@ -10,50 +10,69 @@
 # instructions, see:
 #    http://www.stackage.org/install
 
-add-apt-repository -y ppa:chris-lea/zeromq
-add-apt-repository -y ppa:floe/libtisch
 add-apt-repository -y ppa:zoogie/sdl2-snapshots
+add-apt-repository -y ppa:marutter/rrutter
+add-apt-repository -y ppa:openstack-ubuntu-testing/icehouse
+
 apt-get update
 apt-get install -y \
     build-essential \
-    libncurses-dev \
-    git \
-    wget \
-    m4 \
-    texlive-full \
-    libgmp3c2 \
-    libgmp3-dev \
-    zlib1g-dev \
-    libedit2 \
-    libedit-dev \
     freeglut3-dev \
-    libglu1-mesa-dev \
-    libglib2.0-dev \
-    libcairo2-dev \
-    libpango1.0-dev \
-    libgtk2.0-dev \
-    zip \
-    libdevil-dev \
-    llvm \
-    libbz2-dev \
-    libjudy-dev \
-    libsqlite3-dev \
-    libmysqlclient-dev \
-    libpq-dev \
-    libicu-dev \
-    libssl-dev \
-    libgsl0-dev \
+    git \
+    libadns1-dev \
     libblas-dev \
-    liblapack-dev \
+    libbz2-dev \
+    libcairo2-dev \
     libcurl4-openssl-dev \
+    libdevil-dev \
+    libedit-dev \
+    libedit2 \
+    libfftw3-dev \
     libfreenect-dev \
-    libnotify-dev \
     libgd2-xpm-dev \
-    libyaml-dev \
+    libglib2.0-dev \
+    libglu1-mesa-dev \
+    libgmp3-dev \
+    libgsasl7-dev \
+    libgsl0-dev \
+    libgtk-3-dev \
+    libgtk2.0-dev \
+    libhidapi-dev \
+    libicu-dev \
+    libjudy-dev \
+    liblapack-dev \
+    libleveldb-dev \
     liblzma-dev \
+    libmagic-dev \
+    libmysqlclient-dev \
+    libncurses-dev \
+    libnotify-dev \
+    libopenal-dev \
+    libpango1.0-dev \
+    libpcap0.8-dev \
+    libphash0-dev \
+    libpq-dev \
     libsdl2-dev \
+    libsnappy-dev \
+    libsqlite3-dev \
+    libssl-dev \
+    libudev-dev \
+    libusb-1.0-0-dev \
+    libxau-dev \
+    libxml2-dev \
     libxss-dev \
-    libzmq3-dev
+    libyaml-dev \
+    libzmq3-dev \
+    llvm \
+    m4 \
+    nodejs \
+    npm \
+    r-base \
+    r-base-dev \
+    texlive-full \
+    wget \
+    zip \
+    zlib1g-dev
 
 mkdir /tmp/nettle-build
 (
