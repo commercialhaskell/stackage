@@ -239,7 +239,7 @@ packages:
         - lucid
         - osdkeys
         - pdfinfo
-        #- present GHC 7.10, via https://github.com/nominolo/atto-lisp/issues/18
+        #- present Due to: https://github.com/nominolo/atto-lisp/issues/20
         - pure-io
         # https://github.com/jgoerzen/testpack/issues/11
         #- scrobble GHC 7.10, for QuickCheck 2.8 via testpack
@@ -998,7 +998,7 @@ packages:
         - kmeans
         # Not compatible with GHC 7.10.2 (yes, it's a regression in GHC)
         # - boolsimplifier
-        - cubicspline
+        # - cubicspline https://github.com/fpco/stackage/issues/899
         - maximal-cliques
 
     "Alexander Bondarenko <aenor.realm@gmail.com> @wiz":
@@ -1014,11 +1014,15 @@ packages:
         - hsignal
         - hstatistics
         - plot
-        - plot-gtk
-        - plot-gtk3
+        # https://github.com/amcphail/plot-gtk/issues/3
+        #- plot-gtk
+
+        # https://github.com/amcphail/plot-gtk3/issues/5
+        #- plot-gtk3
 
         - vector-buffer
-        - hmatrix-repa
+        # Blocking due to https://github.com/amcphail/hmatrix-repa/issues/2
+        # - hmatrix-repa
 
     "Noam Lewis <jones.noamle@gmail.com> @sinelaw":
         - xml-to-json
@@ -1490,8 +1494,10 @@ packages:
         - multiplate
 
     "Sumit Sahrawat <sumit.sahrawat.apm13@iitbhu.ac.in> @sumitsahrawat":
-        - plot-gtk-ui
-        - calculator
+        []
+        # https://github.com/sumitsahrawat/plot-gtk-ui/issues/1
+        #- plot-gtk-ui
+        #- calculator
 
     "Emmanuel Touzery <etouzery@gmail.com> @emmanueltouzery":
         - app-settings
@@ -1540,6 +1546,9 @@ packages:
 
         # https://github.com/fpco/stackage/issues/682
         - vector < 0.11
+        - repa < 3.4.0.2
+        - repa-algorithms < 3.4.0.2
+        - repa-io < 3.4.0.2
 
         # https://github.com/fpco/stackage/issues/754
         - messagepack < 0.5
@@ -1565,19 +1574,9 @@ packages:
         # https://github.com/fpco/stackage/issues/836
         - singletons < 1.2
 
-        # https://github.com/fpco/stackage/issues/887
-        # https://github.com/amcphail/hmatrix-gsl-stats/issues/10
-        # https://github.com/amcphail/plot/issues/13
-        # https://github.com/amcphail/hmatrix-repa/issues/2
-        - hmatrix < 0.17
-        - hmatrix-gsl < 0.17
-        - hmatrix-gsl-stats < 0.4.1.2
-        - hsignal < 0.2.7.2
-        - hstatistics < 0.2.5.3
-        - plot < 0.2.3.5
-
         # https://github.com/fpco/stackage/issues/845
         - aeson < 0.10
+        - bloodhound < 0.9
 
         # https://github.com/fpco/stackage/issues/846
         - postgresql-simple < 0.5
@@ -1983,10 +1982,6 @@ expected-test-failures:
 
     # Test suite needs a running neo4j server with auth disabled
     - haskell-neo4j-client
-
-    # https://github.com/fpco/stackage/issues/701
-    # https://github.com/yesodweb/Shelly.hs/issues/106
-    - shelly
 
     # https://github.com/kazu-yamamoto/logger/issues/42
     - wai-logger
