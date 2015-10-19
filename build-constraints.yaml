@@ -1691,47 +1691,25 @@ skipped-builds:
 
 # By skipping a test suite, we do not pull in the build dependencies
 skipped-tests:
-    - dbmigrations
-    - ReadArgs # old version of hspec
-    - ersatz # old QuickCheck
-    - punycode # pulls in encoding
+    # old version of warp
     - HTTP
-    - Octree
-    - options
-    - hasql
 
     # require old hspec
+    - ReadArgs
     - bloodhound
     - fb
-
-    # require old tasty
-    - diagrams-haddock
-
-    # requires old hsql
-    - hasql-postgres
+    - hasql
 
     # https://github.com/pa-ba/compdata/issues/4
     - compdata
 
     # Too lazy to keep the test dependencies up to date
-    - base-prelude
     - cases
-    - focus
-    - hasql
-    - hasql-backend
     - hasql-postgres
     - list-t
-    - mtl-prelude
-    - neat-interpolation
-    - partial-handler
     - postgresql-binary
     - slave-thread
     - stm-containers
-
-    # Cloud Haskell out-of-date dependencies
-    - distributed-process-async
-    - distributed-process-client-server
-    - distributed-process-extras
 
     # Just a temporary package with a flimsy, inherited test suite
     - Cabal-ide-backend
