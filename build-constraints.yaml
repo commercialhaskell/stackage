@@ -1036,8 +1036,10 @@ packages:
 
     "Mateusz Kowalczyk <fuuzetsu@fuuzetsu.co.uk> @Fuuzetsu":
         - aeson-schema
-        - inline-r
-        - H
+        # H needs inline-r
+        # - H
+        # inline-r-0.7.1.2 doesn't allow vector-0.11
+        # - inline-r
 
     "David Fox <dsf@seereason.com> @ddssff":
         - debian
@@ -1555,12 +1557,6 @@ packages:
     "Stackage upper bounds":
         # https://github.com/fpco/stackage/issues/537
         - zlib < 0.6
-
-        # https://github.com/fpco/stackage/issues/682
-        - vector < 0.11
-        - repa < 3.4.0.2
-        - repa-algorithms < 3.4.0.2
-        - repa-io < 3.4.0.2
 
         # https://github.com/fpco/stackage/issues/754
         - messagepack < 0.5
