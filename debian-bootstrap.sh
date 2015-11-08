@@ -23,7 +23,6 @@ apt-get install -y \
     libblas-dev \
     libbz2-dev \
     libcairo2-dev \
-    libtagc0-dev \
     libcurl4-openssl-dev \
     libdevil-dev \
     libedit-dev \
@@ -57,6 +56,7 @@ apt-get install -y \
     libsnappy-dev \
     libsqlite3-dev \
     libssl-dev \
+    libtagc0-dev \
     libudev-dev \
     libusb-1.0-0-dev \
     libxau-dev \
