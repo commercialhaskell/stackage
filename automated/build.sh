@@ -7,13 +7,6 @@ TARGET=$1
 TAG=$(echo $TARGET | cut -d- -f 1)
 IMAGE=snoyberg/stackage:$TAG
 
-if [ "$TAG" = "nightly" ]
-then
-    TROOT=$ROOT/nightly
-else
-    TROOT=$ROOT/$(echo $TARGET | cut -d. -f 1)
-fi
-
 PLAN_FILE=current-plan.yaml
 DOCMAP_FILE=current-docmap.yaml
 BUNDLE_FILE=current.bundle
@@ -21,8 +14,8 @@ BUNDLE_FILE=current.bundle
 CABAL_DIR=$ROOT/cabal
 GHC_DIR=$ROOT/ghc
 DOT_STACKAGE_DIR=$ROOT/dot-stackage
-WORKDIR=$TROOT/work
-SSH_DIR=$ROOT/ssh-$(echo $TARGET | cut -d- -f 1)
+WORKDIR=$ROOT/$TAG/work
+SSH_DIR=$ROOT/ssh-$TAG
 
 mkdir -p \
 	"$CABAL_DIR" \
