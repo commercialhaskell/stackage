@@ -45,7 +45,7 @@ packages:
         - repa-io
         - repa-algorithms
         - repa-devil
-        - JuicyPixels-repa < 0.6.1 || > 0.7 # GHC 7.10 (e-mail sent by @bergmark)
+        - JuicyPixels-repa
         - cereal-conduit
         - binary-conduit
         - lzma-conduit
@@ -143,6 +143,7 @@ packages:
         - prednote
         - cartel
         - Earley
+        - ofx
 
     "Neil Mitchell":
         - hlint
@@ -277,7 +278,8 @@ packages:
         #- compensated GHC 7.10
         - compressed
         - concurrent-supply
-        - constraints
+        # https://github.com/fpco/stackage/issues/973
+        - constraints < 0.6
         - contravariant
         - distributive
         - either
@@ -330,7 +332,6 @@ packages:
         - gl
         - lens-aeson
         - zlib-lens
-        - generic-deriving
         - hyperloglog
 
     "Andrew Farmer <afarmer@ittc.ku.edu>":
@@ -359,12 +360,14 @@ packages:
         - BlogLiterately-diagrams
         - diagrams
         - diagrams-builder
-        - diagrams-haddock
+        # https://github.com/diagrams/diagrams-haddock/issues/26
+        - diagrams-haddock < 0.3.0.8
         - diagrams-contrib
         - diagrams-core
         - diagrams-lib
         - diagrams-postscript
-        - diagrams-svg
+        # https://github.com/fpco/stackage/issues/976
+        - diagrams-svg < 1.3.1.8
         - dual-tree
         - force-layout
         - haxr
@@ -629,7 +632,6 @@ packages:
 
     "Simon Michael <simon@joyful.com>":
         - hledger
-        # https://github.com/fpco/stackage/issues/938
         # - hledger-ui
         - hledger-web
         - shelltestrunner
@@ -658,7 +660,7 @@ packages:
         # https://github.com/d12frosted/CanonicalPath/issues/5
         # - system-canonicalpath
 
-    "Daniel Gröber <dxld@darkboxed.org>":
+    "Daniel Gröber <dxld@darkboxed.org> @DanielG":
         - ghc-mod
         - cabal-helper
 
@@ -865,7 +867,8 @@ packages:
         - palette
         #- diagrams-canvas GHC 7.10, via blank-canvas
         - diagrams-rasterific
-        - lucid-svg
+        # https://github.com/fpco/stackage/issues/976
+        - lucid-svg < 0.6.0.0
         - diagrams-html5
         - static-canvas
 
@@ -1368,6 +1371,7 @@ packages:
 
     "Ryan Scott <ryan.gl.scott@gmail.com> @RyanGlScott":
         - base-orphans
+        - generic-deriving
         - invariant
         - keycode
         - text-show
@@ -1604,9 +1608,10 @@ packages:
     "Tim Baumann <tim@timbaumann.info> @timjb":
         - engine-io-yesod
 
-    "Tim McGilchrist <timmcgil@gmail.com>  @lambda_foo":
+    "Tim McGilchrist <timmcgil@gmail.com>  @tmcgilchrist":
         - riak
-        
+        - airship
+
     "Yuras Shumovich <shumovichy@gmai.com> @Yuras":
         - pdf-toolbox-core
         - pdf-toolbox-content
@@ -1628,10 +1633,11 @@ packages:
     "John Galt <jgalt@centromere.net> @centromere":
         - cacophony
         - pipes-cacophony
+        - blake2
 
     "Adam Curtis <kallisti.dev@gmail.com> @kallisti-dev":
         - webdriver
-    
+
     "Luke Iannini <lukexi@me.com> @lukexi":
         - inline-c
         - inline-c-cpp
@@ -1639,9 +1645,20 @@ packages:
 
     "Emin Karayel <me@eminkarayel.de>":
         - sync-mht
-    
+
     "Michael Schröder <mc.schroeder@gmail.com> @mcschroeder":
         - ttrie
+
+    # https://github.com/fpco/stackage/pull/979
+    # "Andrew Lelechenko <andrew.lelechenko@gmail.com> @Bodigrim":
+    #    - exp-pairs
+
+    # https://github.com/fpco/stackage/pull/980
+    # "Stefan Kersten <kaoskorobase@gmail.com> @kaoskorobase":
+    #     - hsndfile
+
+    "yihuang <yi.codeplayer@gmail.com> @yihuang":
+        - tagstream-conduit
 
     "Stackage upper bounds":
         # https://github.com/fpco/stackage/issues/537
@@ -1679,39 +1696,32 @@ packages:
         # https://github.com/idontgetoutmuch/largeword/pull/12
         - largeword < 1.2.4
 
-        # https://github.com/jgm/pandoc/issues/2466
-        # Can be removed after > 1.15.1.1 is out.
-        - pandoc < 1.15.1.1 || > 1.15.1.1
-
         # https://github.com/fpco/stackage/issues/942
         - semigroups < 0.18
-
-        # https://github.com/fpco/stackage/issues/944
-        - linear < 1.20
-        - reflection < 2.1
-        - diagrams-lib < 1.3.0.4
-        - luminance < 0.6
-        - luminance-samples < 0.6
-        - lens < 4.13
-        - semigroups < 0.17
 
         # https://github.com/fpco/stackage/issues/946
         - cereal < 0.5
         - messagepack < 0.5.0
         - messagepack-rpc < 0.5.1
+        - DRBG < 0.5.5
 
         # https://github.com/fpco/stackage/issues/957
         - exact-pi < 0.3
 
-        # https://github.com/fpco/stackage/issues/959
-        - th-orphans < 0.13
-
-        # https://github.com/fpco/stackage/issues/960
-        - HaskellNet < 0.5
-
         # https://github.com/fpco/stackage/issues/968
         - bifunctors < 5.1
 
+        # https://github.com/fpco/stackage/issues/975
+        - retry < 0.7
+
+        # https://github.com/fpco/stackage/issues/944
+        - lens < 4.13
+        - reflection < 2.1
+
+        # https://github.com/fpco/stackage/issues/981
+        - haskell-src-exts < 1.17
+        - derive < 2.5.23
+        - hlint < 1.9.23
 # end of packages
 
 
@@ -1841,8 +1851,12 @@ skipped-tests:
     # https://github.com/fpco/stackage/issues/934
     - cacophony
 
+    # Build error with lens-4.13
+    # https://github.com/brendanhay/amazonka/issues/251
+    - amazonka-ec2
+    - amazonka-s3
+    - amazonka-swf
 # end of skipped-tests
-
 
 # Tests which we should build and run, but which are expected to fail. We
 # should not fail a build based on a test failure for one of these packages.
@@ -2152,6 +2166,8 @@ expected-test-failures:
     - hworker
     - hworker-ses
 
+    # https://github.com/chrisdone/hindent/issues/166
+    - hindent
 # end of expected-test-failures
 
 
