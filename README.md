@@ -60,7 +60,7 @@ Please use commit messages like "add foo-bar" or "add johndev's packages"
 so commit messages like "update build-constraints.yaml" are not helpful).
 
 You should also read the [maintainers
-agreement](https://github.com/fpco/stackage/wiki/Maintainers-Agreement).
+agreement](https://github.com/fpco/stackage/blob/master/MAINTAINERS.md).
 
 Package Author Guidelines
 -------------------------
