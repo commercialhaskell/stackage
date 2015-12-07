@@ -39,7 +39,7 @@ If a package's test suite is failing, the first job is to investigate why. If th
 
 If a new version of a dependency is released, and that stops your package compiling/passing the tests, then it is your responsibility to modify your package. It is highly recommended that all package maintainers follow the dependencies of their packages on [Packdeps](http://packdeps.haskellers.com/), typically using the RSS feeds.
 
-**If restrictive version bounds are the only problem** then you must quickly (within 3 days) upload a new version with relaxed version bounds. Note that unlike the PVP, Stackage does not require or encourage upper bounds. Omitting upper bounds will mean you get fewer alerts for your package.
+**If restrictive version bounds are the only problem** then you must quickly (within 3 days) upload a new version with relaxed version bounds. Note that unlike the PVP, Stackage does not require upper bounds.
 
 **If the new dependency causes breaking changes** then all package authors should quickly assess the likely impact on their package (within 3 days) and then produce a new compatible version. The expected timeline for new versions varies between 1 week and 1 month, depending on the significance of the change, and thus the work required to produce those new versions.
 
