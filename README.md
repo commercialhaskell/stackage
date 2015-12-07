@@ -5,7 +5,7 @@ stackage
 
 "Stable Hackage": creating a vetted set of packages from Hackage.
 This repository is for package authors and maintainers to get their packages into Stackage.
-If you simply want to use Stackage as an end user, please follow the instructions on [http://www.stackage.org/](http://www.stackage.org).
+If you simply want to use Stackage as an end user, please follow the instructions on [https://www.stackage.org/](https://www.stackage.org).
 
 We strongly recommend using the Haskell tool stack for doing builds, which
 includes built-in Stackage support: [stack](https://github.com/commercialhaskell/stack) [![Build Status](https://travis-ci.org/commercialhaskell/stack.svg?branch=master)](https://travis-ci.org/commercialhaskell/stack).
@@ -17,7 +17,7 @@ Add your package
 We welcome all packages, provided:
 
 * The package author/maintainer agrees to the [maintainers agreement](https://github.com/fpco/stackage/blob/master/MAINTAINERS.md).
-* The package is buildable and testable from Hackage. We recommend the [multi-ghc-travis](https://github.com/hvr/multi-ghc-travis), which ensures the package is not accidentally incomplete.
+* The package is buildable and testable from Hackage. We recommend [the Stack Travis script](http://docs.haskellstack.org/en/stable/GUIDE.html#travis-with-caching), which ensures a package is not accidentally incomplete.
 * The package is compatible with the newest versions of all dependencies.
 * The package is compatible with the versions of libraries that ship with GHC ([more information on lenient lower bounds](https://www.fpcomplete.com/blog/2014/05/lenient-lower-bounds)).
 
