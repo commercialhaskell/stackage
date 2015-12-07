@@ -4,10 +4,27 @@ stackage
 [![Build Status](https://travis-ci.org/fpco/stackage.svg?branch=master)](https://travis-ci.org/fpco/stackage)
 
 "Stable Hackage": creating a vetted set of packages from Hackage.
+This repository is for package authors and maintainers to get their packages into Stackage.
+If you simply want to use Stackage as an end user, please follow the instructions on [http://www.stackage.org/](http://www.stackage.org).
 
-__NOTE__ This repository is for package authors and maintainers to get their packages into
-Stackage. If you simply want to use Stackage as an end user, please follow the
-instructions on [http://www.stackage.org/](http://www.stackage.org).
+We strongly recommend using the Haskell tool stack for doing builds, which
+includes built-in Stackage support: [stack](https://github.com/commercialhaskell/stack) [![Build Status](https://travis-ci.org/commercialhaskell/stack.svg?branch=master)](https://travis-ci.org/commercialhaskell/stack).
+
+
+Add your package
+----------------
+
+We welcome all packages, provided:
+
+* The package author/maintainer agrees to the [maintainers agreement](https://github.com/fpco/stackage/blob/master/MAINTAINERS.md).
+* The package is buildable and testable from Hackage. We recommend the [multi-ghc-travis](https://github.com/hvr/multi-ghc-travis), which ensures the package is not accidentally incomplete.
+* The package is compatible with the newest versions of all dependencies.
+* The package is compatible with the versions of libraries that ship with GHC ([more information on lenient lower bounds](https://www.fpcomplete.com/blog/2014/05/lenient-lower-bounds)).
+
+Full details on how to add a package can be found in the [maintainers agreement](https://github.com/fpco/stackage/blob/master/MAINTAINERS.md#adding-a-package).
+
+Other repos
+-----------
 
 The Stackage project consists of multiple repositories. This repository
 contains the metadata on packages to be included in future builds and some
@@ -19,11 +36,6 @@ project information. In addition, we have the following repositories:
 * [lts-haskell](https://github.com/fpco/lts-haskell)
 * [stackage-nightly](https://github.com/fpco/stackage-nightly)
 
-We strongly recommend using the Haskell tool stack for doing builds, which
-includes built-in Stackage support:
-
-* [stack](https://github.com/commercialhaskell/stack) [![Build Status](https://travis-ci.org/commercialhaskell/stack.svg?branch=master)](https://travis-ci.org/commercialhaskell/stack)
-
 We also support some add-on tools to cabal-install to make its usage with
 Stackage both easier and more secure:
 
@@ -33,51 +45,6 @@ Stackage both easier and more secure:
 * [stackage-install](https://github.com/fpco/stackage-install) [![Build Status](https://travis-ci.org/fpco/stackage-install.svg?branch=master)](https://travis-ci.org/fpco/stackage-install)
 * [stackage-build-plan](https://github.com/fpco/stackage-build-plan) [![Build Status](https://travis-ci.org/fpco/stackage-build-plan.svg?branch=master)](https://travis-ci.org/fpco/stackage-build-plan)
 
-Get your package included
--------------------------
-
-In order to get your package included in the set of stable packages, you should
-send a pull request against this repository. In the [`build-constraints.yaml`](https://github.com/fpco/stackage/blob/master/build-constraints.yaml) file,
-there's a section called `packages`. In general, to add a set of
-packages, you would add:
-
-    "My Name myemail@example.com @mygithubuser":
-        - package1
-        - package2
-        - package3
-
-You can follow the examples of the other sets of packages in that function.
-Once you've done this, you can send a pull request to get your package
-included.
-
-__NOTE__: In order to ease the process of adding new packages, we no longer
-require new submissions to be tested on your own system before sending a pull
-request. If you believe your package works with the newest versions of all
-dependencies, you may send a pull request without testing first.
-
-Please use commit messages like "add foo-bar" or "add johndev's packages"
-(`build-constraints.yaml` is the most frequently changed file in this git repo
-so commit messages like "update build-constraints.yaml" are not helpful).
-
-You should also read the [maintainers
-agreement](https://github.com/fpco/stackage/blob/master/MAINTAINERS.md).
-
-Package Author Guidelines
--------------------------
-
-There are some basic rules to get your package to play nice with Stackage. Here
-are some quick guidelines to hopefully make this easier:
-
-* Make sure that your code is buildability and testable from Hackage. Often
-  times, authors test their builds locally, but the tarball that gets uploaded
-  to Hackage is missing some necessary files. The best way to do this is to
-  set up a Travis job to do it for you. We recommend the
-  [multi-ghc-travis](https://github.com/hvr/multi-ghc-travis) approach.
-* Make your code compatible with the newest versions of all dependencies.
-* Make your code compatible with the versions of libraries that ship with GHC ([more information on lenient lower bounds](https://www.fpcomplete.com/blog/2014/05/lenient-lower-bounds)).
-
-There are certainly many other tips that could be added here. If you think of
-any, please send a pull request!
 
 Build the package set
 ---------------------
