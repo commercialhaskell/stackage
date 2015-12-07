@@ -2,7 +2,7 @@ This project is built around the concept of maintainers taking responsibility fo
 
 The idea behind Stackage is that, if all packages work with the newest versions of dependencies, we avoid dependency hell. Specifically, we aim for:
 
-* All packages are buildable and testable from Hackage. We recommend [multi-ghc-travis](https://github.com/hvr/multi-ghc-travis), which ensures a package is not accidentally incomplete.
+* All packages are buildable and testable from Hackage. We recommend [the Stack Travis script](http://docs.haskellstack.org/en/stable/GUIDE.html#travis-with-caching), which ensures a package is not accidentally incomplete.
 * All packages are compatible with the newest versions of all dependencies.
 * All packages are compatible with the versions of libraries that ship with GHC ([more information on lenient lower bounds](https://www.fpcomplete.com/blog/2014/05/lenient-lower-bounds)).
 
@@ -19,7 +19,8 @@ To add a set of packages, you would add:
         - package2
         - package3
 
-After doing that, send a pull request. We do not require new submissions to be tested against the rest of Stackage before the pull request, provided you meet the dependency version requirements above.
+After doing that, send a pull request. We do not require new submissions to be tested against the rest of Stackage before the pull request, provided you meet the dependency version requirements above. If your library depends on a C library, add a note to your pull request with the Ubuntu library name, or even better edit the debian-bootstrap script directly
+
 
 Please use commit messages like "add foo-bar" or "add johndev's packages"
 (`build-constraints.yaml` is the most frequently changed file in this git repo
