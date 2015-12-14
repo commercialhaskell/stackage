@@ -14,12 +14,12 @@ ADD debian-bootstrap.sh /tmp/debian-bootstrap.sh
 RUN DEBIAN_FRONTEND=noninteractive bash /tmp/debian-bootstrap.sh
 RUN rm /tmp/debian-bootstrap.sh
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y cabal-install-1.22 ghc-7.10.2 ghc-7.10.2-htmldocs alex-3.1.3 happy-1.19.4 sudo
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y cabal-install-1.22 ghc-7.10.3 ghc-7.10.3-htmldocs alex-3.1.3 happy-1.19.4 sudo
 
-ENV PATH /home/stackage/.cabal/bin:/usr/local/sbin:/usr/local/bin:/opt/ghc/7.10.2/bin:/opt/cabal/1.22/bin:/opt/alex/3.1.3/bin:/opt/happy/1.19.4/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ENV PATH /home/stackage/.cabal/bin:/usr/local/sbin:/usr/local/bin:/opt/ghc/7.10.3/bin:/opt/cabal/1.22/bin:/opt/alex/3.1.3/bin:/opt/happy/1.19.4/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 RUN cabal update
 RUN cabal install hscolour cabal-install && cp $HOME/.cabal/bin/* /usr/local/bin && rm -rf $HOME/.cabal $HOME/.ghc /tmp/stackage
 RUN wget https://s3.amazonaws.com/stackage-travis/stackage-curator/stackage-curator.bz2 && bunzip2 stackage-curator.bz2 && chmod +x stackage-curator && mv stackage-curator /usr/local/bin
 # Get new hyperlinked Haddocks
-RUN mkdir -p /opt/haddock && cd /opt/haddock && wget https://s3.amazonaws.com/download.fpcomplete.com/michael/haddock-2.16.2.tar.gz && tar zxf haddock-2.16.2.tar.gz && rm -f /opt/ghc/7.10.2/bin/haddock && ln -s /opt/haddock/2.16.2/bin/haddock /opt/ghc/7.10.2/bin/haddock
+# RUN mkdir -p /opt/haddock && cd /opt/haddock && wget https://s3.amazonaws.com/download.fpcomplete.com/michael/haddock-2.16.2.tar.gz && tar zxf haddock-2.16.2.tar.gz && rm -f /opt/ghc/7.10.3/bin/haddock && ln -s /opt/haddock/2.16.2/bin/haddock /opt/ghc/7.10.3/bin/haddock
