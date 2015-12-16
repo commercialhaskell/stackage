@@ -1177,7 +1177,8 @@ packages:
         # https://github.com/athanclark/nested-routes/issues/9
         #- nested-routes
         - commutative
-        - composition-extra
+        # https://github.com/fpco/stackage/issues/1045
+        # - composition-extra
         - digestive-functors-lucid
         - ltext
         - markup
@@ -1185,7 +1186,8 @@ packages:
         - poly-arity
         - pred-trie
         - rose-trees
-        - sets
+        # https://github.com/fpco/stackage/issues/1045
+        # - sets
         - tries
         - urlpath
         - wai-transformers
@@ -1395,7 +1397,8 @@ packages:
         - generic-deriving
         - invariant
         - keycode
-        - text-show
+        # https://github.com/fpco/stackage/issues/1045
+        # - text-show
 
     "Kirill Zaborsky <qrilka@gmail.com> @qrilka":
         - xlsx
@@ -1921,6 +1924,12 @@ skipped-tests:
     - amazonka-ec2
     - amazonka-s3
     - amazonka-swf
+
+    # Misc from GHC 7.10.3 upgrade
+    # https://github.com/fpco/stackage/issues/1045
+    - argon
+    - clock
+    - pkcs10
 # end of skipped-tests
 
 # Tests which we should build and run, but which are expected to fail. We
