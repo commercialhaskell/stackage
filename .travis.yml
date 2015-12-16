@@ -1,26 +1,36 @@
+# Use new container infrastructure to enable caching
 sudo: false
 
-language: haskell
+# Choose a lightweight base image; we provide our own build tools.
+language: c
+
+# GHC depends on GMP. You can add other dependencies here as well.
+addons:
+  apt:
+    packages:
+    - libgmp-dev
 
 install:
+ # Download and unpack the stack executable
+ - mkdir -p ~/.local/bin
+ - export PATH=$HOME/.local/bin:$PATH
+ - travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
+
  # Get stackage-curator
  - wget https://s3.amazonaws.com/stackage-travis/stackage-curator/stackage-curator.bz2
  - bunzip2 stackage-curator.bz2
  - chmod +x stackage-curator
-
- # Get stack
- - travis_retry curl -L https://github.com/commercialhaskell/stack/releases/download/v0.1.3.0/stack-0.1.3.0-x86_64-linux-gmp4.gz | gunzip > stack
- - chmod +x stack
+ - mv stackage-curator ~/.local/bin
 
  # Install GHC and cabal-install
- - ./stack setup 7.10.3
- - ./stack --resolver ghc-7.10 build stackage-update
+ - stack setup 7.10.3
+ - stack --resolver ghc-7.10 build stackage-update
 
  # Update the index
- - travis_retry ./stack --resolver ghc-7.10 exec stackage-update
+ - travis_retry stack --resolver ghc-7.10 exec stackage-update
 
 script:
- - ./stack --resolver ghc-7.10 exec ./stackage-curator check
+ - stack --resolver ghc-7.10 exec stackage-curator check
 
 cache:
   directories:
