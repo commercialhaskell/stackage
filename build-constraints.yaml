@@ -640,7 +640,7 @@ packages:
         - hledger
         # - hledger-ui
         - hledger-web
-        - shelltestrunner
+        # - shelltestrunner
 
     "Mihai Maruseac <mihai.maruseac@gmail.com>":
         - io-manager
@@ -1606,22 +1606,24 @@ packages:
 
     "Facundo Domínguez <facundo.dominguez@tweag.io> @facundominguez":
         - distributed-process
-        - distributed-process-async
-        - distributed-process-client-server
-        - distributed-process-execution
-        - distributed-process-extras
-        - distributed-process-registry
-        - distributed-process-simplelocalnet
-        - distributed-process-supervisor
-        - distributed-process-task
+        # Removed due to inactivity https://github.com/fpco/stackage/issues/768
+        # - distributed-process-async
+        # - distributed-process-client-server
+        # - distributed-process-execution
+        # - distributed-process-extras
+        # - distributed-process-registry
+        # - distributed-process-simplelocalnet
+        # - distributed-process-supervisor
+        # - distributed-process-task
         - distributed-static
         - network-transport
         - network-transport-tcp
         - network-transport-composed
         - rank1dynamic
 
-    "Alexander Vershilov <alexander.vershilov@tweag.io> @qnikst":
-        - network-transport-zeromq
+    # Removed due to inactivity https://github.com/fpco/stackage/issues/768
+    # "Alexander Vershilov <alexander.vershilov@tweag.io> @qnikst":
+        # - network-transport-zeromq
 
     "Takahiro Himura <himuratk421@gmail.com> @thimura":
         - lens-regex
@@ -1674,8 +1676,8 @@ packages:
         - inline-c-cpp
         - ekg
 
-    "Emin Karayel <me@eminkarayel.de>":
-        - sync-mht
+    # "Emin Karayel <me@eminkarayel.de>":
+    #     - sync-mht
 
     "Michael Schröder <mc.schroeder@gmail.com> @mcschroeder":
         - ttrie
@@ -1743,9 +1745,6 @@ packages:
     "Stackage upper bounds":
         # https://github.com/fpco/stackage/issues/537
         - zlib < 0.6
-
-        # https://github.com/fpco/stackage/issues/768
-        - HUnit < 1.3
 
         # https://github.com/fpco/stackage/issues/845
         - aeson < 0.10
@@ -1929,6 +1928,25 @@ skipped-tests:
     - argon
     - clock
     - pipes-cacophony
+
+    # HUnit < 1.3
+    - GLFW-b
+    - HsOpenSSL
+    - bindings-GLFW
+    - clay
+    - hedis
+    - hint
+    - ide-backend
+    - language-ecmascript
+    - lifted-base
+    - newtype-generics
+    - parsec
+    - rank1dynamic
+    - shelltestrunner
+    - sync-mht
+    - terminal-progress-bar
+    - threads
+
 # end of skipped-tests
 
 # Tests which we should build and run, but which are expected to fail. We
