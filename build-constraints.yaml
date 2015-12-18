@@ -1992,9 +1992,6 @@ expected-test-failures:
     # https://github.com/skogsbaer/xmlgen/issues/2
     - xmlgen
 
-    # Requires a locally running PostgreSQL server with appropriate users
-    - postgresql-simple
-
     # Some kind of Cabal bug when trying to run tests
     - thyme
 
@@ -2052,9 +2049,6 @@ expected-test-failures:
     # Often run out of inotify handles
     - fsnotify
 
-    # Requires a correctly set up Postgres instance
-    - opaleye
-
     # weird problems with cabal test
     - cautious-file
 
@@ -2110,6 +2104,9 @@ expected-test-failures:
 
     # Expects a running PostgreSQL server
     - users-postgresql-simple
+    - dbmigrations
+    - opaleye
+    - postgresql-simple
 
     # Problems with linking with system libraries on Ubuntu 12.04
     - nettle
@@ -2248,9 +2245,6 @@ expected-test-failures:
     # https://github.com/fpco/stackage/issues/916
     - distributed-process-extras
     - distributed-process-client-server
-
-    # https://github.com/fpco/stackage/issues/917
-    - dbmigrations
 
     # Requires running server
     - riak
