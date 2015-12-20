@@ -180,8 +180,7 @@ packages:
     "Jasper Van der Jeugt":
         - blaze-html
         - blaze-markup
-        # http-types < 0.9
-        # - hakyll
+        - hakyll
         - stylish-haskell
         - psqueues
         - websockets
@@ -430,8 +429,7 @@ packages:
         - dixi
         - latex-formulae-image
         - latex-formulae-pandoc
-        # http-types < 0.9
-        # - latex-formulae-hakyll
+        - latex-formulae-hakyll
         # Temporarily removed due to upper bound on haskell-src-exts in Agda
         # - agda-snippets
         # - agda-snippets-hakyll
@@ -447,8 +445,6 @@ packages:
         - runmemo
         - tardis
         - lens-family-th
-        # Temporary block for: https://github.com/lambdabot/lambdabot/issues/139
-        # - lambdabot
 
     "Daniel Díaz dhelta.diaz@gmail.com @Daniel-Diaz":
         - bimap-server
@@ -539,9 +535,6 @@ packages:
         - action-permutations
         - amqp
         - curl
-        # https://github.com/haskell-suite/haskell-names/issues/69
-        # - haskell-names
-        - haskell-packages
         - heredoc
         - hse-cpp
         - immortal
@@ -1051,7 +1044,7 @@ packages:
         - amazonka-waf
         - amazonka-workspaces
         - ede
-        # https://github.com/brendanhay/pagerduty/issues/5
+        # aeson < 0.10
         # - pagerduty
         - semver
         - text-manipulate
@@ -1317,6 +1310,7 @@ packages:
         - cayley-client
 
     "koral koral@mailoo.org @k0ral":
+        - conduit-parse
         - timerep
 
     "Kostiantyn Rybnikov <k-bx@k-bx.com> @k-bx":
@@ -1356,7 +1350,7 @@ packages:
     "Will Thompson <will@willthompson.co.uk> @wjt":
         - bustle
 
-    "Jakub Fijałkowski kuba@codinginfinity.me @Fiolek":
+    "Jakub Fijałkowski kuba@codinginfinity.me @jakubfijalkowski":
         - hlibsass
         - hsass
 
@@ -1751,6 +1745,10 @@ packages:
 
     "Timothy Klim <stackage@timothyklim.com> @TimothyKlim":
         - pkcs10
+        
+    "David Luposchainsky <dluposchainsky (λ) googles email service> @quchen":
+        - binary-typed
+        - pgp-wordlist
 
     "Jeremy Shaw <jeremy@n-heptane.com> @stepcut":
         - boomerang
@@ -1780,6 +1778,12 @@ packages:
         - web-routes-hsp
         - web-routes-th
         - web-routes-wai
+
+    # If you stop mainaining a package you can move it here.
+    # It will then be disabled if it starts causing problems.
+    "Abandoned packages":
+        # https://github.com/fpco/stackage/issues/1056
+        - haskell-packages
 
     "Stackage upper bounds":
         # https://github.com/fpco/stackage/issues/537
@@ -1930,9 +1934,6 @@ skipped-tests:
     - tar
     - uuid
     - uuid-types
-
-    # https://github.com/fpco/stackage/issues/934
-    - cacophony
 
     # Build error with lens-4.13
     # https://github.com/brendanhay/amazonka/issues/251
@@ -2274,9 +2275,6 @@ expected-test-failures:
 
     # https://github.com/chrisdone/sourcemap/issues/3
     - sourcemap
-
-    # https://github.com/yesodweb/yesod/issues/1128
-    - yesod-core
 # end of expected-test-failures
 
 
