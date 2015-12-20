@@ -1374,8 +1374,7 @@ packages:
         - diff3
         - digestive-functors-aeson
         - exhaustive
-        # Needs pkg-config libsystemd
-        # - libsystemd-journal
+        - libsystemd-journal
         - network-carbon
         - socket-io
 
@@ -1877,6 +1876,10 @@ skipped-builds:
     - Win32
     - Win32-notify
     - Win32-extras
+
+    # The Docker image we use does not have access to the correct
+    # C libraries. See: https://github.com/fpco/stackage/issues/696
+    - libsystemd-journal
 
 
 # By skipping a test suite, we do not pull in the build dependencies
