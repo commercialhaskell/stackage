@@ -50,7 +50,11 @@ Use [Ubuntu Package content search](http://packages.ubuntu.com/) to determine wh
 ### Upgrading GHC version
 The Dockerfile contains information on which GHC versions should be used. You
 can modify it and push it to Github to trigger a DockerHub build. The master
-branch is used for nightlies, and the lts branch for LTS.
+branch is used for nightlies. For LTSes, we use the ltsX branch, where X is the
+major version number (e.g., lts3 for lts-3.\*).
+
+Note that when starting a new LTS major release, you'll need to modify Docker
+Hub to create a new Docker tag for the relevant branch name.
 
 ### Getting the new image to the build server
 Once a new Docker image is available, you'll need to pull it onto the stackage-build server (see

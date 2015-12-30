@@ -4,7 +4,15 @@ set -eux
 
 ROOT=$(cd $(dirname $0) ; pwd)
 TARGET=$1
+
+# For nightly-YYYY-MM-DD, tag should be nightly
+# For lts-X.Y, tag should be ltsX
 TAG=$(echo $TARGET | cut -d- -f 1)
+if [ $TAG = "lts" ]
+then
+    TAG=$(echo $TARGET | sed 's@^lts-\([0-9]*\)\.[0-9]*@lts\1@')
+fi
+
 IMAGE=snoyberg/stackage:$TAG
 
 PLAN_FILE=current-plan.yaml
