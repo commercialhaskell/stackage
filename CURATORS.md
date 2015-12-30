@@ -105,6 +105,13 @@ info above). For an LTS minor bump, you'll typically want to use the
 CONSTRAINTS='--constraint "conduit < 1.4.5" --constraint "criterion < 1.2.3"' /opt/stackage-build/stackage/automated/build.sh lts-2.17
 ```
 
+Valid arguments to include in this environment variable:
+
+* `--constraint` to modify an upper or lower bound
+* `--add-package` to add a brand new package
+* `--expect-test-failure` to expect tests to fail
+* `--expect-haddock-failure` to expect haddocks to fail
+
 If a build fails for bounds reasons, see all of the advice above. If the code
 itself doesn't build, or tests fail, open up an issue and then either put in a
 version bound to avoid that version or something else. It's difficult to give
