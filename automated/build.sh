@@ -7,10 +7,12 @@ TARGET=$1
 
 # For nightly-YYYY-MM-DD, tag should be nightly
 # For lts-X.Y, tag should be ltsX
-TAG=$(echo $TARGET | cut -d- -f 1)
-if [ $TAG = "lts" ]
+SHORTNAME=$(echo $TARGET | cut -d- -f 1)
+if [ $SHORTNAME = "lts" ]
 then
     TAG=$(echo $TARGET | sed 's@^lts-\([0-9]*\)\.[0-9]*@lts\1@')
+else
+    TAG=$SHORTNAME
 fi
 
 IMAGE=snoyberg/stackage:$TAG
@@ -23,7 +25,7 @@ CABAL_DIR=$ROOT/cabal
 GHC_DIR=$ROOT/ghc
 DOT_STACKAGE_DIR=$ROOT/dot-stackage
 WORKDIR=$ROOT/$TAG/work
-SSH_DIR=$ROOT/ssh-$TAG
+SSH_DIR=$ROOT/ssh-$SHORTNAME
 
 mkdir -p \
 	"$CABAL_DIR" \
