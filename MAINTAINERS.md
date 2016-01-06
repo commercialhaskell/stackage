@@ -50,3 +50,20 @@ If a new version of a dependency is released, and that stops your package compil
 Maintainers are humans, humans get sick/have babies/go on holiday. If you have regular problems meeting the limits, find a co-maintainer. If you have a one-off problem, respond to the GitHub tickets saying so, and some kind soul might pick up the slack.
 
 The time limits are intended to stop people being inconvenienced because of problems in other packages. Where such inconvenience happens, we will drop the offending packages from Stackage. While upper bounds are sometimes a temporary solution, they are against the ethos of Stackage, so will not be kept for long.
+
+## Adding a package to an LTS snapshot
+
+The steps above affect the Stackage Nightly builds, but do not directly affect
+LTS Haskell builds. When we build a new LTS Haskell major version (anything
+ending in `.0`), the package set is taken from LTS Haskell. Therefore, by
+following the above steps, you can get your package into the next major LTS
+Haskell release.
+
+If you would like to get your package added to an existing LTS Haskell major
+release (e.g., if `lts-3.21` is out, you would want your package to appear in
+`lts-3.22`), please do the following in addition to the steps above:
+
+* Open up a new issue on the [lts-haskell repo](https://github.com/fpco/lts-haskell/issues/new)
+* Specify the LTS major version you would like your package to go into (e.g., lts-3)
+* Provide a list of packages you would like added, and if relevant, any upper bounds on those packages
+* Be patient! The LTS releases are by their nature more conservative than nightly, and therefore adding new packages is a more manual process. The Stackage curators will try to get to your issue quickly, but there may be some delay.
