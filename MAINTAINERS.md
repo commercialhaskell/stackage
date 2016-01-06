@@ -55,7 +55,7 @@ The time limits are intended to stop people being inconvenienced because of prob
 
 The steps above affect the Stackage Nightly builds, but do not directly affect
 LTS Haskell builds. When we build a new LTS Haskell major version (anything
-ending in `.0`), the package set is taken from LTS Haskell. Therefore, by
+ending in `.0`), the package set is taken from Stackage Nightly. Therefore, by
 following the above steps, you can get your package into the next major LTS
 Haskell release.
 
