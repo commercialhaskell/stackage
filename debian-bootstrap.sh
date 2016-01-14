@@ -19,6 +19,7 @@ apt-get install -y \
     build-essential \
     freeglut3-dev \
     git \
+    imagemagick \
     libadns1-dev \
     libblas-dev \
     libbz2-dev \
