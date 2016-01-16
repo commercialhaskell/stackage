@@ -1210,8 +1210,9 @@ packages:
         - poly-arity
         - urlpath
         - wai-transformers
-        - wai-middleware-content-type
-        - wai-middleware-verbs
+        # Temporary block due to #1074
+        # - wai-middleware-content-type
+        # - wai-middleware-verbs
         - webpage
         - composition-extra
         - rose-trees
@@ -1883,13 +1884,6 @@ packages:
         - DRBG < 0.5.5
         - safecopy < 0.9
 
-        # https://github.com/fpco/stackage/issues/1074
-        - http2 < 1.4
-        - wai < 3.2
-        - warp < 3.2
-        - warp-tls < 3.2
-        - hoauth2 < 0.5.1
-
         # https://github.com/fpco/stackage/issues/1091
         - HTTP < 4000.3
 
@@ -2307,9 +2301,6 @@ expected-test-failures:
     # Permissions failure when creating /home/stackage/.stack. We _should_ fix
     # this in the build scripts here...
     - stack
-
-    # https://github.com/kazu-yamamoto/http2/issues/4
-    - http2
 
     # https://github.com/prowdsponsor/mangopay/issues/30
     - mangopay
