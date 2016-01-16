@@ -66,6 +66,7 @@ apt-get install -y \
     libxml2-dev \
     libxss-dev \
     libyaml-dev \
+    libzip-dev \
     libzmq3-dev \
     llvm \
     m4 \
