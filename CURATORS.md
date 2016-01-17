@@ -127,3 +127,9 @@ build succeeds, write something like `sleep 20h;
 /opt/stackage-build/stackage/automated/build.sh nightly-2015-01-02`.)
 
 LTS minor bumps typically are run on Sundays.
+
+### Website sync debugging (and other out of disk space errors)
+
+* You can detect the problem by running `df`. If you see that `/` is out of space, we have a problem
+* There are many temp files inside `/home/ubuntu/stackage-server-cron` that can be cleared out occasionally
+* You can then manually run `/home/ubuntu/stackage-server-cron.sh`, or wait for the cron job to do it
