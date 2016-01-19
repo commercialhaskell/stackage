@@ -82,14 +82,14 @@ apt-get install -y \
 mkdir /tmp/nettle-build
 (
 cd /tmp/nettle-build
-wget https://ftp.gnu.org/gnu/nettle/nettle-2.7.1.tar.gz
-tar zxf nettle-2.7.1.tar.gz
-cd nettle-2.7.1
+wget https://ftp.gnu.org/gnu/nettle/nettle-3.1.1.tar.gz
+tar zxf nettle-3.1.1.tar.gz
+cd nettle-3.1.1
 ./configure --prefix=/usr
 make
 make install
 
 mkdir -p /usr/lib/x86_64-linux-gnu/
-ln -sfv /usr/lib/libnettle.so.4.7 /usr/lib/x86_64-linux-gnu/libnettle.so.4
+ln -sfv /usr/lib/libnettle.so.6.1 /usr/lib/x86_64-linux-gnu/libnettle.so.6
 )
 rm -rf /tmp/nettle-build
