@@ -2566,6 +2566,18 @@ github-users:
 
 # end of github-users
 
+# begin build-tool-overrides
+#
+# Used to set a mapping from build tools to package names, ignoring the
+# metadata on Hackage itself
+
+build-tool-overrides:
+    # Ignore the cabal-install-ghc72 and cabal-install-ghc74 packages
+    cabal:
+        - cabal-install
+
+# end build-tool-overrides
+
 # Useful for checking for strict upper bounds against new versions of core
 # packages, e.g. when a new version of transformers is released
 #
