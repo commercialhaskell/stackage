@@ -13,6 +13,7 @@
 add-apt-repository -y ppa:zoogie/sdl2-snapshots
 add-apt-repository -y ppa:marutter/rrutter
 add-apt-repository -y ppa:openstack-ubuntu-testing/icehouse
+echo 'deb http://download.fpcomplete.com/ubuntu trusty main'|sudo tee /etc/apt/sources.list.d/fpco.list
 
 apt-get update
 apt-get install -y \
@@ -77,6 +78,7 @@ apt-get install -y \
     texlive-full \
     wget \
     zip \
+    stack \
     zlib1g-dev
 
 mkdir /tmp/nettle-build
