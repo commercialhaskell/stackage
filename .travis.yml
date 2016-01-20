@@ -10,6 +10,9 @@ addons:
     packages:
     - libgmp-dev
 
+env:
+- GHCVER=7.10.3
+
 install:
  # Download and unpack the stack executable
  - mkdir -p ~/.local/bin
@@ -23,14 +26,14 @@ install:
  - mv stackage-curator ~/.local/bin
 
  # Install GHC and cabal-install
- - stack setup 7.10.3
- - stack --resolver ghc-7.10 build stackage-update
+ - stack setup $GHCVER
+ - stack --resolver ghc-$GHCVER build stackage-update
 
  # Update the index
- - travis_retry stack --resolver ghc-7.10 exec stackage-update
+ - travis_retry stack --resolver ghc-$GHCVER exec stackage-update
 
 script:
- - stack --resolver ghc-7.10 exec stackage-curator check
+ - stack --resolver ghc-$GHCVER exec stackage-curator check
 
 cache:
   directories:
