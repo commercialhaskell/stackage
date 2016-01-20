@@ -26,6 +26,7 @@ STACK_DIR=$ROOT/stack
 GHC_DIR=$ROOT/ghc
 DOT_STACKAGE_DIR=$ROOT/dot-stackage
 WORKDIR=$ROOT/$TAG/work
+EXTRA_BIN_DIR=$ROOT/extra-bin
 SSH_DIR=$ROOT/ssh-$SHORTNAME
 
 mkdir -p \
@@ -34,6 +35,7 @@ mkdir -p \
 	"$GHC_DIR" \
 	"$DOT_STACKAGE_DIR" \
 	"$WORKDIR" \
+	"$EXTRA_BIN_DIR" \
 	"$SSH_DIR"
 
 GITCONFIG=$ROOT/gitconfig
@@ -75,12 +77,35 @@ bunzip2 stackage-curator.bz2
 chmod +x stackage-curator
 )
 
-ARGS_COMMON="--rm -v $WORKDIR:/home/stackage/work -w /home/stackage/work -v $BINDIR/stackage-curator:/usr/local/bin/stackage-curator:ro -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro"
+ARGS_COMMON="--rm -v $WORKDIR:/home/stackage/work -w /home/stackage/work -v $BINDIR/stackage-curator:/usr/local/bin/stackage-curator:ro -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v $EXTRA_BIN_DIR:/home/stackage/bin:ro"
 ARGS_PREBUILD="$ARGS_COMMON -u $USER -v $CABAL_DIR:/home/stackage/.cabal -v $STACK_DIR:/home/stackage/.stack -v $GHC_DIR:/home/stackage/.ghc -v $DOT_STACKAGE_DIR:/home/stackage/.stackage"
 ARGS_BUILD="$ARGS_COMMON -v $CABAL_DIR:/home/stackage/.cabal:ro -v $STACK_DIR:/home/stackage/.stack:ro -v $GHC_DIR:/home/stackage/.ghc:ro"
 ARGS_UPLOAD="$ARGS_COMMON -u $USER -e AWS_ACCESS_KEY=$AWS_ACCESS_KEY -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY -e AWS_SECRET_KEY=$AWS_SECRET_KEY -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_KEY -v $AUTH_TOKEN:/auth-token:ro -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:/home/stackage/.stackage -v $SSH_DIR:/home/ubuntu/.ssh:ro -v $GITCONFIG:/home/stackage/.gitconfig:ro -v $CABAL_DIR:/home/stackage/.cabal:ro -v $STACK_DIR:/home/stackage/.stack:ro"
 
+# Make sure we actually need this snapshot
 docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "stackage-curator check-target-available --target $TARGET"
-docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "stackage-curator update && stackage-curator create-plan --plan-file $PLAN_FILE --target $TARGET ${CONSTRAINTS:-} && stackage-curator check --plan-file $PLAN_FILE"
-docker run $ARGS_BUILD $IMAGE /bin/bash -c "chown $USER /home/stackage && sudo -E -u $USER env \"PATH=\$PATH\" stackage-curator make-bundle --plan-file $PLAN_FILE --docmap-file $DOCMAP_FILE --bundle-file $BUNDLE_FILE --target $TARGET"
+
+# Get latest stack
+curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C $EXTRA_BIN_DIR '*/stack'
+
+# Do all of the pre-build actions:
+#
+# * Update the package index
+# * Create a new plan
+# * Check that the plan is valid
+# * Fetch all needed tarballs (the build step does not have write access to the tarball directory)
+# * Do a single unpack to create the package index cache (again due to directory perms)
+docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "/home/stackage/bin/stack update && stackage-curator create-plan --plan-file $PLAN_FILE --target $TARGET ${CONSTRAINTS:-} && stackage-curator check --plan-file $PLAN_FILE && stackage-curator fetch --plan-file $PLAN_FILE && /home/stackage/bin/stack unpack random"
+
+# Now do the actual build. We need to first set the owner of the home directory
+# correctly, so we run the command as root, change owner, and then use sudo to
+# switch back to the current user
+docker run $ARGS_BUILD $IMAGE /bin/bash -c "chown $USER /home/stackage && sudo -E -u $USER env \"PATH=\$PATH:/home/stackage/bin\" stackage-curator make-bundle --plan-file $PLAN_FILE --docmap-file $DOCMAP_FILE --bundle-file $BUNDLE_FILE --target $TARGET"
+
+# Successful build, so we need to:
+#
+# * Upload the docs to S3
+# * Upload the 00-index.tar file to S3 (TODO: this is probably no longer necessary, since snapshots never modify .cabal files)
+# * Upload the new plan .yaml file to the appropriate Github repo
+# * Register as a new Hackage distro
 docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "stackage-curator upload-docs --target $TARGET --bundle-file $BUNDLE_FILE && stackage-curator upload-index --plan-file $PLAN_FILE --target $TARGET && stackage-curator upload-github --plan-file $PLAN_FILE --docmap-file $DOCMAP_FILE --target $TARGET && stackage-curator hackage-distro --plan-file $PLAN_FILE --target $TARGET"
