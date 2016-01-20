@@ -22,6 +22,7 @@ DOCMAP_FILE=current-docmap.yaml
 BUNDLE_FILE=current.bundle
 
 CABAL_DIR=$ROOT/cabal
+STACK_DIR=$ROOT/stack
 GHC_DIR=$ROOT/ghc
 DOT_STACKAGE_DIR=$ROOT/dot-stackage
 WORKDIR=$ROOT/$TAG/work
@@ -29,6 +30,7 @@ SSH_DIR=$ROOT/ssh-$SHORTNAME
 
 mkdir -p \
 	"$CABAL_DIR" \
+	"$STACK_DIR" \
 	"$GHC_DIR" \
 	"$DOT_STACKAGE_DIR" \
 	"$WORKDIR" \
@@ -74,12 +76,11 @@ chmod +x stackage-curator
 )
 
 ARGS_COMMON="--rm -v $WORKDIR:/home/stackage/work -w /home/stackage/work -v $BINDIR/stackage-curator:/usr/local/bin/stackage-curator:ro -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro"
-ARGS_PREBUILD="$ARGS_COMMON -u $USER -v $CABAL_DIR:/home/stackage/.cabal -v $GHC_DIR:/home/stackage/.ghc -v $DOT_STACKAGE_DIR:/home/stackage/.stackage"
-ARGS_BUILD="$ARGS_COMMON -v $CABAL_DIR:/home/stackage/.cabal:ro -v $GHC_DIR:/home/stackage/.ghc:ro"
-ARGS_UPLOAD="$ARGS_COMMON -u $USER -e AWS_ACCESS_KEY=$AWS_ACCESS_KEY -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY -e AWS_SECRET_KEY=$AWS_SECRET_KEY -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_KEY -v $AUTH_TOKEN:/auth-token:ro -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:/home/stackage/.stackage -v $SSH_DIR:/home/ubuntu/.ssh:ro -v $GITCONFIG:/home/stackage/.gitconfig:ro -v $CABAL_DIR:/home/stackage/.cabal:ro"
+ARGS_PREBUILD="$ARGS_COMMON -u $USER -v $CABAL_DIR:/home/stackage/.cabal -v $STACK_DIR:/home/stackage/.stack -v $GHC_DIR:/home/stackage/.ghc -v $DOT_STACKAGE_DIR:/home/stackage/.stackage"
+ARGS_BUILD="$ARGS_COMMON -v $CABAL_DIR:/home/stackage/.cabal:ro -v $STACK_DIR:/home/stackage/.stack:ro -v $GHC_DIR:/home/stackage/.ghc:ro"
+ARGS_UPLOAD="$ARGS_COMMON -u $USER -e AWS_ACCESS_KEY=$AWS_ACCESS_KEY -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY -e AWS_SECRET_KEY=$AWS_SECRET_KEY -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_KEY -v $AUTH_TOKEN:/auth-token:ro -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:/home/stackage/.stackage -v $SSH_DIR:/home/ubuntu/.ssh:ro -v $GITCONFIG:/home/stackage/.gitconfig:ro -v $CABAL_DIR:/home/stackage/.cabal:ro -v $STACK_DIR:/home/stackage/.stack:ro"
 
-# Use cabal update first to initialize ~/.cabal.config, then use stackage-curator update to get it securely
 docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "stackage-curator check-target-available --target $TARGET"
-docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "cabal update && stackage-curator update && stackage-curator create-plan --plan-file $PLAN_FILE --target $TARGET ${CONSTRAINTS:-} && stackage-curator check --plan-file $PLAN_FILE && stackage-curator fetch --plan-file $PLAN_FILE && cabal install random"
+docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "stackage-curator update && stackage-curator create-plan --plan-file $PLAN_FILE --target $TARGET ${CONSTRAINTS:-} && stackage-curator check --plan-file $PLAN_FILE"
 docker run $ARGS_BUILD $IMAGE /bin/bash -c "chown $USER /home/stackage && sudo -E -u $USER env \"PATH=\$PATH\" stackage-curator make-bundle --plan-file $PLAN_FILE --docmap-file $DOCMAP_FILE --bundle-file $BUNDLE_FILE --target $TARGET"
 docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "stackage-curator upload-docs --target $TARGET --bundle-file $BUNDLE_FILE && stackage-curator upload-index --plan-file $PLAN_FILE --target $TARGET && stackage-curator upload-github --plan-file $PLAN_FILE --docmap-file $DOCMAP_FILE --target $TARGET && stackage-curator hackage-distro --plan-file $PLAN_FILE --target $TARGET"
