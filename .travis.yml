@@ -27,10 +27,9 @@ install:
 
  # Install GHC and cabal-install
  - stack setup $GHCVER
- - stack --resolver ghc-$GHCVER build stackage-update
 
  # Update the index
- - travis_retry stack --resolver ghc-$GHCVER exec stackage-update
+ - travis_retry stack update
 
 script:
  - stack --resolver ghc-$GHCVER exec stackage-curator check
