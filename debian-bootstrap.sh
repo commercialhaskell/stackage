@@ -18,6 +18,7 @@ echo 'deb http://download.fpcomplete.com/ubuntu trusty main'|sudo tee /etc/apt/s
 apt-get update
 apt-get install -y \
     build-essential \
+    curl \
     freeglut3-dev \
     git \
     imagemagick \
