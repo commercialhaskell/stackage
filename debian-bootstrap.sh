@@ -46,6 +46,7 @@ apt-get install -y \
     libleveldb-dev \
     liblzma-dev \
     libmagic-dev \
+    libmagick++-dev \
     libmysqlclient-dev \
     libncurses-dev \
     libnotify-dev \
