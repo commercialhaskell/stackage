@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/usr/bin/env bash
 
 # Work in progress: create a list of commands necessary to get Stackage
 # up-and-running on a freshly installed Debian-based system (including Ubuntu).
@@ -9,6 +9,8 @@
 # NOTE: Requires that GHC and Cabal are installed and on your PATH. For
 # instructions, see:
 #    http://www.stackage.org/install
+
+set -exu
 
 add-apt-repository -y ppa:zoogie/sdl2-snapshots
 add-apt-repository -y ppa:marutter/rrutter
