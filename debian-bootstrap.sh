@@ -15,6 +15,9 @@ set -exu
 add-apt-repository -y ppa:zoogie/sdl2-snapshots
 add-apt-repository -y ppa:marutter/rrutter
 add-apt-repository -y ppa:openstack-ubuntu-testing/icehouse
+
+# Get Stack
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 575159689BEFB442
 echo 'deb http://download.fpcomplete.com/ubuntu trusty main'|sudo tee /etc/apt/sources.list.d/fpco.list
 
 apt-get update
