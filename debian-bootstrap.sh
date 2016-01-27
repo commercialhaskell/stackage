@@ -26,7 +26,6 @@ apt-get install -y \
     curl \
     freeglut3-dev \
     git \
-    libmagickcore-dev \
     libadns1-dev \
     libblas-dev \
     libbz2-dev \
@@ -52,7 +51,8 @@ apt-get install -y \
     libleveldb-dev \
     liblzma-dev \
     libmagic-dev \
-    libmagick++-dev \
+    libmagickcore-dev \
+    libmagickwand-dev \
     libmysqlclient-dev \
     libncurses-dev \
     libnotify-dev \
