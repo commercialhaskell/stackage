@@ -26,7 +26,7 @@ apt-get install -y \
     curl \
     freeglut3-dev \
     git \
-    imagemagick \
+    libmagickcore-dev \
     libadns1-dev \
     libblas-dev \
     libbz2-dev \
