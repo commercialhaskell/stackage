@@ -42,7 +42,7 @@ to refer to the issue for workarounds added to that file.
 
 ### Adding Debian packages for required system tools or libraries
 Additional (non-Haskell) system libraries or tools should be added to `stackage/debian-bootstrap.sh`.
-Committing the changes should trigger a DockerHub. Normally only the master branch needs to be updated
+Committing the changes should trigger a DockerHub. Normally only the nightly branch needs to be updated
 since new packages are not added to the current lts release.
 
 Use [Ubuntu Package content search](http://packages.ubuntu.com/) to determine which package provides particular dev files (it defaults to trusty which is the same version as the server).
