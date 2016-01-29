@@ -19,10 +19,9 @@ To add a set of packages, you would add:
         - package2
         - package3
 
-After doing that, send a pull request. We do not require new submissions to be tested against the rest of Stackage before the pull request, provided you meet the dependency version requirements above. If your library depends on a C library, add a note to your pull request with the Ubuntu library name, or even better edit the debian-bootstrap script directly
+After doing that, send a pull request (with a commit message like "add foo-bar"). We do not require new submissions to be tested against the rest of Stackage before the pull request (though it is a good idea to do so if you can with `stack --resolver nightly exec stackage-curator check` and `stack --resolver nightly build`), provided you meet the dependency version requirements above. If your library depends on a C library, add a note to your pull request with the Ubuntu library name, or even better edit the `debian-bootstrap.sh` script directly
 
-
-Please use commit messages like "add foo-bar" or "add johndev's packages"
+**NB** Please use commit messages like "add foo-bar" or "add johndev's packages"
 (`build-constraints.yaml` is the most frequently changed file in this git repo
 so commit messages like "update build-constraints.yaml" are not helpful).
 
