@@ -80,6 +80,8 @@ Host stackage-build
     Hostname ec2-52-5-20-252.compute-1.amazonaws.com
 ```
 
+### Running the build script
+
 We currently run the builds manually so make it easy to see when there are
 bounds issues that need to be corrected. Automated this would be even better,
 we're just not there yet.
