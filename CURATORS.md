@@ -1,6 +1,6 @@
-This is a collection of instructions covering the processes Stackage curators - the
+This is a collection of instructions covering the processes that the Stackage curators - the
 guys who maintain the Stackage project itself - should be doing on a regular basis.
-Originally this was handled by Michael Snoyman,
+Originally this was handled largely by Michael Snoyman,
 but now we are a team of 4 people handling requests weekly in rotation.
 Curation activities are mostly automated, and do not take up a significant amount of time.
 
