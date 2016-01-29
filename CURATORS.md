@@ -1,9 +1,8 @@
-This is a collection of instructions for what Stackage curators- the guys who
-maintain the Stackage project itself- should be doing on a regular basis. At
-the time of writing (July 2015), this is handled almost entirely by Michael
-Snoyman. Curation activities are mostly automated, and do not take up a
-significant amount of time. But it's good to spread the knowledge for obvious
-reasons (errant buses, if I ever decide to take a vacation...).
+This is a collection of instructions covering the processes Stackage curators - the
+guys who maintain the Stackage project itself - should be doing on a regular basis.
+Originally this was handled by Michael Snoyman,
+but now we are a team of 4 people handling requests weekly in rotation.
+Curation activities are mostly automated, and do not take up a significant amount of time.
 
 ## Workflow
 
@@ -18,7 +17,7 @@ process works:
 * The stackage-build server (described below) is able to run automated builds using the [build.sh script](https://github.com/fpco/stackage/blob/master/automated/build.sh)
 * When a new Nightly build is completed, it is uploaded to [the nightly repo](https://github.com/fpco/stackage-nightly)
 * Once a week, we run an LTS minor bump. Instead of using build-constraints.yaml, that job takes the previous LTS release, turns it into constraints, and then bumps the version numbers to the latest on Hackage, in accordance with the version bounds in the build plan. This plans are uploaded to [the LTS repo](https://github.com/fpco/lts-haskell)
-* Cutting a new LTS major release is essentially just a Stackage Nightly that gets uploaded as an LTS
+* Cutting a new LTS major release is essentially just a Stackage Nightly that gets rebuilt and uploaded as an LTS
 
 ## Pull requests
 
