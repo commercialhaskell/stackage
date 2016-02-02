@@ -12,6 +12,14 @@
 
 set -exu
 
+mkdir /home/stackage -p
+locale-gen en_US.UTF-8
+
+export DEBIAN_FRONTEND=noninteractive
+apt-get update
+apt-get install -y software-properties-common python-software-properties git
+
+add-apt-repository ppa:hvr/ghc -y
 add-apt-repository -y ppa:zoogie/sdl2-snapshots
 add-apt-repository -y ppa:marutter/rrutter
 add-apt-repository -y ppa:openstack-ubuntu-testing/icehouse
@@ -23,6 +31,10 @@ echo 'deb http://download.fpcomplete.com/ubuntu trusty main'|sudo tee /etc/apt/s
 apt-get update
 apt-get install -y \
     build-essential \
+    ghc-7.10.3 \
+    ghc-7.10.3-htmldocs \
+    hscolour \
+    sudo \
     curl \
     freeglut3-dev \
     git \
