@@ -25,6 +25,11 @@ After doing that, send a pull request (with a commit message like "add foo-bar")
 (`build-constraints.yaml` is the most frequently changed file in this git repo
 so commit messages like "update build-constraints.yaml" are not helpful).
 
+**NB2** There can be a delay of up to an hour before package versions newly
+uploaded to Hackage appear to our build server. If you just uploaded a package
+to Hackage that you're trying to get included, we recommend waiting an hour
+before opening the PR.
+
 
 ## Uploading a new package
 
