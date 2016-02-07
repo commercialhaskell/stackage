@@ -49,14 +49,12 @@ Stackage both easier and more secure:
 Build the package set
 ---------------------
 
-Generally, building the package set should be done only by the Jenkins machine
-or by the official maintainers, as the process does require quite a bit of
-setup on the local machine. That said, you'll likely be able to get a stable
-build by running:
-
-    cabal update
-    cabal install stackage
-    stackage nightly
+Generally, building the package set should be done only by the Stackage build
+machine by the Stackage curation team. If you're interested in trying this
+yourself, please check out [the curator
+guide](https://github.com/fpco/stackage/blob/master/CURATORS.md), though be
+aware that this is not a recommended practice and there likely will be problems
+you will need to debug yourself.
 
 ### Docker
 
