@@ -114,3 +114,9 @@ mkdir -p /usr/lib/x86_64-linux-gnu/
 ln -sfv /usr/lib/libnettle.so.6.1 /usr/lib/x86_64-linux-gnu/libnettle.so.6
 )
 rm -rf /tmp/nettle-build
+
+# Buggy versions of ld.bfd fail to link some Haskell packages:
+# https://sourceware.org/bugzilla/show_bug.cgi?id=17689. Gold is
+# faster anyways and uses less RAM.
+update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.gold" 20
+update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
