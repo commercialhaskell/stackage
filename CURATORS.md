@@ -134,3 +134,7 @@ LTS minor bumps typically are run on Sundays.
 * You can detect the problem by running `df`. If you see that `/` is out of space, we have a problem
 * There are many temp files inside `/home/ubuntu/stackage-server-cron` that can be cleared out occasionally
 * You can then manually run `/home/ubuntu/stackage-server-cron.sh`, or wait for the cron job to do it
+
+### Wiping the cache
+
+Sometimes the cache can get corrupted which might manifest as `can't load .so/.DLL`. You can wipe the nightly cache and rebuild everything by doing `rm -rf /opt/stackage-build/stackage/automated/nightly`.
