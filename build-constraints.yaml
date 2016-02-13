@@ -2149,8 +2149,6 @@ skipped-tests:
 # Tests which we should build and run, but which are expected to fail. We
 # should not fail a build based on a test failure for one of these packages.
 expected-test-failures:
-    # Requires an old version of WAI and Warp for tests
-    - HTTP
 
     # https://github.com/bos/statistics/issues/42
     - statistics
@@ -2170,9 +2168,6 @@ expected-test-failures:
 
     # Requires a Facebook app.
     - fb
-
-    # https://github.com/vincenthz/language-java/issues/10
-    - language-java
 
     - threads
     - crypto-conduit
@@ -2194,7 +2189,7 @@ expected-test-failures:
     # https://github.com/fpco/stackage/issues/163
     - hTalos
 
-    # https://github.com/bos/math-functions/issues/25
+    # Fails sporadically - https://github.com/bos/math-functions/issues/25
     - math-functions
 
     # Requires too old a version of test-framework
@@ -2204,9 +2199,6 @@ expected-test-failures:
     - distributed-process
     - lockfree-queue
     - network-transport-tcp
-
-    # https://github.com/fpco/stackage/issues/226
-    - options
 
     # No AWS creds available
     - aws
@@ -2258,9 +2250,6 @@ expected-test-failures:
     # https://github.com/vincenthz/hs-crypto-pubkey/issues/17
     - crypto-pubkey
 
-    # https://github.com/kazu-yamamoto/unix-time/issues/29
-    - unix-time
-
     # Tests can fail when the build plan fails, which happens arbitrarily.
     - stackage
 
@@ -2273,15 +2262,12 @@ expected-test-failures:
     # Requires local database running
     - rethinkdb-client-driver
 
-    # https://github.com/haskell-distributed/distributed-process-execution/issues/2
+    # Fails sporadically: https://github.com/haskell-distributed/distributed-process-execution/issues/2
     - distributed-process-execution
 
     # Seems to depend on mtl being installed in user package database, which
     # isn't always the case (e.g., build server)
     - happy
-
-    # https://github.com/jberryman/directory-tree/issues/4
-    - directory-tree
 
     # https://github.com/ndmitchell/hoogle/issues/101
     - hoogle
@@ -2297,9 +2283,6 @@ expected-test-failures:
     - wai-session-postgresql
     - drifter-postgresql
 
-    # Problems with linking with system libraries on Ubuntu 12.04
-    - nettle
-
     # Requires locally running services
     - network-anonymous-i2p
 
@@ -2311,17 +2294,11 @@ expected-test-failures:
     - hedis
     - redis-io
 
-    # https://code.google.com/p/scrapyourboilerplate/issues/detail?id=26&thanks=26&ts=1430372304, GHC 7.10
-    - syb
-
     # https://github.com/lymar/hastache/issues/47 GHC 7.10
     - hastache
 
     # https://github.com/acid-state/safecopy/issues/25 GHC 7.10
     - safecopy
-
-    # https://github.com/haskell/haddock/issues/390 GHC 7.10
-    - haddock-library
 
     # https://github.com/haskell/ghc-events/issues/9
     - ghc-events
@@ -2398,14 +2375,11 @@ expected-test-failures:
     # https://github.com/tweag/HaskellR/issues/208
     - H
 
-    # https://github.com/jgm/pandoc-citeproc/issues/172
+    # Fails sporadically: https://github.com/jgm/pandoc-citeproc/issues/172
     - pandoc-citeproc
 
     # https://github.com/alcidesv/second-transfer/issues/3
     - second-transfer
-
-    # https://github.com/mitchellwrosen/language-lua2/issues/2
-    - language-lua2
 
     # https://github.com/fpco/stackage/issues/916
     - distributed-process-extras
@@ -2414,9 +2388,8 @@ expected-test-failures:
     # Requires running server
     - riak
     - hworker
-    - hworker-ses
 
-    # https://github.com/chrisdone/hindent/issues/166
+    # Fail sporadically: https://github.com/chrisdone/hindent/issues/166
     - hindent
 
     # https://github.com/fpco/stackage/issues/1000
@@ -2428,8 +2401,7 @@ expected-test-failures:
     # https://github.com/fpco/stackage/issues/1070
     - parsers
 
-    # Unstable
-    # https://github.com/fpco/stackage/issues/1125
+    # Fails sporadically: https://github.com/fpco/stackage/issues/1125
     - jose-jwt
 
     # openfile: does not exist
@@ -2456,16 +2428,17 @@ expected-test-failures:
     # https://github.com/creichert/wai-middleware-throttle/issues/4
     - wai-middleware-throttle
 
+    # https://bitbucket.org/ssaasen/haskell-jwt/issues/18/test-suite-build-failure-in-stackage
+    - jwt
+
+    # https://github.com/rodrigosetti/messagepack/issues/9
+    - messagepack
+
 # end of expected-test-failures
 
 
 # Haddocks which are expected to fail. Same concept as expected test failures.
 expected-haddock-failures:
-    # https://github.com/acw/bytestring-progress/issues/4
-    - bytestring-progress
-
-    # https://github.com/wereHamster/rethinkdb-client-driver/issues/1
-    - rethinkdb-client-driver
 
     # Requires build before haddock, which doesn't always happen in incremental
     # builds. Could consider special-casing this requirement.
@@ -2474,9 +2447,6 @@ expected-haddock-failures:
 
     # Not sure why, but it's a temporary package anyway
     - Cabal-ide-backend
-
-    # not sure why
-    - growler
 
     # https://github.com/fpco/stackage/issues/994
     - Michelangelo
