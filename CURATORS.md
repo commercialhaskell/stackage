@@ -1,9 +1,8 @@
-This is a collection of instructions for what Stackage curators- the guys who
-maintain the Stackage project itself- should be doing on a regular basis. At
-the time of writing (July 2015), this is handled almost entirely by Michael
-Snoyman. Curation activities are mostly automated, and do not take up a
-significant amount of time. But it's good to spread the knowledge for obvious
-reasons (errant buses, if I ever decide to take a vacation...).
+This is a collection of instructions covering the processes that the Stackage curators - the
+guys who maintain the Stackage project itself - should be doing on a regular basis.
+Originally this was handled largely by Michael Snoyman,
+but now we are a team of 4 people handling requests weekly in rotation.
+Curation activities are mostly automated, and do not take up a significant amount of time.
 
 ## Workflow
 
@@ -18,7 +17,7 @@ process works:
 * The stackage-build server (described below) is able to run automated builds using the [build.sh script](https://github.com/fpco/stackage/blob/master/automated/build.sh)
 * When a new Nightly build is completed, it is uploaded to [the nightly repo](https://github.com/fpco/stackage-nightly)
 * Once a week, we run an LTS minor bump. Instead of using build-constraints.yaml, that job takes the previous LTS release, turns it into constraints, and then bumps the version numbers to the latest on Hackage, in accordance with the version bounds in the build plan. This plans are uploaded to [the LTS repo](https://github.com/fpco/lts-haskell)
-* Cutting a new LTS major release is essentially just a Stackage Nightly that gets uploaded as an LTS
+* Cutting a new LTS major release is essentially just a Stackage Nightly that gets rebuilt and uploaded as an LTS
 
 ## Pull requests
 
@@ -42,7 +41,7 @@ to refer to the issue for workarounds added to that file.
 
 ### Adding Debian packages for required system tools or libraries
 Additional (non-Haskell) system libraries or tools should be added to `stackage/debian-bootstrap.sh`.
-Committing the changes should trigger a DockerHub. Normally only the master branch needs to be updated
+Committing the changes should trigger a DockerHub. Normally only the nightly branch needs to be updated
 since new packages are not added to the current lts release.
 
 Use [Ubuntu Package content search](http://packages.ubuntu.com/) to determine which package provides particular dev files (it defaults to trusty which is the same version as the server).
@@ -50,7 +49,11 @@ Use [Ubuntu Package content search](http://packages.ubuntu.com/) to determine wh
 ### Upgrading GHC version
 The Dockerfile contains information on which GHC versions should be used. You
 can modify it and push it to Github to trigger a DockerHub build. The master
-branch is used for nightlies, and the lts branch for LTS.
+branch is used for nightlies. For LTSes, we use the ltsX branch, where X is the
+major version number (e.g., lts3 for lts-3.\*).
+
+Note that when starting a new LTS major release, you'll need to modify Docker
+Hub to create a new Docker tag for the relevant branch name.
 
 ### Getting the new image to the build server
 Once a new Docker image is available, you'll need to pull it onto the stackage-build server (see
@@ -77,6 +80,8 @@ Host stackage-build
     Hostname ec2-52-5-20-252.compute-1.amazonaws.com
 ```
 
+### Running the build script
+
 We currently run the builds manually so make it easy to see when there are
 bounds issues that need to be corrected. Automated this would be even better,
 we're just not there yet.
@@ -101,6 +106,13 @@ info above). For an LTS minor bump, you'll typically want to use the
 CONSTRAINTS='--constraint "conduit < 1.4.5" --constraint "criterion < 1.2.3"' /opt/stackage-build/stackage/automated/build.sh lts-2.17
 ```
 
+Valid arguments to include in this environment variable:
+
+* `--constraint` to modify an upper or lower bound
+* `--add-package` to add a brand new package
+* `--expect-test-failure` to expect tests to fail
+* `--expect-haddock-failure` to expect haddocks to fail
+
 If a build fails for bounds reasons, see all of the advice above. If the code
 itself doesn't build, or tests fail, open up an issue and then either put in a
 version bound to avoid that version or something else. It's difficult to give
@@ -116,3 +128,13 @@ build succeeds, write something like `sleep 20h;
 /opt/stackage-build/stackage/automated/build.sh nightly-2015-01-02`.)
 
 LTS minor bumps typically are run on Sundays.
+
+### Website sync debugging (and other out of disk space errors)
+
+* You can detect the problem by running `df`. If you see that `/` is out of space, we have a problem
+* There are many temp files inside `/home/ubuntu/stackage-server-cron` that can be cleared out occasionally
+* You can then manually run `/home/ubuntu/stackage-server-cron.sh`, or wait for the cron job to do it
+
+### Wiping the cache
+
+Sometimes the cache can get corrupted which might manifest as `can't load .so/.DLL`. You can wipe the nightly cache and rebuild everything by doing `rm -rf /opt/stackage-build/stackage/automated/nightly`.

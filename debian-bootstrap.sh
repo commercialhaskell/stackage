@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/usr/bin/env bash
 
 # Work in progress: create a list of commands necessary to get Stackage
 # up-and-running on a freshly installed Debian-based system (including Ubuntu).
@@ -10,13 +10,32 @@
 # instructions, see:
 #    http://www.stackage.org/install
 
+set -exu
+
+mkdir /home/stackage -p
+locale-gen en_US.UTF-8
+
+export DEBIAN_FRONTEND=noninteractive
+apt-get update
+apt-get install -y software-properties-common python-software-properties git
+
+add-apt-repository ppa:hvr/ghc -y
 add-apt-repository -y ppa:zoogie/sdl2-snapshots
 add-apt-repository -y ppa:marutter/rrutter
 add-apt-repository -y ppa:openstack-ubuntu-testing/icehouse
 
+# Get Stack
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 575159689BEFB442
+echo 'deb http://download.fpcomplete.com/ubuntu trusty main'|sudo tee /etc/apt/sources.list.d/fpco.list
+
 apt-get update
 apt-get install -y \
     build-essential \
+    ghc-7.10.3 \
+    ghc-7.10.3-htmldocs \
+    hscolour \
+    sudo \
+    curl \
     freeglut3-dev \
     git \
     libadns1-dev \
@@ -44,6 +63,8 @@ apt-get install -y \
     libleveldb-dev \
     liblzma-dev \
     libmagic-dev \
+    libmagickcore-dev \
+    libmagickwand-dev \
     libmysqlclient-dev \
     libncurses-dev \
     libnotify-dev \
@@ -65,6 +86,7 @@ apt-get install -y \
     libxml2-dev \
     libxss-dev \
     libyaml-dev \
+    libzip-dev \
     libzmq3-dev \
     llvm \
     m4 \
@@ -75,19 +97,26 @@ apt-get install -y \
     texlive-full \
     wget \
     zip \
+    stack \
     zlib1g-dev
 
 mkdir /tmp/nettle-build
 (
 cd /tmp/nettle-build
-wget https://ftp.gnu.org/gnu/nettle/nettle-2.7.1.tar.gz
-tar zxf nettle-2.7.1.tar.gz
-cd nettle-2.7.1
+wget https://ftp.gnu.org/gnu/nettle/nettle-3.1.1.tar.gz
+tar zxf nettle-3.1.1.tar.gz
+cd nettle-3.1.1
 ./configure --prefix=/usr
 make
 make install
 
 mkdir -p /usr/lib/x86_64-linux-gnu/
-ln -sfv /usr/lib/libnettle.so.4.7 /usr/lib/x86_64-linux-gnu/libnettle.so.4
+ln -sfv /usr/lib/libnettle.so.6.1 /usr/lib/x86_64-linux-gnu/libnettle.so.6
 )
 rm -rf /tmp/nettle-build
+
+# Buggy versions of ld.bfd fail to link some Haskell packages:
+# https://sourceware.org/bugzilla/show_bug.cgi?id=17689. Gold is
+# faster anyways and uses less RAM.
+update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.gold" 20
+update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
