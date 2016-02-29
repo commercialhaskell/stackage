@@ -49,6 +49,7 @@ apt-get install -y \
     libfftw3-dev \
     libfreenect-dev \
     libgd2-xpm-dev \
+    libgeoip-dev \
     libglib2.0-dev \
     libglu1-mesa-dev \
     libgmp3-dev \
