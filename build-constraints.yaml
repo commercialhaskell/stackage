@@ -69,7 +69,8 @@ packages:
         - binary-conduit
         - lzma-conduit
         - mutable-containers
-        - hpc-coveralls
+        # needs update to aeson-0.11
+        #- hpc-coveralls
         - monad-unlift
         - yaml
         - servius
@@ -1313,10 +1314,12 @@ packages:
         - serf
         - uri-templater
         - librato
-        - datadog
+        # needs update to aeson-0.11
+        #- datadog
         # http-types < 0.9
-        # - engine-io-growler
-        - flowdock
+        #- engine-io-growler
+        # needs update to aeson-0.11
+        #- flowdock
         - growler
 
     "Michael Xavier <michael@michaelxavier.net> @MichaelXavier":
@@ -1783,7 +1786,7 @@ packages:
         - IntervalMap
 
     "Michele Lacchia <michelelacchia@gmail.com>":
-        - argon >= 0.3
+        #- argon >= 0.3
         - docopt
         - pathwalk
 
@@ -2001,8 +2004,7 @@ packages:
         - hs-GeoIP
         - retry
         - katip
-        # requires bloodhound (which requires aeson >= 0.11)
-        # - katip-elasticsearch
+        - katip-elasticsearch
 
     "Sid Kapur sidharthkapur1@gmail.com @sid-kap":
         - tuple
@@ -2067,13 +2069,8 @@ packages:
         - lens < 4.13.1
         # See expected test failure below for same issue
 
-        # https://github.com/fpco/stackage/issues/1211
-        - aeson < 0.10
-        # stack-1.0.4 requires hpack-0.9 requires aeson >= 0.10
-        - stack < 1.0.4
-
         # https://github.com/fpco/stackage/issues/1215
-        - argon < 0.4.1.0
+        #- argon < 0.4.1.0
 
         # https://github.com/fpco/stackage/issues/1227
         - diagrams-svg < 1.4
@@ -2227,10 +2224,6 @@ skipped-tests:
     # https://github.com/Soostone/retry/issues/30
     - retry
 
-    # QuickCheck 2.8.2
-    # Fixed in aeson 0.11.0.0
-    - aeson
-
     # doctest < 0.10
     # Closed due to inactivity: https://github.com/fpco/stackage/issues/622
     - bound
@@ -2257,7 +2250,7 @@ skipped-tests:
 
     # Misc from GHC 7.10.3 upgrade
     # https://github.com/fpco/stackage/issues/1045
-    - argon
+    #- argon
     - clock
 
     # HUnit < 1.3
