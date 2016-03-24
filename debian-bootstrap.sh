@@ -39,6 +39,7 @@ apt-get install -y \
     freeglut3-dev \
     git \
     libadns1-dev \
+    libasound2-dev \
     libblas-dev \
     libbz2-dev \
     libcairo2-dev \
