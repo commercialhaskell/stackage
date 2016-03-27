@@ -84,6 +84,7 @@ apt-get install -y \
     libtre-dev \
     libudev-dev \
     libusb-1.0-0-dev \
+    libwebkitgtk-3.0-dev \
     libxau-dev \
     libxml2-dev \
     libxss-dev \
