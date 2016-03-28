@@ -41,10 +41,12 @@ to refer to the issue for workarounds added to that file.
 
 ### Adding Debian packages for required system tools or libraries
 Additional (non-Haskell) system libraries or tools should be added to `stackage/debian-bootstrap.sh`.
-Committing the changes should trigger a DockerHub. Normally only the nightly branch needs to be updated
+Committing the changes to a branch should trigger a DockerHub. Normally only the nightly branch needs to be updated
 since new packages are not added to the current lts release.
 
 Use [Ubuntu Package content search](http://packages.ubuntu.com/) to determine which package provides particular dev files (it defaults to trusty which is the same version as the server).
+
+Note we generally don't install/run services needed for testsuites in the docker images - packages with tests requiring some system service can be add to expected-test-failures.
 
 ### Upgrading GHC version
 The Dockerfile contains information on which GHC versions should be used. You
