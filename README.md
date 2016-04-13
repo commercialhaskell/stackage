@@ -45,6 +45,9 @@ Stackage both easier and more secure:
 * [stackage-install](https://github.com/fpco/stackage-install) [![Build Status](https://travis-ci.org/fpco/stackage-install.svg?branch=master)](https://travis-ci.org/fpco/stackage-install)
 * [stackage-build-plan](https://github.com/fpco/stackage-build-plan) [![Build Status](https://travis-ci.org/fpco/stackage-build-plan.svg?branch=master)](https://travis-ci.org/fpco/stackage-build-plan)
 
+Curious how it all fits together? See the [Stackage data
+flow](https://github.com/fpco/stackage/blob/master/DATA-FLOW.md).
+
 
 Build the package set
 ---------------------
