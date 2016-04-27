@@ -102,6 +102,7 @@ apt-get install -y \
     wget \
     zip \
     stack \
+    openjdk-7-jdk \
     zlib1g-dev
 
 mkdir /tmp/nettle-build
