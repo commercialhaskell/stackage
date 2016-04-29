@@ -10,7 +10,8 @@ packages:
     "David Johnson djohnson.m@gmail.com @dmjio":
         - envy
         - s3-signer
-        - google-translate
+        # https://github.com/fpco/stackage/issues/1290
+        # - google-translate
         # - hackernews
         - ses-html
         - stripe-haskell
@@ -453,8 +454,7 @@ packages:
     "Liam O'Connor <liamoc@cse.unsw.edu.au>":
         - patches-vector
         - composition-tree
-        # temporarily disable dixi since latest needs servant 0.5
-        #- dixi
+        - dixi
         - latex-formulae-image
         - latex-formulae-pandoc
         - latex-formulae-hakyll
@@ -870,7 +870,7 @@ packages:
         - servant
         - servant-client
         - servant-docs
-        - servant-jquery
+        - servant-js
         - servant-server
 
     "Alexandr Ruchkin voidex@live.com @mvoidex":
@@ -1740,7 +1740,8 @@ packages:
 
     "Nickolay Kudasov <nickolay.kudasov@gmail.com> @fizruk":
         - http-api-data
-        - smsaero
+        # https://github.com/fpco/stackage/issues/1290
+        #- smsaero
         - swagger2
         - servant-swagger
 
@@ -2042,7 +2043,9 @@ packages:
         - Chart-diagrams
 
     "Aaron Levin <aaron.levin@soundcloud.com> @aaronmblevin":
-        - haskell-kubernetes
+        []
+        # https://github.com/fpco/stackage/issues/1290
+        #- haskell-kubernetes
 
     "Aaron Levin <vilevin@gmail.com> @aaronmblevin":
         - free-vl
@@ -2181,16 +2184,14 @@ packages:
         - text-show < 3
 
         # https://github.com/fpco/stackage/issues/1290
-        - servant < 0.5
-        - servant-blaze < 0.5
-        - servant-client < 0.5
-        - servant-docs < 0.5
-        - servant-mock < 0.5
-        - servant-server < 0.5
-        # requires servant-server-0.5
-        #- dixi < 0.6.9.0
-        - giphy-api < 0.3
-        - lackey < 0.3.0
+        - servant < 0.7
+        - servant-blaze < 0.7
+        - servant-client < 0.7
+        - servant-docs < 0.7
+        - servant-foreign < 0.7
+        - servant-js < 0.7
+        - servant-mock < 0.7
+        - servant-server < 0.7
 
         # https://github.com/fpco/stackage/issues/1292
         - language-javascript < 0.6
@@ -2389,7 +2390,7 @@ skipped-tests:
     - threads
     - yesod-static-angular
 
-    # - https://github.com/fpco/stackage/pull/906
+    # https://github.com/fpco/stackage/pull/906
     - HaRe
 
     # https://github.com/haskell/zlib/issues/2
