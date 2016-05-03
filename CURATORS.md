@@ -123,11 +123,11 @@ develop this advice over time. For now: if you're not sure, ask Michael for
 guidance.
 
 ### Timing
-A cronjob on the build server keeps trying to build nightly unless it has already succeeded.
 
-(Nightly builds should be run once a day. A common technique I use is, after a
-build succeeds, write something like `sleep 20h;
-/opt/stackage-build/stackage/automated/build.sh nightly-2015-01-02`.)
+A looping script on the build server keeps trying to build nightly
+with `sleep 30m` interleaved. It only publishes the nightly once per
+day. This way new package versions or build failures can be caught
+early and hopefully the nightlies will be timely.
 
 LTS minor bumps typically are run on Sundays.
 
