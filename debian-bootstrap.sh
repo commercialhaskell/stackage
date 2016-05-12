@@ -26,7 +26,7 @@ add-apt-repository -y ppa:openstack-ubuntu-testing/icehouse
 
 # Get Stack
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 575159689BEFB442
-echo 'deb http://download.fpcomplete.com/ubuntu trusty main'|sudo tee /etc/apt/sources.list.d/fpco.list
+echo 'deb http://download.fpcomplete.com/ubuntu xenial main'|sudo tee /etc/apt/sources.list.d/fpco.list
 
 apt-get update
 apt-get install -y \
@@ -81,6 +81,7 @@ apt-get install -y \
     libsndfile1-dev \
     libsqlite3-dev \
     libssl-dev \
+    libsystemd-dev \
     libtagc0-dev \
     libtre-dev \
     libudev-dev \
