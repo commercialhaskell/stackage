@@ -25,8 +25,8 @@ add-apt-repository -y ppa:marutter/rrutter
 add-apt-repository -y ppa:openstack-ubuntu-testing/icehouse
 
 # Get Stack
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 575159689BEFB442
-echo 'deb http://download.fpcomplete.com/ubuntu xenial main'|sudo tee /etc/apt/sources.list.d/fpco.list
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 575159689BEFB442
+echo 'deb http://download.fpcomplete.com/ubuntu xenial main'|tee /etc/apt/sources.list.d/fpco.list
 
 apt-get update
 apt-get install -y \
