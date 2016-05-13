@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 
 ENV HOME /home/stackage
 ENV LANG en_US.UTF-8
