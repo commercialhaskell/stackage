@@ -17,16 +17,16 @@ locale-gen en_US.UTF-8
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
-apt-get install -y software-properties-common python-software-properties git
+apt-get install -y software-properties-common
 
 add-apt-repository ppa:hvr/ghc -y
-add-apt-repository -y ppa:zoogie/sdl2-snapshots
 add-apt-repository -y ppa:marutter/rrutter
-add-apt-repository -y ppa:openstack-ubuntu-testing/icehouse
+# not sure what this was needed for
+#add-apt-repository -y ppa:openstack-ubuntu-testing/icehouse
 
 # Get Stack
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 575159689BEFB442
-echo 'deb http://download.fpcomplete.com/ubuntu trusty main'|sudo tee /etc/apt/sources.list.d/fpco.list
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 575159689BEFB442
+echo 'deb http://download.fpcomplete.com/ubuntu xenial main'|tee /etc/apt/sources.list.d/fpco.list
 
 apt-get update
 apt-get install -y \
@@ -74,13 +74,13 @@ apt-get install -y \
     libopenal-dev \
     libpango1.0-dev \
     libpcap0.8-dev \
-    libphash0-dev \
     libpq-dev \
     libsdl2-dev \
     libsnappy-dev \
     libsndfile1-dev \
     libsqlite3-dev \
     libssl-dev \
+    libsystemd-dev \
     libtagc0-dev \
     libtre-dev \
     libudev-dev \
@@ -94,31 +94,17 @@ apt-get install -y \
     libzmq3-dev \
     llvm \
     m4 \
+    nettle-dev \
     nodejs \
     npm \
     r-base \
     r-base-dev \
-    texlive-full \
+    texlive \
     wget \
     zip \
     stack \
-    openjdk-7-jdk \
+    openjdk-8-jdk \
     zlib1g-dev
-
-mkdir /tmp/nettle-build
-(
-cd /tmp/nettle-build
-wget https://ftp.gnu.org/gnu/nettle/nettle-3.1.1.tar.gz
-tar zxf nettle-3.1.1.tar.gz
-cd nettle-3.1.1
-./configure --prefix=/usr
-make
-make install
-
-mkdir -p /usr/lib/x86_64-linux-gnu/
-ln -sfv /usr/lib/libnettle.so.6.1 /usr/lib/x86_64-linux-gnu/libnettle.so.6
-)
-rm -rf /tmp/nettle-build
 
 # Buggy versions of ld.bfd fail to link some Haskell packages:
 # https://sourceware.org/bugzilla/show_bug.cgi?id=17689. Gold is
@@ -127,4 +113,4 @@ update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.gold" 20
 update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
 
 # See: https://github.com/fpco/stackage/issues/1388
-ln -n /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server/libjvm.so /usr/lib
+ln -n /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/libjvm.so /usr/lib

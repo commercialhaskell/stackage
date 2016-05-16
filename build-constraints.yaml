@@ -1354,7 +1354,8 @@ packages:
     "Michael Xavier <michael@michaelxavier.net> @MichaelXavier":
         - angel
         - uri-bytestring
-        - phash
+        # https://github.com/MichaelXavier/phash/issues/5
+        #- phash
         - cron
         - tasty-tap
         - tasty-fail-fast
@@ -2372,10 +2373,7 @@ skipped-builds:
     - Win32-notify
     - Win32-extras
 
-    # The Docker image needs libsystemd-dev from Ubuntu 15.04+ for this.
-    # See: https://github.com/fpco/stackage/issues/696
-    - libsystemd-journal
-
+# end of skipped-builds
 
 
 # By skipping a test suite, we do not pull in the build dependencies
