@@ -128,3 +128,4 @@ update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
 
 # See: https://github.com/fpco/stackage/issues/1388
 ln -n /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server/libjvm.so /usr/lib
+ln -n /usr/lib/jvm/java-7-openjdk-amd64/include/jni*.h /usr/include
