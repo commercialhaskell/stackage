@@ -70,7 +70,11 @@ docker rmi $(docker images -q)
 but `docker pull snoyberg/stackage:nightly` can also be run instead just to update the nightly image say.
 
 For a new GHC version you should also delete the cache directories on the stackage-build server to
-force all packages to be rebuilt. See: [issue#746](https://github.com/fpco/stackage/issues/746).
+force all packages to be rebuilt. See: [issue#746](https://github.com/fpco/stackage/issues/746). Eg:
+```
+rm -r nightly/work/builds/nightly/
+```
+This should also be done when moving the Nightly docker image to a new version of Ubuntu.
 
 ## stackage-build server
 
