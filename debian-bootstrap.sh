@@ -68,6 +68,7 @@ apt-get install -y \
     libmagic-dev \
     libmagickcore-dev \
     libmagickwand-dev \
+    libmarkdown2-dev \
     libmysqlclient-dev \
     libncurses-dev \
     libnotify-dev \
