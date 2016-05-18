@@ -101,7 +101,6 @@ apt-get install -y \
     npm \
     r-base \
     r-base-dev \
-    texlive \
     wget \
     zip \
     stack \
