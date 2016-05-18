@@ -54,6 +54,7 @@ apt-get install -y \
     libglib2.0-dev \
     libglu1-mesa-dev \
     libgmp3-dev \
+    libgnutls-dev \
     libgsasl7-dev \
     libgsl0-dev \
     libgtk-3-dev \
