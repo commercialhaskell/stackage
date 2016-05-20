@@ -2,6 +2,8 @@
 
 set -eux
 
+date
+
 ROOT=$(cd $(dirname $0) ; pwd)
 TARGET=$1
 
@@ -123,5 +125,9 @@ docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "stackage-curator check-target-avail
 # * Register as a new Hackage distro
 docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "stackage-curator upload-docs --target $TARGET --bundle-file $BUNDLE_FILE && stackage-curator upload-index --plan-file $PLAN_FILE --target $TARGET && stackage-curator upload-github --plan-file $PLAN_FILE --docmap-file $DOCMAP_FILE --target $TARGET && stackage-curator hackage-distro --plan-file $PLAN_FILE --target $TARGET"
 
-echo Running stackage-server-cron.sh:
+date
+
+# moved here from crontab to reduce memory competition
+echo -n Running "stackage-server-cron.sh: "
 /home/ubuntu/stackage-server-cron.sh | tee /home/ubuntu/stackage-server-cron.log
+echo "done."
