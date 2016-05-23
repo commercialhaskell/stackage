@@ -5,7 +5,10 @@ while true; do
     date
     echo
 
-    /home/ubuntu/stackage-server-cron.sh | grep -v Skipping | tee -a /home/ubuntu/stackage-server-cron.log
+    echo "Running stackage-server-cron..."
+    echo "('tail -f /home/ubuntu/stackage-server-cron.log' to watch)"
+    /home/ubuntu/stackage-server-cron.sh >> /home/ubuntu/stackage-server-cron.log 2>&1
+    echo "done."
     date
 
     sleep 30m
