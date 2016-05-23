@@ -51,6 +51,7 @@ apt-get install -y \
     libfreenect-dev \
     libgd2-xpm-dev \
     libgeoip-dev \
+    libgirepository1.0-dev \
     libglib2.0-dev \
     libglu1-mesa-dev \
     libgmp3-dev \
