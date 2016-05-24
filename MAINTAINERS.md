@@ -59,7 +59,8 @@ The time limits are intended to stop people being inconvenienced because of prob
 
 The Stackage curation team tries to move Stackage Nightly to new versions of GHC quickly as they become available, while keeping LTS Haskell on a regular release schedule. For package maintainers, the most important impacts of a new GHC release are:
 
-* We will typically do a sweep through the Stackage upper bounds and aggressively remove packages that block them. This is because, in most cases, we will need to move to the newest versions of a package to get support for the latest GHC, and asking package maintainers to backport their fixes is an undo burden
+* We will typically do a sweep through the Stackage upper bounds and aggressively remove packages that block them. This is because, in most cases, we will need to move to the newest versions of a package to get support for the latest GHC, and asking package maintainers to backport their fixes is an undue burden
+    * We will definitely do this at a GHC major version release, and may do so at a minor version release
 * Packages that are incompatible with the newest GHC version will be temporarily blocked
 
 If your package ends up being temporarily removed from Stackage Nightly, please simply send a pull request to add it back once it and its dependencies are compatible with the newest GHC version.
