@@ -55,6 +55,15 @@ Maintainers are humans, humans get sick/have babies/go on holiday. If you have r
 
 The time limits are intended to stop people being inconvenienced because of problems in other packages. Where such inconvenience happens, we will drop the offending packages from Stackage. While upper bounds are sometimes a temporary solution, they are against the ethos of Stackage, so will not be kept for long.
 
+## Upgrading to a new GHC version
+
+The Stackage curation team tries to move Stackage Nightly to new versions of GHC quickly as they become available, while keeping LTS Haskell on a regular release schedule. For package maintainers, the most important impacts of a new GHC release are:
+
+* We will typically do a sweep through the Stackage upper bounds and aggressively remove packages that block them. This is because, in most cases, we will need to move to the newest versions of a package to get support for the latest GHC, and asking package maintainers to backport their fixes is an undo burden
+* Packages that are incompatible with the newest GHC version will be temporarily blocked
+
+If your package ends up being temporarily removed from Stackage Nightly, please simply send a pull request to add it back once it and its dependencies are compatible with the newest GHC version.
+
 ## Adding a package to an LTS snapshot
 
 The steps above affect the Stackage Nightly builds, but do not directly affect
