@@ -31,8 +31,8 @@ echo 'deb http://download.fpcomplete.com/ubuntu xenial main'|tee /etc/apt/source
 apt-get update
 apt-get install -y \
     build-essential \
-    ghc-7.10.3 \
-    ghc-7.10.3-htmldocs \
+    ghc-8.0.1 \
+    ghc-8.0.1-htmldocs \
     hscolour \
     sudo \
     curl \
