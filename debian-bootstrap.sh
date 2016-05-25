@@ -24,6 +24,9 @@ add-apt-repository -y ppa:marutter/rrutter
 # not sure what this was needed for
 #add-apt-repository -y ppa:openstack-ubuntu-testing/icehouse
 
+# Set the GHC version
+GHCVER=8.0.1
+
 # Get Stack
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 575159689BEFB442
 echo 'deb http://download.fpcomplete.com/ubuntu xenial main'|tee /etc/apt/sources.list.d/fpco.list
@@ -31,8 +34,8 @@ echo 'deb http://download.fpcomplete.com/ubuntu xenial main'|tee /etc/apt/source
 apt-get update
 apt-get install -y \
     build-essential \
-    ghc-8.0.1 \
-    ghc-8.0.1-htmldocs \
+    ghc-$GHCVER \
+    ghc-$GHCVER-htmldocs \
     hscolour \
     sudo \
     curl \
@@ -107,6 +110,9 @@ apt-get install -y \
     stack \
     openjdk-8-jdk \
     zlib1g-dev
+
+# Put documentation where we expect it
+mv /opt/ghc/$GHCVER/share/doc/ghc-$GHCVER/ /opt/ghc/$GHCVER/share/doc/ghc
 
 # Buggy versions of ld.bfd fail to link some Haskell packages:
 # https://sourceware.org/bugzilla/show_bug.cgi?id=17689. Gold is
