@@ -533,8 +533,7 @@ packages:
         - tasty-quickcheck
         - tasty-smallcheck
         - tasty-html
-        # https://github.com/feuerbach/data-lens-light/issues/7
-        # GHC 8 - time-lens
+        - time-lens
         # GHC 8 - timezone-olson
         # GHC 8 - timezone-series
         - traverse-with-class
@@ -1122,8 +1121,9 @@ packages:
         - cabal-file-th
 
     "Gershom Bazerman <gershomb@gmail.com> @gbaz":
-        - jmacro
-        - jmacro-rpc
+        # http://hub.darcs.net/gershomb/jmacro/issue/3
+        # GHC 8 - jmacro
+        # GHC 8 - jmacro-rpc
         # GHC 8 - jmacro-rpc-happstack
         # GHC 8 - jmacro-rpc-snap
         - mbox
@@ -1944,7 +1944,7 @@ packages:
         # GHC 8 - happstack-jmacro
         # GHC 8 - happstack-server
         # GHC 8 - happstack-server-tls
-        - hsx-jmacro
+        # GHC 8 - hsx-jmacro
         # GHC 8 - ixset
         - reform
         - reform-blaze
@@ -2786,6 +2786,9 @@ expected-test-failures:
 
     # https://github.com/well-typed/hackage-security/issues/164
     - hackage-security
+
+    # GHC 8 issue not reported upstream since issue tracker disabled
+    - hspec-expectations-pretty-diff
 # end of expected-test-failures
 
 # Benchmarks which are known not to build. Note that, currently we do not run
