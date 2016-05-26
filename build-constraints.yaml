@@ -506,7 +506,8 @@ packages:
         # - hPDB-examples
 
         # GHC 8 - wordpass
-        - json-autotype
+        # https://github.com/nilcons/hflags/issues/17
+        # GHC 8 - json-autotype
         - posix-realtime
 
     "Dominic Steinitz <dominic@steinitz.org>":
@@ -769,7 +770,8 @@ packages:
        # GHC 8 - Spock-digestive
        - Spock-worker
        - graph-core
-       - highjson
+       # https://github.com/agrafix/highjson/issues/1
+       # GHC 8 - highjson
        - hvect
        - reroute
        - users
@@ -778,7 +780,8 @@ packages:
        - users-test
        - validate-input
        - ignore
-       - elm-bridge
+       # https://github.com/agrafix/elm-bridge/issues/14
+       # GHC 8 - elm-bridge
        # GHC 8 - hackmanager
        # GHC 8 - digestive-bootstrap
        - blaze-bootstrap
@@ -874,7 +877,7 @@ packages:
         - cabal-rpm
         - cabal-sort
         - ghcjs-codemirror
-        - ghcjs-dom
+        # GHC 8 - ghcjs-dom
         # GHC 8 - idris
         # BLOCKED lens 4.14 - jsaddle
         # GHC 8 - leksah-server
@@ -960,7 +963,8 @@ packages:
         - language-c-quote
 
     "Sönke Hahn soenkehahn@gmail.com @soenkehahn":
-        - generics-eot
+        # https://github.com/soenkehahn/generics-eot/issues/4
+        # GHC 8 - generics-eot
         - getopt-generics
         - graph-wrapper
         - string-conversions
@@ -1126,7 +1130,7 @@ packages:
         - kmeans
         # Not compatible with GHC 7.10.2 (yes, it's a regression in GHC)
         # - boolsimplifier
-        - cubicspline
+        # GHC 8 - cubicspline
         - maximal-cliques
 
     "Alexander Bondarenko <aenor.realm@gmail.com> @wiz":
@@ -1138,9 +1142,10 @@ packages:
         - generics-sop
 
     "Vivian McPhail <haskell.vivian.mcphail@gmail.com> @amcphail":
-        - hmatrix-gsl-stats
-        - hsignal
-        - hstatistics
+        # https://github.com/albertoruiz/hmatrix/issues/192
+        # GHC 8 - hmatrix-gsl-stats
+        # GHC 8 - hsignal
+        # GHC 8 - hstatistics
         # GHC 8 - plot
         # GHC 8 - plot-gtk
         # GHC 8 - plot-gtk3
@@ -1503,7 +1508,8 @@ packages:
     "Alexey Khudyakov <alexey.skladnoy@gmail.com> @Shimuuar":
         - histogram-fill
         - fixed-vector
-        - fixed-vector-hetero
+        # https://github.com/Shimuuar/fixed-vector-hetero/issues/2
+        # GHC 8 - fixed-vector-hetero
         - type-level-numbers
 
     "Ryan Scott <ryan.gl.scott@gmail.com> @RyanGlScott":
@@ -2022,7 +2028,9 @@ packages:
         - pure-cdb
 
     "Suhail Shergill <suhailshergill@gmail.com> @suhailshergill":
-        - extensible-effects
+        []
+        # https://github.com/suhailshergill/extensible-effects/issues/64
+        # GHC 8 - extensible-effects
 
     "Justus Adam <dev@justus.science> @JustusAdam":
         - mustache
@@ -2202,7 +2210,7 @@ packages:
         - gi-gio
         - gi-glib
         - gi-gobject
-        - gi-gtk
+        # GHC 8 - gi-gtk
         - gi-pango
         - haskell-gi
 
@@ -2772,6 +2780,12 @@ expected-test-failures:
 
     # https://github.com/IreneKnapp/direct-sqlite/issues/63
     - direct-sqlite
+
+    # https://github.com/tfausak/flow/issues/10
+    - flow
+
+    # https://github.com/well-typed/hackage-security/issues/164
+    - hackage-security
 # end of expected-test-failures
 
 # Benchmarks which are known not to build. Note that, currently we do not run
