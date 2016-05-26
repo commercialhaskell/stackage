@@ -532,7 +532,8 @@ packages:
         - tasty-quickcheck
         - tasty-smallcheck
         - tasty-html
-        - time-lens
+        # https://github.com/feuerbach/data-lens-light/issues/7
+        # GHC 8 - time-lens
         # GHC 8 - timezone-olson
         # GHC 8 - timezone-series
         - traverse-with-class
@@ -794,7 +795,8 @@ packages:
         #- elm-package
         - language-glsl
         - prettyclass
-        - QuasiText
+        # https://github.com/mikeplus64/QuasiText/issues/3
+        # GHC 8 - QuasiText
         - union-find
         - zip-archive
 
@@ -1168,7 +1170,9 @@ packages:
         # - inline-r
 
     "David Fox <dsf@seereason.com> @ddssff":
-        - debian
+        []
+        # https://github.com/ddssff/debian-haskell/issues/6
+        # GHC 8 - debian
         # GHC 8 - cabal-debian
 
     "Stefan Saasen <stefan@saasen.me>":
@@ -1360,7 +1364,8 @@ packages:
         - nationstates
 
     "Mathieu Boespflug <mboes@tweag.net> @mboes":
-        - distributed-closure
+        # https://github.com/tweag/distributed-closure/issues/3
+        # GHC 8 - distributed-closure
         # GHC 8 - H
         # GHC 8 - ihaskell-inline-r
         # GHC 8 - inline-r
@@ -1800,8 +1805,10 @@ packages:
         # GHC 8 - engine-io-yesod
 
     "Tim McGilchrist <timmcgil@gmail.com>  @tmcgilchrist":
+        []
         # GHC 8 - riak
-        - airship
+        # https://github.com/helium/airship/issues/101
+        # GHC 8 - airship
 
     "Yuras Shumovich <shumovichy@gmail.com> @Yuras":
         - pdf-toolbox-core
@@ -1941,7 +1948,7 @@ packages:
         # GHC 8 - userid
         - web-plugins
         - web-routes
-        - web-routes-boomerang
+        # GHC 8 - web-routes-boomerang
         # GHC 8 - web-routes-happstack
         - web-routes-hsp
         - web-routes-th
@@ -2759,6 +2766,12 @@ expected-test-failures:
 
     # https://github.com/fpco/stackage/issues/1459
     - twitter-conduit
+
+    # https://github.com/hspec/HUnit/issues/7
+    - HUnit
+
+    # https://github.com/IreneKnapp/direct-sqlite/issues/63
+    - direct-sqlite
 # end of expected-test-failures
 
 # Benchmarks which are known not to build. Note that, currently we do not run
@@ -2824,6 +2837,9 @@ expected-haddock-failures:
 
     # https://github.com/conal/MemoTrie/issues/10
     - MemoTrie
+
+    # GHC 8
+    - cassava
 # end of expected-haddock-failures
 
 
