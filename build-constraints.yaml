@@ -39,7 +39,8 @@ packages:
         - mime-mail-ses
         - network-conduit-tls
         - persistent
-        - persistent-mysql
+        # https://github.com/bos/mysql/issues/20
+        # GHC 8 - persistent-mysql
         - persistent-postgresql
         - persistent-sqlite
         - persistent-template
@@ -1200,8 +1201,9 @@ packages:
         - lackey
         # GHC 8 - octane
         - optparse-generic # Maintained by @Gabriel439.
-        - ratel
-        - ratel-wai
+        # https://github.com/tfausak/ratel/issues/1
+        # GHC 8 - ratel
+        # GHC 8 - ratel-wai
         # GHC 8 - strive
         # GHC 8 - wuss
 
@@ -1216,7 +1218,8 @@ packages:
     "Will Coster <willcoster@gmail.com> @fimad":
         - prometheus-client
         - prometheus-metrics-ghc
-        - scalpel
+        # https://github.com/fimad/scalpel/issues/33
+        # GHC 8 - scalpel
         - wai-middleware-prometheus
 
     "William Casarin <bill@casarin.me> @jb55":
@@ -1428,9 +1431,10 @@ packages:
         # GHC 8 - xml-conduit-parse
 
     "Kostiantyn Rybnikov <k-bx@k-bx.com> @k-bx":
-        - protocol-buffers
-        - hprotoc
-        - protocol-buffers-descriptor
+        # https://github.com/k-bx/protocol-buffers/issues/38
+        # GHC 8 - protocol-buffers
+        # GHC 8 - hprotoc
+        # GHC 8 - protocol-buffers-descriptor
         # GHC 8 - ekg-core
         - digits
         - hbeanstalk
@@ -1772,6 +1776,7 @@ packages:
         - flat-mcmc
 
     "Facundo Domínguez <facundo.dominguez@tweag.io> @facundominguez":
+        []
         # GHC 8 - distributed-process
         # GHC 8 - distributed-process-async
         # GHC 8 - distributed-process-client-server
@@ -1785,7 +1790,8 @@ packages:
         # GHC 8 - network-transport
         # GHC 8 - network-transport-tcp
         # GHC 8 - network-transport-composed
-        - rank1dynamic
+        # https://github.com/haskell-distributed/rank1dynamic/issues/15
+        # GHC 8 - rank1dynamic
 
     "Alexander Vershilov <alexander.vershilov@tweag.io> @qnikst":
         []
@@ -2803,6 +2809,9 @@ expected-test-failures:
 
     # https://gitlab.com/twittner/swagger/issues/6
     - swagger
+
+    # https://github.com/peti/language-nix/issues/2
+    - language-nix
 # end of expected-test-failures
 
 # Benchmarks which are known not to build. Note that, currently we do not run
@@ -2880,6 +2889,9 @@ expected-haddock-failures:
 
     # https://github.com/bos/statistics/issues/93
     - statistics
+
+    # https://github.com/aelve/microlens/issues/72
+    - microlens
 # end of expected-haddock-failures
 
 
