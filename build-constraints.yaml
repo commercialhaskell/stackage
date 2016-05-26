@@ -536,7 +536,8 @@ packages:
         - time-lens
         # GHC 8 - timezone-olson
         # GHC 8 - timezone-series
-        - traverse-with-class
+        # https://github.com/feuerbach/traverse-with-class/issues/3
+        # GHC 8 - traverse-with-class
         - tuples-homogenous-h98
 
     "George Giorgidze <giorgidze@gmail.com>":
@@ -1957,7 +1958,8 @@ packages:
         # GHC 8 - web-routes-boomerang
         # GHC 8 - web-routes-happstack
         - web-routes-hsp
-        - web-routes-th
+        # https://github.com/Happstack/web-routes-th/issues/1
+        # GHC 8 - web-routes-th
         - web-routes-wai
 
     "Pedro Tacla Yamada <tacla.yamada@gmail.com> @yamadapc":
@@ -2180,7 +2182,7 @@ packages:
         - postgresql-transactional
 
     "Tom Murphy <amindfv@gmail.com> @amindfv":
-        - vivid
+        # GHC 8 - vivid
         # GHC 8 - midair
         - nano-erl
 
@@ -2789,6 +2791,18 @@ expected-test-failures:
 
     # GHC 8 issue not reported upstream since issue tracker disabled
     - hspec-expectations-pretty-diff
+
+    # https://github.com/clash-lang/clash-prelude/issues/57
+    - clash-prelude
+
+    # https://github.com/xmonad/xmonad/issues/36
+    - xmonad
+
+    # https://github.com/fpco/stackage/issues/1480
+    - text
+
+    # https://gitlab.com/twittner/swagger/issues/6
+    - swagger
 # end of expected-test-failures
 
 # Benchmarks which are known not to build. Note that, currently we do not run
@@ -2823,6 +2837,9 @@ expected-benchmark-failures:
 
     # https://github.com/commercialhaskell/stack/issues/2153
     - vector-binary-instances
+
+    # GHC 8
+    - cassava
 # end of expected-benchmark-failures
 
 
@@ -2857,6 +2874,12 @@ expected-haddock-failures:
 
     # GHC 8
     - cassava
+
+    # https://github.com/GetShopTV/swagger2/issues/66
+    - swagger2
+
+    # https://github.com/bos/statistics/issues/93
+    - statistics
 # end of expected-haddock-failures
 
 
