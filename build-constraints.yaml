@@ -2213,15 +2213,18 @@ packages:
         - telegram-api
 
     "Iñaki García Etxebarria <garetxe@gmail.com> @garetxe":
-        - gi-atk
-        - gi-cairo
-        - gi-gdk
-        - gi-gdkpixbuf
-        - gi-gio
-        - gi-glib
-        - gi-gobject
-        # GHC 8 - gi-gtk
-        - gi-pango
+        # Pinned to versions not using custom-setup, since stack does
+        # not understand that syntax yet:
+        # https://github.com/commercialhaskell/stack/issues/2094
+        - gi-atk == 2.0.3
+        - gi-cairo == 1.0.3
+        - gi-gdk == 3.0.3
+        - gi-gdkpixbuf == 2.0.3
+        - gi-gio == 2.0.3
+        - gi-glib == 2.0.3
+        - gi-gobject == 2.0.3
+        # GHC 8 - gi-gtk == 3.0.3
+        - gi-pango == 1.0.3
         - haskell-gi
 
     "Ian Grant Jeffries <ian@housejeffries.com> @seagreen":
