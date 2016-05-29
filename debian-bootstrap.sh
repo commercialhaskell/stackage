@@ -69,6 +69,7 @@ apt-get install -y \
     libadns1-dev \
     r-base \
     r-base-dev \
+    ruby-dev \
     libleveldb-dev \
     libsnappy-dev \
     libpcap0.8-dev
