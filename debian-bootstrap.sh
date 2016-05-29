@@ -105,6 +105,7 @@ apt-get install -y \
     npm \
     r-base \
     r-base-dev \
+    ruby-dev \
     wget \
     zip \
     stack \
