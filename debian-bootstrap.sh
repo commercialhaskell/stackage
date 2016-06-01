@@ -94,7 +94,7 @@ apt-get install -y \
     libwebkitgtk-3.0-dev \
     libxau-dev \
     libxml2-dev \
-    libxrandr-dev
+    libxrandr-dev \
     libxss-dev \
     libyaml-dev \
     libzip-dev \
