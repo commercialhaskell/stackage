@@ -94,7 +94,7 @@ we're just not there yet.
 
 ```
 # Run a nightly build
-/opt/stackage-build/stackage/automated/build.sh nightly-2015-07-08
+/opt/stackage-build/stackage/automated/run-nightly.sh
 
 # Run an LTS minor bump
 /opt/stackage-build/stackage/automated/build.sh lts-2.17
