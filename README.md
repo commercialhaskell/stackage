@@ -23,6 +23,11 @@ We welcome all packages, provided:
 
 Full details on how to add a package can be found in the [maintainers agreement](https://github.com/fpco/stackage/blob/master/MAINTAINERS.md#adding-a-package).
 
+__NOTE__: There is an approximate 30 minute delay between a package uploading
+to Hackage and being available to the Travis build script to check upper
+bounds. If a pull request is marked as failed due to using an older version,
+please close and reopen the PR to retrigger a Travis build.
+
 Other repos
 -----------
 
