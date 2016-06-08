@@ -41,7 +41,6 @@ apt-get install -y \
     curl \
     freeglut3-dev \
     git \
-    xclip \
     libadns1-dev \
     libasound2-dev \
     libblas-dev \
@@ -105,13 +104,14 @@ apt-get install -y \
     nettle-dev \
     nodejs \
     npm \
+    openjdk-8-jdk \
     r-base \
     r-base-dev \
     ruby-dev \
-    wget \
-    zip \
     stack \
-    openjdk-8-jdk \
+    wget \
+    xclip \
+    zip \
     zlib1g-dev
 
 # Put documentation where we expect it
