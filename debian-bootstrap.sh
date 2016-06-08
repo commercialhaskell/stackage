@@ -41,6 +41,7 @@ apt-get install -y \
     curl \
     freeglut3-dev \
     git \
+    xclip \
     libadns1-dev \
     libasound2-dev \
     libblas-dev \
