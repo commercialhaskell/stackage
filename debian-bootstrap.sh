@@ -99,7 +99,9 @@ apt-get install -y \
     libyaml-dev \
     libzip-dev \
     libzmq3-dev \
-    llvm \
+    # The LLVM version should be kept in sync with what GHC requires for its
+    # LLVM backend (see below for more information).
+    llvm-3.7 \
     m4 \
     nettle-dev \
     nodejs \
@@ -122,3 +124,11 @@ mv /opt/ghc/$GHCVER/share/doc/ghc-$GHCVER/ /opt/ghc/$GHCVER/share/doc/ghc
 # faster anyways and uses less RAM.
 update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.gold" 20
 update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
+
+# GHC requires a specific LLVM version on the system PATH for its LLVM backend.
+# This version is tracked here:
+# https://ghc.haskell.org/trac/ghc/wiki/Commentary/Compiler/Backends/LLVM/Installing
+#
+# GHC 8.0 requires LLVM 3.7 tools (specifically, llc-3.7 and opt-3.7).
+update-alternatives --install "/usr/bin/llc" "llc" "/usr/bin/llc-3.7" 50
+update-alternatives --install "/usr/bin/opt" "opt" "/usr/bin/opt-3.7" 50
