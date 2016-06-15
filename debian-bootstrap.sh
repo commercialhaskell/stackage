@@ -99,8 +99,6 @@ apt-get install -y \
     libyaml-dev \
     libzip-dev \
     libzmq3-dev \
-    # The LLVM version should be kept in sync with what GHC requires for its
-    # LLVM backend (see below for more information).
     llvm-3.7 \
     m4 \
     nettle-dev \
