@@ -24,6 +24,9 @@ add-apt-repository -y ppa:marutter/rrutter
 # not sure what this was needed for
 #add-apt-repository -y ppa:openstack-ubuntu-testing/icehouse
 
+# Set the GHC version
+GHCVER=8.0.1
+
 # Get Stack
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 575159689BEFB442
 echo 'deb http://download.fpcomplete.com/ubuntu xenial main'|tee /etc/apt/sources.list.d/fpco.list
@@ -31,8 +34,8 @@ echo 'deb http://download.fpcomplete.com/ubuntu xenial main'|tee /etc/apt/source
 apt-get update
 apt-get install -y \
     build-essential \
-    ghc-8.0.1 \
-    ghc-8.0.1-htmldocs \
+    ghc-$GHCVER \
+    ghc-$GHCVER-htmldocs \
     hscolour \
     sudo \
     curl \
@@ -91,22 +94,28 @@ apt-get install -y \
     libwebkitgtk-3.0-dev \
     libxau-dev \
     libxml2-dev \
+    libxrandr-dev \
     libxss-dev \
     libyaml-dev \
     libzip-dev \
     libzmq3-dev \
-    llvm \
+    llvm-3.7 \
     m4 \
     nettle-dev \
     nodejs \
     npm \
+    openjdk-8-jdk \
     r-base \
     r-base-dev \
-    wget \
-    zip \
+    ruby-dev \
     stack \
-    openjdk-8-jdk \
+    wget \
+    xclip \
+    zip \
     zlib1g-dev
+
+# Put documentation where we expect it
+mv /opt/ghc/$GHCVER/share/doc/ghc-$GHCVER/ /opt/ghc/$GHCVER/share/doc/ghc
 
 # Buggy versions of ld.bfd fail to link some Haskell packages:
 # https://sourceware.org/bugzilla/show_bug.cgi?id=17689. Gold is
@@ -114,5 +123,10 @@ apt-get install -y \
 update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.gold" 20
 update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
 
-# See: https://github.com/fpco/stackage/issues/1388
-ln -n /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/libjvm.so /usr/lib
+# GHC requires a specific LLVM version on the system PATH for its LLVM backend.
+# This version is tracked here:
+# https://ghc.haskell.org/trac/ghc/wiki/Commentary/Compiler/Backends/LLVM/Installing
+#
+# GHC 8.0 requires LLVM 3.7 tools (specifically, llc-3.7 and opt-3.7).
+update-alternatives --install "/usr/bin/llc" "llc" "/usr/bin/llc-3.7" 50
+update-alternatives --install "/usr/bin/opt" "opt" "/usr/bin/opt-3.7" 50

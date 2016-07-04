@@ -1,6 +1,9 @@
 ghc-major-version: "8.0"
 # Constraints for brand new builds
 packages:
+    "Siddharth Bhat <siddu.druid@gmail.com> @bollu":
+        - symengine
+
     "alpheccar <misc@alpheccar.org> @alpheccar":
         - HPDF
         - hbayes
@@ -27,10 +30,10 @@ packages:
     "Michael Snoyman michael@snoyman.com @snoyberg":
         - bzlib-conduit
         - cabal-install
-        # GHC 8 - cabal-src
+        - cabal-src
         - case-insensitive
-        # GHC 8 - classy-prelude-yesod
-        # GHC 8 - conduit-combinators
+        - classy-prelude-yesod
+        - conduit-combinators
         - conduit-extra
         - hebrew-time
         - keter
@@ -39,17 +42,20 @@ packages:
         - mime-mail-ses
         - network-conduit-tls
         - persistent
-        - persistent-mysql
+        # https://github.com/bos/mysql/issues/20
+        # GHC 8 - persistent-mysql
         - persistent-postgresql
         - persistent-sqlite
         - persistent-template
-        # GHC 8 - stm-conduit
-        # GHC 8 - wai-websockets
+        # https://github.com/fpco/stackage-curator/pull/20
+        #- stackage-curator
+        - stm-conduit
+        - wai-websockets
         - warp-tls
         - yackage
         - yesod
         - yesod-auth
-        # GHC 8 - authenticate-oauth
+        - authenticate-oauth
         - yesod-bin
         - yesod-eventsource
         # GHC 8 - yesod-fay
@@ -58,14 +64,14 @@ packages:
         - yesod-sitemap
         - yesod-static
         - yesod-test
-        # GHC 8 - yesod-websockets
+        - yesod-websockets
         - cereal-conduit
         # GHC 8 - binary-conduit
         # GHC 8 - lzma-conduit
-        # GHC 8 - mutable-containers
-        # GHC 8 - hpc-coveralls
+        - mutable-containers
+        - hpc-coveralls
         - monad-unlift
-        # GHC 8 - monad-unlift-ref
+        - monad-unlift-ref
         - yaml
         - servius
         - cryptonite-conduit
@@ -91,15 +97,15 @@ packages:
         - th-expand-syns
         - criterion
         - th-lift
-        - singletons
-        - th-desugar
         - quickcheck-assertions
 
         # GHC 8 - hackage-mirror
         - wai-middleware-consul
         - wai-middleware-crowd
         - monad-logger-json
-        - monad-logger-syslog
+        - safe-exceptions
+        # https://github.com/fpco/monad-logger-syslog/issues/3
+        # - monad-logger-syslog
 
         - fsnotify
         - hinotify
@@ -109,15 +115,16 @@ packages:
     "Omari Norman <omari@smileystation.com>":
         - rainbow
         - rainbox
-        # GHC 8 - pipes-cliff
+        - pipes-cliff
         - anonymous-sums
         - multiarg
         - prednote
         - cartel
         - Earley
         - ofx
-        # GHC 8 - pinchot
-        # GHC 8 - validation
+        - pinchot
+        - accuerr
+        - timelens
 
     "Neil Mitchell":
         - hlint
@@ -152,7 +159,7 @@ packages:
         - stylish-haskell
         - profiteur
         - psqueues
-        # GHC 8 - websockets
+        - websockets
         # GHC 8 - websockets-snap
 
     "Sibi Prabakaran <sibi@psibi.in> @psibi":
@@ -207,12 +214,6 @@ packages:
         - vhd
         - xenstore
 
-    "Jonathan Daugherty <cygnus@foobox.com>":
-        - brick
-        # GHC 8 - dbmigrations
-        - text-zipper
-        - vty
-
     "Chris Done":
         - ace
         - ical
@@ -236,6 +237,8 @@ packages:
         - descriptive
         - wrap
         - path
+        - intero
+        - weigh
         # requires old haddock currently - haskell-docs
         # TODO: Add structured-haskell-mode once they've been ported to HSE 1.16.
 
@@ -246,11 +249,11 @@ packages:
         - MFlow
 
     "Edward Kmett <ekmett@gmail.com>":
-        # BLOCKED comonad 5 - ad
+        - ad
         - adjunctions
         # GHC 8 - approximate
         - bifunctors
-        # GHC 8 - bits
+        - bits
         # GHC 8 - bound
         - bytes
         - charset
@@ -266,8 +269,7 @@ packages:
         - distributive
         - either
         - eq
-        # https://github.com/ekmett/ersatz/issues/11 GHC 7.10
-        # - ersatz
+        - ersatz
         - exceptions
         - free
         - graphs
@@ -279,10 +281,10 @@ packages:
         - kan-extensions
         - lca
         - lens
-        # GHC 8 - linear
-        # GHC 8 - linear-accelerate
+        - linear
+        - linear-accelerate
         # GHC 8 - log-domain
-        # BLOCKED distributive 0.5 - machines
+        - machines
         - monadic-arrays
         - monad-products
         - monad-products
@@ -290,7 +292,7 @@ packages:
         - mtl
         - nats
         - numeric-extras
-        # GHC 8 - parsers
+        - parsers
         - pointed
         - prelude-extras
         - profunctor-extras
@@ -302,12 +304,12 @@ packages:
         - semigroupoids
         - semigroups
         - speculation
-        # BLOCKED comonad 5 - streams
+        - streams
         - tagged
         - vector-instances
         - void
         - wl-pprint-extras
-        # GHC 8 - wl-pprint-terminfo
+        - wl-pprint-terminfo
         - zippers
         - fixed
         - half
@@ -318,7 +320,7 @@ packages:
 
     "Andrew Farmer <afarmer@ittc.ku.edu>":
         - scotty
-        # GHC 8 - wai-middleware-static
+        - wai-middleware-static
 
     "Simon Hengel <sol@typeful.net>":
         - hspec
@@ -369,8 +371,7 @@ packages:
         - gravatar
 
     "Paul Harper <benekastah@gmail.com>":
-        []
-        # GHC 8 - yesod-auth-oauth2
+        - yesod-auth-oauth2
 
     "Felipe Lessa <felipe.lessa@gmail.com> @meteficha":
         - country-codes
@@ -402,8 +403,7 @@ packages:
         - ChannelT
 
     "Trevor L. McDonell <tmcdonell@cse.unsw.edu.au>":
-        []
-        # GHC 8 - accelerate
+        - accelerate
 
     "Liam O'Connor <liamoc@cse.unsw.edu.au>":
         []
@@ -426,33 +426,35 @@ packages:
         - rev-state
         - runmemo
         - tardis
-        # GHC 8 - lens-family-th
+        - lens-family-th
 
     "Daniel Díaz dhelta.diaz@gmail.com @Daniel-Diaz":
         - bimap-server
-        # GHC 8 - binary-list
+        - binary-list
         - byteset
-        # GHC 8 - grouped-list
-        # GHC 8 - haskintex
-        # GHC 8 - HaTeX
+        - Clipboard
+        - grouped-list
+        - haskintex
+        - HaTeX
         # fails see #885
         #- hatex-guide
         - include-file
-        # GHC 8 - matrix
+        - matrix
         - pcre-light
-        # GHC 8 - phantom-state
+        - phantom-state
         - post-mess-age
         - sorted-list
 
     "Gabriel Gonzalez <Gabriel439@gmail.com>":
+        - optparse-generic
         - pipes
-        # GHC 8 - pipes-extras
+        - pipes-extras
         - pipes-parse
         - pipes-concurrency
-        # GHC 8 - pipes-safe
-        # GHC 8 - turtle
-        # GHC 8 - foldl
-        # GHC 8 - morte
+        - pipes-safe
+        - turtle
+        - foldl
+        - morte
 
     "Andrew Thaddeus Martin <andrew.thaddeus@gmail.com>":
         - yesod-table
@@ -460,22 +462,21 @@ packages:
     "Arash Rouhani <miffoljud@gmail.com>":
         - yesod-text-markdown
 
-    # https://github.com/fpco/stackage/issues/1155
-    # "Chris Allen <cma@bitemyapp.com>":
-    #     - bloodhound
+    "Chris Allen <cma@bitemyapp.com>":
+        - bloodhound
 
     "Adam Bergmark <adam@bergmark.nl> @bergmark":
         - aeson
-        # GHC 8 - fay
-        # GHC 8 - fay-base
-        # GHC 8 - fay-dom
-        # GHC 8 - fay-jquery
-        # GHC 8 - fay-text
-        # GHC 8 - fay-uri
-        # GHC 8 - feed
+        - fay
+        - fay-base
+        - fay-dom
+        - fay-jquery
+        - fay-text
+        - fay-uri
+        - feed
         # GHC 8 - snaplet-fay
         - time-compat
-        # GHC 8 - through-text
+        - through-text
 
     "Sebastiaan Visser <haskell@fvisser.nl>":
         - clay
@@ -499,20 +500,18 @@ packages:
 
     "Michal J. Gajda <maintainer@migamake.com>":
         - iterable
-        # GHC 8 - Octree
+        - Octree
         - FenwickTree
-        # GHC 8 - hPDB
-        # Build failure with GHC 7.10.2, see: https://ghc.haskell.org/trac/ghc/ticket/10565
-        # - hPDB-examples
-
-        # GHC 8 - wordpass
+        - hPDB
+        - hPDB-examples
+        - homplexity
+        #- wordpass
         - json-autotype
         - posix-realtime
 
     "Dominic Steinitz <dominic@steinitz.org>":
-        # https://github.com/leventov/yarr/pull/7
-        # - yarr
-        []
+        - yarr
+        - random-fu
 
     "Ben Gamari <ben@smart-cactus.org>":
         - vector-fftw
@@ -553,13 +552,13 @@ packages:
 
     "Joachim Breitner <mail@joachim-breitner.de>":
         - circle-packing
-        # GHC 8 - arbtt
-        # GHC 8 - ghc-heap-view
-        # GHC 8 - tttool
-        # GHC 8 - gipeda
-        # GHC 8 - list-fusion-probe
+        - arbtt
+        - ghc-heap-view
+        - tttool
+        - gipeda
+        - list-fusion-probe
         - haskell-spacegoo
-        # GHC 8 - tasty-expected-failure
+        - tasty-expected-failure
 
     "Aditya Bhargava <adit@adit.io":
         - HandsomeSoup
@@ -582,8 +581,10 @@ packages:
 
     "Colin Woodbury <colingw@gmail.com> @fosskers":
         - microlens-aeson
+        - versions
+        - vectortiles
+        - pipes-random
         # GHC 8 - kanji
-        # GHC 8 - versions
 
     "Ketil Malde":
         - biocore
@@ -593,7 +594,7 @@ packages:
         - blastxml
         - bioace
         # https://github.com/BioHaskell/biophd/issues/3
-        - biophd
+        # - biophd
         - biopsl
         # https://github.com/ingolia/SamTools/issues/3
         # - samtools
@@ -620,9 +621,9 @@ packages:
         - aeson-utils
         - arrow-list
         - attoparsec-expr
-        # GHC 8 - bumper
+        - bumper
         - code-builder
-        # GHC 8 - fay-builder
+        - fay-builder
         - generic-aeson
         - generic-xmlpickler
         - hxt-pickle-utils
@@ -632,7 +633,7 @@ packages:
         - rest-client
         - rest-core
         - rest-gen
-        # GHC 8 - rest-happstack
+        - rest-happstack
         # GHC 8 - rest-snap
         - rest-stringmap
         - rest-types
@@ -643,10 +644,10 @@ packages:
     "Simon Michael <simon@joyful.com> @simonmichael":
         - regex-compat-tdfa
         # GHC 8 - darcs
-        # GHC 8 - hledger
-        # GHC 8 - hledger-lib
-        # GHC 8 - hledger-ui
-        # GHC 8 - hledger-web
+        - hledger
+        - hledger-lib
+        # - hledger-ui
+        # - hledger-web
         # GHC 8 - shelltestrunner
 
     "Mihai Maruseac <mihai.maruseac@gmail.com>":
@@ -688,8 +689,8 @@ packages:
         # GHC 8 - ekg-json
 
     "Paul Rouse <pgr@doynton.org>":
-        []
-        # GHC 8 - yesod-auth-hashdb
+        - sphinx
+        - yesod-auth-hashdb
 
     "Toralf Wittner <tw@dtex.org> @twittner":
         - bytestring-conversion
@@ -726,7 +727,7 @@ packages:
         # GHC 8 - file-location
         - fuzzcheck
         - haddock-api
-        # GHC 8 - here
+        - here
         - hlibgit2
         # GHC 8 - gitlib-libgit2
         - hostname-validate
@@ -741,7 +742,9 @@ packages:
         - Chart-cairo
         # GHC 8 - ghc-events
         - monad-extras
-        # GHC 8 - stack < 9.9.9
+        - stack < 9.9.9
+        - optparse-simple
+        - hpack
 
     "Michael Sloan <mgsloan@gmail.com>":
         - th-orphans
@@ -755,9 +758,9 @@ packages:
         - list-t
         - mtl-prelude
         - neat-interpolation
-        # GHC 8 - partial-handler
+        - partial-handler
         # GHC 8 - postgresql-binary
-        # GHC 8 - slave-thread
+        - slave-thread
         - stm-containers
 
     "Iustin Pop <iustin@k1024.org>":
@@ -768,7 +771,8 @@ packages:
        # GHC 8 - Spock-digestive
        - Spock-worker
        - graph-core
-       - highjson
+       # https://github.com/agrafix/highjson/issues/1
+       # GHC 8 - highjson
        - hvect
        - reroute
        - users
@@ -802,16 +806,16 @@ packages:
     "Arthur Fayzrakhmanov <heraldhoi@gmail.com>":
         # GHC 8 - sodium
         - yesod-form-richtext
+        - ghcjs-perch
 
     "Sebastian Nagel <sebastian.nagel@ncoding.at> @ch1bo":
-        []
-        # GHC 8 - hdevtools
+        - hdevtools
 
     "Andrey Chudnov <oss@chudnov.com>":
         - language-ecmascript
 
     "Tom Ellis <tom-stackage@jaguarpaw.co.uk>":
-        # GHC 8 - opaleye
+        - opaleye
         - product-profunctors
 
     "Samplecount stefan@samplecount.com @kaoskorobase":
@@ -819,6 +823,7 @@ packages:
 
     "Marcin Mrotek <marcin.jan.mrotek@gmail.com>":
         - type-list
+        - zoom-refs
         # GHC 8 - vinyl-utils
 
     "David Turner <dave.c.turner@gmail.com> @davecturner":
@@ -839,15 +844,18 @@ packages:
         - servant-cassava
 
     "Alexandr Ruchkin voidex@live.com @mvoidex":
-        []
-        # GHC 8 - hdocs
-        # GHC 8 - hformat
-        # GHC 8 - hsdev
-        # GHC 8 - simple-log
-        # GHC 8 - text-region
+        # https://github.com/fpco/stackage/issues/1562
+        # - hdocs
+        - hformat
+        # https://github.com/fpco/stackage/issues/1562
+        # - hsdev
+        - simple-log
+        - text-region
 
     "Aleksey Kliger aleksey@lambdageek.org @lambdageek":
         - unbound-generics
+        - indentation-core
+        - indentation-parsec
 
     "Alois Cochard alois.cochard@gmail.com @aloiscochard":
         # GHC 8 - codex
@@ -870,16 +878,19 @@ packages:
 
     "Jens Petersen juhpetersen@gmail.com @juhp":
         - cabal-rpm
-        # GHC 8 - cabal-sort
+        - cabal-sort
         - ghcjs-codemirror
-        - ghcjs-dom
+        # https://github.com/fpco/stackage/issues/1569
+        # - ghcjs-dom
+        - hslua
         # GHC 8 - idris
-        # BLOCKED lens 4.14 - jsaddle
+        # https://github.com/fpco/stackage/issues/1569
+        # - jsaddle
         # GHC 8 - leksah-server
         # GHC 8 - ltk
         - vado
         # GHC 8 - vcsgui
-        # GHC 8 - vcswrapper
+        - vcswrapper
 
         - cairo
         - gio
@@ -902,17 +913,17 @@ packages:
         # GHC 8 - avers
         # GHC 8 - avers-api
         # GHC 8 - avers-server
-        # GHC 8 - css-syntax
+        - css-syntax
         - etcd
-        # GHC 8 - github-types
-        # GHC 8 - github-webhook-handler
+        - github-types
+        - github-webhook-handler
         # GHC 8 - github-webhook-handler-snap
-        # GHC 8 - google-cloud
-        # GHC 8 - kraken
-        # GHC 8 - libinfluxdb
+        - google-cloud
+        - kraken
+        - libinfluxdb
         # GHC 8 - mole
-        # GHC 8 - publicsuffix
-        # GHC 8 - rethinkdb-client-driver
+        - publicsuffix
+        - rethinkdb-client-driver
 
     "Alexandr Kurilin alex@kurilin.net @alex_kurilin":
         - bcrypt
@@ -969,22 +980,25 @@ packages:
         - binary-orphans
         - binary-tagged
         - edit-distance
+        - generics-sop-lens
         # GHC 8 - github
         - insert-ordered-containers
         - JuicyPixels-scale-dct
         - lattices
         - monad-http
-        # GHC 8 - postgresql-simple-url
+        - postgresql-simple-url
         - range-set-list
         - regex-applicative-text
+        - servant-swagger-ui
         - servant-yaml
         - spdx
         - these
         # GHC 8 - time-parsers
-        # GHC 8 - waitra
+        - waitra
 
         # Not a maintainer
-        # GHC 8 - arithmoi
+        - arithmoi
+        - friendly-time
         - hashable
         # GHC 8 - haxl
         - monad-time
@@ -1011,7 +1025,7 @@ packages:
         - bower-json
         - boxes
         - pattern-arrows
-        # GHC 8 - purescript
+        - purescript
 
         # Universe
         - universe
@@ -1022,11 +1036,10 @@ packages:
         - universe-reverse-instances
 
     "Abhinav Gupta <mail@abhinavg.net> @abhinav":
-        []
-        # GHC 8 - farmhash
-        # GHC 8 - language-thrift
-        # GHC 8 - pinch
-        # GHC 8 - sandman
+        - farmhash
+        - pinch
+        - sandman
+        - language-thrift
 
     "Adam C. Foltzer acfoltzer@galois.com @acfoltzer":
         # GHC 8 - cryptol
@@ -1037,76 +1050,175 @@ packages:
         - jose-jwt
 
     "Brendan Hay brendan.g.hay@gmail.com @brendanhay":
-        # GHC 8 - amazonka
-        # GHC 8 - amazonka-core
-        # GHC 8 - amazonka-test
-        # GHC 8 - amazonka-apigateway
-        # GHC 8 - amazonka-autoscaling
-        # GHC 8 - amazonka-certificatemanager
-        # GHC 8 - amazonka-cloudformation
-        # GHC 8 - amazonka-cloudfront
-        # GHC 8 - amazonka-cloudhsm
-        # GHC 8 - amazonka-cloudsearch-domains
-        # GHC 8 - amazonka-cloudsearch
-        # GHC 8 - amazonka-cloudtrail
-        # GHC 8 - amazonka-cloudwatch-events
-        # GHC 8 - amazonka-cloudwatch-logs
-        # GHC 8 - amazonka-cloudwatch
-        # GHC 8 - amazonka-codecommit
-        # GHC 8 - amazonka-codedeploy
-        # GHC 8 - amazonka-codepipeline
-        # GHC 8 - amazonka-cognito-identity
-        # GHC 8 - amazonka-cognito-idp
-        # GHC 8 - amazonka-cognito-sync
-        # GHC 8 - amazonka-config
-        # GHC 8 - amazonka-datapipeline
-        # GHC 8 - amazonka-devicefarm
-        # GHC 8 - amazonka-directconnect
-        # GHC 8 - amazonka-dms
-        # GHC 8 - amazonka-ds
-        # GHC 8 - amazonka-dynamodb-streams
-        # GHC 8 - amazonka-dynamodb
-        # GHC 8 - amazonka-ec2
-        # GHC 8 - amazonka-ecr
-        # GHC 8 - amazonka-ecs
-        # GHC 8 - amazonka-efs
-        # GHC 8 - amazonka-elasticache
-        # GHC 8 - amazonka-elasticbeanstalk
-        # GHC 8 - amazonka-elasticsearch
-        # GHC 8 - amazonka-elastictranscoder
-        # GHC 8 - amazonka-elb
-        # GHC 8 - amazonka-emr
-        # GHC 8 - amazonka-gamelift
-        # GHC 8 - amazonka-glacier
-        # GHC 8 - amazonka-iam
-        # GHC 8 - amazonka-importexport
-        # GHC 8 - amazonka-inspector
-        # GHC 8 - amazonka-iot-dataplane
-        # GHC 8 - amazonka-iot
-        # GHC 8 - amazonka-kinesis
-        # GHC 8 - amazonka-kinesis-firehose
-        # GHC 8 - amazonka-kms
-        # GHC 8 - amazonka-lambda
-        # GHC 8 - amazonka-marketplace-analytics
-        # GHC 8 - amazonka-marketplace-metering
-        # GHC 8 - amazonka-ml
-        # GHC 8 - amazonka-opsworks
-        # GHC 8 - amazonka-rds
-        # GHC 8 - amazonka-redshift
-        # GHC 8 - amazonka-route53-domains
-        # GHC 8 - amazonka-route53
-        # GHC 8 - amazonka-s3
-        # GHC 8 - amazonka-sdb
-        # GHC 8 - amazonka-ses
-        # GHC 8 - amazonka-sns
-        # GHC 8 - amazonka-sqs
-        # GHC 8 - amazonka-ssm
-        # GHC 8 - amazonka-storagegateway
-        # GHC 8 - amazonka-sts
-        # GHC 8 - amazonka-support
-        # GHC 8 - amazonka-swf
-        # GHC 8 - amazonka-waf
-        # GHC 8 - amazonka-workspaces
+        - amazonka
+        - amazonka-core
+        - amazonka-test
+        - amazonka-apigateway
+        - amazonka-application-autoscaling
+        - amazonka-autoscaling
+        - amazonka-certificatemanager
+        - amazonka-cloudformation
+        - amazonka-cloudfront
+        - amazonka-cloudhsm
+        - amazonka-cloudsearch-domains
+        - amazonka-cloudsearch
+        - amazonka-cloudtrail
+        - amazonka-cloudwatch-events
+        - amazonka-cloudwatch-logs
+        - amazonka-cloudwatch
+        - amazonka-codecommit
+        - amazonka-codedeploy
+        - amazonka-codepipeline
+        - amazonka-cognito-identity
+        - amazonka-cognito-idp
+        - amazonka-cognito-sync
+        - amazonka-config
+        - amazonka-datapipeline
+        - amazonka-devicefarm
+        - amazonka-directconnect
+        - amazonka-discovery
+        - amazonka-dms
+        - amazonka-ds
+        - amazonka-dynamodb-streams
+        - amazonka-dynamodb
+        - amazonka-ec2
+        - amazonka-ecr
+        - amazonka-ecs
+        - amazonka-efs
+        - amazonka-elasticache
+        - amazonka-elasticbeanstalk
+        - amazonka-elasticsearch
+        - amazonka-elastictranscoder
+        - amazonka-elb
+        - amazonka-emr
+        - amazonka-gamelift
+        - amazonka-glacier
+        - amazonka-iam
+        - amazonka-importexport
+        - amazonka-inspector
+        - amazonka-iot-dataplane
+        - amazonka-iot
+        - amazonka-kinesis
+        - amazonka-kinesis-firehose
+        - amazonka-kms
+        - amazonka-lambda
+        - amazonka-marketplace-analytics
+        - amazonka-marketplace-metering
+        - amazonka-ml
+        - amazonka-opsworks
+        - amazonka-rds
+        - amazonka-redshift
+        - amazonka-route53-domains
+        - amazonka-route53
+        - amazonka-s3
+        - amazonka-sdb
+        - amazonka-ses
+        - amazonka-sns
+        - amazonka-sqs
+        - amazonka-ssm
+        - amazonka-storagegateway
+        - amazonka-sts
+        - amazonka-support
+        - amazonka-swf
+        - amazonka-waf
+        - amazonka-workspaces
+        - gogol
+        - gogol-core
+        - gogol-adexchange-buyer
+        - gogol-adexchange-seller
+        - gogol-admin-datatransfer
+        - gogol-admin-directory
+        - gogol-admin-emailmigration
+        - gogol-admin-reports
+        - gogol-adsense
+        - gogol-adsense-host
+        - gogol-affiliates
+        - gogol-analytics
+        - gogol-android-enterprise
+        - gogol-android-publisher
+        - gogol-appengine
+        - gogol-apps-activity
+        - gogol-apps-calendar
+        - gogol-apps-licensing
+        - gogol-apps-reseller
+        - gogol-apps-tasks
+        - gogol-appstate
+        - gogol-autoscaler
+        - gogol-bigquery
+        - gogol-billing
+        - gogol-blogger
+        - gogol-books
+        - gogol-civicinfo
+        - gogol-classroom
+        - gogol-cloudmonitoring
+        - gogol-cloudtrace
+        - gogol-compute
+        - gogol-container
+        - gogol-customsearch
+        - gogol-dataflow
+        - gogol-dataproc
+        - gogol-datastore
+        - gogol-debugger
+        - gogol-deploymentmanager
+        - gogol-dfareporting
+        - gogol-discovery
+        - gogol-dns
+        - gogol-doubleclick-bids
+        - gogol-doubleclick-search
+        - gogol-drive
+        - gogol-firebase-rules
+        - gogol-fitness
+        - gogol-fonts
+        - gogol-freebasesearch
+        - gogol-fusiontables
+        - gogol-games
+        - gogol-games-configuration
+        - gogol-games-management
+        - gogol-genomics
+        - gogol-gmail
+        - gogol-groups-migration
+        - gogol-groups-settings
+        - gogol-identity-toolkit
+        - gogol-kgsearch
+        - gogol-latencytest
+        - gogol-logging
+        - gogol-maps-coordinate
+        - gogol-maps-engine
+        - gogol-mirror
+        - gogol-monitoring
+        - gogol-oauth2
+        - gogol-pagespeed
+        - gogol-partners
+        - gogol-people
+        - gogol-play-moviespartner
+        - gogol-plus
+        - gogol-plus-domains
+        - gogol-prediction
+        - gogol-proximitybeacon
+        - gogol-pubsub
+        - gogol-qpxexpress
+        - gogol-replicapool
+        - gogol-replicapool-updater
+        - gogol-resourcemanager
+        - gogol-resourceviews
+        - gogol-script
+        - gogol-sheets
+        - gogol-shopping-content
+        - gogol-siteverification
+        - gogol-spectrum
+        - gogol-sqladmin
+        - gogol-storage
+        - gogol-storage-transfer
+        - gogol-tagmanager
+        - gogol-taskqueue
+        - gogol-translate
+        - gogol-urlshortener
+        - gogol-useraccounts
+        - gogol-vision
+        - gogol-webmaster-tools
+        - gogol-youtube
+        - gogol-youtube-analytics
+        - gogol-youtube-reporting
         # GHC 8 - ede
         - pagerduty
         - semver
@@ -1122,9 +1234,8 @@ packages:
         # GHC 8 - jmacro-rpc-snap
         - mbox
         - kmeans
-        # Not compatible with GHC 7.10.2 (yes, it's a regression in GHC)
-        # - boolsimplifier
-        - cubicspline
+        - boolsimplifier
+        # GHC 8 - cubicspline
         - maximal-cliques
 
     "Alexander Bondarenko <aenor.realm@gmail.com> @wiz":
@@ -1168,7 +1279,9 @@ packages:
         # - inline-r
 
     "David Fox <dsf@seereason.com> @ddssff":
-        - debian
+        []
+        # https://github.com/ddssff/debian-haskell/issues/6
+        # GHC 8 - debian
         # GHC 8 - cabal-debian
 
     "Stefan Saasen <stefan@saasen.me>":
@@ -1188,10 +1301,12 @@ packages:
         - flow
         # GHC 8 - github-release
         - lackey
-        # GHC 8 - octane
-        - optparse-generic # Maintained by @Gabriel439.
-        - ratel
-        - ratel-wai
+        - octane
+        # https://github.com/Gabriel439/Haskell-Optparse-Generic-Library/issues/23
+        # GHC 8 - optparse-generic # Maintained by @Gabriel439.
+        # https://github.com/tfausak/ratel/issues/1
+        # GHC 8 - ratel
+        # GHC 8 - ratel-wai
         # GHC 8 - strive
         # GHC 8 - wuss
 
@@ -1293,13 +1408,12 @@ packages:
         - tasty-silver
 
     "Michael Thompson <what_is_it_to_do_anything@yahoo.com> @michaelt":
-        []
-        # GHC 8 - pipes-text
-        # GHC 8 - lens-simple
-        # GHC 8 - lens-family-core
-        # GHC 8 - lens-family
-        # GHC 8 - streaming
-        # GHC 8 - streaming-bytestring
+        - pipes-text
+        - lens-simple
+        - lens-family-core
+        - lens-family
+        - streaming
+        - streaming-bytestring
 
 
     "Justin Le <justin@jle.im> @mstksg":
@@ -1308,7 +1422,7 @@ packages:
         - prompt
         - tagged-binary
         - typelits-witnesses
-        # BLOCKED comonad 5 - uncertain
+        - uncertain
 
     "Ian Duncan <ian@iankduncan.com> @iand675":
         - feature-flags
@@ -1327,7 +1441,7 @@ packages:
 
     "Michael Xavier <michael@michaelxavier.net> @MichaelXavier":
         - angel
-        # GHC 8 - uri-bytestring
+        - uri-bytestring
         # https://github.com/MichaelXavier/phash/issues/5
         #- phash
         - cron
@@ -1360,10 +1474,11 @@ packages:
         - nationstates
 
     "Mathieu Boespflug <mboes@tweag.net> @mboes":
+        # BLOCKED ihaskell support for GHC 8 - ihaskell-inline-r
+        - cassette
         - distributed-closure
-        # GHC 8 - H
-        # GHC 8 - ihaskell-inline-r
-        # GHC 8 - inline-r
+        - H
+        - inline-r
         - th-lift
 
     "Christopher Reichert <creichert07@gmail.com> @creichert":
@@ -1404,15 +1519,16 @@ packages:
 
     "Michel Boucey <michel.boucey@gmail.com> @MichelBoucey":
         - IPv6Addr
-        # GHC 8 - ip6addr
-        # GHC 8 - cayley-client
+        - ip6addr
+        - cayley-client
         - Spintax
 
     "koral koral@mailoo.org @k0ral":
         # GHC 8 - atom-conduit
         # GHC 8 - conduit-parse
-        # GHC 8 - opml-conduit
+        - opml-conduit
         # GHC 8 - rss-conduit
+        - imm
         - timerep
         # GHC 8 - xml-conduit-parse
 
@@ -1420,7 +1536,7 @@ packages:
         - protocol-buffers
         - hprotoc
         - protocol-buffers-descriptor
-        # GHC 8 - ekg-core
+        - ekg-core
         - digits
         - hbeanstalk
         - iso3166-country-codes
@@ -1444,8 +1560,8 @@ packages:
     "John Lenz <wuzzeb@gmail.com> @wuzzeb":
         - yesod-auth-account
         - yesod-static-angular
-        # GHC 8 - hspec-webdriver
-        # GHC 8 - webdriver-angular
+        - hspec-webdriver
+        - webdriver-angular
 
     "Sven Heyll <svh@posteo.de> @sheyll":
         - b9
@@ -1464,14 +1580,15 @@ packages:
     "Index Int <vlad.z.4096@gmail.com>":
         - transformers-lift
         - ether
-        # GHC 8 - union
+        - union
 
     "Stack Builders stackage@stackbuilders.com @stackbuilders":
         - atomic-write
-        # GHC 8 - hapistrano
-        # GHC 8 - inflections
-        # GHC 8 - twitter-feed
-        # BLOCKED megaparsec 5 - dotenv
+        - hapistrano
+        - inflections
+        - twitter-feed
+        - cassava-megaparsec
+        - dotenv
 
     "Sergey Alirzaev <zl29ah@gmail.com>":
         - monad-peel
@@ -1498,7 +1615,8 @@ packages:
     "Alexey Khudyakov <alexey.skladnoy@gmail.com> @Shimuuar":
         - histogram-fill
         - fixed-vector
-        - fixed-vector-hetero
+        # https://github.com/Shimuuar/fixed-vector-hetero/issues/2
+        # GHC 8 - fixed-vector-hetero
         - type-level-numbers
 
     "Ryan Scott <ryan.gl.scott@gmail.com> @RyanGlScott":
@@ -1517,9 +1635,8 @@ packages:
 
     "Matthew Pickering <matthewtpickering@gmail.com> @mpickering":
         - refact
-        # https://github.com/fpco/stackage/issues/1452
-        # - servant-pandoc
-        # GHC 8 - ghc-exactprint
+        # GHC 8 - servant-pandoc
+        - ghc-exactprint
         # GHC 8 - apply-refact
 
     "Andrew Gibiansky <andrew.gibiansky@gmail.com> @gibiansky":
@@ -1566,6 +1683,8 @@ packages:
         - cheapskate-highlight
         - Spock-lucid
         - charsetdetect-ae
+        - ilist
+        - text-all
 
     "Takano Akio aljee@hyper.cx @takano-akio":
         # GHC 8 - fast-builder
@@ -1582,24 +1701,24 @@ packages:
     "Niklas Hambüchen mail@nh2.me @nh2":
         - hidapi
         - iso8601-time
+        - loop
         - network-house
-        # GHC 8 - reinterpret-cast
+        - reinterpret-cast
 
     "Brandon Martin <brandon@codedmart.com> @codedmart":
-        []
         # GHC 8 - engine-io-wai
-        # GHC 8 - rethinkdb
+        - rethinkdb
 
     "Michael Walker <mike@barrucadu.co.uk> @barrucadu":
         # GHC 8 - both
-        # GHC 8 - dpor
-        # GHC 8 - dejafu
-        # GHC 8 - async-dejafu
-        # GHC 8 - hunit-dejafu
-        # GHC 8 - tasty-dejafu
+        - dpor
+        - dejafu
+        - async-dejafu
+        - hunit-dejafu
+        - tasty-dejafu
         - irc-ctcp
         - irc-conduit
-        # GHC 8 - irc-client
+        - irc-client
 
     "Trevor Elliott <awesomelyawesome@gmail.com> @elliottt":
         - irc
@@ -1610,6 +1729,7 @@ packages:
         - natural-transformation
         # GHC 8 - opaleye-trans
         - read-env-var
+        - yahoo-finance-api
 
     "Franklin Chen <franklinchen@franklinchen.com> @FranklinChen":
         - Ebnf2ps
@@ -1624,10 +1744,10 @@ packages:
         - pointedlist
         - word-trie
         - xdg-basedir
-        # GHC 8 - yi
-        # GHC 8 - yi-fuzzy-open
-        # GHC 8 - yi-language
-        # GHC 8 - yi-rope
+        - yi
+        - yi-fuzzy-open
+        - yi-language
+        - yi-rope
 
     "Tobias Bexelius <tobias_bexelius@hotmail.com> @tobbebex":
         []
@@ -1679,12 +1799,12 @@ packages:
         - nagios-check
 
     "Peter Simons simons@cryp.to @peti":
+        - distribution-nixpkgs
         - funcmp
         - hackage-db
-        # GHC 8 - hledger-interest
+        - hledger-interest
         - hopenssl
-        # https://github.com/fpco/stackage/issues/840
-        # - hsdns
+        - hsdns
         - hsemail
         - hsyslog
         - language-nix
@@ -1708,14 +1828,17 @@ packages:
         - random-tree
         - clumpiness
         - find-clumpiness
+        # GHC 8 - blosum
 
     "Simon Marechal <bartavelle@gmail.com> @bartavelle":
-        # GHC 8 - compactmap
-        # GHC 8 - stateWriter
+        - compactmap
+        - stateWriter
         - filecache
-        # GHC 8 - pcre-utils
+        - pcre-utils
         - strict-base-types
-        # GHC 8 - withdependencies
+        - withdependencies
+        - hruby
+        - language-puppet
         # http-types
         # - stm-firehose
         # - hslogstash
@@ -1728,6 +1851,8 @@ packages:
         - hspec-megaparsec
         - plan-b
         - zip
+        - JuicyPixels-extra
+        - identicon
 
     "Thomas Bereknyei <tomberek@gmail.com>":
         []
@@ -1744,10 +1869,9 @@ packages:
 
     "Nickolay Kudasov <nickolay.kudasov@gmail.com> @fizruk":
         - http-api-data
-        # https://github.com/fpco/stackage/issues/1290
-        #- smsaero
+        - smsaero
         - swagger2
-        # GHC 8 - servant-swagger
+        - servant-swagger
 
     "Jared Tobin <jared@jtobin.ca> @jtobin":
         - mwc-probability
@@ -1760,7 +1884,7 @@ packages:
         - flat-mcmc
 
     "Facundo Domínguez <facundo.dominguez@tweag.io> @facundominguez":
-        # GHC 8 - distributed-process
+        - distributed-process
         # GHC 8 - distributed-process-async
         # GHC 8 - distributed-process-client-server
         # GHC 8 - distributed-process-execution
@@ -1769,9 +1893,10 @@ packages:
         # GHC 8 - distributed-process-simplelocalnet
         # GHC 8 - distributed-process-supervisor
         # GHC 8 - distributed-process-task
-        # GHC 8 - distributed-static
-        # GHC 8 - network-transport
-        # GHC 8 - network-transport-tcp
+        - distributed-static
+        - network-transport
+        - network-transport-tcp
+        - network-transport-inmemory
         # GHC 8 - network-transport-composed
         - rank1dynamic
 
@@ -1811,7 +1936,8 @@ packages:
         - scanner
 
     "Stanislav Chernichkin <schernichkin@gmail.com> @schernichkin":
-        - partial-isomorphisms
+        []
+        # GHC 8 - partial-isomorphisms
         # GHC 8 - vinyl
 
     "Christoph Breitkopf <chbreitkopf@gmail.com> @bokesan":
@@ -1828,12 +1954,10 @@ packages:
         - blake2
 
     "Adam Curtis <kallisti.dev@gmail.com> @kallisti-dev":
-        []
-        # GHC 8 - webdriver
+        - webdriver
 
     "Luke Iannini <lukexi@me.com> @lukexi":
-        []
-        # GHC 8 - inline-c
+        - inline-c
         # GHC 8 - inline-c-cpp
         # GHC 8 - ekg
 
@@ -1889,7 +2013,7 @@ packages:
         # GHC 8 - lentil
 
     "Yorick Laupa yo.eight@gmail.com @YoEight":
-        # GHC 8 - eventstore
+        - eventstore
         - dotnet-timespan
 
     "Sebastian Dröge slomo@coaxion.net @sdroege":
@@ -1918,30 +2042,30 @@ packages:
 
     "Jeremy Shaw <jeremy@n-heptane.com> @stepcut":
         - boomerang
-        # GHC 8 - clckwrks
-        # GHC 8 - clckwrks-cli
-        # GHC 8 - clckwrks-plugin-page
-        # GHC 8 - clckwrks-plugin-media
-        # GHC 8 - clckwrks-theme-bootstrap
-        # GHC 8 - hackage-whatsnew
-        # GHC 8 - happstack-authenticate
-        # GHC 8 - happstack-clientsession
-        # GHC 8 - happstack-hsp
-        # GHC 8 - happstack-jmacro
-        # GHC 8 - happstack-server
-        # GHC 8 - happstack-server-tls
+        - clckwrks
+        - clckwrks-cli
+        - clckwrks-plugin-page
+        - clckwrks-plugin-media
+        - clckwrks-theme-bootstrap
+        - hackage-whatsnew
+        - happstack-authenticate
+        - happstack-clientsession
+        - happstack-hsp
+        - happstack-jmacro
+        - happstack-server
+        - happstack-server-tls
         - hsx-jmacro
-        # GHC 8 - ixset
+        - ixset
         - reform
         - reform-blaze
         - reform-hamlet
-        # GHC 8 - reform-happstack
-        # GHC 8 - reform-hsp
-        # GHC 8 - userid
+        - reform-happstack
+        - reform-hsp
+        - userid
         - web-plugins
         - web-routes
         - web-routes-boomerang
-        # GHC 8 - web-routes-happstack
+        - web-routes-happstack
         - web-routes-hsp
         - web-routes-th
         - web-routes-wai
@@ -1964,6 +2088,7 @@ packages:
 
     "Pascal Hartig <phartig@rdrei.net> @passy":
         - giphy-api
+        - optparse-text
 
     "rightfold <rightfold@gmail.com> @rightfold":
         - open-browser
@@ -1976,8 +2101,7 @@ packages:
         - yes-precure5-command
 
     "Hans-Christian Esperer <hc@hcesperer.org> @hce":
-        []
-        # GHC 8 - wai-session-postgresql
+        - wai-session-postgresql
 
     "Haisheng Wu <freizl@gmail.com>":
         - hoauth2
@@ -1990,11 +2114,12 @@ packages:
         # GHC 8 - dawg-ord
 
     "Amit Levy <amit@amitlevy.com> @alevy":
-        - postgresql-orm
+        # https://github.com/alevy/postgresql-orm/issues/17
+        # GHC 8 - postgresql-orm
         - simple
         - simple-templates
         - simple-session
-        - simple-postgresql-orm
+        # GHC 8 - simple-postgresql-orm
 
     "Sergey Astanin <s.astanin@gmail.com> @astanin":
         []
@@ -2003,11 +2128,11 @@ packages:
         #- LibZip < 0.11
 
     "Anthony Cowley <acowley@gmail.com> @acowley":
-        []
-        # GHC 8 - Frames
+        - Frames
 
     "Takayuki Muranushi <muranushi@gmail.com> @nushio3":
         - binary-search
+        - unicode-show
 
     "Jason Shipman <jasonpshipman@gmail.com> @jship":
         # on behalf of Boris Sukholitko @bosu
@@ -2034,8 +2159,8 @@ packages:
         - highlighting-kate
         - pandoc-types
         - zip-archive
-        # GHC 8 - pandoc
-        # GHC 8 - pandoc-citeproc
+        - pandoc
+        - pandoc-citeproc
 
     "Karun Ramakrishnan karun012@gmail.com @karun012":
         - doctest-discover
@@ -2054,7 +2179,7 @@ packages:
         - rotating-log
         - ua-parser
         - hs-GeoIP
-        # GHC 8 - retry
+        - retry
         # GHC 8 - katip
         # GHC 8 - katip-elasticsearch
 
@@ -2088,19 +2213,19 @@ packages:
     "Alp Mestanogullari alpmestan@gmail.com @alpmestan":
         - taggy
         - taggy-lens
-        # https://github.com/fpco/stackage/issues/1388
-        #- inline-java
-        #- sparkle
+        # https://github.com/fpco/stackage/issues/1660
+        # - inline-java
+        # - sparkle
 
     "Alex McLean <lxyxpx@gmail.com> @yaxu":
         []
         # GHC 8 - tidal
 
     "Kei Hibino <ex8k.hibino@gmail.com> @khibino":
-        # GHC 8 - relational-query
-        # GHC 8 - relational-query-HDBC
-        # GHC 8 - persistable-types-HDBC-pg
-        # GHC 8 - relational-record
+        - relational-query
+        - relational-query-HDBC
+        - persistable-types-HDBC-pg
+        - relational-record
         - text-ldap
         - debian-build
 
@@ -2132,9 +2257,8 @@ packages:
         - io-machine
 
     "Jan Gerlinger <git@jangerlinger.de> @JanGe":
-        []
-        # GHC 8 - irc-dcc
-        # GHC 8 - xdcc
+        - irc-dcc
+        - xdcc
 
     "John Ky newhoggy@gmail.com @newhoggy":
         - hw-bits
@@ -2164,7 +2288,7 @@ packages:
         - postgresql-transactional
 
     "Tom Murphy <amindfv@gmail.com> @amindfv":
-        - vivid
+        # GHC 8 - vivid
         # GHC 8 - midair
         - nano-erl
 
@@ -2172,6 +2296,7 @@ packages:
         - fold-debounce
         - fold-debounce-conduit
         - stopwatch
+        - wikicfp-scraper
 
     "Cies Breijs <cies@kde.nl> @cies":
         - htoml
@@ -2180,23 +2305,80 @@ packages:
         - protobuf-simple
 
     "David Reaver <johndreaver@gmail.com> @jdreaver":
-        []
-        # BLOCKED comonad 5 - stratosphere
+        - stratosphere
 
     "Alexey Rodiontsev <alex.rodiontsev@gmail.com> @klappvisor":
         - telegram-api
 
     "Iñaki García Etxebarria <garetxe@gmail.com> @garetxe":
-        - gi-atk
-        - gi-cairo
-        - gi-gdk
-        - gi-gdkpixbuf
-        - gi-gio
-        - gi-glib
-        - gi-gobject
-        - gi-gtk
-        - gi-pango
+        # Pinned to versions not using custom-setup, since stack does
+        # not understand that syntax yet:
+        # https://github.com/commercialhaskell/stack/issues/2094
+        - gi-atk == 2.0.3
+        - gi-cairo == 1.0.3
+        - gi-gdk == 3.0.3
+        - gi-gdkpixbuf == 2.0.3
+        - gi-gio == 2.0.3
+        - gi-glib == 2.0.3
+        - gi-gobject == 2.0.3
+        - gi-gtk == 3.0.3
+        - gi-pango == 1.0.3
+        - gi-soup == 2.4.3
+        - gi-javascriptcore == 3.0.3
+        - gi-webkit == 3.0.3
         - haskell-gi
+
+    "Brandon Simmons <brandon.m.simmons@gmail.com>":
+        - directory-tree
+
+    "Ian Grant Jeffries <ian@housejeffries.com> @seagreen":
+        - hjsonpointer
+        - hjsonschema
+
+    "Drew Hess <src@drewhess.com> @dhess":
+        - hpio
+
+    "Richard Eisenberg <eir@cis.upenn.edu> @goldfirere":
+        - th-desugar
+        - singletons
+        - units
+        - units-defs
+        - HUnit-approx
+        - units-parser
+
+    "Doug McClean <douglas.mcclean@gmail.com>":
+        - dimensional
+        - exact-pi
+        - numtype-dk
+    "Pavel Ryzhov <paul@paulrz.cz> @paulrzcz":
+        - hquantlib
+        - persistent-redis
+
+    "Henri Verroken <henriverroken@gmail.com> @hverr":
+        - cache
+
+    "Cliff Harvey <cs.hbar+hs@gmail.com>":
+        - ansigraph
+        - quantum-random
+
+    "Tebello Thejane <zyxoas+stackage@gmail.com> @tebello-thejane":
+        - bitx-bitcoin
+
+    "Andrew Lelechenko <andrew.lelechenko@gmail.com> @Bodigrim":
+        - exp-pairs
+
+    "Greg Hurrell <greg@hurrell.net>":
+        - docvim
+
+    "Ashley Yakeley <ashley@semantic.org>":
+        - countable
+
+    "Victor Denisov <denisovenator@gmail.com> @VictorDenisov":
+        - mongoDB
+        - bson
+
+    "Alexis King <lexi.lambda@gmail.com> @lexi-lambda":
+        - test-fixture
 
     # If you stop maintaining a package you can move it here.
     # It will then be disabled if it starts causing problems.
@@ -2212,9 +2394,27 @@ packages:
         - Win32 == 2.3.1.1
 
     "Stackage upper bounds":
-        # These are all temporary, and need to be removed before starting GHC 8
+        # https://github.com/fpco/stackage/issues/1469
         - data-default < 0.7
         - data-default-class < 0.1
+        - data-default-instances-base < 0.1.0.1
+
+        # https://github.com/fpco/stackage/issues/1510
+        - pipes < 4.2
+
+        # https://github.com/fpco/stackage/issues/1515
+        - hsyslog < 3
+
+        # https://github.com/fpco/stackage/issues/1555
+        - authenticate-oauth < 1.6
+
+        # https://github.com/fpco/stackage/issues/1597
+        - tagsoup < 0.14
+
+        # https://github.com/fpco/stackage/issues/1668
+        - aeson-pretty < 0.8.0
+        - stratosphere < 0.1.3
+
 # end of packages
 
 
@@ -2262,6 +2462,11 @@ package-flags:
     time-locale-compat:
         old-locale: false
 
+    th-data-compat:
+        template-haskell-210: false
+    th-reify-compat:
+        template-haskell-210: false
+
     HsOpenSSL:
         fast-bignum: false
 
@@ -2287,10 +2492,9 @@ package-flags:
     jsaddle:
         gtk3: true
 
-    # Only necessary for template-haskell < 2.11, so please
-    # remove this when moving up to GHC 8.0
-    pinchot:
-        oldtemplatehaskell: true
+    ghc-heap-view:
+        ghc_7_7: false
+        ghc_8_0: true
 
 # end of package-flags
 
@@ -2298,7 +2502,10 @@ package-flags:
 
 configure-args:
   inline-java:
-  - "--FIXME"
+  - --extra-lib-dirs
+  - /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server
+  - --extra-include-dirs
+  - /usr/lib/jvm/java-8-openjdk-amd64/include
 
 # end of configure-args
 
@@ -2323,7 +2530,6 @@ skipped-tests:
 
     # Too lazy to keep the test dependencies up to date
     - cases
-    - hasql-postgres
     - list-t
     - postgresql-binary
     - slave-thread
@@ -2333,26 +2539,19 @@ skipped-tests:
     - Cabal-ide-backend
 
     # QuickCheck 2.8
-    - testpack
     - vector
+
+    # requires testpack - https://github.com/jgoerzen/testpack/issues/11
     - MissingH
-    # https://github.com/Soostone/retry/issues/30
-    - retry
 
     # doctest < 0.10
     # Closed due to inactivity: https://github.com/fpco/stackage/issues/622
     - bound
     - heaps
     - hyphenation
-    # BLOCKED distributive 0.5 - machines
 
     # https://github.com/kaizhang/clustering/issues/2
     - clustering
-
-    # tasty < 0.11
-    # Closed due to inactivity: https://github.com/fpco/stackage/issues/817
-    - uuid
-    - uuid-types
 
     # https://github.com/fpco/stackage/issues/934
     - cacophony
@@ -2382,9 +2581,10 @@ skipped-tests:
     - terminal-progress-bar
     - threads
     - yesod-static-angular
-
     # https://github.com/fpco/stackage/pull/906
     - HaRe
+    # https://github.com/Deewiant/glob/issues/1
+    - Glob
 
     # https://github.com/haskell/zlib/issues/2
     - zlib
@@ -2409,9 +2609,7 @@ skipped-tests:
     # Closed due to inactivity: https://github.com/fpco/stackage/issues/1328
     - ad
     - composition-tree
-    # GHC 8 - linear
     # GHC 8 - patches-vector
-    - semigroupoids
 
     # GHC 8 (bytestring-handle)
     - tar
@@ -2425,8 +2623,14 @@ skipped-tests:
     - system-fileio
     - shelly
 
-    # doctest 0.11
-    - linear
+    # https://github.com/acid-state/safecopy/issues/45
+    - safecopy
+
+    # Missing C library: symengine
+    - symengine
+
+    # https://github.com/athanclark/rose-trees/pull/5
+    - rose-trees
 
 # end of skipped-tests
 
@@ -2505,9 +2709,6 @@ expected-test-failures:
     # Requires SAT solver and old QuickCheck
     - ersatz
 
-    # Failing doctests
-    - bits
-
     # No server running
     - amqp
 
@@ -2552,6 +2753,9 @@ expected-test-failures:
     # isn't always the case (e.g., build server)
     - happy
 
+    # https://github.com/jberryman/directory-tree/issues/4
+    - directory-tree
+
     # https://github.com/ndmitchell/hoogle/issues/101
     - hoogle
 
@@ -2579,9 +2783,6 @@ expected-test-failures:
 
     # https://github.com/lymar/hastache/issues/47 GHC 7.10
     - hastache
-
-    # https://github.com/acid-state/safecopy/issues/25 GHC 7.10
-    - safecopy
 
     # https://github.com/haskell/ghc-events/issues/9
     - ghc-events
@@ -2623,9 +2824,6 @@ expected-test-failures:
 
     # https://github.com/kazu-yamamoto/logger/issues/42
     - wai-logger
-
-    # https://github.com/purescript/purescript/issues/1336
-    - purescript
 
     # https://github.com/fpco/stackage/issues/733
     - ide-backend
@@ -2687,6 +2885,7 @@ expected-test-failures:
     # Fails sporadically: https://github.com/fpco/stackage/issues/1125
     - jose-jwt
 
+    # https://github.com/fpco/stackage/issues/1187
     # openfile: does not exist
     - skein
 
@@ -2715,9 +2914,6 @@ expected-test-failures:
     - cabal-helper
     - graphviz
     - zip
-
-    # Problem with v0.1.6.0: https://github.com/fpco/stackage/issues/1206
-    - hsdev
 
     # https://github.com/elaye/turtle-options/issues/3
     - turtle-options
@@ -2754,6 +2950,54 @@ expected-test-failures:
 
     # https://github.com/fpco/stackage/issues/1459
     - twitter-conduit
+
+    # https://github.com/hspec/HUnit/issues/7
+    - HUnit
+
+    # https://github.com/IreneKnapp/direct-sqlite/issues/63
+    - direct-sqlite
+
+    # https://github.com/well-typed/hackage-security/issues/164
+    - hackage-security
+
+    # GHC 8 issue not reported upstream since issue tracker disabled
+    - hspec-expectations-pretty-diff
+
+    # https://github.com/clash-lang/clash-prelude/issues/57
+    - clash-prelude
+
+    # https://github.com/xmonad/xmonad/issues/36
+    - xmonad
+
+    # https://github.com/fpco/stackage/issues/1480
+    - text
+
+    # https://gitlab.com/twittner/swagger/issues/6
+    - swagger
+
+    # https://github.com/thoughtpolice/hs-ed25519/issues/15
+    - ed25519
+
+    # https://github.com/fpco/stackage/issues/1552
+    - purescript
+
+    # https://github.com/jetho/Hclip/issues/3
+    - Hclip
+
+    # Requires running mongoDB - https://github.com/mongodb-haskell/mongodb/issues/61
+    - mongoDB
+
+    # Requries running redis - https://github.com/fpco/stackage/pull/1581
+    - persistent-redis
+
+    # https://github.com/tfausak/octane/issues/35
+    - octane
+
+    # https://github.com/fosskers/vectortiles/issues/2
+    - vectortiles
+
+    # https://github.com/pikajude/th-printf/issues/3
+    - th-printf
 # end of expected-test-failures
 
 # Benchmarks which are known not to build. Note that, currently we do not run
@@ -2761,8 +3005,6 @@ expected-test-failures:
 expected-benchmark-failures:
     - Frames
     - attoparsec
-    - bzlib-conduit
-    - cacophony
     - cipher-aes128
     - cryptohash
     - dbus
@@ -2773,21 +3015,20 @@ expected-benchmark-failures:
     - lens
     - lucid
     - mongoDB
-    - mutable-containers
     - picoparsec
     - rethinkdb
-    - stateWriter
-    - streaming-commons
     - thyme
-    - vinyl
     - warp
     - web-routing
     - xmlgen
-    - yesod-core
     - yi-rope
 
     # https://github.com/commercialhaskell/stack/issues/2153
+    - scientific
     - vector-binary-instances
+
+    # GHC 8
+    - cassava
 # end of expected-benchmark-failures
 
 
@@ -2805,9 +3046,6 @@ expected-haddock-failures:
     # https://github.com/fpco/stackage/issues/994
     - Michelangelo
 
-    # https://github.com/ekmett/bifunctors/issues/42
-    - bifunctors
-
     # Problem with v0.1.6.0: https://github.com/fpco/stackage/issues/1206
     - hsdev
 
@@ -2816,6 +3054,27 @@ expected-haddock-failures:
 
     # uses all server memory
     - gi-gtk
+
+    # https://github.com/conal/MemoTrie/issues/10
+    - MemoTrie
+
+    # GHC 8
+    - cassava
+
+    # https://github.com/GetShopTV/swagger2/issues/66
+    - swagger2
+
+    # https://github.com/aelve/microlens/issues/72
+    - microlens
+
+    # https://github.com/iand675/metrics/issues/5
+    - metrics
+
+    # https://github.com/fpco/stackage/pull/1549
+    - ghc-exactprint
+
+    # https://github.com/thoughtbot/yesod-auth-oauth2/issues/67
+    - yesod-auth-oauth2
 # end of expected-haddock-failures
 
 
@@ -2823,13 +3082,9 @@ expected-haddock-failures:
 # build benchmarks. The difference here will be whether dependencies for these
 # benchmarks are included or not.
 skipped-benchmarks:
-    - machines
     - criterion-plus
-    - graphviz
     - lifted-base
-    - pandoc
     - stm-containers
-    - uuid
 
     # pulls in criterion-plus, which has restrictive upper bounds
     - cases
@@ -2849,10 +3104,6 @@ skipped-benchmarks:
     # https://github.com/fpco/stackage/issues/494
     - case-insensitive
     - postgresql-binary
-    - scientific
-
-    # Old criterion
-    - acid-state
 
     # https://github.com/kaizhang/clustering/issues/2
     - clustering
@@ -2860,6 +3111,12 @@ skipped-benchmarks:
     # Successful build requires unordered-containers >= 0.2.7.0
     # https://github.com/fpco/stackage/issues/1226
     - unordered-containers
+
+    # https://github.com/fpco/stackage/issues/1587
+    - hledger-lib
+
+    # https://github.com/athanclark/rose-trees/pull/5
+    - rose-trees
 
 # end of skipped-benchmarks
 
@@ -2916,6 +3173,7 @@ github-users:
         - jsl
         - jpvillaisaza
         - jsantos17
+        - mrkkrp
     scotty-web:
         - RyanGlScott
         - xich
