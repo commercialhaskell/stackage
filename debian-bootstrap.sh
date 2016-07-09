@@ -111,6 +111,7 @@ apt-get install -y \
     stack \
     wget \
     xclip \
+    z3 \
     zip \
     zlib1g-dev
 
