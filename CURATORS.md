@@ -50,7 +50,7 @@ Note we generally don't install/run services needed for testsuites in the docker
 
 ### Upgrading GHC version
 The Dockerfile contains information on which GHC versions should be used. You
-can modify it and push it to Github to trigger a DockerHub build. The master
+can modify it and push it to Github to trigger a DockerHub build. The nightly
 branch is used for nightlies. For LTSes, we use the ltsX branch, where X is the
 major version number (e.g., lts3 for lts-3.\*).
 
