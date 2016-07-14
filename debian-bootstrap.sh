@@ -46,6 +46,7 @@ apt-get install -y \
     libblas-dev \
     libbz2-dev \
     libcairo2-dev \
+    libclang-3.7-dev \
     libcurl4-openssl-dev \
     libdevil-dev \
     libedit-dev \
