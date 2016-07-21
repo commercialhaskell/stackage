@@ -39,6 +39,7 @@ apt-get install -y \
     freeglut3-dev \
     git \
     libadns1-dev \
+    libasound2-dev \
     libblas-dev \
     libbz2-dev \
     libcairo2-dev \
@@ -67,6 +68,7 @@ apt-get install -y \
     libmagic-dev \
     libmagickcore-dev \
     libmagickwand-dev \
+    libmarkdown2-dev \
     libmysqlclient-dev \
     libncurses-dev \
     libnotify-dev \
@@ -80,6 +82,7 @@ apt-get install -y \
     libsndfile1-dev \
     libsqlite3-dev \
     libssl-dev \
+    libsystemd-dev \
     libtagc0-dev \
     libtre-dev \
     libudev-dev \
