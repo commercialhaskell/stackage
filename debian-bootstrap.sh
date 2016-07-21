@@ -59,6 +59,7 @@ apt-get install -y \
     libgsl0-dev \
     libgtk-3-dev \
     libgtk2.0-dev \
+    libgtksourceview-3.0-dev \
     libhidapi-dev \
     libicu-dev \
     libjudy-dev \
