@@ -82,7 +82,6 @@ apt-get install -y \
     libsndfile1-dev \
     libsqlite3-dev \
     libssl-dev \
-    libsystemd-dev \
     libtagc0-dev \
     libtre-dev \
     libudev-dev \
