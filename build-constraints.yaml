@@ -3,7 +3,7 @@ ghc-major-version: "8.0"
 packages:
     "Aaron Taylor <aaron@hamsterdam.co> @hamsterdam":
         - kawhi
- 
+
     "Schell Scivally <schell@zyghost.com> @schell":
         - renderable
         - varying
@@ -2621,7 +2621,6 @@ skipped-tests:
     - list-t
     - postgresql-binary
     - slave-thread
-    - stm-containers
 
     # Just a temporary package with a flimsy, inherited test suite
     - Cabal-ide-backend
@@ -2644,12 +2643,6 @@ skipped-tests:
     # https://github.com/fpco/stackage/issues/934
     - cacophony
 
-    # Build error with lens-4.13
-    # https://github.com/brendanhay/amazonka/issues/251
-    - amazonka-ec2
-    - amazonka-s3
-    - amazonka-swf
-
     # Misc from GHC 7.10.3 upgrade
     # https://github.com/fpco/stackage/issues/1045
     #- argon
@@ -2671,8 +2664,6 @@ skipped-tests:
     - yesod-static-angular
     # https://github.com/fpco/stackage/pull/906
     - HaRe
-    # https://github.com/Deewiant/glob/issues/1
-    - Glob
 
     # https://github.com/haskell/zlib/issues/2
     - zlib
@@ -2715,9 +2706,6 @@ skipped-tests:
 
     # Missing C library: symengine
     - symengine
-
-    # https://github.com/athanclark/rose-trees/pull/5
-    - rose-trees
 
 # end of skipped-tests
 
@@ -2915,9 +2903,6 @@ expected-test-failures:
     # https://github.com/gibiansky/IHaskell/issues/551
     - ihaskell
 
-    # https://github.com/well-typed/ixset-typed/issues/2
-    - ixset-typed
-
     # Expects running X server
     - bindings-GLFW
     - GLFW-b
@@ -3041,9 +3026,6 @@ expected-test-failures:
     # https://github.com/IreneKnapp/direct-sqlite/issues/63
     - direct-sqlite
 
-    # https://github.com/well-typed/hackage-security/issues/164
-    - hackage-security
-
     # GHC 8 issue not reported upstream since issue tracker disabled
     - hspec-expectations-pretty-diff
 
@@ -3073,9 +3055,6 @@ expected-test-failures:
 
     # Requries running redis - https://github.com/fpco/stackage/pull/1581
     - persistent-redis
-
-    # https://github.com/tfausak/octane/issues/35
-    - octane
 
     # https://github.com/fosskers/vectortiles/issues/2
     - vectortiles
@@ -3113,7 +3092,6 @@ expected-benchmark-failures:
     - cipher-aes128
     - cryptohash
     - dbus
-    - gitson
     - hashable
     - http-link-header
     - jose-jwt
@@ -3174,9 +3152,6 @@ expected-haddock-failures:
 
     # https://github.com/iand675/metrics/issues/5
     - metrics
-
-    # https://github.com/fpco/stackage/pull/1549
-    - ghc-exactprint
 # end of expected-haddock-failures
 
 
@@ -3185,7 +3160,6 @@ expected-haddock-failures:
 # benchmarks are included or not.
 skipped-benchmarks:
     - criterion-plus
-    - stm-containers
 
     # pulls in criterion-plus, which has restrictive upper bounds
     - cases
@@ -3198,12 +3172,6 @@ skipped-benchmarks:
     - cipher-camellia
     - cipher-des
     - cipher-rc4
-
-    # sometimes falls out-of-sync on hasql-postgres
-    - hasql
-
-    # https://github.com/fpco/stackage/issues/494
-    - case-insensitive
 
     # https://github.com/kaizhang/clustering/issues/2
     - clustering
