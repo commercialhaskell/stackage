@@ -8,7 +8,7 @@ The idea behind Stackage is that, if all packages work with the newest versions 
 
 ## Adding a package
 
-Anyone can add a package to Stackage, but it's highly encouraged that the actual package maintainer is also the Stackage maintainer. If that is not the case, you should drop the package maintainer a note first.
+Anyone can add any package to Stackage but you may only add packages under your own name. It's highly encouraged that the actual package maintainer is also the Stackage maintainer, if that is not the case you should drop the package maintainer a note first.
 
 To add your package, first fork this repository.
 In the [`build-constraints.yaml`](https://github.com/fpco/stackage/blob/master/build-constraints.yaml) file, there's a section called `packages`.
