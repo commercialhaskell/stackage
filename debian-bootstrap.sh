@@ -56,6 +56,7 @@ apt-get install -y \
     libgd2-xpm-dev \
     libgeoip-dev \
     libgirepository1.0-dev \
+    libglfw3-dev \
     libglib2.0-dev \
     libglu1-mesa-dev \
     libgmp3-dev \
