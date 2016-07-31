@@ -101,7 +101,7 @@ packages:
         - indents
         - language-c
         - lhs2tex
-        - persistent-mongoDB
+        # GHC 8 2.5 compilation failure - persistent-mongoDB
         - pretty-class
         - th-expand-syns
         - criterion
@@ -904,9 +904,9 @@ packages:
         - pipes-network
 
     "Tomas Carnecky":
-        - avers
-        - avers-api
-        - avers-server
+        # GHC 8 0.0.15 compilation failure - avers
+        # via avers - avers-api
+        # via avers - avers-server
         - css-syntax
         - etcd
         - github-types
@@ -1266,7 +1266,7 @@ packages:
         - markdown-unlit
 
     "Mateusz Kowalczyk <fuuzetsu@fuuzetsu.co.uk> @Fuuzetsu":
-        - aeson-schema
+        # 0.4.1.1 compilation failure against GHC 8 - aeson-schema
         - H
         - inline-r
 
@@ -2081,7 +2081,7 @@ packages:
         - simple
         - simple-templates
         - simple-session
-        - simple-postgresql-orm
+        # via postgresql-orm - simple-postgresql-orm
 
     # "Sergey Astanin <s.astanin@gmail.com> @astanin":
         # Doesn't build on stackage server https://bitbucket.org/astanin/hs-libzip/issues/8/libzip-10-support - bindings-libzip < 0.11
@@ -2676,6 +2676,7 @@ expected-test-failures:
 
     # Problems with doctest and sandboxing
     - warp
+    - monad-logger-prefix
 
     # https://github.com/fpco/stackage/issues/163
     - hTalos
