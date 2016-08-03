@@ -5,6 +5,8 @@ set -eux
 ROOT=$(cd $(dirname $0) ; pwd)
 TARGET=$1
 
+source aws.sh
+
 # For nightly-YYYY-MM-DD, tag should be nightly
 # For lts-X.Y, tag should be ltsX
 SHORTNAME=$(echo $TARGET | cut -d- -f 1)
@@ -80,7 +82,7 @@ chmod +x stackage-curator
 ARGS_COMMON="--rm -v $WORKDIR:/home/stackage/work -w /home/stackage/work -v $BINDIR/stackage-curator:/usr/bin/stackage-curator:ro -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v $EXTRA_BIN_DIR:/home/stackage/bin:ro"
 ARGS_PREBUILD="$ARGS_COMMON -u $USER -v $CABAL_DIR:/home/stackage/.cabal -v $STACK_DIR:/home/stackage/.stack -v $GHC_DIR:/home/stackage/.ghc -v $DOT_STACKAGE_DIR:/home/stackage/.stackage"
 ARGS_BUILD="$ARGS_COMMON -v $CABAL_DIR:/home/stackage/.cabal:ro -v $STACK_DIR:/home/stackage/.stack:ro -v $GHC_DIR:/home/stackage/.ghc:ro"
-ARGS_UPLOAD="$ARGS_COMMON -u $USER -e AWS_ACCESS_KEY=$AWS_ACCESS_KEY -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY -e AWS_SECRET_KEY=$AWS_SECRET_KEY -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_KEY -v $AUTH_TOKEN:/auth-token:ro -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:/home/stackage/.stackage -v $SSH_DIR:/home/ubuntu/.ssh:ro -v $GITCONFIG:/home/stackage/.gitconfig:ro -v $CABAL_DIR:/home/stackage/.cabal:ro -v $STACK_DIR:/home/stackage/.stack:ro"
+ARGS_UPLOAD="$ARGS_COMMON -u $USER -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -v $AUTH_TOKEN:/auth-token:ro -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:/home/stackage/.stackage -v $SSH_DIR:/home/ubuntu/.ssh:ro -v $GITCONFIG:/home/stackage/.gitconfig:ro -v $CABAL_DIR:/home/stackage/.cabal:ro -v $STACK_DIR:/home/stackage/.stack:ro"
 
 # Make sure we actually need this snapshot. We only check this for LTS releases
 # since, for nightlies, we'd like to run builds even if they are unnecessary to
