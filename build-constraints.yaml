@@ -1761,7 +1761,7 @@ packages:
 
     "Andrew Cowie <andrew@operationaldynamics.com> @afcowie":
         - http-common
-        # via MonadCatchIO-transformers & via snap-core - http-streams
+        - http-streams
 
     "Devan Stormont <stormont@gmail.com>":
         - forecast-io
@@ -2653,6 +2653,11 @@ skipped-tests:
 
     # https://github.com/fpco/stackage/issues/1587
     - hledger-lib
+
+    # Test suite requires circular dependency on Snap 1.0, which is not yet
+    # available. Should resolve in due course; disable tests for now, per
+    # https://github.com/afcowie/http-streams/issues/96
+    - http-streams
 
     # Package shadowing
     - options
