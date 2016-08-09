@@ -103,7 +103,10 @@ curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip
 # * Check that the plan is valid
 # * Fetch all needed tarballs (the build step does not have write access to the tarball directory)
 # * Do a single unpack to create the package index cache (again due to directory perms)
-docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "$HOME/bin/stack update && stackage-curator create-plan --plan-file $PLAN_FILE --target $TARGET ${CONSTRAINTS:-} && stackage-curator check --plan-file $PLAN_FILE && stackage-curator fetch --plan-file $PLAN_FILE && cd /tmp && $HOME/bin/stack unpack random"
+if [ "${NOPLAN:-}x" = "x"
+then
+  docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "$HOME/bin/stack update && stackage-curator create-plan --plan-file $PLAN_FILE --target $TARGET ${CONSTRAINTS:-} && stackage-curator check --plan-file $PLAN_FILE && stackage-curator fetch --plan-file $PLAN_FILE && cd /tmp && $HOME/bin/stack unpack random"
+fi
 
 # Now do the actual build. We need to first set the owner of the home directory
 # correctly, so we run the command as root, change owner, and then use sudo to
