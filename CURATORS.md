@@ -126,6 +126,11 @@ universal advice on how to solve things, since each situation is unique. Let's
 develop this advice over time. For now: if you're not sure, ask Michael for
 guidance.
 
+__`NOPLAN=1`__ If you wish to rerun a build without recalculating a
+build plan, you can set the environment variable `NOPLAN=1`. This is
+useful for such cases as an intermittent test failure, out of memory
+condition, or manually tweaking the plan file.
+
 ### Timing
 
 A looping script on the build server keeps trying to build nightly
