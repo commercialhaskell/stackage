@@ -90,7 +90,7 @@ ARGS_UPLOAD="$ARGS_COMMON -u $USER -e HOME=$HOME -e AWS_ACCESS_KEY_ID=$AWS_ACCES
 # below for why this is safe.)
 if [ $SHORTNAME = "lts" ]
 then
-  docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "stackage-curator check-target-available --target $TARGET"
+  docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec stackage-curator check-target-available --target $TARGET"
 fi
 
 # Get latest stack
@@ -105,20 +105,20 @@ curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip
 # * Do a single unpack to create the package index cache (again due to directory perms)
 if [ "${NOPLAN:-}x" = "x" ]
 then
-  docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "$HOME/bin/stack update && stackage-curator create-plan --plan-file $PLAN_FILE --target $TARGET ${CONSTRAINTS:-} && stackage-curator check --plan-file $PLAN_FILE && stackage-curator fetch --plan-file $PLAN_FILE && cd /tmp && $HOME/bin/stack unpack random"
+  docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "$HOME/bin/stack update && stackage-curator create-plan --plan-file $PLAN_FILE --target $TARGET ${CONSTRAINTS:-} && stackage-curator check --plan-file $PLAN_FILE && stackage-curator fetch --plan-file $PLAN_FILE && cd /tmp && exec $HOME/bin/stack unpack random"
 fi
 
 # Now do the actual build. We need to first set the owner of the home directory
 # correctly, so we run the command as root, change owner, and then use sudo to
 # switch back to the current user
-docker run $ARGS_BUILD $IMAGE /bin/bash -c "chown $USER $HOME && sudo -E -u $USER env \"HOME=$HOME\" \"PATH=\$PATH:$HOME/bin\" stackage-curator make-bundle --plan-file $PLAN_FILE --docmap-file $DOCMAP_FILE --bundle-file $BUNDLE_FILE --target $TARGET"
+docker run $ARGS_BUILD $IMAGE /bin/bash -c "chown $USER $HOME && exec sudo -E -u $USER env \"HOME=$HOME\" \"PATH=\$PATH:$HOME/bin\" stackage-curator make-bundle --plan-file $PLAN_FILE --docmap-file $DOCMAP_FILE --bundle-file $BUNDLE_FILE --target $TARGET"
 
 # Make sure we actually need this snapshot. We used to perform this check
 # exclusively before building. Now we perform it after as well for the case of
 # nightly, where we don't perform this check beforehand. This is also slightly
 # safer, in case someone else already uploaded a specific snapshot while we
 # were building.
-docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "stackage-curator check-target-available --target $TARGET"
+docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec stackage-curator check-target-available --target $TARGET"
 
 # Successful build, so we need to:
 #
@@ -126,4 +126,4 @@ docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "stackage-curator check-target-avail
 # * Upload the 00-index.tar file to S3 (TODO: this is probably no longer necessary, since snapshots never modify .cabal files)
 # * Upload the new plan .yaml file to the appropriate Github repo
 # * Register as a new Hackage distro
-docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "stackage-curator upload-docs --target $TARGET --bundle-file $BUNDLE_FILE && stackage-curator upload-index --plan-file $PLAN_FILE --target $TARGET && stackage-curator upload-github --plan-file $PLAN_FILE --docmap-file $DOCMAP_FILE --target $TARGET && stackage-curator hackage-distro --plan-file $PLAN_FILE --target $TARGET"
+docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "stackage-curator upload-docs --target $TARGET --bundle-file $BUNDLE_FILE && stackage-curator upload-index --plan-file $PLAN_FILE --target $TARGET && stackage-curator upload-github --plan-file $PLAN_FILE --docmap-file $DOCMAP_FILE --target $TARGET && exec stackage-curator hackage-distro --plan-file $PLAN_FILE --target $TARGET"
