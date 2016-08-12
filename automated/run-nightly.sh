@@ -7,7 +7,8 @@ while true; do
     date
     echo
 
-    ./cron.sh
+    echo "Running cron.sh (hiding verbose output)"
+    ./cron.sh | grep -v '^Skipping'
     echo "done."
     date
 
