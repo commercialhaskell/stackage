@@ -18,7 +18,7 @@ We welcome all packages, provided:
 
 * The package author/maintainer agrees to the [maintainers agreement](https://github.com/fpco/stackage/blob/master/MAINTAINERS.md).
 * The package is buildable and testable from Hackage. We recommend [the Stack Travis script](http://docs.haskellstack.org/en/stable/GUIDE.html#travis-with-caching), which ensures a package is not accidentally incomplete.
-* The package is compatible with the newest versions of all dependencies.
+* The package is compatible with the newest versions of all dependencies (You can verify this by checking http://packdeps.haskellers.com/feed?needle=PACKAGENAME).
 * The package is compatible with the versions of libraries that ship with GHC ([more information on lenient lower bounds](https://www.fpcomplete.com/blog/2014/05/lenient-lower-bounds)).
 
 Full details on how to add a package can be found in the [maintainers agreement](https://github.com/fpco/stackage/blob/master/MAINTAINERS.md#adding-a-package).
@@ -57,34 +57,13 @@ flow](https://github.com/fpco/stackage/blob/master/DATA-FLOW.md).
 Build the package set
 ---------------------
 
-Generally, building the package set should be done only by the Stackage build
-machine by the Stackage curation team. If you're interested in trying this
-yourself, please check out [the curator
-guide](https://github.com/fpco/stackage/blob/master/CURATORS.md), though be
-aware that this is not a recommended practice and there likely will be problems
-you will need to debug yourself.
-
-### Docker
-
-Note: This method has been disabled for now, but may be enabled again in the future.
-
-If you'd like to check a build plan, or perform an entire build, without
-specially configuring your system, Docker may be a good approach. To check if
-some modifications to `build-constraints.yaml` are valid, try the following:
-
-1. Create a local clone of the `stackage` repo
-2. Make modifications to your local `build-constraints.yaml`
-3. Inside the `stackage` working directory, run the following:
-
-   ```
-   $ docker run -it --rm -v $(pwd):/stackage -w /stackage snoyberg/stackage /bin/bash -c 'cabal update && stackage check'
-   ```
-
-Similarly, if you'd like to perform an entire build, you can replace the last step with:
-
-```
-$ docker run -it --rm -v $(pwd):/stackage -w /stackage snoyberg/stackage /bin/bash -c 'cabal update && stackage nightly --skip-upload'
-```
+Generally only the stackage build server run by the stackage curator
+team and people intrested in incorporating stackage snapshots into an
+OS distribution need to build the entire package set. If you're
+interested in trying this yourself, please check out
+[the curator guide](https://github.com/fpco/stackage/blob/master/CURATORS.md),
+though be aware that this is not a recommended practice and there
+likely will be problems you will need to debug yourself.
 
 ## Processing
 

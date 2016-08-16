@@ -3,7 +3,7 @@ This project is built around the concept of maintainers taking responsibility fo
 The idea behind Stackage is that, if all packages work with the newest versions of dependencies, we avoid dependency hell. Specifically, we aim for:
 
 * All packages are buildable and testable from Hackage. We recommend [the Stack Travis script](http://docs.haskellstack.org/en/stable/GUIDE.html#travis-with-caching), which ensures a package is not accidentally incomplete.
-* All packages are compatible with the newest versions of all dependencies.
+* All packages are compatible with the newest versions of all dependencies (You can verify this by checking http://packdeps.haskellers.com/feed?needle=PACKAGENAME).
 * All packages in a snapshot are compatible with the versions of libraries that ship with the GHC used in the snapshot ([more information on lenient lower bounds](https://www.fpcomplete.com/blog/2014/05/lenient-lower-bounds)).
 
 ## Adding a package
@@ -25,10 +25,12 @@ After doing that, send a pull request (with a commit message like "add foo-bar")
 (`build-constraints.yaml` is the most frequently changed file in this git repo
 so commit messages like "update build-constraints.yaml" are not helpful).
 
-**NB2** There can be a delay of up to an hour before package versions newly
-uploaded to Hackage appear to our build server. If you just uploaded a package
-to Hackage that you're trying to get included, we recommend waiting an hour
-before opening the PR.
+**NB2** There can be a delay of up to an hour before package versions
+newly uploaded to Hackage appear to our build server. If you just
+uploaded a package to Hackage that you're trying to get included, we
+recommend waiting an hour before opening the PR. You can also verify
+this by making sure the latest version is listed in
+https://github.com/commercialhaskell/all-cabal-files/tree/master/PACKAGENAME.
 
 
 ## Uploading a new package
