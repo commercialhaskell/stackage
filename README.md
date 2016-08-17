@@ -21,7 +21,7 @@ We welcome all packages, provided:
 * The package is compatible with the newest versions of all dependencies (You can find restrictive upper bounds by visiting http://packdeps.haskellers.com/feed?needle=PACKAGENAME).
 * The package is compatible with the versions of libraries that ship with GHC ([more information on lenient lower bounds](https://www.fpcomplete.com/blog/2014/05/lenient-lower-bounds)).
 
-Full details on how to add a package can be found in the [maintainers agreement](https://github.com/fpco/stackage/blob/master/MAINTAINERS.md#adding-a-package).
+Full details on how to add and test a package can be found in the [maintainers agreement](https://github.com/fpco/stackage/blob/master/MAINTAINERS.md#adding-a-package).
 
 __NOTE__: There is an approximate 30 minute delay between a package uploading
 to Hackage and being available to the Travis build script to check upper

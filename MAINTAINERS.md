@@ -21,6 +21,18 @@ To add a set of packages, you would add:
 
 After doing that, send a pull request (with a commit message like "add foo-bar"). We do not require new submissions to be tested against the rest of Stackage before the pull request (though it is a good idea to do so if you can with `stack --resolver nightly exec stackage-curator check` and `stack --resolver nightly build`), provided you meet the dependency version requirements above. If your library depends on a C library, add a note to your pull request with the Ubuntu library name, or even better edit the `debian-bootstrap.sh` script directly
 
+If you want to make sure that the package builds against the newest versions of all dependecies you can do this:
+```
+$ cabal update
+$ ghc --version # Should give v8.0.1
+$ cabal get PACKAGE-VERSION # e.g. aeson-0.11.2.1
+$ cd PACKAGE-VERSION
+$ cabal sandbox init # Should give "Creating a new sandbox" and not "Using an existing sandbox".
+$ cabal install --enable-tests --enable-benchmarks --dry-run | grep latest # Should give no results
+$ cabal install --enable-tests --enable-benchmarks --allow-newer
+$ cabal test
+```
+
 **NB** Please use commit messages like "add foo-bar" or "add johndev's packages"
 (`build-constraints.yaml` is the most frequently changed file in this git repo
 so commit messages like "update build-constraints.yaml" are not helpful).
@@ -28,8 +40,8 @@ so commit messages like "update build-constraints.yaml" are not helpful).
 **NB2** There can be a delay of up to an hour before package versions
 newly uploaded to Hackage appear to our build server. If you just
 uploaded a package to Hackage that you're trying to get included, we
-recommend waiting an hour before opening the PR. You can also verify
-this by making sure the latest version is listed in
+recommend waiting an hour before opening the PR. You can verify this
+by making sure the latest version is listed in
 https://github.com/commercialhaskell/all-cabal-files/tree/master/PACKAGENAME.
 
 
