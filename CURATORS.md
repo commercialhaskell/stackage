@@ -21,9 +21,12 @@ process works:
 
 ## Pull requests
 
-The typical story on pull requests is: if Travis accepts it, and the author
-only added packages under his/her own name, merge it. If the build later fails
-(see below), then block the package until it's fixed.
+The typical story on pull requests is: If Travis accepts it and the
+author only added packages under his/her own name, merge it.  If the
+build later fails (see below), then block the package until it's
+fixed.
+
+Optionally we can check if packdeps says the package is up to date.
 
 ## Fixing bounds issues
 
