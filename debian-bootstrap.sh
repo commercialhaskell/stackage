@@ -42,6 +42,7 @@ apt-get install -y \
     freeglut3-dev \
     git \
     libadns1-dev \
+    libaio1 \
     libasound2-dev \
     libblas-dev \
     libbz2-dev \
@@ -152,6 +153,8 @@ cd /tmp \
                    --with-oracle-lib-path=/usr/lib/oracle/12.1/client64/lib \
     && make \
     && make install \
-    && ldconfig /usr/local/lib \
     && cd \
-    && rm -rf /tmp/ocilib-4.2.1
+    && rm -rf /tmp/ocilib-4.2.1 \
+    && echo "/usr/local/lib" > /etc/ld.so.conf.d/usr-local.conf \
+    && echo "/usr/lib/oracle/12.1/client64/lib" > /etc/ld.so.conf.d/oracle-client.conf \
+    && ldconfig
