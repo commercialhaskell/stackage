@@ -42,6 +42,7 @@ apt-get install -y \
     freeglut3-dev \
     git \
     libadns1-dev \
+    libaio1 \
     libasound2-dev \
     libblas-dev \
     libbz2-dev \
@@ -134,3 +135,26 @@ update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
 # GHC 8.0 requires LLVM 3.7 tools (specifically, llc-3.7 and opt-3.7).
 update-alternatives --install "/usr/bin/llc" "llc" "/usr/bin/llc-3.7" 50
 update-alternatives --install "/usr/bin/opt" "opt" "/usr/bin/opt-3.7" 50
+
+# install ocilib dependencies then build and install ocilib
+cd /tmp \
+    && wget https://storage.googleapis.com/oracle.fpinsight.com/instantClient/oracle-instantclient12.1-basiclite_12.1.0.2.0-2_amd64.deb \
+    && dpkg -i oracle-instantclient12.1-basiclite_12.1.0.2.0-2_amd64.deb \
+    && rm -f oracle-instantclient12.1-basiclite_12.1.0.2.0-2_amd64.deb \
+    && wget https://storage.googleapis.com/oracle.fpinsight.com/instantClient/oracle-instantclient12.1-devel_12.1.0.2.0-2_amd64.deb \
+    && dpkg -i oracle-instantclient12.1-devel_12.1.0.2.0-2_amd64.deb \
+    && rm -f oracle-instantclient12.1-devel_12.1.0.2.0-2_amd64.deb \
+    && wget https://github.com/vrogier/ocilib/archive/v4.2.1.tar.gz \
+    && tar xvf v4.2.1.tar.gz \
+    && cd /tmp/ocilib-4.2.1 \
+    && ./configure --with-oracle-import=linkage \
+                   --with-oracle-charset=ansi \
+                   --with-oracle-headers-path=/usr/include/oracle/12.1/client64 \
+                   --with-oracle-lib-path=/usr/lib/oracle/12.1/client64/lib \
+    && make \
+    && make install \
+    && cd \
+    && rm -rf /tmp/ocilib-4.2.1 \
+    && echo "/usr/local/lib" > /etc/ld.so.conf.d/usr-local.conf \
+    && echo "/usr/lib/oracle/12.1/client64/lib" > /etc/ld.so.conf.d/oracle-client.conf \
+    && ldconfig
