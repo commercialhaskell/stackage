@@ -2628,8 +2628,9 @@ skipped-builds:
 
 
 # By skipping a test suite, we do not pull in the build dependencies
-# Packages should only be added here if required by `stackage-curator
-# check', otherwise place them in expected-test-failures.
+# Packages should only be added here if required by `stackage-curator check'
+# or if Setup fails because of missing foreign libraries.
+# Otherwise place them in expected-test-failures.
 skipped-tests:
     # Outdated dependencies
     # These can periodically be checked for updates;
@@ -2664,6 +2665,9 @@ skipped-tests:
     - blank-canvas # Never finishes https://github.com/ku-fpg/blank-canvas/issues/73
     - binary-search # Never finishes https://github.com/nushio3/binary-search/issues/2
     - jsaddle # Never finishes without framebuffer https://github.com/ghcjs/jsaddle/issues/9
+
+    # Missing foreign library
+    - symengine # symengine
 
 # end of skipped-tests
 
@@ -3032,8 +3036,7 @@ expected-test-failures:
     # Missing build dep https://github.com/chrisdone/sourcemap/issues/3
     - sourcemap
 
-    # Missing foreign library
-    - symengine # symengine
+    # Needs running server
     - hocilib # oracle
 
 # end of expected-test-failures
