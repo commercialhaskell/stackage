@@ -2835,35 +2835,18 @@ expected-test-failures:
 # Benchmarks which are known not to build. Note that, currently we do not run
 # benchmarks, and therefore failures are only for building, not running.
 expected-benchmark-failures:
-    - Frames
-    - attoparsec
-    - cipher-aes128
-    - cryptohash
-    - dbus
-    - hashable
-    - http-link-header
-    - jose-jwt
-    - lens
-    - lucid
-    - picoparsec
-    - thyme
-    - web-routing
-    - xmlgen
-    - yi-rope
-
     # https://github.com/commercialhaskell/stack/issues/2153
     - scientific
     - vector-binary-instances
 
-    # GHC 8
-    - cassava
+    # Missing files in sdist
+    - cassava # https://github.com/hvr/cassava/pull/117
 
     # Recursive deps https://github.com/fpco/stackage/issues/1818
-    # 0.2.7.1 unordered-containers:bench -> criterion:lib -> aeson:lib -> unordered-containers:lib
-    - unordered-containers
+    - unordered-containers # 0.2.7.1 unordered-containers:bench -> criterion:lib -> aeson:lib -> unordered-containers:lib
 
-    # 0.3.2, Because of stackage upper bound
-    - cassava-conduit
+    # Stackage upper bounds, re-enable these when their upper bound is removed
+    - cassava-conduit # 0.3.2
 
 # end of expected-benchmark-failures
 
