@@ -2663,13 +2663,6 @@ skipped-tests:
     - binary-search # Never finishes https://github.com/nushio3/binary-search/issues/2
     - jsaddle # Never finishes without framebuffer https://github.com/ghcjs/jsaddle/issues/9
 
-    # Missing foreign library
-    - symengine # symengine
-    - hocilib # oracle
-
-    # Recursive dependency
-    - options
-
 # end of skipped-tests
 
 # Tests which we should build and run, but which are expected to fail. We
@@ -3005,6 +2998,7 @@ expected-test-failures:
     - clock
     # 1.2.2.1
     - text
+    - options
 
     # Deprecated and only depended on by bloodhound https://github.com/fpco/stackage/issues/1817
     - doctest-prop
@@ -3035,6 +3029,10 @@ expected-test-failures:
 
     # Missing build dep https://github.com/chrisdone/sourcemap/issues/3
     - sourcemap
+
+    # Missing foreign library
+    - symengine # symengine
+    - hocilib # oracle
 
 # end of expected-test-failures
 
