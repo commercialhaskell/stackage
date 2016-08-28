@@ -2677,7 +2677,7 @@ expected-test-failures:
 
     # Intermittent failures or unreliable. These tests may pass when
     # re-enabled, but will eventually fail again. Only remove these
-    # from expected-tests if we know a fix has been released.
+    # from expected-failures if we know a fix has been released.
     - aeson-lens # https://github.com/tanakh/aeson-lens/issues/10
     - cabal-debian # https://github.com/ddssff/cabal-debian/issues/50
     - crypto-numbers
@@ -2707,6 +2707,7 @@ expected-test-failures:
     # Requires running servers, accounts, or a specific
     # environment. These shouldn't be re-enabled unless we know a fix
     # has been released.
+    - Cabal
     - GLFW-b # X
     - HTF # Requires shell script and are incompatible with sandboxed package databases
     - HaRe # # Needs ~/.ghc-mod/cabal-helper https://github.com/fpco/stackage/pull/906
@@ -2717,6 +2718,7 @@ expected-test-failures:
     - bitcoin-api-extra
     - bitcoin-api-extra
     - bloodhound # ElasticSearch
+    - cabal-install
     - consul-haskell
     - dbmigrations # PostgreSQL
     - dns # https://github.com/kazu-yamamoto/dns/issues/29
@@ -2726,6 +2728,7 @@ expected-test-failures:
     - eventstore # Event Store
     - fb # Facebook app
     - ghc-imported-from # depends on haddocks being generated first https://github.com/fpco/stackage/pull/1315
+    - ghc-mod # https://github.com/DanielG/ghc-mod/issues/611
     - gitson # 0.5.2 error with git executable https://github.com/myfreeweb/gitson/issues/1
     - gitson # https://github.com/myfreeweb/gitson/issues/1
     - happy # Needs mtl in the user package DB
@@ -2751,6 +2754,8 @@ expected-test-failures:
     - riak
     - serialport # "The tests need two serial ports as command line arguments" https://github.com/jputcu/serialport/issues/30
     - serversession-backend-redis # redis
+    - shake # Needs ghc on $PATH with some installed haskell packages
+    - singletons # Needs ghc on $PATH with som installed haskell packages
     - users-postgresql-simple # PostgreSQL
     - wai-cors # PhantomJS
     - wai-session-postgresql # PostgreSQL
@@ -2771,10 +2776,12 @@ expected-test-failures:
     - netpbm # 1.0.1 https://github.com/nh2/haskell-netpbm/issues/2
     - rematch # No issue tracker, sent e-mail to maintainer https://github.com/fpco/stackage/issues/376
     - xlsior # https://github.com/rcallahan/xlsior/issues/1
+    - crypto-pubkey # https://github.com/vincenthz/hs-crypto-pubkey/issues/23
 
     # Assertion failures, these can be real bugs or just limitations
     # in the test cases.
     - DRBG # https://github.com/TomMD/DRBG/issues/7
+    - H # https://github.com/tweag/HaskellR/issues/259
     - HUnit # 1.3.1.1 GHC 8 https://github.com/hspec/HUnit/issues/7
     - clash-prelude # 0.10.14 Runtime errors https://github.com/clash-lang/clash-prelude/issues/57
     - direct-sqlite # 2.3.17 https://github.com/IreneKnapp/direct-sqlite/issues/63
@@ -2786,12 +2793,16 @@ expected-test-failures:
     - xmonad # 0.12 https://github.com/xmonad/xmonad/issues/36
 
     # Compilation failures
+    - ListLike # No issue tracker, e-mail sent to maintainer
+    - dbus # 0.10.12 No issue tracker, e-mail sent to maintainer
     - hspec-expectations-pretty-diff # GHC 8 issue not reported upstream since issue tracker disabled
     - messagepack # 0.5.1 https://github.com/rodrigosetti/messagepack/issues/9
     - safecopy # time 1.6 https://github.com/acid-state/safecopy/issues/45
     - sourcemap # https://github.com/chrisdone/sourcemap/issues/3
     - swagger # GHC 8 bug? https://gitlab.com/twittner/swagger/issues/6
     - wai-middleware-content-type # 0.4.1 - https://github.com/athanclark/wai-middleware-content-type/issues/2
+    - xmlgen # https://github.com/skogsbaer/xmlgen/issues/6
+    - thyme # https://github.com/liyang/thyme/issues/50
 
     # Misc.
     - distributed-process-supervisor # # https://github.com/haskell-d
@@ -2801,6 +2812,7 @@ expected-test-failures:
     # https://github.com/bergmark/blog/blob/master/2016/package-faq.md#ambiguous-modules-when-using-doctest
     - doctest # 0.11.0 https://github.com/sol/doctest/issues/137
     - jwt # https://bitbucket.org/ssaasen/haskell-jwt/issues/18/test-suite-build-failure-in-stackage
+    - warp # https://github.com/yesodweb/wai/issues/579
 
     # Stackage upper bounds, re-enable these when their upper bound is removed
     - haskell-src-exts # 1.17.1
@@ -2864,32 +2876,21 @@ expected-haddock-failures:
     - gtk
     - gtk3
 
-    # https://github.com/fpco/stackage/issues/994
-    - Michelangelo
+    # Intermittent failures or unreliable. These tay pass when
+    # re-enabled, but will eventually fail again. Only remove these
+    # from expected-haddock-failures if we know a fix has been released.
+    - gi-gtk # Uses all memory
 
-    # Problem with v0.1.6.0: https://github.com/fpco/stackage/issues/1206
-    - hsdev
+    # Problem on the stackage build server, we need to dig deeper into
+    # these if we want them fixed
+    - yesod-job-queue # https://github.com/fpco/stackage/issues/1383
 
-    # https://github.com/fpco/stackage/issues/1383
-    - yesod-job-queue
+    # "Compilation" errors
+    - MemoTrie # https://github.com/conal/MemoTrie/issues/10
+    - metrics # https://github.com/iand675/metrics/issues/5
 
-    # uses all server memory
-    - gi-gtk
-
-    # https://github.com/conal/MemoTrie/issues/10
-    - MemoTrie
-
-    # GHC 8
-    - cassava
-
-    # https://github.com/GetShopTV/swagger2/issues/66
-    - swagger2
-
-    # https://github.com/iand675/metrics/issues/5
-    - metrics
-
-    # https://github.com/camfort/fortran-src/issues/29
-    - fortran-src
+    # Haddock bugs
+    - swagger2 # https://github.com/GetShopTV/swagger2/issues/66
 
     # https://github.com/fpco/stackage/pull/1797#issuecomment-242730215
     - hocilib
