@@ -2675,369 +2675,148 @@ skipped-tests:
 # should not fail a build based on a test failure for one of these packages.
 expected-test-failures:
 
-    # https://github.com/bos/statistics/issues/42
-    - statistics
-
-    # Tests require shell script and are incompatible with sandboxed package
-    # databases
-    - HTF
-
-    # Unfortunately network failures seem to happen haphazardly
-    - network
-
-    # Test suite takes too long to run on some systems
-    - punycode
-
-    # Requires a Facebook app.
-    - fb
-
-    - threads
-    - crypto-conduit
-
-    # https://github.com/basvandijk/concurrent-extra/issues/
-    - concurrent-extra
-
-    # https://github.com/skogsbaer/xmlgen/issues/2
-    - xmlgen
-
-    # Some kind of Cabal bug when trying to run tests
-    - thyme
-
-    - shake
-
-    # Problems with doctest and sandboxing
-    - warp
-    - monad-logger-prefix
-
-    # https://github.com/fpco/stackage/issues/163
-    - hTalos
-
-    # Fails sporadically - https://github.com/bos/math-functions/issues/25
-    - math-functions
-
-    # Requires too old a version of test-framework
-    - time
-
-    # Cloud Haskell tests seem to be unreliable
-    - distributed-process
-    - lockfree-queue
-    # GHC 8 - network-transport-tcp
-
-    # No AWS creds available
-    - aws
-
-    # Not sure why...
-    - singletons
-
-    # https://github.com/jmillikin/haskell-filesystem/issues/3
-    - system-filepath
-
-    # Requires a running webdriver server
-    - webdriver-angular
-
-    # Weird conflicts with sandboxing
-    - ghcid
-
-    # Requires locally running server
-    - bloodhound
-
-    # Requires SAT solver and old QuickCheck
-    - ersatz
-
-    # No server running
-    - amqp
-
-    # Often run out of inotify handles
-    - fsnotify
-
-    # weird problems with cabal test
-    - cautious-file
-
-    # https://github.com/haskell/cabal/pull/2277
-    - cabal-install
-
-    # https://github.com/fpco/stackage/issues/376
-    - rematch
-
-    # https://github.com/haskell-distributed/distributed-process-supervisor/issues/1
-    - distributed-process-supervisor
-
-    # Fails sporadically
+    # Intermittent failures or unreliable. These tests may pass when
+    # re-enabled, but will eventually fail again. Only remove these
+    # from expected-tests if we know a fix has been released.
+    - aeson-lens # https://github.com/tanakh/aeson-lens/issues/10
+    - cabal-debian # https://github.com/ddssff/cabal-debian/issues/50
     - crypto-numbers
+    - css-text # 0.1.2.2 https://github.com/yesodweb/css-text/issues/10
+    - distributed-process
+    - distributed-process-execution # https://github.com/haskell-distributed/distributed-process-execution/issues/2
     - distributed-process-task
+    - fsnotify # Often runs out of inotify handles
+    - idris # https://github.com/fpco/stackage/issues/1382
+    - ihaskell # https://github.com/gibiansky/IHaskell/issues/551
+    - math-functions # https://github.com/bos/math-functions/issues/25
+    - network # Unfortunately network failures seem to happen haphazardly
+    - nsis # Intermittent on non-Windows systems
+    - pandoc-citeproc # https://github.com/jgm/pandoc-citeproc/issues/172
+    - spdx # https://github.com/phadej/spdx/issues/8
+    - statistics # https://github.com/bos/statistics/issues/42
 
-    # https://github.com/vincenthz/hs-crypto-pubkey/issues/17
-    - crypto-pubkey
-
-    # Tests can fail when the build plan fails, which happens arbitrarily.
-    - stackage
-
-    # https://github.com/TomMD/DRBG/issues/7
-    - DRBG
-
-    # https://github.com/bos/wreq/issues/53
-    - wreq
-
-    # Requires local database running
-    - rethinkdb-client-driver
-
-    # Fails sporadically: https://github.com/haskell-distributed/distributed-process-execution/issues/2
-    - distributed-process-execution
-
-    # Seems to depend on mtl being installed in user package database, which
-    # isn't always the case (e.g., build server)
-    - happy
-
-    # https://github.com/jberryman/directory-tree/issues/4
-    - directory-tree
-
-    # https://github.com/ndmitchell/hoogle/issues/101
-    - hoogle
-
-    # https://github.com/myfreeweb/gitson/issues/1
-    - gitson
-
-    # Expects a running PostgreSQL server
-    - users-postgresql-simple
-    - dbmigrations
-    - opaleye
-    - postgresql-simple
-    - wai-session-postgresql
-    - drifter-postgresql
-    - postgresql-query
-    - hasql
-
-    # Requires locally running services
-    - network-anonymous-i2p
-
-    # Tests not reliable on non-Windows systems
-    - nsis
-
-    # Requires running server
-    - consul-haskell
-    - hedis
-    - redis-io
-
-    # https://github.com/haskell/ghc-events/issues/9
-    - ghc-events
-
-    # Requires a running server
-    - bitcoin-api
-    - bitcoin-api-extra
-
-    # https://github.com/kazu-yamamoto/dns/issues/29
-    - dns
-
-    # No PhantomJS available
-    - wai-cors
-
-    # Permissions failure when creating /home/stackage/.stack. We _should_ fix
-    # this in the build scripts here...
-    - stack
-
-    # https://github.com/prowdsponsor/mangopay/issues/30
-    - mangopay
-
-    # https://github.com/MichaelXavier/Angel/issues/43
-    - angel
-
-    # Requires memcached on the server
-    - memcached-binary
-
-    # Requires redis on the build machine
-    - serversession-backend-redis
-
-    # https://github.com/rcallahan/xlsior/issues/1
-    - xlsior
-
-    # Test suite needs a running neo4j server with auth disabled
-    - haskell-neo4j-client
-
-    # https://github.com/kazu-yamamoto/logger/issues/42
-    - wai-logger
-
-    # https://github.com/fpco/stackage/issues/733
-    - ide-backend
-
-    # https://github.com/gibiansky/IHaskell/issues/551
-    - ihaskell
-
-    # Expects running X server
-    - bindings-GLFW
-    - GLFW-b
-
-    # Requires running server
-    - rethinkdb
-
-    # https://github.com/ddssff/cabal-debian/issues/50
-    - cabal-debian
-
-    # https://github.com/fpco/stackage/issues/811
-    - etcd
-
-    # https://github.com/kazu-yamamoto/ghc-mod/issues/611
-    - ghc-mod
-
-    # Requires a running server
-    - pipes-mongodb
-
-    # https://github.com/tweag/HaskellR/issues/208
-    - H
-
-    # Fails sporadically: https://github.com/jgm/pandoc-citeproc/issues/172
-    - pandoc-citeproc
-
-    # https://github.com/alcidesv/second-transfer/issues/3
-    - second-transfer
-
-    # https://github.com/fpco/stackage/issues/916
-    - distributed-process-extras
-    - distributed-process-client-server
-
-    # Requires running server
-    - riak
-    - hworker
-
-    # Fails sporadically: https://github.com/fpco/stackage/issues/1125
-    - jose-jwt
-
-    # Not sure if we can fix this
-    - Cabal
-
-    # Sent e-mail to maintainer
-    - dbus
-    - ListLike
-
-    # 0.5.1 https://github.com/rodrigosetti/messagepack/issues/9
-    - messagepack
-
-    # timeouts
+    # Timeouts
+    # These tests sometimes take too long and hit the stackage build
+    # servers time limit so these shouldn't be removed from
+    # expected-tests unless we know a fix has been released.
     - cabal-helper
     - graphviz
+    - punycode
     - zip
 
-    # "The tests need two serial ports as command line arguments" https://github.com/jputcu/serialport/issues/30
-    - serialport
-
-    # requires elasticsearch https://github.com/fpco/stackage/pull/1271
-    - katip-elasticsearch
-
-    # depends on haddocks being generated first https://github.com/fpco/stackage/pull/1315
-    - ghc-imported-from
-
-    # intermittent https://github.com/fpco/stackage/issues/1382
-    - idris
-
-    # 0.1.0.1 https://github.com/fpco/stackage/pull/1254
-    - graylog
-
-    # 2.3.17 https://github.com/IreneKnapp/direct-sqlite/issues/63
-    - direct-sqlite
-
-    # GHC 8 issue not reported upstream since issue tracker disabled
-    - hspec-expectations-pretty-diff
-
-    # 0.12 https://github.com/xmonad/xmonad/issues/36
-    - xmonad
-
-    # GHC 8 bug? https://gitlab.com/twittner/swagger/issues/6
-    - swagger
-
-    # 0.0.5.0 https://github.com/thoughtpolice/hs-ed25519/issues/15
-    - ed25519
-
-    # Requires running mongoDB - https://github.com/mongodb-haskell/mongodb/issues/61
-    - mongoDB
-
-    # Requries running redis - https://github.com/fpco/stackage/pull/1581
-    - persistent-redis
-
-    # 0.3.1 https://github.com/pikajude/th-printf/issues/3
-    - th-printf
-
-    # 0.1.2.2 intermittent https://github.com/yesodweb/css-text/issues/10
-    - css-text
-
-    # 1.0.1 https://github.com/nh2/haskell-netpbm/issues/2
-    - netpbm
-
-    # 0.11.0 https://github.com/sol/doctest/issues/137
-    - doctest
-
-    # intermittent failures
-    # https://github.com/phadej/spdx/issues/8
-    - spdx
-    # https://github.com/tanakh/aeson-lens/issues/10
-    - aeson-lens
-
-    # 0.3.1 https://github.com/haskoin/haskoin/issues/285
-    - haskoin-core
-
-    # 1.0.0.0 Not enough info - https://github.com/snapframework/snap-core/issues/261
-    - snap-core
-
-    # 0.4.1 - https://github.com/athanclark/wai-middleware-content-type/issues/2
-    - wai-middleware-content-type
-
-    # 1.3.1.1 GHC 8 https://github.com/hspec/HUnit/issues/7
-    - HUnit
-
-    # Needs ~/.ghc-mod/cabal-helper https://github.com/fpco/stackage/pull/906
-    - HaRe
-
-    # 0.900 File missing in sdist https://github.com/camfort/camfort/issues/41
-    - camfort
-
-    # Needs running server
+    # Requires running servers, accounts, or a specific
+    # environment. These shouldn't be re-enabled unless we know a fix
+    # has been released.
+    - GLFW-b # X
+    - HTF # Requires shell script and are incompatible with sandboxed package databases
+    - HaRe # # Needs ~/.ghc-mod/cabal-helper https://github.com/fpco/stackage/pull/906
+    - amqp
+    - aws # AWS Credentials
+    - bindings-GLFW # Expects running X server
+    - bitcoin-api
     - bitcoin-api-extra
+    - bitcoin-api-extra
+    - bloodhound # ElasticSearch
+    - consul-haskell
+    - dbmigrations # PostgreSQL
+    - dns # https://github.com/kazu-yamamoto/dns/issues/29
+    - drifter-postgresql # PostgreSQL
+    - ersatz # Requires SAT solver
+    - etcd # etcd https://github.com/fpco/stackage/issues/811
+    - eventstore # Event Store
+    - fb # Facebook app
+    - ghc-imported-from # depends on haddocks being generated first https://github.com/fpco/stackage/pull/1315
+    - gitson # 0.5.2 error with git executable https://github.com/myfreeweb/gitson/issues/1
+    - gitson # https://github.com/myfreeweb/gitson/issues/1
+    - happy # Needs mtl in the user package DB
+    - haskell-neo4j-client # neo4j with auth disabled
+    - hasql # PostgreSQL
+    - hedis
+    - hocilib # oracle
+    - hworker
+    - katip-elasticsearch # elasticsearch
+    - mangopay # https://github.com/prowdsponsor/mangopay/issues/30
+    - memcached-binary # memcached
+    - mongoDB # mongoDB - https://github.com/mongodb-haskell/mongodb/issues/61
+    - network-anonymous-i2p
+    - opaleye # PostgreSQL
+    - persistent-redis # redis - https://github.com/fpco/stackage/pull/1581
+    - pipes-mongodb
+    - postgresql-query # PostgreSQL
+    - postgresql-simple # PostgreSQL
+    - purescript # git 128 https://github.com/purescript/purescript/issues/2292
+    - redis-io
+    - rethinkdb
+    - rethinkdb-client-driver
+    - riak
+    - serialport # "The tests need two serial ports as command line arguments" https://github.com/jputcu/serialport/issues/30
+    - serversession-backend-redis # redis
+    - users-postgresql-simple # PostgreSQL
+    - wai-cors # PhantomJS
+    - wai-session-postgresql # PostgreSQL
+    - webdriver-angular # webdriver server
 
-    # 1.17.1, Because of stackage upper bound
-    - haskell-src-exts
-    # 4.6.4, Because of stackage upper bound
-    - hindent
+    # Deprecated
+    # Eventually we'll have to disable these packages completely.
+    - doctest-prop # https://github.com/fpco/stackage/issues/1817
+    - system-filepath # https://github.com/jmillikin/haskell-filesystem/issues/3
 
-    # 0.10.14 Runtime errors https://github.com/clash-lang/clash-prelude/issues/57
-    - clash-prelude
+    # Missing test files in sdist
+    # Hopefully gets fixed in the next release...
+    - angel # https://github.com/MichaelXavier/Angel/issues/43
+    - camfort # 0.900 https://github.com/camfort/camfort/issues/41
+    - ghc-events # https://github.com/haskell/ghc-events/issues/9
+    - graylog # 0.1.0.1 https://github.com/fpco/stackage/pull/1254
+    - haskell-names # 0.7.0 https://github.com/haskell-suite/haskell-names/issues/78
+    - netpbm # 1.0.1 https://github.com/nh2/haskell-netpbm/issues/2
+    - rematch # No issue tracker, sent e-mail to maintainer https://github.com/fpco/stackage/issues/376
+    - xlsior # https://github.com/rcallahan/xlsior/issues/1
+
+    # Assertion failures, these can be real bugs or just limitations
+    # in the test cases.
+    - DRBG # https://github.com/TomMD/DRBG/issues/7
+    - HUnit # 1.3.1.1 GHC 8 https://github.com/hspec/HUnit/issues/7
+    - clash-prelude # 0.10.14 Runtime errors https://github.com/clash-lang/clash-prelude/issues/57
+    - direct-sqlite # 2.3.17 https://github.com/IreneKnapp/direct-sqlite/issues/63
+    - ed25519 # 0.0.5.0 https://github.com/thoughtpolice/hs-ed25519/issues/15
+    - haskoin-core # 0.3.1 https://github.com/haskoin/haskoin/issues/285
+    - nettle # https://github.com/stbuehler/haskell-nettle/issues/8
+    - th-printf # 0.3.1 https://github.com/pikajude/th-printf/issues/3
+    - wreq # https://github.com/bos/wreq/issues/53
+    - xmonad # 0.12 https://github.com/xmonad/xmonad/issues/36
+
+    # Compilation failures
+    - hspec-expectations-pretty-diff # GHC 8 issue not reported upstream since issue tracker disabled
+    - messagepack # 0.5.1 https://github.com/rodrigosetti/messagepack/issues/9
+    - safecopy # time 1.6 https://github.com/acid-state/safecopy/issues/45
+    - sourcemap # https://github.com/chrisdone/sourcemap/issues/3
+    - swagger # GHC 8 bug? https://gitlab.com/twittner/swagger/issues/6
+    - wai-middleware-content-type # 0.4.1 - https://github.com/athanclark/wai-middleware-content-type/issues/2
+
+    # Misc.
+    - distributed-process-supervisor # # https://github.com/haskell-d
+    - ghcid # Weird conflicts with sandboxingistributed/distributed-process-supervisor/issues/1
+
+    # Doctest ran across ambiguous modules
+    # https://github.com/bergmark/blog/blob/master/2016/package-faq.md#ambiguous-modules-when-using-doctest
+    - doctest # 0.11.0 https://github.com/sol/doctest/issues/137
+    - jwt # https://bitbucket.org/ssaasen/haskell-jwt/issues/18/test-suite-build-failure-in-stackage
+
+    # Stackage upper bounds, re-enable these when their upper bound is removed
+    - haskell-src-exts # 1.17.1
+    - hindent # 4.6.4
 
     # Recursive deps https://github.com/fpco/stackage/issues/1818
-    # 0.7.2 clock:test => tasty:lib => clock:lib
-    - clock
-    # 1.2.2.1
-    - text
+    - clock # 0.7.2 clock:test => tasty:lib => clock:lib
     - options
+    - text # 1.2.2.1
+    - wai-logger # Missing build dep because of this https://github.com/kazu-yamamoto/logger/issues/42
 
-    # Deprecated and only depended on by bloodhound https://github.com/fpco/stackage/issues/1817
-    - doctest-prop
-
-    # Requires running Event Store
-    - eventstore
-
-    # 0.5.2 error with git executable https://github.com/myfreeweb/gitson/issues/1
-    - gitson
-
-    # 0.7.0 https://github.com/haskell-suite/haskell-names/issues/78
-    - haskell-names
-
-    # doctest ambiguous modules https://bitbucket.org/ssaasen/haskell-jwt/issues/18/test-suite-build-failure-in-stackage
-    - jwt
-
-    # foreign library issue https://github.com/stbuehler/haskell-nettle/issues/8
-    - nettle
-
-    # git 128 https://github.com/purescript/purescript/issues/2292
-    - purescript
-
-    # time 1.6 https://github.com/acid-state/safecopy/issues/45
-    - safecopy
-
-    # Issue with stackage itself (openfile: does not exist) https://github.com/fpco/stackage/issues/1187
-    - skein
-
-    # Missing build dep https://github.com/chrisdone/sourcemap/issues/3
-    - sourcemap
-
-    # Needs running server
-    - hocilib # oracle
+    # Problem on the stackage build server, we need to dig deeper into
+    # these if we want them fixed
+    - snap-core # 1.0.0.0 https://github.com/snapframework/snap-core/issues/261
+    - stack # Permissions failure when creating /home/stackage/.stack.
+    - skein # openfile: does not exist https://github.com/fpco/stackage/issues/1187
 
 # end of expected-test-failures
 
