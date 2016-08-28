@@ -2477,7 +2477,7 @@ packages:
         - extra < 1.4.11
         - active < 0.2.0.11
         - socket < 0.6.2.0
-        - cassava-conduit < 0.3.3 # Re-enable tests when lifted
+        - cassava-conduit < 0.3.3 # Re-enable benchmarks when lifted
 
         # https://github.com/fpco/stackage/issues/1734
         - haskell-src-exts < 1.18 # re-enable test-suite when this is lifted
@@ -3018,8 +3018,6 @@ expected-test-failures:
     # Needs running server
     - bitcoin-api-extra
 
-    # 0.3.2, Because of stackage upper bound
-    - cassava-conduit
     # 1.17.1, Because of stackage upper bound
     - haskell-src-exts
     # 4.6.4, Because of stackage upper bound
@@ -3033,7 +3031,6 @@ expected-test-failures:
     - clock
     # 1.2.2.1
     - text
-
 
     # Deprecated and only depended on by bloodhound https://github.com/fpco/stackage/issues/1817
     - doctest-prop
@@ -3096,6 +3093,9 @@ expected-benchmark-failures:
     # Recursive deps https://github.com/fpco/stackage/issues/1818
     # 0.2.7.1 unordered-containers:bench -> criterion:lib -> aeson:lib -> unordered-containers:lib
     - unordered-containers
+
+    # 0.3.2, Because of stackage upper bound
+    - cassava-conduit
 
 # end of expected-benchmark-failures
 
