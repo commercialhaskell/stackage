@@ -36,7 +36,7 @@ apt-get install -y \
     build-essential \
     ghc-$GHCVER \
     ghc-$GHCVER-dyn \
-    ghc-$GHCVER-prof \    
+    ghc-$GHCVER-prof \
     ghc-$GHCVER-htmldocs \
     hscolour \
     sudo \
