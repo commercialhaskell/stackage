@@ -2835,18 +2835,34 @@ expected-test-failures:
 # Benchmarks which are known not to build. Note that, currently we do not run
 # benchmarks, and therefore failures are only for building, not running.
 expected-benchmark-failures:
-    # https://github.com/commercialhaskell/stack/issues/2153
+    # Recursive deps https://github.com/fpco/stackage/issues/1818
+    - attoparsec
+    - hashable
+    - unordered-containers # 0.2.7.1 unordered-containers:bench -> criterion:lib -> aeson:lib -> unordered-containers:lib
+
+    # stack bug https://github.com/commercialhaskell/stack/issues/2153
     - scientific
     - vector-binary-instances
 
     # Missing files in sdist
     - cassava # https://github.com/hvr/cassava/pull/117
-
-    # Recursive deps https://github.com/fpco/stackage/issues/1818
-    - unordered-containers # 0.2.7.1 unordered-containers:bench -> criterion:lib -> aeson:lib -> unordered-containers:lib
+    - picoparsec # https://bitbucket.org/blamario/picoparsec/issues/3/benchmark-compilation-failure
 
     # Stackage upper bounds, re-enable these when their upper bound is removed
     - cassava-conduit # 0.3.2
+
+    # Compilation failures
+    - Frames # https://github.com/acowley/Frames/issues/47
+    - cipher-aes128 # https://github.com/TomMD/cipher-aes128/issues/11
+    - cryptohash # https://github.com/vincenthz/hs-cryptohash/pull/43
+    - dbus # No issue tracker, sent e-mail to maintainer
+    - http-link-header # https://github.com/myfreeweb/http-link-header/pull/4
+    - jose-jwt # https://github.com/tekul/jose-jwt/issues/12
+    - lens # https://github.com/ekmett/lens/issues/672
+    - lucid # https://github.com/chrisdone/lucid/pull/52
+    - thyme # https://github.com/liyang/thyme/issues/50
+    - xmlgen # https://github.com/skogsbaer/xmlgen/issues/6
+    - yi-rope # https://github.com/yi-editor/yi-rope/pull/6
 
 # end of expected-benchmark-failures
 
@@ -2897,7 +2913,6 @@ skipped-benchmarks:
     # Transitive outdated dependencies
     # These packages
     # These can also be checked for updates periodically.
-
     - cases # via criterion-plus
     - hasql-postgres # via criterion-plus
     - ttrie # via criterion-plus
