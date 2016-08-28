@@ -2628,16 +2628,11 @@ skipped-builds:
 skipped-tests:
     # require old hspec
     - ReadArgs
-    - bloodhound
     - fb
-    - hasql
 
     # Too lazy to keep the test dependencies up to date
     - cases
     - postgresql-binary
-
-    # Just a temporary package with a flimsy, inherited test suite
-    - Cabal-ide-backend
 
     # QuickCheck 2.8
     - vector
@@ -2650,45 +2645,28 @@ skipped-tests:
 
     # doctest < 0.10
     # Closed due to inactivity: https://github.com/fpco/stackage/issues/622
-    - bound
     - heaps
     - hyphenation
 
-    # https://github.com/kaizhang/clustering/issues/2
+    # https://github.com/kaizhang/clustering/issues/2 & needs HList which is outdated
     - clustering
 
     # https://github.com/fpco/stackage/issues/934
-    - cacophony
 
     # HUnit < 1.3
     - GLFW-b
     - HsOpenSSL
     - bindings-GLFW
-    - bytestring-handle
-    - clay
-    - hedis
-    - hint
-    - ide-backend
-    - lifted-base
-    - newtype-generics
-    - parsec
     - terminal-progress-bar
-    - threads
-    - yesod-static-angular
     # https://github.com/fpco/stackage/pull/906
-    - HaRe
 
     # https://github.com/haskell/zlib/issues/2
     - zlib
 
     # Never finishes - https://github.com/ku-fpg/blank-canvas/issues/73
     - blank-canvas
-
     # https://github.com/nushio3/binary-search/issues/2 (doctest never finishes)
     - binary-search
-
-    # Requires stripe API key and unreleased test package https://github.com/fpco/stackage/issues/1272
-    - stripe-http-streams
 
     # times out without framebuffer (https://github.com/ghcjs/jsaddle/issues/9)
     - jsaddle
@@ -2698,34 +2676,19 @@ skipped-tests:
 
     # doctest < 0.11
     # Closed due to inactivity: https://github.com/fpco/stackage/issues/1328
-    - composition-tree
     # GHC 8 - patches-vector
 
-    # GHC 8 (bytestring-handle)
-    - tar
-
-    # GHC 8 (snap-server)
-    - wreq
-
     # GHC 8
+    - HList
     - hastache
-    - system-filepath
-    - system-fileio
     - shelly
 
-    # https://github.com/acid-state/safecopy/issues/45
-    - safecopy
 
     # Missing C library: symengine
     - symengine
 
-    # https://github.com/fpco/stackage/issues/1587
-    - hledger-lib
-
-    # Test suite requires circular dependency on Snap 1.0, which is not yet
-    # available. Should resolve in due course; disable tests for now, per
-    # https://github.com/afcowie/http-streams/issues/96
-    - http-streams
+    # GHC 8 bug https://github.com/fpco/stackage/issues/1587
+    # - hledger-lib
 
     # Package shadowing
     - options
@@ -2913,9 +2876,6 @@ expected-test-failures:
     # Requires redis on the build machine
     - serversession-backend-redis
 
-    # Unstated dependency on HList-PP
-    - Rlang-QQ
-
     # https://github.com/rcallahan/xlsior/issues/1
     - xlsior
 
@@ -3084,9 +3044,6 @@ expected-haddock-failures:
     # builds. Could consider special-casing this requirement.
     - gtk
     - gtk3
-
-    # Not sure why, but it's a temporary package anyway
-    - Cabal-ide-backend
 
     # https://github.com/fpco/stackage/issues/994
     - Michelangelo
