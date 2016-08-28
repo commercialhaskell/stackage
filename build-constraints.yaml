@@ -1382,7 +1382,7 @@ packages:
         - markup
         # via poly-arity - nested-routes
         - path-extra
-        # via HList - poly-arity
+        # via HList - poly-arity (sent e-mail to HList maintainer)
         - urlpath
         - wai-transformers
         - wai-middleware-content-type
@@ -2473,6 +2473,7 @@ packages:
         - lackey < 0.4.0
 
         # https://github.com/fpco/stackage/issues/1691
+        # Re-enable dlist tests when lifted
         - QuickCheck < 2.9
         - extra < 1.4.11
         - active < 0.2.0.11
@@ -2625,76 +2626,49 @@ skipped-builds:
 
 
 # By skipping a test suite, we do not pull in the build dependencies
+# Packages should only be added here if required by `stackage-curator
+# check', otherwise place them in expected-test-failures.
 skipped-tests:
-    # require old hspec
-    - ReadArgs
-    - fb
+    # Outdated dependencies
+    # These can periodically be checked for updates;
+    # just remove these lines and run `stackage-curator check' to verify.
+    - GLFW-b # https://github.com/bsl/GLFW-b/issues/62
+    - HsOpenSSL # https://github.com/phonohawk/HsOpenSSL/issues/57
+    - ReadArgs # https://github.com/rampion/ReadArgs/issues/8
+    - bindings-GLFW # https://github.com/bsl/bindings-GLFW/issues/40
+    - cases # https://github.com/nikita-volkov/cases/pull/3
+    - concurrent-extra # https://github.com/basvandijk/concurrent-extra/pull/15
+    - fb # https://github.com/prowdsponsor/fb/issues/42
+    - hastache # https://github.com/lymar/hastache/pull/53
+    - heaps # https://github.com/ekmett/heaps/pull/8
+    - hyphenation # https://github.com/ekmett/hyphenation/pull/10
+    - postgresql-binary # https://github.com/nikita-volkov/postgresql-binary/issues/6
+    - shelly # https://github.com/yesodweb/Shelly.hs/issues/127
+    - terminal-progress-bar # https://github.com/roelvandijk/terminal-progress-bar/issues/11
+    - vector # https://github.com/haskell/vector/commit/31edb3fc51e76facc1e291f1e9e721663d91dbd8
+    - zlib # 0.6.1.1-r3 https://github.com/haskell/zlib/issues/2
 
-    # Too lazy to keep the test dependencies up to date
-    - cases
-    - postgresql-binary
+    # Transitive outdated dependencies
+    # These packages
+    # These can also be checked for updates periodically.
+    - MissingH # via testpack https://github.com/jgoerzen/testpack/issues/11
+    - clustering # via RLang-QQ via HList https://github.com/kaizhang/clustering/issues/2 (also sent e-mail to HList maintainer)
 
-    # QuickCheck 2.8
-    - vector
+    # Blocked by stackage upper bounds. These can be re-enabled once
+    # the relevant stackage upper bound is lifted.
+    - dlist # https://github.com/fpco/stackage/issues/1691
 
-    # Requires QuickCheck 2.9
-    - dlist
+    # Runtime issues
+    - blank-canvas # Never finishes https://github.com/ku-fpg/blank-canvas/issues/73
+    - binary-search # Never finishes https://github.com/nushio3/binary-search/issues/2
+    - jsaddle # Never finishes without framebuffer https://github.com/ghcjs/jsaddle/issues/9
 
-    # requires testpack - https://github.com/jgoerzen/testpack/issues/11
-    - MissingH
+    # Missing foreign library
+    - symengine # symengine
+    - hocilib # oracle
 
-    # doctest < 0.10
-    # Closed due to inactivity: https://github.com/fpco/stackage/issues/622
-    - heaps
-    - hyphenation
-
-    # https://github.com/kaizhang/clustering/issues/2 & needs HList which is outdated
-    - clustering
-
-    # https://github.com/fpco/stackage/issues/934
-
-    # HUnit < 1.3
-    - GLFW-b
-    - HsOpenSSL
-    - bindings-GLFW
-    - terminal-progress-bar
-    # https://github.com/fpco/stackage/pull/906
-
-    # https://github.com/haskell/zlib/issues/2
-    - zlib
-
-    # Never finishes - https://github.com/ku-fpg/blank-canvas/issues/73
-    - blank-canvas
-    # https://github.com/nushio3/binary-search/issues/2 (doctest never finishes)
-    - binary-search
-
-    # times out without framebuffer (https://github.com/ghcjs/jsaddle/issues/9)
-    - jsaddle
-
-    # Not included explicitly and has outdated bounds
-    - concurrent-extra
-
-    # doctest < 0.11
-    # Closed due to inactivity: https://github.com/fpco/stackage/issues/1328
-    # GHC 8 - patches-vector
-
-    # GHC 8
-    - HList
-    - hastache
-    - shelly
-
-
-    # Missing C library: symengine
-    - symengine
-
-    # GHC 8 bug https://github.com/fpco/stackage/issues/1587
-    # - hledger-lib
-
-    # Package shadowing
+    # Recursive dependency
     - options
-
-    # Missing oracle
-    - hocilib
 
 # end of skipped-tests
 
@@ -2844,9 +2818,6 @@ expected-test-failures:
     - consul-haskell
     - hedis
     - redis-io
-
-    # https://github.com/lymar/hastache/issues/47 GHC 7.10
-    - hastache
 
     # https://github.com/haskell/ghc-events/issues/9
     - ghc-events
@@ -3161,9 +3132,6 @@ skipped-benchmarks:
     - cipher-camellia
     - cipher-des
     - cipher-rc4
-
-    # https://github.com/kaizhang/clustering/issues/2
-    - clustering
 
     # https://github.com/fpco/stackage/issues/1587
     - hledger-lib
