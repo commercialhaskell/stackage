@@ -2439,6 +2439,13 @@ packages:
     "Abandoned packages":
         - curl
 
+     # If you want to make sure a package is removed from stackage,
+     # place it here with a `< 0` constraint and send a pull
+     # request. This will tell us if other packages would be
+     # affected. Packages will be kept in this list indefinitely so
+     # that new packages depending on it will be flagged as well.
+    "Removed packages": []
+
     "GHC upper bounds":
         # Need to always match the version shipped with GHC
         - Win32 == 2.3.1.1
