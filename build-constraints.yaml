@@ -2118,9 +2118,11 @@ packages:
         - simple-session
         # via postgresql-orm - simple-postgresql-orm
 
-    # "Sergey Astanin <s.astanin@gmail.com> @astanin":
-        # Need release compatible with c lib libzip 1.0 https://bitbucket.org/astanin/hs-libzip/issues/8/libzip-10-support - bindings-libzip < 0.11
-        # via bindings-libzip https://bitbucket.org/astanin/hs-libzip/issues/8/libzip-10-support - LibZip < 0.11
+    "Sergey Astanin <s.astanin@gmail.com> @astanin":
+        # Stackage server uses Ubuntu 16.04 which ships libzip-1.0.1.
+        # Haskell packages should match major.minor versions of the C library.
+        - bindings-libzip >= 1.0
+        - LibZip >= 1.0
 
     "Anthony Cowley <acowley@gmail.com> @acowley":
         - Frames
