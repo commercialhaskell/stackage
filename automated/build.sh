@@ -128,4 +128,11 @@ docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec stackage-curator check-target-
 # * Register as a new Hackage distro
 docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "stackage-curator upload-docs --target $TARGET --bundle-file $BUNDLE_FILE && stackage-curator upload-index --plan-file $PLAN_FILE --target $TARGET && stackage-curator upload-github --plan-file $PLAN_FILE --docmap-file $DOCMAP_FILE --target $TARGET && exec stackage-curator hackage-distro --plan-file $PLAN_FILE --target $TARGET"
 
+if [ $SHORTNAME = "lts" ]
+then
+    echo "Running cron.sh (hiding verbose output)"
+    ./cron.sh | grep -v '^Skipping'
+    echo "done."
+fi
+
 date
