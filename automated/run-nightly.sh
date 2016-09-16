@@ -8,7 +8,7 @@ while true; do
     echo
 
     echo "Running cron.sh (hiding verbose output)"
-    ./cron.sh | grep -v '^Skipping'
+    ./cron.sh > cron.log 2>&1 # | grep -v '^Skipping'
     echo "done."
     date
 
