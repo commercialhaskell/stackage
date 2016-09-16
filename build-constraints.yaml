@@ -1015,7 +1015,7 @@ packages:
         - postgresql-simple-url
         - range-set-list
         - regex-applicative-text
-        # - servant-swagger-ui # BLOCKED haskell-src-exts 1.18 via aeson-qq
+        - servant-swagger-ui
         - servant-yaml
         - singleton-bool
         - spdx
@@ -1905,8 +1905,8 @@ packages:
     "Nickolay Kudasov <nickolay.kudasov@gmail.com> @fizruk":
         - http-api-data
         # - smsaero # https://github.com/GetShopTV/smsaero/issues/12
-        # - swagger2 # BLOCKED haskell-src-exts 1.18 via aeson-qq
-        # - servant-swagger # BLOCKED haskell-src-exts 1.18 via aeson-qq
+        - swagger2
+        - servant-swagger
 
     "Jared Tobin <jared@jtobin.ca> @jtobin":
         - mwc-probability
@@ -2703,6 +2703,10 @@ skipped-tests:
 
     # Missing foreign library
     - symengine # symengine
+
+    # haskell-src-exts 1.18 via aeson-qq
+    - swagger2
+    - servant-swagger
 
     # Wontfix. The maintainer chose to keep these broken/outdated, only
     # re-enable if requested.
