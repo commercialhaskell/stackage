@@ -2840,6 +2840,7 @@ expected-test-failures:
     # Assertion failures, these can be real bugs or just limitations
     # in the test cases.
     - DRBG # https://github.com/TomMD/DRBG/issues/7
+    - cayley-client # https://github.com/MichelBoucey/cayley-client/issues/2
     - clash-prelude # 0.10.14 Runtime errors https://github.com/clash-lang/clash-prelude/issues/57
     - direct-sqlite # 2.3.17 https://github.com/IreneKnapp/direct-sqlite/issues/63
     - ed25519 # 0.0.5.0 https://github.com/thoughtpolice/hs-ed25519/issues/15
@@ -2855,9 +2856,11 @@ expected-test-failures:
     - hspec-expectations-pretty-diff # GHC 8 issue not reported upstream since issue tracker disabled
     - safecopy # time 1.6 https://github.com/acid-state/safecopy/issues/45
     - sourcemap # https://github.com/chrisdone/sourcemap/issues/3
+    - text-ldap # # https://github.com/khibino/haskell-text-ldap/issues/1
+    - thyme # https://github.com/liyang/thyme/issues/50
+    - tries # https://github.com/athanclark/tries/issues/2
     - wai-middleware-content-type # 0.4.1 - https://github.com/athanclark/wai-middleware-content-type/issues/2
     - xmlgen # https://github.com/skogsbaer/xmlgen/issues/6
-    - thyme # https://github.com/liyang/thyme/issues/50
 
     # Misc.
     - distributed-process-supervisor # # https://github.com/haskell-d
@@ -2886,18 +2889,6 @@ expected-test-failures:
     - stack # Permissions failure when creating /home/stackage/.stack.
     - skein # openfile: does not exist https://github.com/fpco/stackage/issues/1187
 
-    # https://github.com/MichelBoucey/cayley-client/issues/2
-    - cayley-client
-
-    # https://github.com/hspec/hspec/issues/278
-    - hspec-core
-
-    # https://github.com/athanclark/tries/issues/2
-    - tries
-
-    # https://github.com/khibino/haskell-text-ldap/issues/1
-    - text-ldap
-
 # end of expected-test-failures
 
 # Benchmarks which are known not to build. Note that, currently we do not run
@@ -2915,9 +2906,6 @@ expected-benchmark-failures:
     # Missing files in sdist
     - cassava # https://github.com/hvr/cassava/pull/117
     - picoparsec # https://bitbucket.org/blamario/picoparsec/issues/3/benchmark-compilation-failure
-
-    # Stackage upper bounds, re-enable these when their upper bound is removed
-    - cassava-conduit # 0.3.2
 
     # Compilation failures
     - Frames # https://github.com/acowley/Frames/issues/47
@@ -2951,15 +2939,12 @@ expected-haddock-failures:
     - MemoTrie # https://github.com/conal/MemoTrie/issues/10
     - metrics # https://github.com/iand675/metrics/issues/5
     - reedsolomon # https://github.com/NicolasT/reedsolomon/issues/53
+    - hocilib # https://github.com/fpinsight/hocilib/issues/1
 
     # Haddock bugs
     - swagger2 # https://github.com/GetShopTV/swagger2/issues/66
 
-    # https://github.com/fpco/stackage/pull/1797#issuecomment-242730215
-    - hocilib
-
 # end of expected-haddock-failures
-
 
 # Benchmarks which should not be built. Note that Stackage builds benchmarks but does not run them.
 # By skipping a benchmark, we do not pull in the build dependencies
