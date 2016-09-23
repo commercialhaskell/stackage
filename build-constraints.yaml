@@ -2523,6 +2523,7 @@ packages:
         - Win32 == 2.3.1.1
 
     "Stackage upper bounds":
+
         # https://github.com/fpco/stackage/issues/1767
         - SVGFonts < 1.6
 
@@ -2679,41 +2680,38 @@ skipped-tests:
     # Outdated dependencies
     # These can periodically be checked for updates;
     # just remove these lines and run `stackage-curator check' to verify.
+    - Cabal # QuickCheck 2.9
+    - ChasingBottoms # QuickCheck 2.9
     - GLFW-b # https://github.com/bsl/GLFW-b/issues/62
     - HsOpenSSL # https://github.com/phonohawk/HsOpenSSL/issues/57
     - ReadArgs # https://github.com/rampion/ReadArgs/issues/8
     - bindings-GLFW # https://github.com/bsl/bindings-GLFW/issues/40
+    - bytestring-handle # QuickCheck 2.9
     - cases # https://github.com/nikita-volkov/cases/pull/3
+    - cgi # QuickCheck 2.9
+    - chell # options & via chell-quickcheck
     - concurrent-extra # https://github.com/basvandijk/concurrent-extra/pull/15
-    - fb # https://github.com/prowdsponsor/fb/issues/42
+    - ed25519 # QuickCheck 2.9
+    - hasql # QuickCheck 2.9
     - hastache # https://github.com/lymar/hastache/pull/53
     - heaps # https://github.com/ekmett/heaps/pull/8
     - hyphenation # https://github.com/ekmett/hyphenation/pull/10
+    - pure-cdb # test-simple
     - shelly # https://github.com/yesodweb/Shelly.hs/issues/127
+    - state-plus # QuickCheck 2.9
+    - system-filepath # QuickCheck 2.9
     - vector # https://github.com/haskell/vector/commit/31edb3fc51e76facc1e291f1e9e721663d91dbd8
     - zlib # 0.6.1.1-r3 https://github.com/haskell/zlib/issues/2
-    - newtype-generics # https://github.com/jcristovao/newtype-generics/issues/7
-    - uri-bytestring # via derive
 
     # Transitive outdated dependencies
     # These packages
     # These can also be checked for updates periodically.
     - MissingH # via testpack https://github.com/jgoerzen/testpack/issues/11
     - clustering # via RLang-QQ via HList https://github.com/kaizhang/clustering/issues/2 (also sent e-mail to HList maintainer)
-    - yaml # via aeson-qq
-
-    # QuickCheck 2.9
-    - Cabal
-    - ChasingBottoms
-    - bytestring-handle
-    - cgi
-    - ed25519
-    - hasql
-    - state-plus
-    - dbus
-    - options
-    - system-filepath
-    - pure-cdb
+    - swagger2 # haskell-src-exts 1.18 via aeson-qq
+    - servant-swagger # haskell-src-exts 1.18 via aeson-qq
+    - yaml # haskell-src-exts via aeson-qq
+    - options # QuickCheck via chell-quickcheck
 
     # Blocked by stackage upper bounds. These can be re-enabled once
     # the relevant stackage upper bound is lifted.
@@ -2727,9 +2725,6 @@ skipped-tests:
     # Missing foreign library
     - symengine # symengine
 
-    # haskell-src-exts 1.18 via aeson-qq
-    - swagger2
-    - servant-swagger
 
     # Wontfix. The maintainer chose to keep these broken/outdated, only
     # re-enable if requested.
@@ -2841,7 +2836,6 @@ expected-test-failures:
     - haskell-names # 0.7.0 https://github.com/haskell-suite/haskell-names/issues/78
     - rematch # No issue tracker, sent e-mail to maintainer https://github.com/fpco/stackage/issues/376
     - xlsior # https://github.com/rcallahan/xlsior/issues/1
-    - yaml # https://github.com/snoyberg/yaml/issues/92
 
     # Assertion failures, these can be real bugs or just limitations
     # in the test cases.
