@@ -2534,10 +2534,6 @@ packages:
         - diagrams-rasterific < 1.3.1.9
         - diagrams-svg < 1.4.0.4
 
-        # https://github.com/fpco/stackage/issues/1833
-        - http-api-data < 0.3
-        - servant-auth-cookie < 0.4 # also per servant < 0.9 #1906
-
         # https://github.com/fpco/stackage/issues/1842
         - dependent-sum < 0.4
 
@@ -2555,16 +2551,6 @@ packages:
         - hspec < 2.2.4
         - hspec-core < 2.2.4
         - hspec-discover < 2.2.4
-
-        # https://github.com/fpco/stackage/issues/1906
-        - servant < 0.9
-        - servant-client < 0.9
-        - servant-foreign < 0.9
-        - servant-server < 0.9
-        - servant-docs < 0.9
-        - servant-js < 0.9
-        - language-puppet < 1.3.2
-        - servant-auth-cookie < 0.4 # also per http-api-data < 0.3 #1833
 
         # https://github.com/fpco/stackage/issues/1929
         - hspec-megaparsec < 0.3.0
@@ -2718,6 +2704,7 @@ skipped-tests:
     - servant-swagger # haskell-src-exts 1.18 via aeson-qq
     - yaml # haskell-src-exts via aeson-qq
     - options # QuickCheck via chell-quickcheck
+    - uri-bytestring # haskell-src-exts via derive
 
     # Blocked by stackage upper bounds. These can be re-enabled once
     # the relevant stackage upper bound is lifted.
