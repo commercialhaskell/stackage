@@ -74,6 +74,7 @@ apt-get install -y \
     libjudy-dev \
     liblapack-dev \
     libleveldb-dev \
+    liblmdb-dev \
     liblzma-dev \
     libmagic-dev \
     libmagickcore-dev \
