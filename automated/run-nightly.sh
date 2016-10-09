@@ -4,7 +4,6 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 
 while true; do
     ./build.sh nightly-$(date -u +%F)
-    date
     echo
 
     echo "Running cron.sh (hiding verbose output)"
