@@ -46,7 +46,7 @@ packages:
         # GHC 8 - envy
         - s3-signer
         # bounds - google-translate
-        # via snap - hackernews
+        - hackernews
         # bounds - ses-html
         # via stripe-http-streams - stripe-haskell
         # via http-streams - stripe-http-streams
@@ -186,12 +186,12 @@ packages:
         - blaze-html
         - blaze-markup
         - cabal-dependency-licenses
-        # via snap-core - hakyll
+        # - hakyll # QuickCheck, snap-server, via pandoc, via pandoc-citeproc
         - stylish-haskell
         # - profiteur # BLOCKED aeson 1.0
         - psqueues
         - websockets
-        # via snap-core - websockets-snap
+        - websockets-snap
 
     "Sibi Prabakaran <sibi@psibi.in> @psibi":
         - download
@@ -415,7 +415,7 @@ packages:
         - serversession-backend-acid-state
         # bounds - serversession-backend-persistent
         # bounds - serversession-backend-redis
-        # via snap - serversession-frontend-snap
+        # - serversession-frontend-snap
         - serversession-frontend-wai
         - serversession-frontend-yesod
         - thumbnail-plus
@@ -501,7 +501,7 @@ packages:
         - fay-text
         - fay-uri
         - feed
-        # via snap - snaplet-fay
+        - snaplet-fay
         - time-compat
         - through-text
 
@@ -673,7 +673,7 @@ packages:
         - rest-core
         - rest-gen
         - rest-happstack
-        # GHC 8 - rest-snap
+        - rest-snap
         - rest-stringmap
         - rest-types
         - rest-wai
@@ -946,11 +946,11 @@ packages:
         - etcd
         - github-types
         - github-webhook-handler
-        # GHC 8 & via snap-core - github-webhook-handler-snap
+        # GHC 8 - github-webhook-handler-snap
         - google-cloud
         - kraken
         - libinfluxdb
-        # GHC 8 & via snap - mole
+        # GHC 8 - mole
         - publicsuffix
         - rethinkdb-client-driver
 
@@ -1488,7 +1488,7 @@ packages:
         # GHC 8 - wai-routes
 
     "Daniel Patterson <dbp@dbpmail.net> @dbp":
-        # GHC 8 - hspec-snap
+        # via digestive-functors - hspec-snap
         - hworker
         # - hworker-ses BLOCKED amazonka-core
         - fn
@@ -2302,7 +2302,7 @@ packages:
         # - yesod-job-queue # BLOCKED cron
 
     # "Braden Walters <vc@braden-walters.info> @meoblast001":
-        # via hakyll - hakyll-sass
+        # - hakyll-sass
 
     "Patrick Thomson <patrick@helium.com> @helium":
         - postgresql-transactional
@@ -2735,6 +2735,7 @@ skipped-tests:
     - system-filepath # QuickCheck 2.9
     - vector # https://github.com/haskell/vector/commit/31edb3fc51e76facc1e291f1e9e721663d91dbd8
     - zlib # 0.6.1.1-r3 https://github.com/haskell/zlib/issues/2
+    - snap # QuickCheck 2.9
 
     # Transitive outdated dependencies
     # These packages
@@ -2918,7 +2919,6 @@ expected-test-failures:
 
     # Problem on the stackage build server, we need to dig deeper into
     # these if we want them fixed
-    - snap-core # 1.0.0.0 https://github.com/snapframework/snap-core/issues/261
     - stack # Permissions failure when creating /home/stackage/.stack.
     - skein # openfile: does not exist https://github.com/fpco/stackage/issues/1187
 
