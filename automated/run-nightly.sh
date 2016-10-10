@@ -8,6 +8,7 @@ while true; do
     echo "Running cron.sh (hiding verbose output)"
     ./cron.sh > cron.log 2>&1 # | grep -v '^Skipping'
     echo "done."
+    echo
     date
 
     sleep 30m
