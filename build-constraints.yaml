@@ -46,7 +46,7 @@ packages:
         # GHC 8 - envy
         - s3-signer
         # bounds - google-translate
-        # via snap - hackernews
+        - hackernews
         # bounds - ses-html
         # via stripe-http-streams - stripe-haskell
         # via http-streams - stripe-http-streams
@@ -185,12 +185,12 @@ packages:
         - blaze-html
         - blaze-markup
         - cabal-dependency-licenses
-        # via snap-core - hakyll
+        # - hakyll # QuickCheck, snap-server, via pandoc, via pandoc-citeproc
         - stylish-haskell
         # - profiteur # BLOCKED aeson 1.0
         - psqueues
         - websockets
-        # via snap-core - websockets-snap
+        - websockets-snap
 
     "Sibi Prabakaran <sibi@psibi.in> @psibi":
         - download
@@ -415,7 +415,7 @@ packages:
         - serversession-backend-acid-state
         # bounds - serversession-backend-persistent
         # bounds - serversession-backend-redis
-        # via snap - serversession-frontend-snap
+        # - serversession-frontend-snap
         - serversession-frontend-wai
         - serversession-frontend-yesod
         - thumbnail-plus
@@ -501,7 +501,7 @@ packages:
         - fay-text
         - fay-uri
         - feed
-        # via snap - snaplet-fay
+        - snaplet-fay
         - time-compat
         - through-text
 
@@ -673,7 +673,7 @@ packages:
         - rest-core
         - rest-gen
         - rest-happstack
-        # GHC 8 - rest-snap
+        - rest-snap
         - rest-stringmap
         - rest-types
         - rest-wai
@@ -764,7 +764,7 @@ packages:
         # GHC 8 - file-location
         - fuzzcheck
         - haddock-api
-        #- here # BLOCKED haskell-src-meta-0.7.0
+        # haskell-src-exts 1.18 - here
         - hlibgit2
         - gitlib-libgit2
         - hostname-validate
@@ -780,7 +780,7 @@ packages:
         - monad-extras
         # - stack < 9.9.9 # BLOCKED http-conduit 2.2
         - optparse-simple
-        # - hpack # BLOCKED interpolate
+        - hpack
 
     "Michael Sloan <mgsloan@gmail.com> @mgsloan":
         - th-orphans
@@ -946,11 +946,11 @@ packages:
         - etcd
         - github-types
         - github-webhook-handler
-        # GHC 8 & via snap-core - github-webhook-handler-snap
+        # GHC 8 - github-webhook-handler-snap
         - google-cloud
         - kraken
         - libinfluxdb
-        # GHC 8 & via snap - mole
+        # GHC 8 - mole
         - publicsuffix
         - rethinkdb-client-driver
 
@@ -995,8 +995,7 @@ packages:
         - hspec-expectations-pretty-diff
 
     "Francesco Mazzoli <f@mazzo.li> @bitonic":
-        []
-        # - language-c-quote # BLOCKED haskell-src-meta-0.7
+        - language-c-quote
 
     "Sönke Hahn <soenkehahn@gmail.com> @soenkehahn":
         - generics-eot
@@ -1488,7 +1487,7 @@ packages:
         # GHC 8 - wai-routes
 
     "Daniel Patterson <dbp@dbpmail.net> @dbp":
-        # GHC 8 - hspec-snap
+        # via digestive-functors - hspec-snap
         - hworker
         # - hworker-ses BLOCKED amazonka-core
         - fn
@@ -2027,8 +2026,8 @@ packages:
     "Henry J. Wylde <public@hjwylde.com> @hjwylde":
         - git-fmt
         - omnifmt
-        # - werewolf # BLOCKED haskell-src-exts 1.18 via interpolate
-        # - werewolf-slack
+        # aeson & extra - werewolf
+        # aeson & extra & http-client & http-client-tls - werewolf-slack
 
     "Will Sewell <me@willsewell.com> @willsewell":
         - benchpress
@@ -2063,25 +2062,25 @@ packages:
 
     "Jeremy Shaw <jeremy@n-heptane.com> @stepcut":
         - boomerang
-        # - clckwrks # haskell-src-meta and hsx2hs
-        # - clckwrks-cli # haskell-src-exts 1.18 via hsx2hs
-        # - clckwrks-plugin-page # haskell-src-exts 1.18 via hsx2hs
-        # - clckwrks-plugin-media # haskell-src-exts 1.18 via hsx2hs
-        # - clckwrks-theme-bootstrap # haskell-src-exts 1.18 via hsx2hs
+        - clckwrks
+        - clckwrks-cli
+        - clckwrks-plugin-page
+        - clckwrks-plugin-media
+        - clckwrks-theme-bootstrap
         - hackage-whatsnew
-        # - happstack-authenticate # haskell-src-exts 1.18 via hsx2hs
+        - happstack-authenticate
         - happstack-clientsession
-        # - happstack-hsp # haskell-src-exts 1.18 via hsx2hs
-        # - happstack-jmacro # BLOCKED haskell-src-exts 1.18 via jmacro
+        - happstack-hsp
+        - happstack-jmacro
         - happstack-server
         - happstack-server-tls
-        # - hsx-jmacro # BLOCKED haskell-src-exts 1.18 via jmacro
+        - hsx-jmacro
         - ixset
         - reform
         - reform-blaze
         - reform-hamlet
         - reform-happstack
-        # - reform-hsp # haskell-src-exts 1.18 via hsx2hs
+        - reform-hsp
         - userid
         - web-plugins
         - web-routes
@@ -2090,7 +2089,7 @@ packages:
         - web-routes-hsp
         - web-routes-th
         - web-routes-wai
-        # - hsx2hs # BLOCKED haskell-src-exts 1.18
+        - hsx2hs
 
     "Pedro Tacla Yamada <tacla.yamada@gmail.com> @yamadapc":
         - ascii-progress
@@ -2107,7 +2106,7 @@ packages:
         - projectroot
         - questioner
         # - stack-run-auto # BLOCKED wreq
-        # - hpack-convert # BLOCKED haskell-src-exts 1.18 via interpolate
+        # aeson 1.0 - hpack-convert
         - language-dockerfile
 
     "Pascal Hartig <phartig@rdrei.net> @passy":
@@ -2302,7 +2301,7 @@ packages:
         # - yesod-job-queue # BLOCKED cron
 
     # "Braden Walters <vc@braden-walters.info> @meoblast001":
-        # via hakyll - hakyll-sass
+        # - hakyll-sass
 
     "Patrick Thomson <patrick@helium.com> @helium":
         - postgresql-transactional
@@ -2421,7 +2420,7 @@ packages:
         - hmpfr
 
     "Bartosz Nitka <niteria@gmail.com> @niteria":
-        # - haskell-packages # BLOCKED haskell-src-exts via hse-cpp
+        - haskell-packages
         - oeis
 
     "Gergely Patai <patai.gergely@gmail.com> @cobbpg":
@@ -2450,8 +2449,7 @@ packages:
         - encoding-io
 
     "Anton Gushcha <ncrashed@gmail.com> @ncrashed":
-        []
-        # - aeson-injector # haskell-src-exts 1.18 via aeson-qq
+        - aeson-injector
 
     "Rune K. Svendsen <runesvend@gmail.com> @runeks":
         []
@@ -2744,15 +2742,13 @@ skipped-tests:
     - system-filepath # QuickCheck 2.9
     - vector # https://github.com/haskell/vector/commit/31edb3fc51e76facc1e291f1e9e721663d91dbd8
     - zlib # 0.6.1.1-r3 https://github.com/haskell/zlib/issues/2
+    - snap # QuickCheck 2.9
 
     # Transitive outdated dependencies
     # These packages
     # These can also be checked for updates periodically.
     - MissingH # via testpack https://github.com/jgoerzen/testpack/issues/11
     - clustering # via RLang-QQ via HList https://github.com/kaizhang/clustering/issues/2 (also sent e-mail to HList maintainer)
-    - swagger2 # haskell-src-exts 1.18 via aeson-qq
-    - servant-swagger # haskell-src-exts 1.18 via aeson-qq
-    - yaml # haskell-src-exts via aeson-qq
     - options # QuickCheck via chell-quickcheck
     - uri-bytestring # haskell-src-exts via derive
 
@@ -2927,7 +2923,6 @@ expected-test-failures:
 
     # Problem on the stackage build server, we need to dig deeper into
     # these if we want them fixed
-    - snap-core # 1.0.0.0 https://github.com/snapframework/snap-core/issues/261
     - stack # Permissions failure when creating /home/stackage/.stack.
     - skein # openfile: does not exist https://github.com/fpco/stackage/issues/1187
 
