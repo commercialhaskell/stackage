@@ -2,30 +2,28 @@
 
 Stackage provides a series of snapshots: a set of tuples of packages and exact versions that is free of incompatibilities. It relies on two parties: Firstly repeated automated testing ensures that incompatibilities with newly released packages are detected, and secondly maintainers update their packages to keep them up to date with their dependencies.
 
-Membership in any stackage snapshot is not reflected in a package's content; the stackage repository contains the metadata that determines membership. The repository relies on the following social contract in the hopes of enabling a stable set of packages, optimally never dropping any packages from newer snapshots.
+Membership in any stackage snapshot is not reflected in a package's content; the stackage repository contains the metadata that determines membership.
 
-# Agreement
+To ensure that everything goes smoothly for users of stackage now and in the future, there are some expectations for packages and their maintainers:
 
-1. In the following, the term "package maintainer" refers to the person responsible for Stackage membership of said package. Such a person need not be the hackage maintainer of the package, although it certainly makes sense for the stackage-side maintainer to have write access should the need for updating a package arise. Please consider contacting the hackage maintainer(s) if you wish adding a package to Stackage.
 
-2. The following conditions apply to any package included in the (next) snapshot:
+# Expectations
 
-    * It must be compatible with the latest versions of all of its dependencies;
-    * It must be compatible with the versions of libraries (aka `bootlibs`) shipping with the GHC connected to the snapshot (see the note below);
-    * It must compile and test successfully with the usual automated building infrastructure (e.g. by the hackage buildbot);
-    * (It probably should also be compatible with the latest published snapshot.)
+The following conditions apply to any package included in the (next) snapshot:
 
-3. The package maintainer is expected to ensure that a package continues to meet the above requirements by updating/fixing a package when dependencies are updated. The recommended timeframe for such fixes are:
+  * It must be compatible with the latest versions of all of its dependencies;
+  * It must be compatible with the versions of libraries (aka `bootlibs`) shipping with the GHC connected to the snapshot (see the note below);
+  * It must compile and test successfully with the usual automated building infrastructure (e.g. by the hackage buildbot);
+  * (It probably should also be compatible with the latest published snapshot.)
 
-    * **Up to one week** if restrictive version bounds are the only problem;
-    * **Between a week and a month**, depending on the work required, if the cause of the issue is a breaking change in a dependency.
+The package maintainer is expected to ensure that a package continues to meet the above requirements by updating/fixing a package when dependencies are updated. The recommended timeframe for such fixes are:
 
-4. Failing to meet these requirements
+  * **Up to one week** if restrictive version bounds are the only problem;
+  * **Between a week and a month**, depending on the work required, if the cause of the issue is a breaking change in a dependency.
 
-    Packages that fail to meet above requirements can be removed from future snapshots, if the package maintainer fails to respect the above timeframes (e.g. we rather remove random package B than have it prevent updating of wildly used package A). This is not ideal for other users, but is not the end of the world either - existing snapshots are not affected, and packages can always be added back again later.
+Packages that fail to meet above requirements can be removed from future snapshots, if the package maintainer fails to respect the above timeframes (e.g. we rather remove random package B than have it prevent updating of wildly used package A). This is not ideal for other users, but is not the end of the world either - existing snapshots are not affected, and packages can always be added back again later. Maintainers are encouraged to seek for co-maintainers if they are too busy for keeping the package up to date.
 
-    Maintainers are encouraged to seek for co-maintainers if they are too busy for keeping the package up to date.
-
+If you wish that some package was added to stackage, but you are not its author/maintainer, your first step should be to reach out to the (hackage) maintainers and ask them to become maintainers for the package on stackage as well (or look into the package's issue tracker if this was requested before). While it is not mandatory that maintainership does not differ between stackage and hackage, it generally should be ensured that the stackage maintainer has the ability to update/fix packages as discussed above and publish those fixes in a timely fashion.
 
 # Notes
 
