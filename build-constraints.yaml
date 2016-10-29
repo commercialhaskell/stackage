@@ -2606,13 +2606,10 @@ packages:
         # https://github.com/fpco/stackage/issues/1842
         - dependent-sum < 0.4
 
-        # https://github.com/fpco/stackage/issues/1902
-        - hspec < 2.2.4
-        - hspec-core < 2.2.4
-        - hspec-discover < 2.2.4
-
         # https://github.com/fpco/stackage/issues/1993
         - hspec < 2.3
+        - hspec-core < 2.3
+        - hspec-discover < 2.3
 
         # https://github.com/fpco/stackage/issues/1965
         - HUnit < 1.4.0.0
@@ -2786,6 +2783,7 @@ skipped-tests:
     - zlib # 0.6.1.1-r3 https://github.com/haskell/zlib/issues/2
     - snap # QuickCheck 2.9
     - terminal-progress-bar # depends on older version of itself
+    - point-octree # hspec 2.2.4 https://github.com/mlitchard/point-octree/issues/1
 
     # Transitive outdated dependencies
     # These packages
@@ -3182,7 +3180,7 @@ build-tool-overrides:
 tell-me-when-its-released:
 - vector-0.11.0.0 # skipped test-suite
 - criterion-1.1.1.0 # fixes build on windows, upgrade in LTS 7 #1912
-- point-octree-0.5.5.3 # If this closes https://github.com/fpco/stackage/issues/1902 we can also resolve https://github.com/fpco/lts-haskell/issues/27
+- point-octree-0.5.5.3 # re-enable test and then we can resolve https://github.com/fpco/lts-haskell/issues/27
 - wreq-0.4.1.0 # Try to re-enable lots of packages, and the test-suite if https://github.com/bos/wreq/issues/53 is closed.
 - gogol-0.1.0 # Re-enable package
 - Chart-diagrams-1.8 # Re-enable package https://github.com/timbod7/haskell-chart/issues/141
