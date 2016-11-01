@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM fpco/pid1:16.04
 
 ENV HOME /home/stackage
 ENV LANG en_US.UTF-8
