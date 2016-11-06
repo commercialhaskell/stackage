@@ -8,7 +8,7 @@ packages:
         - tasty-discover
 
     "Marco Zocca @ocramz":
-        - sparse-linear-algebra
+        # - sparse-linear-algebra # BLOCKED optparse-applicative 0.13 via criterion
         - network-multicast
 
     "Joseph Canero <jmc41493@gmail.com> @caneroj1":
@@ -25,7 +25,7 @@ packages:
         - binary-parsers
         - binary-ieee754
         - word24
-        - mysql-haskell
+        # - mysql-haskell # BLOCKED optparse-applicative 0.13
 
     "Harendra Kumar <harendra.kumar@gmail.com> @harendra-kumar":
         - unicode-transforms
@@ -138,7 +138,6 @@ packages:
         # GHC 8 2.5 compilation failure - persistent-mongoDB
         - pretty-class
         - th-expand-syns
-        - criterion
         - th-lift
         - quickcheck-assertions
 
@@ -498,7 +497,7 @@ packages:
         - pipes-parse
         - pipes-concurrency
         - pipes-safe
-        - turtle
+        # - turtle # BLOCKED optparse-applicative 0.13
         - foldl
         - morte
 
@@ -973,7 +972,7 @@ packages:
         - google-cloud
         - kraken
         - libinfluxdb
-        - mole
+        # - mole # BLOCKED optparse-applicative 0.13
         - publicsuffix
         - rethinkdb-client-driver
 
@@ -1693,7 +1692,7 @@ packages:
         - refact
         # bounds - servant-pandoc
         - ghc-exactprint
-        - apply-refact
+        # - apply-refact # BLOCKED optparse-applicative 0.13
 
     # "Andrew Gibiansky <andrew.gibiansky@gmail.com> @gibiansky":
         # GHC 8 - ihaskell
@@ -2055,8 +2054,9 @@ packages:
         # bounds - Michelangelo
 
     "Henry J. Wylde <public@hjwylde.com> @hjwylde":
-        - git-fmt
-        - omnifmt
+        []
+        # - git-fmt # BLOCKED optparse-applicative 0.13
+        # - omnifmt # BLOCKED optparse-applicative 0.13
         # aeson & extra - werewolf
         # aeson & extra & http-client & http-client-tls - werewolf-slack
 
@@ -2221,7 +2221,8 @@ packages:
         - doctest-discover
 
     "Elie Genard <elaye.github.io@gmail.com> @eliegenard":
-        - turtle-options
+        []
+        # - turtle-options # BLOCKED optparse-applicative 0.13 via turtle
 
     # "Ruey-Lin Hsu <petercommand@gmail.com> @petercommand":
         # GHC 8 - MASMGen
@@ -2313,7 +2314,7 @@ packages:
 
     "John Ky newhoggy@gmail.com @newhoggy":
         - hw-bits
-        - hw-conduit
+        # - hw-conduit # BLOCKED optparse-applicative 0.13 (via criterion)
         - hw-diagnostics
         # https://github.com/haskell-works/hw-json/issues/4
         # - hw-json
@@ -2612,15 +2613,6 @@ packages:
         - Win32 == 2.3.1.1
 
     "Stackage upper bounds":
-
-        # https://github.com/fpco/stackage/issues/1784
-        - optparse-applicative < 0.13.0.0 # May need to disable test suite when lifting this https://github.com/pcapriotti/optparse-applicative/issues/228
-        - diagrams-canvas < 1.3.0.7
-        - diagrams-cairo < 1.3.1.2
-        - diagrams-rasterific < 1.3.1.9
-        - diagrams-svg < 1.4.0.4
-        - tttool < 1.6.1.3
-
         # https://github.com/fpco/stackage/issues/1842
         - dependent-sum < 0.4
 
@@ -2644,18 +2636,6 @@ packages:
 
         # https://github.com/fpco/stackage/issues/1994
         - hspec-wai < 0.8.0
-
-        # https://github.com/fpco/stackage/issues/2017
-        - Rasterific < 0.7
-        - rasterific-svg < 0.3.2
-        - svg-tree < 0.6
-
-        # https://github.com/fpco/stackage/issues/2023
-        - diagrams-core < 1.4
-        - diagrams-lib < 1.4
-        - diagrams-postscript < 1.4
-        - diagrams < 1.4
-        - diagrams-contrib < 1.4
 
         # https://github.com/fpco/stackage/issues/2037
         - haskell-src-exts < 1.19
@@ -2831,6 +2811,9 @@ skipped-tests:
     # Wontfix. The maintainer chose to keep these broken/outdated, only
     # re-enable if requested.
     - postgresql-binary # https://github.com/nikita-volkov/postgresql-binary/issues/6#issuecomment-243063139
+
+    - optparse-applicative # https://github.com/pcapriotti/optparse-applicative/issues/228
+
 
 # end of skipped-tests
 
@@ -3090,6 +3073,171 @@ skipped-benchmarks:
 
     # GHC Bugs
     - hledger-lib # https://github.com/fpco/stackage/issues/1587
+
+    # optparse-applicative dep of criterion
+    # https://github.com/fpco/stackage/issues/1784
+    - Earley
+    - Frames
+    - IntervalMap
+    - JuicyPixels-extra
+    - acid-state
+    - ad
+    - arithmoi
+    - attoparsec
+    - avers
+    - binary-list
+    - binary-parsers
+    - binary-tagged
+    - binary-typed
+    - blake2
+    - bytestring-conversion
+    - bytestring-tree-builder
+    - cacophony
+    - case-insensitive
+    - cassava
+    - cassava-conduit
+    - cipher-aes128
+    - clustering
+    - cmark
+    - conduit
+    - conduit-extra
+    - conduit-iconv
+    - cprng-aes
+    - criterion
+    - crypto-numbers
+    - crypto-pubkey
+    - cryptohash
+    - cryptohash-sha256
+    - cryptol
+    - ctrie
+    - data-msgpack
+    - diagrams-lib
+    - dimensional
+    - do-list
+    - ed25519
+    - edit-distance
+    - effect-handlers
+    - euphoria
+    - farmhash
+    - fast-builder
+    - fast-digits
+    - fclabels
+    - foldl-statistics
+    - freer
+    - gitson
+    - glob-posix
+    - graphviz
+    - grouped-list
+    - hOpenPGP
+    - hashable
+    - hasql
+    - heist
+    - hindent
+    - histogram-fill
+    - hledger
+    - hosc
+    - hourglass
+    - html-email-validate
+    - htoml
+    - http-client-tls
+    - http-link-header
+    - http2
+    - human-readable-duration
+    - hw-balancedparens
+    - hw-bits
+    - hw-conduit
+    - hw-rankselect-base
+    - hweblib
+    - hxt-regex-xmlschema
+    - identicon
+    - ilist
+    - include-file
+    - incremental-parser
+    - inline-r
+    - jose-jwt
+    - kdt
+    - lens
+    - lifted-async
+    - lifted-base
+    - loop
+    - lucid
+    - matrices
+    - matrix
+    - megaparsec
+    - monad-logger-prefix
+    - mongoDB
+    - mono-traversable
+    - monoid-extras
+    - morte
+    - mutable-containers
+    - netpbm
+    - octane
+    - pandoc
+    - phantom-state
+    - picoparsec
+    - pipes
+    - postgresql-binary
+    - prometheus-client
+    - psqueues
+    - publicsuffix
+    - rdf
+    - redis-io
+    - reedsolomon
+    - reinterpret-cast
+    - reroute
+    - rethinkdb
+    - rethinkdb-client-driver
+    - rose-trees
+    - sampling
+    - sandi
+    - scalpel
+    - scanner
+    - scientific
+    - semver
+    - servant-auth-cookie
+    - sets
+    - snap-server
+    - sorted-list
+    - sourcemap
+    - sparse-linear-algebra
+    - stache
+    - stateWriter
+    - stm-containers
+    - streaming-commons
+    - taggy
+    - tar
+    - text-manipulate
+    - text-metrics
+    - text-show
+    - thyme
+    - timemap
+    - tinylog
+    - tls
+    - tries
+    - turtle
+    - tz
+    - unbound-generics
+    - unicode-transforms
+    - union
+    - unordered-containers
+    - uri-bytestring
+    - uuid
+    - uuid-types
+    - varying
+    - vector-binary-instances
+    - vectortiles
+    - vinyl
+    - wai-middleware-metrics
+    - wai-request-spec
+    - warp
+    - wire-streams
+    - word24
+    - word8
+    - xmlgen
+    - yesod-core
+    - yi-rope
+    - zip
+    - zippers
 
 # end of skipped-benchmarks
 
