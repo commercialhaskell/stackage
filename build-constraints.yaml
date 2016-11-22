@@ -1067,7 +1067,7 @@ packages:
         - arithmoi
         - friendly-time
         - hashable
-        - haxl
+        # - haxl
         - monad-time
         - packdeps
         - recursion-schemes
@@ -2636,24 +2636,6 @@ packages:
         - Win32 == 2.3.1.1
 
     "Stackage upper bounds":
-        # https://github.com/fpco/stackage/issues/1993
-        - hspec < 2.3
-        - hspec-core < 2.3
-        - hspec-discover < 2.3
-
-        # https://github.com/fpco/stackage/issues/1965
-        - HUnit < 1.4.0.0
-        - hspec-expectations < 0.8.2
-
-        # https://github.com/fpco/stackage/issues/1971
-        - hspec-expectations < 0.8.0
-        - hspec-wai < 0.7.0
-        - hspec-wai-json < 0.7.0
-        - hspec-meta < 2.3.0
-
-        # https://github.com/fpco/stackage/issues/1994
-        - hspec-wai < 0.8.0
-
         # https://github.com/fpco/stackage/issues/2037
         - haskell-src-exts < 1.19
 
@@ -2782,19 +2764,51 @@ skipped-tests:
     # Outdated dependencies
     # These can periodically be checked for updates;
     # just remove these lines and run `stackage-curator check' to verify.
+    # # HUnit 1.5
+    - GLFW-b
+    - Glob
+    - HTTP
+    - bindings-GLFW
+    - blaze-html
+    - blaze-markup
+    - case-insensitive
+    - darcs
+    - exception-transformers
+    - extensible-effects
+    - fclabels
+    - language-ecmascript
+    - lifted-base
+    - parsec
+    - psqueues
+    - rank1dynamic
+    - retry
+    - stylish-haskell
+    - threads
+    - tz
+    - tzdata
+    - uuid
+    - uuid-types
+    - websockets
+    # # Other outdated dependencies
     - Cabal # QuickCheck 2.9
     - ChasingBottoms # QuickCheck 2.9
     - ReadArgs # https://github.com/rampion/ReadArgs/issues/8
+    - avers # hspec 2.3
     - bytestring-handle # QuickCheck 2.9
     - cases # https://github.com/nikita-volkov/cases/pull/3
     - chell # options & via chell-quickcheck
+    - clay # hspec 2.3
     - concurrent-extra # https://github.com/basvandijk/concurrent-extra/pull/15
     - ed25519 # QuickCheck 2.9
+    - fgl # hspec 2.3
+    - fgl-arbitrary # hspec 2.3
     - hasql # QuickCheck 2.9
     - hastache # https://github.com/lymar/hastache/pull/53
     - heaps # https://github.com/ekmett/heaps/pull/8
     - hyphenation # https://github.com/ekmett/hyphenation/pull/10
+    - next-ref # hspec 2.3
     - point-octree # hspec 2.2.4 https://github.com/mlitchard/point-octree/issues/1
+    - servant-mock # hspec-wai 0.8
     - snap # QuickCheck 2.9
     - state-plus # QuickCheck 2.9
     - system-filepath # QuickCheck 2.9
