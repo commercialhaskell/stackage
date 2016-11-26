@@ -88,6 +88,7 @@ apt-get install -y \
     libpango1.0-dev \
     libpcap0.8-dev \
     libpq-dev \
+    libsass-dev \
     libsdl2-dev \
     libsnappy-dev \
     libsndfile1-dev \
