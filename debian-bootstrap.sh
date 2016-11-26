@@ -95,6 +95,7 @@ apt-get install -y \
     libssl-dev \
     libsystemd-dev \
     libtagc0-dev \
+    libtool \
     libtre-dev \
     libudev-dev \
     libusb-1.0-0-dev \
