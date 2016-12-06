@@ -2,6 +2,8 @@
 
 set -eux
 
+cd "$(dirname "${BASH_SOURCE[0]}")"
+
 CRONDIR=$(pwd)/crondir
 mkdir -p $CRONDIR
 source aws.sh
