@@ -45,6 +45,7 @@ apt-get install -y \
     git \
     libadns1-dev \
     libaio1 \
+    libalut-dev \
     libasound2-dev \
     libblas-dev \
     libbz2-dev \

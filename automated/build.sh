@@ -96,17 +96,21 @@ fi
 # Get latest stack
 curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C $EXTRA_BIN_DIR '*/stack'
 
-# Do all of the pre-build actions:
+# Determine the new build plan unless NOPLAN is set
 #
 # * Update the package index
 # * Create a new plan
+if [ "${NOPLAN:-}x" = "x" ]
+then
+  docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "stack update && exec stackage-curator create-plan --plan-file $PLAN_FILE --target $TARGET ${CONSTRAINTS:-}"
+fi
+
+# Do the rest of the pre-build actions:
+#
 # * Check that the plan is valid
 # * Fetch all needed tarballs (the build step does not have write access to the tarball directory)
 # * Do a single unpack to create the package index cache (again due to directory perms)
-if [ "${NOPLAN:-}x" = "x" ]
-then
-  docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "stack update && stackage-curator create-plan --plan-file $PLAN_FILE --target $TARGET ${CONSTRAINTS:-} && stackage-curator check --plan-file $PLAN_FILE && stackage-curator fetch --plan-file $PLAN_FILE && cd /tmp && exec stack unpack random"
-fi
+docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "stackage-curator check --plan-file $PLAN_FILE && stackage-curator fetch --plan-file $PLAN_FILE && cd /tmp && exec stack unpack random"
 
 # Now do the actual build. We need to first set the owner of the home directory
 # correctly, so we run the command as root, change owner, and then use sudo to
@@ -127,12 +131,5 @@ docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec stackage-curator check-target-
 # * Upload the new plan .yaml file to the appropriate Github repo
 # * Register as a new Hackage distro
 docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "stackage-curator upload-docs --target $TARGET --bundle-file $BUNDLE_FILE && stackage-curator upload-index --plan-file $PLAN_FILE --target $TARGET && stackage-curator upload-github --plan-file $PLAN_FILE --docmap-file $DOCMAP_FILE --target $TARGET && exec stackage-curator hackage-distro --plan-file $PLAN_FILE --target $TARGET"
-
-if [ $SHORTNAME = "lts" ]
-then
-    echo "Running cron.sh (hiding verbose output)"
-    ./cron.sh | grep -v '^Skipping'
-    echo "done."
-fi
 
 date
