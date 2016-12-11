@@ -3285,3 +3285,14 @@ tell-me-when-its-released:
 - terminal-progress-bar-0.1.1 # Unskip test suite
 - optparse-applicative-0.13.0.0 # Unskip test suite https://github.com/pcapriotti/optparse-applicative/issues/228
 - hakyll-4.9.2.0 # re-enable tests
+
+# Packages which should be hidden after registering, to avoid module name
+# conflicts. This is intended for at least two use cases:
+#
+# * Making doctests pass (https://github.com/yesodweb/wai/issues/579)
+#
+# * Allowing tools like Stack to get a mapping from module name to package name
+# for automatically installing dependencies
+hide:
+- async-dejafu # https://github.com/yesodweb/wai/issues/579
+- monads-tf # mtl is preferred
