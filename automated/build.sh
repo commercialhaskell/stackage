@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eux
+set -eu +x
 
 ROOT=$(cd $(dirname $0) ; pwd)
 TARGET=$1
