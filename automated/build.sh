@@ -98,11 +98,16 @@ curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip
 
 # Determine the new build plan unless NOPLAN is set
 #
-# * Update the package index
+# * Update the package index (unless LTS)
 # * Create a new plan
 if [ "${NOPLAN:-}x" = "x" ]
 then
-  docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "stack update && exec stackage-curator create-plan --plan-file $PLAN_FILE --target $TARGET ${CONSTRAINTS:-}"
+    if [ $SHORTNAME = "lts" ]
+    then
+        docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "exec stackage-curator create-plan --plan-file $PLAN_FILE --target $TARGET ${CONSTRAINTS:-}"
+    else
+        docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "stack update && exec stackage-curator create-plan --plan-file $PLAN_FILE --target $TARGET ${CONSTRAINTS:-}"
+    fi
 fi
 
 # Do the rest of the pre-build actions:
