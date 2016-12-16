@@ -1565,6 +1565,9 @@ packages:
         - distributed-closure
         - H
         - inline-r
+        - jni
+        - jvm
+        - sparkle
         - th-lift
 
     "Christopher Reichert <creichert07@gmail.com> @creichert":
@@ -2319,8 +2322,6 @@ packages:
     "Alp Mestanogullari <alpmestan@gmail.com> @alpmestan":
         - taggy
         - taggy-lens
-        # 0.1 Compilation failure https://github.com/fpco/stackage/issues/1660 - inline-java
-        # via inline-java - sparkle
 
     "Alex McLean <lxyxpx@gmail.com> @yaxu":
         - tidal
@@ -2807,11 +2808,15 @@ configure-args:
   - /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server
   - --extra-include-dirs
   - /usr/lib/jvm/java-8-openjdk-amd64/include
+  - --extra-include-dirs
+  - /usr/lib/jvm/java-8-openjdk-amd64/include/linux
   sparkle:
   - --extra-lib-dirs
   - /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server
   - --extra-include-dirs
   - /usr/lib/jvm/java-8-openjdk-amd64/include
+  - --extra-include-dirs
+  - /usr/lib/jvm/java-8-openjdk-amd64/include/linux
   hocilib:
   - --extra-lib-dirs
   - /usr/local/lib
