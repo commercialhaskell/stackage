@@ -162,3 +162,7 @@ cd /tmp \
     && echo "/usr/local/lib" > /etc/ld.so.conf.d/usr-local.conf \
     && echo "/usr/lib/oracle/12.1/client64/lib" > /etc/ld.so.conf.d/oracle-client.conf \
     && ldconfig
+
+# Add JDK to system paths.
+echo "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/" > /etc/ld.so.conf.d/openjdk.conf \
+    && ldconfig
