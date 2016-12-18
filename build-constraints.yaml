@@ -2292,7 +2292,7 @@ packages:
         - ua-parser
         - hs-GeoIP
         - retry
-        - katip
+        - katip 
         - katip-elasticsearch
 
     "Sid Kapur sidharthkapur1@gmail.com @sid-kap":
@@ -2767,6 +2767,10 @@ package-flags:
     tar:
         old-time: false
 
+    # https://github.com/fpco/stackage/pull/482#issuecomment-83635207
+    jose-jwt:
+        doctest: false
+
     time-locale-compat:
         old-locale: false
 
@@ -3067,6 +3071,12 @@ expected-test-failures:
     # Misc.
     - distributed-process-supervisor # # https://github.com/haskell-d
     - ghcid # Weird conflicts with sandboxingistributed/distributed-process-supervisor/issues/1
+
+    # Doctest ran across ambiguous modules
+    # https://github.com/bergmark/blog/blob/master/2016/package-faq.md#ambiguous-modules-when-using-doctest
+    - doctest # 0.11.0 https://github.com/sol/doctest/issues/137
+    - jwt # https://bitbucket.org/ssaasen/haskell-jwt/issues/18/test-suite-build-failure-in-stackage
+    - warp # https://github.com/yesodweb/wai/issues/579
 
     # Stackage upper bounds, re-enable these when their upper bound is removed
     - hindent # 4.6.4
