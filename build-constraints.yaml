@@ -1418,6 +1418,7 @@ packages:
         - pipes-csv
         - pipes-mongodb
         - skeletons
+        - streaming-wai
 
     # "Smirnov Alexey <chemistmail@gmail.com> @chemist":
         # GHC 8 - snmp
@@ -1565,6 +1566,10 @@ packages:
         - distributed-closure
         - H
         - inline-r
+        - jni
+        # Temporary block for https://github.com/fpco/stackage/pull/2139
+        # - jvm
+        # - sparkle
         - th-lift
 
     "Christopher Reichert <creichert07@gmail.com> @creichert":
@@ -1841,6 +1846,7 @@ packages:
 
     "Dmitry Ivanov <ethercrow@gmail.com> @ethercrow":
         - charsetdetect-ae
+        - compiler-errors
         - docopt
         - dynamic-state
         - dyre
@@ -1849,13 +1855,21 @@ packages:
         - pointedlist
         - word-trie
         - xdg-basedir
-        # - yi BLOCKED due to yi-language
-        #- yi-fuzzy-open
-
-        # https://github.com/yi-editor/yi/issues/922
-        # - yi-language
-
+        # - yi -- disabled because of https://github.com/commercialhaskell/stack/issues/2795
+        - yi-core
+        # - yi-frontend-pango -- disabled because of https://github.com/commercialhaskell/stack/issues/2795
+        - yi-frontend-vty
+        - yi-fuzzy-open
+        - yi-ireader
+        - yi-keymap-cua
+        - yi-keymap-emacs
+        #- yi-keymap-vim # https://github.com/yi-editor/yi/issues/954
+        - yi-language
+        - yi-misc-modes
+        - yi-mode-haskell
+        - yi-mode-javascript
         - yi-rope
+        - yi-snippet
 
     "Tobias Bexelius <tobias_bexelius@hotmail.com> @tobbebex":
         - GPipe
@@ -2310,8 +2324,6 @@ packages:
     "Alp Mestanogullari <alpmestan@gmail.com> @alpmestan":
         - taggy
         - taggy-lens
-        # 0.1 Compilation failure https://github.com/fpco/stackage/issues/1660 - inline-java
-        # via inline-java - sparkle
 
     "Alex McLean <lxyxpx@gmail.com> @yaxu":
         - tidal
@@ -2659,6 +2671,9 @@ packages:
     "Alexey Kuleshevich <lehins@yandex.ru> @lehins":
         - hip
 
+    "Hans-Peter Deifel <hpd@hpdeifel.de> @hpdeifel":
+        - hledger-iadd
+
     # If you stop maintaining a package you can move it here.
     # It will then be disabled if it starts causing problems.
     # See https://github.com/fpco/stackage/issues/1056
@@ -2705,6 +2720,14 @@ packages:
 
         # https://github.com/fpco/stackage/issues/2032
         - datasets < 0.2.2
+
+        # https://github.com/fpco/stackage/issues/2136
+        - X11 < 1.7
+
+        # https://github.com/fpco/stackage/issues/2143
+        - cryptonite < 0.21
+        - memory < 0.14
+        - tls < 1.3.9
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
@@ -2792,11 +2815,22 @@ configure-args:
   - /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server
   - --extra-include-dirs
   - /usr/lib/jvm/java-8-openjdk-amd64/include
+  - --extra-include-dirs
+  - /usr/lib/jvm/java-8-openjdk-amd64/include/linux
+  jvm:
+  - --extra-lib-dirs
+  - /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server
+  - --extra-include-dirs
+  - /usr/lib/jvm/java-8-openjdk-amd64/include
+  - --extra-include-dirs
+  - /usr/lib/jvm/java-8-openjdk-amd64/include/linux
   sparkle:
   - --extra-lib-dirs
   - /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server
   - --extra-include-dirs
   - /usr/lib/jvm/java-8-openjdk-amd64/include
+  - --extra-include-dirs
+  - /usr/lib/jvm/java-8-openjdk-amd64/include/linux
   hocilib:
   - --extra-lib-dirs
   - /usr/local/lib
@@ -2959,6 +2993,7 @@ expected-test-failures:
     - hedis
     - hocilib # oracle
     - hworker
+    - jvm
     - katip-elasticsearch # elasticsearch
     - log # ElasticSearch
     - mangopay # https://github.com/prowdsponsor/mangopay/issues/30
@@ -3094,7 +3129,7 @@ expected-benchmark-failures:
     - dbus # No issue tracker, sent e-mail to maintainer
     - thyme # https://github.com/liyang/thyme/issues/50
     - xmlgen # https://github.com/skogsbaer/xmlgen/issues/6
-    - varying # https://github.com/schell/varying/issues/15
+
 # end of expected-benchmark-failures
 
 
@@ -3276,3 +3311,15 @@ tell-me-when-its-released:
 - terminal-progress-bar-0.1.1 # Unskip test suite
 - optparse-applicative-0.13.0.0 # Unskip test suite https://github.com/pcapriotti/optparse-applicative/issues/228
 - hakyll-4.9.2.0 # re-enable tests
+- Spock-core-0.11.0.0 # testsuite fail
+
+# Packages which should be hidden after registering, to avoid module name
+# conflicts. This is intended for at least two use cases:
+#
+# * Making doctests pass (https://github.com/yesodweb/wai/issues/579)
+#
+# * Allowing tools like Stack to get a mapping from module name to package name
+# for automatically installing dependencies
+hide:
+- async-dejafu # https://github.com/yesodweb/wai/issues/579
+- monads-tf # mtl is preferred
