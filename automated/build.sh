@@ -77,6 +77,7 @@ rm -f stackage-curator stackage-curator.bz2
 wget https://s3.amazonaws.com/stackage-travis/stackage-curator/stackage-curator.bz2
 bunzip2 stackage-curator.bz2
 chmod +x stackage-curator
+stackage-curator --version
 )
 
 ARGS_COMMON="--rm -v $WORKDIR:$HOME/work -w $HOME/work -v $BINDIR/stackage-curator:/usr/bin/stackage-curator:ro -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v $EXTRA_BIN_DIR/stack:/usr/bin/stack:ro"
