@@ -84,6 +84,7 @@ apt-get install -y \
     libmpfr-dev \
     libmysqlclient-dev \
     libncurses-dev \
+    libnfc-dev \
     libnotify-dev \
     libopenal-dev \
     libpango1.0-dev \

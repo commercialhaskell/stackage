@@ -1567,8 +1567,8 @@ packages:
         - H
         - inline-r
         - jni
-        # Temporary block for https://github.com/fpco/stackage/pull/2139
-        # - jvm
+        - jvm
+        # BLOCKED GHC 8.0.2
         # - sparkle
         - th-lift
 
@@ -1768,6 +1768,7 @@ packages:
 
     "Timo von Holtz <tvh@tvholtz.de> @tvh":
         # via haxl - haxl-amazonka
+        - hasql-migration
         - servant-JuicyPixels
 
     "Artyom <yom@artyom.me> @neongreen":
@@ -2070,6 +2071,7 @@ packages:
         - cacophony
         - pipes-cacophony
         - blake2
+        - nfc
 
     "Adam Curtis <kallisti.dev@gmail.com> @kallisti-dev":
         []
@@ -2292,7 +2294,7 @@ packages:
         - ua-parser
         - hs-GeoIP
         - retry
-        - katip 
+        - katip
         - katip-elasticsearch
 
     "Sid Kapur sidharthkapur1@gmail.com @sid-kap":
@@ -2728,6 +2730,10 @@ packages:
         - cryptonite < 0.21
         - memory < 0.14
         - tls < 1.3.9
+
+        # https://github.com/fpco/stackage/issues/2148
+        - rattletrap < 2.1.0
+
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
@@ -2766,10 +2772,6 @@ package-flags:
 
     tar:
         old-time: false
-
-    # https://github.com/fpco/stackage/pull/482#issuecomment-83635207
-    jose-jwt:
-        doctest: false
 
     time-locale-compat:
         old-locale: false
@@ -2990,6 +2992,7 @@ expected-test-failures:
     - happy # Needs mtl in the user package DB
     - haskell-neo4j-client # neo4j with auth disabled
     - hasql # PostgreSQL
+    - hasql-transaction # PostgreSQL
     - hedis
     - hocilib # oracle
     - hworker
@@ -3041,6 +3044,7 @@ expected-test-failures:
     - rematch # No issue tracker, sent e-mail to maintainer https://github.com/fpco/stackage/issues/376
     - xlsior # https://github.com/rcallahan/xlsior/issues/1
     - hakyll # https://github.com/jaspervdj/hakyll/issues/491
+    - ginger # https://bitbucket.org/tdammers/ginger/issues/1/test-suite-failure-due-to-missing-test
 
     # Assertion failures, these can be real bugs or just limitations
     # in the test cases.
@@ -3071,12 +3075,6 @@ expected-test-failures:
     # Misc.
     - distributed-process-supervisor # # https://github.com/haskell-d
     - ghcid # Weird conflicts with sandboxingistributed/distributed-process-supervisor/issues/1
-
-    # Doctest ran across ambiguous modules
-    # https://github.com/bergmark/blog/blob/master/2016/package-faq.md#ambiguous-modules-when-using-doctest
-    - doctest # 0.11.0 https://github.com/sol/doctest/issues/137
-    - jwt # https://bitbucket.org/ssaasen/haskell-jwt/issues/18/test-suite-build-failure-in-stackage
-    - warp # https://github.com/yesodweb/wai/issues/579
 
     # Stackage upper bounds, re-enable these when their upper bound is removed
     - hindent # 4.6.4
@@ -3323,3 +3321,5 @@ tell-me-when-its-released:
 hide:
 - async-dejafu # https://github.com/yesodweb/wai/issues/579
 - monads-tf # mtl is preferred
+- protolude # `module Panic` conflicts with base
+- cryptohash # Superceeded by cryptonite
