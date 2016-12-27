@@ -975,10 +975,10 @@ packages:
 
     "Renzo Carbonara <renzocarbonara@gmail.com> @k0001":
         - network-simple
-        - pipes-aeson
-        - pipes-attoparsec
+        # - pipes-aeson # bounds: pipes 4.3
+        # - pipes-attoparsec # bounds: pipes 4.3
         # - pipes-binary # bounds: binary, pipes, transformers
-        - pipes-network
+        # - pipes-network # bounds: pipes 4.3
 
     "Tomas Carnecky @wereHamster":
         - avers
@@ -1642,7 +1642,7 @@ packages:
         - hedis
 
     "Rob O'Callahan ropoctl@gmail.com @rcallahan":
-        - pipes-fastx
+        # - pipes-fastx # via pipes-attoparsec
         # - pipes-illumina # via: pipes-bgzf
         - seqalign
         - thermonuc
@@ -1940,14 +1940,14 @@ packages:
         - moesocks
 
     "Gregory W. Schwartz <gregory.schwartz@drexel.edu> @GregorySchwartz":
-        - fasta
-        - diversity
-        - modify-fasta
+        # - fasta # via pipes-attoparsec
+        # - diversity # via fasta
+        # - modify-fasta # via fasta
         - tree-fun
         - random-tree
         - clumpiness
         # - find-clumpiness # build failure against optparse-applicative https://github.com/GregorySchwartz/find-clumpiness/issues/1
-        - blosum
+        # - blosum # via fasta
 
     "Simon Marechal <bartavelle@gmail.com> @bartavelle":
         - compactmap
@@ -2701,10 +2701,6 @@ packages:
 
         # https://github.com/haskell/vector/issues/142
         - primitive < 0.6.2.0
-
-        # https://github.com/fpco/stackage/issues/2108
-        - pipes < 4.3.0
-        - pipes-safe < 2.2.5
 
         # https://github.com/fpco/stackage/issues/2127
         - leapseconds-announced < 2017.0.0.1
