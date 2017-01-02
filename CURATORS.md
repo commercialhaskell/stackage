@@ -207,7 +207,7 @@ You'll need to get your SSH public key added to the machine. ~/.ssh/config info:
 ```
 Host stackage-build
     User curators
-    Hostname ec2-52-5-20-252.compute-1.amazonaws.com
+    Hostname build.stackage.org
 ```
 
 ### Running the build script
