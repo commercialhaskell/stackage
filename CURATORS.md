@@ -300,5 +300,5 @@ errors for builds/tests/benchmarks.
 
 ## Adding new curators
 
-1. Add public ssh key to build server
+1. Add public ssh key to `~/.ssh/authorized_keys` on build server
 2. Add to fpco/stackage project.
