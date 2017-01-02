@@ -279,15 +279,15 @@ Replace nightly with `lts7` to wipe the LTS 7 cache.
 
 ## Local curator setup
 
-We don't run the full stackage build locally as that might take too
+We do not run the full stackage build locally as that might take too
 much time. Some steps on the other hand are much faster to do
 yourself.
 
-It's useful to be able to modify constraints locally before pushing to
+It is useful to be able to modify constraints locally before pushing to
 the repository. To do this first install stackage-curator:
 `git clone git@github.com:fpco/stackage-curator.git && cd stackage-curator && stack install`
 or get the linux binary: https://s3.amazonaws.com/stackage-travis/stackage-curator/stackage-curator.bz2
-(it's a good idea to upgrade stackage-curator at least at the start of your week as curator).
+(it is a good idea to upgrade stackage-curator at least at the start of your week as curator).
 Then clone the stackage repo `git clone git@github.com:fpco/stackage.git`.
 Inside it run `stack update && stackage-curator check` to get new packages and do dependency resolution.
 
@@ -295,5 +295,10 @@ This can be used to make sure all version bounds are in place
 (including for test suites and benchmarks), to check whether bounds
 can be lifted, and to get `tell-me-when-its-released` notifications.
 
-Notably this doesn't build anything, so you won't see any compilation
+Notably this does not build anything, so you wont see any compilation
 errors for builds/tests/benchmarks.
+
+## Adding new curators
+
+1. Add public ssh key to build server
+2. Add to fpco/stackage project.
