@@ -94,7 +94,19 @@ You can try this when you notice that a package has been updated. You
 can also periodically try to lift bounds (I think it's good to do this
 at the start of your week /@bergmark)
 
-If stackage-curator is happy commit the change ("Remove upper bounds and close #X").
+If not all packages have been updated check if any of them are missing
+from the original issue and if so add a new comment mentioning them. A
+new package may appear if its dependencies were part of this issue but
+have been updated since the last time we checked. We want to give
+these new packages ample time to be upgraded.
+
+If stackage-curator is happy commit the change ("Remove upper bounds
+and close #X"). After doing this the next nightly build may fail
+because some packages didn't have an upper bound in place, but
+compilation failed. In this case revert the previous commit so any
+disabled packages are enabled again, re-open the issue, and add a new
+comment with the failing packages. This is to give all maintainers
+enough time to upgrade for this case as well.
 
 ### Amending upper bounds
 
@@ -154,8 +166,11 @@ Comment out the offending packages from the "packages" section and add
 a comment saying why it was disabled:
 
 ```
-        # - swagger # BLOCKED aeson 1.0
+        # - swagger # bounds: aeson 1.0
 ```
+
+If this causes reverse dependencies to be disabled we should notify
+the maintainers of those packages.
 
 
 ## Updating the content of the Docker image used for building
