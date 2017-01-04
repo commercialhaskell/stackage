@@ -304,23 +304,34 @@ $ rm /var/stackage/stackage/automated/nightly/work/builds/nightly/prevres/Build/
 ## Local curator setup
 
 We do not run the full stackage build locally as that might take too
-much time. Some steps on the other hand are much faster to do
-yourself.
+much time. However, some steps on the other hand are much faster to do
+yourself, e.g. verifying constraints without building anything.
 
-It is useful to be able to modify constraints locally before pushing to
-the repository. To do this first install stackage-curator:
-`git clone git@github.com:fpco/stackage-curator.git && cd stackage-curator && stack install`
-or get the linux binary: https://s3.amazonaws.com/stackage-travis/stackage-curator/stackage-curator.bz2
-(it is a good idea to upgrade stackage-curator at least at the start of your week as curator).
-Then clone the stackage repo `git clone git@github.com:fpco/stackage.git`.
-Inside it run `stack update && stackage-curator check` to get new packages and do dependency resolution.
+To get started, install `stackage-curator` via Git, or [the Linux binary]:
 
-This can be used to make sure all version bounds are in place
-(including for test suites and benchmarks), to check whether bounds
-can be lifted, and to get `tell-me-when-its-released` notifications.
+```
+$ git clone git@github.com:fpco/stackage-curator.git
+$ cd stackage-curator && stack install
+```
 
-Notably this does not build anything, so you wont see any compilation
-errors for builds/tests/benchmarks.
+It is a good idea to upgrade `stackage-curator` at the start of your week.
+Then, clone the stackage repo, get the latest packages and run dependency
+resolution:
+
+```
+$ git clone git@github.com:fpco/stackage.git
+$ stack update && stackage-curator check
+```
+
+This can be used to make sure all version bounds are in place, including for
+test suites and benchmarks, to check whether bounds can be lifted, and to get
+[tell-me-when-its-released] notifications.
+
+`stackage-curator` does not build anything, so you wont see any compilation
+errors for builds, tests and benchmarks.
+
+[the Linux binary]: https://s3.amazonaws.com/stackage-travis/stackage-curator/stackage-curator.bz2
+[tell-me-when-its-released]: https://github.com/fpco/stackage/blob/master/CURATORS.md#waiting-for-new-releases
 
 ## Adding new curators
 
