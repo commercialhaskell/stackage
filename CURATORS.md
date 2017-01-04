@@ -94,7 +94,19 @@ You can try this when you notice that a package has been updated. You
 can also periodically try to lift bounds (I think it's good to do this
 at the start of your week /@bergmark)
 
-If stackage-curator is happy commit the change ("Remove upper bounds and close #X").
+If not all packages have been updated check if any of them are missing
+from the original issue and if so add a new comment mentioning them. A
+new package may appear if its dependencies were part of this issue but
+have been updated since the last time we checked. We want to give
+these new packages ample time to be upgraded.
+
+If stackage-curator is happy commit the change ("Remove upper bounds
+and close #X"). After doing this the next nightly build may fail
+because some packages didn't have an upper bound in place, but
+compilation failed. In this case revert the previous commit so any
+disabled packages are enabled again, re-open the issue, and add a new
+comment with the failing packages. This is to give all maintainers
+enough time to upgrade for this case as well.
 
 ### Amending upper bounds
 
@@ -154,8 +166,11 @@ Comment out the offending packages from the "packages" section and add
 a comment saying why it was disabled:
 
 ```
-        # - swagger # BLOCKED aeson 1.0
+        # - swagger # bounds: aeson 1.0
 ```
+
+If this causes reverse dependencies to be disabled we should notify
+the maintainers of those packages.
 
 
 ## Updating the content of the Docker image used for building
@@ -277,26 +292,46 @@ You can wipe the nightly cache and rebuild everything by doing
 `rm -rf /var/stackage/stackage/automated/nightly`.
 Replace nightly with `lts7` to wipe the LTS 7 cache.
 
+### Force a single package rebuild
+
+You can force a single package to rebuild by deleting its "previous result"
+file, e.g.:
+
+```
+$ rm /var/stackage/stackage/automated/nightly/work/builds/nightly/prevres/Build/cryptohash-0.11.9
+```
+
 ## Local curator setup
 
 We do not run the full stackage build locally as that might take too
-much time. Some steps on the other hand are much faster to do
-yourself.
+much time. However, some steps on the other hand are much faster to do
+yourself, e.g. verifying constraints without building anything.
 
-It is useful to be able to modify constraints locally before pushing to
-the repository. To do this first install stackage-curator:
-`git clone git@github.com:fpco/stackage-curator.git && cd stackage-curator && stack install`
-or get the linux binary: https://s3.amazonaws.com/stackage-travis/stackage-curator/stackage-curator.bz2
-(it is a good idea to upgrade stackage-curator at least at the start of your week as curator).
-Then clone the stackage repo `git clone git@github.com:fpco/stackage.git`.
-Inside it run `stack update && stackage-curator check` to get new packages and do dependency resolution.
+To get started, install `stackage-curator` via Git, or [the Linux binary]:
 
-This can be used to make sure all version bounds are in place
-(including for test suites and benchmarks), to check whether bounds
-can be lifted, and to get `tell-me-when-its-released` notifications.
+```
+$ git clone git@github.com:fpco/stackage-curator.git
+$ cd stackage-curator && stack install
+```
 
-Notably this does not build anything, so you wont see any compilation
-errors for builds/tests/benchmarks.
+It is a good idea to upgrade `stackage-curator` at the start of your week.
+Then, clone the stackage repo, get the latest packages and run dependency
+resolution:
+
+```
+$ git clone git@github.com:fpco/stackage.git
+$ stack update && stackage-curator check
+```
+
+This can be used to make sure all version bounds are in place, including for
+test suites and benchmarks, to check whether bounds can be lifted, and to get
+[tell-me-when-its-released] notifications.
+
+`stackage-curator` does not build anything, so you wont see any compilation
+errors for builds, tests and benchmarks.
+
+[the Linux binary]: https://s3.amazonaws.com/stackage-travis/stackage-curator/stackage-curator.bz2
+[tell-me-when-its-released]: https://github.com/fpco/stackage/blob/master/CURATORS.md#waiting-for-new-releases
 
 ## Adding new curators
 
