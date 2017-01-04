@@ -3328,8 +3328,43 @@ hide:
 - async-dejafu # https://github.com/yesodweb/wai/issues/579
 - monads-tf # mtl is preferred
 - protolude # `module Panic` conflicts with base
-- cryptohash # Superceeded by cryptonite
-- crypto-random # Superceeded by cryptonite
-- crypto-pubkey # Superceded by cryptonite
-- crypto-numbers # Superceded by cryptonite
 - crypto-api # `module Crypto.Random` conflicts with cryptonite
+- fay-base # conflicts with many modules in base and others
+- hashmap # conflicts with Data.HashSet in unordered-containers
+- hxt-unicode # conflicts with Data.String.UTF8 in utf8-string
+- hledger-web # conflicts with Foundation in foundation
+- plot-gtk3 # conflicts with many modules in plot-gtk
+- gtk3 # conflicts with many modules in gtk
+- regex-pcre-builtin # conflicts with many modules in regex-pcre
+- regex-compat-tdfa # conflicts with many modules in regex-compat
+- log # conflicts with modules in its dependencies
+- zip # conflicts with Codec.Archive.Zip in zip-archive
+- monad-extras # conflicts with Control.Monad.Extra in extra
+- control-monad-free # conflicts with Control.Monad.Free in free
+- prompt # conflicts with Control.Monad.Prompt in MonadPrompt
+- kawhi # conflicts with Control.Monad.Http in monad-http
+- language-c # conflicts with modules in language-c-quote
+- gl # conflicts with modules in OpenGLRaw
+- svg-tree # conflicts with Graphics.Svg in svg-builder
+- Glob # conflicts with System.FilePath.Glob in filemanip
+- nanospec # conflicts with Test.Hspec in hspec
+- HTF # conflicts with Test.Framework in test-framework
+- courier # conflicts with Network.Transport in network-transport
+- newtype-generics # conflicts with Control.Newtype in newtype
+
+# Cryptonite deprecations
+- cipher-aes
+- cipher-blowfish
+- cipher-camellia
+- cipher-des
+- cipher-rc4
+- crypto-cipher-types
+- crypto-numbers
+- crypto-pubkey
+- crypto-random
+- cryptohash-conduit
+
+# cryptohash forks
+- cryptohash-md5
+- cryptohash-sha1
+- cryptohash-sha256
