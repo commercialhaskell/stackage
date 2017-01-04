@@ -292,6 +292,15 @@ You can wipe the nightly cache and rebuild everything by doing
 `rm -rf /var/stackage/stackage/automated/nightly`.
 Replace nightly with `lts7` to wipe the LTS 7 cache.
 
+### Force a single package rebuild
+
+You can force a single package to rebuild by deleting its "previous result"
+file, e.g.:
+
+```
+$ rm /var/stackage/stackage/automated/nightly/work/builds/nightly/prevres/Build/cryptohash-0.11.9
+```
+
 ## Local curator setup
 
 We do not run the full stackage build locally as that might take too
