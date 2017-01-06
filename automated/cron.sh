@@ -13,8 +13,8 @@ docker pull $IMAGE
 
 stack update
 
+date
 echo "Running stackage-server-cron..."
-echo "('tail -f $CRONDIR/stackage-server-cron.log' to watch)"
 docker run --rm \
     -v $CRONDIR:/home/ubuntu \
     -v $HOME/.stack/indices:/home/ubuntu/.stack/indices:ro \
