@@ -1,14 +1,44 @@
-This project is built around the concept of maintainers taking responsibility for making their packages work with the rest of the stable ecosystem, usually meaning the newest version of all dependencies. This is a social contract, and is not reflected in the codebase in any way.
+## Introduction
 
-The idea behind Stackage is that, if all packages work with the newest versions of dependencies, we avoid dependency hell. Specifically, we aim for:
+Stackage provides a series of snapshots: a set of tuples of packages and exact versions that is free of incompatibilities. It relies on two parties: Firstly repeated automated testing ensures that incompatibilities with newly released packages are detected, and secondly maintainers update their packages to keep them up to date with their dependencies.
 
-* All packages are buildable and testable from Hackage. We recommend [the Stack Travis script](http://docs.haskellstack.org/en/stable/GUIDE.html#travis-with-caching), which ensures a package is not accidentally incomplete.
-* All packages are compatible with the newest versions of all dependencies (You can find restrictive upper bounds by visiting http://packdeps.haskellers.com/feed?needle=PACKAGENAME).
-* All packages in a snapshot are compatible with the versions of libraries that ship with the GHC used in the snapshot ([more information on lenient lower bounds](https://www.fpcomplete.com/blog/2014/05/lenient-lower-bounds)).
+Membership in any stackage snapshot is not reflected in a package's content; the stackage repository contains the metadata that determines membership.
+
+To ensure that everything goes smoothly for users of stackage now and in the future, there are some expectations for packages and their maintainers:
+
+
+# Expectations
+
+The following conditions apply to any package included in the (next) snapshot:
+
+  * It must be compatible with the latest versions of all of its dependencies;
+  * It must be compatible with the versions of libraries (aka `bootlibs`) shipping with the GHC connected to the snapshot (see the note below);
+  * It must compile and test successfully with the usual automated building infrastructure (e.g. by the hackage buildbot);
+  * (It probably should also be compatible with the latest published snapshot.)
+
+The package maintainer is expected to ensure that a package continues to meet the above requirements by updating/fixing a package when dependencies are updated. The recommended timeframe for such fixes are:
+
+  * **Up to one week** if restrictive version bounds are the only problem;
+  * **Between a week and a month**, depending on the work required, if the cause of the issue is a breaking change in a dependency.
+
+Packages that fail to meet above requirements can be removed from future snapshots, if the package maintainer fails to respect the above timeframes (e.g. we rather remove random package B than have it prevent updating of wildly used package A). This is not ideal for other users, but is not the end of the world either - existing snapshots are not affected, and packages can always be added back again later. Maintainers are encouraged to seek for co-maintainers if they are too busy for keeping the package up to date.
+
+If you wish that some package was added to stackage, but you are not its author/maintainer, your first step should be to reach out to the (hackage) maintainers and ask them to become maintainers for the package on stackage as well (or look into the package's issue tracker if this was requested before). While it is not mandatory that maintainership does not differ between stackage and hackage, it generally should be ensured that the stackage maintainer has the ability to update/fix packages as discussed above and publish those fixes in a timely fashion.
+
+# Notes
+
+- To ensure that package are complete and compile/test successfully we recommend [the Stack Travis script](http://docs.haskellstack.org/en/stable/GUIDE.html#travis-with-caching).
+
+- To test that pvp-compliant restrictive upper bounds are up to date to the dependencies' latest versions you can find visit `http://packdeps.haskellers.com/feed?needle=PACKAGENAME`.
+
+- When a new version is released for a bootlib (`binary`, `containers`, `process`, etc.), the latest version becomes distinct from the version distributed as part of a snapshot's GHC release. Packages should support both these versions. See [more information on lenient lower bounds](https://www.fpcomplete.com/blog/2014/05/lenient-lower-bounds) for further explanation.
+
+- It is highly recommended that all package maintainers follow the dependencies of their packages on [Packdeps](http://packdeps.haskellers.com/), typically using the RSS feeds.
+
+
+# Processes
 
 ## Adding a package
-
-Anyone can add any package to Stackage but you may only add packages under your own name. It's highly encouraged that the actual package maintainer is also the Stackage maintainer, if that is not the case you should drop the package maintainer a note first.
 
 To add your package, first fork this repository.
 In the [`build-constraints.yaml`](https://github.com/fpco/stackage/blob/master/build-constraints.yaml) file, there's a section called `packages`.
@@ -44,7 +74,8 @@ recommend waiting an hour before opening the PR. You can verify this
 by making sure the latest version is listed at 
 https://github.com/commercialhaskell/all-cabal-metadata/tree/master/packages/.
 
-## Uploading a new package
+
+## Uploading a new version for an included package
 
 When a new version of a package is uploaded to Hackage, we automatically try to include it in Stackage (unless the new version is considered experimental). That can result in a number of possible failures. If there is a failure we temporarily introduce an upper bound, and raise GitHub issue tickets to resolve the issue.
 
@@ -52,21 +83,6 @@ If the new version doesn't compile then the package author should quickly (withi
 
 If a package's test suite is failing, the first job is to investigate why. If this is due to a bad interaction with versions of other packages in Stackage, then it is the responsibility of the maintainer to fix the test suite. In some situations, it is acceptable to not run the test suite.
 
-
-## Following dependency upgrades
-
-If a new version of a dependency is released, and that stops your package compiling/passing the tests, then it is your responsibility to modify your package. It is highly recommended that all package maintainers follow the dependencies of their packages on [Packdeps](http://packdeps.haskellers.com/), typically using the RSS feeds.
-
-**If restrictive version bounds are the only problem** then you must quickly (within 1 week) upload a new version with relaxed version bounds. Note that unlike the PVP, Stackage does not require upper bounds.
-
-**If the new dependency causes breaking changes** then all package authors should quickly assess the likely impact on their package (within 1 week) and then produce a new compatible version. The expected timeline for new versions varies between 1 week and 1 month, depending on the significance of the change, and thus the work required to produce those new versions.
-
-
-## Failing to meet the time limits
-
-Maintainers are humans, humans get sick/have babies/go on holiday. If you have regular problems meeting the limits, find a co-maintainer. If you have a one-off problem, respond to the GitHub tickets saying so, and some kind soul might pick up the slack.
-
-The time limits are intended to stop people being inconvenienced because of problems in other packages. Where such inconvenience happens, we will drop the offending packages from Stackage. While upper bounds are sometimes a temporary solution, they are against the ethos of Stackage, so will not be kept for long.
 
 ## Upgrading to a new GHC version
 
@@ -77,6 +93,7 @@ The Stackage curation team tries to move Stackage Nightly to new versions of GHC
 * Packages that are incompatible with the newest GHC version will be temporarily blocked
 
 If your package ends up being temporarily removed from Stackage Nightly, please simply send a pull request to add it back once it and its dependencies are compatible with the newest GHC version.
+
 
 ## Adding a package to an LTS snapshot
 

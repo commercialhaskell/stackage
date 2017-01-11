@@ -7,26 +7,19 @@ stackage
 This repository is for package authors and maintainers to get their packages into Stackage.
 If you simply want to use Stackage as an end user, please follow the instructions on [https://www.stackage.org/](https://www.stackage.org).
 
-We strongly recommend using the Haskell tool stack for doing builds, which
-includes built-in Stackage support: [stack](https://github.com/commercialhaskell/stack) [![Build Status](https://travis-ci.org/commercialhaskell/stack.svg?branch=master)](https://travis-ci.org/commercialhaskell/stack).
+We strongly recommend using the Haskell tool `stack` for doing builds, which
+has Stackage support built-in: [stack](https://github.com/commercialhaskell/stack) [![Build Status](https://travis-ci.org/commercialhaskell/stack.svg?branch=master)](https://travis-ci.org/commercialhaskell/stack).
 
 
 Add your package
 ----------------
 
-We welcome all packages, provided:
+We welcome all packages, given that
 
-* The package author/maintainer agrees to the [maintainers agreement](https://github.com/fpco/stackage/blob/master/MAINTAINERS.md).
-* The package is buildable and testable from Hackage. We recommend [the Stack Travis script](http://docs.haskellstack.org/en/stable/GUIDE.html#travis-with-caching), which ensures a package is not accidentally incomplete.
-* The package is compatible with the newest versions of all dependencies (You can find restrictive upper bounds by visiting http://packdeps.haskellers.com/feed?needle=PACKAGENAME).
-* The package is compatible with the versions of libraries that ship with GHC ([more information on lenient lower bounds](https://www.fpcomplete.com/blog/2014/05/lenient-lower-bounds)).
+* they are compatible with current snapshots (roughly speaking: work with the latest released versions of GHC and of all the package's dependencies);
+* there is a maintainer willing to promise to keep it that way.
 
-Full details on how to add and test a package can be found in the [maintainers agreement](https://github.com/fpco/stackage/blob/master/MAINTAINERS.md#adding-a-package).
-
-__NOTE__: There is an approximate 30 minute delay between a package uploading
-to Hackage and being available to the Travis build script to check upper
-bounds. If a pull request is marked as failed due to using an older version,
-please close and reopen the PR to retrigger a Travis build.
+See the [maintainers agreement](MAINTAINERS.md) for more details.
 
 Other repos
 -----------
@@ -51,7 +44,7 @@ Stackage both easier and more secure:
 * [stackage-build-plan](https://github.com/fpco/stackage-build-plan) [![Build Status](https://travis-ci.org/fpco/stackage-build-plan.svg?branch=master)](https://travis-ci.org/fpco/stackage-build-plan)
 
 Curious how it all fits together? See the [Stackage data
-flow](https://github.com/fpco/stackage/blob/master/DATA-FLOW.md).
+flow](DATA-FLOW.md).
 
 
 Build the package set
@@ -61,7 +54,7 @@ Generally only the stackage build server run by the stackage curator
 team and people intrested in incorporating stackage snapshots into an
 OS distribution need to build the entire package set. If you're
 interested in trying this yourself, please check out
-[the curator guide](https://github.com/fpco/stackage/blob/master/CURATORS.md),
+[the curator guide](CURATORS.md),
 though be aware that this is not a recommended practice and there
 likely will be problems you will need to debug yourself.
 
