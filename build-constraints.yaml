@@ -873,6 +873,7 @@ packages:
        - psql-helpers
        - superbuffer
        - timespan
+       - distance
 
     "Joey Eremondi <joey@eremondi.com> @JoeyEremondi":
         - aeson-pretty
@@ -1081,6 +1082,7 @@ packages:
 
         # Not a maintainer
         - arithmoi
+        - folds
         - friendly-time
         - hashable
         - haxl
@@ -1981,6 +1983,10 @@ packages:
         - tagged-identity
         - req
         - req-conduit
+        - cue-sheet
+        - wave
+        - flac
+        - flac-picture
 
     # "Thomas Bereknyei <tomberek@gmail.com>":
         # - multiplate # bounds: transformers
@@ -2133,6 +2139,7 @@ packages:
     "Andrew Rademacher <andrewrademacher@gmail.com> @AndrewRademacher":
         - aeson-casing
         - graylog
+        - parsec-numeric
 
     "Callum Rogers @CRogers":
         - should-not-typecheck
@@ -2383,7 +2390,7 @@ packages:
     "Stephen Diehl <stephen.m.diehl@gamil.com> @sdiehl":
         - protolude
         - repline
-        - picosat
+        # - picosat  # https://github.com/sdiehl/haskell-picosat/issues/6
 
     # "Daishi Nakajima <nakaji.dayo@gmail.com> @nakaji_dayo":
         # - yesod-job-queue # build failure https://github.com/nakaji-dayo/yesod-job-queue/issues/10
@@ -2677,11 +2684,14 @@ packages:
         - haskell-tools-backend-ghc
         - haskell-tools-rewrite
         - haskell-tools-prettyprint
-        - haskell-tools-refactor
+        #- haskell-tools-refactor
         - haskell-tools-demo
-        - haskell-tools-cli
+        #- haskell-tools-cli
         - haskell-tools-daemon
         - haskell-tools-debug
+
+    "David Fisher <ddf1991@gmail.com> @ddfisher":
+        - socket-activation
 
     # If you stop maintaining a package you can move it here.
     # It will then be disabled if it starts causing problems.
@@ -2735,8 +2745,15 @@ packages:
         # https://github.com/fpco/stackage/issues/2180
         - MonadRandom < 0.5
 
-        # https://github.com/fpco/stackage/issues/2183
-        - glabrous < 0.2.2
+        # https://github.com/fpco/stackage/issues/2184
+        # https://github.com/ekmett/hashable-extras/pull/3
+        - hashable < 1.2.5.0
+
+        # https://github.com/fpco/stackage/issues/2194
+        - vector < 0.12.0.0
+
+        # https://github.com/fpco/stackage/issues/2197
+        - brick < 0.16
 
 # end of packages
 
@@ -2956,6 +2973,8 @@ expected-test-failures:
     - pandoc-citeproc # https://github.com/jgm/pandoc-citeproc/issues/172
     - spdx # https://github.com/phadej/spdx/issues/8
     - statistics # https://github.com/bos/statistics/issues/42
+    - haskell-tools-refactor  # https://github.com/haskell-tools/haskell-tools/issues/231
+    - foldl-statistics # https://github.com/data61/foldl-statistics/issues/2
 
     # Timeouts
     # These tests sometimes take too long and hit the stackage build
@@ -3048,7 +3067,6 @@ expected-test-failures:
     - haskell-names # 0.7.0 https://github.com/haskell-suite/haskell-names/issues/78
     - rematch # No issue tracker, sent e-mail to maintainer https://github.com/fpco/stackage/issues/376
     - xlsior # https://github.com/rcallahan/xlsior/issues/1
-    - hakyll # https://github.com/jaspervdj/hakyll/issues/491
     - ginger # https://bitbucket.org/tdammers/ginger/issues/1/test-suite-failure-due-to-missing-test
     - yi-keymap-vim # https://github.com/yi-editor/yi/issues/954
 
@@ -3108,6 +3126,8 @@ expected-test-failures:
     - cubicbezier # https://github.com/kuribas/cubicbezier/issues/3
 
     - yesod-auth-basic # https://github.com/creichert/yesod-auth-basic/issues/1
+
+    - folds # https://github.com/ekmett/folds/issues/12
 # end of expected-test-failures
 
 # Benchmarks which are known not to build. Note that, currently we do not run
@@ -3163,6 +3183,7 @@ expected-haddock-failures:
 
     # "Argument list too long"
     - classy-prelude-yesod
+    - hledger-web
 
 # end of expected-haddock-failures
 
@@ -3311,13 +3332,11 @@ build-tool-overrides:
 # If bindings-GLFW-3.1.2.1 is the current latest version write
 # - bindings-GLFW-3.1.2.1 # Comment saying what should be done when the new version is releasedskipped test-suite
 tell-me-when-its-released:
-- vector-0.11.0.0 # skipped test-suite, constrained primitive https://github.com/haskell/vector/issues/142
 - point-octree-0.5.5.3 # re-enable test and then we can resolve https://github.com/fpco/lts-haskell/issues/27
 - wreq-0.4.1.0 # Try to re-enable lots of packages, (esp https://github.com/fpco/stackage/issues/2032) and the test-suite if https://github.com/bos/wreq/issues/53 is closed.
 - yarr-1.4.0.2 # Re-enable package https://github.com/fpco/stackage/issues/1876
 - terminal-progress-bar-0.1.1 # Unskip test suite
 - optparse-applicative-0.13.0.0 # Unskip test suite https://github.com/pcapriotti/optparse-applicative/issues/228
-- hakyll-4.9.2.0 # re-enable tests
 - Spock-core-0.11.0.0 # testsuite fail
 - vivid-0.2.0.5 # compilation failure
 
@@ -3367,6 +3386,7 @@ hide:
 - crypto-numbers
 - crypto-pubkey
 - crypto-random
+- cryptohash
 - cryptohash-conduit
 
 # cryptohash forks

@@ -56,6 +56,7 @@ apt-get install -y \
     libedit-dev \
     libedit2 \
     libfftw3-dev \
+    libflac-dev \
     libfreenect-dev \
     libgd2-xpm-dev \
     libgeoip-dev \
