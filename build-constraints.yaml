@@ -753,9 +753,9 @@ packages:
         - io-choice
         # - system-canonicalpath # bounds: ghc, base # https://github.com/d12frosted/CanonicalPath/issues/5
 
-    # "Daniel Gröber <dxld@darkboxed.org> @DanielG":
+    "Daniel Gröber <dxld@darkboxed.org> @DanielG":
         # - ghc-mod # bounds: cabal-helper, extra, haskell-src-exts, optparse-applicative, pipes
-        # - cabal-helper # bounds: extra 1.5
+        - cabal-helper
 
     "Yann Esposito <yann.esposito@gmail.com> yogsototh @yogsototh":
         - human-readable-duration
@@ -1458,7 +1458,7 @@ packages:
         - clash-vhdl
         - clash-verilog
         - clash-systemverilog
-        # - clash-ghc # bounds: ghc
+        - clash-ghc
 
     "Athan Clark <athan.clark@gmail.com> @athanclark":
         - commutative
@@ -1509,7 +1509,7 @@ packages:
         - lens-family
         - streaming
         - streaming-bytestring
-
+        - streaming-utils
 
     "Justin Le <justin@jle.im> @mstksg":
         - auto
@@ -1538,8 +1538,8 @@ packages:
         - uri-bytestring
         # - phash # Can't build on stackage server https://github.com/MichaelXavier/phash/issues/5
         - cron
-        # - tasty-tap # bounds: ghc, base
-        # - tasty-fail-fast # via: tasty-tap
+        - tasty-tap
+        - tasty-fail-fast
         - drifter
         - drifter-postgresql
 
@@ -2684,14 +2684,17 @@ packages:
         - haskell-tools-backend-ghc
         - haskell-tools-rewrite
         - haskell-tools-prettyprint
-        #- haskell-tools-refactor
+        - haskell-tools-refactor
         - haskell-tools-demo
-        #- haskell-tools-cli
+        - haskell-tools-cli
         - haskell-tools-daemon
         - haskell-tools-debug
 
     "David Fisher <ddf1991@gmail.com> @ddfisher":
         - socket-activation
+
+    "aiya000 <aiya000.develop@gmail.com> @aiya000":
+        - stack-type
 
     # If you stop maintaining a package you can move it here.
     # It will then be disabled if it starts causing problems.
@@ -2748,12 +2751,22 @@ packages:
         # https://github.com/fpco/stackage/issues/2184
         # https://github.com/ekmett/hashable-extras/pull/3
         - hashable < 1.2.5.0
+        - intro < 0.1.0.3
 
         # https://github.com/fpco/stackage/issues/2194
         - vector < 0.12.0.0
 
         # https://github.com/fpco/stackage/issues/2197
         - brick < 0.16
+
+        # https://github.com/fpco/stackage/issues/2205
+        - base-noprelude < 4.9.1.0
+
+        # https://github.com/fpco/stackage/issues/2206
+        - pretty-simple < 1.0.0.5
+
+        # https://github.com/fpco/stackage/issues/2207
+        - xlsx-tabular < 0.2.1.1
 
 # end of packages
 
@@ -2964,6 +2977,7 @@ expected-test-failures:
     - distributed-process
     - distributed-process-execution # https://github.com/haskell-distributed/distributed-process-execution/issues/2
     - distributed-process-task
+    - foldl-statistics # https://github.com/data61/foldl-statistics/issues/2
     - fsnotify # Often runs out of inotify handles
     - idris # https://github.com/fpco/stackage/issues/1382
     - ihaskell # https://github.com/gibiansky/IHaskell/issues/551
@@ -2973,8 +2987,6 @@ expected-test-failures:
     - pandoc-citeproc # https://github.com/jgm/pandoc-citeproc/issues/172
     - spdx # https://github.com/phadej/spdx/issues/8
     - statistics # https://github.com/bos/statistics/issues/42
-    - haskell-tools-refactor  # https://github.com/haskell-tools/haskell-tools/issues/231
-    - foldl-statistics # https://github.com/data61/foldl-statistics/issues/2
 
     # Timeouts
     # These tests sometimes take too long and hit the stackage build
@@ -3014,6 +3026,8 @@ expected-test-failures:
     - gitson # 0.5.2 error with git executable https://github.com/myfreeweb/gitson/issues/1
     - gitson # https://github.com/myfreeweb/gitson/issues/1
     - happy # Needs mtl in the user package DB
+    - haskell-tools-cli  # https://github.com/haskell-tools/haskell-tools/issues/230
+    - haskell-tools-refactor  # https://github.com/haskell-tools/haskell-tools/issues/231
     - haskell-neo4j-client # neo4j with auth disabled
     - hasql # PostgreSQL
     - hasql-transaction # PostgreSQL
