@@ -77,7 +77,7 @@ rm -f stackage-curator stackage-curator.bz2
 wget https://s3.amazonaws.com/stackage-travis/stackage-curator/stackage-curator.bz2
 bunzip2 stackage-curator.bz2
 chmod +x stackage-curator
-stackage-curator --version
+./stackage-curator --version
 )
 
 ARGS_COMMON="--rm -v $WORKDIR:$HOME/work -w $HOME/work -v $BINDIR/stackage-curator:/usr/bin/stackage-curator:ro -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v $EXTRA_BIN_DIR/stack:/usr/bin/stack:ro"
@@ -121,7 +121,7 @@ docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "stackage-curator check --plan-fil
 # Now do the actual build. We need to first set the owner of the home directory
 # correctly, so we run the command as root, change owner, and then use sudo to
 # switch back to the current user
-docker run $ARGS_BUILD $IMAGE /bin/bash -c "chown $USER $HOME && exec sudo -E -u $USER env \"HOME=$HOME\" \"PATH=\$PATH\" stackage-curator make-bundle --plan-file $PLAN_FILE --docmap-file $DOCMAP_FILE --bundle-file $BUNDLE_FILE --target $TARGET"
+docker run $ARGS_BUILD $IMAGE nice -n 15 /bin/bash -c "chown $USER $HOME && exec sudo -E -u $USER env \"HOME=$HOME\" \"PATH=\$PATH\" stackage-curator make-bundle --plan-file $PLAN_FILE --docmap-file $DOCMAP_FILE --bundle-file $BUNDLE_FILE --target $TARGET"
 
 # Make sure we actually need this snapshot. We used to perform this check
 # exclusively before building. Now we perform it after as well for the case of
