@@ -24,7 +24,7 @@ After doing that, send a pull request (with a commit message like "add foo-bar")
 If you want to make sure that the package builds against the newest versions of all dependecies you can do this:
 ```
 $ cabal update
-$ ghc --version # Should give v8.0.1
+$ ghc --version # Should give v8.0.2
 $ cabal get PACKAGE-VERSION # e.g. aeson-0.11.2.1
 $ cd PACKAGE-VERSION
 $ cabal sandbox init # Should give "Creating a new sandbox" and not "Using an existing sandbox".
