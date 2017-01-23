@@ -25,7 +25,7 @@ add-apt-repository -y ppa:marutter/rrutter
 #add-apt-repository -y ppa:openstack-ubuntu-testing/icehouse
 
 # Set the GHC version
-GHCVER=8.0.1
+GHCVER=8.0.2
 
 # Get Stack
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 575159689BEFB442

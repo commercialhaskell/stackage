@@ -92,7 +92,7 @@ packages:
     "Michael Snoyman michael@snoyman.com @snoyberg":
         - bzlib-conduit
         - cabal-install
-        - cabal-src
+        # - cabal-src BLOCKED shelly GHC 8.0.2
         - case-insensitive
         - classy-prelude-yesod
         - conduit-combinators
@@ -307,7 +307,7 @@ packages:
         - path
         - intero
         - weigh
-        - haskell-docs
+        # - haskell-docs # BLOCKED haddock-api GHC 8.0.2
         # - structured-haskell-mode # bounds: haskell-src-exts # via: applicative-quoters
 
     "Alberto G. Corona <agocorona@gmail.com> @agocorona":
@@ -384,7 +384,7 @@ packages:
         - zippers
         - fixed
         - half
-        - gl
+        # - gl BLOCKED directory 1.3
         - lens-aeson
         - zlib-lens
         # - hyperloglog # bounds: approximate, binary, comonad
@@ -415,7 +415,7 @@ packages:
         - BlogLiterately-diagrams
         - diagrams
         - diagrams-builder
-        - diagrams-haddock
+        # - diagrams-haddock # BLOCKED directory 1.3 via cautious-file
         - diagrams-cairo
         - diagrams-contrib
         - diagrams-core
@@ -474,10 +474,11 @@ packages:
         - accelerate
 
     "Liam O'Connor <liamoc@cse.unsw.edu.au> @liamoc":
+        []
         # - patches-vector # bounds: QuickCheck, edit-distance-vector, hspec
         # - composition-tree # bounds: QuickCheck
         # - dixi # bounds: aeson, lens, time, [...]
-        - latex-formulae-image
+        # - latex-formulae-image # BLOCKED directory 1.3
         # - latex-formulae-pandoc # bounds: pandoc-types
         # - latex-formulae-hakyll # bounds: ghc, base
         # - agda-snippets # bounds: ghc, base
@@ -541,7 +542,7 @@ packages:
         - fay-text
         - fay-uri
         - feed
-        - snaplet-fay
+        # - snaplet-fay # BLOCKED directory 1.3 via heist and snap
         - time-compat
         - through-text
 
@@ -578,7 +579,7 @@ packages:
         - FenwickTree
         - hPDB
         - hPDB-examples
-        - homplexity
+        # - homplexity # BLOCKED directory 1.3
         - wordpass
         # - json-autotype # bounds: aeson 1.0, lens
         - posix-realtime
@@ -736,7 +737,7 @@ packages:
         # - al # FIXME temporary, figure out why it's not working with stackage-build
         - event
         - hid
-        - luminance
+        # - luminance # BLOCKED directory 1.3
         # - luminance-samples # bounds: base
         - monad-journal
         # - msi-kb-backlit # bounds: ghc, base
@@ -810,7 +811,7 @@ packages:
         - data-accessor-mtl
         # - file-location # bounds: transformers
         - fuzzcheck
-        - haddock-api
+        # - haddock-api BLOCKED GHC 8.0.2
         - here
         - hlibgit2
         - gitlib-libgit2
@@ -921,9 +922,9 @@ packages:
         - servant-cassava
 
     "Alexandr Ruchkin <voidex@live.com> @mvoidex":
-        - hdocs
+        # - hdocs # BLOCKED haddock-api GHC 8.0.2
         - hformat
-        - hsdev
+        # - hsdev # BLOCKED haddock-api GHC 8.0.2
         - simple-log
         - text-region
 
@@ -951,7 +952,7 @@ packages:
 
     "Jens Petersen <juhpetersen@gmail.com> @juhp":
         - cabal-rpm
-        - cabal-sort
+        # - cabal-sort # BLOCKED directory 1.3
         - hslua
         # - idris # bounds: safe
 
@@ -1877,10 +1878,12 @@ packages:
         - yi-snippet
 
     "Tobias Bexelius <tobias_bexelius@hotmail.com> @tobbebex":
-        - GPipe
+        []
+        # - GPipe # BLOCKED directory 1.3 via gl
 
     "Patrick Redmond <plredmond@gmail.com> @plredmond":
-        - GPipe-GLFW
+        []
+        # - GPipe-GLFW # BLOCKED directory 1.3 via GPipe and gl
 
     # "Csaba Hruska <csaba.hruska@gmail.com> @csabahruska":
         # - lambdacube-ir # bounds: aeson
@@ -1938,7 +1941,8 @@ packages:
         - titlecase
 
     "Mark Fine <mark.fine@gmail.com> @markfine":
-        - postgresql-schema
+        []
+        # - postgresql-schema # BLOCKED shelly GHC 8.0.2
         # - sbp # build failure
 
     "Jinjing Wang <nfjinjing@gmail.com> @nfjinjing":
@@ -2159,12 +2163,13 @@ packages:
 
     "Jeremy Shaw <jeremy@n-heptane.com> @stepcut":
         - boomerang
-        - clckwrks
-        - clckwrks-cli
-        - clckwrks-plugin-page
-        - clckwrks-plugin-media
-        - clckwrks-theme-bootstrap
-        - hackage-whatsnew
+        # BLOCKED directory 1.3
+        #- clckwrks
+        #- clckwrks-cli
+        #- clckwrks-plugin-page
+        #- clckwrks-plugin-media
+        #- clckwrks-theme-bootstrap
+        #- hackage-whatsnew
         - happstack-authenticate
         - happstack-clientsession
         - happstack-hsp
@@ -2480,7 +2485,7 @@ packages:
 
     "Cliff Harvey <cs.hbar+hs@gmail.com> @BlackBrane":
         - ansigraph
-        - quantum-random
+        # - quantum-random # BLOCKED directory 1.3
 
     "Tebello Thejane <zyxoas+stackage@gmail.com> @tebello-thejane":
         - bitx-bitcoin
@@ -2762,9 +2767,6 @@ packages:
         # https://github.com/fpco/stackage/issues/2194
         - vector < 0.12.0.0
 
-        # https://github.com/fpco/stackage/issues/2205
-        - base-noprelude < 4.9.1.0
-
         # https://github.com/fpco/stackage/issues/2206
         - pretty-simple < 1.0.0.5
 
@@ -2969,6 +2971,12 @@ skipped-tests:
 
     - optparse-applicative # https://github.com/pcapriotti/optparse-applicative/issues/228
 
+    # BLOCKED shelly GHC 8.0.2
+    - c2hs
+
+    # directory 1.3
+    - machines
+    - xmlhtml
 
 # end of skipped-tests
 
