@@ -25,7 +25,7 @@ add-apt-repository -y ppa:marutter/rrutter
 #add-apt-repository -y ppa:openstack-ubuntu-testing/icehouse
 
 # Set the GHC version
-GHCVER=8.0.1
+GHCVER=8.0.2
 
 # Get Stack
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 575159689BEFB442
@@ -45,6 +45,7 @@ apt-get install -y \
     git \
     libadns1-dev \
     libaio1 \
+    libalut-dev \
     libasound2-dev \
     libblas-dev \
     libbz2-dev \
@@ -55,6 +56,7 @@ apt-get install -y \
     libedit-dev \
     libedit2 \
     libfftw3-dev \
+    libflac-dev \
     libfreenect-dev \
     libgd2-xpm-dev \
     libgeoip-dev \
@@ -83,6 +85,7 @@ apt-get install -y \
     libmpfr-dev \
     libmysqlclient-dev \
     libncurses-dev \
+    libnfc-dev \
     libnotify-dev \
     libopenal-dev \
     libpango1.0-dev \
@@ -160,4 +163,8 @@ cd /tmp \
     && rm -rf /tmp/ocilib-4.2.1 \
     && echo "/usr/local/lib" > /etc/ld.so.conf.d/usr-local.conf \
     && echo "/usr/lib/oracle/12.1/client64/lib" > /etc/ld.so.conf.d/oracle-client.conf \
+    && ldconfig
+
+# Add JDK to system paths.
+echo "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/" > /etc/ld.so.conf.d/openjdk.conf \
     && ldconfig

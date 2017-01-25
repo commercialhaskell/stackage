@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eux
+set -eu +x
 
 ROOT=$(cd $(dirname $0) ; pwd)
 TARGET=$1
@@ -77,6 +77,7 @@ rm -f stackage-curator stackage-curator.bz2
 wget https://s3.amazonaws.com/stackage-travis/stackage-curator/stackage-curator.bz2
 bunzip2 stackage-curator.bz2
 chmod +x stackage-curator
+./stackage-curator --version
 )
 
 ARGS_COMMON="--rm -v $WORKDIR:$HOME/work -w $HOME/work -v $BINDIR/stackage-curator:/usr/bin/stackage-curator:ro -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v $EXTRA_BIN_DIR/stack:/usr/bin/stack:ro"
@@ -96,22 +97,31 @@ fi
 # Get latest stack
 curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C $EXTRA_BIN_DIR '*/stack'
 
-# Do all of the pre-build actions:
+# Determine the new build plan unless NOPLAN is set
 #
-# * Update the package index
+# * Update the package index (unless LTS)
 # * Create a new plan
+if [ "${NOPLAN:-}x" = "x" ]
+then
+    if [ $SHORTNAME = "lts" ]
+    then
+        docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "exec stackage-curator create-plan --plan-file $PLAN_FILE --target $TARGET ${CONSTRAINTS:-}"
+    else
+        docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "stack update && exec stackage-curator create-plan --plan-file $PLAN_FILE --target $TARGET ${CONSTRAINTS:-}"
+    fi
+fi
+
+# Do the rest of the pre-build actions:
+#
 # * Check that the plan is valid
 # * Fetch all needed tarballs (the build step does not have write access to the tarball directory)
 # * Do a single unpack to create the package index cache (again due to directory perms)
-if [ "${NOPLAN:-}x" = "x" ]
-then
-  docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "stack update && stackage-curator create-plan --plan-file $PLAN_FILE --target $TARGET ${CONSTRAINTS:-} && stackage-curator check --plan-file $PLAN_FILE && stackage-curator fetch --plan-file $PLAN_FILE && cd /tmp && exec stack unpack random"
-fi
+docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "stackage-curator check --plan-file $PLAN_FILE && stackage-curator fetch --plan-file $PLAN_FILE && cd /tmp && exec stack unpack random"
 
 # Now do the actual build. We need to first set the owner of the home directory
 # correctly, so we run the command as root, change owner, and then use sudo to
 # switch back to the current user
-docker run $ARGS_BUILD $IMAGE /bin/bash -c "chown $USER $HOME && exec sudo -E -u $USER env \"HOME=$HOME\" \"PATH=\$PATH\" stackage-curator make-bundle --plan-file $PLAN_FILE --docmap-file $DOCMAP_FILE --bundle-file $BUNDLE_FILE --target $TARGET"
+docker run $ARGS_BUILD $IMAGE nice -n 15 /bin/bash -c "chown $USER $HOME && exec sudo -E -u $USER env \"HOME=$HOME\" \"PATH=\$PATH\" stackage-curator make-bundle --jobs 4 --plan-file $PLAN_FILE --docmap-file $DOCMAP_FILE --bundle-file $BUNDLE_FILE --target $TARGET"
 
 # Make sure we actually need this snapshot. We used to perform this check
 # exclusively before building. Now we perform it after as well for the case of
@@ -127,12 +137,5 @@ docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec stackage-curator check-target-
 # * Upload the new plan .yaml file to the appropriate Github repo
 # * Register as a new Hackage distro
 docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "stackage-curator upload-docs --target $TARGET --bundle-file $BUNDLE_FILE && stackage-curator upload-index --plan-file $PLAN_FILE --target $TARGET && stackage-curator upload-github --plan-file $PLAN_FILE --docmap-file $DOCMAP_FILE --target $TARGET && exec stackage-curator hackage-distro --plan-file $PLAN_FILE --target $TARGET"
-
-if [ $SHORTNAME = "lts" ]
-then
-    echo "Running cron.sh (hiding verbose output)"
-    ./cron.sh | grep -v '^Skipping'
-    echo "done."
-fi
 
 date
