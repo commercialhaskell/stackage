@@ -353,8 +353,8 @@ will upgrade their packages to allow for the new GHC release.
 We prefer to prune packages causing upper bounds constraints **after** the LTS
 release to allow the maximum amount of packages to get into the newest LTS.
 
-After the first LTS release, the package pruning process may begin in order to
-move forward with getting the latest versions of packages compatible with the
-new GHC release.
+After the first LTS release, the package pruning process may begin in the
+nightly build in order to move forward with getting the latest versions of
+packages compatible with the new GHC release.
 
 [GHC upgrade note]: https://github.com/fpco/stackage/blob/master/MAINTAINERS.md#upgrading-to-a-new-ghc-version
