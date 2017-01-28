@@ -70,7 +70,8 @@ packages:
 
     "alpheccar <misc@alpheccar.org> @alpheccar":
         - HPDF
-        - hbayes
+        # https://github.com/alpheccar/hbayes/issues/3
+        # - hbayes
 
     "Dmitry Bogatov <KAction@gnu.org>":
         - once
@@ -92,7 +93,7 @@ packages:
     "Michael Snoyman michael@snoyman.com @snoyberg":
         - bzlib-conduit
         - cabal-install
-        - cabal-src
+        - mega-sdist
         - case-insensitive
         - classy-prelude-yesod
         - conduit-combinators
@@ -159,7 +160,7 @@ packages:
         - quickcheck-assertions
 
         # - hackage-mirror # via: aws
-        - wai-middleware-consul
+        # - wai-middleware-consul # https://github.com/alphaHeavy/consul-haskell/issues/18
         - wai-middleware-crowd
         - monad-logger-json
         - safe-exceptions
@@ -202,7 +203,6 @@ packages:
         - extra
         - bake
         - ghcid
-        - pugixml
         - hexml
 
     "Alan Zimmerman @alanz":
@@ -308,7 +308,7 @@ packages:
         - path
         - intero
         - weigh
-        - haskell-docs
+        # - haskell-docs # BLOCKED haddock-api GHC 8.0.2
         # - structured-haskell-mode # bounds: haskell-src-exts # via: applicative-quoters
 
     "Alberto G. Corona <agocorona@gmail.com> @agocorona":
@@ -385,7 +385,7 @@ packages:
         - zippers
         - fixed
         - half
-        - gl
+        # - gl BLOCKED directory 1.3
         - lens-aeson
         - zlib-lens
         # - hyperloglog # bounds: approximate, binary, comonad
@@ -416,7 +416,7 @@ packages:
         - BlogLiterately-diagrams
         - diagrams
         - diagrams-builder
-        - diagrams-haddock
+        # - diagrams-haddock # BLOCKED directory 1.3 via cautious-file
         - diagrams-cairo
         - diagrams-contrib
         - diagrams-core
@@ -447,7 +447,6 @@ packages:
 
     "Felipe Lessa <felipe.lessa@gmail.com> @meteficha":
         # - country-codes # bounds: tagsoup
-        # - esqueleto # bounds: persistent
         # - fb # bounds: aeson, http-conduit-2.2, hspec
         # - fb-persistent # bounds: persistent # via: fb
         # - mangopay # compilation failure against aeson
@@ -476,10 +475,11 @@ packages:
         - accelerate
 
     "Liam O'Connor <liamoc@cse.unsw.edu.au> @liamoc":
+        []
         # - patches-vector # bounds: QuickCheck, edit-distance-vector, hspec
         # - composition-tree # bounds: QuickCheck
         # - dixi # bounds: aeson, lens, time, [...]
-        - latex-formulae-image
+        # - latex-formulae-image # BLOCKED directory 1.3
         # - latex-formulae-pandoc # bounds: pandoc-types
         # - latex-formulae-hakyll # bounds: ghc, base
         # - agda-snippets # bounds: ghc, base
@@ -527,10 +527,11 @@ packages:
     "Andrew Thaddeus Martin <andrew.thaddeus@gmail.com> @andrewthad":
         - yesod-table
 
-    "Chris Allen <cma@bitemyapp.com> bitemyapp":
+    "Chris Allen <cma@bitemyapp.com> @bitemyapp":
         - machines-directory
         - machines-io
         - bloodhound
+        - esqueleto # bounds: persistent
 
     "Adam Bergmark <adam@bergmark.nl> @bergmark":
         - HUnit
@@ -542,7 +543,7 @@ packages:
         - fay-text
         - fay-uri
         - feed
-        - snaplet-fay
+        # - snaplet-fay # BLOCKED directory 1.3 via heist and snap
         - time-compat
         - through-text
 
@@ -579,7 +580,7 @@ packages:
         - FenwickTree
         - hPDB
         - hPDB-examples
-        - homplexity
+        # - homplexity # BLOCKED directory 1.3
         - wordpass
         # - json-autotype # bounds: aeson 1.0, lens
         - posix-realtime
@@ -737,7 +738,7 @@ packages:
         # - al # FIXME temporary, figure out why it's not working with stackage-build
         - event
         - hid
-        - luminance
+        # - luminance # BLOCKED directory 1.3
         # - luminance-samples # bounds: base
         - monad-journal
         # - msi-kb-backlit # bounds: ghc, base
@@ -754,7 +755,7 @@ packages:
         # - system-canonicalpath # bounds: ghc, base # https://github.com/d12frosted/CanonicalPath/issues/5
 
     "Daniel Gröber <dxld@darkboxed.org> @DanielG":
-        # - ghc-mod # bounds: cabal-helper, extra, haskell-src-exts, optparse-applicative, pipes
+        - ghc-mod
         - cabal-helper
 
     "Yann Esposito <yann.esposito@gmail.com> yogsototh @yogsototh":
@@ -811,7 +812,7 @@ packages:
         - data-accessor-mtl
         # - file-location # bounds: transformers
         - fuzzcheck
-        - haddock-api
+        # - haddock-api BLOCKED GHC 8.0.2
         - here
         - hlibgit2
         - gitlib-libgit2
@@ -922,9 +923,9 @@ packages:
         - servant-cassava
 
     "Alexandr Ruchkin <voidex@live.com> @mvoidex":
-        - hdocs
+        # - hdocs # BLOCKED haddock-api GHC 8.0.2
         - hformat
-        - hsdev
+        # - hsdev # BLOCKED haddock-api GHC 8.0.2
         - simple-log
         - text-region
 
@@ -952,7 +953,7 @@ packages:
 
     "Jens Petersen <juhpetersen@gmail.com> @juhp":
         - cabal-rpm
-        - cabal-sort
+        # - cabal-sort # BLOCKED directory 1.3
         - hslua
         # - idris # bounds: safe
 
@@ -1730,6 +1731,7 @@ packages:
         - proxied
         - text-show
         - text-show-instances
+        - thread-local-storage
 
     "Kirill Zaborsky <qrilka@gmail.com> @qrilka":
         - xlsx
@@ -1877,10 +1879,12 @@ packages:
         - yi-snippet
 
     "Tobias Bexelius <tobias_bexelius@hotmail.com> @tobbebex":
-        - GPipe
+        []
+        # - GPipe # BLOCKED directory 1.3 via gl
 
     "Patrick Redmond <plredmond@gmail.com> @plredmond":
-        - GPipe-GLFW
+        []
+        # - GPipe-GLFW # BLOCKED directory 1.3 via GPipe and gl
 
     # "Csaba Hruska <csaba.hruska@gmail.com> @csabahruska":
         # - lambdacube-ir # bounds: aeson
@@ -1938,11 +1942,13 @@ packages:
         - titlecase
 
     "Mark Fine <mark.fine@gmail.com> @markfine":
-        - postgresql-schema
+        []
+        # - postgresql-schema # BLOCKED shelly GHC 8.0.2
         # - sbp # build failure
 
     "Jinjing Wang <nfjinjing@gmail.com> @nfjinjing":
-        - moesocks
+        []
+        # - moesocks # https://github.com/nfjinjing/moesocks/issues/1
 
     "Gregory W. Schwartz <gregory.schwartz@drexel.edu> @GregorySchwartz":
         # - fasta # via pipes-attoparsec
@@ -2159,12 +2165,13 @@ packages:
 
     "Jeremy Shaw <jeremy@n-heptane.com> @stepcut":
         - boomerang
-        - clckwrks
-        - clckwrks-cli
-        - clckwrks-plugin-page
-        - clckwrks-plugin-media
-        - clckwrks-theme-bootstrap
-        - hackage-whatsnew
+        # BLOCKED directory 1.3
+        #- clckwrks
+        #- clckwrks-cli
+        #- clckwrks-plugin-page
+        #- clckwrks-plugin-media
+        #- clckwrks-theme-bootstrap
+        #- hackage-whatsnew
         - happstack-authenticate
         - happstack-clientsession
         - happstack-hsp
@@ -2277,7 +2284,8 @@ packages:
         - cmark
         - texmath
         - highlighting-kate
-        - pandoc-types
+        - skylighting
+        - pandoc-types < 1.19 # Accidental upload, see: https://github.com/fpco/stackage/issues/2223
         - zip-archive
         - doctemplates
         - pandoc
@@ -2480,7 +2488,7 @@ packages:
 
     "Cliff Harvey <cs.hbar+hs@gmail.com> @BlackBrane":
         - ansigraph
-        - quantum-random
+        # - quantum-random # BLOCKED directory 1.3
 
     "Tebello Thejane <zyxoas+stackage@gmail.com> @tebello-thejane":
         - bitx-bitcoin
@@ -2530,9 +2538,9 @@ packages:
 
     "Dominic Orchard <dom.orchard@gmail.com> @dorchard":
         - array-memoize
-        - camfort
+        # - camfort # https://github.com/fpco/stackage/issues/2232
         - codo-notation
-        - fortran-src
+        # - fortran-src # https://github.com/fpco/stackage/issues/2232
         # - ixmonad # 0.57 Compilation failure https://github.com/fpco/stackage/pull/1710#issuecomment-235067168
         - language-fortran
 
@@ -2568,11 +2576,16 @@ packages:
         - quickcheck-special
         - writer-cps-mtl
         - writer-cps-transformers
+        - writer-cps-morph
+        - writer-cps-lens
+        - writer-cps-full
         - wl-pprint-annotated
         - wl-pprint-console
         - console-style
         - unlit
         - intro
+        - tasty-auto
+        - colorful-monoids
 
     "Taras Serduke <taras.serduke@gmail.com> @tserduke":
         - do-list
@@ -2688,13 +2701,21 @@ packages:
         - haskell-tools-demo
         - haskell-tools-cli
         - haskell-tools-daemon
-        - haskell-tools-debug
+        # - haskell-tools-debug # https://github.com/haskell-tools/haskell-tools/issues/257
 
     "David Fisher <ddf1991@gmail.com> @ddfisher":
         - socket-activation
 
     "aiya000 <aiya000.develop@gmail.com> @aiya000":
         - stack-type
+
+    "Mitsutoshi Aoe <maoe@foldr.in> @maoe":
+        - viewprof
+
+    "Dylan Simon <dylan-stack@dylex.net> @dylex":
+        - postgresql-typed
+        - invertible
+        - ztail
 
     # If you stop maintaining a package you can move it here.
     # It will then be disabled if it starts causing problems.
@@ -2748,25 +2769,20 @@ packages:
         # https://github.com/fpco/stackage/issues/2180
         - MonadRandom < 0.5
 
-        # https://github.com/fpco/stackage/issues/2184
-        # https://github.com/ekmett/hashable-extras/pull/3
-        - hashable < 1.2.5.0
-        - intro < 0.1.0.3
-
         # https://github.com/fpco/stackage/issues/2194
         - vector < 0.12.0.0
-
-        # https://github.com/fpco/stackage/issues/2197
-        - brick < 0.16
-
-        # https://github.com/fpco/stackage/issues/2205
-        - base-noprelude < 4.9.1.0
 
         # https://github.com/fpco/stackage/issues/2206
         - pretty-simple < 1.0.0.5
 
         # https://github.com/fpco/stackage/issues/2207
         - xlsx-tabular < 0.2.1.1
+
+        # https://github.com/fpco/stackage/issues/2229
+        - hspec < 2.4
+        - hspec-core < 2.4
+        - hspec-discover < 2.4
+        - hspec-smallcheck < 0.4.2
 
 # end of packages
 
@@ -2840,6 +2856,12 @@ package-flags:
     ghc-heap-view:
         ghc_7_7: false
         ghc_8_0: true
+
+    invertible:
+        TypeCompose: false
+        arrows: false
+        hlist: false
+        piso: false
 
 # end of package-flags
 
@@ -2960,6 +2982,12 @@ skipped-tests:
 
     - optparse-applicative # https://github.com/pcapriotti/optparse-applicative/issues/228
 
+    # BLOCKED shelly GHC 8.0.2
+    - c2hs
+
+    # directory 1.3
+    - machines
+    - xmlhtml
 
 # end of skipped-tests
 
@@ -3142,6 +3170,24 @@ expected-test-failures:
     - yesod-auth-basic # https://github.com/creichert/yesod-auth-basic/issues/1
 
     - folds # https://github.com/ekmett/folds/issues/12
+
+    - stm-delay # https://github.com/joeyadams/haskell-stm-delay/issues/5
+
+    - vector-algorithms # http://hub.darcs.net/dolio/vector-algorithms/issue/9
+
+    - relational-query # https://github.com/khibino/haskell-relational-record/issues/51
+
+    - unicode-show # https://github.com/nushio3/unicode-show/issues/2
+
+    - ghc-exactprint # https://github.com/alanz/ghc-exactprint/issues/47
+
+    # Doctests require hidden Glob package
+    - multiset
+    - makefile
+
+    - path # https://github.com/chrisdone/path/issues/54
+
+    - rattletrap # https://github.com/fpco/stackage/issues/2232
 # end of expected-test-failures
 
 # Benchmarks which are known not to build. Note that, currently we do not run
@@ -3198,6 +3244,10 @@ expected-haddock-failures:
     # "Argument list too long"
     - classy-prelude-yesod
     - hledger-web
+
+    # Runs out of memory
+    - stratosphere
+    - store
 
 # end of expected-haddock-failures
 

@@ -337,3 +337,24 @@ errors for builds, tests and benchmarks.
 
 1. Add public ssh key to `~/.ssh/authorized_keys` on build server
 2. Add to fpco/stackage project.
+
+## Dealing with a new GHC release
+
+As mentioned in the [GHC upgrade note], the major impact of a new GHC release
+is on the packages that are causing upper bounds to be put in place. In order
+to minimise out-of-date breakage and allow maintainers to have a solid chance
+of getting their packages into the newest LTS, we try to do the following:
+
+Make an early announcement (in the form of a blog post, typically) of the new
+GHC release on the nightly build and the planned deadline for the new LTS release.
+Make it clear, that in the time coming up to this, we hope package maintainers
+will upgrade their packages to allow for the new GHC release.
+
+We prefer to prune packages causing upper bounds constraints **after** the LTS
+release to allow the maximum amount of packages to get into the newest LTS.
+
+After the first LTS release, the package pruning process may begin in order to
+move forward with getting the latest versions of packages compatible with the
+new GHC release.
+
+[GHC upgrade note]: https://github.com/fpco/stackage/blob/master/MAINTAINERS.md#upgrading-to-a-new-ghc-version
