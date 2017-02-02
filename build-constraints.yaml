@@ -3048,15 +3048,14 @@ expected-test-failures:
     # expected-tests unless we know a fix has been released.
     - cabal-helper
     - generic-random
-    - lens
     - graphviz
+    - lens
     - punycode
     - zip
 
     # Requires running servers, accounts, or a specific
     # environment. These shouldn't be re-enabled unless we know a fix
     # has been released.
-    - mysql-haskell # Requires local mysql server with a test account, and binlog enabled.
     - GLFW-b # X
     - HTF # Requires shell script and are incompatible with sandboxed package databases
     - HaRe # # Needs ~/.ghc-mod/cabal-helper https://github.com/fpco/stackage/pull/906
@@ -3080,9 +3079,9 @@ expected-test-failures:
     - gitson # 0.5.2 error with git executable https://github.com/myfreeweb/gitson/issues/1
     - gitson # https://github.com/myfreeweb/gitson/issues/1
     - happy # Needs mtl in the user package DB
+    - haskell-neo4j-client # neo4j with auth disabled
     - haskell-tools-cli  # https://github.com/haskell-tools/haskell-tools/issues/230
     - haskell-tools-refactor  # https://github.com/haskell-tools/haskell-tools/issues/231
-    - haskell-neo4j-client # neo4j with auth disabled
     - hasql # PostgreSQL
     - hasql-transaction # PostgreSQL
     - hedis
@@ -3095,15 +3094,16 @@ expected-test-failures:
     - memcached-binary # memcached
     - mongoDB # mongoDB - https://github.com/mongodb-haskell/mongodb/issues/61
     - mysql # MySQL
+    - mysql-haskell # Requires local mysql server with a test account, and binlog enabled.
     - mysql-simple # MySQL
     - network-anonymous-i2p
     - opaleye # PostgreSQL
-    - postgresql-simple-migration
-    - postgresql-typed # PostgreSQL
     - persistent-redis # redis - https://github.com/fpco/stackage/pull/1581
     - pipes-mongodb
     - postgresql-query # PostgreSQL
     - postgresql-simple # PostgreSQL
+    - postgresql-simple-migration
+    - postgresql-typed # PostgreSQL
     - purescript # git 128 https://github.com/purescript/purescript/issues/2292
     - redis-io
     - rethinkdb
@@ -3132,14 +3132,14 @@ expected-test-failures:
     - angel # https://github.com/MichaelXavier/Angel/issues/43
     - camfort # 0.900 https://github.com/camfort/camfort/issues/41
     - crypto-pubkey # https://github.com/vincenthz/hs-crypto-pubkey/issues/23
+    - cubicbezier # https://github.com/kuribas/cubicbezier/issues/3
     - ghc-events # https://github.com/haskell/ghc-events/issues/9
+    - ginger # https://bitbucket.org/tdammers/ginger/issues/1/test-suite-failure-due-to-missing-test
     - graylog # 0.1.0.1 https://github.com/fpco/stackage/pull/1254
     - haskell-names # 0.7.0 https://github.com/haskell-suite/haskell-names/issues/78
     - rematch # No issue tracker, sent e-mail to maintainer https://github.com/fpco/stackage/issues/376
     - xlsior # https://github.com/rcallahan/xlsior/issues/1
-    - ginger # https://bitbucket.org/tdammers/ginger/issues/1/test-suite-failure-due-to-missing-test
     - yi-keymap-vim # https://github.com/yi-editor/yi/issues/954
-    - cubicbezier # https://github.com/kuribas/cubicbezier/issues/3
 
     # Assertion failures, these can be real bugs or just limitations
     # in the test cases.
@@ -3147,36 +3147,31 @@ expected-test-failures:
     - cayley-client # https://github.com/MichelBoucey/cayley-client/issues/2
     - direct-sqlite # 2.3.17 https://github.com/IreneKnapp/direct-sqlite/issues/63
     - ed25519 # 0.0.5.0 https://github.com/thoughtpolice/hs-ed25519/issues/15
+    - ghc-exactprint # https://github.com/alanz/ghc-exactprint/issues/47
     - nettle # https://github.com/stbuehler/haskell-nettle/issues/8
     - th-printf # 0.3.1 https://github.com/pikajude/th-printf/issues/3
+    - unicode-show # https://github.com/nushio3/unicode-show/issues/2
     - wreq # https://github.com/bos/wreq/issues/53
     - xmonad # 0.12 https://github.com/xmonad/xmonad/issues/36
-    - unicode-show # https://github.com/nushio3/unicode-show/issues/2
-    - ghc-exactprint # https://github.com/alanz/ghc-exactprint/issues/47
 
     # Compilation failures
     - ListLike # No issue tracker, e-mail sent to maintainer
+    - Spock-core # https://github.com/agrafix/Spock/issues/102
+    - commutative # https://github.com/athanclark/commutative/issues/4
     - dbus # 0.10.12 No issue tracker, e-mail sent to maintainer
+    - folds # https://github.com/ekmett/folds/issues/12
     - hspec-expectations-pretty-diff # GHC 8 issue not reported upstream since issue tracker disabled
     - jose-jwt # doctest ambiguity https://github.com/fpco/stackage/issues/2169
+    - language-lua2 # https://github.com/mitchellwrosen/language-lua2/issues/4
     - servant-server # 0.9.1.1 due to hspec-wai-0.8.0 https://github.com/haskell-servant/servant/issues/643
     - sourcemap # https://github.com/chrisdone/sourcemap/issues/3
     - text-ldap # # https://github.com/khibino/haskell-text-ldap/issues/1
     - thyme # https://github.com/liyang/thyme/issues/50
     - tries # https://github.com/athanclark/tries/issues/2
+    - vector-algorithms # http://hub.darcs.net/dolio/vector-algorithms/issue/9
     - wai-middleware-content-type # 0.4.1 - https://github.com/athanclark/wai-middleware-content-type/issues/2
     - xmlgen # https://github.com/skogsbaer/xmlgen/issues/6
-    - Spock-core # https://github.com/agrafix/Spock/issues/102
-    - language-lua2 # https://github.com/mitchellwrosen/language-lua2/issues/4
-    - commutative # https://github.com/athanclark/commutative/issues/4
     - yesod-auth-basic # https://github.com/creichert/yesod-auth-basic/issues/1
-    - folds # https://github.com/ekmett/folds/issues/12
-    - vector-algorithms # http://hub.darcs.net/dolio/vector-algorithms/issue/9
-
-    # Misc.
-    - distributed-process-supervisor # # https://github.com/haskell-d
-    - ghcid # Weird conflicts with sandboxingistributed/distributed-process-supervisor/issues/1
-    - haskell-docs # GHC bug
 
     # Stackage upper bounds, re-enable these when their upper bound is removed
 
@@ -3196,11 +3191,14 @@ expected-test-failures:
     - multiset
     - makefile
 
+    # Misc.
+    - distributed-process-supervisor # # https://github.com/haskell-d
+    - ghcid # Weird conflicts with sandboxingistributed/distributed-process-supervisor/issues/1
+    - haskell-docs # GHC bug
+    - rattletrap # OOM? https://github.com/fpco/stackage/issues/2232
     - snap-core # https://github.com/snapframework/snap-core/issues/26
-
     - stm-delay # https://github.com/joeyadams/haskell-stm-delay/issues/5
 
-    - rattletrap # OOM? https://github.com/fpco/stackage/issues/2232
 # end of expected-test-failures
 
 # Benchmarks which are known not to build. Note that, currently we do not run
