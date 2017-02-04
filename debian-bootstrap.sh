@@ -43,6 +43,7 @@ apt-get install -y \
     curl \
     freeglut3-dev \
     git \
+    gradle \
     libadns1-dev \
     libaio1 \
     libalut-dev \
