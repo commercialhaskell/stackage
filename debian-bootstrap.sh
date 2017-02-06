@@ -93,6 +93,7 @@ apt-get install -y \
     libpcap0.8-dev \
     libpq-dev \
     libsdl2-dev \
+    libsdl2-mixer-dev \
     libsnappy-dev \
     libsndfile1-dev \
     libsqlite3-dev \
