@@ -13,7 +13,6 @@
 set -exu
 
 mkdir /home/stackage -p
-locale-gen en_US.UTF-8
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
@@ -110,6 +109,7 @@ apt-get install -y \
     libzip-dev \
     libzmq3-dev \
     llvm-3.7 \
+    locales \
     m4 \
     nettle-dev \
     nodejs \
@@ -123,6 +123,8 @@ apt-get install -y \
     z3 \
     zip \
     zlib1g-dev
+
+locale-gen en_US.UTF-8
 
 curl -sSL https://get.haskellstack.org/ | sh
 
