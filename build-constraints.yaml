@@ -36,7 +36,7 @@ packages:
     "James M.C. Haver II <mchaver@gmail.com> @mchaver":
         - quickcheck-arbitrary-adt
         - hspec-golden-aeson
-        - servant-aeson-specs
+        # - servant-aeson-specs # bounds: servant
 
     "Winter Land <winterland1989@gmail.com> @winterland1989":
         - if
@@ -84,8 +84,8 @@ packages:
     "David Johnson <djohnson.m@gmail.com> @dmjio":
         - envy
         - s3-signer
-        - google-translate
-        - hackernews
+        # - google-translate # bounds: servant
+        # - hackernews # bounds: servant
         # - ses-html # bounds: time 1.6
         # - stripe-haskell # via: stripe-http-streams
         # - stripe-http-streams # via: http-streams
@@ -2459,7 +2459,7 @@ packages:
 
     "Alexey Rodiontsev <alex.rodiontsev@gmail.com> @klappvisor":
         []
-        # - telegram-api # bounds: aeson
+        # - telegram-api # bounds: aeson, servant
 
     "Iñaki García Etxebarria <garetxe@gmail.com> @garetxe":
         - gi-atk
@@ -2803,15 +2803,6 @@ packages:
 
         # https://github.com/fpco/stackage/issues/2251
         - sbv < 5.15
-
-        # https://github.com/fpco/stackage/issues/2257
-        - servant < 0.10
-        - servant-client < 0.10
-        - servant-docs < 0.10
-        - servant-server < 0.10
-        - servant-swagger < 1.1.2.1
-        - servant-mock < 0.8.1.2
-        - servant-foreign < 0.10
 
         # https://github.com/fpco/stackage/issues/2281
         - Earley < 0.12.0.0
