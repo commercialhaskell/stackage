@@ -27,10 +27,6 @@ add-apt-repository -y ppa:marutter/rrutter
 # Set the GHC version
 GHCVER=8.0.2
 
-# Get Stack
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 575159689BEFB442
-echo 'deb http://download.fpcomplete.com/ubuntu xenial main'|tee /etc/apt/sources.list.d/fpco.list
-
 apt-get update
 apt-get install -y \
     build-essential \
@@ -122,12 +118,13 @@ apt-get install -y \
     r-base \
     r-base-dev \
     ruby-dev \
-    stack \
     wget \
     xclip \
     z3 \
     zip \
     zlib1g-dev
+
+curl -sSL https://get.haskellstack.org/ | sh
 
 # Put documentation where we expect it
 mv /opt/ghc/$GHCVER/share/doc/ghc-$GHCVER/ /opt/ghc/$GHCVER/share/doc/ghc
