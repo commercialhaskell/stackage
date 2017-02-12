@@ -9,7 +9,7 @@ packages:
 
     "Joe M <joe9mail@gmail.com> @joe9":
         - logger-thread
-        - text-generic-pretty
+        # - text-generic-pretty # # via ixset-typed: via safecopy: bounds: vector
 
     "Li-yao Xia <lysxia@gmail.com> @Lysxia":
         - generic-random
@@ -36,7 +36,7 @@ packages:
     "James M.C. Haver II <mchaver@gmail.com> @mchaver":
         - quickcheck-arbitrary-adt
         - hspec-golden-aeson
-        - servant-aeson-specs
+        # - servant-aeson-specs # bounds: servant
 
     "Winter Land <winterland1989@gmail.com> @winterland1989":
         - if
@@ -84,8 +84,8 @@ packages:
     "David Johnson <djohnson.m@gmail.com> @dmjio":
         - envy
         - s3-signer
-        - google-translate
-        - hackernews
+        # - google-translate # bounds: servant
+        # - hackernews # bounds: servant
         # - ses-html # bounds: time 1.6
         # - stripe-haskell # via: stripe-http-streams
         # - stripe-http-streams # via: http-streams
@@ -146,13 +146,13 @@ packages:
         - async
         - base16-bytestring
         - c2hs
-        - cassava
+        # - cassava # bounds: vector
         - csv-conduit
         - executable-hash
         - executable-path
         - foreign-store
         - formatting
-        - gtk2hs-buildtools
+        # - gtk2hs-buildtools # via hashtables: bounds: vector
         - happy
         - hybrid-vectors
         - indents
@@ -214,7 +214,7 @@ packages:
         - hjsmin
         - language-javascript
         - Strafunski-StrategyLib
-        # - HaRe # via: cabal-helper, ghc-mod, rosezipper
+        - HaRe # via: cabal-helper, ghc-mod, rosezipper
 
     "Alfredo Di Napoli <alfredo.dinapoli@gmail.com> @adinapoli":
         - mandrill
@@ -261,7 +261,7 @@ packages:
         - HTF
         - xmlgen
         - stm-stats
-        - large-hashable
+        # - large-hashable # via safecopy: bounds: vector
 
     "Bart Massey <bart.massey+stackage@gmail.com> @BartMassey":
         - parseargs
@@ -303,7 +303,7 @@ packages:
         - hostname-validate
         - ini
         - lucid
-        - osdkeys
+        # - osdkeys # via libnotify: via gtk: via cairo: via gtk2hs-buildtools: via hashtables: bounds: vector
         - pdfinfo
         # - present # compilation failure against haskell-src-exts
         - pure-io
@@ -320,13 +320,13 @@ packages:
         # - structured-haskell-mode # bounds: haskell-src-exts # via: applicative-quoters
 
     "Alberto G. Corona <agocorona@gmail.com> @agocorona":
-        - RefSerialize
-        - TCache
-        - Workflow
-        - MFlow
+        # - RefSerialize # via hashtables: bounds: vector
+        # - TCache # via hashtables: bounds: vector
+        # - Workflow # via RefSerialize: via hashtables: bounds: vector
+        # - MFlow # via RefSerialize: via hashtables: bounds: vector
         - transient
-        - transient-universe
-        - ghcjs-hplay
+        # - transient-universe # via TCache: via hashtables: bounds: vector
+        # - ghcjs-hplay # via transient-universe: via TCache: via hashtables: bounds: vector
 
     "Edward Kmett <ekmett@gmail.com> @ekmett":
         - ad
@@ -361,8 +361,8 @@ packages:
         - lca
         - lens
         - linear
-        - linear-accelerate
-        - log-domain
+        # - linear-accelerate # via accelerate: via hashtables: bounds: vector
+        # - log-domain # via safecopy: bounds: vector
         - machines
         - monadic-arrays
         - monad-products
@@ -420,15 +420,15 @@ packages:
 
     "Brent Yorgey <byorgey@gmail.com> @byorgey":
         - active
-        - BlogLiterately
-        - BlogLiterately-diagrams
+        # - BlogLiterately # bounds: blaze-html
+        # - BlogLiterately-diagrams # via BlogLiterately: bounds: blaze-html
         - diagrams
         - diagrams-builder
         # - diagrams-haddock # BLOCKED directory 1.3 via cautious-file
-        - diagrams-cairo
+        # - diagrams-cairo # bounds: vector
         - diagrams-contrib
         - diagrams-core
-        - diagrams-gtk
+        # - diagrams-gtk # via diagrams-cairo: bounds: vector
         - diagrams-lib
         - diagrams-postscript
         - diagrams-rasterific
@@ -460,7 +460,7 @@ packages:
         # - mangopay # compilation failure against aeson
         - nonce
         - serversession
-        - serversession-backend-acid-state
+        # - serversession-backend-acid-state # via acid-state: via safecopy: bounds: vector
         # - serversession-backend-persistent # bounds: persistent, persistent-postgresql, persistent-sqlite
         # - serversession-backend-redis # bounds: hedis
         # - serversession-frontend-snap # bounds: snap, snap-core
@@ -480,7 +480,8 @@ packages:
         - ChannelT
 
     "Trevor L. McDonell <tmcdonell@cse.unsw.edu.au> @tmcdonell":
-        - accelerate
+        []
+        # - accelerate # via hashtables: bounds: vector
 
     "Liam O'Connor <liamoc@cse.unsw.edu.au> @liamoc":
         []
@@ -538,7 +539,7 @@ packages:
     "Chris Allen <cma@bitemyapp.com> @bitemyapp":
         - machines-directory
         - machines-io
-        - bloodhound
+        # - bloodhound # bounds: vector
         - esqueleto # bounds: persistent
 
     "Adam Bergmark <adam@bergmark.nl> @bergmark":
@@ -589,19 +590,22 @@ packages:
         - hPDB
         - hPDB-examples
         # - homplexity # BLOCKED directory 1.3
-        - wordpass
+        # - wordpass # bounds: vector
         # - json-autotype # bounds: aeson 1.0, lens
         - posix-realtime
 
     "Dom De Re <domdere@domdere.com> @domdere":
-        - cassava-conduit
+        []
+        # - cassava-conduit # via cassava: bounds: vector
 
     "Dominic Steinitz <dominic@steinitz.org> @idontgetoutmuch":
+        []
         # - yarr # compilation error against fixed-vector https://github.com/leventov/yarr/issues/10
-        - random-fu
+        # - random-fu # via log-domain: via safecopy: bounds: vector
 
     "Ben Gamari <ben@smart-cactus.org> @bgamari":
-        - vector-fftw
+        []
+        # - vector-fftw # bounds: vector
 
     "Roman Cheplyaka <roma@ro-che.info> @feuerbach":
         - action-permutations
@@ -641,7 +645,7 @@ packages:
         - arbtt
         - ghc-heap-view
         - tttool
-        - gipeda
+        # - gipeda # via cassava: bounds: vector
         - list-fusion-probe
         - haskell-spacegoo
         - tasty-expected-failure
@@ -652,11 +656,11 @@ packages:
         - HandsomeSoup
 
     "Clint Adams <clint@debian.org> @clinty":
-        - hOpenPGP
+        # - hOpenPGP # via ixset-typed: via safecopy: bounds: vector
         - openpgp-asciiarmor
         - MusicBrainz
         - DAV
-        - hopenpgp-tools
+        # - hopenpgp-tools # via ixset-typed: via safecopy: bounds: vector
         - opensource
 
     "Joey Hess <id@joeyh.name> @joeyh":
@@ -672,9 +676,9 @@ packages:
         - versions
         - vectortiles
         - pipes-random
-        - repa
-        - repa-io
-        - repa-algorithms
+        # - repa # bounds: vector
+        # - repa-io # bounds: vector
+        # - repa-algorithms # bounds: vector
         # - kanji # bounds: ghc 8, base
 
     "Ketil Malde @ketil-malde":
@@ -699,7 +703,7 @@ packages:
         - ClustalParser
         - EntrezHTTP
         - Genbank
-        - RNAlien
+        # - RNAlien # via cassava: bounds: vector
         - Taxonomy
         # - TaxonomyTools # build failure
         - ViennaRNAParser
@@ -719,8 +723,8 @@ packages:
         - multipart
         - rest-client
         - rest-core
-        - rest-gen
-        - rest-happstack
+        # - rest-gen # bounds: blaze-html
+        # - rest-happstack # via rest-gen: bounds: blaze-html
         - rest-snap
         - rest-stringmap
         - rest-types
@@ -730,11 +734,11 @@ packages:
 
     "Simon Michael <simon@joyful.com> @simonmichael":
         - darcs
-        - hledger
-        - hledger-lib
-        - hledger-ui
-        - hledger-web
-        - hledger-api
+        # - hledger # via hledger-lib: via hashtables: bounds: vector
+        # - hledger-lib # via hashtables: bounds: vector
+        # - hledger-ui # via hledger-lib: via hashtables: bounds: vector
+        # - hledger-web # via hledger-lib: via hashtables: bounds: vector
+        # - hledger-api # via hledger-lib: via hashtables: bounds: vector
         # - shelltestrunner # bounds: Diff, HUnit
         - quickbench
         - regex-compat-tdfa
@@ -752,7 +756,7 @@ packages:
         # - msi-kb-backlit # bounds: ghc, base
         - smoothie
         # - tellbot # bounds: bifunctors, http-conduit, tagsoup
-        - wavefront
+        # - wavefront # bounds: vector
         - zero
 
     "Thomas Schilling <nominolo@googlemail.com> @nominolo":
@@ -780,7 +784,7 @@ packages:
         - mysql
         - mysql-simple
         - sphinx
-        - xmlhtml
+        # - xmlhtml # bounds: blaze-html, blaze-markup
         - yesod-auth-hashdb
 
     "Toralf Wittner <tw@dtex.org> @twittner":
@@ -832,7 +836,7 @@ packages:
         - multimap
         - parallel-io
         - text-binary
-        - Chart-cairo
+        # - Chart-cairo # via cairo: via gtk2hs-buildtools: via hashtables: bounds: vector
         - ghc-events
         - monad-extras
         # - stack < 9.9.9 # bounds: ghc, template-haskell
@@ -847,7 +851,7 @@ packages:
         - base-prelude
         - cases
         - focus
-        - hasql
+        # - hasql # via hashtables: bounds: vector
         - list-t
         - mtl-prelude
         - neat-interpolation
@@ -933,7 +937,7 @@ packages:
         - servant-blaze
         - servant-foreign
         - servant-mock
-        - servant-cassava
+        # - servant-cassava # via cassava: bounds: vector
 
     "Alexandr Ruchkin <voidex@live.com> @mvoidex":
         # - hdocs # BLOCKED haddock-api GHC 8.0.2
@@ -970,15 +974,15 @@ packages:
         - hslua
         # - idris # bounds: safe
 
-        - cairo
-        - gio
-        - glib
-        - gtk
-        - gtk3
-        - gtksourceview3
-        - pango
-        - webkitgtk3
-        - webkitgtk3-javascriptcore
+        # - cairo # via gtk2hs-buildtools: via hashtables: bounds: vector
+        # - gio # via gtk2hs-buildtools: via hashtables: bounds: vector
+        # - glib # via gtk2hs-buildtools: via hashtables: bounds: vector
+        # - gtk # via gtk2hs-buildtools: via hashtables: bounds: vector
+        # - gtk3 # via gtk2hs-buildtools: via hashtables: bounds: vector
+        # - gtksourceview3 # via gtk2hs-buildtools: via hashtables: bounds: vector
+        # - pango # via gtk2hs-buildtools: via hashtables: bounds: vector
+        # - webkitgtk3 # via gtk2hs-buildtools: via hashtables: bounds: vector
+        # - webkitgtk3-javascriptcore # via gtk2hs-buildtools: via hashtables: bounds: vector
 
         - ghcjs-codemirror
         # - ghcjs-dom # via: ghcjs-dom-jsaddle # https://github.com/fpco/stackage/issues/1569
@@ -1090,9 +1094,9 @@ packages:
         - waitra
 
         # scrive/log
-        - log
+        # - log # via bloodhound: bounds: vector
         - log-base
-        - log-elasticsearch
+        # - log-elasticsearch # via bloodhound: bounds: vector
         - log-postgres
 
         # Not a maintainer
@@ -1362,11 +1366,11 @@ packages:
         - hmatrix-gsl-stats
         - hsignal
         - hstatistics
-        - plot
-        - plot-gtk
-        - plot-gtk3
+        # - plot # via cairo: via gtk2hs-buildtools: via hashtables: bounds: vector
+        # - plot-gtk # via gtk: via cairo: via gtk2hs-buildtools: via hashtables: bounds: vector
+        # - plot-gtk3 # via gtk3: via cairo: via gtk2hs-buildtools: via hashtables: bounds: vector
         - vector-buffer
-        - hmatrix-repa
+        # - hmatrix-repa # via repa: bounds: vector
 
     "Noam Lewis <jones.noamle@gmail.com> @sinelaw":
         # - xml-to-json # via: hexpat
@@ -1440,8 +1444,8 @@ packages:
         - cased
         - elm-export
         - elm-export-persistent
-        - pipes-csv
-        - pipes-mongodb
+        # - pipes-csv # via cassava: bounds: vector
+        # - pipes-mongodb # via mongoDB: via hashtables: bounds: vector
         - servant-elm
         - skeletons
         - streaming-wai
@@ -1501,8 +1505,8 @@ packages:
         - triesn
         - path-extra
         # - pred-trie # via poly-arity
-        - pred-set
-        - HSet
+        # - pred-set # via hashtables: bounds: vector
+        # - HSet # via hashtables: bounds: vector
 
     "Fumiaki Kinoshita <fumiexcel@gmail.com> @fumieval":
         - boundingboxes
@@ -1705,7 +1709,7 @@ packages:
         - hapistrano
         - inflections
         - twitter-feed
-        - cassava-megaparsec
+        # - cassava-megaparsec # via cassava: bounds: vector
         - dotenv
         - stache
 
@@ -1783,19 +1787,20 @@ packages:
         # - ipython-kernel # GHC 8
 
     "Andrés Sicard-Ramírez <asr@eafit.edu.co> @asr":
-        - Agda
+        []
+        # - Agda # via hashtables: bounds: vector
 
     "James Cook <mokus@deepbondi.net> @mokus0":
         - dependent-sum
         # - dependent-sum-template # bounds: dependent-sum
         - dependent-map
-        - dice
+        # - dice # via random-fu: via log-domain: via safecopy: bounds: vector
         - hstatsd
-        - misfortune
+        # - misfortune # via random-fu: via log-domain: via safecopy: bounds: vector
 
     "Timo von Holtz <tvh@tvholtz.de> @tvh":
         - haxl-amazonka
-        - hasql-migration
+        # - hasql-migration # via hasql: via hashtables: bounds: vector
         - servant-JuicyPixels
 
     "Artyom <yom@artyom.me> @neongreen":
@@ -1839,8 +1844,9 @@ packages:
         - storable-record
 
     "Brandon Martin <brandon@codedmart.com> @codedmart":
+        []
         # - engine-io-wai # bounds: ghc, base
-        - rethinkdb
+        # - rethinkdb # bounds: vector
 
     "Michael Walker <mike@barrucadu.co.uk> @barrucadu":
         - both
@@ -1861,8 +1867,8 @@ packages:
         - emailaddress
         - envelope
         - from-sum
-        - hailgun
-        - hailgun-simple
+        # - hailgun # bounds: aeson
+        # - hailgun-simple # via hailgun
         # - ig # bounds: http-conduit, transformers
         - natural-transformation
         - opaleye-trans
@@ -1924,7 +1930,7 @@ packages:
         - smallcaps
 
     "Gregory Collins <greg@gregorycollins.net> @gregorycollins":
-        - hashtables
+        # - hashtables # bounds: vector
         - io-streams
         - openssl-streams
 
@@ -1953,7 +1959,7 @@ packages:
         - cabal2nix
         - funcmp
         - hackage-db
-        - hledger-interest
+        # - hledger-interest # via hledger-lib: via hashtables: bounds: vector
         - hopenssl
         - hsdns
         - hsemail
@@ -1982,7 +1988,7 @@ packages:
         - clumpiness
         # - find-clumpiness # build failure against optparse-applicative https://github.com/GregorySchwartz/find-clumpiness/issues/1
         - blosum
-        - convert-annotation
+        # - convert-annotation # via cassava: bounds: vector
 
     "Simon Marechal <bartavelle@gmail.com> @bartavelle":
         - compactmap
@@ -2022,7 +2028,8 @@ packages:
         # - multiplate # bounds: transformers
 
     "Sumit Sahrawat <sumit.sahrawat.apm13@iitbhu.ac.in> @sumitsahrawat":
-        - plot-gtk-ui
+        []
+        # - plot-gtk-ui # via cairo: via gtk2hs-buildtools: via hashtables: bounds: vector
         # - calculator # bounds: ghc, base
 
     "Emmanuel Touzery <etouzery@gmail.com> @emmanueltouzery":
@@ -2083,7 +2090,7 @@ packages:
         # - engine-io-yesod # bounds: ghc, base
 
     "Tim McGilchrist <timmcgil@gmail.com> @tmcgilchrist":
-        - riak
+        # - riak # bounds: aeson
         - airship
 
     "Yuras Shumovich <shumovichy@gmail.com> @Yuras":
@@ -2189,26 +2196,26 @@ packages:
 
     "Jeremy Shaw <jeremy@n-heptane.com> @stepcut":
         - boomerang
-        - clckwrks
-        - clckwrks-cli
-        - clckwrks-plugin-page
-        - clckwrks-plugin-media
-        - clckwrks-theme-bootstrap
+        # - clckwrks # via acid-state: via safecopy: bounds: vector
+        # - clckwrks-cli # via acid-state: via safecopy: bounds: vector
+        # - clckwrks-plugin-page # via acid-state: via safecopy: bounds: vector
+        # - clckwrks-plugin-media # via acid-state: via safecopy: bounds: vector
+        # - clckwrks-theme-bootstrap # via clckwrks: via acid-state: via safecopy: bounds: vector
         # - hackage-whatsnew # bounds: directory 1.3
-        - happstack-authenticate
-        - happstack-clientsession
+        # - happstack-authenticate # via acid-state: via safecopy: bounds: vector
+        # - happstack-clientsession # via safecopy: bounds: vector
         - happstack-hsp
         - happstack-jmacro
         - happstack-server
         - happstack-server-tls
         - hsx-jmacro
-        - ixset
+        # - ixset # via safecopy: bounds: vector
         - reform
         - reform-blaze
         - reform-hamlet
         - reform-happstack
         - reform-hsp
-        - userid
+        # - userid # via safecopy: bounds: vector
         - web-plugins
         - web-routes
         - web-routes-boomerang
@@ -2331,13 +2338,13 @@ packages:
         - hs-GeoIP
         - retry
         - katip
-        - katip-elasticsearch
+        # - katip-elasticsearch # via bloodhound: bounds: vector
 
     "Sid Kapur sidharthkapur1@gmail.com @sid-kap":
         - tuple
         - OneTuple
-        - SVGFonts
-        - Chart-diagrams
+        # - SVGFonts # via blaze-svg: bounds: blaze-markup
+        # - Chart-diagrams # via SVGFonts: via blaze-svg: bounds: blaze-markup
 
     # "Aaron Levin <aaron.levin@soundcloud.com> @aaronmblevin":
         # - haskell-kubernetes # bounds: QuickCheck, aeson, http-api-data, lens, servant, servant-client
@@ -2357,7 +2364,8 @@ packages:
         - binary-bits
 
     "Nicolas Trangez <ikke@nicolast.be> @NicolasT":
-        - reedsolomon
+        []
+        # - reedsolomon # bounds: vector
 
     "Alp Mestanogullari <alpmestan@gmail.com> @alpmestan":
         - taggy
@@ -2407,9 +2415,9 @@ packages:
 
     "John Ky newhoggy@gmail.com @newhoggy":
         - hw-bits
-        - hw-conduit
+        # - hw-conduit # via criterion: via cassava: bounds: vector 
         - hw-diagnostics
-        - hw-json
+        # - hw-json # via criterion: via cassava: bounds: vector
         - hw-parser
         - hw-prim
         - hw-rankselect
@@ -2444,8 +2452,8 @@ packages:
         - wikicfp-scraper
         - wild-bind
         - wild-bind-x11
-        - wild-bind-indicator
-        - wild-bind-task-x11
+        # - wild-bind-indicator # via gtk: via cairo: via gtk2hs-buildtools: via hashtables: bounds: vector
+        # - wild-bind-task-x11 # via wild-blind-indicator: via gtk: via cairo: via gtk2hs-buildtools: via hashtables: bounds: vector
 
     "Cies Breijs <cies@kde.nl> @cies":
         - htoml
@@ -2458,7 +2466,8 @@ packages:
         - stratosphere
 
     "Alexey Rodiontsev <alex.rodiontsev@gmail.com> @klappvisor":
-        - telegram-api
+        []
+        # - telegram-api # bounds: aeson, servant
 
     "Iñaki García Etxebarria <garetxe@gmail.com> @garetxe":
         - gi-atk
@@ -2529,7 +2538,7 @@ packages:
         - open-witness
 
     "Victor Denisov <denisovenator@gmail.com> @VictorDenisov":
-        - mongoDB
+        # - mongoDB # via hashtables: bounds: vector
         - bson
 
     "Alexis King <lexi.lambda@gmail.com> @lexi-lambda":
@@ -2566,7 +2575,8 @@ packages:
         - language-fortran
 
     "Philipp Schuster <phischu3000@gmail.com> @phischu":
-        - haskell-names
+        []
+        # - haskell-names # bounds: aeson
 
     "Shao Cheng <astrohavoc@gmail.com> @TerrorJack":
         - simple-download
@@ -2606,6 +2616,7 @@ packages:
         - unlit
         - intro
         - tasty-auto
+        - tasty-stats
         - colorful-monoids
 
     "Taras Serduke <taras.serduke@gmail.com> @tserduke":
@@ -2643,7 +2654,8 @@ packages:
       - hdbc-mysql
 
     "Tony Day <tonyday567@gmail.com> @tonyday567":
-        - chart-unit
+        []
+        # - chart-unit # via random-fu: via log-domain: via safecopy: bounds: vector
 
     "Iphigenia Df <iphydf@gmail.com> @iphydf":
         - data-msgpack
@@ -2665,10 +2677,10 @@ packages:
     "Mahdi Dibaiee <mdibaiee@aol.com>":
         - picedit
         - mathexpr
-        - sibe
+        # - sibe # via Chart-cairo: via cairo: via gtk2hs-buildtools: via hashtables: bounds: vector
 
     "Alexis Williams <sasinestro@gmail.com> @typedrat":
-        - stb-image-redux
+        # - stb-image-redux # bounds: vector
         - wavefront-obj
 
     "XT <e@xtendo.org> @xtendo-org":
@@ -2690,7 +2702,8 @@ packages:
         - rawstring-qm
 
     "Tom Nielsen <tanielsen@gmail.com> @glutamate":
-        - datasets
+        []
+        # - datasets # via cassava: bounds: vector
 
     "Hyunje Jun <me@noraesae.net> @noraesae":
         - line
@@ -2703,10 +2716,12 @@ packages:
         - printcess
 
     "Alexey Kuleshevich <lehins@yandex.ru> @lehins":
-        - hip
+        []
+        # - hip # via repa: bounds: vector
 
     "Hans-Peter Deifel <hpd@hpdeifel.de> @hpdeifel":
-        - hledger-iadd
+        []
+        # - hledger-iadd # via hledger-lib: via hashtables: bounds: vector
 
     "Roy Levien <royl@aldaron.com> @orome":
         - crypto-enigma
@@ -2758,6 +2773,9 @@ packages:
         - haskell-import-graph
         - uniq-deep
 
+    "Aditya Manthramurthy <aditya.mmy@gmail.com> @donatello":
+        - minio-hs
+
     # If you stop maintaining a package you can move it here.
     # It will then be disabled if it starts causing problems.
     # See https://github.com/fpco/stackage/issues/1056
@@ -2792,32 +2810,8 @@ packages:
         # https://github.com/fpco/stackage/issues/2127
         - leapseconds-announced < 2017.0.0.1
 
-        # https://github.com/fpco/stackage/issues/2032
-        - datasets < 0.2.2
-
-        # https://github.com/fpco/stackage/issues/2177
-        - aeson < 1.1.0.0
-        - hoauth2 < 0.5.8
-
-        # https://github.com/fpco/stackage/issues/2194
-        - vector < 0.12.0.0
-        - primitive < 0.6.2.0
-
-        # https://github.com/fpco/stackage/issues/2246
-        - blaze-html < 0.9
-        - blaze-markup < 0.8
-
         # https://github.com/fpco/stackage/issues/2251
         - sbv < 5.15
-
-        # https://github.com/fpco/stackage/issues/2257
-        - servant < 0.10
-        - servant-client < 0.10
-        - servant-docs < 0.10
-        - servant-server < 0.10
-        - servant-swagger < 1.1.2.1
-        - servant-mock < 0.8.1.2
-        - servant-foreign < 0.10
 
         # https://github.com/fpco/stackage/issues/2281
         - Earley < 0.12.0.0
@@ -3032,6 +3026,9 @@ skipped-tests:
     # directory 1.3
     - machines
     - xmlhtml
+
+    # via criterion: via cassava: bounds: vector
+    - sparse-linear-algebra
 
 # end of skipped-tests
 
@@ -3312,6 +3309,179 @@ skipped-benchmarks:
     - hledger-lib # https://github.com/fpco/stackage/issues/1587
 
     - pipes # optparse-applicative 0.13
+
+    # Criterionpocalypse # via criterion: via cassava: bounds: vector
+    - Earley
+    - Frames
+    - IntervalMap
+    - JuicyPixels-extra
+    - acid-state
+    - ad
+    - arithmoi
+    - attoparsec
+    - avers
+    - binary-list
+    - binary-parsers
+    - binary-tagged
+    - binary-typed
+    - blake2
+    - buffer-builder
+    - bytestring-conversion
+    - bytestring-tree-builder
+    - cacophony
+    - case-insensitive
+    - cassava
+    - cipher-aes128
+    - clash-prelude
+    - clustering
+    - cmark
+    - conduit
+    - conduit-extra
+    - conduit-iconv
+    - cprng-aes
+    - criterion
+    - cron
+    - crypto-numbers
+    - crypto-pubkey
+    - cryptohash
+    - cryptohash-md5
+    - cryptohash-sha1
+    - cryptohash-sha256
+    - cryptol
+    - ctrie
+    - data-msgpack
+    - diagrams-lib
+    - dimensional
+    - do-list
+    - ed25519
+    - edit-distance
+    - effect-handlers
+    - euphoria
+    - farmhash
+    - fast-builder
+    - fast-digits
+    - fclabels
+    - foldl
+    - foldl-statistics
+    - gitson
+    - glob-posix
+    - graphviz
+    - grouped-list
+    - hOpenPGP
+    - hashable
+    - haskell-tools-cli
+    - hasql
+    - highjson
+    - hindent
+    - hip
+    - histogram-fill
+    - hledger
+    - hosc
+    - hourglass
+    - html-email-validate
+    - htoml
+    - http-client-tls
+    - http-link-header
+    - human-readable-duration
+    - hw-balancedparens
+    - hw-bits
+    - hw-conduit
+    - hw-json
+    - hw-rankselect-base
+    - hweblib
+    - hxt-regex-xmlschema
+    - identicon
+    - ilist
+    - include-file
+    - incremental-parser
+    - inline-r
+    - jose-jwt
+    - katip
+    - kdt
+    - lens
+    - lifted-async
+    - lifted-base
+    - logging-effect
+    - loop
+    - lucid
+    - matrices
+    - matrix
+    - megaparsec
+    - monad-logger-prefix
+    - mongoDB
+    - mono-traversable
+    - monoid-extras
+    - morte
+    - mutable-containers
+    - netpbm
+    - pandoc
+    - phantom-state
+    - picoparsec
+    - postgresql-binary
+    - pretty-simple
+    - prometheus-client
+    - psqueues
+    - publicsuffix
+    - ramus
+    - rdf
+    - redis-io
+    - reinterpret-cast
+    - reroute
+    - rethinkdb-client-driver
+    - rose-trees
+    - sampling
+    - sandi
+    - say
+    - scalpel-core
+    - scanner
+    - scientific
+    - semver
+    - servant-auth-cookie
+    - sets
+    - skylighting
+    - snap-server
+    - sorted-list
+    - sourcemap
+    - sparse-linear-algebra
+    - stache
+    - stateWriter
+    - stm-containers
+    - streaming-commons
+    - superbuffer
+    - taggy
+    - tar
+    - text-manipulate
+    - text-metrics
+    - text-show
+    - thread-local-storage
+    - thyme
+    - timemap
+    - tinylog
+    - tls
+    - turtle
+    - tz
+    - ua-parser
+    - unbound-generics
+    - unicode-transforms
+    - union
+    - unordered-containers
+    - uri-bytestring
+    - uuid
+    - uuid-types
+    - varying
+    - vector-binary-instances
+    - vectortiles
+    - vinyl
+    - wai-middleware-metrics
+    - wai-routing
+    - warp
+    - wire-streams
+    - word24
+    - word8
+    - xmlgen
+    - yesod-core
+    - yi-rope
+    - zippers
 
 # end of skipped-benchmarks
 
