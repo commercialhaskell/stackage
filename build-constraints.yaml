@@ -952,12 +952,12 @@ packages:
         - indentation-parsec
 
     "Alois Cochard <alois.cochard@gmail.com> @aloiscochard":
-        # - codex # bounds: http-client, wreq
+        # - codex # bounds: http-client, wreq, directory
         - machines-binary
         - machines-process
         # - sarsi # bound: cryptonite
         # on behalf of Bryan O'Sullivan @bos:
-        # - wreq # bounds: authenticate-oauth, http-client
+        - wreq
 
     "Andraz Bajt <andraz@bajt.me> @edofic":
         - effect-handlers
@@ -1035,8 +1035,8 @@ packages:
     "Leon Mergen <leon@solatis.com> @solatis":
         - base32string
         - base58string
-        # - bitcoin-api # via: wreq
-        # - bitcoin-api-extra # via: bitcoin-api, wreq
+        - bitcoin-api
+        - bitcoin-api-extra
         - bitcoin-block
         - bitcoin-script
         - bitcoin-tx
@@ -2236,10 +2236,10 @@ packages:
         # - hzulip # bounds: aeson, stm-conduit
         - list-prompt
         # - memoization-utils # bounds: time
-        # - package-description-remote # via: wreq
+        - package-description-remote
         - projectroot
         - questioner
-        # - stack-run-auto # via: extract-dependencies, wreq
+        - stack-run-auto
         # - hpack-convert # bounds: aeson 1.0
         - language-dockerfile
 
@@ -2300,7 +2300,7 @@ packages:
         - extensible-effects
 
     # "Justus Adam <dev@justus.science> @JustusAdam":
-        # - mustache # via: wreq
+        - mustache
 
     "Cindy Wang <cindylinz@gmail.com> @CindyLinz":
         - NoTrace
@@ -2426,7 +2426,7 @@ packages:
         - hw-succinct
 
     # "Ismail Mustafa <ismailmustafa@rocketmail.com> @ismailmustafa":
-        # - handwriting # via: wreq
+        - handwriting
 
     "Stephen Diehl <stephen.m.diehl@gamil.com> @sdiehl":
         - protolude
@@ -2603,7 +2603,7 @@ packages:
         - hocilib
 
     # "Matthias Herrmann <matthias.mh.herrmann@gmail.com> @2chilled":
-        # - scrape-changes # via: wreq
+        - scrape-changes
 
     "Daniel Mendler <mail@daniel-mendler.de> @minad":
         - quickcheck-special
@@ -3172,7 +3172,6 @@ expected-test-failures:
     - nettle # https://github.com/stbuehler/haskell-nettle/issues/8
     - th-printf # 0.3.1 https://github.com/pikajude/th-printf/issues/3
     - unicode-show # https://github.com/nushio3/unicode-show/issues/2
-    - wreq # https://github.com/bos/wreq/issues/53
     - xmonad # 0.12 https://github.com/xmonad/xmonad/issues/36
 
     # Compilation failures
@@ -3606,7 +3605,6 @@ build-tool-overrides:
 # - bindings-GLFW-3.1.2.1 # Comment saying what should be done when the new version is releasedskipped test-suite
 tell-me-when-its-released:
 - point-octree-0.5.5.3 # re-enable test and then we can resolve https://github.com/fpco/lts-haskell/issues/27
-- wreq-0.4.1.0 # Try to re-enable lots of packages, (esp https://github.com/fpco/stackage/issues/2032) and the test-suite if https://github.com/bos/wreq/issues/53 is closed.
 - yarr-1.4.0.2 # Re-enable package https://github.com/fpco/stackage/issues/1876
 - terminal-progress-bar-0.1.1 # Unskip test suite
 - vivid-0.2.0.5 # Re-enable package (disabed per MonadRandom < 0.5) https://github.com/fpco/stackage/issues/2180
