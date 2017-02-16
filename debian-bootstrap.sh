@@ -13,7 +13,6 @@
 set -exu
 
 mkdir /home/stackage -p
-locale-gen en_US.UTF-8
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
@@ -26,10 +25,6 @@ add-apt-repository -y ppa:marutter/rrutter
 
 # Set the GHC version
 GHCVER=8.0.2
-
-# Get Stack
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 575159689BEFB442
-echo 'deb http://download.fpcomplete.com/ubuntu xenial main'|tee /etc/apt/sources.list.d/fpco.list
 
 apt-get update
 apt-get install -y \
@@ -115,6 +110,7 @@ apt-get install -y \
     libzip-dev \
     libzmq3-dev \
     llvm-3.7 \
+    locales \
     m4 \
     nettle-dev \
     nodejs \
@@ -123,12 +119,15 @@ apt-get install -y \
     r-base \
     r-base-dev \
     ruby-dev \
-    stack \
     wget \
     xclip \
     z3 \
     zip \
     zlib1g-dev
+
+locale-gen en_US.UTF-8
+
+curl -sSL https://get.haskellstack.org/ | sh
 
 # Put documentation where we expect it
 mv /opt/ghc/$GHCVER/share/doc/ghc-$GHCVER/ /opt/ghc/$GHCVER/share/doc/ghc
