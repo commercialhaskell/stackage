@@ -3,7 +3,10 @@ ghc-major-version: "8.0"
 packages:
     "Romain Edelmann <romain.edelmann@gmail.com> @redelmann":
         - distribution
-        
+
+    "Rongcui Dong <rongcuid@outlook.com> @rongcuid":
+        - sdl2-ttf
+
     "Nikita Tchayka <nikitatchayka@gmail.com> @nickseagull":
         - ramus
 
@@ -282,7 +285,7 @@ packages:
         - cryptonite-openssl
         - crypto-pubkey-types
         - crypto-random-api
-        # - git # https://github.com/vincenthz/hs-git/issues/5
+        - git
         - hit
         - memory
         - language-java
@@ -569,8 +572,8 @@ packages:
 
     "Robert Klotzner <robert.klotzner@gmx.at> @eskimor":
         - purescript-bridge
-        - servant-purescript
-        - servant-subscriber
+        # - servant-purescript # via servant-subscriber: build failure https://github.com/eskimor/servant-subscriber/issues/10
+        # - servant-subscriber # build failure https://github.com/eskimor/servant-subscriber/issues/10
 
     "Rodrigo Setti <rodrigosetti@gmail.com> @rodrigosetti":
         - messagepack
@@ -955,12 +958,12 @@ packages:
         - indentation-parsec
 
     "Alois Cochard <alois.cochard@gmail.com> @aloiscochard":
-        # - codex # bounds: http-client, wreq
+        # - codex # bounds: http-client, wreq, directory
         - machines-binary
         - machines-process
         # - sarsi # bound: cryptonite
         # on behalf of Bryan O'Sullivan @bos:
-        # - wreq # bounds: authenticate-oauth, http-client
+        - wreq
 
     "Andraz Bajt <andraz@bajt.me> @edofic":
         - effect-handlers
@@ -1038,8 +1041,8 @@ packages:
     "Leon Mergen <leon@solatis.com> @solatis":
         - base32string
         - base58string
-        # - bitcoin-api # via: wreq
-        # - bitcoin-api-extra # via: bitcoin-api, wreq
+        - bitcoin-api
+        - bitcoin-api-extra
         - bitcoin-block
         - bitcoin-script
         - bitcoin-tx
@@ -1679,7 +1682,7 @@ packages:
         # - pipes-illumina # via: pipes-bgzf
         - seqalign
         - thermonuc
-        - xlsior
+        # - xlsior # https://github.com/eurekagenomics/xlsior/issues/3
 
     "John Lenz <wuzzeb@gmail.com> @wuzzeb":
         - yesod-auth-account
@@ -1870,8 +1873,8 @@ packages:
         - emailaddress
         - envelope
         - from-sum
-        # - hailgun # bounds: aeson
-        # - hailgun-simple # via hailgun
+        - hailgun
+        - hailgun-simple
         # - ig # bounds: http-conduit, transformers
         - natural-transformation
         - opaleye-trans
@@ -2239,10 +2242,10 @@ packages:
         # - hzulip # bounds: aeson, stm-conduit
         - list-prompt
         # - memoization-utils # bounds: time
-        # - package-description-remote # via: wreq
+        - package-description-remote
         - projectroot
         - questioner
-        # - stack-run-auto # via: extract-dependencies, wreq
+        - stack-run-auto
         # - hpack-convert # bounds: aeson 1.0
         - language-dockerfile
 
@@ -2296,13 +2299,14 @@ packages:
 
     "Jason Shipman <jasonpshipman@gmail.com> @jship":
         # on behalf of Boris Sukholitko @bosu
-        - pure-cdb
+        []
+        # - pure-cdb # https://github.com/bosu/pure-cdb/issues/5
 
     "Suhail Shergill <suhailshergill@gmail.com> @suhailshergill":
         - extensible-effects
 
     # "Justus Adam <dev@justus.science> @JustusAdam":
-        # - mustache # via: wreq
+        - mustache
 
     "Cindy Wang <cindylinz@gmail.com> @CindyLinz":
         - NoTrace
@@ -2371,8 +2375,9 @@ packages:
         # - reedsolomon # bounds: vector
 
     "Alp Mestanogullari <alpmestan@gmail.com> @alpmestan":
-        - taggy
-        - taggy-lens
+        []
+        # - taggy # build failure https://github.com/alpmestan/taggy/issues/19
+        # - taggy-lens # via taggy: build failure https://github.com/alpmestan/taggy/issues/19
 
     "Alex McLean <lxyxpx@gmail.com> @yaxu":
         - tidal
@@ -2427,7 +2432,7 @@ packages:
         - hw-succinct
 
     # "Ismail Mustafa <ismailmustafa@rocketmail.com> @ismailmustafa":
-        # - handwriting # via: wreq
+        - handwriting
 
     "Stephen Diehl <stephen.m.diehl@gamil.com> @sdiehl":
         - protolude
@@ -2604,7 +2609,7 @@ packages:
         - hocilib
 
     # "Matthias Herrmann <matthias.mh.herrmann@gmail.com> @2chilled":
-        # - scrape-changes # via: wreq
+        - scrape-changes
 
     "Daniel Mendler <mail@daniel-mendler.de> @minad":
         - quickcheck-special
@@ -2773,7 +2778,8 @@ packages:
         - sdl2-gfx
 
     "Aditya Manthramurthy <aditya.mmy@gmail.com> @donatello":
-        - minio-hs
+        []
+        # - minio-hs # tests failed https://github.com/fpco/stackage/pull/2287
 
     "ncaq <ncaq@ncaq.net> @ncaq":
         - haskell-import-graph
@@ -2819,6 +2825,9 @@ packages:
         # https://github.com/fpco/stackage/issues/2281
         - Earley < 0.12.0.0
 
+        # https://github.com/fpco/stackage/issues/2299
+        - xml-conduit < 1.5.0
+
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
@@ -2840,6 +2849,9 @@ package-flags:
 
     curl:
         new-base: true
+
+    hpio:
+        test-hlint: false
 
     hxt:
         network-uri: true
@@ -2983,8 +2995,6 @@ skipped-tests:
     - hasql # QuickCheck 2.9
     - hastache # https://github.com/lymar/hastache/pull/53
     - heaps # https://github.com/ekmett/heaps/pull/8
-    - hslua # hspec 2.4 via hspec-contrib 0.3 https://github.com/hspec/hspec/issues/307
-    - hworker # hspec 2.4 via hspec-contrib 0.3 https://github.com/hspec/hspec/issues/307
     - hyphenation # https://github.com/ekmett/hyphenation/pull/10
     - multistate # hspec 2.4
     - newtype-generics # hspec 2.4
@@ -2992,7 +3002,6 @@ skipped-tests:
     - point-octree # hspec 2.2.4 https://github.com/mlitchard/point-octree/issues/1
     - postgresql-simple-migration # hspec 2.4
     - servant-mock # hspec-wai 0.8
-    - simple # hspec 2.4 via hspec-contrib 0.3 https://github.com/hspec/hspec/issues/307
     - snap # QuickCheck 2.9
     - state-plus # QuickCheck 2.9
     - system-filepath # QuickCheck 2.9 via chell-quickcheck
@@ -3169,7 +3178,6 @@ expected-test-failures:
     - nettle # https://github.com/stbuehler/haskell-nettle/issues/8
     - th-printf # 0.3.1 https://github.com/pikajude/th-printf/issues/3
     - unicode-show # https://github.com/nushio3/unicode-show/issues/2
-    - wreq # https://github.com/bos/wreq/issues/53
     - xmonad # 0.12 https://github.com/xmonad/xmonad/issues/36
 
     # Compilation failures
@@ -3209,12 +3217,15 @@ expected-test-failures:
     - makefile
 
     # Misc.
+    - aeson # Will be fixed in the next release
     - distributed-process-supervisor # # https://github.com/haskell-d
     - ghcid # Weird conflicts with sandboxingistributed/distributed-process-supervisor/issues/1
     - haskell-docs # GHC bug
     - rattletrap # OOM? https://github.com/fpco/stackage/issues/2232
+    - servant # https://github.com/haskell-servant/servant/issues/698
     - snap-core # https://github.com/snapframework/snap-core/issues/26
     - stm-delay # https://github.com/joeyadams/haskell-stm-delay/issues/5
+
 
 # end of expected-test-failures
 
@@ -3600,11 +3611,10 @@ build-tool-overrides:
 # - bindings-GLFW-3.1.2.1 # Comment saying what should be done when the new version is releasedskipped test-suite
 tell-me-when-its-released:
 - point-octree-0.5.5.3 # re-enable test and then we can resolve https://github.com/fpco/lts-haskell/issues/27
-- wreq-0.4.1.0 # Try to re-enable lots of packages, (esp https://github.com/fpco/stackage/issues/2032) and the test-suite if https://github.com/bos/wreq/issues/53 is closed.
 - yarr-1.4.0.2 # Re-enable package https://github.com/fpco/stackage/issues/1876
 - terminal-progress-bar-0.1.1 # Unskip test suite
 - vivid-0.2.0.5 # Re-enable package (disabed per MonadRandom < 0.5) https://github.com/fpco/stackage/issues/2180
-- hspec-contrib-0.3.0 # Re-enable test suites hslua, hworker, simple. https://github.com/hspec/hspec/issues/307
+- aeson-1.1.0.0 # Re-enable test suite
 
 # Packages which should be hidden after registering, to avoid module name
 # conflicts. This is intended for at least two use cases:
