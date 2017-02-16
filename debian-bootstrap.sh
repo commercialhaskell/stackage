@@ -25,7 +25,7 @@ add-apt-repository -y ppa:marutter/rrutter
 #add-apt-repository -y ppa:openstack-ubuntu-testing/icehouse
 
 # Set the GHC version
-GHCVER=8.0.1
+GHCVER=8.0.2
 
 # Get Stack
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 575159689BEFB442
@@ -43,6 +43,7 @@ apt-get install -y \
     curl \
     freeglut3-dev \
     git \
+    gradle \
     libadns1-dev \
     libaio1 \
     libalut-dev \
@@ -92,6 +93,10 @@ apt-get install -y \
     libpcap0.8-dev \
     libpq-dev \
     libsdl2-dev \
+    libsdl2-mixer-dev \
+    libsdl2-image-dev \
+    libsdl2-gfx-dev \
+    libsdl2-ttf-dev \
     libsnappy-dev \
     libsndfile1-dev \
     libsqlite3-dev \
