@@ -96,6 +96,7 @@ apt-get install -y \
     libsdl2-mixer-dev \
     libsdl2-image-dev \
     libsdl2-gfx-dev \
+    libsdl2-ttf-dev \
     libsnappy-dev \
     libsndfile1-dev \
     libsqlite3-dev \
