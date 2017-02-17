@@ -154,9 +154,9 @@ cd /tmp \
     && wget https://storage.googleapis.com/oracle.fpinsight.com/instantClient/oracle-instantclient12.1-devel_12.1.0.2.0-2_amd64.deb \
     && dpkg -i oracle-instantclient12.1-devel_12.1.0.2.0-2_amd64.deb \
     && rm -f oracle-instantclient12.1-devel_12.1.0.2.0-2_amd64.deb \
-    && wget https://github.com/vrogier/ocilib/archive/v4.2.1.tar.gz \
-    && tar xvf v4.2.1.tar.gz \
-    && cd /tmp/ocilib-4.2.1 \
+    && wget https://github.com/vrogier/ocilib/archive/v4.3.2.tar.gz \
+    && tar xvf v4.3.2.tar.gz \
+    && cd /tmp/ocilib-4.3.2 \
     && ./configure --with-oracle-import=linkage \
                    --with-oracle-charset=ansi \
                    --with-oracle-headers-path=/usr/include/oracle/12.1/client64 \
@@ -164,7 +164,7 @@ cd /tmp \
     && make \
     && make install \
     && cd \
-    && rm -rf /tmp/ocilib-4.2.1 \
+    && rm -rf /tmp/ocilib-4.3.2 \
     && echo "/usr/local/lib" > /etc/ld.so.conf.d/usr-local.conf \
     && echo "/usr/lib/oracle/12.1/client64/lib" > /etc/ld.so.conf.d/oracle-client.conf \
     && ldconfig
