@@ -57,9 +57,24 @@ If a package's test suite is failing, the first job is to investigate why. If th
 
 If a new version of a dependency is released, and that stops your package compiling/passing the tests, then it is your responsibility to modify your package. It is highly recommended that all package maintainers follow the dependencies of their packages on [Packdeps](http://packdeps.haskellers.com/), typically using the RSS feeds.
 
-**If restrictive version bounds are the only problem** then you must quickly (within 1 week) upload a new version with relaxed version bounds. Note that unlike the PVP, Stackage does not require upper bounds.
+If a package is not modified in a timely manner, it may be temporarily
+removed from Stackage by the curator team, at which point it is your
+responsibility to add it back in via a new pull request. We typically
+use fairly long windows on this, but at a minimum:
 
-**If the new dependency causes breaking changes** then all package authors should quickly assess the likely impact on their package (within 1 week) and then produce a new compatible version. The expected timeline for new versions varies between 1 week and 1 month, depending on the significance of the change, and thus the work required to produce those new versions.
+* If restrictive version bounds are the only problem, we will give at
+  least a week to respond.
+* If there are real breaking changes, the curator team will retain
+  more discretion on how long a window to give before dropping
+  packages. Historically, this has usually waited until the cutting of
+  a new Long Term Support (LTS) major version.
+
+**NOTE** Previously, this maintainer agreement put a time limit on
+maintainers, requiring a certain level of responsiveness for
+modifications to be made. We have explicitly removed that: anyone is
+free to add a package to Stackage regardless of responsiveness
+guarantees. However, as stated above, we may elect to temporarily
+remove a package if it is not updated in a timely manner.
 
 
 ## Failing to meet the time limits
