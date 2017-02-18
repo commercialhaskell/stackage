@@ -121,7 +121,8 @@ packages:
         - persistent-postgresql
         - persistent-sqlite
         - persistent-template
-        # - stackage-curator # via store https://github.com/fpco/stackage/issues/2283
+        - stackage-curator
+        - store
         - stm-conduit
         - wai-websockets
         - warp-tls
@@ -3046,6 +3047,9 @@ skipped-tests:
     # via criterion: via cassava: bounds: vector
     - sparse-linear-algebra
 
+    # criterion
+    - store
+
 # end of skipped-tests
 
 # Tests which we should build and run, but which are expected to fail. We
@@ -3461,8 +3465,10 @@ skipped-benchmarks:
     - sourcemap
     - sparse-linear-algebra
     - stache
+    - stackage-curator
     - stateWriter
     - stm-containers
+    - store
     - streaming-commons
     - superbuffer
     - taggy
