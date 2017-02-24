@@ -13,7 +13,6 @@
 set -exu
 
 mkdir /home/stackage -p
-locale-gen en_US.UTF-8
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
@@ -27,10 +26,6 @@ add-apt-repository -y ppa:marutter/rrutter
 # Set the GHC version
 GHCVER=8.0.2
 
-# Get Stack
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 575159689BEFB442
-echo 'deb http://download.fpcomplete.com/ubuntu xenial main'|tee /etc/apt/sources.list.d/fpco.list
-
 apt-get update
 apt-get install -y \
     build-essential \
@@ -43,6 +38,7 @@ apt-get install -y \
     curl \
     freeglut3-dev \
     git \
+    gradle \
     libadns1-dev \
     libaio1 \
     libalut-dev \
@@ -92,6 +88,10 @@ apt-get install -y \
     libpcap0.8-dev \
     libpq-dev \
     libsdl2-dev \
+    libsdl2-mixer-dev \
+    libsdl2-image-dev \
+    libsdl2-gfx-dev \
+    libsdl2-ttf-dev \
     libsnappy-dev \
     libsndfile1-dev \
     libsqlite3-dev \
@@ -110,6 +110,7 @@ apt-get install -y \
     libzip-dev \
     libzmq3-dev \
     llvm-3.7 \
+    locales \
     m4 \
     nettle-dev \
     nodejs \
@@ -118,12 +119,15 @@ apt-get install -y \
     r-base \
     r-base-dev \
     ruby-dev \
-    stack \
     wget \
     xclip \
     z3 \
     zip \
     zlib1g-dev
+
+locale-gen en_US.UTF-8
+
+curl -sSL https://get.haskellstack.org/ | sh
 
 # Put documentation where we expect it
 mv /opt/ghc/$GHCVER/share/doc/ghc-$GHCVER/ /opt/ghc/$GHCVER/share/doc/ghc
@@ -150,9 +154,9 @@ cd /tmp \
     && wget https://storage.googleapis.com/oracle.fpinsight.com/instantClient/oracle-instantclient12.1-devel_12.1.0.2.0-2_amd64.deb \
     && dpkg -i oracle-instantclient12.1-devel_12.1.0.2.0-2_amd64.deb \
     && rm -f oracle-instantclient12.1-devel_12.1.0.2.0-2_amd64.deb \
-    && wget https://github.com/vrogier/ocilib/archive/v4.2.1.tar.gz \
-    && tar xvf v4.2.1.tar.gz \
-    && cd /tmp/ocilib-4.2.1 \
+    && wget https://github.com/vrogier/ocilib/archive/v4.3.2.tar.gz \
+    && tar xvf v4.3.2.tar.gz \
+    && cd /tmp/ocilib-4.3.2 \
     && ./configure --with-oracle-import=linkage \
                    --with-oracle-charset=ansi \
                    --with-oracle-headers-path=/usr/include/oracle/12.1/client64 \
@@ -160,7 +164,7 @@ cd /tmp \
     && make \
     && make install \
     && cd \
-    && rm -rf /tmp/ocilib-4.2.1 \
+    && rm -rf /tmp/ocilib-4.3.2 \
     && echo "/usr/local/lib" > /etc/ld.so.conf.d/usr-local.conf \
     && echo "/usr/lib/oracle/12.1/client64/lib" > /etc/ld.so.conf.d/oracle-client.conf \
     && ldconfig

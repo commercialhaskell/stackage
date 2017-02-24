@@ -23,8 +23,10 @@ process works:
 
 The typical story on pull requests is: If Travis accepts it and the
 author only added packages under his/her own name, merge it.  If the
-build later fails (see "Adding Debian packages for required system tools or libraries"),
-then block the package until it's fixed.
+build later fails (see [Adding Debian packages]), then block the
+package until it's fixed.
+
+[Adding Debian packages]: https://github.com/fpco/stackage/blob/master/CURATORS.md#adding-debian-packages-for-required-system-tools-or-libraries
 
 If benchmarks, haddocks, or test suites fails at this point we
 typically also block the package until these issues are fixed. This in
@@ -177,8 +179,14 @@ the maintainers of those packages.
 
 ### Adding Debian packages for required system tools or libraries
 Additional (non-Haskell) system libraries or tools should be added to `stackage/debian-bootstrap.sh`.
-Committing the changes to a branch should trigger a DockerHub. Normally only the `nightly` branch needs to be updated
-since new packages are not added to the current lts release.
+After you've committed those changes, merging them into the `nightly` branch should
+trigger a DockerHub build. Simply run:
+
+```bash
+    $ git checkout nightly
+    $ git merge master
+    $ git push
+```
 
 Use [Ubuntu Package content search](http://packages.ubuntu.com/) to determine which package provides particular dev files (it defaults to xenial which is the version used to build Nightly).
 
@@ -353,8 +361,8 @@ will upgrade their packages to allow for the new GHC release.
 We prefer to prune packages causing upper bounds constraints **after** the LTS
 release to allow the maximum amount of packages to get into the newest LTS.
 
-After the first LTS release, the package pruning process may begin in order to
-move forward with getting the latest versions of packages compatible with the
-new GHC release.
+After the first LTS release, the package pruning process may begin in the
+nightly build in order to move forward with getting the latest versions of
+packages compatible with the new GHC release.
 
 [GHC upgrade note]: https://github.com/fpco/stackage/blob/master/MAINTAINERS.md#upgrading-to-a-new-ghc-version
