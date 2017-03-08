@@ -117,6 +117,10 @@ apt-get install -y \
     nodejs \
     npm \
     openjdk-8-jdk \
+    python-mpltoolkits.basemap \
+    python3-matplotlib \
+    python3-numpy \
+    python3-pip \
     r-base \
     r-base-dev \
     ruby-dev \
