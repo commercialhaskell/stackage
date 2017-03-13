@@ -51,6 +51,7 @@ apt-get install -y \
     libdevil-dev \
     libedit-dev \
     libedit2 \
+    libfdk-aac-dev \
     libfftw3-dev \
     libflac-dev \
     libfreenect-dev \
