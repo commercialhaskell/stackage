@@ -2,6 +2,9 @@ ghc-major-version: "8.0"
 # Constraints for brand new builds
 packages:
 
+    "Vanessa McHale <tmchale@wisc.edu> @vmchale":
+        - tibetan-utils
+
     "Henning Thielemann <stackage@henning-thielemann.de> @thielema":
         - numeric-prelude
         - non-negative
@@ -261,6 +264,7 @@ packages:
         - download
         - textlocal
         - shell-conduit
+        - tldr
 
     "haskell-openal":
         - OpenAL
@@ -416,7 +420,7 @@ packages:
         - zippers
         - fixed
         - half
-        # - gl BLOCKED directory 1.3
+        - gl
         - lens-aeson
         - zlib-lens
         # - hyperloglog # bounds: approximate, binary, comonad
@@ -576,7 +580,6 @@ packages:
         - fay-text
         - fay-uri
         - feed
-        # - snaplet-fay # BLOCKED directory 1.3 via heist and snap
         - time-compat
         - through-text
 
@@ -749,8 +752,8 @@ packages:
         - multipart
         - rest-client
         - rest-core
-        # - rest-gen # bounds: blaze-html
-        # - rest-happstack # via rest-gen: bounds: blaze-html
+        - rest-gen
+        - rest-happstack
         - rest-snap
         - rest-stringmap
         - rest-types
@@ -997,7 +1000,6 @@ packages:
     "Jens Petersen <juhpetersen@gmail.com> @juhp":
         - cabal-rpm
         # - cabal-sort # BLOCKED directory 1.3
-        - hslua
         # - idris # bounds: safe
         - xmonad-contrib
         - shelly
@@ -1044,6 +1046,7 @@ packages:
         # - mole # bounds: hspec, optparse-applicative
         - publicsuffix
         - rethinkdb-client-driver
+        - snap-blaze
 
     "Alexandr Kurilin <alex@kurilin.net> @alex_kurilin":
         - bcrypt
@@ -2112,8 +2115,8 @@ packages:
     "Takahiro Himura <himuratk421@gmail.com> @thimura":
         - lens-regex
         # - twitter-conduit # bounds: http-conduit 2.2 # via: twitter-types, twitter-types-lens
-        # - twitter-types # via: derive
-        # - twitter-types-lens # via: twitter-types
+        - twitter-types
+        - twitter-types-lens
 
     # "Robbin C. <robbinch33@gmail.com> robbinch":
         # - zim-parser # via: lzma
@@ -2439,6 +2442,7 @@ packages:
         # - ghc-imported-from # bounds: process-streaming # via: ghc-mod
 
     "Fraser Tweedale <frase@frase.id.au> @frasertweedale":
+        - concise
         - jose
 
     # "Yutaka Nishimura <ytk.nishimura@gmail.com> @ynishi":
@@ -2833,6 +2837,10 @@ packages:
     "mackeyrms <librarymaintainer@mackeycorp.com> @mackeyrms":
         - tsv2csv
 
+    "Thomas Sutton <me@thomas-sutton.id.au> @thsutton":
+        # - aeson-diff
+        - edit-distance-vector
+
     "Kyle Van Berendonck <kvanberendonck@gmail.com> @kvanberendonck":
         - rot13
         - dvorak
@@ -2867,6 +2875,16 @@ packages:
     "Elliot Cameron <eacameron@gmail.com> @3noch":
         - ziptastic-client
         - ziptastic-core
+
+    "Hardy Jones <jones3.hardy@gmail.com> @joneshf":
+        - servant-ruby
+
+    "Andrey Mokhov <andrey.mokhov@gmail.com> @snowleopard":
+        - algebraic-graphs
+
+    "Albert Krewinkel <albert+stackage@zeitkraut.de> @tarleb":
+        - hslua
+        - hslua-aeson
 
     "Judah Jacobson <judah.jacobson@gmail.com> @judah":
         - lens-labels
@@ -2948,6 +2966,12 @@ packages:
 
         # https://github.com/fpco/stackage/issues/2386
         - unordered-containers < 0.2.8.0
+
+        # https://github.com/fpco/stackage/issues/2393
+        - HUnit < 1.6.0.0
+
+        # https://github.com/fpco/stackage/issues/2400
+        - hslua < 0.5
 
 # end of packages
 
@@ -3145,8 +3169,10 @@ skipped-tests:
     - symengine # symengine
 
 
-    # Wontfix. The maintainer chose to keep these broken/outdated, only
-    # re-enable if requested.
+    # Wontfix. The maintainer doesn't want to keep test dependencies
+    # up to date or be notified about it, or doesn't want stackage to
+    # run the tests.
+    # Only re-enable if requested.
     - postgresql-binary # https://github.com/nikita-volkov/postgresql-binary/issues/6#issuecomment-243063139
 
     # directory 1.3
@@ -3278,7 +3304,6 @@ expected-test-failures:
     - crypto-pubkey # https://github.com/vincenthz/hs-crypto-pubkey/issues/23
     - cubicbezier # https://github.com/kuribas/cubicbezier/issues/3
     - ghc-events # https://github.com/haskell/ghc-events/issues/9
-    - ginger # https://bitbucket.org/tdammers/ginger/issues/1/test-suite-failure-due-to-missing-test
     - graylog # 0.1.0.1 https://github.com/fpco/stackage/pull/1254
     - haskell-names # 0.7.0 https://github.com/haskell-suite/haskell-names/issues/78
     - rematch # No issue tracker, sent e-mail to maintainer https://github.com/fpco/stackage/issues/376
@@ -3393,7 +3418,6 @@ expected-haddock-failures:
     - MemoTrie # https://github.com/conal/MemoTrie/issues/10
     - metrics # https://github.com/iand675/metrics/issues/5
     - text-generic-pretty # https://github.com/fpco/stackage/pull/2160
-    - glazier-react # https://github.com/fpco/stackage/issues/2379
 
     # Haddock bugs
     - swagger2 # https://github.com/GetShopTV/swagger2/issues/66
