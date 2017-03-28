@@ -117,6 +117,7 @@ apt-get install -y \
     nodejs \
     npm \
     openjdk-8-jdk \
+    protobuf-compiler \
     python-mpltoolkits.basemap \
     python3-matplotlib \
     python3-numpy \
