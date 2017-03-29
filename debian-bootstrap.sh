@@ -22,9 +22,8 @@ add-apt-repository ppa:hvr/ghc -y
 add-apt-repository -y ppa:marutter/rrutter
 # not sure what this was needed for
 #add-apt-repository -y ppa:openstack-ubuntu-testing/icehouse
-wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
-echo "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-4.0 main" >> /etc/apt/sources.list
-echo "deb-src http://apt.llvm.org/xenial/ llvm-toolchain-xenial-4.0 main" >> /etc/apt/sources.list
+#wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
+add-apt-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-4.0 main"
 
 # Set the GHC version
 GHCVER=8.0.2
@@ -114,8 +113,8 @@ apt-get install -y \
     libzip-dev \
     libzmq3-dev \
     llvm-3.7 \
+    llvm-4.0 \
     locales \
-    llvm-4.0-dev \
     m4 \
     nettle-dev \
     nodejs \
