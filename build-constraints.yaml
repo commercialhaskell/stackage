@@ -2,6 +2,9 @@ ghc-major-version: "8.0"
 # Constraints for brand new builds
 packages:
 
+    "Vanessa McHale <tmchale@wisc.edu> @vmchale":
+        - tibetan-utils
+
     "Henning Thielemann <stackage@henning-thielemann.de> @thielema":
         - numeric-prelude
         - non-negative
@@ -24,6 +27,7 @@ packages:
 
     "Simon Jakobi <simon.jakobi@gmail.com> @sjakobi":
         - path
+        - present
         - threepenny-gui
 
     "Joe M <joe9mail@gmail.com> @joe9":
@@ -261,6 +265,7 @@ packages:
         - download
         - textlocal
         - shell-conduit
+        - tldr
 
     "haskell-openal":
         - OpenAL
@@ -416,7 +421,7 @@ packages:
         - zippers
         - fixed
         - half
-        # - gl BLOCKED directory 1.3
+        - gl
         - lens-aeson
         - zlib-lens
         # - hyperloglog # bounds: approximate, binary, comonad
@@ -576,7 +581,6 @@ packages:
         - fay-text
         - fay-uri
         - feed
-        # - snaplet-fay # BLOCKED directory 1.3 via heist and snap
         - time-compat
         - through-text
 
@@ -749,8 +753,8 @@ packages:
         - multipart
         - rest-client
         - rest-core
-        # - rest-gen # bounds: blaze-html
-        # - rest-happstack # via rest-gen: bounds: blaze-html
+        - rest-gen
+        - rest-happstack
         - rest-snap
         - rest-stringmap
         - rest-types
@@ -997,7 +1001,6 @@ packages:
     "Jens Petersen <juhpetersen@gmail.com> @juhp":
         - cabal-rpm
         # - cabal-sort # BLOCKED directory 1.3
-        - hslua
         # - idris # bounds: safe
         - xmonad-contrib
         - shelly
@@ -1044,6 +1047,7 @@ packages:
         # - mole # bounds: hspec, optparse-applicative
         - publicsuffix
         - rethinkdb-client-driver
+        - snap-blaze
 
     "Alexandr Kurilin <alex@kurilin.net> @alex_kurilin":
         - bcrypt
@@ -1092,6 +1096,7 @@ packages:
         - getopt-generics
         - graph-wrapper
         - string-conversions
+        - hspec-checkers
 
     "Jan Stolarek <jan.stolarek@p.lodz.pl> @jstolarek":
         - tasty-program
@@ -1767,7 +1772,7 @@ packages:
         - haskell-neo4j-client
 
     "Anton Kholomiov <anton.kholomiov@gmail.com>":
-        - data-fix        
+        - data-fix
 
     "Alexey Khudyakov <alexey.skladnoy@gmail.com> @Shimuuar":
         - histogram-fill
@@ -2114,8 +2119,8 @@ packages:
     "Takahiro Himura <himuratk421@gmail.com> @thimura":
         - lens-regex
         # - twitter-conduit # bounds: http-conduit 2.2 # via: twitter-types, twitter-types-lens
-        # - twitter-types # via: derive
-        # - twitter-types-lens # via: twitter-types
+        - twitter-types
+        - twitter-types-lens
 
     # "Robbin C. <robbinch33@gmail.com> robbinch":
         # - zim-parser # via: lzma
@@ -2441,6 +2446,7 @@ packages:
         # - ghc-imported-from # bounds: process-streaming # via: ghc-mod
 
     "Fraser Tweedale <frase@frase.id.au> @frasertweedale":
+        - concise
         - jose
 
     # "Yutaka Nishimura <ytk.nishimura@gmail.com> @ynishi":
@@ -2471,7 +2477,7 @@ packages:
     "Stephen Diehl <stephen.m.diehl@gamil.com> @sdiehl":
         - protolude
         - repline
-        # - picosat  # https://github.com/sdiehl/haskell-picosat/issues/6
+        - picosat
 
     # "Daishi Nakajima <nakaji.dayo@gmail.com> @nakaji_dayo":
         # - yesod-job-queue # build failure https://github.com/nakaji-dayo/yesod-job-queue/issues/10
@@ -2633,12 +2639,15 @@ packages:
 
     "Al Zohali <zohl@fmap.me> @zohl":
         - servant-auth-cookie < 0.4.1 || > 0.4.1
+        - dictionaries
 
     "Joachim Fasting <joachifm@fastmail.fm> @joachifm":
         - libmpd
 
     "Moritz Kiefer <moritz.kiefer@purelyfunctional.org> @cocreature":
         - lrucaching
+        - llvm-hs
+        - llvm-hs-pure
 
     "Thierry Bourrillon <thierry.bourrillon@fpinsight.com> @tbourrillon":
         - hocilib
@@ -2820,8 +2829,7 @@ packages:
         - sdl2-gfx
 
     "Aditya Manthramurthy <aditya.mmy@gmail.com> @donatello":
-        []
-        # - minio-hs # https://github.com/fpco/stackage/pull/2377/files
+        - minio-hs
 
     "ncaq <ncaq@ncaq.net> @ncaq":
         - haskell-import-graph
@@ -2834,6 +2842,10 @@ packages:
 
     "mackeyrms <librarymaintainer@mackeycorp.com> @mackeyrms":
         - tsv2csv
+
+    "Thomas Sutton <me@thomas-sutton.id.au> @thsutton":
+        # - aeson-diff
+        - edit-distance-vector
 
     "Kyle Van Berendonck <kvanberendonck@gmail.com> @kvanberendonck":
         - rot13
@@ -2869,6 +2881,25 @@ packages:
     "Elliot Cameron <eacameron@gmail.com> @3noch":
         - ziptastic-client
         - ziptastic-core
+
+    "Hardy Jones <jones3.hardy@gmail.com> @joneshf":
+        - servant-ruby
+
+    "Andrey Mokhov <andrey.mokhov@gmail.com> @snowleopard":
+        - algebraic-graphs
+
+    "Albert Krewinkel <albert+stackage@zeitkraut.de> @tarleb":
+        - hslua
+        - hslua-aeson
+
+    "Judah Jacobson <judah.jacobson@gmail.com> @judah":
+        - lens-labels
+        - proto-lens
+        - proto-lens-descriptors
+        - proto-lens-protoc
+        - proto-lens-combinators
+        - proto-lens-arbitrary
+        - proto-lens-optparse
 
     # If you stop maintaining a package you can move it here.
     # It will then be disabled if it starts causing problems.
@@ -2935,6 +2966,15 @@ packages:
 
         # https://github.com/fpco/stackage/issues/2378
         - errors < 2.2.0
+
+        # https://github.com/fpco/stackage/issues/2386
+        - unordered-containers < 0.2.8.0
+
+        # https://github.com/fpco/stackage/issues/2393
+        - HUnit < 1.6.0.0
+
+        # https://github.com/fpco/stackage/issues/2400
+        - hslua < 0.5
 
 # end of packages
 
@@ -3132,8 +3172,10 @@ skipped-tests:
     - symengine # symengine
 
 
-    # Wontfix. The maintainer chose to keep these broken/outdated, only
-    # re-enable if requested.
+    # Wontfix. The maintainer doesn't want to keep test dependencies
+    # up to date or be notified about it, or doesn't want stackage to
+    # run the tests.
+    # Only re-enable if requested.
     - postgresql-binary # https://github.com/nikita-volkov/postgresql-binary/issues/6#issuecomment-243063139
 
     # directory 1.3
@@ -3265,7 +3307,6 @@ expected-test-failures:
     - crypto-pubkey # https://github.com/vincenthz/hs-crypto-pubkey/issues/23
     - cubicbezier # https://github.com/kuribas/cubicbezier/issues/3
     - ghc-events # https://github.com/haskell/ghc-events/issues/9
-    - ginger # https://bitbucket.org/tdammers/ginger/issues/1/test-suite-failure-due-to-missing-test
     - graylog # 0.1.0.1 https://github.com/fpco/stackage/pull/1254
     - haskell-names # 0.7.0 https://github.com/haskell-suite/haskell-names/issues/78
     - rematch # No issue tracker, sent e-mail to maintainer https://github.com/fpco/stackage/issues/376
@@ -3292,6 +3333,7 @@ expected-test-failures:
     - folds # https://github.com/ekmett/folds/issues/12
     - hspec-expectations-pretty-diff # GHC 8 issue not reported upstream since issue tracker disabled
     - language-lua2 # https://github.com/mitchellwrosen/language-lua2/issues/4
+    - picosat # https://github.com/fpco/stackage/pull/2382
     - sourcemap # https://github.com/chrisdone/sourcemap/issues/3
     - text-ldap # # https://github.com/khibino/haskell-text-ldap/issues/1
     - thyme # https://github.com/liyang/thyme/issues/50
@@ -3320,11 +3362,12 @@ expected-test-failures:
     - makefile
 
     # Misc.
-    - aeson # 1.1.0.0 Will be fixed in the next release
     - distributed-process-supervisor # # https://github.com/haskell-d
     - ghcid # Weird conflicts with sandboxingistributed/distributed-process-supervisor/issues/1
     - haskell-docs # GHC bug
+    - http-client-openssl # https://github.com/snoyberg/http-client/issues/267
     - rattletrap # OOM? https://github.com/fpco/stackage/issues/2232
+    - req # https://github.com/mrkkrp/req/issues/14#issuecomment-287562784
     - servant # https://github.com/haskell-servant/servant/issues/698
     - snap-core # https://github.com/snapframework/snap-core/issues/26
     - stm-delay # https://github.com/joeyadams/haskell-stm-delay/issues/5
@@ -3723,8 +3766,8 @@ tell-me-when-its-released:
 - point-octree-0.5.5.3 # re-enable test and then we can resolve https://github.com/fpco/lts-haskell/issues/27
 - yarr-1.4.0.2 # Re-enable package https://github.com/fpco/stackage/issues/1876
 - terminal-progress-bar-0.1.1 # Unskip test suite
+- req-0.2.0 # Remove from expected-test-failures https://github.com/mrkkrp/req/issues/14#issuecomment-287562784
 - vivid-0.2.0.5 # Re-enable package (disabed per MonadRandom < 0.5) https://github.com/fpco/stackage/issues/2180
-- aeson-1.1.0.0 # Re-enable test suite
 
 # Packages which should be hidden after registering, to avoid module name
 # conflicts. This is intended for at least two use cases:
