@@ -20,12 +20,7 @@ apt-get install -y software-properties-common
 
 add-apt-repository ppa:hvr/ghc -y
 add-apt-repository -y ppa:marutter/rrutter
-# not sure what this was needed for
-#add-apt-repository -y ppa:openstack-ubuntu-testing/icehouse
-#wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
-add-apt-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-4.0 main"
 
-# Set the GHC version
 GHCVER=8.0.2
 
 apt-get update
@@ -113,7 +108,6 @@ apt-get install -y \
     libzip-dev \
     libzmq3-dev \
     llvm-3.7 \
-    llvm-4.0 \
     locales \
     m4 \
     nettle-dev \
@@ -181,3 +175,9 @@ cd /tmp \
 # Add JDK to system paths.
 echo "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/" > /etc/ld.so.conf.d/openjdk.conf \
     && ldconfig
+
+# llvm-4.0 for llvm-hs (separate since it needs wget)
+wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
+add-apt-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-4.0 main"
+apt-get update
+apt-get install llvm-4.0
