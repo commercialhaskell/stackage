@@ -354,7 +354,7 @@ packages:
         - MFlow
         - transient
         - transient-universe
-        - ghcjs-hplay
+        # - ghcjs-hplay # https://github.com/transient-haskell/axiom/issues/16
 
     "Edward Kmett <ekmett@gmail.com> @ekmett":
         - ad
@@ -1107,6 +1107,7 @@ packages:
         - binary-tagged
         - cabal-doctest
         - edit-distance
+        - functor-classes-compat
         - generics-sop-lens
         - github
         - insert-ordered-containers
@@ -1721,7 +1722,7 @@ packages:
         - type-spec
         - pretty-types
         - mediabus
-        - mediabus-fdk-aac
+        #- mediabus-fdk-aac # needs non-free libfdk-aac-dev
         - mediabus-rtp
 
     # "Will Thompson <will@willthompson.co.uk> @wjt":
@@ -3050,6 +3051,10 @@ package-flags:
     ghc-heap-view:
         ghc_7_7: false
         ghc_8_0: true
+
+    functor-classes-compat:
+        containers: false
+        unordered-containers: false # https://github.com/fpco/stackage/issues/2386
 
 # end of package-flags
 
