@@ -92,6 +92,7 @@ apt-get install -y \
     libsdl2-ttf-dev \
     libsnappy-dev \
     libsndfile1-dev \
+    libsox-dev \
     libsqlite3-dev \
     libssl-dev \
     libsystemd-dev \
