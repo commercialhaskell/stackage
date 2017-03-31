@@ -92,6 +92,7 @@ apt-get install -y \
     libsdl2-ttf-dev \
     libsnappy-dev \
     libsndfile1-dev \
+    libsox-dev \
     libsqlite3-dev \
     libssl-dev \
     libsystemd-dev \
@@ -181,3 +182,8 @@ wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
     && add-apt-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-4.0 main" \
     && apt-get update \
     && apt-get install -y llvm-4.0
+
+# non-free repo
+apt-add-repository multiverse
+    && apt-get update
+    && apt-get install -y libfdk-aac-dev

@@ -6,12 +6,72 @@ packages:
         - tibetan-utils
 
     "Henning Thielemann <stackage@henning-thielemann.de> @thielema":
-        - numeric-prelude
-        - non-negative
+        # - accelerate-arithmetic # via accelerate: bounds: base
+        # - accelerate-fftw # via accelerate: bounds: base
+        # - accelerate-fourier # via accelerate: bounds: base
+        # - accelerate-utility # via accelerate: bounds: base
+        - apportionment
+        - audacity
+        - bibtex
+        # - board-games # https://github.com/fpco/stackage/pull/2390
+        - buffer-pipe
+        - calendar-recycling
+        - comfort-graph
+        - concurrent-split
+        - cutter
+        - data-accessor
+        - data-accessor-mtl
+        - data-accessor-template
+        - data-accessor-transformers
+        - data-ref
+        - dsp
+        - enumset
+        - equal-files
+        - event-list
+        - explicit-exception
+        - fixed-length
+        - gnuplot
+        - group-by-date
+        - iff
+        - interpolation
+        - latex
+        - lazyio
+        - markov-chain
+        - midi
+        - midi-music-box
+        - mbox-utility
         - non-empty
+        - non-negative
+        - numeric-prelude
+        - pathtype
+        - pooled-io
+        - probability
+        - sample-frame
+        - sample-frame-np
+        - set-cover
+        - sound-collage
+        - sox
+        - split-record
+        - spreadsheet
+        - stm-split
         - storable-record
+        - storablevector
+        - synthesizer-core
+        - synthesizer-dimensional
+        - synthesizer-midi
+        - tagchup
+        - tfp
+        - unicode
+        - unsafe
         - utility-ht
+        - xml-basic
+        - youtube
         - prelude-compat
+
+        - fft
+        - carray
+        # Not a maintainer
+        - ix-shapable
 
     "Jeremy Barisch-Rooney <barischj@tcd.ie> @barischj":
        - threepenny-gui-flexbox
@@ -74,6 +134,7 @@ packages:
         - word24
         - mysql-haskell
         - mysql-haskell-openssl
+        - data-has
 
     "Harendra Kumar <harendra.kumar@gmail.com> @harendra-kumar":
         - unicode-transforms
@@ -414,6 +475,7 @@ packages:
         - streams
         - tagged
         - trifecta
+        - unique
         - vector-instances
         - void
         - wl-pprint-extras
@@ -881,6 +943,7 @@ packages:
         - cases
         - focus
         - hasql
+        - hasql-pool
         - list-t
         - mtl-prelude
         - neat-interpolation
@@ -888,6 +951,7 @@ packages:
         - postgresql-binary
         - slave-thread
         - stm-containers
+        - refined
 
     "Iustin Pop <iustin@k1024.org> @iustin":
         - prefix-units
@@ -1086,6 +1150,8 @@ packages:
         - http-link-header
         - microformats2-parser
         - hspec-expectations-pretty-diff
+        - wai-cli
+        - magicbane
 
     "Francesco Mazzoli <f@mazzo.li> @bitonic":
         - language-c-quote
@@ -1122,6 +1188,8 @@ packages:
         - servant-yaml
         - singleton-bool
         - spdx
+        - tdigest
+        - tdigest-Chart
         - these
         - time-parsers
         - waitra
@@ -1142,11 +1210,6 @@ packages:
         - packdeps
         - recursion-schemes
         - unordered-containers
-
-        - fft
-        - carray
-        - ix-shapable
-        - fft
 
         # Regex packages by Chris Kuklewicz
         - regex-base
@@ -1571,6 +1634,7 @@ packages:
 
     "Justin Le <justin@jle.im> @mstksg":
         - auto
+        - backprop
         - configurator-export
         - hamilton
         - prompt
@@ -1722,7 +1786,7 @@ packages:
         - type-spec
         - pretty-types
         - mediabus
-        #- mediabus-fdk-aac # needs non-free libfdk-aac-dev
+        - mediabus-fdk-aac
         - mediabus-rtp
 
     # "Will Thompson <will@willthompson.co.uk> @wjt":
@@ -2728,6 +2792,7 @@ packages:
         - picedit
         - mathexpr
         - sibe
+        - termcolor
 
     "Alexis Williams <sasinestro@gmail.com> @typedrat":
         # - stb-image-redux # bounds: vector
@@ -2898,6 +2963,9 @@ packages:
         - proto-lens-arbitrary
         - proto-lens-optparse
 
+    "Christof Schramm <christof.schramm@campus.lmu.de>":
+        - mnist-idx
+
     # If you stop maintaining a package you can move it here.
     # It will then be disabled if it starts causing problems.
     # See https://github.com/fpco/stackage/issues/1056
@@ -2978,6 +3046,9 @@ packages:
 # Package flags are applied to individual packages, and override the values of
 # global-flags
 package-flags:
+    pathtype:
+        old-time: false
+
     brick:
         demos: true
 
