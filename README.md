@@ -123,3 +123,7 @@ That said, we do maintain the capability to keep multiple LTS runs
 operational in parallel, and with LTS 6 and 7 in fact did so. We
 aren't changing our guarantees yet on longevity of a release, but are
 trying to push out the bounds a bit farther.
+
+__What time are Stackage snapshots published?__
+
+Stackage Nightly and LTS are not released at a fixed time of day, they get pushed to stackage.org (and the metadata to the stackage-nightly and stackage-lts github repos) when their builds finish on the Stackage build server and the latest built haddocks have been synced over. This time varies greatly depending on build times for package updates, bounds breakage, problems with new packages being added and other build issues, etc. There are days when a release does not happen. LTS releases tend to happen over the weekend or early in the week.
