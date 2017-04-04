@@ -13,7 +13,6 @@
 set -exu
 
 mkdir /home/stackage -p
-locale-gen en_US.UTF-8
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
@@ -21,15 +20,8 @@ apt-get install -y software-properties-common
 
 add-apt-repository ppa:hvr/ghc -y
 add-apt-repository -y ppa:marutter/rrutter
-# not sure what this was needed for
-#add-apt-repository -y ppa:openstack-ubuntu-testing/icehouse
 
-# Set the GHC version
 GHCVER=8.0.2
-
-# Get Stack
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 575159689BEFB442
-echo 'deb http://download.fpcomplete.com/ubuntu xenial main'|tee /etc/apt/sources.list.d/fpco.list
 
 apt-get update
 apt-get install -y \
@@ -43,6 +35,7 @@ apt-get install -y \
     curl \
     freeglut3-dev \
     git \
+    gradle \
     libadns1-dev \
     libaio1 \
     libalut-dev \
@@ -82,6 +75,7 @@ apt-get install -y \
     libmagickcore-dev \
     libmagickwand-dev \
     libmarkdown2-dev \
+    libmp3lame-dev \
     libmpfr-dev \
     libmysqlclient-dev \
     libncurses-dev \
@@ -92,8 +86,13 @@ apt-get install -y \
     libpcap0.8-dev \
     libpq-dev \
     libsdl2-dev \
+    libsdl2-mixer-dev \
+    libsdl2-image-dev \
+    libsdl2-gfx-dev \
+    libsdl2-ttf-dev \
     libsnappy-dev \
     libsndfile1-dev \
+    libsox-dev \
     libsqlite3-dev \
     libssl-dev \
     libsystemd-dev \
@@ -110,20 +109,29 @@ apt-get install -y \
     libzip-dev \
     libzmq3-dev \
     llvm-3.7 \
+    locales \
     m4 \
     nettle-dev \
     nodejs \
     npm \
     openjdk-8-jdk \
+    protobuf-compiler \
+    python-mpltoolkits.basemap \
+    python3-matplotlib \
+    python3-numpy \
+    python3-pip \
     r-base \
     r-base-dev \
     ruby-dev \
-    stack \
     wget \
     xclip \
     z3 \
     zip \
     zlib1g-dev
+
+locale-gen en_US.UTF-8
+
+curl -sSL https://get.haskellstack.org/ | sh
 
 # Put documentation where we expect it
 mv /opt/ghc/$GHCVER/share/doc/ghc-$GHCVER/ /opt/ghc/$GHCVER/share/doc/ghc
@@ -150,9 +158,9 @@ cd /tmp \
     && wget https://storage.googleapis.com/oracle.fpinsight.com/instantClient/oracle-instantclient12.1-devel_12.1.0.2.0-2_amd64.deb \
     && dpkg -i oracle-instantclient12.1-devel_12.1.0.2.0-2_amd64.deb \
     && rm -f oracle-instantclient12.1-devel_12.1.0.2.0-2_amd64.deb \
-    && wget https://github.com/vrogier/ocilib/archive/v4.2.1.tar.gz \
-    && tar xvf v4.2.1.tar.gz \
-    && cd /tmp/ocilib-4.2.1 \
+    && wget https://github.com/vrogier/ocilib/archive/v4.3.2.tar.gz \
+    && tar xvf v4.3.2.tar.gz \
+    && cd /tmp/ocilib-4.3.2 \
     && ./configure --with-oracle-import=linkage \
                    --with-oracle-charset=ansi \
                    --with-oracle-headers-path=/usr/include/oracle/12.1/client64 \
@@ -160,7 +168,7 @@ cd /tmp \
     && make \
     && make install \
     && cd \
-    && rm -rf /tmp/ocilib-4.2.1 \
+    && rm -rf /tmp/ocilib-4.3.2 \
     && echo "/usr/local/lib" > /etc/ld.so.conf.d/usr-local.conf \
     && echo "/usr/lib/oracle/12.1/client64/lib" > /etc/ld.so.conf.d/oracle-client.conf \
     && ldconfig
@@ -168,3 +176,14 @@ cd /tmp \
 # Add JDK to system paths.
 echo "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/" > /etc/ld.so.conf.d/openjdk.conf \
     && ldconfig
+
+# llvm-4.0 for llvm-hs (separate since it needs wget)
+wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
+    && add-apt-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-4.0 main" \
+    && apt-get update \
+    && apt-get install -y llvm-4.0
+
+## non-free repo for mediabus-fdk-aac
+#apt-add-repository multiverse \
+#    && apt-get update \
+#    && apt-get install -y libfdk-aac-dev

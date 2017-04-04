@@ -23,8 +23,10 @@ process works:
 
 The typical story on pull requests is: If Travis accepts it and the
 author only added packages under his/her own name, merge it.  If the
-build later fails (see "Adding Debian packages for required system tools or libraries"),
-then block the package until it's fixed.
+build later fails (see [Adding Debian packages]), then block the
+package until it's fixed.
+
+[Adding Debian packages]: https://github.com/fpco/stackage/blob/master/CURATORS.md#adding-debian-packages-for-required-system-tools-or-libraries
 
 If benchmarks, haddocks, or test suites fails at this point we
 typically also block the package until these issues are fixed. This in
@@ -177,8 +179,14 @@ the maintainers of those packages.
 
 ### Adding Debian packages for required system tools or libraries
 Additional (non-Haskell) system libraries or tools should be added to `stackage/debian-bootstrap.sh`.
-Committing the changes to a branch should trigger a DockerHub. Normally only the `nightly` branch needs to be updated
-since new packages are not added to the current lts release.
+After you've committed those changes, merging them into the `nightly` branch should
+trigger a DockerHub build. Simply run:
+
+```bash
+    $ git checkout nightly
+    $ git merge master
+    $ git push
+```
 
 Use [Ubuntu Package content search](http://packages.ubuntu.com/) to determine which package provides particular dev files (it defaults to xenial which is the version used to build Nightly).
 
@@ -267,8 +275,9 @@ develop this advice over time. For now: if you're not sure, ask for guidance.
 __`NOPLAN=1`__ If you wish to rerun a build without recalculating a
 build plan, you can set the environment variable `NOPLAN=1`. This is
 useful for such cases as an intermittent test failure, out of memory
-condition, or manually tweaking the plan file. This is the default for
-LTS builds.
+condition, or manually tweaking the plan file.
+
+Note LTS builds inherit the current Hackage data (stack updated for Nigthly) to avoid excess extra rebuilding.
 
 ### Timing
 
