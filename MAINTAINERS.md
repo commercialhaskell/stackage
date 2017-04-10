@@ -112,3 +112,4 @@ release (e.g., if `lts-3.21` is out, you would want your package to appear in
 * Specify the LTS major version you would like your package to go into (e.g., lts-3)
 * Provide a list of packages you would like added, and if relevant, any upper bounds on those packages
 * Be patient! The LTS releases are by their nature more conservative than nightly, and therefore adding new packages is a more manual process. The Stackage curators will try to get to your issue quickly, but there may be some delay.
+* To add a package to more than one LTS versions please file separate tickets for each major LTS release, since they will typically be built and added at different times.
