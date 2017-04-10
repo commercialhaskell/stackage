@@ -17,7 +17,7 @@ Add your package
 We welcome all packages, provided:
 
 * The package author/maintainer agrees to the [maintainers agreement](https://github.com/fpco/stackage/blob/master/MAINTAINERS.md).
-* The package is buildable and testable from Hackage. We recommend [the Stack Travis script](http://docs.haskellstack.org/en/stable/GUIDE.html#travis-with-caching), which ensures a package is not accidentally incomplete.
+* The package is buildable and testable from Hackage. We recommend [the Stack Travis script](https://docs.haskellstack.org/en/stable/travis_ci/), which ensures a package is not accidentally incomplete.
 * The package is compatible with the newest versions of all dependencies (You can find restrictive upper bounds by visiting http://packdeps.haskellers.com/feed?needle=PACKAGENAME).
 * The package is compatible with the versions of libraries that ship with GHC ([more information on lenient lower bounds](https://www.fpcomplete.com/blog/2014/05/lenient-lower-bounds)).
 
@@ -123,3 +123,7 @@ That said, we do maintain the capability to keep multiple LTS runs
 operational in parallel, and with LTS 6 and 7 in fact did so. We
 aren't changing our guarantees yet on longevity of a release, but are
 trying to push out the bounds a bit farther.
+
+__What time are Stackage snapshots published?__
+
+Stackage Nightly and LTS are not released at a fixed time of day, they get pushed to stackage.org (and the metadata to the stackage-nightly and stackage-lts github repos) when their builds finish on the Stackage build server and the latest built haddocks have been synced over. This time varies greatly depending on build times for package updates, bounds breakage, problems with new packages being added and other build issues, etc. There are days when a release does not happen. LTS releases tend to happen over the weekend or early in the week.
