@@ -105,11 +105,11 @@ following the above steps, you can get your package into the next major LTS
 Haskell release.
 
 If you would like to get your package added to an existing LTS Haskell major
-release (e.g., if `lts-3.21` is out, you would want your package to appear in
-`lts-3.22`), please do the following in addition to the steps above:
+release (e.g., if `lts-8.9` is out, you would want your package to appear in
+`lts-8.10`), please do the following in addition to the steps above:
 
 * Open up a new issue on the [lts-haskell repo](https://github.com/fpco/lts-haskell/issues/new)
-* Specify the LTS major version you would like your package to go into (e.g., lts-3)
+* Specify the LTS major version you would like your package to go into (e.g., lts-8)
 * Provide a list of packages you would like added, and if relevant, any upper bounds on those packages
-* Be patient! The LTS releases are by their nature more conservative than nightly, and therefore adding new packages is a more manual process. The Stackage curators will try to get to your issue quickly, but there may be some delay.
-* To add a package to more than one LTS versions please file separate tickets for each major LTS release, since they will typically be built and added at different times.
+* Be patient! The LTS releases are less frequent than Nightly and by their nature more conservative, and therefore adding new packages is a more manual process. The Stackage curators will try to get to your issue as soon as possible, but it may take some time.
+* To add a package to more than one LTS version please file separate tickets for each major LTS release, since they will typically be built and added at different times.
