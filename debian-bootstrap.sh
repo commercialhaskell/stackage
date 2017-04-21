@@ -85,6 +85,7 @@ apt-get install -y \
     libpango1.0-dev \
     libpcap0.8-dev \
     libpq-dev \
+    libsass-dev \
     libsdl2-dev \
     libsdl2-mixer-dev \
     libsdl2-image-dev \
