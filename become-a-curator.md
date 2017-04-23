@@ -35,7 +35,7 @@ The current curator team consists of:
 We onboarded Luke as the newest member a few months ago and this
 helped us iron out and document the process further.
 
-You read the curator documentation here: https://github.com/fpco/stackage/blob/master/CURATORS.md
+You can read the curator documentation here: https://github.com/fpco/stackage/blob/master/CURATORS.md
 
 To apply, please fill in this form: https://goo.gl/forms/eD6lTLtuyyHAIcfC2
 
