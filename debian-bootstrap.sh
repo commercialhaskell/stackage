@@ -111,7 +111,7 @@ apt-get install -y \
     llvm-3.7 \
     locales \
     m4 \
-    mono-complete \
+    mono-mcs \
     nettle-dev \
     nodejs \
     npm \
