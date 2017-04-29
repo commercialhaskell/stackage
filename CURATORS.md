@@ -1,7 +1,7 @@
 This is a collection of instructions covering the processes that the Stackage curators - the
 guys who maintain the Stackage project itself - should be doing on a regular basis.
 Originally this was handled largely by Michael Snoyman,
-but now we are a team of 4 people handling requests weekly in rotation.
+but now we are a team of 5 people handling requests weekly in rotation.
 Curation activities are mostly automated, and do not take up a significant amount of time.
 
 ## Workflow overview
@@ -275,8 +275,9 @@ develop this advice over time. For now: if you're not sure, ask for guidance.
 __`NOPLAN=1`__ If you wish to rerun a build without recalculating a
 build plan, you can set the environment variable `NOPLAN=1`. This is
 useful for such cases as an intermittent test failure, out of memory
-condition, or manually tweaking the plan file. This is the default for
-LTS builds.
+condition, or manually tweaking the plan file.
+
+Note LTS builds inherit the current Hackage data (stack updated for Nigthly) to avoid excess extra rebuilding.
 
 ### Timing
 

@@ -111,6 +111,7 @@ apt-get install -y \
     llvm-3.7 \
     locales \
     m4 \
+    mono-mcs \
     nettle-dev \
     nodejs \
     npm \
@@ -183,7 +184,7 @@ wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
     && apt-get update \
     && apt-get install -y llvm-4.0
 
-# non-free repo
-apt-add-repository multiverse \
-    && apt-get update \
-    && apt-get install -y libfdk-aac-dev
+## non-free repo for mediabus-fdk-aac
+#apt-add-repository multiverse \
+#    && apt-get update \
+#    && apt-get install -y libfdk-aac-dev
