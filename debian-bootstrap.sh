@@ -34,6 +34,7 @@ apt-get install -y \
     sudo \
     curl \
     freeglut3-dev \
+    fsharp \
     git \
     gradle \
     libadns1-dev \
