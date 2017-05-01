@@ -178,11 +178,12 @@ cd /tmp \
 echo "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/" > /etc/ld.so.conf.d/openjdk.conf \
     && ldconfig
 
-# llvm-4.0 for llvm-hs (separate since it needs wget)
-wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
-    && add-apt-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-4.0 main" \
-    && apt-get update \
-    && apt-get install -y llvm-4.0
+# currently the repo seems broken
+# # llvm-4.0 for llvm-hs (separate since it needs wget)
+# wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
+#     && add-apt-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-4.0 main" \
+#     && apt-get update \
+#     && apt-get install -y llvm-4.0
 
 ## non-free repo for mediabus-fdk-aac
 #apt-add-repository multiverse \
