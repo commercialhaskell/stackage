@@ -75,6 +75,7 @@ apt-get install -y \
     libmagickcore-dev \
     libmagickwand-dev \
     libmarkdown2-dev \
+    libmono-2.0-dev \
     libmp3lame-dev \
     libmpfr-dev \
     libmysqlclient-dev \
