@@ -3542,6 +3542,7 @@ expected-test-failures:
     - yesod-auth-basic # https://github.com/creichert/yesod-auth-basic/issues/1
 
     # Stackage upper bounds, re-enable these when their upper bound is removed
+    - lens # doctest failure in 4.15.1, fixed in 4.15.2 but lens has an upper bound
 
 
     # Recursive deps https://github.com/fpco/stackage/issues/1818
@@ -3605,7 +3606,7 @@ expected-haddock-failures:
     - gtk
     - gtk3
 
-    # Intermittent failures or unreliable. These tay pass when
+    # Intermittent failures or unreliable. These may pass when
     # re-enabled, but will eventually fail again. Only remove these
     # from expected-haddock-failures if we know a fix has been released.
     - gi-gtk # Uses all memory
@@ -3969,6 +3970,8 @@ tell-me-when-its-released:
 - terminal-progress-bar-0.1.1 # Unskip test suite
 - req-0.2.0 # Remove from expected-test-failures https://github.com/mrkkrp/req/issues/14#issuecomment-287562784
 - vivid-0.2.0.5 # Re-enable package (disabed per MonadRandom < 0.5) https://github.com/fpco/stackage/issues/2180
+- lens-4.15.2 # Test failures in lens-4.15.1 https://github.com/fpco/stackage/issues/2496
+- active-0.2.0.12 # Will likely contain fix for the lens-4.15.2 https://github.com/fpco/stackage/issues/2496
 
 # Packages which should be hidden after registering, to avoid module name
 # conflicts. This is intended for at least two use cases:
