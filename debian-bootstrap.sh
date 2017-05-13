@@ -34,6 +34,7 @@ apt-get install -y \
     sudo \
     curl \
     freeglut3-dev \
+    fsharp \
     git \
     gradle \
     libadns1-dev \
@@ -75,6 +76,7 @@ apt-get install -y \
     libmagickcore-dev \
     libmagickwand-dev \
     libmarkdown2-dev \
+    libmono-2.0-dev \
     libmp3lame-dev \
     libmpfr-dev \
     libmysqlclient-dev \
@@ -111,6 +113,7 @@ apt-get install -y \
     llvm-3.7 \
     locales \
     m4 \
+    mono-mcs \
     nettle-dev \
     nodejs \
     npm \

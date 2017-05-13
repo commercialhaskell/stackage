@@ -223,6 +223,26 @@ rm -r nightly/work/builds/nightly/
 ```
 This should also be done when moving the Nightly docker image to a new version of Ubuntu.
 
+If you're impatient and would like to build the Docker image on the
+build server instead of waiting for Docker Hub, you can run the
+following command:
+
+```
+DIR=$(mktemp -d)
+(cd $DIR \
+  && git clone https://github.com/fpco/stackage \
+  && cd stackage \
+  && docker build --tag snoyberg/stackage:nightly .)
+rm -rf $DIR
+```
+
+Note that we do a clean clone of the `stackage` repo instead of using
+the existing checkout because of how `docker build` works: it will
+send the entire local directory contents as context to the Docker
+daemon, which in the case of the build tree is a _lot_ of content. (We
+can discuss the wisdom&mdash;or lack thereof&mdash;of Docker's
+approach separately.)
+
 ## stackage-build server
 
 You'll need to get your SSH public key added to the machine. ~/.ssh/config info:

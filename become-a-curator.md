@@ -1,3 +1,5 @@
+## We are no longer accepting applications, please wait until next time
+
 We are looking to expand the stackage curator team!
 
 As a stackage curator you will help the community by curating and
@@ -37,6 +39,6 @@ helped us iron out and document the process further.
 
 You can read the curator documentation here: https://github.com/fpco/stackage/blob/master/CURATORS.md
 
-To apply, please fill in this form: https://goo.gl/forms/eD6lTLtuyyHAIcfC2
+To apply, please fill in this form: [REDACTED]
 
 If you applied last time, we encourage you to do so again!
