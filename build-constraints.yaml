@@ -3169,6 +3169,9 @@ packages:
         # https://github.com/fpco/stackage/issues/2507
         - concurrent-output < 1.8
 
+        # breaks hdaemonize: https://github.com/greydot/hdaemonize/issues/5
+        - hsyslog < 5
+
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
@@ -3982,6 +3985,7 @@ tell-me-when-its-released:
 - vivid-0.2.0.5 # Re-enable package (disabed per MonadRandom < 0.5) https://github.com/fpco/stackage/issues/2180
 - lens-4.15.2 # Test failures in lens-4.15.1 https://github.com/fpco/stackage/issues/2496
 - active-0.2.0.12 # Will likely contain fix for the lens-4.15.2 https://github.com/fpco/stackage/issues/2496
+- hdaemonize-0.5.2 # Handles the build failure from https://github.com/greydot/hdaemonize/issues/5
 
 # Packages which should be hidden after registering, to avoid module name
 # conflicts. This is intended for at least two use cases:
