@@ -7,7 +7,7 @@
 # wget -O - https://raw.github.com/fpco/stackage/master/debian-bootstrap.sh | bash -ex
 
 # NOTE: Requires that GHC and Cabal are installed and on your PATH. For
-# instructions,see:
+# instructions, see:
 #    http://www.stackage.org/install
 
 set -exu
