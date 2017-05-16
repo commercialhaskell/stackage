@@ -191,6 +191,12 @@ wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
     && apt-get update \
     && apt-get install -y llvm-4.0
 
+# Install the TensorFlow C API.
+curl https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-1.1.0.tar.gz > libtensorflow.tar.gz \
+    && sudo tar zxf libtensorflow.tar.gz -C /usr/local \
+    && rm libtensorflow.tar.gz \
+    && ldconfig
+
 ## non-free repo for mediabus-fdk-aac
 #apt-add-repository multiverse \
 #    && apt-get update \

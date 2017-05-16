@@ -2918,6 +2918,7 @@ packages:
         - stack-type
 
     "Mitsutoshi Aoe <maoe@foldr.in> @maoe":
+        - sensu-run
         - viewprof
 
     "Dylan Simon <dylan-stack@dylex.net> @dylex":
@@ -3020,6 +3021,12 @@ packages:
         - proto-lens-combinators
         - proto-lens-arbitrary
         - proto-lens-optparse
+        - tensorflow
+        - tensorflow-core-ops
+        - tensorflow-opgen
+        - tensorflow-ops
+        - tensorflow-proto
+        - tensorflow-test
 
     "Christof Schramm <christof.schramm@campus.lmu.de>":
         - mnist-idx
@@ -3181,6 +3188,9 @@ packages:
 
         # https://github.com/fpco/stackage/issues/2514
         - optparse-generic < 1.2
+
+        # https://github.com/fpco/stackage/issues/2516
+        - ghc-typelits-knownnat <0.3
 
 # end of packages
 
@@ -3516,7 +3526,7 @@ expected-test-failures:
     - webdriver-angular # webdriver server
     - yahoo-finance-api # Requires being able to access Yahoo Finance API
     - req-conduit # bad JSON response from service pinged https://github.com/mrkkrp/req-conduit/issues/1
-    # clr-inline # requires working Mono https://github.com/fpco/stackage/issues/2510
+    - clr-inline # requires working Mono https://github.com/fpco/stackage/issues/2510
 
     # Test executable requires arguments
     - hpqtypes
