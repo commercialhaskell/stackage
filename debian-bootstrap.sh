@@ -123,7 +123,6 @@ apt-get install -y \
     nodejs \
     npm \
     openjdk-8-jdk \
-    protobuf-compiler \
     python-mpltoolkits.basemap \
     python3-matplotlib \
     python3-numpy \
@@ -191,9 +190,15 @@ wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
     && apt-get update \
     && apt-get install -y llvm-4.0
 
+# Install version 3 of the protobuf compiler.  (The `protobuf-compiler` package only
+# supports version 2.)
+curl -OL https://github.com/google/protobuf/releases/download/v3.3.0/protoc-3.3.0-linux-x86_64.zip \
+  && sudo unzip -o protoc-3.3.0-linux-x86_64.zip -d /usr bin/protoc \
+  && rm -f protoc-3.3.0-linux-x84_64.zip
+
 # Install the TensorFlow C API.
 curl https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-1.1.0.tar.gz > libtensorflow.tar.gz \
-    && sudo tar zxf libtensorflow.tar.gz -C /usr/local \
+    && sudo tar zxf libtensorflow.tar.gz -C /usr \
     && rm libtensorflow.tar.gz \
     && ldconfig
 
