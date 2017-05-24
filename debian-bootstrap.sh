@@ -71,6 +71,7 @@ apt-get install -y \
     libgtksourceview-3.0-dev \
     libhidapi-dev \
     libicu-dev \
+    libimlib2-dev \
     libjudy-dev \
     liblapack-dev \
     libleveldb-dev \
