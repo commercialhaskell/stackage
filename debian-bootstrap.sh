@@ -20,10 +20,11 @@ apt-get install -y software-properties-common
 
 add-apt-repository ppa:hvr/ghc -y
 add-apt-repository -y ppa:marutter/rrutter
-# not sure what this was needed for
-#add-apt-repository -y ppa:openstack-ubuntu-testing/icehouse
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy main'
+add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy-apache24-compat main'
+add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy-libjpeg62-compat main'
 
-# Set the GHC version
 GHCVER=8.0.2
 
 apt-get update
@@ -37,6 +38,7 @@ apt-get install -y \
     sudo \
     curl \
     freeglut3-dev \
+    fsharp \
     git \
     gradle \
     libadns1-dev \
@@ -69,6 +71,7 @@ apt-get install -y \
     libgtksourceview-3.0-dev \
     libhidapi-dev \
     libicu-dev \
+    libimlib2-dev \
     libjudy-dev \
     liblapack-dev \
     libleveldb-dev \
@@ -78,6 +81,8 @@ apt-get install -y \
     libmagickcore-dev \
     libmagickwand-dev \
     libmarkdown2-dev \
+    libmono-2.0-dev \
+    libmp3lame-dev \
     libmpfr-dev \
     libmysqlclient-dev \
     libncurses-dev \
@@ -94,6 +99,7 @@ apt-get install -y \
     libsdl2-ttf-dev \
     libsnappy-dev \
     libsndfile1-dev \
+    libsox-dev \
     libsqlite3-dev \
     libssl-dev \
     libsystemd-dev \
@@ -112,10 +118,16 @@ apt-get install -y \
     llvm-3.7 \
     locales \
     m4 \
+    minisat \
+    mono-mcs \
     nettle-dev \
     nodejs \
     npm \
     openjdk-8-jdk \
+    python-mpltoolkits.basemap \
+    python3-matplotlib \
+    python3-numpy \
+    python3-pip \
     r-base \
     r-base-dev \
     ruby-dev \
@@ -172,3 +184,26 @@ cd /tmp \
 # Add JDK to system paths.
 echo "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/" > /etc/ld.so.conf.d/openjdk.conf \
     && ldconfig
+
+# llvm-4.0 for llvm-hs (separate since it needs wget)
+wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
+    && add-apt-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-4.0 main" \
+    && apt-get update \
+    && apt-get install -y llvm-4.0
+
+# Install version 3 of the protobuf compiler.  (The `protobuf-compiler` package only
+# supports version 2.)
+curl -OL https://github.com/google/protobuf/releases/download/v3.3.0/protoc-3.3.0-linux-x86_64.zip \
+  && sudo unzip -o protoc-3.3.0-linux-x86_64.zip -d /usr bin/protoc \
+  && rm -f protoc-3.3.0-linux-x84_64.zip
+
+# Install the TensorFlow C API.
+curl https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-1.1.0.tar.gz > libtensorflow.tar.gz \
+    && sudo tar zxf libtensorflow.tar.gz -C /usr \
+    && rm libtensorflow.tar.gz \
+    && ldconfig
+
+## non-free repo for mediabus-fdk-aac
+#apt-add-repository multiverse \
+#    && apt-get update \
+#    && apt-get install -y libfdk-aac-dev

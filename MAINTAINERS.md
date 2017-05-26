@@ -2,7 +2,7 @@ This project is built around the concept of maintainers taking responsibility fo
 
 The idea behind Stackage is that, if all packages work with the newest versions of dependencies, we avoid dependency hell. Specifically, we aim for:
 
-* All packages are buildable and testable from Hackage. We recommend [the Stack Travis script](http://docs.haskellstack.org/en/stable/GUIDE.html#travis-with-caching), which ensures a package is not accidentally incomplete.
+* All packages are buildable and testable from Hackage. We recommend [the Stack Travis script](https://docs.haskellstack.org/en/stable/travis_ci/), which ensures a package is not accidentally incomplete.
 * All packages are compatible with the newest versions of all dependencies (You can find restrictive upper bounds by visiting http://packdeps.haskellers.com/feed?needle=PACKAGENAME).
 * All packages in a snapshot are compatible with the versions of libraries that ship with the GHC used in the snapshot ([more information on lenient lower bounds](https://www.fpcomplete.com/blog/2014/05/lenient-lower-bounds)).
 
@@ -20,6 +20,8 @@ To add a set of packages, you would add:
         - package1
         - package2
         - package3
+
+Note that the `master` branch is used for Stackage Nightly (not the `nightly` branch, which is used for the nightly docker builder imagine).
 
 After doing that, send a pull request (with a commit message like "add foo-bar"). We do not require new submissions to be tested against the rest of Stackage before the pull request (though it is a good idea to do so if you can with `stack --resolver nightly exec stackage-curator check` and `stack --resolver nightly build`), provided you meet the dependency version requirements above. If your library depends on a C library, add a note to your pull request with the Ubuntu library name, or even better edit the `debian-bootstrap.sh` script directly
 
@@ -103,10 +105,11 @@ following the above steps, you can get your package into the next major LTS
 Haskell release.
 
 If you would like to get your package added to an existing LTS Haskell major
-release (e.g., if `lts-3.21` is out, you would want your package to appear in
-`lts-3.22`), please do the following in addition to the steps above:
+release (e.g., if `lts-8.9` is out, you would want your package to appear in
+`lts-8.10`), please do the following in addition to the steps above:
 
 * Open up a new issue on the [lts-haskell repo](https://github.com/fpco/lts-haskell/issues/new)
-* Specify the LTS major version you would like your package to go into (e.g., lts-3)
+* Specify the LTS major version you would like your package to go into (e.g., lts-8)
 * Provide a list of packages you would like added, and if relevant, any upper bounds on those packages
-* Be patient! The LTS releases are by their nature more conservative than nightly, and therefore adding new packages is a more manual process. The Stackage curators will try to get to your issue quickly, but there may be some delay.
+* Be patient! The LTS releases are less frequent than Nightly and by their nature more conservative, and therefore adding new packages is a more manual process. The Stackage curators will try to get to your issue as soon as possible, but it may take some time.
+* To add a package to more than one LTS version please file separate tickets for each major LTS release, since they will typically be built and added at different times.
