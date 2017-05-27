@@ -3721,6 +3721,12 @@ skipped-benchmarks:
     # Cyclic dependencies
     - cassava
 
+    # Won't be updated only for the benchmark component
+    # (https://github.com/fpco/stackage/issues/2538#issuecomment-304458844)
+    - cryptohash-md5
+    - cryptohash-sha1
+    - cryptohash-sha256
+
 # end of skipped-benchmarks
 
 
@@ -3844,6 +3850,9 @@ tell-me-when-its-released:
 - req-0.2.0 # Remove from expected-test-failures https://github.com/mrkkrp/req/issues/14#issuecomment-287562784
 - vivid-0.2.0.5 # Re-enable package (disabed per MonadRandom < 0.5) https://github.com/fpco/stackage/issues/2180
 - lens-4.15.2 # Test failures in lens-4.15.1 https://github.com/fpco/stackage/issues/2496
+- cryptohash-md5-0.11.100.1 # re-enable benchmarks, https://github.com/fpco/stackage/issues/2538#issuecomment-304458844
+- cryptohash-sha1-0.11.100.1 # re-enable benchmarks, https://github.com/fpco/stackage/issues/2538#issuecomment-304458844
+- cryptohash-sha256-0.11.100.1 # re-enable benchmarks, https://github.com/fpco/stackage/issues/2538#issuecomment-304458844
 
 # Packages which should be hidden after registering, to avoid module name
 # conflicts. This is intended for at least two use cases:
