@@ -328,7 +328,7 @@ packages:
         - hjsmin
         - language-javascript
         - Strafunski-StrategyLib
-        - HaRe # via: cabal-helper, ghc-mod, rosezipper
+        # - HaRe # BLOCKED ghc-mod < 5.8
 
     "Alfredo Di Napoli <alfredo.dinapoli@gmail.com> @adinapoli":
         - mandrill
@@ -3156,9 +3156,6 @@ packages:
         # https://github.com/fpco/stackage/issues/2400
         - hslua < 0.5
 
-        # https://github.com/fpco/stackage/issues/2433
-        - hlint < 2
-
         # https://github.com/fpco/stackage/issues/2440
         - discord-hs < 0.3.2
 
@@ -3439,6 +3436,7 @@ skipped-tests:
     - snap # QuickCheck 2.9
     - state-plus # QuickCheck 2.9
     - system-filepath # QuickCheck 2.9 via chell-quickcheck
+    - ghc-mod # hspec 2.4
 
     # Transitive outdated dependencies
     # These packages
