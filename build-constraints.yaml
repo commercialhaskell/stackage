@@ -2874,7 +2874,7 @@ packages:
         - postgresql-simple-opts
         - pg-transact
         - hspec-pg-transact
-        - postgresql-simple-queue
+        # postgresql-simple-queue # fails to build, # https://github.com/jfischoff/postgresql-queue/issues/1
 
     "Bernie Pope <bjpope@unimelb.edu.au> @bjpop":
         - language-python
@@ -3267,6 +3267,16 @@ packages:
         # https://github.com/michalkonecny/mixed-types-num/issues/1
         - mixed-types-num < 0.2
 
+        # https://github.com/fpco/stackage/issues/2590
+        - text-show < 3.6.2
+
+        # https://github.com/fpco/stackage/issues/2594
+        - req < 0.3.0 # also remove from expected-test-failure
+        - req-conduit < 0.2.0 # because of above
+
+        # https://github.com/fpco/stackage/issues/2595
+        - cassava < 0.5.0.0
+
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
@@ -3500,6 +3510,9 @@ skipped-tests:
     # criterion
     - store
 
+    # wrong package.yaml file
+    - teardown # https://github.com/roman/Haskell-teardown/issues/1
+
 # end of skipped-tests
 
 # Tests which we should build and run, but which are expected to fail. We
@@ -3646,6 +3659,7 @@ expected-test-failures:
     - xmonad # 0.12 https://github.com/xmonad/xmonad/issues/36
     - pixelated-avatar-generator # 0.1.3 https://github.com/ExcaliburZero/pixelated-avatar-generator/issues/19
     - xml-picklers # https://github.com/Philonous/xml-picklers/issues/5
+    - throwable-exceptions # https://github.com/aiya000/hs-throwable-exceptions/issues/2
 
     # Compilation failures
     - ListLike # No issue tracker, e-mail sent to maintainer
@@ -3692,6 +3706,8 @@ expected-test-failures:
     - servant # https://github.com/haskell-servant/servant/issues/698
     - snap-core # https://github.com/snapframework/snap-core/issues/26
     - stm-delay # https://github.com/joeyadams/haskell-stm-delay/issues/5
+    - pg-transact # https://github.com/jfischoff/pg-transact/issues/2
+    - tmp-postgres # https://github.com/jfischoff/tmp-postgres/issues/1
 
 # end of expected-test-failures
 
@@ -3718,6 +3734,9 @@ expected-benchmark-failures:
     - thyme # https://github.com/liyang/thyme/issues/50
     - xmlgen # https://github.com/skogsbaer/xmlgen/issues/6
     - ghc-mod # https://github.com/DanielG/ghc-mod/issues/895
+
+    # wrong package.yaml file
+    - teardown # https://github.com/roman/Haskell-teardown/issues/1
 
 # end of expected-benchmark-failures
 
@@ -3922,7 +3941,6 @@ build-tool-overrides:
 tell-me-when-its-released:
 - point-octree-0.5.5.3 # re-enable test and then we can resolve https://github.com/fpco/lts-haskell/issues/27
 - yarr-1.4.0.2 # Re-enable package https://github.com/fpco/stackage/issues/1876
-- req-0.2.0 # Remove from expected-test-failures https://github.com/mrkkrp/req/issues/14#issuecomment-287562784
 - vivid-0.2.0.5 # Re-enable package (disabed per MonadRandom < 0.5) https://github.com/fpco/stackage/issues/2180
 - cryptohash-md5-0.11.100.1 # re-enable benchmarks, https://github.com/fpco/stackage/issues/2538#issuecomment-304458844
 - cryptohash-sha1-0.11.100.1 # re-enable benchmarks, https://github.com/fpco/stackage/issues/2538#issuecomment-304458844
