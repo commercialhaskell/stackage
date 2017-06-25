@@ -207,3 +207,53 @@ curl https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-l
 #apt-add-repository multiverse \
 #    && apt-get update \
 #    && apt-get install -y libfdk-aac-dev
+
+
+################################################################################
+# Install opencv.
+
+OPENCV_VERSION="3.2.0"
+
+apt-get install -y \
+    cmake \
+    pkg-config \
+    libjpeg-dev \
+    libtiff5-dev \
+    libjasper-dev \
+    libpng12-dev \
+    libavcodec-dev \
+    libavformat-dev \
+    libswscale-dev \
+    libxvidcore-dev \
+    libx264-dev \
+    libv4l-dev \
+    liblapacke-dev \
+    libgtk-3-dev \
+    libopenblas-dev \
+    libhdf5-dev \
+    libtesseract-dev \
+    libleptonica-dev \
+    python3-dev \
+    gfortran
+
+# Make a new directory
+rm -rf /tmp/opencv-build
+mkdir /tmp/opencv-build
+cd /tmp/opencv-build
+
+# Download OpenCV
+curl -L https://github.com/opencv/opencv/archive/${OPENCV_VERSION}.tar.gz | tar xz
+curl -L https://github.com/opencv/opencv_contrib/archive/${OPENCV_VERSION}.tar.gz | tar xz
+
+cd opencv-${OPENCV_VERSION}
+mkdir build
+cd build
+cmake -D CMAKE_BUILD_TYPE=RELEASE \
+      -D CMAKE_INSTALL_PREFIX=/usr/local \
+      -D OPENCV_EXTRA_MODULES_PATH=/tmp/opencv-build/opencv_contrib-${OPENCV_VERSION}/modules
+
+make -j
+
+make install
+
+################################################################################
