@@ -3201,6 +3201,13 @@ packages:
         # https://github.com/fpco/stackage/issues/2533
         - mysql-haskell < 0.8.1.0
 
+        # https://github.com/fpco/stackage/issues/2537
+        - servant < 0.11
+        - servant-client < 0.11
+        - servant-server < 0.11
+        - servant-docs < 0.10.0.1
+        - servant-foreign < 0.10.0.1
+
         # https://github.com/fpco/stackage/issues/2604
         - criterion < 1.2
         - statistics < 0.14
@@ -3604,9 +3611,7 @@ expected-test-failures:
     - wai-cors # PhantomJS
     - wai-session-postgresql # PostgreSQL
     - webdriver-angular # webdriver server
-    - yahoo-finance-api # Requires being able to access Yahoo Finance API
     - req-conduit # bad JSON response from service pinged https://github.com/mrkkrp/req-conduit/issues/1
-    - clr-inline # requires working Mono https://github.com/fpco/stackage/issues/2510
 
     # Test executable requires arguments
     - hpqtypes
@@ -3756,7 +3761,6 @@ expected-haddock-failures:
 
     # "Argument list too long"
     - classy-prelude-yesod
-    - hledger-web
 
     # Runs out of memory
     - stratosphere
