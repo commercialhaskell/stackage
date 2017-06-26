@@ -1,7 +1,7 @@
 This is a collection of instructions covering the processes that the Stackage curators - the
 guys who maintain the Stackage project itself - should be doing on a regular basis.
 Originally this was handled largely by Michael Snoyman,
-but now we are a team of 4 people handling requests weekly in rotation.
+but now we are a team of 5 people handling requests weekly in rotation.
 Curation activities are mostly automated, and do not take up a significant amount of time.
 
 ## Workflow overview
@@ -222,6 +222,26 @@ force all packages to be rebuilt. See: [issue#746](https://github.com/fpco/stack
 rm -r nightly/work/builds/nightly/
 ```
 This should also be done when moving the Nightly docker image to a new version of Ubuntu.
+
+If you're impatient and would like to build the Docker image on the
+build server instead of waiting for Docker Hub, you can run the
+following command:
+
+```
+DIR=$(mktemp -d)
+(cd $DIR \
+  && git clone https://github.com/fpco/stackage \
+  && cd stackage \
+  && docker build --tag snoyberg/stackage:nightly .)
+rm -rf $DIR
+```
+
+Note that we do a clean clone of the `stackage` repo instead of using
+the existing checkout because of how `docker build` works: it will
+send the entire local directory contents as context to the Docker
+daemon, which in the case of the build tree is a _lot_ of content. (We
+can discuss the wisdom&mdash;or lack thereof&mdash;of Docker's
+approach separately.)
 
 ## stackage-build server
 

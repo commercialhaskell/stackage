@@ -20,6 +20,10 @@ apt-get install -y software-properties-common
 
 add-apt-repository ppa:hvr/ghc -y
 add-apt-repository -y ppa:marutter/rrutter
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy main'
+add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy-apache24-compat main'
+add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy-libjpeg62-compat main'
 
 GHCVER=8.0.2
 
@@ -34,6 +38,7 @@ apt-get install -y \
     sudo \
     curl \
     freeglut3-dev \
+    fsharp \
     git \
     gradle \
     libadns1-dev \
@@ -66,6 +71,7 @@ apt-get install -y \
     libgtksourceview-3.0-dev \
     libhidapi-dev \
     libicu-dev \
+    libimlib2-dev \
     libjudy-dev \
     liblapack-dev \
     libleveldb-dev \
@@ -75,6 +81,7 @@ apt-get install -y \
     libmagickcore-dev \
     libmagickwand-dev \
     libmarkdown2-dev \
+    libmono-2.0-dev \
     libmp3lame-dev \
     libmpfr-dev \
     libmysqlclient-dev \
@@ -111,11 +118,12 @@ apt-get install -y \
     llvm-3.7 \
     locales \
     m4 \
+    minisat \
+    mono-mcs \
     nettle-dev \
     nodejs \
     npm \
     openjdk-8-jdk \
-    protobuf-compiler \
     python-mpltoolkits.basemap \
     python3-matplotlib \
     python3-numpy \
@@ -183,7 +191,69 @@ wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
     && apt-get update \
     && apt-get install -y llvm-4.0
 
+# Install version 3 of the protobuf compiler.  (The `protobuf-compiler` package only
+# supports version 2.)
+curl -OL https://github.com/google/protobuf/releases/download/v3.3.0/protoc-3.3.0-linux-x86_64.zip \
+  && sudo unzip -o protoc-3.3.0-linux-x86_64.zip -d /usr bin/protoc \
+  && rm -f protoc-3.3.0-linux-x84_64.zip
+
+# Install the TensorFlow C API.
+curl https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-1.1.0.tar.gz > libtensorflow.tar.gz \
+    && sudo tar zxf libtensorflow.tar.gz -C /usr \
+    && rm libtensorflow.tar.gz \
+    && ldconfig
+
 ## non-free repo for mediabus-fdk-aac
 #apt-add-repository multiverse \
 #    && apt-get update \
 #    && apt-get install -y libfdk-aac-dev
+
+
+################################################################################
+# Install opencv.
+
+OPENCV_VERSION="3.2.0"
+
+apt-get install -y \
+    cmake \
+    pkg-config \
+    libjpeg-dev \
+    libtiff5-dev \
+    libjasper-dev \
+    libpng12-dev \
+    libavcodec-dev \
+    libavformat-dev \
+    libswscale-dev \
+    libxvidcore-dev \
+    libx264-dev \
+    libv4l-dev \
+    liblapacke-dev \
+    libgtk-3-dev \
+    libopenblas-dev \
+    libhdf5-dev \
+    libtesseract-dev \
+    libleptonica-dev \
+    python3-dev \
+    gfortran
+
+# Make a new directory
+rm -rf /tmp/opencv-build
+mkdir /tmp/opencv-build
+cd /tmp/opencv-build
+
+# Download OpenCV
+curl -L https://github.com/opencv/opencv/archive/${OPENCV_VERSION}.tar.gz | tar xz
+curl -L https://github.com/opencv/opencv_contrib/archive/${OPENCV_VERSION}.tar.gz | tar xz
+
+cd opencv-${OPENCV_VERSION}
+mkdir build
+cd build
+cmake -D CMAKE_BUILD_TYPE=RELEASE \
+      -D CMAKE_INSTALL_PREFIX=/usr/local \
+      -D OPENCV_EXTRA_MODULES_PATH=/tmp/opencv-build/opencv_contrib-${OPENCV_VERSION}/modules
+
+make -j
+
+make install
+
+################################################################################
