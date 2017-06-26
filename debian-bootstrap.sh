@@ -250,7 +250,7 @@ mkdir build
 cd build
 cmake -D CMAKE_BUILD_TYPE=RELEASE \
       -D CMAKE_INSTALL_PREFIX=/usr/local \
-      -D OPENCV_EXTRA_MODULES_PATH=/tmp/opencv-build/opencv_contrib-${OPENCV_VERSION}/modules
+      -D OPENCV_EXTRA_MODULES_PATH=/tmp/opencv-build/opencv_contrib-${OPENCV_VERSION}/modules ..
 
 make -j
 
