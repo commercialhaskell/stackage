@@ -240,7 +240,7 @@ packages:
         - authenticate-oauth
         - yesod-bin
         - yesod-eventsource
-        - yesod-fay
+        # - yesod-fay # via: fay
         - yesod-gitrepo
         - yesod-newsfeed
         - yesod-sitemap
@@ -389,7 +389,7 @@ packages:
         - HTF
         - xmlgen
         - stm-stats
-        # - large-hashable # via safecopy: bounds: vector
+        # - large-hashable # via: safecopy, bounds, vector
 
     "Bart Massey <bart.massey+stackage@gmail.com> @BartMassey":
         - parseargs
@@ -673,12 +673,12 @@ packages:
     "Adam Bergmark <adam@bergmark.nl> @bergmark":
         - HUnit
         - aeson
-        - fay
-        - fay-base
-        - fay-dom
-        - fay-jquery
-        - fay-text
-        - fay-uri
+        # - fay # bounds: traverse-with-class
+        # - fay-base # via: fay
+        # - fay-dom # via: fay
+        # - fay-jquery # via: fay
+        # - fay-text # via: fay
+        # - fay-uri # via: fay
         - feed
         - time-compat
         - through-text
@@ -728,7 +728,7 @@ packages:
     "Dominic Steinitz <dominic@steinitz.org> @idontgetoutmuch":
         []
         # - yarr # compilation error against fixed-vector https://github.com/leventov/yarr/issues/10
-        # - random-fu # via log-domain: via safecopy: bounds: vector
+        # - random-fu # via: log-domain, safecopy, bounds: vector
 
     "Ben Gamari <ben@smart-cactus.org> @bgamari":
         []
@@ -845,7 +845,7 @@ packages:
         - attoparsec-expr
         - bumper
         - code-builder
-        - fay-builder
+        # - fay-builder # via: fay
         - generic-aeson
         - generic-xmlpickler
         - hxt-pickle-utils
@@ -3188,9 +3188,6 @@ packages:
         # https://github.com/fpco/stackage/issues/2451
         - websockets < 0.11.0.0
         - servant-subscriber < 0.6.0.1
-
-        # https://github.com/fpco/stackage/issues/2464
-        - traverse-with-class < 1.0.0.0
 
         # https://github.com/fpco/stackage/issues/2487
         - graphviz < 2999.19
