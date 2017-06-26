@@ -3116,7 +3116,7 @@ packages:
 
     "Steven Vandevelde <icid.asset@gmail.com> @icidasset":
         - shikensu
-        
+
     "George Pollard <porges@porg.es> @Porges":
         - email-validate
 
@@ -3489,12 +3489,39 @@ skipped-tests:
     # Missing foreign library
     - symengine # symengine
 
-
     # Wontfix. The maintainer doesn't want to keep test dependencies
     # up to date or be notified about it, or doesn't want stackage to
     # run the tests.
     # Only re-enable if requested.
-    - postgresql-binary # https://github.com/nikita-volkov/postgresql-binary/issues/6#issuecomment-243063139
+    ## @hvr https://github.com/fpco/stackage/issues/2538#issuecomment-304458844
+    - cassava
+    - cryptohash-md5
+    - cryptohash-sha1
+    - cryptohash-sha256
+    - uuid
+    - uuid-types
+    # @nikita-volkov https://github.com/fpco/stackage/issues/2538#issuecomment-305129396
+    - base-prelude
+    - bytestring-strict-builder
+    - bytestring-tree-builder
+    - cases
+    - focus
+    - hasql
+    - hasql-pool
+    - list-t
+    - mtl-prelude
+    - neat-interpolation
+    - partial-handler
+    - postgresql-binary
+    - refined
+    - slave-thread
+    - stm-containers
+    # @ivan-m https://github.com/fpco/stackage/issues/2538#issuecomment-307290070
+    - fgl
+    - fgl-arbitrary
+    - graphviz
+    - graphviz
+    - wl-pprint-text
 
     # directory 1.3
     - machines
@@ -3721,7 +3748,6 @@ expected-benchmark-failures:
     - vector-binary-instances
 
     # Missing files in sdist
-    - cassava # https://github.com/hvr/cassava/pull/117
     - picoparsec # https://bitbucket.org/blamario/picoparsec/issues/3/benchmark-compilation-failure
 
     # Compilation failures
@@ -3813,20 +3839,36 @@ skipped-benchmarks:
     - cassava
 
     # Maintainers who don't want to update benchmarks
+    # Only re-enable if requested.
     ## @hvr https://github.com/fpco/stackage/issues/2538#issuecomment-304458844
+    - cassava
     - cryptohash-md5
     - cryptohash-sha1
     - cryptohash-sha256
     - uuid
     - uuid-types
     # @nikita-volkov https://github.com/fpco/stackage/issues/2538#issuecomment-305129396
+    - base-prelude
     - bytestring-strict-builder
     - bytestring-tree-builder
+    - cases
+    - focus
     - hasql
+    - hasql-pool
+    - list-t
+    - mtl-prelude
+    - neat-interpolation
+    - partial-handler
     - postgresql-binary
+    - refined
+    - slave-thread
     - stm-containers
     # @ivan-m https://github.com/fpco/stackage/issues/2538#issuecomment-307290070
+    - fgl
+    - fgl-arbitrary
     - graphviz
+    - graphviz
+    - wl-pprint-text
 
 # end of skipped-benchmarks
 
