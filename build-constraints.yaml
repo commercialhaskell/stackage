@@ -334,7 +334,7 @@ packages:
         - hjsmin
         - language-javascript
         - Strafunski-StrategyLib
-        - HaRe
+        # - HaRe # via: ghc-mod
 
     "Alfredo Di Napoli <alfredo.dinapoli@gmail.com> @adinapoli":
         - mandrill
@@ -899,7 +899,7 @@ packages:
         # - system-canonicalpath # bounds: ghc, base # https://github.com/d12frosted/CanonicalPath/issues/5
 
     "Daniel Gröber <dxld@darkboxed.org> @DanielG":
-        - ghc-mod
+        # - ghc-mod # bounds: syb
         - cabal-helper
 
     "Yann Esposito <yann.esposito@gmail.com> yogsototh @yogsototh":
@@ -2226,7 +2226,7 @@ packages:
         - flat-mcmc
 
     "Facundo Domínguez <facundo.dominguez@tweag.io> @facundominguez":
-        - distributed-process
+        # - distributed-process # bounds: syb
         # - distributed-process-async # GHC 8
         # - distributed-process-client-server # GHC 8
         # - distributed-process-execution # GHC 8
@@ -2234,7 +2234,7 @@ packages:
         # - distributed-process-registry # GHC 8
         # - distributed-process-supervisor # GHC 8
         # - distributed-process-task # GHC 8
-        - distributed-process-simplelocalnet
+        # - distributed-process-simplelocalnet # via: distributed-process
         - distributed-static
         - network-transport
         - network-transport-tcp
@@ -3170,9 +3170,6 @@ packages:
         - tcp-streams-openssl < 1.0.0.0
         - mysql-haskell < 0.8.1.0
 
-        # https://github.com/fpco/stackage/issues/2345
-        - syb < 0.7
-
         # https://github.com/fpco/stackage/issues/2378
         - errors < 2.2.0
 
@@ -3460,6 +3457,7 @@ skipped-tests:
     - state-plus # QuickCheck 2.9
     - system-filepath # QuickCheck 2.9 via chell-quickcheck
     - ghc-mod # hspec 2.4
+    - unordered-containers # via ChasingBottoms
 
     # Transitive outdated dependencies
     # These packages
