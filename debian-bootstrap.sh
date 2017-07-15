@@ -72,6 +72,7 @@ apt-get install -y \
     libhidapi-dev \
     libicu-dev \
     libimlib2-dev \
+    libjack-jackd2-dev \
     libjudy-dev \
     liblapack-dev \
     libleveldb-dev \
