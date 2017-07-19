@@ -70,6 +70,7 @@ apt-get install -y \
     libgtk2.0-dev \
     libgtksourceview-3.0-dev \
     libhidapi-dev \
+    libi2c-dev \
     libicu-dev \
     libimlib2-dev \
     libjack-jackd2-dev \
