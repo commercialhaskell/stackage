@@ -3313,9 +3313,6 @@ packages:
         # https://github.com/fpco/stackage/issues/2646
         - cron < 0.6
 
-        # https://github.com/LeventErkok/sbv/issues/315
-        - sbv < 7.0
-
         # https://github.com/fpco/stackage/issues/2656
         - happstack-server < 7.5.0
 # end of packages
@@ -3684,6 +3681,7 @@ expected-test-failures:
     - rethinkdb
     - rethinkdb-client-driver
     - riak
+    - sbv # needs z3 >= 4.5 (Xenial has 4.4)
     - serialport # "The tests need two serial ports as command line arguments" https://github.com/jputcu/serialport/issues/30
     - serversession-backend-redis # redis
     - shake # Needs ghc on $PATH with some installed haskell packages
