@@ -183,8 +183,8 @@ packages:
         - binary-parsers
         - binary-ieee754
         - word24
-        - mysql-haskell
-        - mysql-haskell-openssl
+        # - mysql-haskell # bounds: memory
+        # - mysql-haskell-openssl # bounds: tcp-streams
         - data-has
 
     "Harendra Kumar <harendra.kumar@gmail.com> @harendra-kumar":
@@ -3118,7 +3118,8 @@ packages:
         - mnist-idx
 
     "Naushadh <naushadh@protonmail.com> @naushadh":
-        - persistent-mysql-haskell
+        []
+        # - persistent-mysql-haskell # bounds: tcp-streams
 
     "Moritz Schulte <mtesseract@silverratio.net> @mtesseract":
         - async-refresh
@@ -3198,11 +3199,6 @@ packages:
     "Stackage upper bounds":
         # https://github.com/fpco/stackage/issues/2127
         - leapseconds-announced < 2017.0.0.1 # Wait for GHC 8.2.1
-
-        # https://github.com/fpco/stackage/issues/2334
-        - tcp-streams < 1.0.0.0
-        - tcp-streams-openssl < 1.0.0.0
-        - mysql-haskell < 0.8.1.0
 
         # https://github.com/fpco/stackage/issues/2393
         - HUnit < 1.6.0.0
