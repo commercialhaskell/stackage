@@ -2442,7 +2442,7 @@ packages:
         - file-modules
         - frontmatter
         - read-editor
-        - hspec-setup
+        # - hspec-setup # bounds: haskell-src-exts
         # - hzulip # bounds: aeson, stm-conduit
         - list-prompt
         # - memoization-utils # bounds: time
@@ -3102,17 +3102,17 @@ packages:
         - lens-labels
         - proto-lens
         - proto-lens-descriptors
-        - proto-lens-protoc
-        - proto-lens-combinators
+        # - proto-lens-protoc # bounds: haskell-src-exts
+        # - proto-lens-combinators # bounds: proto-lens-protoc
         - proto-lens-arbitrary
         - proto-lens-optparse
-        - proto-lens-protobuf-types
-        - tensorflow
-        - tensorflow-core-ops
-        - tensorflow-opgen
-        - tensorflow-ops
-        - tensorflow-proto
-        - tensorflow-test
+        # - proto-lens-protobuf-types # bounds: proto-lens-protoc
+        # - tensorflow # bounds: proto-lens-protoc
+        # - tensorflow-core-ops # bounds: tensorflow
+        # - tensorflow-opgen # bounds: tensorflow
+        # - tensorflow-ops # bounds: tensorflow
+        # - tensorflow-proto # bounds: proto-lens-protoc
+        # - tensorflow-test # bounds: tensorflow
 
     "Christof Schramm <christof.schramm@campus.lmu.de>":
         - mnist-idx
@@ -3196,9 +3196,6 @@ packages:
         - Win32 == 2.3.1.1
 
     "Stackage upper bounds":
-        # https://github.com/fpco/stackage/issues/2037
-        - haskell-src-exts < 1.19
-
         # https://github.com/fpco/stackage/issues/2127
         - leapseconds-announced < 2017.0.0.1
 
