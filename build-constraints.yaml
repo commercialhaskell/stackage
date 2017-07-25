@@ -2268,9 +2268,9 @@ packages:
         # - distributed-process-simplelocalnet # via: distributed-process
         - distributed-static
         - network-transport
-        - network-transport-tcp
-        - network-transport-inmemory
-        - network-transport-composed
+        # - network-transport-tcp # bounds: network-transport
+        # - network-transport-inmemory # bounds: network-transport
+        # - network-transport-composed # bounds: network-transport
         - rank1dynamic
 
     # "Alexander Vershilov <alexander.vershilov@tweag.io> @qnikst":
@@ -3198,9 +3198,6 @@ packages:
     "Stackage upper bounds":
         # https://github.com/fpco/stackage/issues/2127
         - leapseconds-announced < 2017.0.0.1 # Wait for GHC 8.2.1
-
-        # https://github.com/fpco/stackage/issues/2329
-        - network-transport < 0.5
 
         # https://github.com/fpco/stackage/issues/2334
         - tcp-streams < 1.0.0.0
