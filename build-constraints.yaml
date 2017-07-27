@@ -288,7 +288,6 @@ packages:
         - async
         - base16-bytestring
         - c2hs
-        - cassava
         - csv-conduit
         - executable-hash
         - executable-path
@@ -3188,6 +3187,7 @@ packages:
         - type-list
         - vinyl-utils
         - language-lua2 # https://github.com/mitchellwrosen/language-lua2/issues/4
+        - cassava
 
      # If you want to make sure a package is removed from stackage,
      # place it here with a `< 0` constraint and send a pull
@@ -3213,10 +3213,6 @@ packages:
 
         # https://github.com/haskell/haddock/issues/634 - causes other docs to fail to build
         - haddock < 2.17.5
-
-        # https://github.com/fpco/stackage/issues/2595
-        - cassava < 0.5.0.0
-        - cassava-conduit < 0.4.0.0 # because of above and #2586
 
         # https://github.com/fpco/stackage/issues/2607
         - http-media < 0.7.0
@@ -3349,6 +3345,9 @@ package-flags:
 
     mintty:
         win32-2-5: false
+
+    cassava:
+        pre-bytestring-0-10-4: false
 
 # end of package-flags
 
@@ -3580,6 +3579,7 @@ skipped-tests:
     - tar
     - vector-builder
     - zlib
+    - text-short
 
 # end of skipped-tests
 
