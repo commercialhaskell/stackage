@@ -155,8 +155,8 @@ packages:
 
     "Luke Murphy <lukewm@riseup.net> @lwm":
         - tasty-discover
-        - lentil
-        - packunused
+        # - lentil # bounds: optparse-applicative
+        # - packunused # bounds: optparse-applicative
 
     "Marco Zocca @ocramz":
         - sparse-linear-algebra
@@ -579,17 +579,17 @@ packages:
         - active
         # - BlogLiterately # bounds: skylighting
         # - BlogLiterately-diagrams # bounds: skylighting
-        - diagrams
+        # - diagrams # bounds: optparse-applicative
         - diagrams-builder
         # - diagrams-haddock # BLOCKED directory 1.3 via cautious-file
-        - diagrams-cairo # bounds: vector
+        # - diagrams-cairo # bounds: optparse-applicative
         - diagrams-contrib
         - diagrams-core
-        - diagrams-gtk
+        # - diagrams-gtk # bounds: optparse-applicative
         - diagrams-lib
         - diagrams-postscript
-        - diagrams-rasterific
-        - diagrams-svg
+        # - diagrams-rasterific # bounds: optparse-applicative
+        # - diagrams-svg # bounds: optparse-applicative
         - dual-tree
         - force-layout
         - haxr
@@ -1191,10 +1191,10 @@ packages:
 
     "Jeffrey Rosenbluth <jeffrey.rosenbluth@gmail.com> @jeffreyrosenbluth":
         - palette
-        - diagrams-canvas
-        - diagrams-rasterific
+        # - diagrams-canvas # bounds: optparse-applicative
+        # - diagrams-rasterific # bounds: optparse-applicative
         - lucid-svg
-        - diagrams-html5
+        # - diagrams-html5 # bounds: optparse-applicative
         - static-canvas
         - svg-builder
 
@@ -1267,7 +1267,7 @@ packages:
         - spdx
         - splitmix
         - tdigest
-        - tdigest-Chart
+        # - tdigest-Chart # bounds: optparse-applicative
         - these
         - time-parsers
         - waitra
@@ -1549,7 +1549,7 @@ packages:
     "Noam Lewis <jones.noamle@gmail.com> @sinelaw":
         - xml-to-json
         - xml-to-json-fast
-        - resolve-trivial-conflicts
+        # - resolve-trivial-conflicts # bounds: optparse-applicative
         - wl-pprint
         # not a maintainer
         - hxt-curl
@@ -2562,7 +2562,7 @@ packages:
         - tuple
         - OneTuple
         - SVGFonts
-        - Chart-diagrams
+        # - Chart-diagrams # bounds optparse-applicative
 
     # "Aaron Levin <aaron.levin@soundcloud.com> @aaronmblevin":
         # - haskell-kubernetes # bounds: QuickCheck, aeson, http-api-data, lens, servant, servant-client
@@ -2899,8 +2899,8 @@ packages:
     "Tony Day <tonyday567@gmail.com> @tonyday567":
         - numhask
         - numhask-range
-        - chart-unit
-        - perf
+        # - chart-unit # bounds optparse-applicative
+        # - perf # bounds optparse-applicative
         - online
 
     "Iphigenia Df <iphydf@gmail.com> @iphydf":
@@ -2917,7 +2917,7 @@ packages:
         - clock-extras
         - next-ref
         - tmp-postgres
-        - postgresql-simple-opts
+        # - postgresql-simple-opts # bounds: optparse-applicative
         - pg-transact
         - hspec-pg-transact
         - postgresql-simple-queue
@@ -3212,9 +3212,6 @@ packages:
 
         # https://github.com/haskell/haddock/issues/634 - causes other docs to fail to build
         - haddock < 2.17.5
-
-        # https://github.com/fpco/stackage/issues/2569
-        - optparse-applicative < 0.14
 
         # https://github.com/fpco/stackage/issues/2587
         - extra < 1.6
