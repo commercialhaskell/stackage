@@ -25,7 +25,7 @@ add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://down
 add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy-apache24-compat main'
 add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy-libjpeg62-compat main'
 
-GHCVER=8.0.2
+GHCVER=8.2.1
 
 apt-get update
 apt-get install -y \
@@ -156,9 +156,9 @@ update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
 # This version is tracked here:
 # https://ghc.haskell.org/trac/ghc/wiki/Commentary/Compiler/Backends/LLVM/Installing
 #
-# GHC 8.0 requires LLVM 3.7 tools (specifically, llc-3.7 and opt-3.7).
-update-alternatives --install "/usr/bin/llc" "llc" "/usr/bin/llc-3.7" 50
-update-alternatives --install "/usr/bin/opt" "opt" "/usr/bin/opt-3.7" 50
+# GHC 8.2 requires LLVM 3.9 tools (specifically, llc-3.9 and opt-3.9).
+update-alternatives --install "/usr/bin/llc" "llc" "/usr/bin/llc-3.9" 50
+update-alternatives --install "/usr/bin/opt" "opt" "/usr/bin/opt-3.9" 50
 
 # install ocilib dependencies then build and install ocilib
 cd /tmp \
