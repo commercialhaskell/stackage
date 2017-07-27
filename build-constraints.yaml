@@ -1,4 +1,10 @@
 ghc-major-version: "8.0"
+
+# This affects which version of the Cabal file format we allow. We
+# should ensure that this is always no greater than the version
+# supported by the most recent cabal-install and Stack releases.
+cabal-format-version: "1.24"
+
 # Constraints for brand new builds
 packages:
     "Jacob Stanley <jacob@stanley.io> @jystic":
@@ -35,7 +41,8 @@ packages:
         - clr-inline  # possibly nondeterministic failures, see https://github.com/fpco/stackage/issues/2510
 
     "Joshua Koike <jkoike2013@gmail.com> @jano017":
-        - discord-hs
+        []
+        # - discord-hs # bouns: req
 
     "Roman Gonzalez <romanandreg@gmail.com> @roman":
         - etc
@@ -154,8 +161,8 @@ packages:
 
     "Luke Murphy <lukewm@riseup.net> @lwm":
         - tasty-discover
-        - lentil
-        - packunused
+        # - lentil # bounds: optparse-applicative
+        # - packunused # bounds: optparse-applicative
 
     "Marco Zocca @ocramz":
         - sparse-linear-algebra
@@ -183,8 +190,8 @@ packages:
         - binary-parsers
         - binary-ieee754
         - word24
-        - mysql-haskell
-        - mysql-haskell-openssl
+        # - mysql-haskell # bounds: memory
+        # - mysql-haskell-openssl # bounds: tcp-streams
         - data-has
 
     "Harendra Kumar <harendra.kumar@gmail.com> @harendra-kumar":
@@ -287,7 +294,6 @@ packages:
         - async
         - base16-bytestring
         - c2hs
-        - cassava
         - csv-conduit
         - executable-hash
         - executable-path
@@ -373,9 +379,9 @@ packages:
         - blaze-html
         - blaze-markup
         - cabal-dependency-licenses
-        - hakyll
+        # - hakyll # bounds: skylighting
         - stylish-haskell
-        - patat
+        # - patat # bounds: skylighting
         - profiteur
         - psqueues
         - websockets
@@ -576,19 +582,19 @@ packages:
 
     "Brent Yorgey <byorgey@gmail.com> @byorgey":
         - active
-        - BlogLiterately
-        - BlogLiterately-diagrams
-        - diagrams
+        # - BlogLiterately # bounds: skylighting
+        # - BlogLiterately-diagrams # bounds: skylighting
+        # - diagrams # bounds: optparse-applicative
         - diagrams-builder
         # - diagrams-haddock # BLOCKED directory 1.3 via cautious-file
-        - diagrams-cairo # bounds: vector
+        # - diagrams-cairo # bounds: optparse-applicative
         - diagrams-contrib
         - diagrams-core
-        - diagrams-gtk
+        # - diagrams-gtk # bounds: optparse-applicative
         - diagrams-lib
         - diagrams-postscript
-        - diagrams-rasterific
-        - diagrams-svg
+        # - diagrams-rasterific # bounds: optparse-applicative
+        # - diagrams-svg # bounds: optparse-applicative
         - dual-tree
         - force-layout
         - haxr
@@ -883,7 +889,7 @@ packages:
         - rest-client
         - rest-core
         - rest-gen
-        - rest-happstack
+        # - rest-happstack # bounds happstack-server
         - rest-snap
         - rest-stringmap
         - rest-types
@@ -892,10 +898,10 @@ packages:
         - uri-encode
 
     "Simon Michael <simon@joyful.com> @simonmichael":
-        - darcs
+        # - darcs # bounds: graphviz < 2999.19
         - hledger
         - hledger-lib
-        - hledger-ui
+        # - hledger-ui # bounds: brick
         - hledger-web
         - hledger-api
         # - shelltestrunner # bounds: Diff, HUnit
@@ -926,8 +932,9 @@ packages:
         # - system-canonicalpath # bounds: ghc, base # https://github.com/d12frosted/CanonicalPath/issues/5
 
     "Daniel Gröber <dxld@darkboxed.org> @DanielG":
+        []
         # - ghc-mod # bounds: syb
-        - cabal-helper
+        # - cabal-helper # bounds: extra
 
     "Yann Esposito <yann.esposito@gmail.com> yogsototh @yogsototh":
         - human-readable-duration
@@ -1041,7 +1048,7 @@ packages:
        - users-test
        - validate-input
        - ignore
-       - elm-bridge
+       # - elm-bridge # bounds: aeson
        # digestive-bootstrap # via: digestive-functors, digestive-functors-blaze
        - blaze-bootstrap
        - dataurl
@@ -1106,7 +1113,7 @@ packages:
     "Alexandr Ruchkin <voidex@live.com> @mvoidex":
         - hdocs
         - hformat
-        - hsdev
+        # - hsdev # bounds: mmorph
         - simple-log
         - text-region
 
@@ -1136,7 +1143,7 @@ packages:
         - cabal-rpm
         - stackage-query
         # - cabal-sort # BLOCKED directory 1.3
-        - idris
+        # - idris # bounds aeson
         - libffi
         - xmonad-contrib
         - shelly
@@ -1190,10 +1197,10 @@ packages:
 
     "Jeffrey Rosenbluth <jeffrey.rosenbluth@gmail.com> @jeffreyrosenbluth":
         - palette
-        - diagrams-canvas
-        - diagrams-rasterific
+        # - diagrams-canvas # bounds: optparse-applicative
+        # - diagrams-rasterific # bounds: optparse-applicative
         - lucid-svg
-        - diagrams-html5
+        # - diagrams-html5 # bounds: optparse-applicative
         - static-canvas
         - svg-builder
 
@@ -1266,7 +1273,7 @@ packages:
         - spdx
         - splitmix
         - tdigest
-        - tdigest-Chart
+        # - tdigest-Chart # bounds: optparse-applicative
         - these
         - time-parsers
         - waitra
@@ -1548,7 +1555,7 @@ packages:
     "Noam Lewis <jones.noamle@gmail.com> @sinelaw":
         - xml-to-json
         - xml-to-json-fast
-        - resolve-trivial-conflicts
+        # - resolve-trivial-conflicts # bounds: optparse-applicative
         - wl-pprint
         # not a maintainer
         - hxt-curl
@@ -1626,7 +1633,7 @@ packages:
         - pipes-mongodb # via mongoDB
         - servant-elm
         - skeletons
-        - streaming-wai
+        # - streaming-wai # bounds: mmorph
 
     # "Smirnov Alexey <chemistmail@gmail.com> @chemist":
         # - snmp # bounds: ghc, base
@@ -1673,8 +1680,8 @@ packages:
         - poly-arity
         - urlpath
         - wai-transformers
-        - wai-middleware-content-type
-        - wai-middleware-verbs
+        # - wai-middleware-content-type # bounds: skylighting
+        # - wai-middleware-verbs # bounds: skylighting
         - websockets-rpc
         - webpage
         - composition-extra
@@ -1714,9 +1721,9 @@ packages:
         - lens-simple
         - lens-family-core
         - lens-family
-        - streaming
-        - streaming-bytestring
-        - streaming-utils
+        # - streaming # bounds: mmorph
+        # - streaming-bytestring # bounds: mmorph
+        # - streaming-utils # bounds: mmorph
 
     "Justin Le <justin@jle.im> @mstksg":
         - auto
@@ -1780,8 +1787,8 @@ packages:
         - inline-r
         - jni
         - jvm
-        - sparkle
-        - streaming-binary
+        # - sparkle # bounds: mmorph
+        # - streaming-binary # bounds: mmorph
         - th-lift
 
     "Christopher Reichert <creichert07@gmail.com> @creichert":
@@ -1891,7 +1898,7 @@ packages:
 
     "Stack Builders stackage@stackbuilders.com @stackbuilders":
         - atomic-write
-        - hapistrano
+        # - hapistrano # bounds: path-io
         - inflections
         - twitter-feed
         # - cassava-megaparsec # via cassava: bounds: vector
@@ -2041,7 +2048,7 @@ packages:
         - attoparsec-binary
 
     "Brandon Martin <brandon@codedmart.com> @codedmart":
-        - engine-io-wai
+        # - engine-io-wai # bounds websockets
         - rethinkdb
 
     "Michael Walker <mike@barrucadu.co.uk> @barrucadu":
@@ -2076,7 +2083,7 @@ packages:
         - xml-html-qq
         - xml-indexed-cursor
         - yahoo-finance-api
-        - yesod-markdown
+        # - yesod-markdown # bounds: skylighting
 
     "Franklin Chen <franklinchen@franklinchen.com> @FranklinChen":
         - Ebnf2ps
@@ -2145,7 +2152,7 @@ packages:
 
     "Ivan Miljenovic <Ivan.Miljenovic@gmail.com> @ivan-m":
         - fgl
-        - fgl-arbitrary
+        # - fgl-arbitrary # bouns: QuickCheck
         - graphviz
         - wl-pprint-text
 
@@ -2268,9 +2275,9 @@ packages:
         # - distributed-process-simplelocalnet # via: distributed-process
         - distributed-static
         - network-transport
-        - network-transport-tcp
-        - network-transport-inmemory
-        - network-transport-composed
+        # - network-transport-tcp # bounds: network-transport
+        # - network-transport-inmemory # bounds: network-transport
+        # - network-transport-composed # bounds: network-transport
         - rank1dynamic
 
     # "Alexander Vershilov <alexander.vershilov@tweag.io> @qnikst":
@@ -2294,8 +2301,9 @@ packages:
         # - engine-io-yesod # bounds: ghc, base
 
     "Tim McGilchrist <timmcgil@gmail.com> @tmcgilchrist":
+        []
         # - riak # bounds: aeson
-        - airship
+        # - airship # bounds: mmorph
 
     "Yuras Shumovich <shumovichy@gmail.com> @Yuras":
         - pdf-toolbox-core
@@ -2370,7 +2378,7 @@ packages:
         - pusher-http-haskell
 
     "Yorick Laupa yo.eight@gmail.com @YoEight":
-        - eventstore
+        # - eventstore # bounds: aeson
         - dotnet-timespan
 
     "Sebastian Dröge slomo@coaxion.net @sdroege":
@@ -2442,7 +2450,7 @@ packages:
         - file-modules
         - frontmatter
         - read-editor
-        - hspec-setup
+        # - hspec-setup # bounds: haskell-src-exts
         # - hzulip # bounds: aeson, stm-conduit
         - list-prompt
         # - memoization-utils # bounds: time
@@ -2532,8 +2540,8 @@ packages:
         - pandoc-types < 1.19 # Accidental upload, see: https://github.com/fpco/stackage/issues/2223
         - zip-archive
         - doctemplates
-        - pandoc
-        - pandoc-citeproc
+        # - pandoc # bounds: skylighting
+        # - pandoc-citeproc # bounds: skylighting
 
     "Karun Ramakrishnan <karun012@gmail.com> @karun012":
         - doctest-discover
@@ -2541,7 +2549,7 @@ packages:
     "Elie Genard <elaye.github.io@gmail.com> @eliegenard":
         - turtle-options
         - mushu
-        - hakyll-favicon
+        # - hakyll-favicon # bounds: skylighting
 
     # "Ruey-Lin Hsu <petercommand@gmail.com> @petercommand":
         # - MASMGen # bounds: ghc, base
@@ -2550,17 +2558,17 @@ packages:
         - string-conv
         - rng-utils
         - rotating-log
-        - ua-parser
+        # - ua-parser # bounds aeson
         - hs-GeoIP
         - retry
-        - katip
+        # - katip # bounds aeson
         # - katip-elasticsearch # via bloodhound: bounds: vector
 
     "Sid Kapur sidharthkapur1@gmail.com @sid-kap":
         - tuple
         - OneTuple
         - SVGFonts
-        - Chart-diagrams
+        # - Chart-diagrams # bounds optparse-applicative
 
     # "Aaron Levin <aaron.levin@soundcloud.com> @aaronmblevin":
         # - haskell-kubernetes # bounds: QuickCheck, aeson, http-api-data, lens, servant, servant-client
@@ -2634,8 +2642,9 @@ packages:
         - papillon
 
     "Jan Gerlinger <git@jangerlinger.de> @JanGe":
-        - irc-dcc
-        - xdcc
+        []
+        # - irc-dcc # bounds: path
+        # - xdcc # bounds: path
 
     "John Ky newhoggy@gmail.com @newhoggy":
         - hw-bits
@@ -2657,7 +2666,7 @@ packages:
 
     "Daishi Nakajima <nakaji.dayo@gmail.com> @nakaji_dayo":
         - api-field-json-th
-        - yesod-job-queue
+        # - yesod-job-queue # bounds cron
 
     # "Braden Walters <vc@braden-walters.info> @meoblast001":
         # - hakyll-sass # compilation failure
@@ -2877,7 +2886,7 @@ packages:
         - vector-mmap
 
     "Alex Mason <alex.mason@data61.csiro.au> @Axman6":
-      - foldl-statistics
+      # - foldl-statistics # bounds: foldl
       - amazonka-s3-streaming
 
     "Ondrej Palkovsky <palkovsky.ondrej@gmail.com> @ondrap":
@@ -2896,8 +2905,8 @@ packages:
     "Tony Day <tonyday567@gmail.com> @tonyday567":
         - numhask
         - numhask-range
-        - chart-unit
-        - perf
+        # - chart-unit # bounds optparse-applicative
+        # - perf # bounds optparse-applicative
         - online
 
     "Iphigenia Df <iphydf@gmail.com> @iphydf":
@@ -2914,7 +2923,7 @@ packages:
         - clock-extras
         - next-ref
         - tmp-postgres
-        - postgresql-simple-opts
+        # - postgresql-simple-opts # bounds: optparse-applicative
         - pg-transact
         - hspec-pg-transact
         - postgresql-simple-queue
@@ -2971,7 +2980,8 @@ packages:
         # - hip # via repa: bounds: vector
 
     "Hans-Peter Deifel <hpd@hpdeifel.de> @hpdeifel":
-        - hledger-iadd
+        []
+        # - hledger-iadd # bounds: hledger-lib
 
     "Roy Levien <royl@aldaron.com> @orome":
         - crypto-enigma
@@ -2984,7 +2994,7 @@ packages:
         - haskell-tools-rewrite
         - haskell-tools-prettyprint
         - haskell-tools-refactor
-        - haskell-tools-demo
+        # - haskell-tools-demo # bounds: websockets
         - haskell-tools-cli
         - haskell-tools-daemon
         - haskell-tools-debug
@@ -3102,23 +3112,24 @@ packages:
         - lens-labels
         - proto-lens
         - proto-lens-descriptors
-        - proto-lens-protoc
-        - proto-lens-combinators
+        # - proto-lens-protoc # bounds: haskell-src-exts
+        # - proto-lens-combinators # bounds: proto-lens-protoc
         - proto-lens-arbitrary
         - proto-lens-optparse
-        - proto-lens-protobuf-types
-        - tensorflow
-        - tensorflow-core-ops
-        - tensorflow-opgen
-        - tensorflow-ops
-        - tensorflow-proto
-        - tensorflow-test
+        # - proto-lens-protobuf-types # bounds: proto-lens-protoc
+        # - tensorflow # bounds: proto-lens-protoc
+        # - tensorflow-core-ops # bounds: tensorflow
+        # - tensorflow-opgen # bounds: tensorflow
+        # - tensorflow-ops # bounds: tensorflow
+        # - tensorflow-proto # bounds: proto-lens-protoc
+        # - tensorflow-test # bounds: tensorflow
 
     "Christof Schramm <christof.schramm@campus.lmu.de>":
         - mnist-idx
 
     "Naushadh <naushadh@protonmail.com> @naushadh":
-        - persistent-mysql-haskell
+        []
+        # - persistent-mysql-haskell # bounds: tcp-streams
 
     "Moritz Schulte <mtesseract@silverratio.net> @mtesseract":
         - async-refresh
@@ -3183,6 +3194,7 @@ packages:
         - type-list
         - vinyl-utils
         - language-lua2 # https://github.com/mitchellwrosen/language-lua2/issues/4
+        - cassava
 
      # If you want to make sure a package is removed from stackage,
      # place it here with a `< 0` constraint and send a pull
@@ -3196,126 +3208,18 @@ packages:
         - Win32 == 2.3.1.1
 
     "Stackage upper bounds":
-        # https://github.com/fpco/stackage/issues/2037
-        - haskell-src-exts < 1.19
-
         # https://github.com/fpco/stackage/issues/2127
-        - leapseconds-announced < 2017.0.0.1
-
-        # https://github.com/fpco/stackage/issues/2317
-        - skylighting < 0.2
-
-        # https://github.com/fpco/stackage/issues/2329
-        - network-transport < 0.5
-
-        # https://github.com/fpco/stackage/issues/2334
-        - tcp-streams < 1.0.0.0
-        - tcp-streams-openssl < 1.0.0.0
-        - mysql-haskell < 0.8.1.0
-
-        # https://github.com/fpco/stackage/issues/2393
-        - HUnit < 1.6.0.0
-
-        # https://github.com/fpco/stackage/issues/2400
-        - hslua < 0.5
-
-        # https://github.com/fpco/stackage/issues/2449
-        - aeson < 1.2.0.0
-
-        # https://github.com/fpco/stackage/issues/2451
-        - websockets < 0.11.0.0
-        - servant-subscriber < 0.6.0.1
-        - websockets-simple < 0.0.2.1
-        - websockets-rpc < 0.4.1
-
-        # https://github.com/fpco/stackage/issues/2487
-        - graphviz < 2999.19
+        - leapseconds-announced < 2017.0.0.1 # Wait for GHC 8.2.1
 
         # https://github.com/fpco/stackage/issues/2528
-        - concurrent-output < 1.10.0
-
-        # https://github.com/fpco/stackage/issues/2529
-        - mmorph < 1.1.0
-
-        # https://github.com/fpco/stackage/issues/2604
-        - criterion < 1.2
-        - statistics < 0.14
-        - thread-local-storage < 0.1.2
-
-        # https://github.com/fpco/stackage/issues/2550
-        - foldl < 1.3.0
-
-        # https://github.com/fpco/stackage/issues/2555
-        - streaming-commons < 0.1.18
+        - concurrent-output < 1.10.0 # Wait for GHC 8.2.1
 
         # https://github.com/fpco/stackage/issues/2557
-        - singletons < 2.3
+        - singletons < 2.3 # Wait for GHC 8.2.1
         - th-desugar < 1.7
-
-        # https://github.com/fpco/stackage/issues/2559
-        - path-io < 1.3
-
-        # https://github.com/fpco/stackage/issues/2562
-        - trifecta < 1.7
 
         # https://github.com/haskell/haddock/issues/634 - causes other docs to fail to build
         - haddock < 2.17.5
-
-        # https://github.com/fpco/stackage/issues/2569
-        - optparse-applicative < 0.14
-
-        # https://github.com/fpco/stackage/issues/2583
-        - path < 0.6
-
-        # https://github.com/fpco/stackage/issues/2584
-        - tasty-quickcheck < 0.9
-        - arithmoi < 0.5.0.1
-
-        # https://github.com/fpco/stackage/issues/2586
-        - QuickCheck < 2.10
-        - aeson-compat < 0.3.7
-        - arithmoi < 0.5.0.1
-        - binary-orphans < 0.1.7.0
-        - lattices < 1.6.0
-        - quickcheck-instances < 0.3.13
-        - text-show < 3.6.2
-        - text-show-instances < 3.6.1
-        - these < 0.7.4
-        - aeson-extra < 0.4.1.0
-
-        # https://github.com/fpco/stackage/issues/2587
-        - extra < 1.6
-
-        # https://github.com/fpco/stackage/issues/2594
-        - req < 0.3.0 # also remove from expected-test-failure
-        - req-conduit < 0.2.0 # because of above
-
-        # https://github.com/fpco/stackage/issues/2595
-        - cassava < 0.5.0.0
-        - cassava-conduit < 0.4.0.0 # because of above and #2586
-
-        # https://github.com/fpco/stackage/issues/2607
-        - http-media < 0.7.0
-
-        # https://github.com/fpco/stackage/issues/2617
-        - brick < 0.19
-        - hledger-iadd < 1.2.2
-
-        # https://github.com/fpco/stackage/issues/2628
-        - hledger-lib < 1.3
-        - hledger < 1.3
-        - hledger-api < 1.3
-        - hledger-ui < 1.3
-        - hledger-web < 1.3
-
-        # https://github.com/fpco/stackage/issues/2635
-        - cryptonite < 0.24
-
-        # https://github.com/fpco/stackage/issues/2646
-        - cron < 0.6
-
-        # https://github.com/fpco/stackage/issues/2656
-        - happstack-server < 7.5.0
 
         # ghc-8.2.1
         # https://github.com/fpco/stackage/issues/2659
@@ -3328,9 +3232,19 @@ packages:
         - inline-c < 0.6.0.0
         - inline-c-cpp < 0.2.0.0
         - packdeps < 0.4.4
+        - cabal2nix < 2.4
 
         # https://github.com/fpco/stackage/issues/2661
         - servant-docs < 0.11
+
+        # https://github.com/fpco/stackage/issues/2663
+        - doctest < 0.12
+
+        # https://github.com/fpco/stackage/issues/2666
+        - megaparsec < 6
+        - hspec-megaparsec < 1
+        - versions < 3.2
+
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
@@ -3423,6 +3337,12 @@ package-flags:
         time_1_6_and_1_7: true
         time_pre_1_6: false
 
+    mintty:
+        win32-2-5: false
+
+    cassava:
+        pre-bytestring-0-10-4: false
+
 # end of package-flags
 
 # Special configure options for individual packages
@@ -3479,6 +3399,37 @@ skipped-tests:
     # Outdated dependencies
     # These can periodically be checked for updates;
     # just remove these lines and run `stackage-curator check' to verify.
+    # doctest 0.12
+    - ad
+    - attoparsec-time
+    - bits
+    - bound
+    - bytes
+    - cgi
+    - clash-prelude
+    - comonad
+    - distributive
+    - email-validate
+    - flow
+    - trifecta
+    # - genvalidity-property # bounds: QuickCheck
+    - hasmin
+    - http-api-data
+    - intervals
+    - lens
+    - lens-aeson
+    - linear
+    - linear-accelerate
+    - log-domain
+    - makefile
+    - pipes-group
+    - prettyprinter
+    - semigroupoids
+    - servant-ruby
+    - servant-swagger
+    - tdigest
+    - turtle
+    - zippers
     # # HUnit 1.5
     - GLFW-b
     - Glob
@@ -3595,8 +3546,34 @@ skipped-tests:
     # wrong package.yaml file
     - teardown # https://github.com/roman/Haskell-teardown/issues/1
 
-    # waiting for QuickCheck == 2.10.*
-    - integer-logarithms
+    # QuickCheck 2.10
+    - blaze-html
+    - blaze-markup
+    - cassava-conduit
+    - edit-distance
+    - http-media
+    - morte
+    - printcess
+    - retry
+    - superbuffer
+    - unbound
+    - vector
+    - wai-middleware-rollbar
+    - websockets
+    - path
+    - aeson
+
+    # HUnit 1.6
+    - terminal-progress-bar
+
+    # tasty-quickcheck 0.9
+    - binary-parser
+    - cryptohash-sha512
+    - diagrams-solve
+    - tar
+    - vector-builder
+    - zlib
+    - text-short
 
 # end of skipped-tests
 
@@ -3789,7 +3766,6 @@ expected-test-failures:
     - ghcid # Weird conflicts with sandboxingistributed/distributed-process-supervisor/issues/1
     - haskell-docs # GHC bug
     - rattletrap # OOM? https://github.com/fpco/stackage/issues/2232
-    - req # https://github.com/mrkkrp/req/issues/14#issuecomment-287562784
     - servant # https://github.com/haskell-servant/servant/issues/698
     - snap-core # https://github.com/snapframework/snap-core/issues/26
     - stm-delay # https://github.com/joeyadams/haskell-stm-delay/issues/5
@@ -3935,6 +3911,12 @@ skipped-benchmarks:
     - graphviz
     - graphviz
     - wl-pprint-text
+
+    # criterion 1.2
+    - binary-parsers
+    - cryptohash-sha512
+    - ed25519
+    - unordered-containers
 
 # end of skipped-benchmarks
 
