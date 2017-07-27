@@ -3204,12 +3204,7 @@ packages:
         - leapseconds-announced < 2017.0.0.1 # Wait for GHC 8.2.1
 
         # https://github.com/fpco/stackage/issues/2528
-        - concurrent-output < 1.10.0
-
-        # https://github.com/fpco/stackage/issues/2604
-        - criterion < 1.2
-        - statistics < 0.14
-        - thread-local-storage < 0.1.2
+        - concurrent-output < 1.10.0 # Wait for GHC 8.2.1
 
         # https://github.com/fpco/stackage/issues/2557
         - singletons < 2.3
@@ -3923,6 +3918,12 @@ skipped-benchmarks:
     - graphviz
     - graphviz
     - wl-pprint-text
+
+    # criterion 1.2
+    - binary-parsers
+    - cryptohash-sha512
+    - ed25519
+    - unordered-containers
 
 # end of skipped-benchmarks
 
