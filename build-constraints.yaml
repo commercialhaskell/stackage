@@ -2146,7 +2146,7 @@ packages:
 
     "Ivan Miljenovic <Ivan.Miljenovic@gmail.com> @ivan-m":
         - fgl
-        - fgl-arbitrary
+        # - fgl-arbitrary # bouns: QuickCheck
         - graphviz
         - wl-pprint-text
 
@@ -3240,18 +3240,6 @@ packages:
         - tasty-quickcheck < 0.9
         - arithmoi < 0.5.0.1
 
-        # https://github.com/fpco/stackage/issues/2586
-        - QuickCheck < 2.10
-        - aeson-compat < 0.3.7
-        - arithmoi < 0.5.0.1
-        - binary-orphans < 0.1.7.0
-        - lattices < 1.6.0
-        - quickcheck-instances < 0.3.13
-        - text-show < 3.6.2
-        - text-show-instances < 3.6.1
-        - these < 0.7.4
-        - aeson-extra < 0.4.1.0
-
         # https://github.com/fpco/stackage/issues/2587
         - extra < 1.6
 
@@ -3456,7 +3444,7 @@ skipped-tests:
     - distributive
     - email-validate
     - flow
-    - genvalidity-property
+    # - genvalidity-property # bounds: QuickCheck
     - hasmin
     - http-api-data
     - intervals
@@ -3590,8 +3578,22 @@ skipped-tests:
     # wrong package.yaml file
     - teardown # https://github.com/roman/Haskell-teardown/issues/1
 
-    # waiting for QuickCheck == 2.10.*
-    - integer-logarithms
+    # QuickCheck 2.10
+    - arithmoi
+    - blaze-html
+    - blaze-markup
+    - cassava-conduit
+    - edit-distance
+    - http-media
+    - morte
+    - printcess
+    - retry
+    - superbuffer
+    - unbound
+    - vector
+    - wai-middleware-rollbar
+    - websockets
+    - path
 
 # end of skipped-tests
 
