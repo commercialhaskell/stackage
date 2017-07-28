@@ -478,7 +478,7 @@ packages:
         - descriptive
         - wrap
         - path
-        - intero
+        # - intero # GHC 8.2.1
         - weigh
         # - haskell-docs # BLOCKED haddock-api GHC 8.0.2
         # - structured-haskell-mode # bounds: haskell-src-exts # via: applicative-quoters
@@ -1115,7 +1115,7 @@ packages:
         - servant-cassava
 
     "Alexandr Ruchkin <voidex@live.com> @mvoidex":
-        - hdocs
+        # - hdocs # GHC 8.2.1 via haddock-api 2.18.1
         - hformat
         # - hsdev # bounds: mmorph
         # - simple-log # GHC 8.2.1
@@ -1665,10 +1665,11 @@ packages:
         - tasty-hspec
 
     "Christiaan Baaij <christiaan.baaij@gmail.com> @christiaanb":
-        - ghc-tcplugins-extra
-        - ghc-typelits-extra
-        - ghc-typelits-knownnat
-        - ghc-typelits-natnormalise
+        []
+        # - ghc-tcplugins-extra # GHC 8.2.1
+        # - ghc-typelits-extra # GHC 8.2.1
+        # - ghc-typelits-knownnat # GHC 8.2.1
+        # - ghc-typelits-natnormalise # GHC 8.2.1
         # - clash-prelude # GHC 8.2.1
         # - clash-lib # GHC 8.2.1
         # - clash-vhdl # GHC 8.2.1
@@ -3231,28 +3232,8 @@ packages:
         # https://github.com/fpco/stackage/issues/2528
         - concurrent-output < 1.10.0 # Wait for GHC 8.2.1
 
-        # https://github.com/haskell/haddock/issues/634 - causes other docs to fail to build
-        - haddock < 2.17.5
-
-        # ghc-8.2.1
-        # https://github.com/fpco/stackage/issues/2659
-        - haddock-library < 1.4.4
-        - haddock-api < 2.18.1
-        - haddock < 2.18.1
-        - base-noprelude < 4.10.0.0
-        - inline-c < 0.6.0.0
-        - inline-c-cpp < 0.2.0.0
-        - packdeps < 0.4.4
-        - cabal2nix < 2.4
-
         # WIP: Issues are coming ...
         - base < 4.10
-        - ghc < 8.2.1
-        - ghc-boot < 8.2
-        - ghc-boot-th < 8.1
-        - ghci < 8.2
-        - process < 1.5
-        - template-haskell < 2.12
         - hslua < 0.6
 
         # https://github.com/fpco/stackage/issues/2661
