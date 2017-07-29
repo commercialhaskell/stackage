@@ -48,7 +48,7 @@ apt-get install -y \
     libblas-dev \
     libbz2-dev \
     libcairo2-dev \
-    libclang-3.7-dev \
+    libclang-3.9-dev \
     libcurl4-openssl-dev \
     libdevil-dev \
     libedit-dev \
@@ -117,7 +117,7 @@ apt-get install -y \
     libyaml-dev \
     libzip-dev \
     libzmq3-dev \
-    llvm-3.7 \
+    llvm-3.9 \
     locales \
     m4 \
     minisat \
