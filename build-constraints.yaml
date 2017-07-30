@@ -84,7 +84,7 @@ packages:
         - explicit-exception
         - fixed-length
         # - gnuplot # GHC 8.2.1
-        - group-by-date
+        # - group-by-date # GHC 8.2.1 via c2hs
         - iff
         - interpolation
         - jack
@@ -922,7 +922,7 @@ packages:
     "Dimitri Sabadie <dimitri.sabadie@gmail.com> @phaazon":
         # - al # FIXME temporary, figure out why it's not working with stackage-build
         - event
-        - hid
+        # - hid # GHC 8.2.1 via c2hs
         # - luminance # BLOCKED directory 1.3
         # - luminance-samples # bounds: base
         - monad-journal
@@ -1157,7 +1157,7 @@ packages:
         # - idris # bounds aeson
         - libffi
         - xmonad-contrib
-        # - shelly # GHC 8.2.1
+        # - shelly # GHC 8.2.1: time < 1.7
 
         # - cairo # Cabal 2.0.0.2
         # - gio # Cabal 2.0.0.2
@@ -1583,9 +1583,10 @@ packages:
         - markdown-unlit
 
     "Mateusz Kowalczyk <fuuzetsu@fuuzetsu.co.uk> @Fuuzetsu":
+        []
         # - aeson-schema # bounds: QuickCheck, aeson # compilation failure for 0.4.1.1
-        - H
-        - inline-r
+        # - H # GHC 8.2.1 via c2hs
+        # - inline-r # GHC 8.2.1 via c2hs
 
     # "David Fox <dsf@seereason.com> @ddssff":
         # - debian # GHC bug: https://github.com/ddssff/debian-haskell/issues/6
@@ -1800,8 +1801,8 @@ packages:
         - cassette
         - choice
         - distributed-closure
-        - H
-        - inline-r
+        # - H # GHC 8.2.1 via c2hs
+        # - inline-r # GHC 8.2.1 via c2hs
         # - jni # GHC 8.2.1 via atomic-primops
         # - jvm # GHC 8.2.1 via jni
         # - sparkle # bounds: mmorph
@@ -2354,7 +2355,7 @@ packages:
         # - cacophony # GHC 8.2.1
         # - pipes-cacophony # GHC 8.2.1
         - blake2
-        - nfc
+        # - nfc # GHC 8.2.1 via c2hs
 
     "Adam Curtis <kallisti.dev@gmail.com> @kallisti-dev":
         - webdriver
@@ -2380,8 +2381,9 @@ packages:
         - exp-pairs
 
     "Stefan Kersten <kaoskorobase@gmail.com> @kaoskorobase":
-        - hsndfile
-        - hsndfile-vector
+        []
+        # - hsndfile # GHC 8.2.1 via c2hs
+        # - hsndfile-vector # GHC 8.2.1 via c2hs
 
     "yihuang <yi.codeplayer@gmail.com> @yihuang":
         - tagstream-conduit
@@ -2882,8 +2884,9 @@ packages:
         - llvm-hs-pure
 
     "Thierry Bourrillon <thierry.bourrillon@fpinsight.com> @tbourrillon":
-        - heatshrink
-        - hocilib
+        []
+        # - heatshrink # GHC 8.2.1 via c2hs
+        # - hocilib # GHC 8.2.1 via c2hs
 
     # "Matthias Herrmann <matthias.mh.herrmann@gmail.com> @2chilled":
         # - scrape-changes # GHC 8.2.1 via wreq
@@ -4060,6 +4063,7 @@ tell-me-when-its-released:
 - cryptohash-md5-0.11.100.1 # re-enable benchmarks, https://github.com/fpco/stackage/issues/2538#issuecomment-304458844
 - cryptohash-sha1-0.11.100.1 # re-enable benchmarks, https://github.com/fpco/stackage/issues/2538#issuecomment-304458844
 - cryptohash-sha256-0.11.100.1 # re-enable benchmarks, https://github.com/fpco/stackage/issues/2538#issuecomment-304458844
+- shelly-1.6.8.3 # re-enable shelly, c2hs, etc
 
 # Packages which should be hidden after registering, to avoid module name
 # conflicts. This is intended for at least two use cases:
