@@ -16,7 +16,7 @@ To add your package, first fork this repository.
 In the [`build-constraints.yaml`](https://github.com/fpco/stackage/blob/master/build-constraints.yaml) file, there's a section called `packages`.
 To add a set of packages, you would add:
 
-    "My Name myemail@example.com @mygithubuser":
+    "My Name <myemail@example.com> @mygithubuser":
         - package1
         - package2
         - package3
