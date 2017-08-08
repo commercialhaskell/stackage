@@ -2699,8 +2699,8 @@ packages:
         # - hw-json # via criterion: via cassava: bounds: vector
         - hw-parser
         - hw-prim
-        - hw-rankselect
-        # hw-succinct
+        # hw-rankselect # build failure https://github.com/haskell-works/hw-rankselect/issues/14
+        # hw-succinct # from hw-rankselect
 
     # "Ismail Mustafa <ismailmustafa@rocketmail.com> @ismailmustafa":
         # - handwriting # GHC 8.2.1
@@ -3885,12 +3885,6 @@ expected-test-failures:
     # https://github.com/yesodweb/Shelly.hs/issues/150
     - shelly
 
-    # https://github.com/haskell-works/hw-bits/issues/8
-    - hw-bits
-
-    # https://github.com/haskell-works/hw-rankselect/issues/14
-    - hw-rankselect
-
 # end of expected-test-failures
 
 # Benchmarks which are known not to build. Note that, currently we do not run
@@ -4035,6 +4029,9 @@ skipped-benchmarks:
     - cryptohash-sha512
     - ed25519
     - unordered-containers
+
+    # https://github.com/haskell-works/hw-bits/issues/8
+    - hw-bits
 
 # end of skipped-benchmarks
 
