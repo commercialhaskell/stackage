@@ -1103,7 +1103,7 @@ packages:
 
     "Andrey Chudnov <oss@chudnov.com> @achudnov":
         []
-        # - language-ecmascript # GHC 8.2.1
+        # - language-ecmascript # via testing-feat
 
     "Tom Ellis <tom-stackage@jaguarpaw.co.uk> @tomjaguarpaw":
         - opaleye
@@ -3487,91 +3487,67 @@ skipped-tests:
     # Outdated dependencies
     # These can periodically be checked for updates;
     # just remove these lines and run `stackage-curator check' to verify.
-    # - genvalidity-property # bounds: QuickCheck
-    - hasmin
-    - http-api-data
-    - intervals
-    - lens
-    - lens-aeson
-    - linear
-    - linear-accelerate
-    - log-domain
-    - makefile
-    - pipes-group
-    - prettyprinter
-    - semigroupoids
-    - servant-ruby
-    - servant-swagger
-    - tdigest
-    - turtle
-    - zippers
-    # language-ecmascript
-    - servant-js
-    # # HUnit 1.5
-    - GLFW-b
-    - Glob
-    - HTTP
-    - aws # bounds: http-client < 0.5
-    - bindings-GLFW
-    - case-insensitive
-    - darcs
-    - dbus # bounds: QuickCheck < 2.9 via chell-quickcheck
-    - exception-transformers
-    - extensible-effects
-    - fclabels
-    - language-ecmascript
-    - lifted-base
-    - parsec
-    - partial-order # https://github.com/mtesseract/haskell-partial-order/issues/1
-    - rank1dynamic
-    - threads
-    - tz
-    - tzdata
-    - uuid
-    - uuid-types
-    # # Other outdated dependencies
-    - Cabal # QuickCheck 2.9
-    - ReadArgs # https://github.com/rampion/ReadArgs/issues/8
-    - bloodhound # hspec 2.4
+    - Glob # HUnit 1.6
+    - aeson
+    - attoparsec # QuickCheck 2.10
+    - binary-parser # tasty-quickcheck
+    - blaze-html
+    - blaze-markup
     - bytestring-handle # QuickCheck 2.9
-    - chell # options & via chell-quickcheck
-    - clay # hspec 2.3
+    - case-insensitive # HUnit 1.6
+    - cryptohash-sha512 # tasty-quickcheck
     - drawille # hspec 2.4
-    - ed25519 # QuickCheck 2.9
-    - envy # hspec 2.4
-    - fgl # hspec 2.3
-    - fgl-arbitrary # hspec 2.3
-    - hasql # QuickCheck 2.9
-    - hastache # https://github.com/lymar/hastache/pull/53
-    - heaps # https://github.com/ekmett/heaps/pull/8
-    - hyphenation # https://github.com/ekmett/hyphenation/pull/10
+    - edit-distance # QuickCheck 2.10
+    - envy # QuickCheck 2.10
+    - exception-transformers # HUnit 1.6
+    - extensible-effects # HUnit 1.6
+    - lifted-base # HUnit 1.6
+    - makefile # GHC 8.2
     - next-ref # hspec 2.3
-    - point-octree # hspec 2.2.4 https://github.com/mlitchard/point-octree/issues/1
-    - postgresql-simple-migration # hspec 2.4
-    - servant-mock # hspec-wai 0.8
-    - snap # QuickCheck 2.9
-    - state-plus # QuickCheck 2.9
-    - system-filepath # QuickCheck 2.9 via chell-quickcheck
-    - ghc-mod # hspec 2.4
-    - unordered-containers # via ChasingBottoms
-    - dlist # quickcheck-instances >= 0.3.15 && < 0.4
-    - haddock  # GHC 8.2.1 via haddock-test
+    - parsec # HUnit 1.6
+    - partial-order # HUnit 1.6
+    - printcess # QuickCheck 2.10
+    - retry # QuickCheck 2.10
+    - superbuffer # QuickCheck 2.10
+    - tar # tasty-quickcheck
+    - text-short # tasty-quickcheck
+    - vector # QuickCheck 2.10
+    - vector-builder # tasty-quickcheck
+    - websockets # QuickCheck 2.10
+    - zlib # tasty-quickcheck
 
     # Transitive outdated dependencies
     # These packages
     # These can also be checked for updates periodically.
     - MissingH # via testpack https://github.com/jgoerzen/testpack/issues/11
+    - chell # via chell-quickcheck
     - clustering # via RLang-QQ via HList https://github.com/kaizhang/clustering/issues/2 (also sent e-mail to HList maintainer)
+    - language-ecmascript # via testing-feat
     - options # QuickCheck via chell-quickcheck
+    - path # via genvalidity genvalidity-property
+    - servant-js # via language-ecmascript
+    - system-filepath # QuickCheck 2.9 via chell-quickcheck
+    - unordered-containers # via ChasingBottoms
 
     # Blocked by stackage upper bounds. These can be re-enabled once
     # the relevant stackage upper bound is lifted.
 
+    # Compilation failures
+    - proto-lens-combinators # https://github.com/google/proto-lens/issues/119
+    - pell # https://github.com/brunjlar/pell/issues/1
+    - wreq # https://github.com/bos/wreq/issues/107
+    - protobuf # https://github.com/alphaHeavy/protobuf/issues/34
 
     # Runtime issues
     - blank-canvas # Never finishes https://github.com/ku-fpg/blank-canvas/issues/73
     - binary-search # Never finishes https://github.com/nushio3/binary-search/issues/2
     - jsaddle # Never finishes without framebuffer https://github.com/ghcjs/jsaddle/issues/9
+    - rose-trees # OOM https://github.com/athanclark/rose-trees/issues/6
+    - binary-parsers # https://github.com/winterland1989/binary-parsers/issues/3
+    - intero # https://github.com/commercialhaskell/intero/issues/462
+    - picoparsec # https://bitbucket.org/blamario/picoparsec/issues/4/test-suite-failure-with-ghc-82
+    - reroute # https://github.com/agrafix/Spock/issues/130
+    - shelly # https://github.com/yesodweb/Shelly.hs/issues/150
 
     # Missing foreign library
     - symengine # symengine
@@ -3608,63 +3584,6 @@ skipped-tests:
     - fgl-arbitrary
     - graphviz
     - wl-pprint-text
-
-    # directory 1.3
-    - machines
-    - xmlhtml
-
-    # via criterion: via cassava: bounds: vector
-    - sparse-linear-algebra
-
-    # criterion
-    - store
-
-    # QuickCheck 2.10
-    - blaze-html
-    - blaze-markup
-    - cassava-conduit
-    - edit-distance
-    - http-media
-    - morte
-    - printcess
-    - retry
-    - superbuffer
-    - unbound
-    - vector
-    - wai-middleware-rollbar
-    - websockets
-    - path
-    - aeson
-
-    # HUnit 1.6
-    - terminal-progress-bar
-
-    # tasty-quickcheck 0.9
-    - binary-parser
-    - cryptohash-sha512
-    - diagrams-solve
-    - tar
-    - vector-builder
-    - zlib
-    - text-short
-
-    # https://github.com/athanclark/rose-trees/issues/6
-    - rose-trees
-
-    # https://github.com/bos/attoparsec/issues/131
-    - attoparsec
-
-    # https://github.com/google/proto-lens/issues/119
-    - proto-lens-combinators
-
-    # https://github.com/brunjlar/pell/issues/1
-    - pell
-
-    # https://github.com/bos/wreq/issues/107
-    - wreq
-
-    # https://github.com/alphaHeavy/protobuf/issues/34
-    - protobuf
 
 # end of skipped-tests
 
@@ -3722,6 +3641,7 @@ expected-test-failures:
     - bloodhound # ElasticSearch
     - cabal-install
     - consul-haskell
+    - dbcleaner # Requires running PostgreSQL server
     - dbmigrations # PostgreSQL
     - dns # https://github.com/kazu-yamamoto/dns/issues/29
     - drifter-postgresql # PostgreSQL
@@ -3763,6 +3683,7 @@ expected-test-failures:
     - postgresql-typed # PostgreSQL
     - purescript # git 128 https://github.com/purescript/purescript/issues/2292
     - redis-io
+    - req-conduit # bad JSON response from service pinged https://github.com/mrkkrp/req-conduit/issues/1
     - rethinkdb
     - rethinkdb-client-driver
     - riak
@@ -3774,7 +3695,6 @@ expected-test-failures:
     - wai-cors # PhantomJS
     - wai-session-postgresql # PostgreSQL
     - webdriver-angular # webdriver server
-    - req-conduit # bad JSON response from service pinged https://github.com/mrkkrp/req-conduit/issues/1
 
     # Test executable requires arguments
     - hpqtypes
@@ -3791,13 +3711,14 @@ expected-test-failures:
     - crypto-pubkey # https://github.com/vincenthz/hs-crypto-pubkey/issues/23
     - cubicbezier # https://github.com/kuribas/cubicbezier/issues/3
     - ghc-events # https://github.com/haskell/ghc-events/issues/9
+    - ghc-syb-utils # https://github.com/nominolo/ghc-syb/issues/18
     - graylog # 0.1.0.1 https://github.com/fpco/stackage/pull/1254
     - haskell-names # 0.7.0 https://github.com/haskell-suite/haskell-names/issues/78
+    - hw-rankselect # https://github.com/haskell-works/hw-rankselect/issues/12
+    - matplotlib # https://github.com/fpco/stackage/issues/2365
     - rematch # No issue tracker, sent e-mail to maintainer https://github.com/fpco/stackage/issues/376
     - xlsior # https://github.com/rcallahan/xlsior/issues/1
     - yi-keymap-vim # https://github.com/yi-editor/yi/issues/954
-    - ghc-syb-utils # https://github.com/nominolo/ghc-syb/issues/18
-    - matplotlib # https://github.com/fpco/stackage/issues/2365
 
     # Assertion failures, these can be real bugs or just limitations
     # in the test cases.
@@ -3807,33 +3728,43 @@ expected-test-failures:
     - ed25519 # 0.0.5.0 https://github.com/thoughtpolice/hs-ed25519/issues/15
     - ghc-exactprint # https://github.com/alanz/ghc-exactprint/issues/47
     - nettle # https://github.com/stbuehler/haskell-nettle/issues/8
-    - th-printf # 0.3.1 https://github.com/pikajude/th-printf/issues/3
-    - unicode-show # https://github.com/nushio3/unicode-show/issues/2
-    - xmonad # 0.12 https://github.com/xmonad/xmonad/issues/36
     - pixelated-avatar-generator # 0.1.3 https://github.com/ExcaliburZero/pixelated-avatar-generator/issues/19
-    - xml-picklers # https://github.com/Philonous/xml-picklers/issues/5
-    - throwable-exceptions # https://github.com/aiya000/hs-throwable-exceptions/issues/2
     - shikensu # https://github.com/icidasset/shikensu/issues/5
+    - th-printf # 0.3.1 https://github.com/pikajude/th-printf/issues/3
+    - throwable-exceptions # https://github.com/aiya000/hs-throwable-exceptions/issues/2
+    - unicode-show # https://github.com/nushio3/unicode-show/issues/2
+    - xml-picklers # https://github.com/Philonous/xml-picklers/issues/5
+    - xmonad # 0.12 https://github.com/xmonad/xmonad/issues/36
 
     # Compilation failures
     - ListLike # No issue tracker, e-mail sent to maintainer
+    - amazonka-core # https://github.com/brendanhay/amazonka/issues/397
     - commutative # https://github.com/athanclark/commutative/issues/4
     - dbus # 0.10.12 No issue tracker, e-mail sent to maintainer
+    - flat # https://github.com/Quid2/flat/issues/1
+    - foundation # https://github.com/haskell-foundation/foundation/issues/381
+    - haddock
+    - heap # https://github.com/pruvisto/heap/issues/4
+    - hledger-iadd # https://github.com/hpdeifel/hledger-iadd/issues/26
+    - hledger-lib # https://github.com/simonmichael/hledger/issues/596
     - hspec-expectations-pretty-diff # GHC 8 issue not reported upstream since issue tracker disabled
     - hweblib # https://github.com/aycanirican/hweblib/issues/3
+    - language-dockerfile # https://github.com/beijaflor-io/haskell-language-dockerfile/issues/8
     - language-lua2 # https://github.com/mitchellwrosen/language-lua2/issues/4
     - picosat # https://github.com/fpco/stackage/pull/2382
+    - pkcs10 # https://github.com/fcomb/pkcs10-hs/issues/2
     - sourcemap # https://github.com/chrisdone/sourcemap/issues/3
+    - text-icu # https://github.com/bos/text-icu/issues/32
     - text-ldap # https://github.com/khibino/haskell-text-ldap/issues/1
     - thyme # https://github.com/liyang/thyme/issues/50
     - tls # https://github.com/vincenthz/hs-tls/issues/247
     - tries # https://github.com/athanclark/tries/issues/2
     - unicode-transforms # https://github.com/harendra-kumar/unicode-transforms/issues/15
     - vector-algorithms # http://hub.darcs.net/dolio/vector-algorithms/issue/9
+    - vty # https://github.com/jtdaugherty/vty/issues/132
     - wai-middleware-content-type # 0.4.1 - https://github.com/athanclark/wai-middleware-content-type/issues/2
     - xmlgen # https://github.com/skogsbaer/xmlgen/issues/6
     - yesod-auth-basic # https://github.com/creichert/yesod-auth-basic/issues/1
-    - haddock
 
     # Stackage upper bounds, re-enable these when their upper bound is removed
 
@@ -3868,60 +3799,6 @@ expected-test-failures:
     - tcp-streams-openssl # https://github.com/didi-FP/tcp-streams/issues/5
     - tmp-postgres # https://github.com/jfischoff/tmp-postgres/issues/1
 
-    # https://github.com/agrafix/Spock/issues/130
-    - reroute
-
-    # https://github.com/jtdaugherty/vty/issues/132
-    - vty
-
-    # https://github.com/haskell-foundation/foundation/issues/381
-    - foundation
-
-    # https://github.com/beijaflor-io/haskell-language-dockerfile/issues/8
-    - language-dockerfile
-
-    # https://github.com/pruvisto/heap/issues/4
-    - heap
-
-    # https://github.com/fcomb/pkcs10-hs/issues/2
-    - pkcs10
-
-    # https://github.com/simonmichael/hledger/issues/596
-    - hledger-lib
-
-    # https://github.com/brendanhay/amazonka/issues/397
-    - amazonka-core
-
-    # https://github.com/bos/text-icu/issues/32
-    - text-icu
-
-    # https://github.com/winterland1989/binary-parsers/issues/3
-    - binary-parsers
-
-    # https://github.com/raaz-crypto/raaz/issues/337
-    - raaz
-
-    # https://bitbucket.org/blamario/picoparsec/issues/4/test-suite-failure-with-ghc-82
-    - picoparsec
-
-    # https://github.com/Quid2/flat/issues/1
-    - flat
-
-    # https://github.com/hpdeifel/hledger-iadd/issues/26
-    - hledger-iadd
-
-    # Requires running PostgreSQL server
-    - dbcleaner
-
-    # https://github.com/haskell-works/hw-rankselect/issues/12
-    - hw-rankselect
-
-    # https://github.com/yesodweb/Shelly.hs/issues/150
-    - shelly
-
-    # https://github.com/commercialhaskell/intero/issues/462
-    - intero
-
 # end of expected-test-failures
 
 # Benchmarks which are known not to build. Note that, currently we do not run
@@ -3947,12 +3824,7 @@ expected-benchmark-failures:
     - thyme # https://github.com/liyang/thyme/issues/50
     - tls # https://github.com/vincenthz/hs-tls/issues/247
     - xmlgen # https://github.com/skogsbaer/xmlgen/issues/6
-
-    # https://github.com/harendra-kumar/unicode-transforms/issues/16
-    - unicode-transforms
-
-    # https://github.com/raaz-crypto/raaz/issues/338
-    - raaz
+    - raaz # https://github.com/raaz-crypto/raaz/issues/338
 
 # end of expected-benchmark-failures
 
@@ -3977,15 +3849,13 @@ expected-haddock-failures:
     # "Compilation" errors
     - MemoTrie # https://github.com/conal/MemoTrie/issues/10
     - text-generic-pretty # https://github.com/fpco/stackage/pull/2160
+    - cubicbezier # https://github.com/kuribas/cubicbezier/issues/4
 
     # Haddock bugs
     - swagger2 # https://github.com/GetShopTV/swagger2/issues/66
 
     # Runs out of memory
     - store
-
-    # https://github.com/kuribas/cubicbezier/issues/4
-    - cubicbezier
 
 # end of expected-haddock-failures
 
@@ -4000,18 +3870,15 @@ skipped-benchmarks:
     # These can periodically be checked for updates;
     # just remove these lines and run `stackage-curator check'
     # to verify.
-    - criterion-plus
-    - http2
+    - binary-parsers # criterion 1.2
+    - cryptohash-sha512 # criterion 1.2
     - pipes # optparse-applicative 0.13
-    - superrecord
+    - unordered-containers # criterion 1.2
 
     # Transitive outdated dependencies
     # These packages
     # These can also be checked for updates periodically.
-    - cases # via criterion-plus
-    - hasql-postgres # via criterion-plus
-    - ttrie # via criterion-plus
-    - machines # via pipes
+
 
     # Compilation failures
     - cipher-aes # https://github.com/vincenthz/hs-crypto-cipher/issues/46
@@ -4019,6 +3886,7 @@ skipped-benchmarks:
     - cipher-camellia # https://github.com/vincenthz/hs-crypto-cipher/issues/46
     - cipher-des # https://github.com/vincenthz/hs-crypto-cipher/issues/46
     - cipher-rc4 # https://github.com/vincenthz/hs-crypto-cipher/issues/46
+    - hw-bits # https://github.com/haskell-works/hw-bits/issues/8
 
     # GHC Bugs
     - hledger-lib # https://github.com/fpco/stackage/issues/1587
@@ -4057,18 +3925,6 @@ skipped-benchmarks:
     - graphviz
     - graphviz
     - wl-pprint-text
-
-    # criterion 1.2
-    - binary-parsers
-    - cryptohash-sha512
-    - ed25519
-    - unordered-containers
-
-    # https://github.com/haskell-works/hw-bits/issues/8
-    - hw-bits
-
-    # https://github.com/fumieval/extensible/issues/12
-    - extensible
 
 # end of skipped-benchmarks
 
