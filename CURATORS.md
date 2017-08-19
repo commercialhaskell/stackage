@@ -382,6 +382,9 @@ will upgrade their packages to allow for the new GHC release.
 We prefer to prune packages causing upper bounds constraints **after** the LTS
 release to allow the maximum amount of packages to get into the newest LTS.
 
+You will almost always need to update the Win32 package version listed in the
+build-constraints.yaml file.
+
 After the first LTS release, the package pruning process may begin in the
 nightly build in order to move forward with getting the latest versions of
 packages compatible with the new GHC release.
