@@ -7,7 +7,6 @@ cabal-format-version: "1.24"
 
 # Constraints for brand new builds
 packages:
-
     "Sebastian Mihai Ardelean <ardeleanasm@gmail.com> @ardeleanasm":
         - qchas
 
@@ -115,10 +114,10 @@ packages:
         - sample-frame
         - sample-frame-np
         - set-cover
-        - sound-collage # via synthesizer-core compilation failure
+        # - sound-collage # via synthesizer-core compilation failure
         - sox # GHC 8.2.1
         - soxlib
-        - split-record # via synthesizer-core compilation failure
+        # - split-record # via synthesizer-core compilation failure
         - spreadsheet
         - stm-split
         - storable-record
@@ -264,7 +263,7 @@ packages:
         - conduit-combinators
         - conduit-extra
         - hebrew-time
-        # - keter # compilation failure https://github.com/snoyberg/keter/issues/170
+        - keter < 0 # compilation failure https://github.com/snoyberg/keter/issues/170
         - markdown
         - mime-mail
         - mime-mail-ses
@@ -275,11 +274,11 @@ packages:
         - persistent-sqlite
         - persistent-template
         # - stackage-curator # via store compilation failure
-        # - store # compilation failure
+        - store < 0 # compilation failure
         - stm-conduit
         - wai-websockets
         - warp-tls
-        # - yackage # compilation failure
+        - yackage < 0 # compilation failure
         - yesod
         - yesod-auth
         - authenticate-oauth
@@ -346,13 +345,13 @@ packages:
     "Omari Norman <omari@smileystation.com> @massysett":
         - rainbow # GHC 8.2.1 via lens-simple
         - rainbox # GHC 8.2.1 via lens-simple
-        # - anonymous-sums # compilation failure https://github.com/massysett/anonymous-sums/issues/1
+        - anonymous-sums < 0 # compilation failure https://github.com/massysett/anonymous-sums/issues/1
         - multiarg
-        # - prednote # test compilation failure
+        - prednote < 0 # test compilation failure
         - cartel
         - Earley
         - ofx
-        # - pinchot # compilation failure
+        - pinchot < 0 # compilation failure
         - accuerr
         - timelens
         - non-empty-sequence
@@ -483,7 +482,7 @@ packages:
         - pdfinfo
         - present # compilation failure against haskell-src-exts
         - pure-io
-        # - scrobble # compilation failure against time 1.6
+        - scrobble < 0 # compilation failure against time 1.6
         - sourcemap
         - hindent
         - descriptive
@@ -634,7 +633,7 @@ packages:
         # - country-codes # bounds: tagsoup
         - fb # bounds: aeson, http-conduit-2.2, hspec
         # - fb-persistent # bounds: persistent # via: fb
-        # - mangopay # compilation failure against aeson
+        - mangopay < 0 # compilation failure against aeson
         - nonce
         - serversession
         # - serversession-backend-acid-state # via acid-state: via safecopy: bounds: vector
@@ -690,7 +689,7 @@ packages:
         # - grouped-list # GHC 8.2.1
         - haskintex
         - HaTeX
-        # - hatex-guide # compilation failure https://github.com/Daniel-Diaz/hatex-guide/issues/21
+        - hatex-guide < 0 # compilation failure https://github.com/Daniel-Diaz/hatex-guide/issues/21
         - include-file
         - matrix
         - pcre-light
@@ -764,7 +763,7 @@ packages:
         # - homplexity # BLOCKED directory 1.3
         # - wordpass # bounds: vector
         # - json-autotype # bounds: aeson 1.0, lens
-        # - posix-realtime # compilation failure https://github.com/mgajda/posix-realtime/issues/5
+        - posix-realtime < 0 # compilation failure https://github.com/mgajda/posix-realtime/issues/5
 
     "Dom De Re <domdere@domdere.com> @domdere":
         - cassava-conduit
@@ -859,11 +858,11 @@ packages:
         - biocore
         - biofasta
         - biofastq
-        # - biosff # 0.3.7.1 compilation failure
+        - biosff < 0 # 0.3.7.1 compilation failure
         - blastxml
         - bioace
         - biopsl
-        # - samtools # Compilation failure against c2hs https://github.com/ingolia/SamTools/issues/3
+        - samtools < 0 # compilation failure against c2hs https://github.com/ingolia/SamTools/issues/3
         - seqloc
         - bioalign
         - BlastHTTP
@@ -879,7 +878,7 @@ packages:
         - Genbank
         - RNAlien # via cassava: bounds: vector
         - Taxonomy
-        # - TaxonomyTools # compilation failure
+        - TaxonomyTools < 0 # compilation failure
         - ViennaRNAParser
 
     "Silk <code@silk.co>":
@@ -999,7 +998,7 @@ packages:
         - bytestring-trie
         - data-accessor
         - data-accessor-mtl
-        # - file-location # test compilation failure
+        - file-location < 0 # test compilation failure
         - fuzzcheck
         - here
         - hlibgit2
@@ -1091,8 +1090,7 @@ packages:
         - ghcjs-perch
 
     "Sebastian Nagel <sebastian.nagel@ncoding.at> @ch1bo":
-        []
-        # - hdevtools # Compilation failure https://github.com/hdevtools/hdevtools/issues/57
+        - hdevtools < 0 # Compilation failure https://github.com/hdevtools/hdevtools/issues/57
 
     "Andrey Chudnov <oss@chudnov.com> @achudnov":
         []
@@ -1173,7 +1171,7 @@ packages:
         # - leksah-server # bounds: ghc, base
         # - ltk # bounds: ghc, base
         - vado # GHC 8.2.1
-        - vcsgui < 0 # via: gi-gtk-hs compilation failure
+        # - vcsgui # via: gi-gtk-hs compilation failure
         - vcswrapper # GHC 8.2.1
 
     "Renzo Carbonara <renzocarbonara@gmail.com> @k0001":
@@ -1308,13 +1306,13 @@ packages:
         # Regex packages by Chris Kuklewicz
         - regex-base
         - regex-compat
-        # - regex-dfa # 0.91 Compilation failure due to -Werror
-        # - regex-parsec # 0.90 Compilation failure due to -Werror
+        - regex-dfa < 0 # 0.91 Compilation failure due to -Werror
+        - regex-parsec < 0 # 0.90 Compilation failure due to -Werror
         - regex-pcre
         - regex-posix
         - regex-tdfa
         # - regex-tdfa-utf8 # bounds: ghc, base
-        # - regex-tre # 0.91 Compilation failure due to -Werror
+        - regex-tre < 0 # 0.91 Compilation failure due to -Werror
 
         # Universe
         - universe
@@ -1580,14 +1578,13 @@ packages:
         - markdown-unlit
 
     "Mateusz Kowalczyk <fuuzetsu@fuuzetsu.co.uk> @Fuuzetsu":
-        []
-        # - aeson-schema # bounds: QuickCheck, aeson # compilation failure for 0.4.1.1
-        # - H # via inline-r compilation failure
-        # - inline-r # compilation failure
+        - aeson-schema < 0 # bounds: QuickCheck, aeson # compilation failure for 0.4.1.1
+        - H < 0 # via inline-r compilation failure
+        - inline-r < 0 # compilation failure
 
     "David Fox <dsf@seereason.com> @ddssff":
         - debian # GHC bug: https://github.com/ddssff/debian-haskell/issues/6
-        # - cabal-debian # compilation failure
+        - cabal-debian < 0 # compilation failure
 
     "Stefan Saasen <stefan@saasen.me> @juretta":
         - jwt
@@ -1686,7 +1683,7 @@ packages:
     "Athan Clark <athan.clark@gmail.com> @athanclark":
         - commutative
         # - digestive-functors-lucid # via: digestive-functors
-        - ltext # compilation failure: https://github.com/ltext/ltext/issues/22
+        - ltext < 0 # compilation failure: https://github.com/ltext/ltext/issues/22
         - markup
         # - nested-routes # via: HList
         - path-extra
@@ -1788,7 +1785,7 @@ packages:
     "Daniel Patterson <dbp@dbpmail.net> @dbp":
         # - hspec-snap # bounds: hspec, hspec-core # via: digestive-functors
         - hworker # GHC 8.2.1 via hedis
-        # - hworker-ses # 0.1.1.0 compilation failure
+        - hworker-ses < 0 # 0.1.1.0 compilation failure
         - fn
         # - fn-extra # via: digestive-functors
 
@@ -1800,7 +1797,7 @@ packages:
         - H # GHC 8.2.1 via c2hs
         - inline-r # GHC 8.2.1 via c2hs
         - jni # GHC 8.2.1 via atomic-primops
-        # - jvm # compilation failure
+        - jvm < 0 # compilation failure
         # - sparkle # bounds: mmorph
         # - streaming-binary # bounds: mmorph
         - th-lift
@@ -1853,13 +1850,13 @@ packages:
         - conduit-parse
         - opml-conduit # GHC 8.2.1 via lens-simple
         - rss-conduit < 0 # test runtime failure
-        - imm # GHC 8.2.1 via lens-simple
+        - imm < 0 # compilation failure via synthesizer-core
         - timerep
         - xml-conduit-parse
 
     "Kostiantyn Rybnikov <k-bx@k-bx.com> @k-bx":
         - protocol-buffers
-        # - hprotoc # compilation failure https://github.com/k-bx/protocol-buffers/issues/45
+        - hprotoc < 0 # compilation failure https://github.com/k-bx/protocol-buffers/issues/45
         - protocol-buffers-descriptor
         - ekg-core
         - digits
@@ -1880,10 +1877,10 @@ packages:
         # - pipes-illumina # via: pipes-bgzf
         - seqalign
         - thermonuc
-        # - xlsior # compilation failure https://github.com/eurekagenomics/xlsior/issues/3
+        - xlsior < 0 # compilation failure https://github.com/eurekagenomics/xlsior/issues/3
 
     "John Lenz <wuzzeb@gmail.com> @wuzzeb":
-        # - yesod-auth-account # test compilation failure
+        - yesod-auth-account < 0 # test compilation failure
         - yesod-static-angular # GHC 8.2.1 via yesod
         - hspec-webdriver
         - webdriver-angular
@@ -1896,8 +1893,8 @@ packages:
         # - mediabus-fdk-aac # needs non-free libfdk-aac-dev
         # - mediabus-rtp # GHC 8.2.1
 
-    # "Will Thompson <will@willthompson.co.uk> @wjt":
-        # - bustle # compilation failure against haskell-src-exts https://github.com/vasylp/hgettext/issues/10
+    "Will Thompson <will@willthompson.co.uk> @wjt":
+        - bustle < 0 # compilation failure against haskell-src-exts https://github.com/vasylp/hgettext/issues/10
 
     "Jakub Fijałkowski <kuba@codinginfinity.me> @jakubfijalkowski":
         - hlibsass # https://github.com/jakubfijalkowski/hlibsass/issues/7
@@ -1933,7 +1930,7 @@ packages:
         - exhaustive
         - libsystemd-journal
         - network-carbon
-        - socket-io # bounds: aeson, via: engine-io
+        # - socket-io # via engine-io compilation-failure
         - tasty-rerun
         # - logging-effect # GHC 8.2.1
         - reactive-banana # GHC 8.2.1
@@ -2281,7 +2278,7 @@ packages:
 
     "Nickolay Kudasov <nickolay.kudasov@gmail.com> @fizruk":
         - http-api-data # GHC 8.2.1 via uri-bytestring
-        # - smsaero # compilation failure against aeson https://github.com/GetShopTV/smsaero/issues/12
+        - smsaero < 0 # compilation failure against aeson https://github.com/GetShopTV/smsaero/issues/12
         - swagger2 # GHC 8.2.1
         - servant-swagger # GHC 8.2.1
 
@@ -2501,7 +2498,7 @@ packages:
         - projectroot
         - questioner
         # - stack-run-auto # GHC 8.2.1 via extract-dependencies
-        # - hpack-convert # compilation failure
+        - hpack-convert < 0 # compilation failure
         - language-dockerfile
 
     "Pascal Hartig <phartig@rdrei.net> @passy":
@@ -2533,7 +2530,7 @@ packages:
         - dawg-ord
 
     "Amit Levy <amit@amitlevy.com> @alevy":
-        # - postgresql-orm # 0.5.0 compilation failure
+        - postgresql-orm < 0 # 0.5.0 compilation failure
         - simple
         - simple-templates
         - simple-session
@@ -2546,7 +2543,7 @@ packages:
         - LibZip >= 1.0
 
     "Anthony Cowley <acowley@gmail.com> @acowley":
-        # - Frames # test compilation failure
+        - Frames < 0 # test compilation failure
         - hpp # GHC 8.2.1
 
     "Takayuki Muranushi <muranushi@gmail.com> @nushio3":
@@ -2591,7 +2588,7 @@ packages:
 
     "Elie Genard <elaye.github.io@gmail.com> @eliegenard":
         - turtle-options
-        # - mushu # compilation failure
+        - mushu < 0 # compilation failure
         # - hakyll-favicon # bounds: skylighting
 
     "Ruey-Lin Hsu <petercommand@gmail.com> @petercommand":
@@ -2637,8 +2634,7 @@ packages:
         # - reedsolomon # bounds: vector
 
     "Alp Mestanogullari <alpmestan@gmail.com> @alpmestan":
-        []
-        # - taggy # compilation failure https://github.com/alpmestan/taggy/issues/19
+        - taggy < 0 # compilation failure https://github.com/alpmestan/taggy/issues/19
         # - taggy-lens # via taggy: compilation failure https://github.com/alpmestan/taggy/issues/19
 
     "Alex McLean <lxyxpx@gmail.com> @yaxu":
@@ -2677,8 +2673,7 @@ packages:
         - jose
 
     "Yutaka Nishimura <ytk.nishimura@gmail.com> @ynishi":
-        []
-        # - atndapi # compilation failure https://github.com/ynishi/atndapi/issues/1
+        - atndapi < 0 # compilation failure https://github.com/ynishi/atndapi/issues/1
 
     "Yoshikuni Jujo <PAF01143@nifty.ne.jp> @YoshikuniJujo":
         - zot
@@ -2718,8 +2713,7 @@ packages:
         # - yesod-job-queue # bounds cron
 
     "Braden Walters <vc@braden-walters.info> @meoblast001":
-        []
-        # - hakyll-sass # compilation failure
+        - hakyll-sass < 0 # compilation failure
 
     "Patrick Thomson <patrick@helium.com> @helium":
         - postgresql-transactional
@@ -2753,7 +2747,7 @@ packages:
         - eventful-sql-common
         - eventful-sqlite
         - eventful-test-helpers
-        # - oanda-rest-api # test compilation failure
+        - oanda-rest-api < 0 # test compilation failure
         - stratosphere
         - sum-type-boilerplate
 
@@ -2765,15 +2759,15 @@ packages:
         - gi-atk
         - gi-cairo
         - gi-gdk < 0 # compilation failure via gi-pango https://github.com/haskell-gi/haskell-gi/issues/113
-        - gi-gdkpixbuf # https://github.com/haskell-gi/haskell-gi/issues/113
-        # - gi-gio # compilation failure https://github.com/haskell-gi/haskell-gi/issues/113
+        # - gi-gdkpixbuf # via gi-gio compilation failure https://github.com/haskell-gi/haskell-gi/issues/113
+        - gi-gio < 0 # compilation failure https://github.com/haskell-gi/haskell-gi/issues/113
         - gi-glib
         - gi-gobject
-        - gi-gtk < 0 # compilation failure via gi-pango https://github.com/haskell-gi/haskell-gi/issues/113
+        # - gi-gtk # compilation failure via gi-pango https://github.com/haskell-gi/haskell-gi/issues/113
         - gi-pango < 0 # compilation failure https://github.com/haskell-gi/haskell-gi/issues/113
-        - gi-soup # https://github.com/haskell-gi/haskell-gi/issues/113
+        # - gi-soup # via gi-gio compilation failure https://github.com/haskell-gi/haskell-gi/issues/113
         - gi-javascriptcore == 3.0.*
-        - gi-webkit < 0 # compilation failure via gi-pango https://github.com/haskell-gi/haskell-gi/issues/113
+        # - gi-webkit # compilation failure via gi-pango https://github.com/haskell-gi/haskell-gi/issues/113
         - haskell-gi
         - haskell-gi-base
 
@@ -2791,8 +2785,8 @@ packages:
     "Richard Eisenberg <eir@cis.upenn.edu> @goldfirere":
         - th-desugar
         - singletons
-        # - units # compilation failure
-        - units-defs # GHC 8.2.1 via MemoTrie
+        - units < 0 # compilation failure
+        # - units-defs # via units compilation failure
         - HUnit-approx
         - units-parser
 
@@ -2825,8 +2819,7 @@ packages:
         - bit-stream
 
     "Greg Hurrell <greg@hurrell.net> @wincent":
-        []
-        # - docvim # compilation failure: https://github.com/wincent/docvim/issues/30
+        - docvim < 0 # compilation failure: https://github.com/wincent/docvim/issues/30
 
     "Ashley Yakeley <ashley@semantic.org> @AshleyYakeley":
         - countable
@@ -2866,8 +2859,8 @@ packages:
         - array-memoize
         # - camfort # https://github.com/camfort/camfort/issues/102
         - codo-notation
-        # - fortran-src # OOM https://github.com/fpco/stackage/issues/2232
-        # - ixmonad # 0.57 Compilation failure https://github.com/fpco/stackage/pull/1710#issuecomment-235067168
+        - fortran-src < 0 # OOM https://github.com/fpco/stackage/issues/2232
+        - ixmonad < 0 # 0.57 Compilation failure https://github.com/fpco/stackage/pull/1710#issuecomment-235067168
         - language-fortran
 
     "Philipp Schuster <phischu3000@gmail.com> @phischu":
@@ -2988,8 +2981,7 @@ packages:
         - postgresql-simple-queue
 
     "Bernie Pope <bjpope@unimelb.edu.au> @bjpop":
-        []
-        # - language-python # compilation failure https://github.com/bjpop/language-python/issues/35
+        - language-python < 0 # compilation failure https://github.com/bjpop/language-python/issues/35
 
     "Mahdi Dibaiee <mdibaiee@aol.com>":
         - picedit
