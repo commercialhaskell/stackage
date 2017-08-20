@@ -25,9 +25,8 @@ packages:
         - openexr-write
 
     "Bas van Dijk <v.dijk.bas@gmail.com> @basvandijk":
-        []
-        # - opencv # hard to install build tools
-        # - opencv-extra # hard to install build tools
+        - opencv < 0 # hard to install build tools
+        - opencv-extra < 0 # hard to install build tools
 
     "Pasqualino Assini <tittoassini@gmail.com> @tittoassini":
         - zm
@@ -35,18 +34,17 @@ packages:
         - model
 
     "Timo Koepke <timo.koepke@gmail.com> @koepket":
-        []
-        # - hinterface # https://github.com/lindenbaum/hinterface/issues/2
+        - hinterface < 0 # compilation failure https://github.com/lindenbaum/hinterface/issues/2
 
     "Jose Iborra <pepeiborra@gmail.com> @pepeiborra":
         - arrowp-qq
         - clr-marshal
         - clr-host
         - hexml-lens
-        - hp2pretty # With permission of Claude Heiland-Allend
-        - floatshow # https://bitbucket.org/dafis/floatshow/issues/1/add-to-stackage
+        - hp2pretty
+        - floatshow
         - threepenny-editors
-        - clr-inline  # possibly nondeterministic failures, see https://github.com/fpco/stackage/issues/2510
+        - clr-inline # possibly nondeterministic failures, see https://github.com/fpco/stackage/issues/2510
 
 
     "Joshua Koike <jkoike2013@gmail.com> @jano017":
@@ -233,7 +231,7 @@ packages:
 
     "alpheccar <misc@alpheccar.org> @alpheccar":
         - HPDF
-        # - hbayes # https://github.com/alpheccar/hbayes/issues/3
+        - hbayes < 0 # compilation failure https://github.com/alpheccar/hbayes/issues/3
 
     "Dmitry Bogatov <KAction@gnu.org>":
         - once
@@ -317,7 +315,7 @@ packages:
         - hybrid-vectors
         - indents
         - language-c
-        # - lhs2tex # https://github.com/kosmikus/lhs2tex/issues/55
+        - lhs2tex < 0 # compilation failure https://github.com/kosmikus/lhs2tex/issues/55
         - persistent-mongoDB
         - pretty-class
         - th-expand-syns
@@ -480,7 +478,7 @@ packages:
         - lucid
         # - osdkeys # via libnotify # Cabal 2.0.0.2
         - pdfinfo
-        - present # compilation failure against haskell-src-exts
+        - present
         - pure-io
         - scrobble < 0 # compilation failure against time 1.6
         - sourcemap
@@ -491,16 +489,16 @@ packages:
         - intero
         - weigh
         # - haskell-docs # BLOCKED haddock-api GHC 8.0.2
-        - structured-haskell-mode # bounds: haskell-src-exts # via: applicative-quoters
+        - structured-haskell-mode
 
     "Alberto G. Corona <agocorona@gmail.com> @agocorona":
         - RefSerialize
         - TCache
         - Workflow
         - MFlow
-        - transient # https://github.com/transient-haskell/transient/issues/70
-        - transient-universe # via transient
-        - axiom # via transient
+        - transient
+        - transient-universe
+        - axiom
 
     "Edward Kmett <ekmett@gmail.com> @ekmett":
         - ad
@@ -542,7 +540,7 @@ packages:
         - monadic-arrays
         - monad-products
         - monad-products
-        - monad-st # bounds: transformers
+        - monad-st
         - mtl
         - nats
         - numeric-extras
@@ -631,21 +629,21 @@ packages:
 
     "Felipe Lessa <felipe.lessa@gmail.com> @meteficha":
         # - country-codes # bounds: tagsoup
-        - fb # bounds: aeson, http-conduit-2.2, hspec
-        # - fb-persistent # bounds: persistent # via: fb
+        - fb
+        # - fb-persistent # bounds: persistent
         - mangopay < 0 # compilation failure against aeson
         - nonce
         - serversession
         # - serversession-backend-acid-state # via acid-state: via safecopy: bounds: vector
-        - serversession-backend-persistent # bounds: persistent, persistent-postgresql, persistent-sqlite
-        - serversession-backend-redis # bounds: hedis
+        - serversession-backend-persistent
+        - serversession-backend-redis
         # - serversession-frontend-snap # via snap
         - serversession-frontend-wai
         - serversession-frontend-yesod
         - thumbnail-plus
         # - yesod-auth-account-fork # bounds: persistent
-        - yesod-auth-fb # bounds: time, transformers # via fb, via yesod-fb
-        - yesod-fb # via fb
+        - yesod-auth-fb
+        - yesod-fb
         # - yesod-mangopay # bounds: wai-logger, vector, hjsmin
 
     "Alexander Altman <alexanderaltman@me.com> @pthariensflame":
@@ -670,7 +668,7 @@ packages:
         # - agda-snippets-hakyll # bounds: ghc, base
 
     "Dan Burton <danburton.email@gmail.com> @DanBurton":
-        # - hspec-jenkins # hspec 2.4.1 # https://github.com/worksap-ate/hspec-jenkins/issues/3
+        - hspec-jenkins < 0 # compilation failure https://github.com/worksap-ate/hspec-jenkins/issues/3
         - yesod-gitrev
         - basic-prelude
         - composition
@@ -689,7 +687,7 @@ packages:
         # - grouped-list # GHC 8.2.1
         - haskintex
         - HaTeX
-        - hatex-guide < 0 # compilation failure https://github.com/Daniel-Diaz/hatex-guide/issues/21
+        - hatex-guide < 0
         - include-file
         - matrix
         - pcre-light
@@ -717,7 +715,7 @@ packages:
         - machines-directory
         - machines-io
         # - bloodhound # GHC 8.2.1
-        - esqueleto # bounds: persistent
+        - esqueleto
 
     "Adam Bergmark <adam@bergmark.nl> @bergmark":
         - HUnit
@@ -736,8 +734,8 @@ packages:
 
     "Robert Klotzner <robert.klotzner@gmx.at> @eskimor":
         - purescript-bridge
-        - servant-purescript # GHC 8.2.1
-        - servant-subscriber # GHC 8.2.1
+        - servant-purescript
+        - servant-subscriber
 
     "Rodrigo Setti <rodrigosetti@gmail.com> @rodrigosetti":
         - messagepack
@@ -763,7 +761,7 @@ packages:
         # - homplexity # BLOCKED directory 1.3
         # - wordpass # bounds: vector
         # - json-autotype # bounds: aeson 1.0, lens
-        - posix-realtime < 0 # compilation failure https://github.com/mgajda/posix-realtime/issues/5
+        - posix-realtime < 0
 
     "Dom De Re <domdere@domdere.com> @domdere":
         - cassava-conduit
@@ -774,7 +772,7 @@ packages:
         # - random-fu # via: log-domain, safecopy, bounds: vector
 
     "Ben Gamari <ben@smart-cactus.org> @bgamari":
-        - vector-fftw # bounds: vector
+        - vector-fftw
 
     "Roman Cheplyaka <roma@ro-che.info> @feuerbach":
         - action-permutations
@@ -816,7 +814,7 @@ packages:
         # - tttool # GHC 8.2.1
         # - gipeda # via cassava: bounds: vector
         # - list-fusion-probe # GHC 8.2.1
-        - haskell-spacegoo # GHC 8.2.1 via MemoTrie
+        - haskell-spacegoo
         - tasty-expected-failure
         # - RepLib # GHC 8.2.1
         # - unbound # GHC 8.2.1
@@ -876,7 +874,7 @@ packages:
         - ClustalParser
         - EntrezHTTP
         - Genbank
-        - RNAlien # via cassava: bounds: vector
+        - RNAlien
         - Taxonomy
         - TaxonomyTools < 0 # compilation failure
         - ViennaRNAParser
@@ -897,7 +895,7 @@ packages:
         - rest-client
         - rest-core
         - rest-gen
-        - rest-happstack # bounds happstack-server
+        - rest-happstack
         - rest-snap
         - rest-stringmap
         - rest-types
@@ -911,7 +909,7 @@ packages:
         - hledger-lib
         # - hledger-ui # bounds: brick
         # - hledger-web # GHC 8.2.1 via yesod-form
-        - hledger-api # GHC 8.2.1
+        - hledger-api
         # - shelltestrunner # bounds: Diff, HUnit
         - quickbench
         - regex-compat-tdfa
@@ -920,7 +918,7 @@ packages:
         - io-manager
 
     "Dimitri Sabadie <dimitri.sabadie@gmail.com> @phaazon":
-        # - al # Setup failure, needs old c2hs
+        - al < 0 # Setup failure, needs old c2hs
         - event
         - hid # GHC 8.2.1 via c2hs
         # - luminance # BLOCKED directory 1.3
@@ -949,7 +947,7 @@ packages:
         - holy-project
         - wai-middleware-caching
         - wai-middleware-caching-lru
-        - wai-middleware-caching-redis # GHC 8.2.1 via hedis
+        - wai-middleware-caching-redis
         # not package maintainer
         - ekg
         - ekg-json
@@ -958,15 +956,15 @@ packages:
         - mysql
         - mysql-simple
         - sphinx
-        - xmlhtml # bounds: blaze-html, blaze-markup
-        - yesod-auth-hashdb # GHC 8.2.1 via yesod-auth
+        - xmlhtml
+        - yesod-auth-hashdb
 
     "Toralf Wittner <tw@dtex.org> @twittner":
         - bytestring-conversion
         - cql
         - cql-io
         - redis-resp
-        - redis-io # GHC 8.2.1 via hedis
+        - redis-io
         - swagger
         - tinylog
         - wai-predicates
@@ -998,7 +996,7 @@ packages:
         - bytestring-trie
         - data-accessor
         - data-accessor-mtl
-        - file-location < 0 # test compilation failure
+        - file-location < 0
         - fuzzcheck
         - here
         - hlibgit2
@@ -1025,15 +1023,15 @@ packages:
     "Nikita Volkov <nikita.y.volkov@mail.ru> @nikita-volkov":
         - base-prelude
         - cases
-        - focus # GHC 8.2.1
-        - hasql # https://github.com/nikita-volkov/hasql/issues/76
-        - hasql-pool # https://github.com/nikita-volkov/hasql/issues/76
-        - list-t # GHC 8.2.1
+        - focus
+        - hasql
+        - hasql-pool
+        - list-t
         - mtl-prelude
         - neat-interpolation
         - partial-handler
         - postgresql-binary
-        - slave-thread # GHC 8.2.1
+        - slave-thread
         - stm-containers
         - refined
 
@@ -1041,17 +1039,17 @@ packages:
         - prefix-units
 
     "Alexander Thiemann <mail@athiemann.net> @agrafix":
-       - Spock # GHC 8.2.1
+       - Spock
        - Spock-core
        - Spock-api
        - Spock-api-server
        # - Spock-digestive # via: digestive-functors
-       - Spock-worker # GHC 8.2.1
+       - Spock-worker
        - graph-core
        - hvect
        - reroute
        - users
-       - users-persistent # via: esqueleto
+       - users-persistent
        - users-postgresql-simple
        - users-test
        - validate-input
@@ -1067,8 +1065,8 @@ packages:
        - async-extra
        - format-numbers
        - highjson
-       - highjson-swagger # GHC 8.2.1 via swagger2
-       - highjson-th # GHC 8.2.1 via swagger2
+       - highjson-swagger
+       - highjson-th
        # - superrecord # GHC 8.2.1 via bookkeeper
        - fileplow
 
@@ -1108,22 +1106,22 @@ packages:
         - bank-holidays-england
 
     "Haskell Servant <jkarni@gmail.com>":
-        - servant # GHC 8.2.1
-        - servant-client # GHC 8.2.1
-        - servant-docs # GHC 8.2.1
-        - servant-js # GHC 8.2.1
-        - servant-server # GHC 8.2.1
-        - servant-lucid # GHC 8.2.1
-        - servant-blaze # GHC 8.2.1
-        - servant-foreign # GHC 8.2.1
-        - servant-mock # GHC 8.2.1
-        - servant-cassava # GHC 8.2.1
+        - servant
+        - servant-client
+        - servant-docs
+        - servant-js
+        - servant-server
+        - servant-lucid
+        - servant-blaze
+        - servant-foreign
+        - servant-mock
+        - servant-cassava
 
     "Alexandr Ruchkin <voidex@live.com> @mvoidex":
         # - hdocs # GHC 8.2.1 via haddock-api 2.18.1
         - hformat
         # - hsdev # bounds: mmorph
-        - simple-log # GHC 8.2.1
+        - simple-log
         - text-region
 
     "Aleksey Kliger <aleksey@lambdageek.org> @lambdageek":
@@ -1166,20 +1164,20 @@ packages:
         # - webkitgtk3 # Cabal 2.0.0.2
         # - webkitgtk3-javascriptcore # Cabal 2.0.0.2
         - ghcjs-codemirror
-        - ghcjs-dom # via: ghcjs-dom-jsaddle # https://github.com/fpco/stackage/issues/1569
-        - jsaddle # via: ret-tf # https://github.com/fpco/stackage/issues/1569
+        - ghcjs-dom
+        - jsaddle
         # - leksah-server # bounds: ghc, base
         # - ltk # bounds: ghc, base
-        - vado # GHC 8.2.1
+        - vado
         # - vcsgui # via: gi-gtk-hs compilation failure
-        - vcswrapper # GHC 8.2.1
+        - vcswrapper
 
     "Renzo Carbonara <renzocarbonara@gmail.com> @k0001":
         - network-simple
-        - pipes-aeson # bounds: pipes 4.3
-        - pipes-attoparsec # bounds: pipes 4.3
+        - pipes-aeson
+        - pipes-attoparsec
         # - pipes-binary # bounds: binary, pipes, transformers
-        - pipes-network # bounds: pipes 4.3
+        - pipes-network
 
     "Tomas Carnecky @wereHamster":
         - avers
@@ -1268,15 +1266,15 @@ packages:
         - github
         - insert-ordered-containers
         - integer-logarithms
-        - JuicyPixels-scale-dct # GHC 8.2.1
+        - JuicyPixels-scale-dct
         - lattices
         - microstache
-        - monad-http # GHC 8.2.1
+        - monad-http
         - postgresql-simple-url
         - range-set-list
         - regex-applicative-text
-        - servant-swagger-ui # GHC 8.2.1
-        - servant-yaml # GHC 8.2.1
+        - servant-swagger-ui
+        - servant-yaml
         - singleton-bool
         - spdx
         - splitmix
@@ -1329,7 +1327,7 @@ packages:
         - language-thrift
 
     "Adam C. Foltzer <acfoltzer@galois.com> @acfoltzer":
-        - cryptol # bounds: sbv
+        - cryptol
         - gitrev
         - persistent-refs
 
@@ -1426,103 +1424,103 @@ packages:
         - amazonka-waf
         - amazonka-workspaces
         - amazonka-xray
-        - gogol # GHC 8.2.1
-        - gogol-core # GHC 8.2.1
-        - gogol-adexchange-buyer # GHC 8.2.1
-        - gogol-adexchange-seller # GHC 8.2.1
-        - gogol-admin-datatransfer # GHC 8.2.1
-        - gogol-admin-directory # GHC 8.2.1
-        - gogol-admin-emailmigration # GHC 8.2.1
-        - gogol-admin-reports # GHC 8.2.1
-        - gogol-adsense # GHC 8.2.1
-        - gogol-adsense-host # GHC 8.2.1
-        - gogol-affiliates # GHC 8.2.1
-        - gogol-analytics # GHC 8.2.1
-        - gogol-android-enterprise # GHC 8.2.1
-        - gogol-android-publisher # GHC 8.2.1
-        - gogol-appengine # GHC 8.2.1
-        - gogol-apps-activity # GHC 8.2.1
-        - gogol-apps-calendar # GHC 8.2.1
-        - gogol-apps-licensing # GHC 8.2.1
-        - gogol-apps-reseller # GHC 8.2.1
-        - gogol-apps-tasks # GHC 8.2.1
-        - gogol-appstate # GHC 8.2.1
-        - gogol-autoscaler # GHC 8.2.1
-        - gogol-bigquery # GHC 8.2.1
-        - gogol-billing # GHC 8.2.1
-        - gogol-blogger # GHC 8.2.1
-        - gogol-books # GHC 8.2.1
-        - gogol-civicinfo # GHC 8.2.1
-        - gogol-classroom # GHC 8.2.1
-        - gogol-cloudmonitoring # GHC 8.2.1
-        - gogol-cloudtrace # GHC 8.2.1
-        - gogol-compute # GHC 8.2.1
-        - gogol-container # GHC 8.2.1
-        - gogol-customsearch # GHC 8.2.1
-        - gogol-dataflow # GHC 8.2.1
-        - gogol-dataproc # GHC 8.2.1
-        - gogol-datastore # GHC 8.2.1
-        - gogol-debugger # GHC 8.2.1
-        - gogol-deploymentmanager # GHC 8.2.1
-        - gogol-dfareporting # GHC 8.2.1
-        - gogol-discovery # GHC 8.2.1
-        - gogol-dns # GHC 8.2.1
-        - gogol-doubleclick-bids # GHC 8.2.1
-        - gogol-doubleclick-search # GHC 8.2.1
-        - gogol-drive # GHC 8.2.1
-        - gogol-firebase-rules # GHC 8.2.1
-        - gogol-fitness # GHC 8.2.1
-        - gogol-fonts # GHC 8.2.1
-        - gogol-freebasesearch # GHC 8.2.1
-        - gogol-fusiontables # GHC 8.2.1
-        - gogol-games # GHC 8.2.1
-        - gogol-games-configuration # GHC 8.2.1
-        - gogol-games-management # GHC 8.2.1
-        - gogol-genomics # GHC 8.2.1
-        - gogol-gmail # GHC 8.2.1
-        - gogol-groups-migration # GHC 8.2.1
-        - gogol-groups-settings # GHC 8.2.1
-        - gogol-identity-toolkit # GHC 8.2.1
-        - gogol-kgsearch # GHC 8.2.1
-        - gogol-latencytest # GHC 8.2.1
-        - gogol-logging # GHC 8.2.1
-        - gogol-maps-coordinate # GHC 8.2.1
-        - gogol-maps-engine # GHC 8.2.1
-        - gogol-mirror # GHC 8.2.1
-        - gogol-monitoring # GHC 8.2.1
-        - gogol-oauth2 # GHC 8.2.1
-        - gogol-pagespeed # GHC 8.2.1
-        - gogol-partners # GHC 8.2.1
-        - gogol-people # GHC 8.2.1
-        - gogol-play-moviespartner # GHC 8.2.1
-        - gogol-plus # GHC 8.2.1
-        - gogol-plus-domains # GHC 8.2.1
-        - gogol-prediction # GHC 8.2.1
-        - gogol-proximitybeacon # GHC 8.2.1
-        - gogol-pubsub # GHC 8.2.1
-        - gogol-qpxexpress # GHC 8.2.1
-        - gogol-replicapool # GHC 8.2.1
-        - gogol-replicapool-updater # GHC 8.2.1
-        - gogol-resourcemanager # GHC 8.2.1
-        - gogol-resourceviews # GHC 8.2.1
-        - gogol-script # GHC 8.2.1
-        - gogol-sheets # GHC 8.2.1
-        - gogol-shopping-content # GHC 8.2.1
-        - gogol-siteverification # GHC 8.2.1
-        - gogol-spectrum # GHC 8.2.1
-        - gogol-sqladmin # GHC 8.2.1
-        - gogol-storage # GHC 8.2.1
-        - gogol-storage-transfer # GHC 8.2.1
-        - gogol-tagmanager # GHC 8.2.1
-        - gogol-taskqueue # GHC 8.2.1
-        - gogol-translate # GHC 8.2.1
-        - gogol-urlshortener # GHC 8.2.1
-        - gogol-useraccounts # GHC 8.2.1
-        - gogol-vision # GHC 8.2.1
-        - gogol-webmaster-tools # GHC 8.2.1
-        - gogol-youtube # GHC 8.2.1
-        - gogol-youtube-analytics # GHC 8.2.1
-        - gogol-youtube-reporting # GHC 8.2.1
+        - gogol
+        - gogol-core
+        - gogol-adexchange-buyer
+        - gogol-adexchange-seller
+        - gogol-admin-datatransfer
+        - gogol-admin-directory
+        - gogol-admin-emailmigration
+        - gogol-admin-reports
+        - gogol-adsense
+        - gogol-adsense-host
+        - gogol-affiliates
+        - gogol-analytics
+        - gogol-android-enterprise
+        - gogol-android-publisher
+        - gogol-appengine
+        - gogol-apps-activity
+        - gogol-apps-calendar
+        - gogol-apps-licensing
+        - gogol-apps-reseller
+        - gogol-apps-tasks
+        - gogol-appstate
+        - gogol-autoscaler
+        - gogol-bigquery
+        - gogol-billing
+        - gogol-blogger
+        - gogol-books
+        - gogol-civicinfo
+        - gogol-classroom
+        - gogol-cloudmonitoring
+        - gogol-cloudtrace
+        - gogol-compute
+        - gogol-container
+        - gogol-customsearch
+        - gogol-dataflow
+        - gogol-dataproc
+        - gogol-datastore
+        - gogol-debugger
+        - gogol-deploymentmanager
+        - gogol-dfareporting
+        - gogol-discovery
+        - gogol-dns
+        - gogol-doubleclick-bids
+        - gogol-doubleclick-search
+        - gogol-drive
+        - gogol-firebase-rules
+        - gogol-fitness
+        - gogol-fonts
+        - gogol-freebasesearch
+        - gogol-fusiontables
+        - gogol-games
+        - gogol-games-configuration
+        - gogol-games-management
+        - gogol-genomics
+        - gogol-gmail
+        - gogol-groups-migration
+        - gogol-groups-settings
+        - gogol-identity-toolkit
+        - gogol-kgsearch
+        - gogol-latencytest
+        - gogol-logging
+        - gogol-maps-coordinate
+        - gogol-maps-engine
+        - gogol-mirror
+        - gogol-monitoring
+        - gogol-oauth2
+        - gogol-pagespeed
+        - gogol-partners
+        - gogol-people
+        - gogol-play-moviespartner
+        - gogol-plus
+        - gogol-plus-domains
+        - gogol-prediction
+        - gogol-proximitybeacon
+        - gogol-pubsub
+        - gogol-qpxexpress
+        - gogol-replicapool
+        - gogol-replicapool-updater
+        - gogol-resourcemanager
+        - gogol-resourceviews
+        - gogol-script
+        - gogol-sheets
+        - gogol-shopping-content
+        - gogol-siteverification
+        - gogol-spectrum
+        - gogol-sqladmin
+        - gogol-storage
+        - gogol-storage-transfer
+        - gogol-tagmanager
+        - gogol-taskqueue
+        - gogol-translate
+        - gogol-urlshortener
+        - gogol-useraccounts
+        - gogol-vision
+        - gogol-webmaster-tools
+        - gogol-youtube
+        - gogol-youtube-analytics
+        - gogol-youtube-reporting
         - ede
         - pagerduty
         - semver
@@ -1533,10 +1531,10 @@ packages:
 
     "Gershom Bazerman <gershomb@gmail.com> @gbaz":
         - jmacro
-        - jmacro-rpc # GHC 8.2.1 via happstack-server
-        - jmacro-rpc-happstack # GHC 8.2.1 via happstack-server
+        - jmacro-rpc
+        - jmacro-rpc-happstack
         - jmacro-rpc-snap
-        - mbox # GHC 8.2.1
+        - mbox
         - kmeans
         - boolsimplifier
         - cubicspline
@@ -1583,7 +1581,7 @@ packages:
         - inline-r < 0 # compilation failure
 
     "David Fox <dsf@seereason.com> @ddssff":
-        - debian # GHC bug: https://github.com/ddssff/debian-haskell/issues/6
+        - debian < 0 # GHC bug: https://github.com/ddssff/debian-haskell/issues/6
         - cabal-debian < 0 # compilation failure
 
     "Stefan Saasen <stefan@saasen.me> @juretta":
@@ -1609,11 +1607,11 @@ packages:
         # - lackey # GHC 8.2.1
         # - octane # GHC 8.2.1
         # - overloaded-records # Maintained by @trskop. # GHC 8.2.1
-        - postgresql-simple-migration # Maintained by @ameingast. # GHC 8.2.1
-        - ratel # GHC 8.2.1
-        - ratel-wai # GHC 8.2.1
+        - postgresql-simple-migration # Maintained by @ameingast.
+        - ratel
+        - ratel-wai
         - rattletrap
-        - strive # GHC 8.2.1
+        - strive
         - wuss
 
     "Marios Titas <redneb@gmx.com> @redneb":
@@ -1627,20 +1625,20 @@ packages:
         - linux-namespaces
 
     "Will Coster <willcoster@gmail.com> @fimad":
-        - prometheus-client # GHC 8.2.1 via atomic-primops
-        - prometheus-metrics-ghc # GHC 8.2.1 via prometheus-client
+        - prometheus-client
+        - prometheus-metrics-ghc
         - scalpel
         - scalpel-core
-        - wai-middleware-prometheus # GHC 8.2.1 via prometheus-client
+        - wai-middleware-prometheus
 
     "William Casarin <bill@casarin.me> @jb55":
         - bson-lens
         - cased
         - elm-export
         - elm-export-persistent
-        - pipes-csv # via cassava: bounds: vector
-        - pipes-mongodb # via mongoDB
-        - servant-elm # GHC 8.2.1
+        - pipes-csv
+        - pipes-mongodb
+        - servant-elm
         - skeletons
         # - streaming-wai # bounds: mmorph
 
@@ -1653,11 +1651,11 @@ packages:
         - annotated-wl-pprint
 
     "Yitz Gale <gale@sefer.org> @ygale":
-        - timezone-series # GHC 8.2.1
-        - timezone-olson # GHC 8.2.1 via timezone-series
+        - timezone-series
+        - timezone-olson
 
     "Josh Holland <josh@inv.alid.pw> @jshholland":
-        - sandi # GHC 8.2.1
+        - sandi
         - data-ordlist
         - xmonad
 
@@ -1697,7 +1695,7 @@ packages:
         - composition-extra
         - rose-trees
         - sets
-        - timemap # GHC 8.2.1
+        - timemap
         - tries
         - path-extra
         - pred-trie
@@ -1728,7 +1726,7 @@ packages:
 
     "Michael Thompson <what_is_it_to_do_anything@yahoo.com> @michaelt":
         - pipes-text
-        - lens-simple # GHC 8.2.1 via lens-family-th
+        - lens-simple
         - lens-family-core
         - lens-family
         # - streaming # bounds: mmorph
@@ -1770,7 +1768,7 @@ packages:
 
     "Lars Kuhtz <lakuhtz@gmail.com> @larskuhtz":
         - wai-cors
-        - configuration-tools # https://github.com/alephcloud/hs-configuration-tools/issues/56
+        - configuration-tools
 
     "Sam Rijs <srijs@airpost.net> @srijs":
         - ndjson-conduit
@@ -1784,7 +1782,7 @@ packages:
 
     "Daniel Patterson <dbp@dbpmail.net> @dbp":
         # - hspec-snap # bounds: hspec, hspec-core # via: digestive-functors
-        - hworker # GHC 8.2.1 via hedis
+        - hworker
         - hworker-ses < 0 # 0.1.1.0 compilation failure
         - fn
         # - fn-extra # via: digestive-functors
@@ -1794,9 +1792,9 @@ packages:
         - cassette
         - choice
         - distributed-closure
-        - H # GHC 8.2.1 via c2hs
-        - inline-r # GHC 8.2.1 via c2hs
-        - jni # GHC 8.2.1 via atomic-primops
+        - H < 0 # compilation failure
+        - inline-r < 0 # compilation failure
+        - jni
         - jvm < 0 # compilation failure
         # - sparkle # bounds: mmorph
         # - streaming-binary # bounds: mmorph
@@ -1807,7 +1805,7 @@ packages:
         - hsebaysdk
         - dockerfile
         # - wai-middleware-throttle # GHC 8.2.1 via token-bucket
-        - yesod-auth-basic # GHC 8.2.1 via yesod
+        - yesod-auth-basic
 
     "Alcides Viamontes <a.viamontes.esquivel@gmail.com> @alcidesv":
         []
@@ -1829,7 +1827,7 @@ packages:
         # - web-routing # GHC 8
         # - bytestring-read # GHC 8
         # - memcached-binary # GHC 8 & bounds
-        - barrier # GHC 8
+        - barrier
         # - haddocset # GHC 8
 
     "Kai Zhang <kai@kzhang.org> @kaizhang":
@@ -1846,9 +1844,9 @@ packages:
         - IPv6DB
 
     "koral koral@mailoo.org @k0ral":
-        - atom-conduit # GHC 8.2.1 via lens-simple
+        - atom-conduit
         - conduit-parse
-        - opml-conduit # GHC 8.2.1 via lens-simple
+        - opml-conduit
         - rss-conduit < 0 # test runtime failure
         - imm < 0 # compilation failure via synthesizer-core
         - timerep
@@ -1864,16 +1862,16 @@ packages:
         - iso3166-country-codes
         - iso639
         - murmur-hash
-        - monoidal-containers # GHC 8.2.1
+        - monoidal-containers
         - regex-pcre
         - string-combinators
         - string-class
         - SHA
         - data-ordlist
-        - hedis # GHC 8.2.1 via slave-thread
+        - hedis
 
     "Rob O'Callahan ropoctl@gmail.com @rcallahan":
-        - pipes-fastx # via pipes-attoparsec
+        - pipes-fastx
         # - pipes-illumina # via: pipes-bgzf
         - seqalign
         - thermonuc
@@ -1881,7 +1879,7 @@ packages:
 
     "John Lenz <wuzzeb@gmail.com> @wuzzeb":
         - yesod-auth-account < 0 # test compilation failure
-        - yesod-static-angular # GHC 8.2.1 via yesod
+        - yesod-static-angular
         - hspec-webdriver
         - webdriver-angular
 
@@ -1897,8 +1895,8 @@ packages:
         - bustle < 0 # compilation failure against haskell-src-exts https://github.com/vasylp/hgettext/issues/10
 
     "Jakub Fijałkowski <kuba@codinginfinity.me> @jakubfijalkowski":
-        - hlibsass # https://github.com/jakubfijalkowski/hlibsass/issues/7
-        - hsass # via hlibsass
+        - hlibsass
+        - hsass
 
     "Robert Massaioli <robertmassaioli@gmail.com> @robertmassaioli":
         - range
@@ -1933,7 +1931,7 @@ packages:
         # - socket-io # via engine-io compilation-failure
         - tasty-rerun
         # - logging-effect # GHC 8.2.1
-        - reactive-banana # GHC 8.2.1
+        - reactive-banana
 
     "Antoni Silvestre <antoni.silvestre@gmail.com> @asilvestre":
         # Test suite needs a running neo4j server with auth disabled
@@ -1954,9 +1952,9 @@ packages:
         - abstract-deque
         - abstract-deque-tests
         - abstract-par
-        - atomic-primops # GHC 8.2.1
+        - atomic-primops
         - base-orphans
-        - chaselev-deque # GHC 8.2.1 via atomic-primops
+        - chaselev-deque
         - code-page
         - deriving-compat
         - echo
@@ -1973,14 +1971,14 @@ packages:
         - text-show
         - text-show-instances
         - th-abstraction
-        - thread-local-storage # GHC 8.2.1 via atomic-primops
+        - thread-local-storage
 
     "Kirill Zaborsky <qrilka@gmail.com> @qrilka":
         - xlsx
 
     "Matt Parsons <parsonsmatt@gmail.com> @parsonsmatt":
         - monad-logger-prefix
-        - monad-metrics # GHC 8.2.1 via ekg-core
+        - monad-metrics
 
     "Matthew Pickering <matthewtpickering@gmail.com> @mpickering":
         - refact
@@ -2007,7 +2005,7 @@ packages:
 
     "James Cook <mokus@deepbondi.net> @mokus0":
         - dependent-sum
-        - dependent-sum-template # bounds: dependent-sum
+        - dependent-sum-template
         - dependent-map
         # - dice # via random-fu: via log-domain: via safecopy: bounds: vector
         - hstatsd
@@ -2016,7 +2014,7 @@ packages:
     "Timo von Holtz <tvh@tvholtz.de> @tvh":
         - ekg-wai
         - haxl-amazonka
-        - hasql-migration # https://github.com/nikita-volkov/hasql/issues/76
+        - hasql-migration
         - servant-JuicyPixels
 
     "Artyom <yom@artyom.me> @neongreen":
@@ -2070,13 +2068,13 @@ packages:
         - both
         - concurrency # GHC 8.2.1 via atomic-primops
         - dpor
-        - dejafu # GHC 8.2.1
-        - async-dejafu # GHC 8.2.1
-        - hunit-dejafu # GHC 8.2.1
-        - tasty-dejafu # GHC 8.2.1
+        - dejafu
+        - async-dejafu
+        - hunit-dejafu
+        - tasty-dejafu
         - irc-ctcp
-        - irc-conduit # GHC 8.2.1
-        - irc-client # GHC 8.2.1
+        - irc-conduit
+        - irc-client
 
     "Rudy Matela <rudy@matela.com.br> @rudymatela":
         - leancheck
@@ -2091,19 +2089,19 @@ packages:
         - emailaddress
         - envelope
         - from-sum
-        - hailgun # GHC 8.2.1
-        - hailgun-simple # GHC 8.2.1
+        - hailgun
+        - hailgun-simple
         # - highlight # GHC 8.2.1 via regex-with-pcre
         # - ig # bounds: http-conduit, transformers
         - natural-transformation
         # - opaleye-trans # GHC 8.2.1
         - pretty-simple
         - read-env-var
-        - servant-checked-exceptions # GHC 8.2.1
-        - servant-static-th # GHC 8.2.1
+        - servant-checked-exceptions
+        - servant-static-th
         - xml-html-qq
         - xml-indexed-cursor
-        - yahoo-finance-api # GHC 8.2.1
+        - yahoo-finance-api
         # - yesod-markdown # bounds: skylighting
 
     "Franklin Chen <franklinchen@franklinchen.com> @FranklinChen":
@@ -2154,7 +2152,7 @@ packages:
         - Xauth
 
     "Sebastian de Bellefon <arnaudpourseb@gmail.com> @Helkafen":
-        - wai-middleware-metrics # GHC 8.2.1 via ekg-core
+        - wai-middleware-metrics
 
     "Stefan Berthold":
         []
@@ -2178,7 +2176,7 @@ packages:
 
     "Ivan Miljenovic <Ivan.Miljenovic@gmail.com> @ivan-m":
         - fgl
-        # - fgl-arbitrary # bouns: QuickCheck
+        # - fgl-arbitrary # bounds: QuickCheck
         - graphviz
         - wl-pprint-text
         - servant-pandoc
@@ -2206,10 +2204,10 @@ packages:
 
     "Mark Fine <mark.fine@gmail.com> @markfine":
         - postgresql-schema
-        - sbp # compilation failure
+        - sbp
 
     "Jinjing Wang <nfjinjing@gmail.com> @nfjinjing":
-        - moesocks # https://github.com/nfjinjing/moesocks/issues/1
+        - moesocks
 
     "Gregory W. Schwartz <gregory.schwartz@drexel.edu> @GregorySchwartz":
         - fasta
@@ -2277,10 +2275,10 @@ packages:
         - slack-web
 
     "Nickolay Kudasov <nickolay.kudasov@gmail.com> @fizruk":
-        - http-api-data # GHC 8.2.1 via uri-bytestring
+        - http-api-data
         - smsaero < 0 # compilation failure against aeson https://github.com/GetShopTV/smsaero/issues/12
-        - swagger2 # GHC 8.2.1
-        - servant-swagger # GHC 8.2.1
+        - swagger2
+        - servant-swagger
 
     "Jared Tobin <jared@jtobin.ca> @jtobin":
         - mwc-probability
@@ -2359,7 +2357,7 @@ packages:
         # - cacophony # GHC 8.2.1
         # - pipes-cacophony # GHC 8.2.1
         - blake2
-        - nfc # GHC 8.2.1 via c2hs
+        - nfc
 
     "Adam Curtis <kallisti.dev@gmail.com> @kallisti-dev":
         - webdriver
@@ -2374,7 +2372,7 @@ packages:
         # - sync-mht # bounds: ghc, base
 
     "Michael Schröder <mc.schroeder@gmail.com> @mcschroeder":
-        - ctrie # GHC 8.2.1 via atomic-primops
+        - ctrie
         # - ttrie # GHC 8.2.1 via atomic-primops
 
     "Greg Weber <greg@gregweber.info> @gregwebs":
@@ -2385,14 +2383,14 @@ packages:
         - exp-pairs
 
     "Stefan Kersten <kaoskorobase@gmail.com> @kaoskorobase":
-        - hsndfile # GHC 8.2.1 via c2hs
-        - hsndfile-vector # GHC 8.2.1 via c2hs
+        - hsndfile
+        - hsndfile-vector
 
     "yihuang <yi.codeplayer@gmail.com> @yihuang":
         - tagstream-conduit
 
     "Johannes Hilden <hildenjohannes@gmail.com> @johanneshilden":
-        - hashids # Missing test files https://github.com/fpco/stackage/issues/1001
+        - hashids
 
     "Joe Hermaszewski <stackage@monoid.al> @expipiplus1":
         []
@@ -2411,7 +2409,7 @@ packages:
         # - werewolf-slack # bounds: aeson, extra, http-client, http-client-tls # via: werewolf
 
     "Will Sewell <me@willsewell.com> @willsewell":
-        - benchpress # GHC 8.2.1
+        - benchpress
         # - pusher-http-haskell # GHC 8.2.1
 
     "Yorick Laupa yo.eight@gmail.com @YoEight":
@@ -2436,7 +2434,7 @@ packages:
 
     "Mihaly Barasz klao@nilcons.com @klao":
         - lens-datetime
-        - tz # GHC 8.2.1 via timezone-series
+        - tz
         - tzdata
 
     "Timothy Klim <stackage@timothyklim.com> @TimothyKlim":
@@ -2445,15 +2443,15 @@ packages:
     "David Luposchainsky <dluposchainsky (λ) googles email service> @quchen":
         # - binary-typed # https://github.com/quchen/binary-typed/issues/42
         - pgp-wordlist
-        - show-prettyprint # https://github.com/fpco/stackage/issues/2554 # GHC 8.2.1
-        - prettyprinter # GHC 8.2.1
-        - prettyprinter-ansi-terminal # GHC 8.2.1
-        - prettyprinter-compat-wl-pprint # GHC 8.2.1
-        - prettyprinter-compat-ansi-wl-pprint # GHC 8.2.1
-        - prettyprinter-compat-annotated-wl-pprint # GHC 8.2.1
+        - show-prettyprint
+        - prettyprinter
+        - prettyprinter-ansi-terminal
+        - prettyprinter-compat-wl-pprint
+        - prettyprinter-compat-ansi-wl-pprint
+        - prettyprinter-compat-annotated-wl-pprint
 
     "Jeremy Shaw <jeremy@n-heptane.com> @stepcut":
-        - boomerang # GHC 8.2.1
+        - boomerang
         # - clckwrks # via acid-state: via safecopy: bounds: vector
         # - clckwrks-cli # via acid-state: via safecopy: bounds: vector
         # - clckwrks-plugin-page # via acid-state: via safecopy: bounds: vector
@@ -2463,25 +2461,25 @@ packages:
         # - happstack-authenticate # via acid-state: via safecopy: bounds: vector
         # - happstack-clientsession # via safecopy: bounds: vector
         # - happstack-hsp # GHC 8.2.1 via hsx2hs
-        - happstack-jmacro # GHC 8.2.1 via happstack-server
-        - happstack-server # GHC 8.2.1
-        - happstack-server-tls # GHC 8.2.1
+        - happstack-jmacro
+        - happstack-server
+        - happstack-server-tls
         - hsx-jmacro
         # - ixset # via: syb-with-class, safecopy
         - reform
         - reform-blaze
         - reform-hamlet
-        - reform-happstack # GHC 8.2.1 via happstack-server
-        - reform-hsp # GHC 8.2.1 via hsx2hs
+        - reform-happstack
+        - reform-hsp
         # - userid # via safecopy: bounds: vector
         - web-plugins
-        - web-routes # GHC 8.2.1
-        - web-routes-boomerang # GHC 8.2.1 via bomoerang
-        - web-routes-happstack # GHC 8.2.1 via happstack-server
+        - web-routes
+        - web-routes-boomerang
+        - web-routes-happstack
         - web-routes-hsp
-        - web-routes-th # GHC 8.2.1
+        - web-routes-th
         - web-routes-wai
-        - hsx2hs # GHC 8.2.1
+        - hsx2hs
 
     "Pedro Tacla Yamada <tacla.yamada@gmail.com> @yamadapc":
         - ascii-progress
@@ -2498,11 +2496,11 @@ packages:
         - projectroot
         - questioner
         # - stack-run-auto # GHC 8.2.1 via extract-dependencies
-        - hpack-convert < 0 # compilation failure
+        - hpack-convert < 0
         - language-dockerfile
 
     "Pascal Hartig <phartig@rdrei.net> @passy":
-        - giphy-api # GHC 8.2.1
+        - giphy-api
         - optparse-text
 
     "rightfold <rightfold@gmail.com> @rightfold":
@@ -2521,7 +2519,7 @@ packages:
         # - wai-session-postgresql # GHC-8.2.1
 
     "Haisheng Wu <freizl@gmail.com> @freizl":
-        - hoauth2 # GHC 8.2.1 via uri-bytestring
+        - hoauth2
 
     "Falko Peters <falko.peters@gmail.com> @informatikr":
         - scrypt
@@ -2544,7 +2542,7 @@ packages:
 
     "Anthony Cowley <acowley@gmail.com> @acowley":
         - Frames < 0 # test compilation failure
-        - hpp # GHC 8.2.1
+        - hpp
 
     "Takayuki Muranushi <muranushi@gmail.com> @nushio3":
         - binary-search
@@ -2559,7 +2557,7 @@ packages:
         - extensible-effects
 
     "Justus Adam <dev@justus.science> @JustusAdam":
-        - marvin >= 0.1.4 # GHC 8.2.1 via tls via irc-conduit
+        - marvin
         - marvin-interpolate >= 1.1
         - mustache
 
@@ -2687,21 +2685,21 @@ packages:
         - papillon
 
     "Jan Gerlinger <git@jangerlinger.de> @JanGe":
-        - irc-dcc # bounds: path
+        - irc-dcc
         # - xdcc # bounds: path
 
     "John Ky newhoggy@gmail.com @newhoggy":
         - hw-bits
-        - hw-conduit # via criterion: via cassava: bounds: vector
+        - hw-conduit
         - hw-diagnostics
-        - hw-json # via criterion: via cassava: bounds: vector
+        - hw-json
         - hw-parser
         - hw-prim
         - hw-rankselect
         - hw-succinct
 
     "Ismail Mustafa <ismailmustafa@rocketmail.com> @ismailmustafa":
-        - handwriting # GHC 8.2.1
+        - handwriting
 
     "Stephen Diehl <stephen.m.diehl@gamil.com> @sdiehl":
         - protolude
@@ -2881,8 +2879,8 @@ packages:
         # - bitcoin-payment-channel # bounds: QuickCheck, aeson 1.0 # via: haskoin-core
 
     "Al Zohali <zohl@fmap.me> @zohl":
-        - servant-auth-cookie # GHC 8.2.1
-        - dictionaries # GHC 8.2.1
+        - servant-auth-cookie
+        - dictionaries
 
     "Joachim Fasting <joachifm@fastmail.fm> @joachifm":
         - libmpd
@@ -2893,8 +2891,8 @@ packages:
         - llvm-hs-pure
 
     "Thierry Bourrillon <thierry.bourrillon@fpinsight.com> @tbourrillon":
-        - heatshrink # GHC 8.2.1 via c2hs
-        - hocilib # GHC 8.2.1 via c2hs
+        - heatshrink
+        - hocilib
 
     "Matthias Herrmann <matthias.mh.herrmann@gmail.com> @2chilled":
         []
@@ -2913,9 +2911,9 @@ packages:
         - unlit
         - intro
         - tasty-auto
-        - tasty-stats # GHC 8.2.1
+        - tasty-stats
         - colorful-monoids
-        - ihs # GHC 8.2.1
+        - ihs
 
     "Taras Serduke <taras.serduke@gmail.com> @tserduke":
         - do-list
@@ -2955,11 +2953,11 @@ packages:
         # - HDBC-mysql # GHC 8.2.1
 
     "Tony Day <tonyday567@gmail.com> @tonyday567":
-        - numhask # GHC 8.2.1 via protolude
-        - numhask-range # GHC 8.2.1 via protolude
+        - numhask
+        - numhask-range
         # - chart-unit # bounds optparse-applicative
         # - perf # bounds optparse-applicative
-        - online # GHC 8.2.1 via protolude
+        - online
 
     "Iphigenia Df <iphydf@gmail.com> @iphydf":
         - data-msgpack
@@ -3009,13 +3007,13 @@ packages:
     "Kadzuya Okamoto <arow.okamoto@gmail.com> @arowM":
         - type-level-kv-list
         - heterocephalus
-        - bookkeeping # GHC 8.2.1
+        - bookkeeping
 
     "Marcin Tolysz <tolysz@gmail.com> @tolysz":
         - rawstring-qm
 
     "Tom Nielsen <tanielsen@gmail.com> @glutamate":
-        - datasets # via cassava: bounds: vector
+        - datasets
 
     "Hyunje Jun <me@noraesae.net> @noraesae":
         - line
@@ -3028,7 +3026,7 @@ packages:
         - printcess
 
     "Alexey Kuleshevich <lehins@yandex.ru> @lehins":
-        - wai-middleware-auth # GHC 8.2.1 via uri-bytestring
+        - wai-middleware-auth
         # - hip # via repa-algorithms
 
     "Hans-Peter Deifel <hpd@hpdeifel.de> @hpdeifel":
@@ -3098,8 +3096,8 @@ packages:
     "ncaq <ncaq@ncaq.net> @ncaq":
         - haskell-import-graph
         - uniq-deep
-        - yesod-form-bootstrap4 # GHC 8.2.1 via yesod-form
-        - yesod-recaptcha2 # GHC 8.2.1 via yesod-auth
+        - yesod-form-bootstrap4
+        - yesod-recaptcha2
 
     "Andrei Barbu <andrei@0xab.com> @abarbu":
         - nondeterminism
@@ -3110,7 +3108,7 @@ packages:
         - tsv2csv
 
     "Thomas Sutton <me@thomas-sutton.id.au> @thsutton":
-        - aeson-diff # GHC 8.2.1
+        - aeson-diff
         - edit-distance-vector
 
     "Kyle Van Berendonck <kvanberendonck@gmail.com> @kvanberendonck":
@@ -3146,8 +3144,8 @@ packages:
         - regex-pcre-text
 
     "Elliot Cameron <eacameron@gmail.com> @3noch":
-        - ziptastic-client # GHC 8.2.1 via tz
-        - ziptastic-core # GHC 8.2.1 via tz
+        - ziptastic-client
+        - ziptastic-core
 
     "Hardy Jones <jones3.hardy@gmail.com> @joneshf":
         []
@@ -3159,7 +3157,7 @@ packages:
 
     "Albert Krewinkel <albert+stackage@zeitkraut.de> @tarleb":
         - hslua
-        - hslua-aeson # BOUNDS hslua 0.6
+        - hslua-aeson
 
     "Judah Jacobson <judah.jacobson@gmail.com> @judah":
         - lens-labels
@@ -3175,7 +3173,7 @@ packages:
         # - tensorflow-opgen # via: tensorflow-proto
         # - tensorflow-ops # bounds: tensorflow-proto
         # - tensorflow-proto # compilation failure
-        - tensorflow-test # bounds: tensorflow
+        - tensorflow-test
 
     "Christof Schramm <christof.schramm@campus.lmu.de>":
         - mnist-idx
@@ -3192,7 +3190,7 @@ packages:
         - async-timer
 
     "Simon Hafner <hafnersimon@gmail.com> @reactormonk":
-        - uri-bytestring-aeson # GHC 8.2.1
+        - uri-bytestring-aeson
 
     "Sebastian Witte <woozletoff@gmail.com> @saep":
         - nvim-hs
@@ -3220,7 +3218,7 @@ packages:
         # - haddock # cabal-version >= 2
 
     "Mark Hopkins <markjohnhopkins@gmail.com> @mjhopkins":
-        - alerta # GHC 8.2.1
+        - alerta
 
     "Steven Vandevelde <icid.asset@gmail.com> @icidasset":
         - shikensu
