@@ -115,17 +115,17 @@ packages:
         - sample-frame
         - sample-frame-np
         - set-cover
-        - sound-collage # GHC 8.2.1 via synthesizer-core
+        - sound-collage # via synthesizer-core compilation failure
         - sox # GHC 8.2.1
         - soxlib
-        - split-record # GHC 8.2.1 via synthesizer-core
+        - split-record # via synthesizer-core compilation failure
         - spreadsheet
         - stm-split
         - storable-record
         - storablevector
-        - synthesizer-core # GHC 8.2.1
-        - synthesizer-dimensional # GHC 8.2.1 via synthesizer-core
-        - synthesizer-midi # GHC 8.2.1 via synthesizer-core
+        # - synthesizer-core # test compilation failure
+        # - synthesizer-dimensional # via synthesizer-core compilation failure
+        # - synthesizer-midi # via synthesizer-core compilation failure
         - tagchup
         - tfp
         - unicode
@@ -211,7 +211,7 @@ packages:
         - unicode-transforms
 
     "Aleksey Uimanov <s9gf4ult@gmail.com> @s9gf4ult":
-        - postgresql-query # via: derive
+        # - postgresql-query # compilation error
         - hreader
         - hset
 
@@ -264,7 +264,7 @@ packages:
         - conduit-combinators
         - conduit-extra
         - hebrew-time
-        - keter # https://github.com/snoyberg/keter/issues/170
+        # - keter # compilation failure https://github.com/snoyberg/keter/issues/170
         - markdown
         - mime-mail
         - mime-mail-ses
@@ -275,11 +275,11 @@ packages:
         - persistent-sqlite
         - persistent-template
         - stackage-curator # GHC 8.2
-        - store # GHC 8.2
+        # - store # compilation failure
         - stm-conduit
         - wai-websockets
         - warp-tls
-        - yackage # GHC 8.2.1 via yesod-form
+        # - yackage # compilation failure
         - yesod
         - yesod-auth
         - authenticate-oauth
@@ -346,13 +346,13 @@ packages:
     "Omari Norman <omari@smileystation.com> @massysett":
         - rainbow # GHC 8.2.1 via lens-simple
         - rainbox # GHC 8.2.1 via lens-simple
-        - anonymous-sums # https://github.com/massysett/anonymous-sums/issues/1
+        # - anonymous-sums # compilation failure https://github.com/massysett/anonymous-sums/issues/1
         - multiarg
-        - prednote # GHC 8.2.1 via lens-simple
+        # - prednote # test compilation failure
         - cartel
         - Earley
         - ofx
-        - pinchot # GHC 8.2.1
+        # - pinchot # compilation failure
         - accuerr
         - timelens
         - non-empty-sequence
@@ -483,7 +483,7 @@ packages:
         - pdfinfo
         - present # compilation failure against haskell-src-exts
         - pure-io
-        - scrobble # compilation errors against time 1.6
+        # - scrobble # compilation failure against time 1.6
         - sourcemap
         - hindent
         - descriptive
@@ -690,7 +690,7 @@ packages:
         # - grouped-list # GHC 8.2.1
         - haskintex
         - HaTeX
-        - hatex-guide # https://github.com/Daniel-Diaz/hatex-guide/issues/21
+        # - hatex-guide # compilation failure https://github.com/Daniel-Diaz/hatex-guide/issues/21
         - include-file
         - matrix
         - pcre-light
@@ -764,7 +764,7 @@ packages:
         # - homplexity # BLOCKED directory 1.3
         # - wordpass # bounds: vector
         # - json-autotype # bounds: aeson 1.0, lens
-        - posix-realtime # https://github.com/mgajda/posix-realtime/issues/5
+        # - posix-realtime # compilation failure https://github.com/mgajda/posix-realtime/issues/5
 
     "Dom De Re <domdere@domdere.com> @domdere":
         - cassava-conduit
@@ -859,7 +859,7 @@ packages:
         - biocore
         - biofasta
         - biofastq
-        - biosff # 0.3.7.1 Compilation failure due to -Werror
+        # - biosff # 0.3.7.1 compilation failure
         - blastxml
         - bioace
         - biopsl
@@ -879,7 +879,7 @@ packages:
         - Genbank
         - RNAlien # via cassava: bounds: vector
         - Taxonomy
-        - TaxonomyTools # build failure
+        # - TaxonomyTools # compilation failure
         - ViennaRNAParser
 
     "Silk <code@silk.co>":
@@ -921,7 +921,7 @@ packages:
         - io-manager
 
     "Dimitri Sabadie <dimitri.sabadie@gmail.com> @phaazon":
-        - al # FIXME temporary, figure out why it's not working with stackage-build
+        # - al # Setup failure, needs old c2hs
         - event
         - hid # GHC 8.2.1 via c2hs
         # - luminance # BLOCKED directory 1.3
@@ -999,7 +999,7 @@ packages:
         - bytestring-trie
         - data-accessor
         - data-accessor-mtl
-        - file-location # bounds: transformers
+        # - file-location # test compilation failure
         - fuzzcheck
         - here
         - hlibgit2
@@ -1091,7 +1091,8 @@ packages:
         - ghcjs-perch
 
     "Sebastian Nagel <sebastian.nagel@ncoding.at> @ch1bo":
-        - hdevtools # https://github.com/hdevtools/hdevtools/issues/57
+        []
+        # - hdevtools # Compilation failure https://github.com/hdevtools/hdevtools/issues/57
 
     "Andrey Chudnov <oss@chudnov.com> @achudnov":
         []
@@ -1151,7 +1152,7 @@ packages:
 
     "Jens Petersen <juhpetersen@gmail.com> @juhp":
         # - cabal-rpm # GHC 8.2.1
-        - stackage-query # BLOCKED stackage-types/Cabal 2.0
+        # - stackage-query # via stackage-types compilation failure
         # - cabal-sort # BLOCKED directory 1.3
         # - idris # bounds aeson
         - libffi
@@ -1307,13 +1308,13 @@ packages:
         # Regex packages by Chris Kuklewicz
         - regex-base
         - regex-compat
-        - regex-dfa # 0.91 Compilation failure due to -Werror
-        - regex-parsec # 0.90 Compilation failure due to -Werror
+        # - regex-dfa # 0.91 Compilation failure due to -Werror
+        # - regex-parsec # 0.90 Compilation failure due to -Werror
         - regex-pcre
         - regex-posix
         - regex-tdfa
         # - regex-tdfa-utf8 # bounds: ghc, base
-        - regex-tre # 0.91 Compilation failure due to -Werror
+        # - regex-tre # 0.91 Compilation failure due to -Werror
 
         # Universe
         - universe
@@ -1581,11 +1582,11 @@ packages:
     "Mateusz Kowalczyk <fuuzetsu@fuuzetsu.co.uk> @Fuuzetsu":
         # - aeson-schema # bounds: QuickCheck, aeson # compilation failure for 0.4.1.1
         - H # GHC 8.2.1 via c2hs
-        - inline-r # GHC 8.2.1 via c2hs
+        # - inline-r # compilation failure
 
     "David Fox <dsf@seereason.com> @ddssff":
         - debian # GHC bug: https://github.com/ddssff/debian-haskell/issues/6
-        - cabal-debian # via: debian
+        # - cabal-debian # compilation failure
 
     "Stefan Saasen <stefan@saasen.me> @juretta":
         - jwt
@@ -1762,7 +1763,7 @@ packages:
     "Michael Xavier <michael@michaelxavier.net> @MichaelXavier":
         # - angel # https://github.com/MichaelXavier/Angel/issues/52
         - uri-bytestring
-        - phash # Can't build on stackage server https://github.com/MichaelXavier/phash/issues/5
+        # - phash # Setup failure, can't build on stackage server https://github.com/MichaelXavier/phash/issues/5
         - cron
         - tasty-tap
         - tasty-fail-fast
@@ -1786,7 +1787,7 @@ packages:
     "Daniel Patterson <dbp@dbpmail.net> @dbp":
         # - hspec-snap # bounds: hspec, hspec-core # via: digestive-functors
         - hworker # GHC 8.2.1 via hedis
-        # - hworker-ses # 0.1.1.0 build failure
+        # - hworker-ses # 0.1.1.0 compilation failure
         - fn
         # - fn-extra # via: digestive-functors
 
@@ -1798,7 +1799,7 @@ packages:
         - H # GHC 8.2.1 via c2hs
         - inline-r # GHC 8.2.1 via c2hs
         - jni # GHC 8.2.1 via atomic-primops
-        - jvm # GHC 8.2.1 via jni
+        # - jvm # compilation failure
         # - sparkle # bounds: mmorph
         # - streaming-binary # bounds: mmorph
         - th-lift
@@ -1850,14 +1851,14 @@ packages:
         - atom-conduit # GHC 8.2.1 via lens-simple
         - conduit-parse
         - opml-conduit # GHC 8.2.1 via lens-simple
-        - rss-conduit # GHC 8.2.1 via lens-simple
+        # - rss-conduit # test runtime failure
         - imm # GHC 8.2.1 via lens-simple
         - timerep
         - xml-conduit-parse
 
     "Kostiantyn Rybnikov <k-bx@k-bx.com> @k-bx":
         - protocol-buffers
-        # - hprotoc # build failure https://github.com/k-bx/protocol-buffers/issues/45
+        # - hprotoc # compilation failure https://github.com/k-bx/protocol-buffers/issues/45
         - protocol-buffers-descriptor
         - ekg-core
         - digits
@@ -1878,10 +1879,10 @@ packages:
         # - pipes-illumina # via: pipes-bgzf
         - seqalign
         - thermonuc
-        - xlsior # https://github.com/eurekagenomics/xlsior/issues/3
+        # - xlsior # compilation failure https://github.com/eurekagenomics/xlsior/issues/3
 
     "John Lenz <wuzzeb@gmail.com> @wuzzeb":
-        - yesod-auth-account # GHC 8.2.1 via yesod-auth
+        # - yesod-auth-account # test compilation failure
         - yesod-static-angular # GHC 8.2.1 via yesod
         - hspec-webdriver
         - webdriver-angular
@@ -1895,7 +1896,7 @@ packages:
         # - mediabus-rtp # GHC 8.2.1
 
     # "Will Thompson <will@willthompson.co.uk> @wjt":
-        # - bustle # build failure against haskell-src-exts https://github.com/vasylp/hgettext/issues/10
+        # - bustle # compilation failure against haskell-src-exts https://github.com/vasylp/hgettext/issues/10
 
     "Jakub Fijałkowski <kuba@codinginfinity.me> @jakubfijalkowski":
         - hlibsass # https://github.com/jakubfijalkowski/hlibsass/issues/7
@@ -1925,7 +1926,7 @@ packages:
         - Network-NineP
 
     "Oliver Charles <ollie@ocharles.org.uk> @ocharles":
-        - engine-io # bounds: aeson, websockets
+        # - engine-io # compilation failure
         - diff3
         # - digestive-functors-aeson # bounds: aeson, lens # via: digestive-functors
         - exhaustive
@@ -2207,7 +2208,7 @@ packages:
 
     "Mark Fine <mark.fine@gmail.com> @markfine":
         - postgresql-schema
-        - sbp # build failure
+        - sbp # compilation failure
 
     "Jinjing Wang <nfjinjing@gmail.com> @nfjinjing":
         - moesocks # https://github.com/nfjinjing/moesocks/issues/1
@@ -2279,7 +2280,7 @@ packages:
 
     "Nickolay Kudasov <nickolay.kudasov@gmail.com> @fizruk":
         - http-api-data # GHC 8.2.1 via uri-bytestring
-        # - smsaero # build failure against aeson https://github.com/GetShopTV/smsaero/issues/12
+        # - smsaero # compilation failure against aeson https://github.com/GetShopTV/smsaero/issues/12
         - swagger2 # GHC 8.2.1
         - servant-swagger # GHC 8.2.1
 
@@ -2499,7 +2500,7 @@ packages:
         - projectroot
         - questioner
         # - stack-run-auto # GHC 8.2.1 via extract-dependencies
-        - hpack-convert # bounds: aeson 1.0
+        # - hpack-convert # compilation failure
         - language-dockerfile
 
     "Pascal Hartig <phartig@rdrei.net> @passy":
@@ -2531,7 +2532,7 @@ packages:
         - dawg-ord
 
     "Amit Levy <amit@amitlevy.com> @alevy":
-        - postgresql-orm # 0.4.1 compilation failure
+        # - postgresql-orm # 0.5.0 compilation failure
         - simple
         - simple-templates
         - simple-session
@@ -2544,7 +2545,7 @@ packages:
         - LibZip >= 1.0
 
     "Anthony Cowley <acowley@gmail.com> @acowley":
-        - Frames # GHC 8.2.1
+        # - Frames # test compilation failure
         - hpp # GHC 8.2.1
 
     "Takayuki Muranushi <muranushi@gmail.com> @nushio3":
@@ -2589,7 +2590,7 @@ packages:
 
     "Elie Genard <elaye.github.io@gmail.com> @eliegenard":
         - turtle-options
-        - mushu # GHC 8.2.1 via libmpd
+        # - mushu # compilation failure
         # - hakyll-favicon # bounds: skylighting
 
     "Ruey-Lin Hsu <petercommand@gmail.com> @petercommand":
@@ -2635,8 +2636,9 @@ packages:
         # - reedsolomon # bounds: vector
 
     "Alp Mestanogullari <alpmestan@gmail.com> @alpmestan":
-        - taggy # build failure https://github.com/alpmestan/taggy/issues/19
-        - taggy-lens # via taggy: build failure https://github.com/alpmestan/taggy/issues/19
+        []
+        # - taggy # compilation failure https://github.com/alpmestan/taggy/issues/19
+        # - taggy-lens # via taggy: compilation failure https://github.com/alpmestan/taggy/issues/19
 
     "Alex McLean <lxyxpx@gmail.com> @yaxu":
         - tidal
@@ -2674,7 +2676,8 @@ packages:
         - jose
 
     "Yutaka Nishimura <ytk.nishimura@gmail.com> @ynishi":
-        - atndapi # compilation failure https://github.com/ynishi/atndapi/issues/1
+        []
+        # - atndapi # compilation failure https://github.com/ynishi/atndapi/issues/1
 
     "Yoshikuni Jujo <PAF01143@nifty.ne.jp> @YoshikuniJujo":
         - zot
@@ -2749,7 +2752,7 @@ packages:
         - eventful-sql-common
         - eventful-sqlite
         - eventful-test-helpers
-        - oanda-rest-api # GHC 8.2.1 via MemoTrie
+        # - oanda-rest-api # test compilation failure
         - stratosphere
         - sum-type-boilerplate
 
@@ -2762,11 +2765,11 @@ packages:
         - gi-cairo
         - gi-gdk # https://github.com/haskell-gi/haskell-gi/issues/113
         - gi-gdkpixbuf # https://github.com/haskell-gi/haskell-gi/issues/113
-        - gi-gio # https://github.com/haskell-gi/haskell-gi/issues/113
+        # - gi-gio # compilation failure https://github.com/haskell-gi/haskell-gi/issues/113
         - gi-glib
         - gi-gobject
         - gi-gtk # https://github.com/haskell-gi/haskell-gi/issues/113
-        - gi-pango # https://github.com/haskell-gi/haskell-gi/issues/113
+        # - gi-pango # compilation failure https://github.com/haskell-gi/haskell-gi/issues/113
         - gi-soup # https://github.com/haskell-gi/haskell-gi/issues/113
         - gi-javascriptcore == 3.0.*
         - gi-webkit # https://github.com/haskell-gi/haskell-gi/issues/113
@@ -2787,7 +2790,7 @@ packages:
     "Richard Eisenberg <eir@cis.upenn.edu> @goldfirere":
         - th-desugar
         - singletons
-        - units # GHC 8.2.1 via MemoTrie
+        # - units # compilation failure
         - units-defs # GHC 8.2.1 via MemoTrie
         - HUnit-approx
         - units-parser
@@ -3173,11 +3176,11 @@ packages:
         - proto-lens-arbitrary
         - proto-lens-optparse
         - proto-lens-protobuf-types
-        - tensorflow # GHC 8.2.1
-        - tensorflow-core-ops # bounds: tensorflow
-        - tensorflow-opgen # bounds: tensorflow
-        - tensorflow-ops # bounds: tensorflow
-        - tensorflow-proto # bounds: proto-lens-protoc
+        # - tensorflow # via: tensorflow-proto
+        # - tensorflow-core-ops # via: tensorflow-proto
+        # - tensorflow-opgen # via: tensorflow-proto
+        # - tensorflow-ops # bounds: tensorflow-proto
+        # - tensorflow-proto # compilation failure
         - tensorflow-test # bounds: tensorflow
 
     "Christof Schramm <christof.schramm@campus.lmu.de>":
@@ -3678,6 +3681,7 @@ expected-test-failures:
     - serversession-backend-redis # redis
     - shake # Needs ghc on $PATH with some installed haskell packages
     - singletons # Needs ghc on $PATH with som installed haskell packages
+    - users-persistent # sqlite
     - users-postgresql-simple # PostgreSQL
     - wai-cors # PhantomJS
     - wai-session-postgresql # PostgreSQL
