@@ -30,17 +30,16 @@ GHCVER=8.2.1
 apt-get update
 apt-get install -y \
     build-essential \
-    ghc-$GHCVER \
-    ghc-$GHCVER-dyn \
-    ghc-$GHCVER-prof \
-    ghc-$GHCVER-htmldocs \
-    hscolour \
-    sudo \
     curl \
     freeglut3-dev \
     fsharp \
+    ghc-$GHCVER \
+    ghc-$GHCVER-dyn \
+    ghc-$GHCVER-htmldocs \
+    ghc-$GHCVER-prof \
     git \
     gradle \
+    hscolour \
     libadns1-dev \
     libaio1 \
     libalut-dev \
@@ -50,6 +49,7 @@ apt-get install -y \
     libcairo2-dev \
     libclang-3.9-dev \
     libcurl4-openssl-dev \
+    libcwiid-dev \
     libdevil-dev \
     libedit-dev \
     libedit2 \
@@ -94,10 +94,11 @@ apt-get install -y \
     libpango1.0-dev \
     libpcap0.8-dev \
     libpq-dev \
+    libsdl1.2-dev \
     libsdl2-dev \
-    libsdl2-mixer-dev \
-    libsdl2-image-dev \
     libsdl2-gfx-dev \
+    libsdl2-image-dev \
+    libsdl2-mixer-dev \
     libsdl2-ttf-dev \
     libsnappy-dev \
     libsndfile1-dev \
@@ -133,6 +134,7 @@ apt-get install -y \
     r-base \
     r-base-dev \
     ruby-dev \
+    sudo \
     wget \
     xclip \
     z3 \
