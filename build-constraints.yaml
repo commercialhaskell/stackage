@@ -274,7 +274,7 @@ packages:
         - persistent-postgresql
         - persistent-sqlite
         - persistent-template
-        - stackage-curator # GHC 8.2
+        # - stackage-curator # via store compilation failure
         # - store # compilation failure
         - stm-conduit
         - wai-websockets
@@ -469,7 +469,7 @@ packages:
         - xenstore
 
     "Chris Done @chrisdone":
-        - labels # https://github.com/chrisdone/labels/issues/8
+        # - labels # compilation failure https://github.com/chrisdone/labels/issues/8
         - ace
         - ical
         - check-email
@@ -1173,7 +1173,7 @@ packages:
         # - leksah-server # bounds: ghc, base
         # - ltk # bounds: ghc, base
         - vado # GHC 8.2.1
-        - vcsgui # via: gi-gtk-hs
+        # - vcsgui # compilation failure via: gi-gtk-hs
         - vcswrapper # GHC 8.2.1
 
     "Renzo Carbonara <renzocarbonara@gmail.com> @k0001":
@@ -1580,8 +1580,9 @@ packages:
         - markdown-unlit
 
     "Mateusz Kowalczyk <fuuzetsu@fuuzetsu.co.uk> @Fuuzetsu":
+        []
         # - aeson-schema # bounds: QuickCheck, aeson # compilation failure for 0.4.1.1
-        - H # GHC 8.2.1 via c2hs
+        # - H # via inline-r compilation failure
         # - inline-r # compilation failure
 
     "David Fox <dsf@seereason.com> @ddssff":
@@ -2222,7 +2223,7 @@ packages:
         - clumpiness
         - find-clumpiness
         - blosum
-        - convert-annotation # via cassava: bounds: vector
+        # - convert-annotation # via inline-r compilation failure
         # - rank-product # GHC 8.2.1 via random-fu
 
     "Simon Marechal <bartavelle@gmail.com> @bartavelle":
@@ -2536,7 +2537,7 @@ packages:
         - simple
         - simple-templates
         - simple-session
-        - simple-postgresql-orm # via: postgresql-orm
+        # - simple-postgresql-orm # compilation failure via: postgresql-orm
 
     "Sergey Astanin <s.astanin@gmail.com> @astanin":
         # Stackage server uses Ubuntu 16.04 which ships libzip-1.0.1.
@@ -2763,16 +2764,16 @@ packages:
     "Iñaki García Etxebarria <garetxe@gmail.com> @garetxe":
         - gi-atk
         - gi-cairo
-        - gi-gdk # https://github.com/haskell-gi/haskell-gi/issues/113
+        - gi-gdk < 0 # compilation failure via gi-pango https://github.com/haskell-gi/haskell-gi/issues/113
         - gi-gdkpixbuf # https://github.com/haskell-gi/haskell-gi/issues/113
         # - gi-gio # compilation failure https://github.com/haskell-gi/haskell-gi/issues/113
         - gi-glib
         - gi-gobject
-        - gi-gtk # https://github.com/haskell-gi/haskell-gi/issues/113
-        # - gi-pango # compilation failure https://github.com/haskell-gi/haskell-gi/issues/113
+        - gi-gtk < 0 # compilation failure via gi-pango https://github.com/haskell-gi/haskell-gi/issues/113
+        - gi-pango < 0 # compilation failure https://github.com/haskell-gi/haskell-gi/issues/113
         - gi-soup # https://github.com/haskell-gi/haskell-gi/issues/113
         - gi-javascriptcore == 3.0.*
-        - gi-webkit # https://github.com/haskell-gi/haskell-gi/issues/113
+        - gi-webkit < 0 # compilation failure via gi-pango https://github.com/haskell-gi/haskell-gi/issues/113
         - haskell-gi
         - haskell-gi-base
 
@@ -2987,7 +2988,8 @@ packages:
         - postgresql-simple-queue
 
     "Bernie Pope <bjpope@unimelb.edu.au> @bjpop":
-        - language-python # https://github.com/bjpop/language-python/issues/35
+        []
+        # - language-python # compilation failure https://github.com/bjpop/language-python/issues/35
 
     "Mahdi Dibaiee <mdibaiee@aol.com>":
         - picedit
