@@ -905,11 +905,11 @@ packages:
 
     "Simon Michael <simon@joyful.com> @simonmichael":
         # - darcs # bounds: graphviz < 2999.19
-        - hledger
-        - hledger-lib
+        # - hledger     # megaparsec bounds: https://github.com/fpco/stackage/issues/2666
+        # - hledger-lib # megaparsec bounds: https://github.com/fpco/stackage/issues/2666
         # - hledger-ui # bounds: brick
         # - hledger-web # GHC 8.2.1 via yesod-form
-        - hledger-api
+        # - hledger-api # megaparsec bounds: https://github.com/fpco/stackage/issues/2666
         # - shelltestrunner # bounds: Diff, HUnit
         - quickbench
         - regex-compat-tdfa
@@ -1180,10 +1180,10 @@ packages:
         - pipes-network
 
     "Tomas Carnecky @wereHamster":
-        - avers
-        - avers-api
-        - avers-api-docs
-        - avers-server
+        # - avers
+        # - avers-api
+        # - avers-api-docs
+        # - avers-server
         - css-syntax
         - etcd
         - github-types
@@ -1324,7 +1324,7 @@ packages:
         - farmhash
         - pinch
         - sandman
-        - language-thrift
+        # - language-thrift # megaparsec bounds: https://github.com/fpco/stackage/issues/2666
 
     "Adam C. Foltzer <acfoltzer@galois.com> @acfoltzer":
         - cryptol
@@ -2190,7 +2190,7 @@ packages:
         - cabal2nix
         - funcmp
         - hackage-db
-        - hledger-interest
+        # - hledger-interest  # megaparsec bounds: https://github.com/fpco/stackage/issues/2666
         - hopenssl
         - hsdns
         - hsemail
@@ -2250,7 +2250,7 @@ packages:
         - tagged-identity
         - req
         - req-conduit
-        # - cue-sheet # bounds: megaparsec
+        - cue-sheet
         - wave
         - flac
         - flac-picture
@@ -3030,7 +3030,8 @@ packages:
         # - hip # via repa-algorithms
 
     "Hans-Peter Deifel <hpd@hpdeifel.de> @hpdeifel":
-        - hledger-iadd
+        []
+        # - hledger-iadd  # megaparsec bounds: https://github.com/fpco/stackage/issues/2666
 
     "Roy Levien <royl@aldaron.com> @orome":
         - crypto-enigma
@@ -3119,7 +3120,8 @@ packages:
         - hasbolt
 
     "Michael Thomas <Michaelt293@gmail.com> @Michaelt293":
-        - isotope
+        []
+        # - isotope # megaparsec bounds: https://github.com/fpco/stackage/issues/2666
 
     "Christopher A. Gorski <cgorski@cgorski.org> @cgorski":
         - general-games
@@ -3288,13 +3290,6 @@ packages:
         # https://github.com/fpco/stackage/issues/2663
         - doctest < 0.12
 
-        # https://github.com/fpco/stackage/issues/2666
-        - megaparsec < 6
-        - hspec-megaparsec < 1
-        - dotenv < 0.4
-        - inflections < 0.4
-        # Unblock cue-sheet above when removing this bound
-
         # https://github.com/fpco/stackage/issues/2714
         - brick < 0.21
         - word-wrap < 0.2
@@ -3313,6 +3308,10 @@ packages:
 
         # https://github.com/fpco/stackage/issues/2779
         - xml-conduit < 1.6.0
+
+        # https://github.com/fpco/stackage/issues/2797
+        # - inflections < 0.4.0.0
+
 
 # end of packages
 
