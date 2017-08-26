@@ -118,7 +118,7 @@ apt-get install -y \
     libyaml-dev \
     libzip-dev \
     libzmq3-dev \
-    llvm-3.9 \
+    llvm-3.7 \
     locales \
     m4 \
     minisat \
