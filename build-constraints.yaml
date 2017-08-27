@@ -205,7 +205,7 @@ packages:
         - binary-parsers
         - binary-ieee754
         - word24
-        # - mysql-haskell # bounds: memory
+        # - mysql-haskell # 3 packages out of bounds: https://github.com/winterland1989/mysql-haskell/issues/16
         # - mysql-haskell-openssl # bounds: tcp-streams
         - data-has
 
@@ -2788,7 +2788,7 @@ packages:
         # - gi-soup # via gi-gio compilation failure https://github.com/haskell-gi/haskell-gi/issues/113
         - gi-javascriptcore == 3.0.*
         # - gi-webkit # compilation failure via gi-pango https://github.com/haskell-gi/haskell-gi/issues/113
-        - gi-ostree
+        - gi-ostree < 0 # dependent on gi-gio
         - haskell-gi
         - haskell-gi-base
 
@@ -3206,7 +3206,7 @@ packages:
 
     "Naushadh <naushadh@protonmail.com> @naushadh":
         []
-        # - persistent-mysql-haskell # bounds: tcp-streams
+        # - persistent-mysql-haskell # bounds: tcp-streams (see mysql-haskell)
 
     "Moritz Schulte <mtesseract@silverratio.net> @mtesseract":
         - async-refresh
@@ -3285,7 +3285,7 @@ packages:
     "José Lorenzo Rodríguez <jose.zap@gmail.com> @lorenzo":
         - wrecker
         - docker-build-cacher
-        - mysql-haskell-nem
+        # - mysql-haskell-nem : blocked on mysql-haskell
 
     # If you stop maintaining a package you can move it here.
     # It will then be disabled if it starts causing problems.
