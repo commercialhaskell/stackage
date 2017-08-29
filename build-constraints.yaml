@@ -3324,6 +3324,8 @@ packages:
     "Stackage upper bounds":
         # https://github.com/fpco/stackage/issues/2814
         - doctest < 0.12
+        # Once unconstrained, remove the following skipped-tests
+        # - sbv
 
         # https://github.com/fpco/stackage/issues/2714
         - brick < 0.21
@@ -3545,6 +3547,7 @@ skipped-tests:
 
     # Blocked by stackage upper bounds. These can be re-enabled once
     # the relevant stackage upper bound is lifted.
+    - sbv # doctest >= 0.13
 
     # Compilation failures
     - proto-lens-combinators # https://github.com/google/proto-lens/issues/119
