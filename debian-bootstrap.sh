@@ -220,7 +220,7 @@ pushd /tmp \
     && apt-get install -y cuda-drivers cuda-core-${CUDA_APT} cuda-cudart-dev-${CUDA_APT} cuda-cufft-dev-${CUDA_APT} cuda-cublas-dev-${CUDA_APT} cuda-cusparse-dev-${CUDA_APT} cuda-cusolver-dev-${CUDA_APT} \
     && rm cuda-repo-ubuntu1604_${CUDA_PKG}_amd64.deb \
     && export CUDA_PATH=/usr/local/cuda-${CUDA_VER} \
-    && export LD_LIBRARY_PATH=${CUDA_PATH}/nvvm/lib64:${LD_LIBRARY_PATH} \
+    && export LD_LIBRARY_PATH=${CUDA_PATH}/nvvm/lib64:${LD_LIBRARY_PATH+x} \
     && export LD_LIBRARY_PATH=${CUDA_PATH}/lib64:${LD_LIBRARY_PATH} \
     && export PATH=${CUDA_PATH}/bin:${PATH} \
     && popd

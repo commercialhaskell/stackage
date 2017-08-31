@@ -472,7 +472,7 @@ packages:
         - xenstore
 
     "Chris Done @chrisdone":
-        - labels < 0 # compilation failure https://github.com/chrisdone/labels/issues/8
+        - labels
         - ace
         - ical
         - check-email
@@ -670,11 +670,12 @@ packages:
         - gloss-algorithms
         - gloss-raster
         - gloss-rendering
-        - cuda
-        - cublas
-        - cusparse
-        - cusolver
-        - nvvm
+        # https://github.com/fpco/stackage/issues/2813
+        # - cuda
+        # - cublas
+        # - cusparse
+        # - cusolver
+        # - nvvm
 
     "Liam O'Connor <liamoc@cse.unsw.edu.au> @liamoc":
         []
@@ -847,7 +848,7 @@ packages:
         - openpgp-asciiarmor
         - MusicBrainz
         - DAV
-        - hopenpgp-tools
+        # - hopenpgp-tools # https://github.com/fpco/stackage/issues/2812
         - opensource
 
     "Piyush P Kurur <ppk@cse.iitk.ac.in> @piyush-kurur":
@@ -1671,6 +1672,7 @@ packages:
         - annotated-wl-pprint
 
     "Yitz Gale <gale@sefer.org> @ygale":
+        - strict-concurrency
         - timezone-series
         - timezone-olson
 
@@ -2249,7 +2251,7 @@ packages:
         - strict-base-types
         - withdependencies
         - hruby
-        - language-puppet
+        # - language-puppet # https://github.com/fpco/stackage/issues/2822
         - tar-conduit
         # - stm-firehose # bounds: http-types, stm-conduit, transformers, wai, warp
         # - hslogstash # bounds: aeson, lens, time, transformers # via: stm-firehose
@@ -2311,9 +2313,10 @@ packages:
         - flat-mcmc
 
     "Facundo Domínguez <facundo.dominguez@tweag.io> @facundominguez":
-        - distributed-process
-        - distributed-process-tests
-        - distributed-process-simplelocalnet
+        # https://github.com/haskell-distributed/distributed-process/issues/312
+        # - distributed-process
+        # - distributed-process-tests
+        # - distributed-process-simplelocalnet
         - distributed-static
         - network-transport
         - network-transport-tests
@@ -3255,6 +3258,7 @@ packages:
     "Alexander Ignatyev <ignatyev.alexander@gmail.com> @alexander-ignatyev":
         - astro
         - mltool
+        - hmatrix-morpheus
 
     "Edward Amsden <edwardamsden@gmail.com> @eamsden":
         - h2c
@@ -3281,11 +3285,19 @@ packages:
 
     "Daniel Campoverde <alx@sillybytes.net> @alx741":
         - currencies
+        - alerts
+        - yesod-alerts
 
     "José Lorenzo Rodríguez <jose.zap@gmail.com> @lorenzo":
         - wrecker
         - docker-build-cacher
         # - mysql-haskell-nem : blocked on mysql-haskell
+
+    "Phil Ruffwind <rf@rufflewind.com> @Rufflewind":
+        - blas-hs
+
+    "Eitan Chatav <eitan@gmail.com> @echatav":
+        - squeal-postgresql
 
     # If you stop maintaining a package you can move it here.
     # It will then be disabled if it starts causing problems.
@@ -3316,8 +3328,10 @@ packages:
         - Win32 == 2.5.4.1
 
     "Stackage upper bounds":
-        # https://github.com/fpco/stackage/issues/2663
+        # https://github.com/fpco/stackage/issues/2814
         - doctest < 0.12
+        # Once unconstrained, remove the following skipped-tests
+        # - sbv
 
         # https://github.com/fpco/stackage/issues/2714
         - brick < 0.21
@@ -3539,6 +3553,7 @@ skipped-tests:
 
     # Blocked by stackage upper bounds. These can be re-enabled once
     # the relevant stackage upper bound is lifted.
+    - sbv # doctest >= 0.13
 
     # Compilation failures
     - proto-lens-combinators # https://github.com/google/proto-lens/issues/119
@@ -3609,7 +3624,6 @@ expected-test-failures:
     - distributed-process
     - distributed-process-execution # https://github.com/haskell-distributed/distributed-process-execution/issues/2
     - distributed-process-task
-    - dotenv # https://github.com/stackbuilders/dotenv-hs/issues/58
     - foldl-statistics # https://github.com/data61/foldl-statistics/issues/2
     - fsnotify # Often runs out of inotify handles
     - hastache
@@ -3735,6 +3749,7 @@ expected-test-failures:
     - DRBG # https://github.com/TomMD/DRBG/issues/7
     - cayley-client # https://github.com/MichelBoucey/cayley-client/issues/2
     - direct-sqlite # 2.3.17 https://github.com/IreneKnapp/direct-sqlite/issues/63
+    - download # https://github.com/fpco/stackage/issues/2811
     - ed25519 # 0.0.5.0 https://github.com/thoughtpolice/hs-ed25519/issues/15
     - ghc-exactprint # https://github.com/alanz/ghc-exactprint/issues/47
     - nettle # https://github.com/stbuehler/haskell-nettle/issues/8
@@ -3745,6 +3760,7 @@ expected-test-failures:
     - unicode-show # https://github.com/nushio3/unicode-show/issues/2
     - xml-picklers # https://github.com/Philonous/xml-picklers/issues/5
     - xmonad # 0.12 https://github.com/xmonad/xmonad/issues/36
+    - yahoo-finance-api # https://github.com/fpco/stackage/issues/2821
 
     # Compilation failures
     - ListLike # No issue tracker, e-mail sent to maintainer
@@ -3752,6 +3768,7 @@ expected-test-failures:
     - commutative # https://github.com/athanclark/commutative/issues/4
     - dbus # 0.10.12 No issue tracker, e-mail sent to maintainer
     - flat # https://github.com/Quid2/flat/issues/1
+    - foundation # https://github.com/haskell-foundation/foundation/issues/394
     - haddock
     - heap # https://github.com/pruvisto/heap/issues/4
     - hledger-iadd # https://github.com/hpdeifel/hledger-iadd/issues/26
@@ -3837,6 +3854,7 @@ expected-benchmark-failures:
     - xmlgen # https://github.com/skogsbaer/xmlgen/issues/6
     - raaz # https://github.com/raaz-crypto/raaz/issues/338
     - http2
+    - xxhash # https://github.com/christian-marie/xxhash/issues/4
 
 # end of expected-benchmark-failures
 
