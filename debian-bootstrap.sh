@@ -207,6 +207,7 @@ curl https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-l
     && rm libtensorflow.tar.gz \
     && ldconfig
 
+# NOTE: also update Dockerfile when cuda version changes
 # Install CUDA toolkit
 # The current version can be found at: https://developer.nvidia.com/cuda-downloads
 CUDA_PKG=8.0.61-1         # update this on new version
