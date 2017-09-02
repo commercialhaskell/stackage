@@ -13,7 +13,6 @@
 set -exu
 
 mkdir /home/stackage -p
-locale-gen en_US.UTF-8
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
@@ -21,40 +20,46 @@ apt-get install -y software-properties-common
 
 add-apt-repository ppa:hvr/ghc -y
 add-apt-repository -y ppa:marutter/rrutter
-# not sure what this was needed for
-#add-apt-repository -y ppa:openstack-ubuntu-testing/icehouse
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy main'
+add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy-apache24-compat main'
+add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy-libjpeg62-compat main'
 
-# Set the GHC version
-GHCVER=8.0.1
-
-# Get Stack
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 575159689BEFB442
-echo 'deb http://download.fpcomplete.com/ubuntu xenial main'|tee /etc/apt/sources.list.d/fpco.list
+GHCVER=8.2.1
 
 apt-get update
 apt-get install -y \
     build-essential \
-    ghc-$GHCVER \
-    ghc-$GHCVER-htmldocs \
-    hscolour \
-    sudo \
     curl \
     freeglut3-dev \
+    fsharp \
+    ghc-$GHCVER \
+    ghc-$GHCVER-dyn \
+    ghc-$GHCVER-htmldocs \
+    ghc-$GHCVER-prof \
     git \
+    gradle \
+    hscolour \
     libadns1-dev \
+    libaio1 \
+    libalut-dev \
     libasound2-dev \
     libblas-dev \
     libbz2-dev \
     libcairo2-dev \
+    libclang-3.9-dev \
     libcurl4-openssl-dev \
+    libcwiid-dev \
     libdevil-dev \
     libedit-dev \
     libedit2 \
     libfftw3-dev \
+    libflac-dev \
     libfreenect-dev \
     libgd2-xpm-dev \
     libgeoip-dev \
     libgirepository1.0-dev \
+    libglfw3-dev \
     libglib2.0-dev \
     libglu1-mesa-dev \
     libgmp3-dev \
@@ -65,25 +70,39 @@ apt-get install -y \
     libgtk2.0-dev \
     libgtksourceview-3.0-dev \
     libhidapi-dev \
+    libi2c-dev \
     libicu-dev \
+    libimlib2-dev \
+    libjack-jackd2-dev \
     libjudy-dev \
     liblapack-dev \
     libleveldb-dev \
+    liblmdb-dev \
     liblzma-dev \
     libmagic-dev \
     libmagickcore-dev \
     libmagickwand-dev \
     libmarkdown2-dev \
+    libmono-2.0-dev \
+    libmp3lame-dev \
+    libmpfr-dev \
     libmysqlclient-dev \
     libncurses-dev \
+    libnfc-dev \
     libnotify-dev \
     libopenal-dev \
     libpango1.0-dev \
     libpcap0.8-dev \
     libpq-dev \
+    libsdl1.2-dev \
     libsdl2-dev \
+    libsdl2-gfx-dev \
+    libsdl2-image-dev \
+    libsdl2-mixer-dev \
+    libsdl2-ttf-dev \
     libsnappy-dev \
     libsndfile1-dev \
+    libsox-dev \
     libsqlite3-dev \
     libssl-dev \
     libsystemd-dev \
@@ -99,20 +118,32 @@ apt-get install -y \
     libyaml-dev \
     libzip-dev \
     libzmq3-dev \
-    llvm \
+    llvm-3.9 \
+    locales \
     m4 \
+    minisat \
+    mono-mcs \
     nettle-dev \
     nodejs \
     npm \
     openjdk-8-jdk \
+    python-mpltoolkits.basemap \
+    python3-matplotlib \
+    python3-numpy \
+    python3-pip \
     r-base \
     r-base-dev \
     ruby-dev \
-    stack \
+    sudo \
     wget \
     xclip \
+    z3 \
     zip \
     zlib1g-dev
+
+locale-gen en_US.UTF-8
+
+curl -sSL https://get.haskellstack.org/ | sh
 
 # Put documentation where we expect it
 mv /opt/ghc/$GHCVER/share/doc/ghc-$GHCVER/ /opt/ghc/$GHCVER/share/doc/ghc
@@ -122,3 +153,80 @@ mv /opt/ghc/$GHCVER/share/doc/ghc-$GHCVER/ /opt/ghc/$GHCVER/share/doc/ghc
 # faster anyways and uses less RAM.
 update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.gold" 20
 update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
+
+# GHC requires a specific LLVM version on the system PATH for its LLVM backend.
+# This version is tracked here:
+# https://ghc.haskell.org/trac/ghc/wiki/Commentary/Compiler/Backends/LLVM/Installing
+#
+# GHC 8.2 requires LLVM 3.9 tools (specifically, llc-3.9 and opt-3.9).
+update-alternatives --install "/usr/bin/llc" "llc" "/usr/bin/llc-3.9" 50
+update-alternatives --install "/usr/bin/opt" "opt" "/usr/bin/opt-3.9" 50
+
+# install ocilib dependencies then build and install ocilib
+cd /tmp \
+    && wget https://storage.googleapis.com/oracle.fpinsight.com/instantClient/oracle-instantclient12.1-basiclite_12.1.0.2.0-2_amd64.deb \
+    && dpkg -i oracle-instantclient12.1-basiclite_12.1.0.2.0-2_amd64.deb \
+    && rm -f oracle-instantclient12.1-basiclite_12.1.0.2.0-2_amd64.deb \
+    && wget https://storage.googleapis.com/oracle.fpinsight.com/instantClient/oracle-instantclient12.1-devel_12.1.0.2.0-2_amd64.deb \
+    && dpkg -i oracle-instantclient12.1-devel_12.1.0.2.0-2_amd64.deb \
+    && rm -f oracle-instantclient12.1-devel_12.1.0.2.0-2_amd64.deb \
+    && wget https://github.com/vrogier/ocilib/archive/v4.3.2.tar.gz \
+    && tar xvf v4.3.2.tar.gz \
+    && cd /tmp/ocilib-4.3.2 \
+    && ./configure --with-oracle-import=linkage \
+                   --with-oracle-charset=ansi \
+                   --with-oracle-headers-path=/usr/include/oracle/12.1/client64 \
+                   --with-oracle-lib-path=/usr/lib/oracle/12.1/client64/lib \
+    && make \
+    && make install \
+    && cd \
+    && rm -rf /tmp/ocilib-4.3.2 \
+    && echo "/usr/local/lib" > /etc/ld.so.conf.d/usr-local.conf \
+    && echo "/usr/lib/oracle/12.1/client64/lib" > /etc/ld.so.conf.d/oracle-client.conf \
+    && ldconfig
+
+# Add JDK to system paths.
+echo "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/" > /etc/ld.so.conf.d/openjdk.conf \
+    && ldconfig
+
+# llvm-4.0 for llvm-hs (separate since it needs wget)
+wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
+    && add-apt-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-4.0 main" \
+    && apt-get update \
+    && apt-get install -y llvm-4.0
+
+# Install version 3 of the protobuf compiler.  (The `protobuf-compiler` package only
+# supports version 2.)
+curl -OL https://github.com/google/protobuf/releases/download/v3.3.0/protoc-3.3.0-linux-x86_64.zip \
+  && sudo unzip -o protoc-3.3.0-linux-x86_64.zip -d /usr bin/protoc \
+  && rm -f protoc-3.3.0-linux-x84_64.zip
+
+# Install the TensorFlow C API.
+curl https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-1.1.0.tar.gz > libtensorflow.tar.gz \
+    && sudo tar zxf libtensorflow.tar.gz -C /usr \
+    && rm libtensorflow.tar.gz \
+    && ldconfig
+
+# NOTE: also update Dockerfile when cuda version changes
+# Install CUDA toolkit
+# The current version can be found at: https://developer.nvidia.com/cuda-downloads
+CUDA_PKG=8.0.61-1         # update this on new version
+CUDA_VER=${CUDA_PKG:0:3}
+CUDA_APT=${CUDA_VER/./-}
+
+pushd /tmp \
+    && wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_${CUDA_PKG}_amd64.deb \
+    && dpkg -i cuda-repo-ubuntu1604_${CUDA_PKG}_amd64.deb \
+    && apt-get update -qq \
+    && apt-get install -y cuda-drivers cuda-core-${CUDA_APT} cuda-cudart-dev-${CUDA_APT} cuda-cufft-dev-${CUDA_APT} cuda-cublas-dev-${CUDA_APT} cuda-cusparse-dev-${CUDA_APT} cuda-cusolver-dev-${CUDA_APT} \
+    && rm cuda-repo-ubuntu1604_${CUDA_PKG}_amd64.deb \
+    && export CUDA_PATH=/usr/local/cuda-${CUDA_VER} \
+    && export LD_LIBRARY_PATH=${CUDA_PATH}/nvvm/lib64:${LD_LIBRARY_PATH+x} \
+    && export LD_LIBRARY_PATH=${CUDA_PATH}/lib64:${LD_LIBRARY_PATH} \
+    && export PATH=${CUDA_PATH}/bin:${PATH} \
+    && popd
+
+## non-free repo for mediabus-fdk-aac
+#apt-add-repository multiverse \
+#    && apt-get update \
+#    && apt-get install -y libfdk-aac-dev
