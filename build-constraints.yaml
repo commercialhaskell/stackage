@@ -2260,7 +2260,7 @@ packages:
         - strict-base-types
         - withdependencies
         - hruby
-        # - language-puppet # https://github.com/fpco/stackage/issues/2822
+        - language-puppet # also in "skipped-haddocks" section
         - tar-conduit
         # - stm-firehose # bounds: http-types, stm-conduit, transformers, wai, warp
         # - hslogstash # bounds: aeson, lens, time, transformers # via: stm-firehose
@@ -3909,6 +3909,11 @@ expected-haddock-failures:
     - store
 
 # end of expected-haddock-failures
+
+# For packages with haddock issues
+skipped-haddocks:
+- language-puppet # https://github.com/fpco/stackage/issues/2822
+# end of skipped-haddocks
 
 # Benchmarks which should not be built. Note that Stackage builds benchmarks but does not run them.
 # By skipping a benchmark, we do not pull in the build dependencies
