@@ -263,7 +263,7 @@ packages:
 
     "Michael Snoyman michael@snoyman.com @snoyberg":
         - bzlib-conduit
-        # - cabal-install # GHC 8.2.1
+        - cabal-install
         - mega-sdist
         - case-insensitive
         - classy-prelude-yesod
@@ -3629,6 +3629,9 @@ skipped-tests:
     - graphviz
     - wl-pprint-text
 
+    - hackage-security # Cabal 2.0
+    - ed25519 # QuickCheck, hlint and more
+
 # end of skipped-tests
 
 # Tests which we should build and run, but which are expected to fail. We
@@ -3982,6 +3985,8 @@ skipped-benchmarks:
     - graphviz
     - graphviz
     - wl-pprint-text
+
+    - ed25519 # Criterion
 
 # end of skipped-benchmarks
 
