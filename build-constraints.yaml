@@ -282,7 +282,7 @@ packages:
         - persistent-postgresql
         - persistent-sqlite
         - persistent-template
-        - stackage-curator
+        # - stackage-curator
         - store
         - stm-conduit
         - wai-websockets
@@ -938,7 +938,7 @@ packages:
         - hledger
         - hledger-lib
         - hledger-ui
-        # - hledger-web # GHC 8.2.1 via yesod-form
+        - hledger-web
         - hledger-api
         # - shelltestrunner # bounds: Diff, HUnit
         - quickbench
@@ -3315,7 +3315,8 @@ packages:
         - ghost-buster
 
     "typeable.io <makeit@typeable.io>":
-        - stackage2nix
+        []
+        # - stackage2nix
 
     "Jeremy Huffman <jeremy@jeremyhuffman.com> @jeremyjh":
         - higher-leveldb
@@ -3379,8 +3380,9 @@ packages:
         # https://github.com/fpco/stackage/issues/2832
         - io-streams < 1.5
 
-        # https://github.com/fpco/stackage/issues/2833
-        - yi-rope < 0.9
+        # https://github.com/llvm-hs/llvm-hs/issues/137
+        - llvm-hs < 5.0.0
+        - llvm-hs-pure == 4.1.0.0
 
 # end of packages
 
@@ -3794,6 +3796,8 @@ expected-test-failures:
     - bitx-bitcoin  # https://github.com/tebello-thejane/bitx.hs/issues/4
 
     # Compilation failures
+    - higher-leveldb # https://github.com/jeremyjh/higher-leveldb/issues/7
+    - yeshql # https://bitbucket.org/tdammers/yeshql/issues/1/stackage-nightly-test-failure
     - ListLike # No issue tracker, e-mail sent to maintainer
     - amazonka-core # https://github.com/brendanhay/amazonka/issues/397
     - commutative # https://github.com/athanclark/commutative/issues/4
