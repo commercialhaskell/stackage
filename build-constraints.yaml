@@ -7,6 +7,12 @@ cabal-format-version: "1.24"
 
 # Constraints for brand new builds
 packages:
+    "Jürgen Keck <jhyphenkeck@gmail.com> @j-keck":
+        - wreq-stringless
+
+    "Olaf Chitil <oc@kent.ac.uk> @OlafChitil":
+        - FPretty
+
     "Maarten Faddegon <stackage@maartenfaddegon.nl> @MaartenFaddegon":
         - libgraph
         - Hoed
@@ -669,6 +675,13 @@ packages:
 
     "Trevor L. McDonell <tmcdonell@cse.unsw.edu.au> @tmcdonell":
         - accelerate
+        - accelerate-llvm
+        - accelerate-llvm-native
+        - accelerate-llvm-ptx
+        - accelerate-io
+        - accelerate-fft
+        - accelerate-blas
+        # - accelerate-bignum # wide-word-0.1.0.3. No maintainer. @erikd. Used by: test-suite
         - repa
         - repa-io
         - repa-algorithms
@@ -676,6 +689,11 @@ packages:
         - gloss-algorithms
         - gloss-raster
         - gloss-rendering
+        - gloss-accelerate
+        - gloss-raster-accelerate
+        - colour-accelerate
+        - lens-accelerate
+        - mwc-random-accelerate
         - cuda
         - cublas
         - cusparse
@@ -744,7 +762,7 @@ packages:
     "Chris Allen <cma@bitemyapp.com> @bitemyapp":
         - machines-directory
         - machines-io
-        # - bloodhound # GHC 8.2.1
+        - bloodhound
         - esqueleto
 
     "Adam Bergmark <adam@bergmark.nl> @bergmark":
@@ -939,7 +957,7 @@ packages:
         - hledger-lib
         - hledger-ui
         - hledger-web
-        - hledger-api
+        # - hledger-api
         # - shelltestrunner # bounds: Diff, HUnit
         - quickbench
         - regex-compat-tdfa
@@ -1879,6 +1897,7 @@ packages:
     "koral koral@mailoo.org @k0ral":
         - atom-conduit
         - conduit-parse
+        - dublincore-xml-conduit
         - opml-conduit
         - rss-conduit < 0 # test runtime failure
         - imm < 0 # compilation failure via synthesizer-core
@@ -1907,7 +1926,6 @@ packages:
         - pipes-fastx
         # - pipes-illumina # via: pipes-bgzf
         - seqalign
-        - thermonuc
         - xlsior < 0 # compilation failure https://github.com/eurekagenomics/xlsior/issues/3
 
     "John Lenz <wuzzeb@gmail.com> @wuzzeb":
@@ -2033,8 +2051,7 @@ packages:
         - ipython-kernel # GHC 8
 
     "Andrés Sicard-Ramírez <asr@eafit.edu.co> @asr":
-        []
-        # - Agda # GHC 8.2.1
+        - Agda
 
     "James Cook <mokus@deepbondi.net> @mokus0":
         - dependent-sum
@@ -2074,7 +2091,7 @@ packages:
         # - euphoria # GHC 8.2.1
 
     "Ashley Moni ashley.moni1@gmail.com @AshleyMoni":
-        - quadtree
+        []
 
     "Brian Lewis brian@lorf.org @bsl":
         []
@@ -2142,7 +2159,6 @@ packages:
 
     "Dmitry Ivanov <ethercrow@gmail.com> @ethercrow":
         - charsetdetect-ae
-        - compiler-errors
         - docopt
         - dynamic-state
         - dyre
@@ -2175,6 +2191,9 @@ packages:
     "Patrick Redmond <plredmond@gmail.com> @plredmond":
         []
         # - GPipe-GLFW # GHC 8.2.1 via GLFW-b
+
+    "Jonas Carpay <jonascarpay@gmail.com> @jonascarpay":
+        - apecs
 
     "Csaba Hruska <csaba.hruska@gmail.com> @csabahruska":
         []
@@ -2224,7 +2243,7 @@ packages:
         - cabal2nix
         - funcmp
         - hackage-db
-        # - hledger-interest  # megaparsec bounds: https://github.com/fpco/stackage/issues/2666
+        - hledger-interest
         - hopenssl
         - hsdns
         - hsemail
@@ -2629,8 +2648,8 @@ packages:
         # - ua-parser # bounds aeson
         - hs-GeoIP
         - retry
-        # - katip # bounds aeson
-        # - katip-elasticsearch # via bloodhound: bounds: vector
+        - katip
+        - katip-elasticsearch
 
     "Sid Kapur sidharthkapur1@gmail.com @sid-kap":
         - tuple
@@ -2810,9 +2829,8 @@ packages:
         - directory-tree
 
     "Ian Grant Jeffries <ian@housejeffries.com> @seagreen":
-        []
-        # - hjsonpointer # GHC 8.2.1
-        # - hjsonschema # GHC 8.2.1
+        - hjsonpointer
+        - hjsonschema
 
     "Drew Hess <src@drewhess.com> @dhess":
         - hpio
@@ -2868,6 +2886,7 @@ packages:
         - bson
 
     "Alexis King <lexi.lambda@gmail.com> @lexi-lambda":
+        - monad-mock
         - test-fixture
         - text-conversions
         - th-to-exp
@@ -2901,8 +2920,7 @@ packages:
         - language-fortran
 
     "Philipp Schuster <phischu3000@gmail.com> @phischu":
-        []
-        # - haskell-names # bounds: aeson
+        - haskell-names
 
     "Shao Cheng <astrohavoc@gmail.com> @TerrorJack":
         []
@@ -2962,6 +2980,10 @@ packages:
         - lmdb
         - rdf
 
+    "Michael Swan <mswan@fastmail.com> @michael-swan":
+        - pcf-font
+        - pcf-font-embed
+
     "Iago Abal <iagoabal+stack@gmail.com>":
         - bv
 
@@ -2991,11 +3013,13 @@ packages:
         []
         # - HDBC-mysql # GHC 8.2.1
 
+    "Tony Morris <haskell@tmorris.net> @tonymorris":
+        - validation
+
     "Tony Day <tonyday567@gmail.com> @tonyday567":
         - numhask
         - numhask-range
-        # - chart-unit # bounds optparse-applicative
-        # - perf # bounds optparse-applicative
+        - perf
         - online
 
     "Iphigenia Df <iphydf@gmail.com> @iphydf":
@@ -3008,7 +3032,6 @@ packages:
         - tce-conf
 
     "Jonathan Fischoff <jonathangfischoff@gmail.com>":
-        - threads-extra
         - clock-extras
         - next-ref
         - tmp-postgres
@@ -3069,8 +3092,7 @@ packages:
         # - hip # via repa-algorithms
 
     "Hans-Peter Deifel <hpd@hpdeifel.de> @hpdeifel":
-        []
-        # - hledger-iadd  # megaparsec bounds: https://github.com/fpco/stackage/issues/2666
+        - hledger-iadd
 
     "Roy Levien <royl@aldaron.com> @orome":
         - crypto-enigma
@@ -3135,6 +3157,7 @@ packages:
 
     "ncaq <ncaq@ncaq.net> @ncaq":
         - haskell-import-graph
+        - string-transform
         - uniq-deep
         - yesod-form-bootstrap4
         - yesod-recaptcha2
@@ -3370,15 +3393,24 @@ packages:
         # https://github.com/fpco/stackage/issues/2779
         - xml-conduit < 1.6.0
 
-        # https://github.com/fpco/stackage/issues/2797
-        # - inflections < 0.4.0.0
-
-        # https://github.com/fpco/stackage/issues/2826
-        - uri-templater < 0.3
-
         # https://github.com/fpco/stackage/issues/2832
         - io-streams < 1.5
 
+        # https://github.com/fpco/stackage/issues/2860
+        - language-c < 0.7
+
+        # https://github.com/fpco/stackage/issues/2878
+        - hackage-db < 2.0
+        - cabal2nix < 2.6
+
+        # https://github.com/fpco/stackage/issues/2894
+        - marvin < 0.2.4
+
+        # https://github.com/fpco/stackage/issues/2893
+        - megaparsec < 6.2.0
+
+        # https://github.com/fpco/stackage/issues/2891
+        - irc-client < 1.0.0.0
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
@@ -3765,7 +3797,6 @@ expected-test-failures:
     - ghc-events # https://github.com/haskell/ghc-events/issues/9
     - ghc-syb-utils # https://github.com/nominolo/ghc-syb/issues/18
     - graylog # 0.1.0.1 https://github.com/fpco/stackage/pull/1254
-    - haskell-names # 0.7.0 https://github.com/haskell-suite/haskell-names/issues/78
     - matplotlib # https://github.com/fpco/stackage/issues/2365
     - rematch # No issue tracker, sent e-mail to maintainer https://github.com/fpco/stackage/issues/376
     - xlsior # https://github.com/rcallahan/xlsior/issues/1
@@ -3800,7 +3831,6 @@ expected-test-failures:
     - foundation # https://github.com/haskell-foundation/foundation/issues/394
     - haddock
     - heap # https://github.com/pruvisto/heap/issues/4
-    - hledger-iadd # https://github.com/hpdeifel/hledger-iadd/issues/26
     - hspec-expectations-pretty-diff # GHC 8 issue not reported upstream since issue tracker disabled
     - hweblib # https://github.com/aycanirican/hweblib/issues/3
     - language-dockerfile # https://github.com/beijaflor-io/haskell-language-dockerfile/issues/8
@@ -3854,6 +3884,8 @@ expected-test-failures:
     - tcp-streams # https://github.com/didi-FP/tcp-streams/issues/5
     - tcp-streams-openssl # https://github.com/didi-FP/tcp-streams/issues/5
     - tmp-postgres # https://github.com/jfischoff/tmp-postgres/issues/1
+
+    - perf # https://github.com/fpco/stackage/pull/2859
 
 # end of expected-test-failures
 
@@ -3983,6 +4015,7 @@ skipped-benchmarks:
     - refined
     - slave-thread
     - stm-containers
+    - vector-builder
     # @ivan-m https://github.com/fpco/stackage/issues/2538#issuecomment-307290070
     - fgl
     - fgl-arbitrary

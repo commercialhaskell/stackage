@@ -126,6 +126,7 @@ apt-get install -y \
     nettle-dev \
     nodejs \
     npm \
+    nvidia-cuda-dev \
     openjdk-8-jdk \
     python-mpltoolkits.basemap \
     python3-matplotlib \
