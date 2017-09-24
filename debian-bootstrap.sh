@@ -126,7 +126,6 @@ apt-get install -y \
     nettle-dev \
     nodejs \
     npm \
-    nvidia-cuda-dev \
     openjdk-8-jdk \
     python-mpltoolkits.basemap \
     python3-matplotlib \
@@ -227,7 +226,7 @@ pushd /tmp \
     && export PATH=${CUDA_PATH}/bin:${PATH} \
     && popd
 
-## non-free repo for mediabus-fdk-aac
-#apt-add-repository multiverse \
-#    && apt-get update \
-#    && apt-get install -y libfdk-aac-dev
+# non-free repo for mediabus-fdk-aac
+apt-add-repository multiverse \
+    && apt-get update \
+    && apt-get install -y nvidia-cuda-dev
