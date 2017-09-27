@@ -7,8 +7,11 @@ cabal-format-version: "1.24"
 
 # Constraints for brand new builds
 packages:
+    "Jürgen Keck <jhyphenkeck@gmail.com> @j-keck":
+        - wreq-stringless
+
     "Olaf Chitil <oc@kent.ac.uk> @OlafChitil":
-        []
+        - FPretty
 
     "Maarten Faddegon <stackage@maartenfaddegon.nl> @MaartenFaddegon":
         - libgraph
@@ -64,9 +67,8 @@ packages:
         # - discord-hs # bounds: req
 
     "Roman Gonzalez <romanandreg@gmail.com> @roman":
-        []
+        - teardown
         # - etc # GHC 8.2.1 via protolude
-        # - teardown # GHC 8.2.1
 
     "Richard Cook <rcook@rcook.org> @rcook":
         - hidden-char
@@ -251,7 +253,7 @@ packages:
         - once
 
     "David Johnson <djohnson.m@gmail.com> @dmjio":
-        - miso # GHC 8.2.1
+        - miso
         - envy
         - s3-signer
         - google-translate # bounds: servant
@@ -672,6 +674,13 @@ packages:
 
     "Trevor L. McDonell <tmcdonell@cse.unsw.edu.au> @tmcdonell":
         - accelerate
+        - accelerate-llvm
+        - accelerate-llvm-native
+        - accelerate-llvm-ptx
+        - accelerate-io
+        - accelerate-fft
+        - accelerate-blas
+        - accelerate-bignum
         - repa
         - repa-io
         - repa-algorithms
@@ -679,11 +688,17 @@ packages:
         - gloss-algorithms
         - gloss-raster
         - gloss-rendering
+        - gloss-accelerate
+        - gloss-raster-accelerate
+        - colour-accelerate
+        - lens-accelerate
+        - mwc-random-accelerate
         - cuda
         - cublas
         - cusparse
         - cusolver
         - nvvm
+        - wide-word
 
     "Liam O'Connor <liamoc@cse.unsw.edu.au> @liamoc":
         []
@@ -860,7 +875,7 @@ packages:
         - openpgp-asciiarmor
         - MusicBrainz
         - DAV
-        # - hopenpgp-tools # https://github.com/fpco/stackage/issues/2812
+        - hopenpgp-tools < 0 # Compilation failure https://github.com/fpco/stackage/pull/2899#issuecomment-331836991
         - opensource
 
     "Piyush P Kurur <ppk@cse.iitk.ac.in> @piyush-kurur":
@@ -942,7 +957,7 @@ packages:
         - hledger-lib
         - hledger-ui
         - hledger-web
-        - hledger-api
+        # - hledger-api
         # - shelltestrunner # bounds: Diff, HUnit
         - quickbench
         - regex-compat-tdfa
@@ -1058,6 +1073,7 @@ packages:
         - cases
         - focus
         - hasql
+        - hasql-optparse-applicative
         - hasql-pool
         - list-t
         - mtl-prelude
@@ -1132,7 +1148,8 @@ packages:
         - product-profunctors
 
     "Samplecount stefan@samplecount.com @kaoskorobase":
-        - shake-language-c
+        []
+        # - shake-language-c # https://github.com/samplecount/shake-language-c/issues/32
 
     "David Turner <dave.c.turner@gmail.com> @davecturner":
         - alarmclock
@@ -1215,7 +1232,7 @@ packages:
     "Tomas Carnecky @wereHamster":
         - avers
         - avers-api
-        - avers-api-docs
+        # - avers-api-docs # https://github.com/wereHamster/avers/issues/2
         - avers-server
         - css-syntax
         - etcd
@@ -1225,7 +1242,7 @@ packages:
         - google-cloud
         - kraken
         - libinfluxdb
-        # - mole # via snap, heist, xmlhtml,
+        - mole
         - publicsuffix
         - rethinkdb-client-driver
         - snap-blaze
@@ -2077,6 +2094,7 @@ packages:
 
     "Ashley Moni ashley.moni1@gmail.com @AshleyMoni":
         []
+        # - QuadTree # base and lens
 
     "Brian Lewis brian@lorf.org @bsl":
         []
@@ -2144,6 +2162,7 @@ packages:
 
     "Dmitry Ivanov <ethercrow@gmail.com> @ethercrow":
         - charsetdetect-ae
+        - compiler-warnings
         - docopt
         - dynamic-state
         - dyre
@@ -2170,12 +2189,14 @@ packages:
         - yi-snippet
 
     "Tobias Bexelius <tobias_bexelius@hotmail.com> @tobbebex":
-        []
-        # - GPipe # GHC 8.2.1
+        - GPipe
 
     "Patrick Redmond <plredmond@gmail.com> @plredmond":
         []
         # - GPipe-GLFW # GHC 8.2.1 via GLFW-b
+
+    "Jonas Carpay <jonascarpay@gmail.com> @jonascarpay":
+        - apecs
 
     "Csaba Hruska <csaba.hruska@gmail.com> @csabahruska":
         []
@@ -2225,7 +2246,7 @@ packages:
         - cabal2nix
         - funcmp
         - hackage-db
-        # - hledger-interest  # megaparsec bounds: https://github.com/fpco/stackage/issues/2666
+        - hledger-interest
         - hopenssl
         - hsdns
         - hsemail
@@ -2251,7 +2272,7 @@ packages:
         - tree-fun
         - random-tree
         - clumpiness
-        - find-clumpiness
+        # - find-clumpiness # https://github.com/GregorySchwartz/find-clumpiness/issues/3
         - blosum
         # - convert-annotation # via inline-r compilation failure
         # - rank-product # GHC 8.2.1 via random-fu
@@ -2544,6 +2565,7 @@ packages:
 
     "Yuji Yamamoto <whosekiteneverfly@gmail.com> @igrep":
         - yes-precure5-command
+        - th-strict-compat
 
     "Hans-Christian Esperer <hc@hcesperer.org> @hce":
         - avwx
@@ -2996,8 +3018,8 @@ packages:
         []
         # - HDBC-mysql # GHC 8.2.1
 
-    "Tony Morris <haskell@tmorris.net> @tonymorris":
-        - validation
+#    "Tony Morris <haskell@tmorris.net> @tonymorris":
+#        - validation # https://github.com/fpco/stackage/pull/2872
 
     "Tony Day <tonyday567@gmail.com> @tonyday567":
         - numhask
@@ -3017,6 +3039,7 @@ packages:
     "Jonathan Fischoff <jonathangfischoff@gmail.com>":
         - clock-extras
         - next-ref
+        - threads-extras
         - tmp-postgres
         # - postgresql-simple-opts # bounds: optparse-applicative
         - pg-transact
@@ -3321,10 +3344,15 @@ packages:
         - ghost-buster
 
     "typeable.io <makeit@typeable.io>":
+        - dom-parser
         - stackage2nix
 
     "Jeremy Huffman <jeremy@jeremyhuffman.com> @jeremyjh":
         - higher-leveldb
+
+    "Adam Curtis <kallisti.dev@gmail.com> @kallisti-dev":
+        - webdriver
+        - cond
 
     # If you stop maintaining a package you can move it here.
     # It will then be disabled if it starts causing problems.
@@ -3374,7 +3402,7 @@ packages:
         - ansi-terminal < 0.7
 
         # https://github.com/fpco/stackage/issues/2779
-        - xml-conduit < 1.6.0
+        - xml-conduit < 1.7.0
 
         # https://github.com/fpco/stackage/issues/2832
         - io-streams < 1.5
@@ -3382,9 +3410,8 @@ packages:
         # https://github.com/fpco/stackage/issues/2860
         - language-c < 0.7
 
-        # https://github.com/fpco/stackage/issues/2878
-        - hackage-db < 2.0
-
+        # https://github.com/fpco/stackage/issues/2906
+        - uri-bytestring < 0.3.0
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
@@ -3753,6 +3780,7 @@ expected-test-failures:
     - wai-cors # PhantomJS
     - wai-session-postgresql # PostgreSQL
     - webdriver-angular # webdriver server
+    - accelerate-bignum # CUDA GPU
 
     # Test executable requires arguments
     - hpqtypes
@@ -3775,6 +3803,7 @@ expected-test-failures:
     - rematch # No issue tracker, sent e-mail to maintainer https://github.com/fpco/stackage/issues/376
     - xlsior # https://github.com/rcallahan/xlsior/issues/1
     - yi-keymap-vim # https://github.com/yi-editor/yi/issues/954
+    - wide-word # https://github.com/erikd/wide-word/issues/2
 
     # Assertion failures, these can be real bugs or just limitations
     # in the test cases.
@@ -3794,6 +3823,7 @@ expected-test-failures:
     - xmonad # 0.12 https://github.com/xmonad/xmonad/issues/36
     - yahoo-finance-api # https://github.com/fpco/stackage/issues/2821
     - bitx-bitcoin  # https://github.com/tebello-thejane/bitx.hs/issues/4
+    - linear-accelerate # https://github.com/ekmett/linear-accelerate/issues/10
 
     # Compilation failures
     - yeshql # https://bitbucket.org/tdammers/yeshql/issues/1/stackage-nightly-test-failure
@@ -3825,6 +3855,8 @@ expected-test-failures:
     - wai-middleware-content-type # 0.4.1 - https://github.com/athanclark/wai-middleware-content-type/issues/2
     - xmlgen # https://github.com/skogsbaer/xmlgen/issues/6
     - yesod-auth-basic # https://github.com/creichert/yesod-auth-basic/issues/1
+    - accelerate-blas # https://github.com/fpco/stackage/pull/2880
+    - servant-swagger # aeson https://github.com/fpco/stackage/issues/2879#issuecomment-331759441
 
     # Stackage upper bounds, re-enable these when their upper bound is removed
 
@@ -3843,6 +3875,9 @@ expected-test-failures:
     # Doctests require hidden Glob package
     - multiset
     - makefile
+
+    # Doctest failures
+    - teardown
 
     # Misc.
     - distributed-process-supervisor # # https://github.com/haskell-d
@@ -3989,6 +4024,7 @@ skipped-benchmarks:
     - refined
     - slave-thread
     - stm-containers
+    - vector-builder
     # @ivan-m https://github.com/fpco/stackage/issues/2538#issuecomment-307290070
     - fgl
     - fgl-arbitrary

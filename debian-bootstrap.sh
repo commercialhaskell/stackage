@@ -226,7 +226,7 @@ pushd /tmp \
     && export PATH=${CUDA_PATH}/bin:${PATH} \
     && popd
 
-## non-free repo for mediabus-fdk-aac
-#apt-add-repository multiverse \
-#    && apt-get update \
-#    && apt-get install -y libfdk-aac-dev
+# non-free repo for mediabus-fdk-aac
+apt-add-repository multiverse \
+    && apt-get update \
+    && apt-get install -y nvidia-cuda-dev
