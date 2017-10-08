@@ -259,9 +259,9 @@ packages:
         - google-translate # bounds: servant
         - hackernews # GHC 8.2.1
         - ses-html
-        # - stripe-haskell # via: stripe-http-streams
-        # - stripe-http-streams # via: http-streams
-        # - stripe-core # bounds: aeson 1.0
+        - stripe-haskell
+        - stripe-http-streams
+        - stripe-core
 
     "Piotr Mlodawski @pmlodawski":
         - error-util
@@ -3149,8 +3149,8 @@ packages:
         - javascript-extras
         - l10n
         - pipes-category
-        - pipes-fluid
-        - pipes-misc
+        # pipes-fluid # blocked on pipes-misc
+        # pipes-misc # blocked due to https://github.com/fpco/stackage/issues/2946
         - stm-extras
 
     "Siniša Biđin <sinisa@bidin.eu> @sbidin":
@@ -3323,6 +3323,7 @@ packages:
         - listsafe
 
     "Serokell <hi@serokell.io> @serokell":
+        - log-warper
         - universum
 
     "Lorenz Moesenlechner <moesenle@gmail.com> @moesenle":
@@ -3365,6 +3366,9 @@ packages:
 
     "Deni Bertovic <deni@denibertovic.com> @denibertovic, James Parker <dev@jamesparker.me>":
         - docker
+
+    "Hexirp <hexirp@gmail.com> @Hexirp":
+        - doctest-driver-gen
 
     # If you stop maintaining a package you can move it here.
     # It will then be disabled if it starts causing problems.
@@ -3417,6 +3421,9 @@ packages:
 
         # https://github.com/fpco/stackage/issues/2939
         - Glob < 0.9.0
+
+        # https://github.com/fpco/stackage/issues/2944
+        - pipes-category < 0.3.0.0
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
@@ -3792,6 +3799,7 @@ expected-test-failures:
     - gdax # Needs environment variables set
     - nakadi-client # Needs environment variable set
     - lxd-client # Needs LXD, not available on debian
+    - stripe-http-streams # https://github.com/fpco/stackage/issues/2945, needs Stripe account
 
     # Test executable requires arguments
     - hpqtypes
