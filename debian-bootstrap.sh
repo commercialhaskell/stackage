@@ -25,22 +25,21 @@ add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://down
 add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy-apache24-compat main'
 add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy-libjpeg62-compat main'
 
-GHCVER=8.0.2
+GHCVER=8.2.1
 
 apt-get update
 apt-get install -y \
     build-essential \
-    ghc-$GHCVER \
-    ghc-$GHCVER-dyn \
-    ghc-$GHCVER-prof \
-    ghc-$GHCVER-htmldocs \
-    hscolour \
-    sudo \
     curl \
     freeglut3-dev \
     fsharp \
+    ghc-$GHCVER \
+    ghc-$GHCVER-dyn \
+    ghc-$GHCVER-htmldocs \
+    ghc-$GHCVER-prof \
     git \
     gradle \
+    hscolour \
     libadns1-dev \
     libaio1 \
     libalut-dev \
@@ -48,8 +47,9 @@ apt-get install -y \
     libblas-dev \
     libbz2-dev \
     libcairo2-dev \
-    libclang-3.7-dev \
+    libclang-3.9-dev \
     libcurl4-openssl-dev \
+    libcwiid-dev \
     libdevil-dev \
     libedit-dev \
     libedit2 \
@@ -70,8 +70,10 @@ apt-get install -y \
     libgtk2.0-dev \
     libgtksourceview-3.0-dev \
     libhidapi-dev \
+    libi2c-dev \
     libicu-dev \
     libimlib2-dev \
+    libjack-jackd2-dev \
     libjudy-dev \
     liblapack-dev \
     libleveldb-dev \
@@ -92,10 +94,11 @@ apt-get install -y \
     libpango1.0-dev \
     libpcap0.8-dev \
     libpq-dev \
+    libsdl1.2-dev \
     libsdl2-dev \
-    libsdl2-mixer-dev \
-    libsdl2-image-dev \
     libsdl2-gfx-dev \
+    libsdl2-image-dev \
+    libsdl2-mixer-dev \
     libsdl2-ttf-dev \
     libsnappy-dev \
     libsndfile1-dev \
@@ -115,7 +118,7 @@ apt-get install -y \
     libyaml-dev \
     libzip-dev \
     libzmq3-dev \
-    llvm-3.7 \
+    llvm-3.9 \
     locales \
     m4 \
     minisat \
@@ -131,6 +134,7 @@ apt-get install -y \
     r-base \
     r-base-dev \
     ruby-dev \
+    sudo \
     wget \
     xclip \
     z3 \
@@ -154,9 +158,9 @@ update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
 # This version is tracked here:
 # https://ghc.haskell.org/trac/ghc/wiki/Commentary/Compiler/Backends/LLVM/Installing
 #
-# GHC 8.0 requires LLVM 3.7 tools (specifically, llc-3.7 and opt-3.7).
-update-alternatives --install "/usr/bin/llc" "llc" "/usr/bin/llc-3.7" 50
-update-alternatives --install "/usr/bin/opt" "opt" "/usr/bin/opt-3.7" 50
+# GHC 8.2 requires LLVM 3.9 tools (specifically, llc-3.9 and opt-3.9).
+update-alternatives --install "/usr/bin/llc" "llc" "/usr/bin/llc-3.9" 50
+update-alternatives --install "/usr/bin/opt" "opt" "/usr/bin/opt-3.9" 50
 
 # install ocilib dependencies then build and install ocilib
 cd /tmp \
@@ -187,9 +191,9 @@ echo "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/" > /etc/ld.so.conf
 
 # llvm-4.0 for llvm-hs (separate since it needs wget)
 wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
-    && add-apt-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-4.0 main" \
+    && add-apt-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-5.0 main" \
     && apt-get update \
-    && apt-get install -y llvm-4.0
+    && apt-get install -y llvm-5.0
 
 # Install version 3 of the protobuf compiler.  (The `protobuf-compiler` package only
 # supports version 2.)
@@ -203,57 +207,26 @@ curl https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-l
     && rm libtensorflow.tar.gz \
     && ldconfig
 
-## non-free repo for mediabus-fdk-aac
-#apt-add-repository multiverse \
-#    && apt-get update \
-#    && apt-get install -y libfdk-aac-dev
+# NOTE: also update Dockerfile when cuda version changes
+# Install CUDA toolkit
+# The current version can be found at: https://developer.nvidia.com/cuda-downloads
+CUDA_PKG=8.0.61-1         # update this on new version
+CUDA_VER=${CUDA_PKG:0:3}
+CUDA_APT=${CUDA_VER/./-}
 
+pushd /tmp \
+    && wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_${CUDA_PKG}_amd64.deb \
+    && dpkg -i cuda-repo-ubuntu1604_${CUDA_PKG}_amd64.deb \
+    && apt-get update -qq \
+    && apt-get install -y cuda-drivers cuda-core-${CUDA_APT} cuda-cudart-dev-${CUDA_APT} cuda-cufft-dev-${CUDA_APT} cuda-cublas-dev-${CUDA_APT} cuda-cusparse-dev-${CUDA_APT} cuda-cusolver-dev-${CUDA_APT} \
+    && rm cuda-repo-ubuntu1604_${CUDA_PKG}_amd64.deb \
+    && export CUDA_PATH=/usr/local/cuda-${CUDA_VER} \
+    && export LD_LIBRARY_PATH=${CUDA_PATH}/nvvm/lib64:${LD_LIBRARY_PATH+x} \
+    && export LD_LIBRARY_PATH=${CUDA_PATH}/lib64:${LD_LIBRARY_PATH} \
+    && export PATH=${CUDA_PATH}/bin:${PATH} \
+    && popd
 
-################################################################################
-# Install opencv.
-
-OPENCV_VERSION="3.2.0"
-
-apt-get install -y \
-    cmake \
-    pkg-config \
-    libjpeg-dev \
-    libtiff5-dev \
-    libjasper-dev \
-    libpng12-dev \
-    libavcodec-dev \
-    libavformat-dev \
-    libswscale-dev \
-    libxvidcore-dev \
-    libx264-dev \
-    libv4l-dev \
-    liblapacke-dev \
-    libgtk-3-dev \
-    libopenblas-dev \
-    libhdf5-dev \
-    libtesseract-dev \
-    libleptonica-dev \
-    python3-dev \
-    gfortran
-
-# Make a new directory
-rm -rf /tmp/opencv-build
-mkdir /tmp/opencv-build
-cd /tmp/opencv-build
-
-# Download OpenCV
-curl -L https://github.com/opencv/opencv/archive/${OPENCV_VERSION}.tar.gz | tar xz
-curl -L https://github.com/opencv/opencv_contrib/archive/${OPENCV_VERSION}.tar.gz | tar xz
-
-cd opencv-${OPENCV_VERSION}
-mkdir build
-cd build
-cmake -D CMAKE_BUILD_TYPE=RELEASE \
-      -D CMAKE_INSTALL_PREFIX=/usr/local \
-      -D OPENCV_EXTRA_MODULES_PATH=/tmp/opencv-build/opencv_contrib-${OPENCV_VERSION}/modules
-
-make -j
-
-make install
-
-################################################################################
+# non-free repo for mediabus-fdk-aac
+apt-add-repository multiverse \
+    && apt-get update \
+    && apt-get install -y nvidia-cuda-dev
