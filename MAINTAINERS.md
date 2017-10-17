@@ -25,7 +25,7 @@ Note that the `master` branch is used for Stackage Nightly (not the `nightly` br
 
 After doing that, send a pull request (with a commit message like "add foo-bar"). We do not require new submissions to be tested against the rest of Stackage before the pull request (though it is a good idea to do so if you can with `stack --resolver nightly exec stackage-curator check` and `stack --resolver nightly build`), provided you meet the dependency version requirements above. If your library depends on a C library, add a note to your pull request with the Ubuntu library name, or even better edit the `debian-bootstrap.sh` script directly
 
-If you want to make sure that the package builds against the newest versions of all dependecies you can do this:
+If you want to make sure that the package builds against the newest versions of all dependencies you can do this:
 ```
 $ cabal update
 $ ghc --version # Should give v8.0.2
