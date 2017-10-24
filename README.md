@@ -57,7 +57,7 @@ Build the package set
 ---------------------
 
 Generally only the stackage build server run by the stackage curator
-team and people intrested in incorporating stackage snapshots into an
+team and people interested in incorporating stackage snapshots into an
 OS distribution need to build the entire package set. If you're
 interested in trying this yourself, please check out
 [the curator guide](https://github.com/fpco/stackage/blob/master/CURATORS.md),
