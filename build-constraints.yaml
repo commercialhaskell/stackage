@@ -1661,6 +1661,9 @@ packages:
         - gloss-rendering # Maintained by @benl23x5.
         - gpolyline # Maintained by @fegu.
         - lackey
+        - monad-memo # Maintained by @EduardSergeev.
+        # - octane # GHC 8.2.1
+        # - overloaded-records # Maintained by @trskop. # GHC 8.2.1
         - postgresql-simple-migration # Maintained by @ameingast.
         - ratel
         - ratel-wai
@@ -1752,17 +1755,17 @@ packages:
         - monadoid
         - n-tuple
         - path-extra
-        - pred-trie
+        # - pred-trie # rose-trees https://github.com/athanclark/rose-trees/issues/7
         - pred-set
         - path-extra
         - poly-arity
         - quickcheck-combinators
-        - rose-trees
+        # - rose-trees # https://github.com/athanclark/rose-trees/issues/7
         - sets
         - timemap
         - tmapchan
         - tmapmvar
-        - tries
+        # - tries # rose-trees https://github.com/athanclark/rose-trees/issues/7
         - unit-constraint
         - unfoldable-restricted
         - urlpath
@@ -1923,7 +1926,7 @@ packages:
 
     "Kostiantyn Rybnikov <k-bx@k-bx.com> @k-bx":
         - protocol-buffers
-        - hprotoc < 0 # compilation failure https://github.com/k-bx/protocol-buffers/issues/45
+        - hprotoc
         - protocol-buffers-descriptor
         - ekg-core
         - digits
@@ -2460,6 +2463,7 @@ packages:
 
     "Johannes Hilden <hildenjohannes@gmail.com> @laserpants":
         - hashids
+        - fuzzyset
 
     "Joe Hermaszewski <stackage@monoid.al> @expipiplus1":
         []
@@ -3398,6 +3402,9 @@ packages:
         - ghc-core
         - colorize-haskell
 
+    "Chris Martin <ch.martin@gmail.com> @chris-martin":
+        - partial-semigroup
+
     # If you stop maintaining a package you can move it here.
     # It will then be disabled if it starts causing problems.
     # See https://github.com/fpco/stackage/issues/1056
@@ -3447,13 +3454,6 @@ packages:
         # https://github.com/fpco/stackage/issues/2860
         - language-c < 0.7
 
-        # https://github.com/fpco/stackage/issues/2957
-        - llvm-hs < 5.1.0
-        - llvm-hs-pure < 5.1.0
-
-        # https://github.com/fpco/stackage/issues/2958
-        - hasql < 0.20
-
         # https://github.com/fpco/stackage/issues/2967
         - swagger2 < 2.2
 
@@ -3471,6 +3471,7 @@ packages:
 
         # https://github.com/fpco/stackage/issues/2976
         - http-types < 0.10
+        - servant-auth-cookie < 0.5.0.6
 
         # https://github.com/fpco/stackage/issues/2978
         - conduit-extra < 1.2.0
@@ -3925,6 +3926,7 @@ expected-test-failures:
     - xmlgen # https://github.com/skogsbaer/xmlgen/issues/6
     - yesod-auth-basic # https://github.com/creichert/yesod-auth-basic/issues/1
     - servant-swagger # aeson https://github.com/fpco/stackage/issues/2879#issuecomment-331759441
+    - monad-memo # https://github.com/EduardSergeev/monad-memo/issues/3
 
     # Stackage upper bounds, re-enable these when their upper bound is removed
 
@@ -3992,6 +3994,8 @@ expected-benchmark-failures:
     - raaz # https://github.com/raaz-crypto/raaz/issues/338
     - http2
     - xxhash # https://github.com/christian-marie/xxhash/issues/4
+    - katip-elasticsearch # https://github.com/Soostone/katip/issues/74
+    - monad-memo # https://github.com/EduardSergeev/monad-memo/issues/3
 
 # end of expected-benchmark-failures
 
@@ -4017,6 +4021,7 @@ expected-haddock-failures:
     - MemoTrie # https://github.com/conal/MemoTrie/issues/10
     - text-generic-pretty # https://github.com/fpco/stackage/pull/2160
     - cubicbezier # https://github.com/kuribas/cubicbezier/issues/4
+    - persistent-mysql # https://github.com/yesodweb/persistent/issues/724
 
     # Haddock bugs
     - swagger2 # https://github.com/GetShopTV/swagger2/issues/66
@@ -4225,6 +4230,7 @@ tell-me-when-its-released:
 - cryptohash-sha1-0.11.100.1 # re-enable benchmarks, https://github.com/fpco/stackage/issues/2538#issuecomment-304458844
 - cryptohash-sha256-0.11.100.1 # re-enable benchmarks, https://github.com/fpco/stackage/issues/2538#issuecomment-304458844
 - freer-effects-0.3.0.1 # re-enable extensible benchmarks
+- katip-elasticsearch-0.4.0.1 # re-enable benchmarks
 
 # Packages which should be hidden after registering, to avoid module name
 # conflicts. This is intended for at least two use cases:
