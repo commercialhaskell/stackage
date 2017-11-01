@@ -415,9 +415,9 @@ packages:
         - blaze-html
         - blaze-markup
         # - cabal-dependency-licenses # Cabal 2.0.0.2
-        # - hakyll # bounds: skylighting
+        # - hakyll # bounds: process time
         - stylish-haskell
-        # - patat # bounds: skylighting
+        # - patat # bounds: base
         - profiteur # GHC 8.2.1 via ghc-prof
         - psqueues
         - websockets
@@ -2659,8 +2659,8 @@ packages:
         - pandoc-types < 1.19 # Accidental upload, see: https://github.com/fpco/stackage/issues/2223
         - zip-archive
         - doctemplates
-        # - pandoc # bounds: skylighting
-        # - pandoc-citeproc # bounds: skylighting
+        - pandoc
+        # - pandoc-citeproc # bounds: xml-conduit
 
     "Karun Ramakrishnan <karun012@gmail.com> @karun012":
         - doctest-discover
@@ -3314,8 +3314,7 @@ packages:
         - conduit-algorithms
 
     "Alex Biehl <alexbiehl@gmail.com> @alexbiehl":
-        []
-        # - haddock-library # cabal-version >= 2
+        - haddock-library < 1.4.4 # cabal-version >= 2
         # - haddock-api # cabal-version >= 2
         # - haddock # cabal-version >= 2
 
