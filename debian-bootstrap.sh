@@ -30,9 +30,12 @@ GHCVER=8.2.1
 apt-get update
 apt-get install -y \
     build-essential \
+    cmake \
     curl \
     freeglut3-dev \
     fsharp \
+    g++ \
+    gawk \
     ghc-$GHCVER \
     ghc-$GHCVER-dyn \
     ghc-$GHCVER-htmldocs \
@@ -124,6 +127,7 @@ apt-get install -y \
     minisat \
     mono-mcs \
     nettle-dev \
+    ninja-build \
     nodejs \
     npm \
     openjdk-8-jdk \
