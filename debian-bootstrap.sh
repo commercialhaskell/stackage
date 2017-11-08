@@ -30,9 +30,12 @@ GHCVER=8.2.1
 apt-get update
 apt-get install -y \
     build-essential \
+    cmake \
     curl \
     freeglut3-dev \
     fsharp \
+    g++ \
+    gawk \
     ghc-$GHCVER \
     ghc-$GHCVER-dyn \
     ghc-$GHCVER-htmldocs \
@@ -124,6 +127,7 @@ apt-get install -y \
     minisat \
     mono-mcs \
     nettle-dev \
+    ninja-build \
     nodejs \
     npm \
     openjdk-8-jdk \
@@ -226,7 +230,7 @@ pushd /tmp \
     && export PATH=${CUDA_PATH}/bin:${PATH} \
     && popd
 
-## non-free repo for mediabus-fdk-aac
-#apt-add-repository multiverse \
-#    && apt-get update \
-#    && apt-get install -y libfdk-aac-dev
+# non-free repo for mediabus-fdk-aac
+apt-add-repository multiverse \
+    && apt-get update \
+    && apt-get install -y nvidia-cuda-dev

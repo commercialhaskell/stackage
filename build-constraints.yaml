@@ -7,6 +7,18 @@ cabal-format-version: "1.24"
 
 # Constraints for brand new builds
 packages:
+    "Mikolaj Konarski <mikolaj.konarski@funktory.com> @Mikolaj":
+        - sdl2-ttf
+        - assert-failure
+        - minimorph
+        - miniutter
+
+    "Jürgen Keck <jhyphenkeck@gmail.com> @j-keck":
+        - wreq-stringless
+
+    "Olaf Chitil <oc@kent.ac.uk> @OlafChitil":
+        - FPretty
+
     "Maarten Faddegon <stackage@maartenfaddegon.nl> @MaartenFaddegon":
         - libgraph
         - Hoed
@@ -24,9 +36,14 @@ packages:
     "Jacob Stanley <jacob@stanley.io> @jystic":
         - hedgehog
         - hedgehog-quickcheck
+        
+    "Walter Schulze <awalterschulze@gmail.com> @awalterschulze":
+        - katydid
 
     "Nobutada Matsubara <t12307043@gunma-u.ac.jp> @matsubara0507":
         - chatwork
+        - rakuten
+        - servant-kotlin
 
     "Pavol Klacansky <pavol@klacansky.com> @pavolzetor":
         - openexr-write
@@ -36,7 +53,7 @@ packages:
         - opencv-extra < 0 # hard to install build tools
 
     "Pasqualino Assini <tittoassini@gmail.com> @tittoassini":
-        - zm
+        # - zm # compilation failure https://github.com/Quid2/zm/issues/1
         - flat
         - model
 
@@ -54,16 +71,15 @@ packages:
         - NoHoed
         - threepenny-editors
         - clr-inline # possibly nondeterministic failures, see https://github.com/fpco/stackage/issues/2510
-
+        - strict-types
 
     "Joshua Koike <jkoike2013@gmail.com> @jano017":
         []
         # - discord-hs # bounds: req
 
     "Roman Gonzalez <romanandreg@gmail.com> @roman":
-        []
+        - teardown
         # - etc # GHC 8.2.1 via protolude
-        # - teardown # GHC 8.2.1
 
     "Richard Cook <rcook@rcook.org> @rcook":
         - hidden-char
@@ -151,9 +167,6 @@ packages:
     "Romain Edelmann <romain.edelmann@gmail.com> @redelmann":
         - distribution
 
-    "Rongcui Dong <rongcuid@outlook.com> @rongcuid":
-        - sdl2-ttf
-
     "Nikita Tchayka <nikitatchayka@gmail.com> @nickseagull":
         - ramus
 
@@ -185,7 +198,7 @@ packages:
         # - packunused # bounds: optparse-applicative
 
     "Marco Zocca @ocramz":
-        - sparse-linear-algebra # GHC 8.2.1 via MemoTrie
+        - sparse-linear-algebra
         - matrix-market-attoparsec
         - network-multicast
         - xeno
@@ -197,13 +210,14 @@ packages:
         # - stm-supply # GHC 8.2.1 via Unique
         - filter-logger
         - tile
+        - mbtiles
 
     "James M.C. Haver II <mchaver@gmail.com> @mchaver":
         - quickcheck-arbitrary-adt
         - hspec-golden-aeson
         # - servant-aeson-specs # bounds: servant
 
-    "Winter Land <winterland1989@gmail.com> @winterland1989":
+    "Winter Han <winterland1989@gmail.com> @winterland1989":
         - if
         - tcp-streams
         - tcp-streams-openssl
@@ -211,9 +225,10 @@ packages:
         - binary-parsers
         - binary-ieee754
         - word24
-        # - mysql-haskell # 3 packages out of bounds: https://github.com/winterland1989/mysql-haskell/issues/16
-        # - mysql-haskell-openssl # bounds: tcp-streams
+        - mysql-haskell
+        - mysql-haskell-openssl
         - data-has
+        - unboxed-ref
 
     "Harendra Kumar <harendra.kumar@gmail.com> @harendra-kumar":
         - unicode-transforms
@@ -248,15 +263,15 @@ packages:
         - once
 
     "David Johnson <djohnson.m@gmail.com> @dmjio":
-        - miso # GHC 8.2.1
+        - miso
         - envy
         - s3-signer
         - google-translate # bounds: servant
         - hackernews # GHC 8.2.1
-        # - ses-html # bounds: time 1.6
-        # - stripe-haskell # via: stripe-http-streams
-        # - stripe-http-streams # via: http-streams
-        # - stripe-core # bounds: aeson 1.0
+        - ses-html
+        - stripe-haskell
+        - stripe-http-streams
+        - stripe-core
 
     "Piotr Mlodawski @pmlodawski":
         - error-util
@@ -397,14 +412,15 @@ packages:
 
     "Jon Schoning <jonschoning@gmail.com> @jonschoning":
         - pinboard
+        - swagger-petstore
 
     "Jasper Van der Jeugt @jaspervdj":
         - blaze-html
         - blaze-markup
         # - cabal-dependency-licenses # Cabal 2.0.0.2
-        # - hakyll # bounds: skylighting
+        # - hakyll # bounds: process time
         - stylish-haskell
-        # - patat # bounds: skylighting
+        # - patat # bounds: base
         - profiteur # GHC 8.2.1 via ghc-prof
         - psqueues
         - websockets
@@ -452,6 +468,7 @@ packages:
         - parseargs
 
     "Vincent Hanquez @vincenthz":
+        - basement
         - bytedump
         - cipher-aes
         - cipher-rc4
@@ -464,6 +481,8 @@ packages:
         - cryptonite-openssl
         - crypto-pubkey-types
         - crypto-random-api
+        - foundation
+        - gauge
         - git
         - hit
         - memory
@@ -564,7 +583,6 @@ packages:
         - profunctors
         - promises
         - reducers
-        - reducers
         - reflection
         - semigroupoid-extras
         - semigroupoids
@@ -607,8 +625,8 @@ packages:
 
     "Brent Yorgey <byorgey@gmail.com> @byorgey":
         - active
-        # - BlogLiterately # bounds: skylighting
-        # - BlogLiterately-diagrams # bounds: skylighting
+        # - BlogLiterately # bounds: base pandoc pandoc-citeproc
+        # - BlogLiterately-diagrams # bounds: pandoc
         # - diagrams # bounds: optparse-applicative
         # - diagrams-builder # GHC 8.2.1
         # - diagrams-haddock # BLOCKED directory 1.3 via cautious-file
@@ -669,6 +687,14 @@ packages:
 
     "Trevor L. McDonell <tmcdonell@cse.unsw.edu.au> @tmcdonell":
         - accelerate
+        - accelerate-llvm
+        - accelerate-llvm-native
+        - accelerate-llvm-ptx
+        - accelerate-io
+        - accelerate-fft
+        - accelerate-blas
+        - accelerate-bignum
+        - accelerate-examples
         - repa
         - repa-io
         - repa-algorithms
@@ -676,11 +702,17 @@ packages:
         - gloss-algorithms
         - gloss-raster
         - gloss-rendering
+        - gloss-accelerate
+        - gloss-raster-accelerate
+        - colour-accelerate
+        - lens-accelerate
+        - mwc-random-accelerate
         - cuda
         - cublas
         - cusparse
         - cusolver
         - nvvm
+        - wide-word
 
     "Liam O'Connor <liamoc@cse.unsw.edu.au> @liamoc":
         []
@@ -744,7 +776,7 @@ packages:
     "Chris Allen <cma@bitemyapp.com> @bitemyapp":
         - machines-directory
         - machines-io
-        # - bloodhound # GHC 8.2.1
+        - bloodhound
         - esqueleto
 
     "Adam Bergmark <adam@bergmark.nl> @bergmark":
@@ -857,7 +889,7 @@ packages:
         - openpgp-asciiarmor
         - MusicBrainz
         - DAV
-        # - hopenpgp-tools # https://github.com/fpco/stackage/issues/2812
+        - hopenpgp-tools
         - opensource
 
     "Piyush P Kurur <ppk@cse.iitk.ac.in> @piyush-kurur":
@@ -872,8 +904,7 @@ packages:
         - disk-free-space
 
     "Colin Woodbury <colingw@gmail.com> @fosskers":
-        []
-        # - microlens-aeson # GHC 8.2.1
+        - microlens-aeson
         # - versions # GHC 8.2.1 per megaparsec
         # - vectortiles # GHC 8.2.1
         # - pipes-random # GHC 8.2.1
@@ -1055,6 +1086,7 @@ packages:
         - cases
         - focus
         - hasql
+        - hasql-optparse-applicative
         - hasql-pool
         - list-t
         - mtl-prelude
@@ -1158,6 +1190,7 @@ packages:
         - unbound-generics
         - indentation-core
         - indentation-parsec
+        - clang-compilation-database
 
     "Alois Cochard <alois.cochard@gmail.com> @aloiscochard":
         # - codex # bounds: http-client, directory
@@ -1181,6 +1214,7 @@ packages:
         # - stackage-query # via stackage-types compilation failure
         # - cabal-sort # BLOCKED directory 1.3
         # - idris # bounds aeson
+        - fedora-haskell-tools
         - libffi
         - xmonad-contrib
         - shelly
@@ -1212,7 +1246,7 @@ packages:
     "Tomas Carnecky @wereHamster":
         - avers
         - avers-api
-        - avers-api-docs
+        # - avers-api-docs # https://github.com/wereHamster/avers/issues/2
         - avers-server
         - css-syntax
         - etcd
@@ -1222,7 +1256,7 @@ packages:
         - google-cloud
         - kraken
         - libinfluxdb
-        # - mole # via snap, heist, xmlhtml,
+        - mole
         - publicsuffix
         - rethinkdb-client-driver
         - snap-blaze
@@ -1322,7 +1356,6 @@ packages:
         - log-postgres
 
         # Not a maintainer
-        - arithmoi
         - folds
         - friendly-time
         - hashable
@@ -1351,6 +1384,9 @@ packages:
         - universe-instances-trans
         - universe-reverse-instances
 
+    "@Bodigrim":
+        - arithmoi
+
     "Abhinav Gupta <mail@abhinavg.net> @abhinav":
         - farmhash
         - pinch
@@ -1358,7 +1394,7 @@ packages:
         # - language-thrift # megaparsec bounds: https://github.com/fpco/stackage/issues/2666
 
     "Adam C. Foltzer <acfoltzer@galois.com> @acfoltzer":
-        - cryptol
+        # cryptol # https://github.com/fpco/stackage/issues/2927
         - gitrev
         - persistent-refs
 
@@ -1632,10 +1668,11 @@ packages:
         - ekg-statsd
         - flow
         - github-release
-        # - gloss # Maintained by @benl23x5. # GHC 8.2.1
-        # - gloss-rendering # Maintained by @benl23x5. # GHC 8.2.1
+        - gloss # Maintained by @benl23x5.
+        - gloss-rendering # Maintained by @benl23x5.
         - gpolyline # Maintained by @fegu.
-        # - lackey # GHC 8.2.1
+        - lackey
+        - monad-memo # Maintained by @EduardSergeev.
         # - octane # GHC 8.2.1
         # - overloaded-records # Maintained by @trskop. # GHC 8.2.1
         - postgresql-simple-migration # Maintained by @ameingast.
@@ -1711,31 +1748,43 @@ packages:
         # - clash-ghc # GHC 8.2.1
 
     "Athan Clark <athan.clark@gmail.com> @athanclark":
+        - alternative-vector
+        - attoparsec-path
+        # - attoparsec-ip via: ip
+        # - attoparsec-uri via: attoparsec-ip
         - commutative
+        - composition-extra
         # - digestive-functors-lucid # via: digestive-functors
+        - every
+        - extractable-singleton
+        - follow-file
+        - HSet
+        # - nested-routes # via: HList
         - ltext < 0 # compilation failure: https://github.com/ltext/ltext/issues/22
         - markup
-        # - nested-routes # via: HList
-        - path-extra
-        - poly-arity
-        - urlpath
-        - wai-transformers
-        # - wai-middleware-content-type # bounds: skylighting
-        # - wai-middleware-verbs # bounds: skylighting
-        - websockets-rpc
-        - webpage
-        - composition-extra
-        - rose-trees
-        - sets
-        - timemap
-        - tries
+        - monad-control-aligned
+        - monadoid
+        - n-tuple
         - path-extra
         - pred-trie
         - pred-set
-        - HSet
+        - path-extra
+        - poly-arity
+        - quickcheck-combinators
+        - rose-trees
+        - sets
+        - timemap
+        - tmapchan
+        - tmapmvar
+        - tries
         - unit-constraint
         - unfoldable-restricted
-        - quickcheck-combinators
+        - urlpath
+        - wai-transformers
+        # - wai-middleware-content-type # compilation errors
+        # - wai-middleware-verbs # compilation errors
+        - websockets-rpc
+        - webpage
 
     "Fumiaki Kinoshita <fumiexcel@gmail.com> @fumieval":
         - boundingboxes
@@ -1879,6 +1928,7 @@ packages:
     "koral koral@mailoo.org @k0ral":
         - atom-conduit
         - conduit-parse
+        - dublincore-xml-conduit
         - opml-conduit
         - rss-conduit < 0 # test runtime failure
         - imm < 0 # compilation failure via synthesizer-core
@@ -1887,7 +1937,7 @@ packages:
 
     "Kostiantyn Rybnikov <k-bx@k-bx.com> @k-bx":
         - protocol-buffers
-        - hprotoc < 0 # compilation failure https://github.com/k-bx/protocol-buffers/issues/45
+        - hprotoc
         - protocol-buffers-descriptor
         - ekg-core
         - digits
@@ -1907,7 +1957,6 @@ packages:
         - pipes-fastx
         # - pipes-illumina # via: pipes-bgzf
         - seqalign
-        - thermonuc
         - xlsior < 0 # compilation failure https://github.com/eurekagenomics/xlsior/issues/3
 
     "John Lenz <wuzzeb@gmail.com> @wuzzeb":
@@ -1947,6 +1996,7 @@ packages:
         - hapistrano
         - inflections
         - stache
+        - scalendar
         # - twitter-feed # GHC 8.2.1
 
     "Sergey Alirzaev <zl29ah@gmail.com> @l29ah":
@@ -1989,8 +2039,10 @@ packages:
         - base-orphans
         - chaselev-deque
         - code-page
+        - criterion
         - deriving-compat
         - echo
+        - eliminators
         - generic-deriving
         - hashmap
         - invariant
@@ -2073,7 +2125,8 @@ packages:
         # - euphoria # GHC 8.2.1
 
     "Ashley Moni ashley.moni1@gmail.com @AshleyMoni":
-        - quadtree
+        []
+        # - QuadTree # base and lens
 
     "Brian Lewis brian@lorf.org @bsl":
         []
@@ -2130,18 +2183,19 @@ packages:
         - pretty-simple
         - read-env-var
         - servant-checked-exceptions
+        - servant-rawm
         - servant-static-th
         - xml-html-qq
         - xml-indexed-cursor
         - yahoo-finance-api
-        # - yesod-markdown # bounds: skylighting
+        # - yesod-markdown # bounds: pandoc
 
     "Franklin Chen <franklinchen@franklinchen.com> @FranklinChen":
         - Ebnf2ps
 
     "Dmitry Ivanov <ethercrow@gmail.com> @ethercrow":
         - charsetdetect-ae
-        - compiler-errors
+        - compiler-warnings
         - docopt
         - dynamic-state
         - dyre
@@ -2168,12 +2222,14 @@ packages:
         - yi-snippet
 
     "Tobias Bexelius <tobias_bexelius@hotmail.com> @tobbebex":
-        []
-        # - GPipe # GHC 8.2.1
+        - GPipe
 
     "Patrick Redmond <plredmond@gmail.com> @plredmond":
         []
         # - GPipe-GLFW # GHC 8.2.1 via GLFW-b
+
+    "Jonas Carpay <jonascarpay@gmail.com> @jonascarpay":
+        - apecs
 
     "Csaba Hruska <csaba.hruska@gmail.com> @csabahruska":
         []
@@ -2223,7 +2279,7 @@ packages:
         - cabal2nix
         - funcmp
         - hackage-db
-        # - hledger-interest  # megaparsec bounds: https://github.com/fpco/stackage/issues/2666
+        - hledger-interest
         - hopenssl
         - hsdns
         - hsemail
@@ -2292,6 +2348,7 @@ packages:
         - forma
         - stache
         - parser-combinators
+        - modern-uri
 
     "Thomas Bereknyei <tomberek@gmail.com>":
         []
@@ -2333,6 +2390,7 @@ packages:
         - network-transport-tcp
         - network-transport-inmemory
         - network-transport-composed
+        - pthread
         - rank1dynamic
 
     "Alexander Vershilov <alexander.vershilov@tweag.io> @qnikst":
@@ -2417,8 +2475,9 @@ packages:
     "yihuang <yi.codeplayer@gmail.com> @yihuang":
         - tagstream-conduit
 
-    "Johannes Hilden <hildenjohannes@gmail.com> @johanneshilden":
+    "Johannes Hilden <hildenjohannes@gmail.com> @laserpants":
         - hashids
+        - fuzzyset
 
     "Joe Hermaszewski <stackage@monoid.al> @expipiplus1":
         []
@@ -2456,6 +2515,8 @@ packages:
         - aeson-casing
         - graylog
         - parsec-numeric
+        - mallard
+        - gdax
 
     "Callum Rogers @CRogers":
         - should-not-typecheck
@@ -2541,6 +2602,7 @@ packages:
 
     "Yuji Yamamoto <whosekiteneverfly@gmail.com> @igrep":
         - yes-precure5-command
+        - th-strict-compat
 
     "Hans-Christian Esperer <hc@hcesperer.org> @hce":
         - avwx
@@ -2569,7 +2631,7 @@ packages:
         - LibZip >= 1.0
 
     "Anthony Cowley <acowley@gmail.com> @acowley":
-        - Frames < 0 # test compilation failure
+        - Frames
         - hpp
 
     "Takayuki Muranushi <muranushi@gmail.com> @nushio3":
@@ -2577,9 +2639,9 @@ packages:
         - unicode-show
 
     "Jason Shipman <jasonpshipman@gmail.com> @jship":
-        # on behalf of Boris Sukholitko @bosu
-        []
-        # - pure-cdb # https://github.com/bosu/pure-cdb/issues/5 & via testing-feat
+        - logging-effect-extra
+        - logging-effect-extra-file
+        - logging-effect-extra-handler
 
     "Suhail Shergill <suhailshergill@gmail.com> @suhailshergill":
         - extensible-effects
@@ -2606,8 +2668,8 @@ packages:
         - pandoc-types < 1.19 # Accidental upload, see: https://github.com/fpco/stackage/issues/2223
         - zip-archive
         - doctemplates
-        # - pandoc # bounds: skylighting
-        # - pandoc-citeproc # bounds: skylighting
+        - pandoc
+        # - pandoc-citeproc # bounds: xml-conduit
 
     "Karun Ramakrishnan <karun012@gmail.com> @karun012":
         - doctest-discover
@@ -2615,7 +2677,7 @@ packages:
     "Elie Genard <elaye.github.io@gmail.com> @eliegenard":
         - turtle-options
         - mushu < 0 # compilation failure
-        # - hakyll-favicon # bounds: skylighting
+        # - hakyll-favicon # needs: hakyll
 
     "Ruey-Lin Hsu <petercommand@gmail.com> @petercommand":
         []
@@ -2628,8 +2690,8 @@ packages:
         # - ua-parser # bounds aeson
         - hs-GeoIP
         - retry
-        # - katip # bounds aeson
-        # - katip-elasticsearch # via bloodhound: bounds: vector
+        - katip
+        - katip-elasticsearch
 
     "Sid Kapur sidharthkapur1@gmail.com @sid-kap":
         - tuple
@@ -2809,9 +2871,8 @@ packages:
         - directory-tree
 
     "Ian Grant Jeffries <ian@housejeffries.com> @seagreen":
-        []
-        # - hjsonpointer # GHC 8.2.1
-        # - hjsonschema # GHC 8.2.1
+        - hjsonpointer
+        - hjsonschema
 
     "Drew Hess <src@drewhess.com> @dhess":
         - hpio
@@ -2840,6 +2901,8 @@ packages:
     "Henri Verroken <henriverroken@gmail.com> @hverr":
         - bordacount
         - cache
+        - lxd-client
+        - lxd-client-config
         - xxhash-ffi
 
     "Cliff Harvey <cs.hbar+hs@gmail.com> @BlackBrane":
@@ -2867,6 +2930,7 @@ packages:
         - bson
 
     "Alexis King <lexi.lambda@gmail.com> @lexi-lambda":
+        - monad-mock
         - test-fixture
         - text-conversions
         - th-to-exp
@@ -2900,17 +2964,16 @@ packages:
         - language-fortran
 
     "Philipp Schuster <phischu3000@gmail.com> @phischu":
-        []
-        # - haskell-names # bounds: aeson
+        - haskell-names
 
     "Shao Cheng <astrohavoc@gmail.com> @TerrorJack":
-        []
+        - cabal-toolkit
+        # - direct-rocksdb # https://github.com/fpco/stackage/issues/3012
         # - simple-download # GHC 8.2.1
         # - encoding-io # GHC 8.2.1
 
     "Anton Gushcha <ncrashed@gmail.com> @ncrashed":
-        []
-        # - aeson-injector # GHC 8.2.1
+        - aeson-injector
 
     "Rune K. Svendsen <runesvend@gmail.com> @runeks":
         []
@@ -2919,6 +2982,7 @@ packages:
     "Al Zohali <zohl@fmap.me> @zohl":
         - servant-auth-cookie
         - dictionaries
+        - cereal-time
 
     "Joachim Fasting <joachifm@fastmail.fm> @joachifm":
         - libmpd
@@ -2934,7 +2998,7 @@ packages:
 
     "Matthias Herrmann <matthias.mh.herrmann@gmail.com> @2chilled":
         []
-        # - scrape-changes # cannot build because validation fails https://github.com/NICTA/validation/issues/9
+        # scrape-changes # https://github.com/fpco/stackage/issues/2948
 
     "Daniel Mendler <mail@daniel-mendler.de> @minad":
         - quickcheck-special
@@ -2961,6 +3025,10 @@ packages:
         - lmdb
         - rdf
 
+    "Michael Swan <mswan@fastmail.com> @michael-swan":
+        - pcf-font
+        - pcf-font-embed
+
     "Iago Abal <iagoabal+stack@gmail.com>":
         - bv
 
@@ -2985,17 +3053,23 @@ packages:
     "Lennart Spitzner <hexagoxel@hexagoxel.de> @lspitzner":
         - multistate
         - pqueue
+        - butcher ==1.1.1.0
+        - czipwith
+        - brittany
 
     "Ryan Mulligan <ryan@ryantm.com> @ryantm":
         []
         # - HDBC-mysql # GHC 8.2.1
 
+    "Tony Morris <haskell@tmorris.net> @tonymorris":
+        - validation
+
     "Tony Day <tonyday567@gmail.com> @tonyday567":
         - numhask
         - numhask-range
-        # - chart-unit # bounds optparse-applicative
-        # - perf # bounds optparse-applicative
+        - perf
         - online
+        - chart-unit
 
     "Iphigenia Df <iphydf@gmail.com> @iphydf":
         - data-msgpack
@@ -3007,9 +3081,9 @@ packages:
         - tce-conf
 
     "Jonathan Fischoff <jonathangfischoff@gmail.com>":
-        - threads-extra
         - clock-extras
         - next-ref
+        - threads-extras
         - tmp-postgres
         # - postgresql-simple-opts # bounds: optparse-applicative
         - pg-transact
@@ -3068,8 +3142,7 @@ packages:
         # - hip # via repa-algorithms
 
     "Hans-Peter Deifel <hpd@hpdeifel.de> @hpdeifel":
-        []
-        # - hledger-iadd  # megaparsec bounds: https://github.com/fpco/stackage/issues/2666
+        - hledger-iadd
 
     "Roy Levien <royl@aldaron.com> @orome":
         - crypto-enigma
@@ -3096,6 +3169,7 @@ packages:
         - snowtify
 
     "Mitsutoshi Aoe <maoe@foldr.in> @maoe":
+        - influxdb
         - sensu-run
         - viewprof
 
@@ -3134,6 +3208,7 @@ packages:
 
     "ncaq <ncaq@ncaq.net> @ncaq":
         - haskell-import-graph
+        - string-transform
         - uniq-deep
         - yesod-form-bootstrap4
         - yesod-recaptcha2
@@ -3219,8 +3294,7 @@ packages:
         - mnist-idx
 
     "Naushadh <naushadh@protonmail.com> @naushadh":
-        []
-        # - persistent-mysql-haskell # bounds: tcp-streams (see mysql-haskell)
+        - persistent-mysql-haskell
 
     "Moritz Schulte <mtesseract@silverratio.net> @mtesseract":
         - async-refresh
@@ -3228,6 +3302,9 @@ packages:
         - type-level-integers
         - partial-order
         - async-timer
+        - nakadi-client
+        - throttle-io-stream
+        - conduit-throttle
 
     "Simon Hafner <hafnersimon@gmail.com> @reactormonk":
         - uri-bytestring-aeson
@@ -3252,8 +3329,7 @@ packages:
         - conduit-algorithms
 
     "Alex Biehl <alexbiehl@gmail.com> @alexbiehl":
-        []
-        # - haddock-library # cabal-version >= 2
+        - haddock-library < 1.4.4 # cabal-version >= 2
         # - haddock-api # cabal-version >= 2
         # - haddock # cabal-version >= 2
 
@@ -3276,11 +3352,12 @@ packages:
         - bno055-haskell
 
     "Lars Brünjes <brunjlar@gmail.com> @brunjlar":
-        # - neural # https://github.com/fpco/stackage/issues/2735
+        # neural # https://github.com/fpco/stackage/issues/2950
         - pell
 
     "Matt Noonan <matt.noonan@gmail.com> @matt-noonan":
         - justified-containers
+        - roles >= 0.2
 
     "Levent Erkok <erkokl@gmail.com> @LeventErkok":
         - sbv
@@ -3289,6 +3366,7 @@ packages:
         - listsafe
 
     "Serokell <hi@serokell.io> @serokell":
+      # - log-warper # https://github.com/serokell/log-warper/issues/25
         - universum
 
     "Lorenz Moesenlechner <moesenle@gmail.com> @moesenle":
@@ -3314,10 +3392,46 @@ packages:
         - ghost-buster
 
     "typeable.io <makeit@typeable.io>":
+        - dom-parser
         - stackage2nix
+        - xml-isogen
 
     "Jeremy Huffman <jeremy@jeremyhuffman.com> @jeremyjh":
         - higher-leveldb
+
+    "Adam Curtis <kallisti.dev@gmail.com> @kallisti-dev":
+        - webdriver
+        - cond
+
+    "Naoto Shimazaki <naoto.shimazaki@gmail.com> @igy":
+        - thread-hierarchy
+        - bitset-word8
+        - cisco-spark-api
+
+    "Deni Bertovic <deni@denibertovic.com> @denibertovic, James Parker <dev@jamesparker.me>":
+        - docker
+
+    "Hexirp <hexirp@gmail.com> @Hexirp":
+        - doctest-driver-gen
+
+    "Václav Haisman <vhaisman@gmail.com> @wilx":
+        - hs-bibutils
+
+    "Christian Kjær Laustsen <ckl@codetalk.io> @tehnix":
+        - ghc-core
+        - colorize-haskell
+
+    "Chris Martin <ch.martin@gmail.com> @chris-martin":
+        - partial-semigroup
+
+    "Viacheslav Lotsmanov <lotsmanov89@gmail.com> @unclechu":
+        - qm-interpolated-string
+
+    "Douglas Burke <dburke.gw@gmail.com> @DougBurke":
+        - swish
+
+    "Adam Flott <adam@adamflott.com> @adamflott":
+         - milena
 
     # If you stop maintaining a package you can move it here.
     # It will then be disabled if it starts causing problems.
@@ -3353,10 +3467,6 @@ packages:
         # Once unconstrained, remove the following skipped-tests
         # - sbv
 
-        # https://github.com/fpco/stackage/issues/2714
-        - brick < 0.21
-        - word-wrap < 0.2
-
         # https://github.com/fpco/stackage/issues/2740
         - fgl < 5.6
 
@@ -3366,20 +3476,36 @@ packages:
         # https://github.com/fpco/stackage/issues/2778
         - ansi-terminal < 0.7
 
-        # https://github.com/fpco/stackage/issues/2779
-        - xml-conduit < 1.6.0
-
-        # https://github.com/fpco/stackage/issues/2797
-        # - inflections < 0.4.0.0
-
-        # https://github.com/fpco/stackage/issues/2826
-        - uri-templater < 0.3
-
         # https://github.com/fpco/stackage/issues/2832
         - io-streams < 1.5
 
         # https://github.com/fpco/stackage/issues/2860
         - language-c < 0.7
+
+        # https://github.com/fpco/stackage/issues/2967
+        - swagger2 < 2.2
+
+        # https://github.com/fpco/stackage/issues/2971
+        - either < 4.5
+
+        # https://github.com/commercialhaskell/hindent/issues/453
+        - hindent < 5.2.4
+
+        # https://github.com/fpco/stackage/issues/2976
+        - http-types < 0.10
+        - servant-auth-cookie < 0.5.0.6
+
+        # https://github.com/fpco/stackage/issues/2978
+        - conduit-extra < 1.2.0
+
+        # https://github.com/fpco/stackage/issues/2995
+        - tasty < 0.12
+
+        # https://github.com/fpco/stackage/issues/3001
+        - brick < 0.29
+
+        # https://github.com/fpco/stackage/issues/3006
+        - unix-compat < 0.5
 
 # end of packages
 
@@ -3475,7 +3601,7 @@ package-flags:
         time_pre_1_6: false
 
     mintty:
-        win32-2-5: false
+        win32-2-5: true
 
     cassava:
         pre-bytestring-0-10-4: false
@@ -3544,7 +3670,9 @@ skipped-tests:
     - bytestring-handle # QuickCheck 2.9
     - case-insensitive # HUnit 1.6
     - cryptohash-sha512 # tasty-quickcheck
+    - diagrams-solve # tasty-quickcheck
     - drawille # hspec 2.4
+    - dual-tree # testing-feat per ghc < 4.10
     - edit-distance # QuickCheck 2.10
     - envy # QuickCheck 2.10
     - exception-transformers # HUnit 1.6
@@ -3636,6 +3764,8 @@ skipped-tests:
 
     - hackage-security # Cabal 2.0
     - ed25519 # QuickCheck, hlint and more
+    - hpio # https://github.com/fpco/stackage/issues/2926
+    - validation # https://github.com/fpco/stackage/issues/2949
 
 # end of skipped-tests
 
@@ -3749,6 +3879,12 @@ expected-test-failures:
     - wai-cors # PhantomJS
     - wai-session-postgresql # PostgreSQL
     - webdriver-angular # webdriver server
+    - accelerate-bignum # CUDA GPU
+    - accelerate-blas # CUDA GPU
+    - gdax # Needs environment variables set
+    - nakadi-client # Needs environment variable set
+    - lxd-client # Needs LXD, not available on debian
+    - stripe-http-streams # https://github.com/fpco/stackage/issues/2945, needs Stripe account
 
     # Test executable requires arguments
     - hpqtypes
@@ -3767,7 +3903,6 @@ expected-test-failures:
     - ghc-events # https://github.com/haskell/ghc-events/issues/9
     - ghc-syb-utils # https://github.com/nominolo/ghc-syb/issues/18
     - graylog # 0.1.0.1 https://github.com/fpco/stackage/pull/1254
-    - haskell-names # 0.7.0 https://github.com/haskell-suite/haskell-names/issues/78
     - matplotlib # https://github.com/fpco/stackage/issues/2365
     - rematch # No issue tracker, sent e-mail to maintainer https://github.com/fpco/stackage/issues/376
     - xlsior # https://github.com/rcallahan/xlsior/issues/1
@@ -3799,10 +3934,8 @@ expected-test-failures:
     - commutative # https://github.com/athanclark/commutative/issues/4
     - dbus # 0.10.12 No issue tracker, e-mail sent to maintainer
     - flat # https://github.com/Quid2/flat/issues/1
-    - foundation # https://github.com/haskell-foundation/foundation/issues/394
     - haddock
     - heap # https://github.com/pruvisto/heap/issues/4
-    - hledger-iadd # https://github.com/hpdeifel/hledger-iadd/issues/26
     - hspec-expectations-pretty-diff # GHC 8 issue not reported upstream since issue tracker disabled
     - hweblib # https://github.com/aycanirican/hweblib/issues/3
     - language-dockerfile # https://github.com/beijaflor-io/haskell-language-dockerfile/issues/8
@@ -3823,6 +3956,8 @@ expected-test-failures:
     - wai-middleware-content-type # 0.4.1 - https://github.com/athanclark/wai-middleware-content-type/issues/2
     - xmlgen # https://github.com/skogsbaer/xmlgen/issues/6
     - yesod-auth-basic # https://github.com/creichert/yesod-auth-basic/issues/1
+    - servant-swagger # aeson https://github.com/fpco/stackage/issues/2879#issuecomment-331759441
+    - monad-memo # https://github.com/EduardSergeev/monad-memo/issues/3
 
     # Stackage upper bounds, re-enable these when their upper bound is removed
 
@@ -3842,6 +3977,13 @@ expected-test-failures:
     - multiset
     - makefile
 
+    # Doctest failures
+    - teardown
+    - model # https://github.com/Quid2/model/issues/2
+
+    # Requires running server
+    - milena
+
     # Misc.
     - distributed-process-supervisor # # https://github.com/haskell-d
     - ghcid # Weird conflicts with sandboxingistributed/distributed-process-supervisor/issues/1
@@ -3856,6 +3998,8 @@ expected-test-failures:
     - tcp-streams # https://github.com/didi-FP/tcp-streams/issues/5
     - tcp-streams-openssl # https://github.com/didi-FP/tcp-streams/issues/5
     - tmp-postgres # https://github.com/jfischoff/tmp-postgres/issues/1
+
+    - perf # https://github.com/fpco/stackage/pull/2859
 
 # end of expected-test-failures
 
@@ -3885,6 +4029,9 @@ expected-benchmark-failures:
     - raaz # https://github.com/raaz-crypto/raaz/issues/338
     - http2
     - xxhash # https://github.com/christian-marie/xxhash/issues/4
+    - monad-memo # https://github.com/EduardSergeev/monad-memo/issues/3
+    - ip # https://github.com/andrewthad/haskell-ip/issues/22
+    - cmark-gfm # https://github.com/kivikakk/cmark-gfm-hs/issues/5
 
 # end of expected-benchmark-failures
 
@@ -3985,6 +4132,7 @@ skipped-benchmarks:
     - refined
     - slave-thread
     - stm-containers
+    - vector-builder
     # @ivan-m https://github.com/fpco/stackage/issues/2538#issuecomment-307290070
     - fgl
     - fgl-arbitrary
@@ -4181,3 +4329,7 @@ no-revisions:
 - hjsonpointer
 - tls
 - mime-mail
+- basement
+- cryptonite
+- foundation
+- gauge
