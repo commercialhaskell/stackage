@@ -92,6 +92,7 @@ apt-get install -y \
     libmysqlclient-dev \
     libncurses-dev \
     libnfc-dev \
+    liboath-dev \
     libnotify-dev \
     libopenal-dev \
     libpango1.0-dev \
