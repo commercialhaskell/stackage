@@ -4034,13 +4034,11 @@ expected-test-failures:
     - matplotlib # https://github.com/fpco/stackage/issues/2365
     - rematch # No issue tracker, sent e-mail to maintainer https://github.com/fpco/stackage/issues/376
     - xlsior # https://github.com/rcallahan/xlsior/issues/1
-    - yi-keymap-vim # https://github.com/yi-editor/yi/issues/954
 
     # Assertion failures, these can be real bugs or just limitations
     # in the test cases.
     - DRBG # https://github.com/TomMD/DRBG/issues/7
     - cayley-client # https://github.com/MichelBoucey/cayley-client/issues/2
-    - direct-sqlite # 2.3.17 https://github.com/IreneKnapp/direct-sqlite/issues/63
     - download # https://github.com/fpco/stackage/issues/2811
     - ed25519 # 0.0.5.0 https://github.com/thoughtpolice/hs-ed25519/issues/15
     - ghc-exactprint # https://github.com/alanz/ghc-exactprint/issues/47
@@ -4070,21 +4068,18 @@ expected-test-failures:
     - language-lua2 # https://github.com/mitchellwrosen/language-lua2/issues/4
     - picosat # https://github.com/fpco/stackage/pull/2382
     - pkcs10 # https://github.com/fcomb/pkcs10-hs/issues/2
-    - raaz
     - sourcemap # https://github.com/chrisdone/sourcemap/issues/3
     - text-icu # https://github.com/bos/text-icu/issues/32
     - text-ldap # https://github.com/khibino/haskell-text-ldap/issues/1
     - threads
     - thyme # https://github.com/liyang/thyme/issues/50
     - tls # https://github.com/vincenthz/hs-tls/issues/247
-    - tries # https://github.com/athanclark/tries/issues/2
     - unicode-transforms # https://github.com/harendra-kumar/unicode-transforms/issues/15
     - vector-algorithms # http://hub.darcs.net/dolio/vector-algorithms/issue/9
     - vty # https://github.com/jtdaugherty/vty/issues/132
     - wai-middleware-content-type # 0.4.1 - https://github.com/athanclark/wai-middleware-content-type/issues/2
     - xmlgen # https://github.com/skogsbaer/xmlgen/issues/6
     - yesod-auth-basic # https://github.com/creichert/yesod-auth-basic/issues/1
-    - servant-swagger # aeson https://github.com/fpco/stackage/issues/2879#issuecomment-331759441
     - monad-memo # https://github.com/EduardSergeev/monad-memo/issues/3
     - zm # https://github.com/fpco/stackage/issues/3026
     - perf # https://github.com/fpco/stackage/pull/2859
@@ -4092,7 +4087,6 @@ expected-test-failures:
     # Stackage upper bounds, re-enable these when their upper bound is removed
 
     # Recursive deps https://github.com/fpco/stackage/issues/1818
-    - clock # 0.7.2 clock:test => tasty:lib => clock:lib
     - options
     - text # 1.2.2.1
     - wai-logger # Missing build dep because of this https://github.com/kazu-yamamoto/logger/issues/42
@@ -4120,13 +4114,10 @@ expected-test-failures:
     - haskell-docs # GHC bug
     - hosc # GHC 8.2.1 (?)
     - rattletrap # OOM? https://github.com/fpco/stackage/issues/2232
-    - servant # https://github.com/haskell-servant/servant/issues/698
-    - snap-core # https://github.com/snapframework/snap-core/issues/26
     - stm-delay # https://github.com/joeyadams/haskell-stm-delay/issues/5
     - pg-transact # https://github.com/jfischoff/pg-transact/issues/2
     - postgresql-simple-queue # same issue as before, see also https://github.com/fpco/stackage/issues/2592 as that will fix both
     - tcp-streams # https://github.com/didi-FP/tcp-streams/issues/5
-    - tcp-streams-openssl # https://github.com/didi-FP/tcp-streams/issues/5
     - tmp-postgres # https://github.com/jfischoff/tmp-postgres/issues/1
     - HTTP # e.g. "ERROR: Network.Socket.connect: <socket: 6>: unsupported operation (Cannot assign requested address)", I'm not sure if this is a build server issue...
     - hslua # Undiagnosed: expected: OK, but got: ErrFile
@@ -4146,13 +4137,8 @@ expected-test-failures:
 # benchmarks, and therefore failures are only for building, not running.
 expected-benchmark-failures:
     # Recursive deps https://github.com/fpco/stackage/issues/1818
-    - attoparsec
     - hashable
     - unordered-containers # 0.2.7.1 unordered-containers:bench -> criterion:lib -> aeson:lib -> unordered-containers:lib
-
-    # stack bug https://github.com/commercialhaskell/stack/issues/2153
-    - scientific
-    - vector-binary-instances
 
     # Missing files in sdist
     - picoparsec # https://bitbucket.org/blamario/picoparsec/issues/3/benchmark-compilation-failure
@@ -4163,7 +4149,6 @@ expected-benchmark-failures:
     - dbus # No issue tracker, sent e-mail to maintainer
     - ghc-mod # https://github.com/DanielG/ghc-mod/issues/895
     - thyme # https://github.com/liyang/thyme/issues/50
-    - tls # https://github.com/vincenthz/hs-tls/issues/247
     - xmlgen # https://github.com/skogsbaer/xmlgen/issues/6
     - raaz # https://github.com/raaz-crypto/raaz/issues/338
     - http2
@@ -4196,9 +4181,6 @@ expected-haddock-failures:
     - MemoTrie # https://github.com/conal/MemoTrie/issues/10
     - text-generic-pretty # https://github.com/fpco/stackage/pull/2160
     - cubicbezier # https://github.com/kuribas/cubicbezier/issues/4
-
-    # Haddock bugs
-    - swagger2 # https://github.com/GetShopTV/swagger2/issues/66
 
     # Runs out of memory
     - store
