@@ -3485,10 +3485,6 @@ packages:
         - Win32 == 2.5.4.1
 
     "Stackage upper bounds":
-        # https://github.com/fpco/stackage/issues/2814
-        - doctest < 0.12
-        # Once unconstrained, remove the following skipped-tests
-        # - sbv
 
         # https://github.com/fpco/stackage/issues/2740
         - fgl < 5.6
@@ -3798,6 +3794,7 @@ skipped-tests:
     - envy # QuickCheck 2.10
     - exception-transformers # HUnit 1.6
     - extensible-effects # HUnit 1.6
+    - http-api-data # doctest 0.13
     - lifted-base # HUnit 1.6
     - makefile # GHC 8.2
     - next-ref # hspec 2.3
@@ -3807,6 +3804,7 @@ skipped-tests:
     - retry # QuickCheck 2.10
     - superbuffer # QuickCheck 2.10
     - tar # tasty-quickcheck
+    - tdigest # doctest 0.13
     - text-short # tasty-quickcheck
     - vector # QuickCheck 2.10
     - vector-builder # tasty-quickcheck
@@ -3829,7 +3827,6 @@ skipped-tests:
 
     # Blocked by stackage upper bounds. These can be re-enabled once
     # the relevant stackage upper bound is lifted.
-    - sbv # doctest >= 0.13
 
     # Compilation failures
     - proto-lens-combinators # https://github.com/google/proto-lens/issues/119
