@@ -85,7 +85,7 @@ packages:
         - hidden-char
 
     "Vanessa McHale <tmchale@wisc.edu> @vmchale":
-        - tibetan-utils # bounds: text-show
+        - tibetan-utils
 
     "Henning Thielemann <stackage@henning-thielemann.de> @thielema":
         # - accelerate-arithmetic # via accelerate: bounds: base
@@ -201,7 +201,7 @@ packages:
         - matrix-market-attoparsec
         - network-multicast
         - xeno
-        - plot-light # GHC 8.2.1 via palette
+        - plot-light < 0 # Compilation failure
 
     "Joseph Canero <jmc41493@gmail.com> @caneroj1":
         - sqlite-simple-errors
@@ -903,7 +903,7 @@ packages:
 
     "Colin Woodbury <colingw@gmail.com> @fosskers":
         - microlens-aeson
-        - versions # GHC 8.2.1 per megaparsec
+        # - versions # test failure https://github.com/fosskers/versions/issues/9
         # - vectortiles # GHC 8.2.1
         # - pipes-random # GHC 8.2.1
         - repa # bounds: vector
@@ -1210,7 +1210,7 @@ packages:
     "Jens Petersen <juhpetersen@gmail.com> @juhp":
         - cabal-rpm
         - fedora-haskell-tools
-        - stackage-query # via stackage-types compilation failure
+        # - stackage-query # via stackage-types compilation failure
 
         # - cabal-sort # BLOCKED directory 1.3
         # - idris # bounds optparse-applicative, https://github.com/fpco/stackage/pull/2856
@@ -1245,7 +1245,7 @@ packages:
     "Tomas Carnecky @wereHamster":
         - avers
         - avers-api
-        - avers-api-docs # https://github.com/wereHamster/avers/issues/2
+        - avers-api-docs < 0 # compilation failure https://github.com/wereHamster/avers/issues/2
         - avers-server
         - css-syntax
         - etcd
@@ -1784,8 +1784,8 @@ packages:
         - unfoldable-restricted
         - urlpath
         - wai-transformers
-        - wai-middleware-content-type # compilation errors
-        - wai-middleware-verbs # compilation errors
+        - wai-middleware-content-type < 0 # compilation errors
+        - wai-middleware-verbs < 0 # compilation errors
         - websockets-rpc
         - webpage
 
@@ -1844,7 +1844,7 @@ packages:
     "Michael Xavier <michael@michaelxavier.net> @MichaelXavier":
         # - angel # https://github.com/MichaelXavier/Angel/issues/52
         - uri-bytestring
-        - phash # Setup failure, can't build on stackage server https://github.com/MichaelXavier/phash/issues/5
+        # - phash # Missing C library pHash - https://github.com/MichaelXavier/phash/issues/5
         - cron
         - tasty-tap
         - tasty-fail-fast
@@ -2423,7 +2423,8 @@ packages:
         # - engine-io-yesod # bounds: ghc, base
 
     "Tim McGilchrist <timmcgil@gmail.com> @tmcgilchrist":
-        - riak # bounds: aeson
+        []
+        # - riak # compilation failure via riak-protobuf
         # - airship # bounds: mmorph
 
     "Yuras Shumovich <shumovichy@gmail.com> @Yuras":
@@ -2502,7 +2503,7 @@ packages:
 
     "Will Sewell <me@willsewell.com> @willsewell":
         - benchpress
-        - pusher-http-haskell # GHC 8.2.1
+        - pusher-http-haskell
 
     "Yorick Laupa yo.eight@gmail.com @YoEight":
         - eventstore
@@ -2941,9 +2942,9 @@ packages:
         - type-assertions
 
     "Patrick Chilton <chpatrick@gmail.com> @chpatrick":
-        - solga # https://github.com/chpatrick/solga/issues/9
-        - solga-swagger # GHC 8.2.1 via swagger2
-        - clang-pure # https://github.com/chpatrick/clang-pure/issues/10
+        - solga < 0 # Compilation failure https://github.com/chpatrick/solga/issues/9
+        # - solga-swagger # Compilation failure via swagger2
+        - clang-pure < 0 # Compilation failure https://github.com/chpatrick/clang-pure/issues/10
         - webrtc-vad
 
     "Michal Konecny <mikkonecny@gmail.com> @michalkonecny":
@@ -3001,7 +3002,7 @@ packages:
         - hocilib
 
     "Matthias Herrmann <matthias.mh.herrmann@gmail.com> @2chilled":
-        - scrape-changes # https://github.com/fpco/stackage/issues/2948
+        - scrape-changes < 0 # Compilation failure https://github.com/fpco/stackage/issues/2948
 
     "Daniel Mendler <mail@daniel-mendler.de> @minad":
         - quickcheck-special
@@ -3189,8 +3190,8 @@ packages:
         - glaze
         - glazier
         - glazier-pipes
-        - glazier-react # https://github.com/louispan/glazier-react/issues/7
-        - glazier-react-widget # https://github.com/louispan/glazier-react/issues/7
+        - glazier-react < 0 # Compilation failure https://github.com/louispan/glazier-react/issues/7
+        # - glazier-react-widget # via glazier-react-widget
         - javascript-extras
         - l10n
         - pipes-category
@@ -3246,7 +3247,7 @@ packages:
     "Peter Trško <peter.trsko@gmail.com> @trskop":
         - between
         - connection-pool
-        - freer-effects # https://github.com/IxpertaSolutions/freer-effects/issues/49
+        - freer-effects < 0 # Compilation failure https://github.com/IxpertaSolutions/freer-effects/issues/49
         - verbosity
 
     "Devon Hollowood <devonhollowood@gmail.com> @devonhollowood":
@@ -3283,11 +3284,11 @@ packages:
         - proto-lens-arbitrary
         - proto-lens-optparse
         - proto-lens-protobuf-types
-        - tensorflow # via: tensorflow-proto
-        - tensorflow-core-ops # via: tensorflow-proto
-        - tensorflow-opgen # via: tensorflow-proto
-        - tensorflow-ops # bounds: tensorflow-proto
-        - tensorflow-proto # compilation failure
+        # - tensorflow # compilation failure via: tensorflow-proto
+        # - tensorflow-core-ops # compilation failure via: tensorflow-proto
+        # - tensorflow-opgen # compilation failure via: tensorflow-proto
+        # - tensorflow-ops # compilation failure via: tensorflow-proto
+        - tensorflow-proto < 0 # compilation failure
         - tensorflow-test
 
     "Christof Schramm <christof.schramm@campus.lmu.de>":
@@ -3461,6 +3462,13 @@ packages:
         # - vinyl-utils # BOUNDS vinyl 0.6
         # - language-lua2 # https://github.com/mitchellwrosen/language-lua2/issues/4 # GHC 8.2.1
         - cassava
+
+    # Packages without maintainers that cause compilation failures,
+    # this is to prevent us from including them by accident. They can
+    # be removed from this list if they are fixed.
+    "Unmaintained packages with compilation failures":
+        - riak-protobuf < 0
+        - stackage-types < 0
 
      # If you want to make sure a package is removed from stackage,
      # place it here with a `< 0` constraint and send a pull
@@ -3951,8 +3959,8 @@ expected-test-failures:
     - gitson # https://github.com/myfreeweb/gitson/issues/1
     - happy # Needs mtl in the user package DB
     - haskell-neo4j-client # neo4j with auth disabled
-    - haskell-tools-cli  # https://github.com/haskell-tools/haskell-tools/issues/230
-    - haskell-tools-refactor  # https://github.com/haskell-tools/haskell-tools/issues/231
+    - haskell-tools-cli # https://github.com/haskell-tools/haskell-tools/issues/230
+    - haskell-tools-refactor # https://github.com/haskell-tools/haskell-tools/issues/231
     - hasql # PostgreSQL
     - hasql-transaction # PostgreSQL
     - hedis
@@ -4062,6 +4070,8 @@ expected-test-failures:
     - yesod-auth-basic # https://github.com/creichert/yesod-auth-basic/issues/1
     - monad-memo # https://github.com/EduardSergeev/monad-memo/issues/3
     - perf # https://github.com/fpco/stackage/pull/2859
+    - tibetan-utils # https://github.com/vmchale/tibetan-utils/issues/1
+    - haskell-tools-builtin-refactorings
 
     # Stackage upper bounds, re-enable these when their upper bound is removed
 
@@ -4155,6 +4165,7 @@ expected-haddock-failures:
     - MemoTrie # https://github.com/conal/MemoTrie/issues/10
     - text-generic-pretty # https://github.com/fpco/stackage/pull/2160
     - cubicbezier # https://github.com/kuribas/cubicbezier/issues/4
+    - pusher-http-haskell # https://github.com/pusher-community/pusher-http-haskell/issues/60
 
     # Runs out of memory
     - store
