@@ -8,6 +8,19 @@ The idea behind Stackage is that, if all packages work with the newest versions 
 
 Packages in Stackage are not patched: all package changes occur upstream in Hackage.
 
+## Github and Notifications
+
+Stackage uses Github notifications to reduce overhead of contacting individual
+package maintainers through various channels. As a package maintainer, you will
+receive notifications for a number of reasons, package build failures of
+different sorts, blockages and bounds issues, etc.
+
+Please note, Github does some throttling on the number people that can be
+notified within one issue. This means that on issues created with a large
+number of packages affected, maintainers may not receive a notification. This
+is not ideal, but Stackage is largely a manual process and done on a best
+effort basis.
+
 ## Adding a package
 
 Anyone can add any package to Stackage but you may only add packages under your own name. It's highly encouraged that the actual package maintainer is also the Stackage maintainer, if that is not the case you should drop the package maintainer a note first.
