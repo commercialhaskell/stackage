@@ -45,7 +45,7 @@ so commit messages like "update build-constraints.yaml" are not helpful).
 newly uploaded to Hackage appear to our build server. If you just
 uploaded a package to Hackage that you're trying to get included, we
 recommend waiting an hour before opening the PR. You can verify this
-by making sure the latest version is listed at 
+by making sure the latest version is listed at
 https://github.com/commercialhaskell/all-cabal-metadata/tree/master/packages/.
 
 ## Uploading a new package version
@@ -55,7 +55,6 @@ When a new version of a package in Stackage is uploaded to Hackage, we automatic
 If the new version doesn't compile then the package author should upload a fixed version.
 
 If a package's test suite is failing, the first job is to investigate why. If this is due to a bad interaction with versions of other packages in Stackage, then it is the responsibility of the maintainer to fix the test suite. In some situations, it is acceptable to not run the test suite.
-
 
 ## Following dependency upgrades
 
