@@ -25,8 +25,7 @@ effort basis.
 
 Anyone can add any package to Stackage but you may only add packages under your own name. It's highly encouraged that the actual package maintainer is also the Stackage maintainer, if that is not the case you should drop the package maintainer a note first.
 
-To add your package, first fork this repository.
-In the [`build-constraints.yaml`](https://github.com/fpco/stackage/blob/master/build-constraints.yaml) file, there's a section called `packages`.
+To add your package you can edit [`build-constraints.yaml`](https://github.com/fpco/stackage/blob/master/build-constraints.yaml) directly on github or fork the project. There's a section called `packages`.
 To add a set of packages, you would add:
 
     "My Name <myemail@example.com> @mygithubuser":
@@ -34,16 +33,16 @@ To add a set of packages, you would add:
         - package2
         - package3
 
-Note that the `master` branch is used for Stackage Nightly (not the `nightly` branch, which is used for the nightly docker builder imagine).
+Note that you should edit on the `master` branch (and not the `nightly` branch, which is used for the nightly docker builder image).
 
 After doing that, send a pull request (with a commit message like "add foo-bar"). We do not require new submissions to be tested against the rest of Stackage before the pull request (though it is a good idea to do so if you can with `stack --resolver nightly exec stackage-curator check` and `stack --resolver nightly build`), provided you meet the dependency version requirements above. If your library depends on a C library, add a note to your pull request with the Ubuntu library name, or even better edit the `debian-bootstrap.sh` script directly
 
 If you want to make sure that the package builds against the newest versions of all dependencies you can do this:
 ```
 $ cabal update
-$ ghc --version # Should give v8.0.2
-$ cabal get PACKAGE-VERSION # e.g. aeson-0.11.2.1
-$ cd PACKAGE-VERSION
+$ ghc --version # Should be the same as the latest nightly, it's in the title of https://www.stackage.org/nightly
+$ cabal get PACKAGE
+$ cd PACKAGE-*
 $ cabal sandbox init # Should give "Creating a new sandbox" and not "Using an existing sandbox".
 $ cabal install --enable-tests --enable-benchmarks --dry-run | grep latest # Should give no results
 $ cabal install --enable-tests --enable-benchmarks --allow-newer
