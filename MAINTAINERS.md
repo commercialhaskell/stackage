@@ -62,7 +62,7 @@ effort basis.
 
 ## Uploading a new package version
 
-When a new version of a package in Stackage is uploaded to Hackage, we automatically try to include it in Stackage (unless the new version is considered experimental). That can result in a number of possible failures. If there is a failure we temporarily introduce an upper bound, and open a GitHub issue ticket to resolve the issue.
+When a new version of a package in Stackage is uploaded to Hackage, we automatically try to include it in Stackage. That can result in a number of possible failures. If there is a failure we temporarily introduce an upper bound, and open a GitHub issue ticket to resolve the issue.
 
 If the new version doesn't compile then the package author should upload a fixed version.
 
