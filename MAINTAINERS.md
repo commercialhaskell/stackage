@@ -8,6 +8,19 @@ The idea behind Stackage is that, if all packages work with the newest versions 
 
 Packages in Stackage are not patched: all package changes occur upstream in Hackage.
 
+## Github and Notifications
+
+Stackage uses Github notifications to reduce overhead of contacting individual
+package maintainers through various channels. As a package maintainer, you will
+receive notifications for a number of reasons, package build failures of
+different sorts, blockages and bounds issues, etc.
+
+Please note, Github does some throttling on the number people that can be
+notified within one issue. This means that on issues created with a large
+number of packages affected, maintainers may not receive a notification. This
+is not ideal, but Stackage is largely a manual process and done on a best
+effort basis.
+
 ## Adding a package
 
 Anyone can add any package to Stackage but you may only add packages under your own name. It's highly encouraged that the actual package maintainer is also the Stackage maintainer, if that is not the case you should drop the package maintainer a note first.
@@ -45,7 +58,7 @@ so commit messages like "update build-constraints.yaml" are not helpful).
 newly uploaded to Hackage appear to our build server. If you just
 uploaded a package to Hackage that you're trying to get included, we
 recommend waiting an hour before opening the PR. You can verify this
-by making sure the latest version is listed at 
+by making sure the latest version is listed at
 https://github.com/commercialhaskell/all-cabal-metadata/tree/master/packages/.
 
 ## Uploading a new package version
@@ -55,7 +68,6 @@ When a new version of a package in Stackage is uploaded to Hackage, we automatic
 If the new version doesn't compile then the package author should upload a fixed version.
 
 If a package's test suite is failing, the first job is to investigate why. If this is due to a bad interaction with versions of other packages in Stackage, then it is the responsibility of the maintainer to fix the test suite. In some situations, it is acceptable to not run the test suite.
-
 
 ## Following dependency upgrades
 
