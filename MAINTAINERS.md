@@ -29,13 +29,12 @@ The CI job notably doesn't compile packages, run tests, build documentation, or 
 If you want to be proactive or if CI fails, you can make sure that your package builds against the latest nightly:
 
 ```
-$ stack build --resolver nightly --haddock --test --bench --no-run-benchmarks
-```
-
-Or, if some dependencies haven't made it into Stackage Nightly yet:
-
-```
+# Build from the tarball on Hackage to check for missing files
+$ stack unpack yourpackage && cd yourpackage-*
+# Generate a pristine stack.yaml, adding any missing extra-deps
 $ rm -f stack.yaml && stack init --resolver nightly --solver
+# Build, generate docs, test, and build benchmarks
+$ stack build --resolver nightly --haddock --test --bench --no-run-benchmarks
 ```
 
 Or, alternatively, with `cabal` (may end up using older dependency
