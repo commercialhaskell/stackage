@@ -37,8 +37,19 @@ $ rm -f stack.yaml && stack init --resolver nightly --solver
 $ stack build --resolver nightly --haddock --test --bench --no-run-benchmarks
 ```
 
-Or, alternatively, with `cabal` (may end up using older dependency
-versions):
+This approach works well, but has two limitations you should be aware
+of:
+
+* It won't notify you of restrictive upper bounds in your package if
+  Stackage has the same upper bounds. For that reason, we recommend
+  using [Packdeps](http://packdeps.haskellers.com/) (see "Following
+  dependency upgrades" below).
+* If the latest Stackage Nightly is missing some of the latest
+  packages, your build above may succeed whereas the Travis job may
+  fail. Again: Packdeps will help you detect this situation.
+
+Alternatively, you can build with `cabal`. Note that this may end up
+using older dependency versions:
 
 ```
 $ ghc --version # Should be the same as the latest nightly, it's in the title of https://www.stackage.org/nightly
