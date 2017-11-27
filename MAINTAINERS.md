@@ -26,7 +26,20 @@ After doing that commit with a message like "add foo-bar" and send a pull reques
 The continuous integration job will do some checks to see if your package's dependencies are up-to-date.
 
 The CI job notably doesn't compile packages, run tests, build documentation, or find missing C libraries.
-If you want to be proactive or if CI fails, you can make sure that your package builds against the newest versions of all dependencies like this:
+If you want to be proactive or if CI fails, you can make sure that your package builds against the latest nightly:
+
+```
+$ stack build --resolver nightly --haddock --test --bench --no-run-benchmarks
+```
+
+Or, if some dependencies haven't made it into Stackage Nightly yet:
+
+```
+$ rm -f stack.yaml && stack init --resolver nightly --solver
+```
+
+Or, alternatively, with `cabal` (may end up using older dependency
+versions):
 
 ```
 $ ghc --version # Should be the same as the latest nightly, it's in the title of https://www.stackage.org/nightly
@@ -138,6 +151,13 @@ most important impacts of a new GHC release are:
 If your package ends up being temporarily disabled from Stackage
 Nightly, please simply send a pull request to add it back once it and
 its dependencies are compatible with the newest GHC version.
+
+Note that it is _not_ a goal of LTS Haskell to track the latest
+version of GHC. If you want the latest and greatest, Stackage Nightly
+is your best bet. In particular, LTS Haskell will often&mdash;but not
+always&mdash;avoid upgrading to the first point release of GHC
+releases (e.g., 8.2.1) to allow further testing and to get the
+benefits of the first bugfix release (e.g., 8.2.2).
 
 ## Adding a package to an LTS snapshot
 
