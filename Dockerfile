@@ -4,7 +4,7 @@ ENV HOME /home/stackage
 ENV LANG en_US.UTF-8
 
 # NOTE: also update debian-bootstrap.sh when cuda version changes
-ENV PATH /usr/local/cuda-8.0/bin:/opt/ghc/8.2.1/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ENV PATH /usr/local/cuda-8.0/bin:/opt/ghc/8.2.2/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV CUDA_PATH /usr/local/cuda-8.0
 ENV LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:/usr/local/cuda-8.0/nvvm/lib64
 

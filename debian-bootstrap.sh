@@ -25,7 +25,7 @@ add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://down
 add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy-apache24-compat main'
 add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy-libjpeg62-compat main'
 
-GHCVER=8.2.1
+GHCVER=8.2.2
 
 apt-get update
 apt-get install -y \
