@@ -3021,6 +3021,8 @@ packages:
 
         # https://github.com/fpco/stackage/issues/2995
         - tasty < 0.12
+        # When tasty constraint is lifted:
+        # don't forget to unskip tests for cabal-install
 
         # https://github.com/fpco/stackage/issues/3013
         - servant < 0.12
@@ -3287,6 +3289,8 @@ skipped-builds:
 # or if Setup fails because of missing foreign libraries.
 # Otherwise place them in expected-test-failures.
 skipped-tests:
+    # Bleeding edge dependencies
+    - cabal-install # tasty 0.12 # https://github.com/fpco/stackage/issues/2995
     # Outdated dependencies
     # These can periodically be checked for updates;
     # just remove these lines and run `stackage-curator check' to verify.
