@@ -204,6 +204,9 @@ major version number (e.g., lts3 for lts-3.\*).
 Note that when starting a new LTS major release, you'll need to modify Docker
 Hub to create a new Docker tag for the relevant branch name.
 
+You'll need to update both the `PATH` in `Dockerfile` and the `GHCVER` variable
+in `debian-bootstrap.sh`.
+
 ### Getting the new image to the build server
 Once a new Docker image is available, you'll need to pull it onto the stackage-build server (see
 below). Instead of pulling an unbounded number of images, I typically just

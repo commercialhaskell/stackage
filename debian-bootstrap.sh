@@ -25,14 +25,17 @@ add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://down
 add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy-apache24-compat main'
 add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy-libjpeg62-compat main'
 
-GHCVER=8.2.1
+GHCVER=8.2.2
 
 apt-get update
 apt-get install -y \
     build-essential \
+    cmake \
     curl \
     freeglut3-dev \
     fsharp \
+    g++ \
+    gawk \
     ghc-$GHCVER \
     ghc-$GHCVER-dyn \
     ghc-$GHCVER-htmldocs \
@@ -89,6 +92,7 @@ apt-get install -y \
     libmysqlclient-dev \
     libncurses-dev \
     libnfc-dev \
+    liboath-dev \
     libnotify-dev \
     libopenal-dev \
     libpango1.0-dev \
@@ -124,6 +128,7 @@ apt-get install -y \
     minisat \
     mono-mcs \
     nettle-dev \
+    ninja-build \
     nodejs \
     npm \
     openjdk-8-jdk \
@@ -191,9 +196,9 @@ echo "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/" > /etc/ld.so.conf
 
 # llvm-4.0 for llvm-hs (separate since it needs wget)
 wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
-    && add-apt-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-4.0 main" \
+    && add-apt-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-5.0 main" \
     && apt-get update \
-    && apt-get install -y llvm-4.0
+    && apt-get install -y llvm-5.0
 
 # Install version 3 of the protobuf compiler.  (The `protobuf-compiler` package only
 # supports version 2.)
@@ -207,7 +212,26 @@ curl https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-l
     && rm libtensorflow.tar.gz \
     && ldconfig
 
-## non-free repo for mediabus-fdk-aac
-#apt-add-repository multiverse \
-#    && apt-get update \
-#    && apt-get install -y libfdk-aac-dev
+# NOTE: also update Dockerfile when cuda version changes
+# Install CUDA toolkit
+# The current version can be found at: https://developer.nvidia.com/cuda-downloads
+CUDA_PKG=8.0.61-1         # update this on new version
+CUDA_VER=${CUDA_PKG:0:3}
+CUDA_APT=${CUDA_VER/./-}
+
+pushd /tmp \
+    && wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_${CUDA_PKG}_amd64.deb \
+    && dpkg -i cuda-repo-ubuntu1604_${CUDA_PKG}_amd64.deb \
+    && apt-get update -qq \
+    && apt-get install -y cuda-drivers cuda-core-${CUDA_APT} cuda-cudart-dev-${CUDA_APT} cuda-cufft-dev-${CUDA_APT} cuda-cublas-dev-${CUDA_APT} cuda-cusparse-dev-${CUDA_APT} cuda-cusolver-dev-${CUDA_APT} \
+    && rm cuda-repo-ubuntu1604_${CUDA_PKG}_amd64.deb \
+    && export CUDA_PATH=/usr/local/cuda-${CUDA_VER} \
+    && export LD_LIBRARY_PATH=${CUDA_PATH}/nvvm/lib64:${LD_LIBRARY_PATH+x} \
+    && export LD_LIBRARY_PATH=${CUDA_PATH}/lib64:${LD_LIBRARY_PATH} \
+    && export PATH=${CUDA_PATH}/bin:${PATH} \
+    && popd
+
+# non-free repo for mediabus-fdk-aac
+apt-add-repository multiverse \
+    && apt-get update \
+    && apt-get install -y nvidia-cuda-dev
