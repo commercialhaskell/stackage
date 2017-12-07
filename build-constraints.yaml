@@ -2223,7 +2223,7 @@ packages:
         - list-prompt
         - package-description-remote
         - projectroot
-        - questioner
+        # - questioner # ansi-terminal-0.7
         - language-dockerfile
 
     "Pascal Hartig <phartig@rdrei.net> @passy":
@@ -3064,9 +3064,6 @@ packages:
         # https://github.com/commercialhaskell/stack/issues/3345
         - cassava < 0.5.1.0
 
-        # https://github.com/fpco/stackage/issues/2778
-        - ansi-terminal < 0.7
-
         # https://github.com/fpco/stackage/issues/2832
         - io-streams < 1.5
 
@@ -3421,6 +3418,7 @@ skipped-tests:
     - path # via genvalidity genvalidity-property
     - servant-js # via language-ecmascript
     - system-filepath # QuickCheck 2.9 via chell-quickcheck
+    - system-fileio # via chell (per ansi-terminal-0.7)
     - unordered-containers # via ChasingBottoms
 
     # Blocked by stackage upper bounds. These can be re-enabled once
