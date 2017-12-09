@@ -63,17 +63,6 @@ $ cabal test
 $ cabal haddock
 ```
 
-**NB** Please use commit messages like "add foo-bar" or "add johndev's packages"
-(`build-constraints.yaml` is the most frequently changed file in this git repo
-so commit messages like "update build-constraints.yaml" are not helpful).
-
-**NB2** There can be a delay of up to an hour before package versions
-newly uploaded to Hackage appear to our build server. If you just
-uploaded a package to Hackage that you're trying to get included, we
-recommend waiting an hour before opening the PR. You can verify this
-by making sure the latest version is listed at
-https://github.com/commercialhaskell/all-cabal-metadata/tree/master/packages/.
-
 ## Github and Notifications
 
 Stackage uses Github notifications to reduce overhead of contacting individual
