@@ -3105,9 +3105,6 @@ packages:
         # https://github.com/fpco/stackage/issues/3084
         - hosc < 0.16
 
-        # https://github.com/fpco/stackage/issues/3076
-        - bifunctors < 5.5
-
         # https://github.com/fpco/stackage/issues/3077
         - deriving-compat < 0.4
 
@@ -3286,7 +3283,6 @@ skipped-tests:
     - diagrams-solve # tasty-quickcheck
     - drawille # hspec 2.4
     - dual-tree # testing-feat per ghc < 4.10
-    - edit-distance # QuickCheck 2.10
     - envy # QuickCheck 2.10
     - exception-transformers # HUnit 1.6
     - extensible-effects # HUnit 1.6
@@ -3307,7 +3303,6 @@ skipped-tests:
     - retry # QuickCheck 2.10
     - superbuffer # QuickCheck 2.10
     - tar # tasty-quickcheck
-    - tdigest # doctest 0.13
     - text-short # tasty-quickcheck
     - vector # QuickCheck 2.10
     - vector-builder # tasty-quickcheck
@@ -3386,12 +3381,17 @@ skipped-tests:
     - fgl-arbitrary
     - graphviz
     - wl-pprint-text
+    # @phadej
+    - edit-distance # QuickCheck 2.10
+    - http-api-data # doctest 0.13
+    - tdigest # doctest 0.13
+    - time-parsers
+    - servant-mock # hspec-wai https://github.com/fpco/stackage/issues/3014
+    - servant-server # hspec-wai https://github.com/fpco/stackage/issues/3014
 
     # Uncategorized, please categorize!
     - hackage-security # Cabal 2.0
     - ed25519 # QuickCheck, hlint and more
-    - servant-mock # https://github.com/fpco/stackage/issues/3014
-    - servant-server # # https://github.com/fpco/stackage/issues/3014
 
 # end of skipped-tests
 
@@ -3522,7 +3522,6 @@ expected-test-failures:
     # Missing test files in sdist
     # Hopefully gets fixed in the next release...
     - angel # https://github.com/MichaelXavier/Angel/issues/43
-    - bbdb # https://github.com/henrylaxen/bbdb/issues/1
     - camfort # 0.900 https://github.com/camfort/camfort/issues/41
     - crypto-pubkey # https://github.com/vincenthz/hs-crypto-pubkey/issues/23
     - cubicbezier # https://github.com/kuribas/cubicbezier/issues/3
@@ -3702,6 +3701,7 @@ skipped-benchmarks:
     - pipes # optparse-applicative 0.13
     - ttrie # criterion-plus and th-pprint
     - unordered-containers # criterion 1.2
+    - servant-kotlin # shelly 1.7 https://github.com/fpco/stackage/issues/3088
 
     # Transitive outdated dependencies
     # These packages
