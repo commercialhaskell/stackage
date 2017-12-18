@@ -74,6 +74,7 @@ apt-get install -y \
     libicu-dev \
     libimlib2-dev \
     libjack-jackd2-dev \
+    libjavascriptcoregtk-4.0-dev \
     libjudy-dev \
     liblapack-dev \
     libleveldb-dev \
