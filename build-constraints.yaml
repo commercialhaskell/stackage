@@ -192,7 +192,7 @@ packages:
         - List
 
     "Luke Murphy <lukewm@riseup.net> @lwm":
-        - tasty-discover
+        # - tasty-discover # tasty via tasty-hedgehog
         - lentil
 
     "Marco Zocca @ocramz":
@@ -2350,7 +2350,7 @@ packages:
 
     "Ozgun Ataman ozgun.ataman@soostone.com @ozataman":
         - string-conv
-        - rng-utils
+        # - rng-utils # tasty via tasty-hedgehog
         - ua-parser
         - hs-GeoIP
         - retry
@@ -3119,11 +3119,6 @@ packages:
         - http-types < 0.10
         - servant-auth-cookie < 0.5.0.6
 
-        # https://github.com/fpco/stackage/issues/2995
-        - tasty < 0.12
-        # When tasty constraint is lifted:
-        # don't forget to unskip tests for cabal-install
-
         # https://github.com/fpco/stackage/issues/3013
         - servant < 0.12
         - servant-client < 0.12
@@ -3138,9 +3133,6 @@ packages:
 
         # https://github.com/fpco/stackage/issues/3057
         - hscolour <1.24.3
-
-        # https://github.com/fpco/stackage/issues/3062
-        - tasty-hunit < 0.10
 
         # https://github.com/fpco/stackage/issues/3077
         - deriving-compat < 0.4
@@ -3329,8 +3321,6 @@ skipped-builds:
 # or if Setup fails because of missing foreign libraries.
 # Otherwise place them in expected-test-failures.
 skipped-tests:
-    # Bleeding edge dependencies
-    - cabal-install # tasty 0.12 # https://github.com/fpco/stackage/issues/2995
     # Outdated dependencies
     # These can periodically be checked for updates;
     # just remove these lines and run `stackage-curator check' to verify.
@@ -3468,6 +3458,15 @@ skipped-tests:
     # Uncategorized, please categorize!
     - hackage-security # Cabal 2.0
     - ed25519 # QuickCheck, hlint and more
+
+    # tasty 0.12 and tasty-hunit 0.10
+    - airship
+    - arithmoi
+    - hakyll
+    - indents
+    - barrier
+    - haskell-names
+    - throwable-exceptions
 
 # end of skipped-tests
 
