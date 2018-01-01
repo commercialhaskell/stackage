@@ -5,5 +5,5 @@ Checklist:
 
       stack unpack $package
       cd $package-$version
-      stack init --resolrver nightly
+      stack init --resolver nightly
       stack build --resolver nightly --haddock --test --bench --no-run-benchmarks
