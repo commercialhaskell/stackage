@@ -3163,6 +3163,12 @@ packages:
         # https://github.com/fpco/stackage/issues/3154
         - entropy < 0.4
 
+        # https://github.com/fpco/stackage/issues/3158
+        #
+        # Note: when #3158 is closed, also remove wreq from the skipped-tests
+        # section as wreq-0.5.2 makes tests compile properly
+        - wreq < 0.5.2
+
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
@@ -3387,7 +3393,7 @@ skipped-tests:
     # Compilation failures
     - proto-lens-combinators # https://github.com/google/proto-lens/issues/119
     - pell # https://github.com/brunjlar/pell/issues/1
-    - wreq # https://github.com/bos/wreq/issues/113
+    - wreq # https://github.com/bos/wreq/issues/113, https://github.com/fpco/stackage/issues/3158
     - protobuf # https://github.com/alphaHeavy/protobuf/issues/34
 
     # Runtime issues
