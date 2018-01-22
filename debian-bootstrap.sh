@@ -123,6 +123,7 @@ apt-get install -y \
     libxss-dev \
     libyaml-dev \
     libzip-dev \
+    libzstd-dev \
     libzmq3-dev \
     llvm-3.9 \
     locales \
