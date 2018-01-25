@@ -748,7 +748,7 @@ packages:
     "Chris Allen <cma@bitemyapp.com> @bitemyapp":
         - machines-directory
         - machines-io
-        # - bloodhound # http-types 0.11
+        - bloodhound
         - esqueleto
 
     "Adam Bergmark <adam@bergmark.nl> @bergmark":
@@ -1137,8 +1137,8 @@ packages:
         - glib
         - pango
         - ghcjs-codemirror
-        # - ghcjs-dom # http-types 0.11 via jsaddle
-        # - jsaddle # http-types 0.11
+        - ghcjs-dom
+        - jsaddle
         - vado
         - vcswrapper
         - ShellCheck
@@ -1249,9 +1249,9 @@ packages:
         - tree-diff
 
         # scrive/log
-        # - log # http-types 0.11 via bloodhound
+        - log
         - log-base
-        # - log-elasticsearch # http-types 0.11 via bloodhound
+        - log-elasticsearch
         - log-postgres
 
         # Not a maintainer
@@ -1746,7 +1746,7 @@ packages:
         - Spintax
         - glabrous
         - google-oauth2-jwt
-        # - IPv6DB # http-types 0.11
+        - IPv6DB
 
     "koral koral@mailoo.org @k0ral":
         - atom-conduit
@@ -2282,7 +2282,7 @@ packages:
         - web-routes-happstack
         - web-routes-hsp
         - web-routes-th
-        # - web-routes-wai # http-types 0.11
+        - web-routes-wai
         # - hsx2hs # haskell-src-exts
 
     "Pedro Tacla Yamada <tacla.yamada@gmail.com> @yamadapc":
@@ -2390,7 +2390,7 @@ packages:
         - hs-GeoIP
         - retry
         - katip
-        # - katip-elasticsearch # http-types 0.11
+        - katip-elasticsearch
 
     "Sid Kapur sidharthkapur1@gmail.com @sid-kap":
         - tuple
@@ -3028,8 +3028,7 @@ packages:
         - cisco-spark-api
 
     "Deni Bertovic <deni@denibertovic.com> @denibertovic, James Parker <dev@jamesparker.me>":
-        []
-        # - docker # http-types 0.11
+        - docker
 
     "Hexirp <hexirp@gmail.com> @Hexirp":
         - doctest-driver-gen
@@ -3074,7 +3073,7 @@ packages:
 
     "Tim McGilchrist <timmcgil@gmail.com>  @tmcgilchrist":
         - riak
-        # - airship # http-types 0.11
+        - airship
 
     "Sam Stites <sam@stites.io> @stites":
         - gym-http-api
@@ -3187,6 +3186,10 @@ packages:
         - Win32 == 2.5.4.1
 
     "Stackage upper bounds":
+
+        # https://github.com/fpco/stackage/issues/2976
+        - http-types < 0.10
+        - hoauth2 < 1.6.1
 
         # https://github.com/fpco/stackage/issues/3143
         - ansi-terminal < 0.8
