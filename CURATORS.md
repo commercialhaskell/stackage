@@ -3,13 +3,13 @@ team who maintain the Stackage project itself - should be doing on a regular bas
 Curation activities are mostly automated, and do not take up a significant amount of time.
 The following is the current list of curators, in alphabetical order:
 
-* Adam Bergmark
-* Chris Dornan
-* Dan Burton
-* Jens Petersen
-* Luke Murphy
-* Michael Snoyman
-* Mihai Maruseac
+* Adam Bergmark (@bergmark)
+* Chris Dornan (@cdornan)
+* Dan Burton (@danburton)
+* Jens Petersen (@juhp)
+* Luke Murphy (@lwm)
+* Michael Snoyman (@snoyberg)
+* Mihai Maruseac (@mihaimaruseac)
 
 ## Workflow overview
 
