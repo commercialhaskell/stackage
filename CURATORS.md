@@ -7,7 +7,6 @@ The following is the current list of curators, in alphabetical order:
 * Chris Dornan (@cdornan)
 * Dan Burton (@danburton)
 * Jens Petersen (@juhp)
-* Luke Murphy (@lwm)
 * Michael Snoyman (@snoyberg)
 * Mihai Maruseac (@mihaimaruseac)
 
