@@ -170,6 +170,11 @@ update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
 update-alternatives --install "/usr/bin/llc" "llc" "/usr/bin/llc-3.9" 50
 update-alternatives --install "/usr/bin/opt" "opt" "/usr/bin/opt-3.9" 50
 
+# Made sure a "node" binary is in the path, as well as "nodejs".
+# A historical naming collision on Debian means that the binary is called "nodejs",
+# but some tools like tsc still expect "node" to exist.
+ln -s /usr/bin/nodejs /usr/bin/node
+
 # install ocilib dependencies then build and install ocilib
 cd /tmp \
     && wget https://storage.googleapis.com/oracle.fpinsight.com/instantClient/oracle-instantclient12.1-basiclite_12.1.0.2.0-2_amd64.deb \
