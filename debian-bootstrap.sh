@@ -243,7 +243,3 @@ pushd /tmp \
 apt-add-repository multiverse \
     && apt-get update \
     && apt-get install -y nvidia-cuda-dev
-
-# For the datadog package
-export DATADOG_API_KEY=abd7b2a270e44c0a846c94e44534b215
-export DATADOG_APP_KEY=1775440c64d5bff48441a33755e072c82c2ab88b
