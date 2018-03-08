@@ -4,9 +4,11 @@ Curation activities are mostly automated, and do not take up a significant amoun
 The following is the current list of curators, in alphabetical order:
 
 * Adam Bergmark (@bergmark)
+* Alexey Zabelin (@alexeyzab)
 * Chris Dornan (@cdornan)
 * Dan Burton (@danburton)
 * Jens Petersen (@juhp)
+* Joe Kachmar (@jkachmar)
 * Michael Snoyman (@snoyberg)
 * Mihai Maruseac (@mihaimaruseac)
 
