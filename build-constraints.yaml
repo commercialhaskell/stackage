@@ -435,7 +435,7 @@ packages:
         - mandrill
 
     "Jon Schoning <jonschoning@gmail.com> @jonschoning":
-        - pinboard
+        # - pinboard # http-types 0.12
         - swagger-petstore
 
     "Jasper Van der Jeugt @jaspervdj":
@@ -446,7 +446,7 @@ packages:
         - psqueues
         - websockets
         - websockets-snap
-        - hakyll
+        # - hakyll # http-types 0.12
 
     "Sibi Prabakaran <sibi@psibi.in> @psibi":
         - download
@@ -675,8 +675,8 @@ packages:
     "Patrick Brisbin @pbrisbin":
         - gravatar
         - load-env
-        - yesod-auth-oauth2
-        - yesod-markdown
+        # - yesod-auth-oauth2 # http-types 0.12 via hoauth2
+        # - yesod-markdown # http-types 0.12 via pandoc
         - yesod-paginator
 
     "Felipe Lessa <felipe.lessa@gmail.com> @meteficha":
@@ -930,14 +930,14 @@ packages:
         - imagesize-conduit
         - json-schema
         - multipart
-        - rest-client
+        # - rest-client # http-types 0.12
         - rest-core
         # - rest-gen # haskell-src-exts
         # - rest-happstack # haskell-src-exts via rest-gen
         - rest-snap
         - rest-stringmap
         - rest-types
-        - rest-wai
+        # - rest-wai # http-types 0.12
         - tostring
         - uri-encode
 
@@ -1166,8 +1166,8 @@ packages:
         - glib
         - pango
         - ghcjs-codemirror
-        - ghcjs-dom
-        - jsaddle
+        # - ghcjs-dom # http-types 0.12
+        # - jsaddle # http-types 0.12
         - vado
         - vcswrapper
         - ShellCheck
@@ -1263,7 +1263,7 @@ packages:
         - JuicyPixels-scale-dct
         - lattices
         - microstache
-        - monad-http
+        # - monad-http # http-types 0.12
         - postgresql-simple-url
         - range-set-list
         - regex-applicative-text
@@ -2116,7 +2116,7 @@ packages:
         - strict-base-types
         - withdependencies
         - hruby
-        - language-puppet
+        # - language-puppet # servant 0.13
         - tar-conduit
 
     "Mark Karpov <markkarpov92@gmail.com> @mrkkrp":
@@ -2343,7 +2343,8 @@ packages:
         - wai-session-postgresql
 
     "Haisheng Wu <freizl@gmail.com> @freizl":
-        - hoauth2
+        []
+        # - hoauth2 # http-types 0.12
 
     "Falko Peters <falko.peters@gmail.com> @informatikr":
         - scrypt
@@ -2401,8 +2402,8 @@ packages:
         - pandoc-types < 1.19 || > 1.19 # Accidental upload, see: https://github.com/fpco/stackage/issues/2223
         - zip-archive
         - doctemplates
-        - pandoc
-        - pandoc-citeproc
+        # - pandoc # http-types 0.12
+        # - pandoc-citeproc # http-types 0.12 via pandoc
 
     "Karun Ramakrishnan <karun012@gmail.com> @karun012":
         - doctest-discover
@@ -2597,7 +2598,7 @@ packages:
 
     "Cliff Harvey <cs.hbar+hs@gmail.com> @BlackBrane":
         - ansigraph
-        - microsoft-translator
+        # - microsoft-translator # servant 0.13
 
     "Tebello Thejane <zyxoas+stackage@gmail.com> @tebello-thejane":
         - bitx-bitcoin
@@ -2661,7 +2662,7 @@ packages:
         - aeson-injector
 
     "Al Zohali <zohl@fmap.me> @zohl":
-        - servant-auth-cookie
+        # - servant-auth-cookie # servant 0.13
         - dictionaries
         - cereal-time
 
@@ -2800,7 +2801,7 @@ packages:
         - printcess
 
     "Alexey Kuleshevich <lehins@yandex.ru> @lehins":
-        - wai-middleware-auth
+        # - wai-middleware-auth # http-types 0.12 via hoauth2
         - hip
         - massiv
         - massiv-io
@@ -3249,11 +3250,6 @@ packages:
 
     "Stackage upper bounds":
 
-        # https://github.com/fpco/stackage/issues/3232
-        - http-types < 0.10
-        - hoauth2 < 1.6.1
-        - github < 0.19
-
         # https://github.com/fpco/stackage/issues/3154
         - entropy < 0.4
 
@@ -3281,15 +3277,8 @@ packages:
         - http-conduit < 2.3.0
         - hoogle < 5.0.17
 
-        # https://github.com/fpco/stackage/issues/3211
-        - pandoc-citeproc < 0.14
-
         # https://github.com/fpco/stackage/issues/3213
         - js-jquery < 3.3
-
-        # https://github.com/silkapp/rest/issues/157
-        # Build failure
-        - rest-client < 0.5.2.1
 
         # https://github.com/fpco/stackage/issues/3234
         - free < 5
@@ -3382,16 +3371,6 @@ packages:
         # https://github.com/fpco/stackage/issues/3274
         - cryptonite < 0.25
 
-        # https://github.com/fpco/stackage/issues/3281
-        - servant < 0.13
-        - servant-client < 0.13
-        - servant-client-core < 0.13
-        - servant-foreign < 0.11
-        - servant-server < 0.13
-        - servant-docs < 0.11.2
-        - servant-mock < 0.8.4
-        - servant-swagger < 1.1.5
-
         # https://github.com/fpco/stackage/issues/3288
         - pqueue < 1.4.1
 
@@ -3442,23 +3421,6 @@ packages:
         - distribution-nixpkgs < 1.1.1 # Cabal >2.2
         - haskell-tools-builtin-refactorings < 1.0.1.1 # via minisat-solver via easyrender, Cabal < 2
         - hackage-db < 2.0.1 # Cabal >2.2
-
-        # https://github.com/fpco/stackage/issues/3346
-        - haskell-tools-refactor < 1.0.1.1
-        # https://github.com/haskell-tools/haskell-tools/issues/615
-        # apparently these don't build well when out of sync
-        - haskell-tools-ast < 1.0.1.1
-        - haskell-tools-backend-ghc < 1.0.1.1
-        - haskell-tools-builtin-refactorings < 1.0.1.1
-        - haskell-tools-cli < 1.0.1.1
-        - haskell-tools-daemon < 1.0.1.1
-        - haskell-tools-debug < 1.0.1.1
-        - haskell-tools-demo < 1.0.1.1
-        - haskell-tools-prettyprint < 1.0.1.1
-        - haskell-tools-refactor < 1.0.1.1
-        - haskell-tools-rewrite < 1.0.1.1
-
-        - haskell-tools-cli < 1.0.1.1
 
         # Requires too-new base
         - xhtml < 3000.2.2.1 # base >= 4.11
@@ -3651,6 +3613,7 @@ skipped-tests:
     - genvalidity-hspec-hashable # doctest 0.13
     - genvalidity-property # doctest 0.13
     - GLFW-b # HUnit 1.6
+    - haskell-tools-refactor # either, tasty, and tasty-hunit
     - hasql-transaction # rebase, see https://github.com/nikita-volkov/rebase/issues/11
     - lifted-base # HUnit 1.6
     - makefile # GHC 8.2
