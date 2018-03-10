@@ -765,11 +765,11 @@ packages:
         - foldl
         - morte
         - bench
-        - dhall
-        - dhall-bash
-        - dhall-json
+        # - dhall # ansi-terminal-0.8
+        # - dhall-bash # via dhall
+        # - dhall-json # via dhall
         # - dhall-nix # deriving-compat via hnix
-        - dhall-text
+        # - dhall-text # via dhall
 
     "Andrew Thaddeus Martin <andrew.thaddeus@gmail.com> @andrewthad":
         - yesod-table
@@ -1159,7 +1159,7 @@ packages:
         - cabal-rpm
         - fedora-haskell-tools
 
-        - idris
+        # - idris # ansi-terminal-0.8
         - libffi
         - xmonad-contrib
         - cairo
@@ -3254,12 +3254,6 @@ packages:
         - hoauth2 < 1.6.1
         - github < 0.19
 
-        # https://github.com/fpco/stackage/issues/3143
-        - ansi-terminal < 0.8
-
-        # https://github.com/haskell/test-framework/issues/35
-        - test-framework < 0.8.2.0
-
         # https://github.com/fpco/stackage/issues/3154
         - entropy < 0.4
 
@@ -3682,14 +3676,19 @@ skipped-tests:
     - capataz # tasty
     - mysql-haskell # tasty
     - static-text # tasty
+    - test-framework # QuickCheck 2.10
 
     # Transitive outdated dependencies
     # These packages
     # These can also be checked for updates periodically.
     - MissingH # via testpack https://github.com/jgoerzen/testpack/issues/11
     - o-clock # tasty 0.12 via tasty-hedgehog
+    - options # ansi-terminal-0.8 via chell
     - path # via genvalidity genvalidity-property
     - retry # tasty 0.12 via tasty-hedgehog
+    - system-fileio # ansi-terminal-0.8 via chell
+    - system-filepath # ansi-terminal-0.8 via chell
+
 
     # Blocked by stackage upper bounds. These can be re-enabled once
     # the relevant stackage upper bound is lifted.
