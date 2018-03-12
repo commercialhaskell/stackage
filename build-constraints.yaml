@@ -3256,7 +3256,15 @@ packages:
      # request. This will tell us if other packages would be
      # affected. Packages will be kept in this list indefinitely so
      # that new packages depending on it will be flagged as well.
-    "Removed packages":
+    "Removed packages": []
+
+    # This section was used to programmatically generate a set of removals
+    # that would result in a valid build plan.
+    # These packages have version bounds in their deps or transitive deps
+    # which prevent them from forming a valid build plan with ghc 8.4.
+    # These lines are temporary and should ideally be replaced by commenting out
+    # the packages at their point of inclusion.
+    "Blocked by GHC 8.4":
         - Agda < 0 # GHC 8.4 via base-4.11.0.0
         - Earley < 0 # GHC 8.4 via base-4.11.0.0
         - Frames < 0 # GHC 8.4 via base-4.11.0.0
