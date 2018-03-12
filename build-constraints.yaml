@@ -238,7 +238,7 @@ packages:
 
     "Joseph Canero <jmc41493@gmail.com> @caneroj1":
         # - sqlite-simple-errors # text 1.2.3.0
-        - median-stream
+        # - median-stream # GHC 8.4 via heap
         - stm-supply
         - filter-logger
         - tile
@@ -3257,6 +3257,11 @@ packages:
      # affected. Packages will be kept in this list indefinitely so
      # that new packages depending on it will be flagged as well.
     "Removed packages": []
+
+    # Packages not explicitly in the build plan that are blocked
+    # from inclusion due to compilation failure with ghc 8.4
+    "Build failure with GHC 8.4":
+        - heap < 0 # https://github.com/pruvisto/heap/issues/5
 
     # This section was used to programmatically generate a set of removals
     # that would result in a valid build plan.
