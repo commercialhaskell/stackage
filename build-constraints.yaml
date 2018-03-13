@@ -5558,6 +5558,10 @@ packages:
         - cipher-rc4 < 0 # GHC 8.4 via crypto-cipher-types
         - cryptocipher < 0 # GHC 8.4 via crypto-cipher-types
         - plot < 0 # GHC 8.4 via pango
+        - cabal-toolkit < 0 # GHC 8.4 via Cabal-2.2.0.0
+        - entropy < 0 # GHC 8.4 via Cabal-2.2.0.0
+        - crypto-random-api < 0 # GHC 8.4 via entropy
+        - scrypt < 0 # GHC 8.4 via entropy
 
 
     "GHC upper bounds":
@@ -5626,20 +5630,9 @@ packages:
         # https://github.com/fpco/stackage/issues/3337
         - aeson < 1.3
 
-        # https://github.com/fpco/stackage/issues/3340
-        - Cabal < 2.2
-
         # https://github.com/athanclark/websockets-rpc/issues/2
         # (downstream build failure)
         - websockets-simple < 0.0.7
-
-        # Requires too-new or too-old Cabal
-        - cabal2nix < 2.9 # Cabal >2.2
-        - distribution-nixpkgs < 1.1.1 # Cabal >2.2
-        - hackage-db < 2.0.1 # Cabal >2.2
-
-        # Requires too-new base
-        - xhtml < 3000.2.2.1 # base >= 4.11
 
         # https://github.com/jtdaugherty/vty/issues/147
         # (downstream build failure)
