@@ -2810,10 +2810,11 @@ packages:
         # - printcess # lens 4.16
 
     "Alexey Kuleshevich <lehins@yandex.ru> @lehins":
+        []
         # - wai-middleware-auth # via hoauth2
         # - hip # lens 4.16 via diagrams/chart
-        - massiv
-        - massiv-io
+        # - massiv # build failure with GHC 8.4 https://github.com/lehins/massiv/issues/10
+        # - massiv-io # GHC 8.4 via massiv
 
     "Hans-Peter Deifel <hpd@hpdeifel.de> @hpdeifel":
         - hledger-iadd
@@ -3268,6 +3269,7 @@ packages:
         - hamtsolo < 0 # build failure with conduit 1.3 https://github.com/tfc/hamtsolo/issues/3
         - heap < 0 # build failure with GHC 8.4 https://github.com/pruvisto/heap/issues/5
         - inline-c < 0 # build failure with GHC 8.4 https://github.com/fpco/inline-c/issues/73
+        - massiv < 0 # build failure with GHC 8.4 https://github.com/lehins/massiv/issues/10
         - monoid-subclasses < 0 # build failure with GHC 8.4 https://github.com/blamario/monoid-subclasses/issues/16
         - n-tuple < 0 # build failure with GHC 8.4 https://github.com/athanclark/n-tuple/issues/1
         - type-combinators < 0 # build failure with GHC 8.4 https://github.com/kylcarte/type-combinators/issues/8
@@ -3398,6 +3400,7 @@ packages:
         - wild-bind < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - wild-bind-x11 < 0 # DependencyFailed (PackageName "wild-bind")
         - xls < 0 # DependencyFailed (PackageName "getopt-generics")
+        - massiv-io < 0 # GHC 8.4 via massiv
 
 
     # This section was used to programmatically generate a set of removals
@@ -4138,7 +4141,6 @@ packages:
         - machines-binary < 0 # GHC 8.4 via machines
         - machines-directory < 0 # GHC 8.4 via machines
         - machines-io < 0 # GHC 8.4 via machines
-        - massiv-io < 0 # GHC 8.4 via massiv
         - HaskellNet < 0 # GHC 8.4 via mime-mail
         - mime-mail-ses < 0 # GHC 8.4 via mime-mail
         - smtp-mail < 0 # GHC 8.4 via mime-mail
