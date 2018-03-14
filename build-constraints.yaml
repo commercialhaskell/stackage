@@ -1659,7 +1659,7 @@ packages:
         - markup
         - monad-control-aligned
         - monadoid
-        - n-tuple
+        # - n-tuple # build failure with GHC 8.4 https://github.com/athanclark/n-tuple/issues/1
         - path-extra
         - pred-trie
         - pred-set
@@ -1713,7 +1713,7 @@ packages:
         - one-liner-instances
         - prompt
         - tagged-binary
-        - type-combinators-singletons
+        # - type-combinators-singletons # GHC 8.4 via type-combinators
         - typelits-witnesses
         - uncertain
         - vector-sized
@@ -1751,9 +1751,9 @@ packages:
         - choice
         - distributed-closure
         - inline-java
-        - inline-r
-        - jni
-        - jvm
+        # - inline-r # GHC 8.4 via inline-c
+        # - jni # GHC 8.4 via inline-c
+        # - jvm # GHC 8.4 via inline-c
         - jvm-streaming
         - H
         - sparkle
@@ -2214,7 +2214,7 @@ packages:
 
     "Stanislav Chernichkin <schernichkin@gmail.com> @schernichkin":
         - partial-isomorphisms
-        - vinyl
+        # - vinyl # build failure with GHC 8.4 https://github.com/VinylRecords/Vinyl/issues/114
 
     "Christoph Breitkopf <chbreitkopf@gmail.com> @bokesan":
         - IntervalMap
@@ -2231,7 +2231,7 @@ packages:
         - webdriver
 
     "Luke Iannini <lukexi@me.com> @lukexi":
-        - inline-c
+        # - inline-c # build failure with GHC 8.4 https://github.com/fpco/inline-c/issues/73
         - inline-c-cpp
         - ekg
 
@@ -3267,7 +3267,11 @@ packages:
         - b9 < 0 # build failure with GHC 8.4 https://github.com/sheyll/b9-vm-image-builder/issues/4
         - hamtsolo < 0 # build failure with conduit 1.3 https://github.com/tfc/hamtsolo/issues/3
         - heap < 0 # build failure with GHC 8.4 https://github.com/pruvisto/heap/issues/5
+        - inline-c < 0 # build failure with GHC 8.4 https://github.com/fpco/inline-c/issues/73
         - monoid-subclasses < 0 # build failure with GHC 8.4 https://github.com/blamario/monoid-subclasses/issues/16
+        - n-tuple < 0 # build failure with GHC 8.4 https://github.com/athanclark/n-tuple/issues/1
+        - type-combinators < 0 # build failure with GHC 8.4 https://github.com/kylcarte/type-combinators/issues/8
+        - vinyl < 0 # build failure with GHC 8.4 https://github.com/VinylRecords/Vinyl/issues/114
         - wl-pprint-text < 0 # build failure with GHC 8.4 https://github.com/ivan-m/wl-pprint-text/issues/18
 
         # may have no issue yet
