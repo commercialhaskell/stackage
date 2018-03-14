@@ -3346,6 +3346,51 @@ packages:
         - wl-pprint < 0 # build failure with GHC 8.4
         - yjsvg < 0 # build failure with GHC 8.4
 
+        # round 2:
+        - HSet < 0 # DependencyFailed (PackageName "hashtables")
+        - HaTeX < 0 # DependencyFailed (PackageName "matrix")
+        - adler32 < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - bookkeeping < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - cartel < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - cases < 0 # DependencyFailed (PackageName "loch-th")
+        - clay < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - doctest-discover < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - dynamic-state < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - envparse < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - fmt < 0 # DependencyFailed (PackageName "text-format")
+        - getopt-generics < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - ghc-typelits-natnormalise < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - ghcjs-base-stub < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - ginger < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - glob-posix < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - hashtables < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - hdevtools < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - hformat < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - hlibsass < 0 # BuildFailureException Process exited with ExitFailure 1: ghc -clear-package-db -global-package-db -package-db=/var/stackage/work/builds/nightly/pkgdb -hide-all-packages -package=Cabal -package=base -package=directory Setup
+        - htaglib < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - ini < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - lame < 0 # DependencyFailed (PackageName "htaglib")
+        - lens < 0 # DependencyFailed (PackageName "simple-reflect")
+        - lens-aeson < 0 # DependencyFailed (PackageName "simple-reflect")
+        - loch-th < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - matrix < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - mysql < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - ochintin-daicho < 0 # DependencyFailed (PackageName "bookkeeping")
+        - pipes-concurrency < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - pred-set < 0 # DependencyFailed (PackageName "HSet")
+        - simple-log < 0 # DependencyFailed (PackageName "hformat")
+        - simple-reflect < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - simple-templates < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - socket < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - sorted-list < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - strict-types < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - text-format < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - units-parser < 0 # BuildFailureException Process exited with ExitFailure 1: dist/build/main/main
+        - varying < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - wild-bind < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - wild-bind-x11 < 0 # DependencyFailed (PackageName "wild-bind")
+        - xls < 0 # DependencyFailed (PackageName "getopt-generics")
+
 
     # This section was used to programmatically generate a set of removals
     # that would result in a valid build plan.
@@ -4943,6 +4988,13 @@ packages:
         - hpc-coveralls < 0 # GHC 8.4 via pureMD5
         - pixelated-avatar-generator < 0 # GHC 8.4 via pureMD5
         - xxhash-ffi < 0 # GHC 8.4 via xxhash
+        - distribution-nixpkgs < 0 # GHC 8.4 via lens
+        - ersatz < 0 # GHC 8.4 via lens
+        - generic-lens < 0 # GHC 8.4 via lens
+        - language-nix < 0 # GHC 8.4 via lens
+        - lens-action < 0 # GHC 8.4 via lens
+        - lens-regex < 0 # GHC 8.4 via lens
+        - metrics < 0 # GHC 8.4 via lens
 
 
     "GHC upper bounds":
@@ -5322,6 +5374,12 @@ skipped-tests:
 # Tests which we should build and run, but which are expected to fail. We
 # should not fail a build based on a test failure for one of these packages.
 expected-test-failures:
+
+    # GHC 8.4
+    - conduit # https://github.com/snoyberg/conduit/issues/358
+    - doctest # https://github.com/sol/doctest/issues/198
+    - transformers-compat # https://github.com/ekmett/transformers-compat/issues/32
+
 
     # Intermittent failures or unreliable. These tests may pass when
     # re-enabled, but will eventually fail again. Only remove these
