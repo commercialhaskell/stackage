@@ -396,7 +396,7 @@ packages:
         - http-conduit
 
     "Omari Norman <omari@smileystation.com> @massysett":
-        - rainbow
+        # - rainbow # build failure with GHC 8.4 https://github.com/massysett/rainbow/issues/6
         - rainbox
         - multiarg
         - cartel
@@ -1578,7 +1578,7 @@ packages:
         - autoexporter
         - bento
         - bmp
-        - Chart # Maintained by @timbod7.
+        # - Chart # Maintained by @timbod7. # build failure with GHC 8.4 https://github.com/timbod7/haskell-chart/issues/181
         # - Chart-diagrams # lens 4.16 via diagrams # Maintained by @timbod7.
         # - diagrams-postscript # lens 4.16 # Maintained by @byorgey.
         - ekg-statsd # Maintained by @tibbe.
@@ -2505,7 +2505,7 @@ packages:
         - hw-hspec-hedgehog
         - hw-int
         - hw-fingertree
-        - hw-fingertree-strict
+        # - hw-fingertree-strict # build failure with ghc 8.4 https://hub.darcs.net/ross/fingertree/issue/5
         - hw-json
         - hw-parser
         - hw-prim
@@ -3265,13 +3265,16 @@ packages:
     # Packages in the build plan that are blocked
     # from inclusion due to compilation failure with ghc 8.4
     "Build failure with GHC 8.4":
+        - Chart < 0 # build failure with GHC 8.4 https://github.com/timbod7/haskell-chart/issues/181
         - b9 < 0 # build failure with GHC 8.4 https://github.com/sheyll/b9-vm-image-builder/issues/4
         - hamtsolo < 0 # build failure with conduit 1.3 https://github.com/tfc/hamtsolo/issues/3
         - heap < 0 # build failure with GHC 8.4 https://github.com/pruvisto/heap/issues/5
+        - hw-fingertree-strict < 0 # build failure with GHC 8.4 https://hub.darcs.net/ross/fingertree/issue/5
         - inline-c < 0 # build failure with GHC 8.4 https://github.com/fpco/inline-c/issues/73
         - massiv < 0 # build failure with GHC 8.4 https://github.com/lehins/massiv/issues/10
         - monoid-subclasses < 0 # build failure with GHC 8.4 https://github.com/blamario/monoid-subclasses/issues/16
         - n-tuple < 0 # build failure with GHC 8.4 https://github.com/athanclark/n-tuple/issues/1
+        - rainbow < 0 # build failure with GHC 8.4 https://github.com/massysett/rainbow/issues/6
         - type-combinators < 0 # build failure with GHC 8.4 https://github.com/kylcarte/type-combinators/issues/8
         - vinyl < 0 # build failure with GHC 8.4 https://github.com/VinylRecords/Vinyl/issues/114
         - wl-pprint-text < 0 # build failure with GHC 8.4 https://github.com/ivan-m/wl-pprint-text/issues/18
@@ -3401,6 +3404,13 @@ packages:
         - wild-bind-x11 < 0 # DependencyFailed (PackageName "wild-bind")
         - xls < 0 # DependencyFailed (PackageName "getopt-generics")
         - massiv-io < 0 # GHC 8.4 via massiv
+        - enclosed-exceptions < 0 # BuildFailureException Process exited with ExitFailure 1: dist/build/test/test
+        - highjson < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - model < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - quickcheck-state-machine < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - shelly < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - stateWriter < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - text-region < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
 
 
     # This section was used to programmatically generate a set of removals
