@@ -3371,8 +3371,6 @@ packages:
         - htaglib < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - ini < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - lame < 0 # DependencyFailed (PackageName "htaglib")
-        - lens < 0 # DependencyFailed (PackageName "simple-reflect")
-        - lens-aeson < 0 # DependencyFailed (PackageName "simple-reflect")
         - loch-th < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - matrix < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - mysql < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
@@ -5050,6 +5048,8 @@ skipped-tests:
     # just remove these lines and run `stackage-curator check' to verify.
     - Cabal # GHC 8.4 via base-orphans-0.7, tree-diff
     - http-types # GHC 8.4 via quickcheck-instances
+    - lens # GHC 8.4 via simple-reflect # https://github.com/twanvl/simple-reflect/issues/3
+    - lens-aeson # GHC 8.4 via simple-reflect # https://github.com/twanvl/simple-reflect/issues/3
     - semigroupoids # doctest 0.15
     - HTTP # conduit-extra 1.3
     - colour # QuickCheck-2.11.3
