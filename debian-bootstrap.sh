@@ -156,11 +156,17 @@ curl -sSL https://get.haskellstack.org/ | sh
 # Put documentation where we expect it
 mv /opt/ghc/$GHCVER/share/doc/ghc-$GHCVER/ /opt/ghc/$GHCVER/share/doc/ghc
 
-# llvm-5.0 for llvm-hs (separate since it needs wget)
+# llvm-5.0 for GHC (separate since it needs wget)
 wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
     && add-apt-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-5.0 main" \
     && apt-get update \
     && apt-get install -y llvm-5.0
+
+# llvm-6.0 for llvm-hs (separate since it needs wget)
+wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
+    && add-apt-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-6.0 main" \
+    && apt-get update \
+    && apt-get install -y llvm-6.0
 
 # Buggy versions of ld.bfd fail to link some Haskell packages:
 # https://sourceware.org/bugzilla/show_bug.cgi?id=17689. Gold is
