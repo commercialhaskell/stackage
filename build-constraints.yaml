@@ -25,7 +25,8 @@ packages:
         - zstd
 
     "Jacek Galowicz <jacek@galowicz.de> @tfc":
-        - hamtsolo
+        []
+        # - hamtsolo # conduit 1.3 https://github.com/tfc/hamtsolo/issues/3
 
     "Ferdinand van Walree <ferdinandvwalree@gmail.com> @Ferdinand-vW":
         []
@@ -648,7 +649,7 @@ packages:
         - monad-parallel
         - monad-coroutine
         - incremental-parser
-        - monoid-subclasses
+        # - monoid-subclasses # GHC 8.4 https://github.com/blamario/monoid-subclasses/issues/16
         - picoparsec
         - rank2classes
 
@@ -1824,7 +1825,7 @@ packages:
         - webdriver-angular
 
     "Sven Heyll <svh@posteo.de> @sheyll":
-        - b9
+        # - b9 # GHC 8.4 https://github.com/sheyll/b9-vm-image-builder/issues/4
         - type-spec
         - pretty-types
 
@@ -2069,7 +2070,7 @@ packages:
     "Ivan Miljenovic <Ivan.Miljenovic@gmail.com> @ivan-m":
         - fgl
         # - graphviz # fgl 5.6.0.0
-        - wl-pprint-text
+        # - wl-pprint-text # build failure with ghc 8.4 https://github.com/ivan-m/wl-pprint-text/issues/18
         - servant-pandoc
 
     "Sharif Olorin <sio@tesser.org> @olorin":
@@ -3263,7 +3264,12 @@ packages:
     # Packages in the build plan that are blocked
     # from inclusion due to compilation failure with ghc 8.4
     "Build failure with GHC 8.4":
+        - b9 < 0 # build failure with GHC 8.4 https://github.com/sheyll/b9-vm-image-builder/issues/4
+        - hamtsolo < 0 # build failure with conduit 1.3 https://github.com/tfc/hamtsolo/issues/3
         - heap < 0 # build failure with GHC 8.4 https://github.com/pruvisto/heap/issues/5
+        - monoid-subclasses < 0 # build failure with GHC 8.4 https://github.com/blamario/monoid-subclasses/issues/16
+        - wl-pprint-text < 0 # build failure with GHC 8.4 https://github.com/ivan-m/wl-pprint-text/issues/18
+
         # may have no issue yet
         - FPretty < 0 # build failure with GHC 8.4
         - Genbank < 0 # build failure with GHC 8.4
