@@ -1161,7 +1161,7 @@ packages:
         - HaskellNet-SSL
 
     "Jens Petersen <juhpetersen@gmail.com> @juhp":
-        - cabal-rpm
+        # - cabal-rpm # build failure with ghc 8.4 https://github.com/juhp/cabal-rpm/issues/55
         - fedora-haskell-tools
 
         # - idris # ansi-terminal-0.8
@@ -1869,7 +1869,8 @@ packages:
         # Test suite needs a running neo4j server with auth disabled
         # unfortunately the cabal package name and the github repo don't have the exact same name
         # package name is haskell-neo4j-client github name is haskell-neo4j-rest-client
-        - haskell-neo4j-client
+        []
+        # - haskell-neo4j-client # ghc 8.4 build failure https://github.com/asilvestre/haskell-neo4j-rest-client/issues/32
 
     "Anton Kholomiov <anton.kholomiov@gmail.com>":
         - data-fix
@@ -3269,9 +3270,11 @@ packages:
         - PSQueue < 0 # build failure with GHC 8.4 (nowhere to report, it's ancient just let it die)
         - Rasterific < 0 # build failure with GHC 8.4 https://github.com/Twinside/Rasterific/issues/37
         - b9 < 0 # build failure with GHC 8.4 https://github.com/sheyll/b9-vm-image-builder/issues/4
+        - cabal-rpm < 0 # build failure with GHC 8.4 https://github.com/juhp/cabal-rpm/issues/55
         - enummapset < 0 # build failure with GHC 8.4 https://github.com/michalt/enummapset/issues/11
         - hamtsolo < 0 # build failure with conduit 1.3 https://github.com/tfc/hamtsolo/issues/3
         - hashtables < 0 # build failure with GHC 8.4 https://github.com/gregorycollins/hashtables/issues/45
+        - haskell-neo4j-client # build failure with GHC 8.4 https://github.com/asilvestre/haskell-neo4j-rest-client/issues/32
         - heap < 0 # build failure with GHC 8.4 https://github.com/pruvisto/heap/issues/5
         - hpack < 0 # build failure with GHC 8.4 https://github.com/sol/hpack/issues/276
         - hw-fingertree-strict < 0 # build failure with GHC 8.4 https://hub.darcs.net/ross/fingertree/issue/5
