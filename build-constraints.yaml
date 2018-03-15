@@ -317,7 +317,7 @@ packages:
         - conduit-combinators
         - conduit-extra
         - hebrew-time
-        - markdown
+        # - markdown # build failure with ghc 8.4 https://github.com/snoyberg/markdown/issues/38
         - mime-mail
         - mime-mail-ses
         - network-conduit-tls
@@ -3274,6 +3274,7 @@ packages:
         - hw-fingertree-strict < 0 # build failure with GHC 8.4 https://hub.darcs.net/ross/fingertree/issue/5
         - inline-c < 0 # build failure with GHC 8.4 https://github.com/fpco/inline-c/issues/73
         - language-docker < 0 # build failure with GHC 8.4 https://github.com/hadolint/language-docker/issues/26
+        - markdown < 0 # build failure with GHC 8.4 https://github.com/snoyberg/markdown/issues/38
         - massiv < 0 # build failure with GHC 8.4 https://github.com/lehins/massiv/issues/10
         - monoid-subclasses < 0 # build failure with GHC 8.4 https://github.com/blamario/monoid-subclasses/issues/16
         - n-tuple < 0 # build failure with GHC 8.4 https://github.com/athanclark/n-tuple/issues/1
@@ -3428,6 +3429,9 @@ packages:
         - sqlite-simple < 0 # DependencyFailed (PackageName "direct-sqlite")
         - wai-route < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - wai-routing < 0 # DependencyFailed (PackageName "wai-route")
+        - cmark < 0 # DependencyFailed (PackageName "markdown")
+        - cmark-highlight < 0 # GHC 8.4 via cmark
+        - tasty-html < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
 
 
     # This section was used to programmatically generate a set of removals
