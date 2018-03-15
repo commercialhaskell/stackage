@@ -1078,7 +1078,7 @@ packages:
        - Spock-worker
        - graph-core
        - hvect
-       - reroute
+       # - reroute # build failure with ghc 8.4 https://github.com/agrafix/Spock/issues/140
        - users
        # - users-persistent # persistent 2.8
        - users-postgresql-simple
@@ -3293,6 +3293,7 @@ packages:
         - pipes-safe < 0 # build failure with GHC 8.4 # https://github.com/Gabriel439/Haskell-Pipes-Safe-Library/issues/33
         - pushbullet-types < 0 # build failure with GHC 8.4 https://github.com/tsani/pushbullet-hs/issues/1
         - rainbow < 0 # build failure with GHC 8.4 https://github.com/massysett/rainbow/issues/6
+        - reroute < 0 # build faiulre with GHC 8.4 https://github.com/agrafix/Spock/issues/140
         - text-format < 0 # build failure with GHC 8.4 https://github.com/bos/text-format/issues/22
         - text-show-instances < 0 # build failure with GHC 8.4 https://github.com/RyanGlScott/text-show-instances/issues/6
         - tinylog < 0 # build failure with GHC 8.4 https://gitlab.com/twittner/tinylog/issues/1
@@ -3445,6 +3446,10 @@ packages:
         - set-cover < 0 # DependencyFailed (PackageName "enummapset")
         - yesod-fb < 0 # GHC 8.4 via fb
         - xml-conduit-parse < 0 # GHC 8.4 via conduit-parse
+        - Spock-api < 0 # GHC 8.4 via reroute
+        - Spock-core < 0 # GHC 8.4 via reroute
+        - Spock-api-server < 0 # GHC 8.4 via Spock-api
+        - Spock-api-server < 0 # GHC 8.4 via Spock-core
 
 
     # This section was used to programmatically generate a set of removals
