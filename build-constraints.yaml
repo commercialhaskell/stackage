@@ -488,7 +488,7 @@ packages:
 
     "Stefan Wehr <wehr@factisresearch.com> @skogsbaer":
         - HTF
-        - xmlgen
+        # - xmlgen # build failure with ghc 8.4 https://github.com/skogsbaer/xmlgen/issues/7
         - stm-stats
         - large-hashable
 
@@ -3300,6 +3300,7 @@ packages:
         - type-combinators < 0 # build failure with GHC 8.4 https://github.com/kylcarte/type-combinators/issues/8
         - vhd < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - wl-pprint-text < 0 # build failure with GHC 8.4 https://github.com/ivan-m/wl-pprint-text/issues/18
+        - xmlgen < 0 # build faiulre with GHC 8.4 https://github.com/skogsbaer/xmlgen/issues/7
 
         # may have no issue yet
         - FPretty < 0 # build failure with GHC 8.4
@@ -3450,6 +3451,10 @@ packages:
         - Spock-core < 0 # GHC 8.4 via reroute
         - Spock-api-server < 0 # GHC 8.4 via Spock-api
         - Spock-api-server < 0 # GHC 8.4 via Spock-core
+        - HTF < 0 # GHC 8.4 via xmlgen
+        - HPDF < 0 # GHC 8.4 via HTF
+        - dataurl < 0 # GHC 8.4 via HTF
+        - graph-core < 0 # GHC 8.4 via HTF
 
 
     # This section was used to programmatically generate a set of removals
