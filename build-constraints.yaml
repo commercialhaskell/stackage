@@ -906,10 +906,10 @@ packages:
         - vectortiles
 
     "Ketil Malde @ketil-malde":
-        - biocore
-        - biofasta
+        # - biocore # build failure with ghc 8.4 https://github.com/fpco/stackage/pull/3359
+        # - biofasta # ghc 8.4 via biocore
         - biofastq
-        - blastxml
+        # - blastxml # ghc 8.4 via biocore
         - bioace
         - biopsl
         - seqloc
@@ -2431,8 +2431,9 @@ packages:
         # - katip-elasticsearch # async 2.2
 
     "Sid Kapur sidharthkapur1@gmail.com @sid-kap":
-        - tuple
-        - OneTuple
+        []
+        # - tuple # ghc 8.4 via OneTuple
+        # - OneTuple # build failure with ghc 8.4 https://github.com/fpco/stackage/pull/3359
         # - SVGFonts # lens 4.16 via diagrams
 
     "Aaron Levin <vilevin@gmail.com> @aaronmblevin":
@@ -3269,10 +3270,12 @@ packages:
     # from inclusion due to compilation failure with ghc 8.4
     "Build failure with GHC 8.4":
         - Chart < 0 # build failure with GHC 8.4 https://github.com/timbod7/haskell-chart/issues/181
+        - OneTuple < 0 # build failure with GHC 8.4 https://github.com/fpco/stackage/pull/3359
         - PSQueue < 0 # build failure with GHC 8.4 (nowhere to report, it's ancient just let it die)
         - Rasterific < 0 # build failure with GHC 8.4 https://github.com/Twinside/Rasterific/issues/38
         - TypeCompose < 0 # build failure with GHC 8.4 https://github.com/conal/TypeCompose/issues/6
         - b9 < 0 # build failure with GHC 8.4 https://github.com/sheyll/b9-vm-image-builder/issues/4
+        - biocore < 0 # build failure with GHC 8.4 https://github.com/fpco/stackage/pull/3359
         - cabal-rpm < 0 # build failure with GHC 8.4 https://github.com/juhp/cabal-rpm/issues/55
         - dom-parser < 0 # build failure with GHC 8.4 https://github.com/typeable/dom-parser/issues/10
         - enummapset < 0 # build failure with GHC 8.4 https://github.com/michalt/enummapset/issues/11
