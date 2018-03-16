@@ -1,6 +1,6 @@
 Checklist:
 - [ ] Meaningful commit message - please not `Update build-constraints.yml`
-- [ ] Some time passed since Hackage upload
+- [ ] At least 30 minutes have passed since Hackage upload
 - [ ] On your own machine, in a new directory, you have successfully run the following set of commands (replace `$package` with the name of the package that is submitted, `$version` is the version of the package you want to get into Stackage):
 
       stack unpack $package
