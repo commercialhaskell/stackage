@@ -25,22 +25,24 @@ add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://down
 add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy-apache24-compat main'
 add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy-libjpeg62-compat main'
 
-GHCVER=8.2.1
+GHCVER=8.4.1
 
 apt-get update
 apt-get install -y \
     build-essential \
-    ghc-$GHCVER \
-    ghc-$GHCVER-dyn \
-    ghc-$GHCVER-prof \
-    ghc-$GHCVER-htmldocs \
-    hscolour \
-    sudo \
+    cmake \
     curl \
     freeglut3-dev \
     fsharp \
+    g++ \
+    gawk \
+    ghc-$GHCVER \
+    ghc-$GHCVER-dyn \
+    ghc-$GHCVER-htmldocs \
+    ghc-$GHCVER-prof \
     git \
     gradle \
+    hscolour \
     libadns1-dev \
     libaio1 \
     libalut-dev \
@@ -50,6 +52,7 @@ apt-get install -y \
     libcairo2-dev \
     libclang-3.9-dev \
     libcurl4-openssl-dev \
+    libcwiid-dev \
     libdevil-dev \
     libedit-dev \
     libedit2 \
@@ -74,6 +77,7 @@ apt-get install -y \
     libicu-dev \
     libimlib2-dev \
     libjack-jackd2-dev \
+    libjavascriptcoregtk-4.0-dev \
     libjudy-dev \
     liblapack-dev \
     libleveldb-dev \
@@ -89,15 +93,18 @@ apt-get install -y \
     libmysqlclient-dev \
     libncurses-dev \
     libnfc-dev \
+    liboath-dev \
     libnotify-dev \
     libopenal-dev \
     libpango1.0-dev \
     libpcap0.8-dev \
     libpq-dev \
+    libre2-dev \
+    libsdl1.2-dev \
     libsdl2-dev \
-    libsdl2-mixer-dev \
-    libsdl2-image-dev \
     libsdl2-gfx-dev \
+    libsdl2-image-dev \
+    libsdl2-mixer-dev \
     libsdl2-ttf-dev \
     libsnappy-dev \
     libsndfile1-dev \
@@ -116,6 +123,7 @@ apt-get install -y \
     libxss-dev \
     libyaml-dev \
     libzip-dev \
+    libzstd-dev \
     libzmq3-dev \
     llvm-3.9 \
     locales \
@@ -123,6 +131,7 @@ apt-get install -y \
     minisat \
     mono-mcs \
     nettle-dev \
+    ninja-build \
     nodejs \
     npm \
     openjdk-8-jdk \
@@ -133,6 +142,7 @@ apt-get install -y \
     r-base \
     r-base-dev \
     ruby-dev \
+    sudo \
     wget \
     xclip \
     z3 \
@@ -146,6 +156,18 @@ curl -sSL https://get.haskellstack.org/ | sh
 # Put documentation where we expect it
 mv /opt/ghc/$GHCVER/share/doc/ghc-$GHCVER/ /opt/ghc/$GHCVER/share/doc/ghc
 
+# llvm-5.0 for GHC (separate since it needs wget)
+wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
+    && add-apt-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-5.0 main" \
+    && apt-get update \
+    && apt-get install -y llvm-5.0
+
+# llvm-6.0 for llvm-hs (separate since it needs wget)
+wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
+    && add-apt-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-6.0 main" \
+    && apt-get update \
+    && apt-get install -y llvm-6.0
+
 # Buggy versions of ld.bfd fail to link some Haskell packages:
 # https://sourceware.org/bugzilla/show_bug.cgi?id=17689. Gold is
 # faster anyways and uses less RAM.
@@ -156,9 +178,14 @@ update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
 # This version is tracked here:
 # https://ghc.haskell.org/trac/ghc/wiki/Commentary/Compiler/Backends/LLVM/Installing
 #
-# GHC 8.2 requires LLVM 3.9 tools (specifically, llc-3.9 and opt-3.9).
-update-alternatives --install "/usr/bin/llc" "llc" "/usr/bin/llc-3.9" 50
-update-alternatives --install "/usr/bin/opt" "opt" "/usr/bin/opt-3.9" 50
+# GHC 8.4 requires LLVM 5.0 tools (specifically, llc-5.0 and opt-5.0).
+update-alternatives --install "/usr/bin/llc" "llc" "/usr/bin/llc-5.0" 50
+update-alternatives --install "/usr/bin/opt" "opt" "/usr/bin/opt-5.0" 50
+
+# Made sure a "node" binary is in the path, as well as "nodejs".
+# A historical naming collision on Debian means that the binary is called "nodejs",
+# but some tools like tsc still expect "node" to exist.
+ln -s /usr/bin/nodejs /usr/bin/node
 
 # install ocilib dependencies then build and install ocilib
 cd /tmp \
@@ -187,12 +214,6 @@ cd /tmp \
 echo "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/" > /etc/ld.so.conf.d/openjdk.conf \
     && ldconfig
 
-# llvm-4.0 for llvm-hs (separate since it needs wget)
-wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
-    && add-apt-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-4.0 main" \
-    && apt-get update \
-    && apt-get install -y llvm-4.0
-
 # Install version 3 of the protobuf compiler.  (The `protobuf-compiler` package only
 # supports version 2.)
 curl -OL https://github.com/google/protobuf/releases/download/v3.3.0/protoc-3.3.0-linux-x86_64.zip \
@@ -205,7 +226,26 @@ curl https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-l
     && rm libtensorflow.tar.gz \
     && ldconfig
 
-## non-free repo for mediabus-fdk-aac
-#apt-add-repository multiverse \
-#    && apt-get update \
-#    && apt-get install -y libfdk-aac-dev
+# NOTE: also update Dockerfile when cuda version changes
+# Install CUDA toolkit
+# The current version can be found at: https://developer.nvidia.com/cuda-downloads
+CUDA_PKG=8.0.61-1         # update this on new version
+CUDA_VER=${CUDA_PKG:0:3}
+CUDA_APT=${CUDA_VER/./-}
+
+pushd /tmp \
+    && wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_${CUDA_PKG}_amd64.deb \
+    && dpkg -i cuda-repo-ubuntu1604_${CUDA_PKG}_amd64.deb \
+    && apt-get update -qq \
+    && apt-get install -y cuda-drivers cuda-core-${CUDA_APT} cuda-cudart-dev-${CUDA_APT} cuda-cufft-dev-${CUDA_APT} cuda-cublas-dev-${CUDA_APT} cuda-cusparse-dev-${CUDA_APT} cuda-cusolver-dev-${CUDA_APT} \
+    && rm cuda-repo-ubuntu1604_${CUDA_PKG}_amd64.deb \
+    && export CUDA_PATH=/usr/local/cuda-${CUDA_VER} \
+    && export LD_LIBRARY_PATH=${CUDA_PATH}/nvvm/lib64:${LD_LIBRARY_PATH+x} \
+    && export LD_LIBRARY_PATH=${CUDA_PATH}/lib64:${LD_LIBRARY_PATH} \
+    && export PATH=${CUDA_PATH}/bin:${PATH} \
+    && popd
+
+# non-free repo for mediabus-fdk-aac
+apt-add-repository multiverse \
+    && apt-get update \
+    && apt-get install -y nvidia-cuda-dev

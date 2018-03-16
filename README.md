@@ -37,7 +37,6 @@ project information. In addition, we have the following repositories:
 
 * [stackage-server](https://github.com/fpco/stackage-server) [![Build Status](https://travis-ci.org/fpco/stackage-server.svg?branch=master)](https://travis-ci.org/fpco/stackage-server)
 * [stackage-curator](https://github.com/fpco/stackage-curator) [![Build Status](https://travis-ci.org/fpco/stackage-curator.svg?branch=master)](https://travis-ci.org/fpco/stackage-curator)
-* [stackage-types](https://github.com/fpco/stackage-types) [![Build Status](https://travis-ci.org/fpco/stackage-types.svg?branch=master)](https://travis-ci.org/fpco/stackage-types)
 * [lts-haskell](https://github.com/fpco/lts-haskell)
 * [stackage-nightly](https://github.com/fpco/stackage-nightly)
 
@@ -58,7 +57,7 @@ Build the package set
 ---------------------
 
 Generally only the stackage build server run by the stackage curator
-team and people intrested in incorporating stackage snapshots into an
+team and people interested in incorporating stackage snapshots into an
 OS distribution need to build the entire package set. If you're
 interested in trying this yourself, please check out
 [the curator guide](https://github.com/fpco/stackage/blob/master/CURATORS.md),

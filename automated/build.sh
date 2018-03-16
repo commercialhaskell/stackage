@@ -30,6 +30,7 @@ DOT_STACKAGE_DIR=$ROOT/dot-stackage
 WORKDIR=$ROOT/$TAG/work
 EXTRA_BIN_DIR=$ROOT/extra-bin
 SSH_DIR=$ROOT/ssh-$SHORTNAME
+USERID=$(id -u)
 
 mkdir -p \
 	"$CABAL_DIR" \
@@ -81,9 +82,9 @@ chmod +x stackage-curator
 )
 
 ARGS_COMMON="--rm -v $WORKDIR:$HOME/work -w $HOME/work -v $BINDIR/stackage-curator:/usr/bin/stackage-curator:ro -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v $EXTRA_BIN_DIR/stack:/usr/bin/stack:ro"
-ARGS_PREBUILD="$ARGS_COMMON -u $USER -e HOME=$HOME -v $CABAL_DIR:$HOME/.cabal -v $STACK_DIR:$HOME/.stack -v $GHC_DIR:$HOME/.ghc -v $DOT_STACKAGE_DIR:$HOME/.stackage"
+ARGS_PREBUILD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $CABAL_DIR:$HOME/.cabal -v $STACK_DIR:$HOME/.stack -v $GHC_DIR:$HOME/.ghc -v $DOT_STACKAGE_DIR:$HOME/.stackage"
 ARGS_BUILD="$ARGS_COMMON -v $CABAL_DIR:$HOME/.cabal:ro -v $STACK_DIR:$HOME/.stack:ro -v $GHC_DIR:$HOME/.ghc:ro"
-ARGS_UPLOAD="$ARGS_COMMON -u $USER -e HOME=$HOME -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -v $AUTH_TOKEN:/auth-token:ro -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:$HOME/.stackage -v $SSH_DIR:$HOME/.ssh:ro -v $GITCONFIG:$HOME/.gitconfig:ro -v $CABAL_DIR:$HOME/.cabal:ro -v $STACK_DIR:$HOME/.stack:ro"
+ARGS_UPLOAD="$ARGS_COMMON -u $USERID -e HOME=$HOME -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -v $AUTH_TOKEN:/auth-token:ro -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:$HOME/.stackage -v $SSH_DIR:$HOME/.ssh:ro -v $GITCONFIG:$HOME/.gitconfig:ro -v $CABAL_DIR:$HOME/.cabal:ro -v $STACK_DIR:$HOME/.stack:ro"
 
 # Make sure we actually need this snapshot. We only check this for LTS releases
 # since, for nightlies, we'd like to run builds even if they are unnecessary to

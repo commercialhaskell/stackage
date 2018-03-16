@@ -1,8 +1,16 @@
 This is a collection of instructions covering the processes that the Stackage curators - the
-guys who maintain the Stackage project itself - should be doing on a regular basis.
-Originally this was handled largely by Michael Snoyman,
-but now we are a team of 5 people handling requests weekly in rotation.
+team who maintain the Stackage project itself - should be doing on a regular basis.
 Curation activities are mostly automated, and do not take up a significant amount of time.
+The following is the current list of curators, in alphabetical order:
+
+* Adam Bergmark (@bergmark)
+* Alexey Zabelin (@alexeyzab)
+* Chris Dornan (@cdornan)
+* Dan Burton (@danburton)
+* Jens Petersen (@juhp)
+* Joe Kachmar (@jkachmar)
+* Michael Snoyman (@snoyberg)
+* Mihai Maruseac (@mihaimaruseac)
 
 ## Workflow overview
 
@@ -203,6 +211,9 @@ major version number (e.g., lts3 for lts-3.\*).
 
 Note that when starting a new LTS major release, you'll need to modify Docker
 Hub to create a new Docker tag for the relevant branch name.
+
+You'll need to update both the `PATH` in `Dockerfile` and the `GHCVER` variable
+in `debian-bootstrap.sh`.
 
 ### Getting the new image to the build server
 Once a new Docker image is available, you'll need to pull it onto the stackage-build server (see
