@@ -9,7 +9,7 @@ cabal-format-version: "2.0"
 packages:
     "Fraser Murray <fraser.m.murray@gmail.com @intolerable":
         - stitch
-        
+
     "Yusent Chig <yusent@protonmail.com> @yusent":
         []
         # - yesod-auth-bcryptdb # conduit 1.3, yesod 1.6
@@ -35,7 +35,7 @@ packages:
 
     "Jacob Thomas Errington <tsani@mail.jerrington.me> @tsani":
         - servant-github-webhook
-        - pushbullet-types
+        # - pushbullet-types # build failure with ghc 8.4 https://github.com/tsani/pushbullet-hs/issues/1
 
     "Theodore Lief Gannon <tanuki@gmail.com> @tejon":
         - aeson-yak
@@ -418,7 +418,6 @@ packages:
         - js-jquery
         - js-flot
         - extra
-        # - bake # https://github.com/ndmitchell/bake/issues/44
         - ghcid
         - hexml
         - weeder
@@ -457,7 +456,7 @@ packages:
         - textlocal
         # - shell-conduit # https://github.com/psibi/shell-conduit/issues/15
         - tldr
-        - fb
+        # - fb # build failure with ghc 8.4 https://github.com/psibi/fb/issues/3
         - yesod-fb
         - yesod-auth-fb
         - hourglass-orphans
@@ -488,7 +487,7 @@ packages:
 
     "Stefan Wehr <wehr@factisresearch.com> @skogsbaer":
         - HTF
-        - xmlgen
+        # - xmlgen # build failure with ghc 8.4 https://github.com/skogsbaer/xmlgen/issues/7
         - stm-stats
         - large-hashable
 
@@ -521,7 +520,7 @@ packages:
         - socks
         - tls
         - tls-debug
-        - vhd
+        # - vhd # build failure with ghc 8.4
         - xenstore
 
     "Chris Done @chrisdone":
@@ -649,7 +648,7 @@ packages:
         - monad-parallel
         - monad-coroutine
         - incremental-parser
-        # - monoid-subclasses # GHC 8.4 https://github.com/blamario/monoid-subclasses/issues/16
+        - monoid-subclasses
         - picoparsec
         - rank2classes
 
@@ -671,7 +670,7 @@ packages:
     "Vincent Berthoux <vincent.berthoux@gmail.com> @Twinside":
         - JuicyPixels
         - FontyFruity
-        # - Rasterific # build failure with GHC 8.4 https://github.com/Twinside/Rasterific/issues/37
+        - Rasterific
         - svg-tree
         - rasterific-svg
         - asciidiagram
@@ -741,7 +740,7 @@ packages:
         - rev-state
         - runmemo
         - tardis
-        # - yesod-gitrev # https://github.com/DanBurton/yesod-gitrev/issues/1
+        - yesod-gitrev
 
     "Daniel Díaz dhelta.diaz@gmail.com @Daniel-Diaz":
         - bimap-server
@@ -764,7 +763,7 @@ packages:
         - pipes-extras
         - pipes-http
         - pipes-parse
-        - pipes-concurrency
+        # - pipes-concurrency # build failure with GHC 8.4 https://github.com/Gabriel439/Haskell-Pipes-Concurrency-Library/issues/47
         - pipes-safe
         - turtle
         - foldl
@@ -906,10 +905,10 @@ packages:
         - vectortiles
 
     "Ketil Malde @ketil-malde":
-        - biocore
-        - biofasta
+        # - biocore # build failure with ghc 8.4 https://github.com/fpco/stackage/pull/3359
+        # - biofasta # ghc 8.4 via biocore
         - biofastq
-        - blastxml
+        # - blastxml # ghc 8.4 via biocore
         - bioace
         - biopsl
         - seqloc
@@ -960,6 +959,7 @@ packages:
         - io-manager
 
     "Dimitri Sabadie <dimitri.sabadie@gmail.com> @phaazon":
+        - al
         - event
         - hid
         - monad-journal
@@ -997,7 +997,7 @@ packages:
         - redis-resp
         - redis-io
         - swagger
-        - tinylog
+        # - tinylog # build failure with ghc 8.4 https://gitlab.com/twittner/tinylog/issues/1
         - wai-predicates
         - wai-routing
         - zeromq4-haskell
@@ -1078,7 +1078,7 @@ packages:
        - Spock-worker
        - graph-core
        - hvect
-       - reroute
+       # - reroute # build failure with ghc 8.4 https://github.com/agrafix/Spock/issues/140
        - users
        # - users-persistent # persistent 2.8
        - users-postgresql-simple
@@ -1161,7 +1161,7 @@ packages:
         - HaskellNet-SSL
 
     "Jens Petersen <juhpetersen@gmail.com> @juhp":
-        - cabal-rpm
+        # - cabal-rpm # build failure with ghc 8.4 https://github.com/juhp/cabal-rpm/issues/55
         - fedora-haskell-tools
 
         # - idris # ansi-terminal-0.8
@@ -1516,7 +1516,7 @@ packages:
         # - gogol-youtube-analytics
         # - gogol-youtube-reporting
         # - ede # https://github.com/brendanhay/ede/issues/28
-        - pagerduty
+        # - pagerduty # build failure with ghc 8.4 https://github.com/brendanhay/pagerduty/issues/10
         - semver
         - text-manipulate
 
@@ -1599,7 +1599,7 @@ packages:
 
     "Marios Titas <redneb@gmx.com> @redneb":
         - HsOpenSSL-x509-system
-        # - adler32 # build failure with GHC 8.4: https://github.com/redneb/hs-adler32/issues/1
+        - adler32
         - btrfs
         - disk-free-space
         - hxt-css
@@ -1783,13 +1783,13 @@ packages:
 
     "koral koral@mailoo.org @k0ral":
         - atom-conduit
-        # - conduit-parse # https://github.com/k0ral/conduit-parse/issues/2
+        - conduit-parse
         - dublincore-xml-conduit
         - euler-tour-tree
         - opml-conduit
         - rss-conduit
         - timerep
-        # - xml-conduit-parse # via conduit-parse
+        - xml-conduit-parse
 
     "Kostiantyn Rybnikov <k-bx@k-bx.com> @k-bx":
         - protocol-buffers
@@ -1820,9 +1820,10 @@ packages:
         - seqalign
 
     "John Lenz <wuzzeb@gmail.com> @wuzzeb":
+        []
         # - yesod-static-angular # conduit 1.3, yesod 1.6
-        - hspec-webdriver
-        - webdriver-angular
+        # - hspec-webdriver # https://bitbucket.org/wuzzeb/webdriver-utils/issues/9/hspec-webdriver-build-failure-with-ghc-84
+        # - webdriver-angular # via hspec-webdriver
 
     "Sven Heyll <svh@posteo.de> @sheyll":
         # - b9 # GHC 8.4 https://github.com/sheyll/b9-vm-image-builder/issues/4
@@ -1869,7 +1870,8 @@ packages:
         # Test suite needs a running neo4j server with auth disabled
         # unfortunately the cabal package name and the github repo don't have the exact same name
         # package name is haskell-neo4j-client github name is haskell-neo4j-rest-client
-        - haskell-neo4j-client
+        []
+        # - haskell-neo4j-client # ghc 8.4 build failure https://github.com/asilvestre/haskell-neo4j-rest-client/issues/32
 
     "Anton Kholomiov <anton.kholomiov@gmail.com>":
         - data-fix
@@ -2056,7 +2058,7 @@ packages:
         - wai-middleware-metrics
 
     "Gregory Collins <greg@gregorycollins.net> @gregorycollins":
-        - hashtables
+        # - hashtables # build failure with GHC 8.4 https://github.com/gregorycollins/hashtables/issues/45
         - io-streams
         - openssl-streams
 
@@ -2079,6 +2081,7 @@ packages:
 
     "Peter Simons <simons@cryp.to> @peti":
         - cabal2nix
+        - cabal2spec
         - distribution-nixpkgs
         - funcmp
         - hackage-db
@@ -2172,8 +2175,8 @@ packages:
         - mcmc-types
         - mighty-metropolis
         - speedy-slice
-        # - hasty-hamiltonian # https://github.com/jtobin/hasty-hamiltonian/issues/2
-        # - declarative # via hasty-hamiltonian
+        - hasty-hamiltonian
+        - declarative
         - sampling
         - flat-mcmc
 
@@ -2214,7 +2217,7 @@ packages:
 
     "Stanislav Chernichkin <schernichkin@gmail.com> @schernichkin":
         - partial-isomorphisms
-        # - vinyl # build failure with GHC 8.4 https://github.com/VinylRecords/Vinyl/issues/114
+        - vinyl
 
     "Christoph Breitkopf <chbreitkopf@gmail.com> @bokesan":
         - IntervalMap
@@ -2425,12 +2428,13 @@ packages:
         - ua-parser
         - hs-GeoIP
         - retry
-        # - katip # conduit 1.3
-        # - katip-elasticsearch # conduit 1.3
+        - katip
+        # - katip-elasticsearch # async 2.2
 
     "Sid Kapur sidharthkapur1@gmail.com @sid-kap":
-        - tuple
-        - OneTuple
+        []
+        # - tuple # ghc 8.4 via OneTuple
+        # - OneTuple # build failure with ghc 8.4 https://github.com/fpco/stackage/pull/3359
         # - SVGFonts # lens 4.16 via diagrams
 
     "Aaron Levin <vilevin@gmail.com> @aaronmblevin":
@@ -2505,7 +2509,7 @@ packages:
         - hw-hspec-hedgehog
         - hw-int
         - hw-fingertree
-        # - hw-fingertree-strict # build failure with ghc 8.4 https://hub.darcs.net/ross/fingertree/issue/5
+        - hw-fingertree-strict
         - hw-json
         - hw-parser
         - hw-prim
@@ -2810,11 +2814,10 @@ packages:
         # - printcess # lens 4.16
 
     "Alexey Kuleshevich <lehins@yandex.ru> @lehins":
-        []
         # - wai-middleware-auth # via hoauth2
         # - hip # lens 4.16 via diagrams/chart
-        # - massiv # build failure with GHC 8.4 https://github.com/lehins/massiv/issues/10
-        # - massiv-io # GHC 8.4 via massiv
+        - massiv
+        - massiv-io
 
     "Hans-Peter Deifel <hpd@hpdeifel.de> @hpdeifel":
         - hledger-iadd
@@ -2850,7 +2853,7 @@ packages:
 
     "Dylan Simon <dylan-stack@dylex.net> @dylex":
         - postgresql-typed
-        - invertible
+        # - invertible # GHC 8.4 via TypeCompose
         - ztail
 
     "Louis Pan <louis@pan.me> @louispan":
@@ -2884,7 +2887,7 @@ packages:
         - string-transform
         - uniq-deep
         - yesod-form-bootstrap4
-        # - yesod-recaptcha2 # https://github.com/ncaq/yesod-recaptcha2/issues/2
+        - yesod-recaptcha2
 
     "Andrei Barbu <andrei@0xab.com> @abarbu":
         - nondeterminism
@@ -2934,7 +2937,7 @@ packages:
         # - ziptastic-core
 
     "Hardy Jones <jones3.hardy@gmail.com> @joneshf":
-        # - katip-rollbar # conduit 1.3
+        # - katip-rollbar # async 2.2
         - rollbar-hs
         - servant-ruby
         - wai-middleware-rollbar
@@ -2975,6 +2978,7 @@ packages:
 
     "Simon Hafner <hafnersimon@gmail.com> @reactormonk":
         - uri-bytestring-aeson
+        - katip-scalyr-scribe
 
     "Sebastian Witte <woozletoff@gmail.com> @saep":
         []
@@ -3047,7 +3051,7 @@ packages:
 
     "José Lorenzo Rodríguez <jose.zap@gmail.com> @lorenzo":
         - wrecker
-        # - language-docker # build failure with GHC 8.4 https://github.com/hadolint/language-docker/issues/26
+        - language-docker
         - docker-build-cacher
         - mysql-haskell-nem
 
@@ -3061,7 +3065,7 @@ packages:
         - ghost-buster
 
     "typeable.io <makeit@typeable.io>":
-        - dom-parser
+        # - dom-parser # build failure with ghc 8.4 https://github.com/typeable/dom-parser/issues/10
         - xml-isogen
 
     "Jeremy Huffman <jeremy@jeremyhuffman.com> @jeremyjh":
@@ -3124,7 +3128,7 @@ packages:
         - time-locale-vietnamese
 
     "Tim McGilchrist <timmcgil@gmail.com>  @tmcgilchrist":
-        - riak
+        # - riak # build failure with GHC 8.4 https://github.com/riak-haskell-client/riak-haskell-client/issues/105
         - airship
 
     "Sam Stites <sam@stites.io> @stites":
@@ -3214,6 +3218,7 @@ packages:
 
     "Dmitry Dzhus <dima@dzhus.org> @dzhus":
         - static-text
+        - th-nowq
 
     "Dan Fithian <daniel.m.fithian@gmail.com> @dfithian":
         - oauthenticated
@@ -3228,9 +3233,12 @@ packages:
     "Avi Press <mail@avi.press> @aviaviavi":
         - curl-runnings
         - cryptocompare
-        
+
     "Jack Kiefer <jack.c.kiefer@gmail.com> @JackKiefer":
         - herms
+        
+    "Sergey Vinokurov <serg.foo@gmail.com> @sergv":
+        - sexp-grammar
 
     # If you stop maintaining a package you can move it here.
     # It will then be disabled if it starts causing problems.
@@ -3266,37 +3274,49 @@ packages:
     # from inclusion due to compilation failure with ghc 8.4
     "Build failure with GHC 8.4":
         - Chart < 0 # build failure with GHC 8.4 https://github.com/timbod7/haskell-chart/issues/181
-        - Rasterific < 0 # build failure with GHC 8.4 https://github.com/Twinside/Rasterific/issues/37
+        - OneTuple < 0 # build failure with GHC 8.4 https://github.com/fpco/stackage/pull/3359
+        - PSQueue < 0 # build failure with GHC 8.4 (nowhere to report, it's ancient just let it die)
+        - TypeCompose < 0 # build failure with GHC 8.4 https://github.com/conal/TypeCompose/issues/6
         - b9 < 0 # build failure with GHC 8.4 https://github.com/sheyll/b9-vm-image-builder/issues/4
+        - biocore < 0 # build failure with GHC 8.4 https://github.com/fpco/stackage/pull/3359
+        - cabal-rpm < 0 # build failure with GHC 8.4 https://github.com/juhp/cabal-rpm/issues/55
+        - dom-parser < 0 # build failure with GHC 8.4 https://github.com/typeable/dom-parser/issues/10
+        - enummapset < 0 # build failure with GHC 8.4 https://github.com/michalt/enummapset/issues/11
+        - fb < 0 # build failure with GHC 8.4 https://github.com/psibi/fb/issues/3
         - hamtsolo < 0 # build failure with conduit 1.3 https://github.com/tfc/hamtsolo/issues/3
+        - hashtables < 0 # build failure with GHC 8.4 https://github.com/gregorycollins/hashtables/issues/45
+        - haskell-neo4j-client < 0 # build failure with GHC 8.4 https://github.com/asilvestre/haskell-neo4j-rest-client/issues/32
         - heap < 0 # build failure with GHC 8.4 https://github.com/pruvisto/heap/issues/5
-        - hw-fingertree-strict < 0 # build failure with GHC 8.4 https://hub.darcs.net/ross/fingertree/issue/5
+        - hpqtypes < 0 # build failure with GHC 8.4 https://github.com/scrive/hpqtypes/issues/7
+        - hspec-webdriver < 0 # https://bitbucket.org/wuzzeb/webdriver-utils/issues/9/hspec-webdriver-build-failure-with-ghc-84
         - inline-c < 0 # build failure with GHC 8.4 https://github.com/fpco/inline-c/issues/73
-        - language-docker < 0 # build failure with GHC 8.4 https://github.com/hadolint/language-docker/issues/26
-        - massiv < 0 # build failure with GHC 8.4 https://github.com/lehins/massiv/issues/10
-        - monoid-subclasses < 0 # build failure with GHC 8.4 https://github.com/blamario/monoid-subclasses/issues/16
+        - list-t < 0 # build failure with GHC 8.4 # https://github.com/nikita-volkov/list-t/issues/12
         - n-tuple < 0 # build failure with GHC 8.4 https://github.com/athanclark/n-tuple/issues/1
+        - pagerduty < 0 # build failure with GHC 8.4 https://github.com/brendanhay/pagerduty/issues/10
+        - pipes-concurrency < 0 # build failure with GHC 8.4 https://github.com/Gabriel439/Haskell-Pipes-Concurrency-Library/issues/47
+        - pushbullet-types < 0 # build failure with GHC 8.4 https://github.com/tsani/pushbullet-hs/issues/1
         - rainbow < 0 # build failure with GHC 8.4 https://github.com/massysett/rainbow/issues/6
+        - reroute < 0 # build faiulre with GHC 8.4 https://github.com/agrafix/Spock/issues/140
+        - riak < 0 # build failure with GHC 8.4 https://github.com/riak-haskell-client/riak-haskell-client/issues/105
+        - text-format < 0 # build failure with GHC 8.4 https://github.com/bos/text-format/issues/22
+        - tinylog < 0 # build failure with GHC 8.4 https://gitlab.com/twittner/tinylog/issues/1
         - type-combinators < 0 # build failure with GHC 8.4 https://github.com/kylcarte/type-combinators/issues/8
-        - vinyl < 0 # build failure with GHC 8.4 https://github.com/VinylRecords/Vinyl/issues/114
+        - vhd < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - wl-pprint-text < 0 # build failure with GHC 8.4 https://github.com/ivan-m/wl-pprint-text/issues/18
+        - xmlgen < 0 # build faiulre with GHC 8.4 https://github.com/skogsbaer/xmlgen/issues/7
 
         # may have no issue yet
         - FPretty < 0 # build failure with GHC 8.4
         - Genbank < 0 # build failure with GHC 8.4
         - HCodecs < 0 # build failure with GHC 8.4
         - HaXml < 0 # build failure with GHC 8.4
-        - OneTuple < 0 # build failure with GHC 8.4
         - ShellCheck < 0 # build failure with GHC 8.4
         - YampaSynth < 0 # build failure with GHC 8.4
         - alsa-pcm < 0 # build failure with GHC 8.4
         - audacity < 0 # build failure with GHC 8.4
         - bioace < 0 # build failure with GHC 8.4
         - bioalign < 0 # build failure with GHC 8.4
-        - biocore < 0 # build failure with GHC 8.4
-        - biofasta < 0 # build failure with GHC 8.4
         - biofastq < 0 # build failure with GHC 8.4
-        - blastxml < 0 # build failure with GHC 8.4
         - bytestring-trie < 0 # build failure with GHC 8.4
         - cabal-file-th < 0 # build failure with GHC 8.4
         - cassette < 0 # build failure with GHC 8.4
@@ -3305,8 +3325,7 @@ packages:
         - cuda < 0 # build failure with GHC 8.4
         - cusolver < 0 # build failure with GHC 8.4
         - cusparse < 0 # build failure with GHC 8.4
-        # - data-inttrie < 0 # build failure with GHC 8.4
-        - data-inttrie # todo: remove
+        - data-inttrie < 0 # build failure with GHC 8.4
         - data-memocombinators < 0 # build failure with GHC 8.4
         - diff3 < 0 # build failure with GHC 8.4
         - distance < 0 # build failure with GHC 8.4
@@ -3318,7 +3337,6 @@ packages:
         - ghcjs-perch < 0 # build failure with GHC 8.4
         - gluturtle < 0 # build failure with GHC 8.4
         - group-by-date < 0 # build failure with GHC 8.4
-        - haskell-src < 0 # build failure with GHC 8.4
         - heap < 0 # build failure with GHC 8.4
         - hid < 0 # build failure with GHC 8.4
         - hpp < 0 # build failure with GHC 8.4
@@ -3332,14 +3350,12 @@ packages:
         - json < 0 # build failure with GHC 8.4
         - language-fortran < 0 # build failure with GHC 8.4
         - language-glsl < 0 # build failure with GHC 8.4
-        - list-t < 0 # build failure with GHC 8.4
         - median-stream < 0 # build failure with GHC 8.4
         - miniutter < 0 # build failure with GHC 8.4
         - monadoid < 0 # build failure with GHC 8.4
         - nfc < 0 # build failure with GHC 8.4
         - nvvm < 0 # build failure with GHC 8.4
         - persistable-types-HDBC-pg < 0 # build failure with GHC 8.4
-        - pipes-safe < 0 # build failure with GHC 8.4
         - preprocessor-tools < 0 # build failure with GHC 8.4
         - pure-io < 0 # build failure with GHC 8.4
         - reform < 0 # build failure with GHC 8.4
@@ -3354,7 +3370,6 @@ packages:
         - timespan < 0 # build failure with GHC 8.4
         - tinytemplate < 0 # build failure with GHC 8.4
         - transient < 0 # build failure with GHC 8.4
-        - tuple < 0 # build failure with GHC 8.4
         - validity < 0 # build failure with GHC 8.4
         - validity-bytestring < 0 # build failure with GHC 8.4
         - validity-containers < 0 # build failure with GHC 8.4
@@ -3367,7 +3382,6 @@ packages:
         # round 2:
         - HSet < 0 # DependencyFailed (PackageName "hashtables")
         - HaTeX < 0 # DependencyFailed (PackageName "matrix")
-        - adler32 < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - bookkeeping < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - cartel < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - cases < 0 # DependencyFailed (PackageName "loch-th")
@@ -3381,7 +3395,6 @@ packages:
         - ghcjs-base-stub < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - ginger < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - glob-posix < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - hashtables < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - hdevtools < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - hformat < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - hlibsass < 0 # BuildFailureException Process exited with ExitFailure 1: ghc -clear-package-db -global-package-db -package-db=/var/stackage/work/builds/nightly/pkgdb -hide-all-packages -package=Cabal -package=base -package=directory Setup
@@ -3392,33 +3405,209 @@ packages:
         - matrix < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - mysql < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - ochintin-daicho < 0 # DependencyFailed (PackageName "bookkeeping")
-        - pipes-concurrency < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - pred-set < 0 # DependencyFailed (PackageName "HSet")
         - simple-log < 0 # DependencyFailed (PackageName "hformat")
-        - simple-reflect < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - simple-templates < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - socket < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - sorted-list < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - strict-types < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - text-format < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - units-parser < 0 # BuildFailureException Process exited with ExitFailure 1: dist/build/main/main
         - varying < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - wild-bind < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - wild-bind-x11 < 0 # DependencyFailed (PackageName "wild-bind")
         - xls < 0 # DependencyFailed (PackageName "getopt-generics")
-        - massiv-io < 0 # GHC 8.4 via massiv
-        - enclosed-exceptions < 0 # BuildFailureException Process exited with ExitFailure 1: dist/build/test/test
         - highjson < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - model < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - quickcheck-state-machine < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - shelly < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - stateWriter < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - text-region < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - pinch < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - pthread < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - yi-rope < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - arithmoi < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - streaming-bytestring < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - HStringTemplate < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - csv-conduit < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - direct-sqlite < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - groundhog < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - sqlite-simple < 0 # DependencyFailed (PackageName "direct-sqlite")
+        - wai-route < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - wai-routing < 0 # DependencyFailed (PackageName "wai-route")
+        - cmark < 0 # DependencyFailed (PackageName "markdown")
+        - cmark-highlight < 0 # GHC 8.4 via cmark
+        - tasty-html < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - fingertree-psqueue < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - set-cover < 0 # DependencyFailed (PackageName "enummapset")
+        - yesod-fb < 0 # GHC 8.4 via fb
+        - Spock-api < 0 # GHC 8.4 via reroute
+        - Spock-core < 0 # GHC 8.4 via reroute
+        - Spock-api-server < 0 # GHC 8.4 via Spock-api
+        - Spock-api-server < 0 # GHC 8.4 via Spock-core
+        - HTF < 0 # GHC 8.4 via xmlgen
+        - HPDF < 0 # GHC 8.4 via HTF
+        - dataurl < 0 # GHC 8.4 via HTF
+        - graph-core < 0 # GHC 8.4 via HTF
+        - invertible < 0 # GHC 8.4 via TypeCompose
+        - apecs < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - attoparsec-ip < 0 # DependencyFailed (PackageName "ip")
+        - attoparsec-uri < 0 # DependencyFailed (PackageName "attoparsec-ip")
+        - binary-tagged < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - cli < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - concurrent-extra < 0 # BuildFailureException Process exited with ExitFailure 1: dist/build/test-concurrent-extra/test-concurrent-extra
+        - crackNum < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - descriptive < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - git < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - haskell-names < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - heatshrink < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup configure hindent: DependencyFailed (PackageName "descriptive")
+        - hit < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - hpc-coveralls < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - http-reverse-proxy < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - incremental-parser < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - ip < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - lentil < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - lexer-applicative < 0 # DependencyFailed (PackageName "srcloc")
+        - mandrill < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - matplotlib < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - mega-sdist < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - netwire < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - netwire-input < 0 # DependencyFailed (PackageName "netwire")
+        - network-transport-tcp < 0 # BuildFailureException Process exited with ExitFailure 1: dist/build/TestTCP/TestTCP
+        - package-description-remote < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - pdf-toolbox-content < 0 # DependencyFailed (PackageName "pdf-toolbox-core")
+        - pdf-toolbox-core < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - pdf-toolbox-document < 0 # DependencyFailed (PackageName "pdf-toolbox-content")
+        - picedit < 0 # DependencyFailed (PackageName "cli")
+        - picoparsec < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - pixelated-avatar-generator < 0 # DependencyFailed (PackageName "cli")
+        - prim-array < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - qchas < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - quickcheck-classes < 0 # DependencyFailed (PackageName "prim-array")
+        - quickcheck-combinators < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - redis-resp < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - rose-trees < 0 # DependencyFailed (PackageName "sets")
+        - sbv < 0 # DependencyFailed (PackageName "crackNum")
+        - sets < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - srcloc < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - termcolor < 0 # DependencyFailed (PackageName "cli")
+        - tidal < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - tidal-midi < 0 # DependencyFailed (PackageName "tidal")
+        - wai-middleware-static < 0 # DependencyFailed (PackageName "hpc-coveralls")
+        - webpage < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - xlsx < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - xlsx-tabular < 0 # DependencyFailed (PackageName "xlsx")
+        - xmonad < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - xmonad-contrib < 0 # DependencyFailed (PackageName "xmonad")
+        - xxhash < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+
+
+        # Transitive failures, reported on https://github.com/fpco/stackage/issues/3394
+        - Spock-worker < 0 # GHC 8.4 via HTF
+        - buffer-builder < 0 # GHC 8.4 via HTF
+        - ignore < 0 # GHC 8.4 via HTF
+        - large-hashable < 0 # GHC 8.4 via HTF
+        - haxr < 0 # GHC 8.4 via HaXml
+        - Spock < 0 # GHC 8.4 via Spock-core
+        - pell < 0 # GHC 8.4 via arithmoi
+        - biopsl < 0 # GHC 8.4 via biocore
+        - seqloc < 0 # GHC 8.4 via biocore
+        - tries < 0 # GHC 8.4 via bytestring-trie
+        - cmark-lucid < 0 # GHC 8.4 via cmark
+        - tldr < 0 # GHC 8.4 via cmark
+        - wl-pprint-console < 0 # GHC 8.4 via colorful-monoids
+        - groundhog-sqlite < 0 # GHC 8.4 via direct-sqlite
+        - selda-sqlite < 0 # GHC 8.4 via direct-sqlite
+        - djinn-ghc < 0 # GHC 8.4 via djinn-lib
+        - xml-isogen < 0 # GHC 8.4 via dom-parser
+        - yesod-auth-fb < 0 # GHC 8.4 via fb
+        - disposable < 0 # GHC 8.4 via ghcjs-base-stub
+        - javascript-extras < 0 # GHC 8.4 via ghcjs-base-stub
+        - axiom < 0 # GHC 8.4 via ghcjs-perch
+        - groundhog-inspector < 0 # GHC 8.4 via groundhog
+        - groundhog-mysql < 0 # GHC 8.4 via groundhog
+        - groundhog-sqlite < 0 # GHC 8.4 via groundhog
+        - groundhog-th < 0 # GHC 8.4 via groundhog
+        - RefSerialize < 0 # GHC 8.4 via hashtables
+        - TCache < 0 # GHC 8.4 via hashtables
+        - hledger-lib < 0 # GHC 8.4 via hashtables
+        - pred-trie < 0 # GHC 8.4 via hashtables
+        - hsass < 0 # GHC 8.4 via hlibsass
+        - log-postgres < 0 # GHC 8.4 via hpqtypes
+        - hocilib < 0 # GHC 8.4 via inline-c
+        - inline-c-cpp < 0 # GHC 8.4 via inline-c
+        - inline-r < 0 # GHC 8.4 via inline-c
+        - liboath-hs < 0 # GHC 8.4 via inline-c
+        - hledger-web < 0 # GHC 8.4 via json
+        - katydid < 0 # GHC 8.4 via json
+        - Spock < 0 # GHC 8.4 via list-t
+        - slave-thread < 0 # GHC 8.4 via list-t
+        - stm-containers < 0 # GHC 8.4 via list-t
+        - timemap < 0 # GHC 8.4 via list-t
+        - astro < 0 # GHC 8.4 via matrix
+        - exp-pairs < 0 # GHC 8.4 via matrix
+        - groundhog-mysql < 0 # GHC 8.4 via mysql
+        - mysql-simple < 0 # GHC 8.4 via mysql
+        - persistent-mysql < 0 # GHC 8.4 via mysql
+        - pipes-fluid < 0 # GHC 8.4 via pipes-concurrency
+        - pipes-misc < 0 # GHC 8.4 via pipes-concurrency
+        - pred-trie < 0 # GHC 8.4 via pred-set
+        - rainbox < 0 # GHC 8.4 via rainbow
+        - reform-blaze < 0 # GHC 8.4 via reform
+        - reform-hamlet < 0 # GHC 8.4 via reform
+        - Spock < 0 # GHC 8.4 via reroute
+        - simple < 0 # GHC 8.4 via simple-templates
+        - mbtiles < 0 # GHC 8.4 via sqlite-simple
+        - morte < 0 # GHC 8.4 via text-format
+        - redis-io < 0 # GHC 8.4 via tinylog
+        - axiom < 0 # GHC 8.4 via transient
+        - transient-universe < 0 # GHC 8.4 via transient
+        - backprop < 0 # GHC 8.4 via type-combinators
+        - genvalidity < 0 # GHC 8.4 via validity
+        - validity-aeson < 0 # GHC 8.4 via validity
+        - validity-path < 0 # GHC 8.4 via validity
+        - validity-scientific < 0 # GHC 8.4 via validity
+        - validity-unordered-containers < 0 # GHC 8.4 via validity
+        - validity-vector < 0 # GHC 8.4 via validity
+        - validity-aeson < 0 # GHC 8.4 via validity-text
+        - hamilton < 0 # GHC 8.4 via vector-sized
+        - elm-export < 0 # GHC 8.4 via wl-pprint-text
+        - hsx-jmacro < 0 # GHC 8.4 via wl-pprint-text
+        - jmacro < 0 # GHC 8.4 via wl-pprint-text
+        - yesod-auth-fb < 0 # GHC 8.4 via yesod-fb
+        - xturtle < 0 # GHC 8.4 via yjsvg
+        - threads < 0 # GHC 8.4 via concurrent-extra
+        - hindent < 0 # GHC 8.4 via descriptive
+        - wai-middleware-crowd < 0 # GHC 8.4 via http-reverse-proxy
+        - distributed-process < 0 # GHC 8.4 via network-transport-tcp
+        - distributed-process-lifted < 0 # GHC 8.4 via network-transport-tcp
+        - distributed-process-simplelocalnet < 0 # GHC 8.4 via network-transport-tcp
+        - xxhash-ffi < 0 # GHC 8.4 via xxhash
+
+        # transitive failures, gen 2
+        - MFlow < 0 # GHC 8.4 via RefSerialize
+        - Workflow < 0 # GHC 8.4 via RefSerialize
+        - Spock-lucid < 0 # GHC 8.4 via Spock
+        - MFlow < 0 # GHC 8.4 via TCache
+        - Workflow < 0 # GHC 8.4 via TCache
+        - datadog < 0 # GHC 8.4 via buffer-builder
+        - hledger < 0 # GHC 8.4 via hledger-lib
+        - hledger-interest < 0 # GHC 8.4 via hledger-lib
+        - H < 0 # GHC 8.4 via inline-r
+        - jmacro-rpc < 0 # GHC 8.4 via jmacro
+        - jmacro-rpc-snap < 0 # GHC 8.4 via jmacro
+        - log < 0 # GHC 8.4 via log-postgres
+        - asciidiagram < 0 # GHC 8.4 via rasterific-svg
+        - simple-session < 0 # GHC 8.4 via simple
+        - hedis < 0 # GHC 8.4 via slave-thread
+        - distributed-process-monad-control < 0 # GHC 8.4 via distributed-process
+        - distributed-process-tests < 0 # GHC 8.4 via distributed-process
+        - threads-extras < 0 # GHC 8.4 via threads
+
+        # transitive failures, gen 3
+        - persistent-redis < 0 # GHC 8.4 via hedis
+        - serversession-backend-redis < 0 # GHC 8.4 via hedis
+        - wai-middleware-caching-redis < 0 # GHC 8.4 via hedis
+
+        # transitive failures, rediscovered.
+        # (none yet)
 
 
     # This section was used to programmatically generate a set of removals
@@ -3431,6 +3620,7 @@ packages:
         - Frames < 0 # GHC 8.4 via base-4.11.0.0
         - GPipe < 0 # GHC 8.4 via base-4.11.0.0
         - NoTrace < 0 # GHC 8.4 via base-4.11.0.0
+        - Unique < 0 # GHC 8.4 via base-4.11.0.0
         - accelerate < 0 # GHC 8.4 via base-4.11.0.0
         - accelerate-arithmetic < 0 # GHC 8.4 via base-4.11.0.0
         - accelerate-bignum < 0 # GHC 8.4 via base-4.11.0.0
@@ -3451,7 +3641,6 @@ packages:
         - autoexporter < 0 # GHC 8.4 via base-4.11.0.0
         - bank-holidays-england < 0 # GHC 8.4 via base-4.11.0.0
         - benchpress < 0 # GHC 8.4 via base-4.11.0.0
-        - binary-tagged < 0 # GHC 8.4 via base-4.11.0.0
         - butcher < 0 # GHC 8.4 via base-4.11.0.0
         - cabal-install < 0 # GHC 8.4 via base-4.11.0.0
         - capataz < 0 # GHC 8.4 via base-4.11.0.0
@@ -3460,7 +3649,6 @@ packages:
         - compact < 0 # GHC 8.4 via base-4.11.0.0
         - country < 0 # GHC 8.4 via base-4.11.0.0
         - crypt-sha512 < 0 # GHC 8.4 via base-4.11.0.0
-        - crypto-enigma < 0 # GHC 8.4 via base-4.11.0.0
         - cryptohash-sha512 < 0 # GHC 8.4 via base-4.11.0.0
         - css-syntax < 0 # GHC 8.4 via base-4.11.0.0
         - dictionaries < 0 # GHC 8.4 via base-4.11.0.0
@@ -3482,7 +3670,7 @@ packages:
         - generic-aeson < 0 # GHC 8.4 via base-4.11.0.0
         - generic-random < 0 # GHC 8.4 via base-4.11.0.0
         - generic-xmlpickler < 0 # GHC 8.4 via base-4.11.0.0
-        - github < 0 # GHC 8.4 via base-4.11.0.0
+        - ghc-compact < 0 # GHC 8.4 via base-4.11.0.0
         - github-release < 0 # GHC 8.4 via base-4.11.0.0
         - github-webhook-handler < 0 # GHC 8.4 via base-4.11.0.0
         - github-webhook-handler-snap < 0 # GHC 8.4 via base-4.11.0.0
@@ -3494,11 +3682,10 @@ packages:
         - gloss-rendering < 0 # GHC 8.4 via base-4.11.0.0
         - google-cloud < 0 # GHC 8.4 via base-4.11.0.0
         - grouped-list < 0 # GHC 8.4 via base-4.11.0.0
-        - haddock-library < 0 # GHC 8.4 via base-4.11.0.0
+        - hackage-security < 0 # GHC 8.4 via base-4.11.0.0
         - hashable-time < 0 # GHC 8.4 via base-4.11.0.0
         - haskell-lsp < 0 # GHC 8.4 via base-4.11.0.0
         - hjsonpointer < 0 # GHC 8.4 via base-4.11.0.0
-        - http-api-data < 0 # GHC 8.4 via base-4.11.0.0
         - http-media < 0 # GHC 8.4 via base-4.11.0.0
         - hxt-pickle-utils < 0 # GHC 8.4 via base-4.11.0.0
         - indexed-list-literals < 0 # GHC 8.4 via base-4.11.0.0
@@ -3519,10 +3706,8 @@ packages:
         - mole < 0 # GHC 8.4 via base-4.11.0.0
         - monoid-extras < 0 # GHC 8.4 via base-4.11.0.0
         - multistate < 0 # GHC 8.4 via base-4.11.0.0
-        - mwc-random-accelerate < 0 # GHC 8.4 via base-4.11.0.0
         - naqsha < 0 # GHC 8.4 via base-4.11.0.0
         - network-carbon < 0 # GHC 8.4 via base-4.11.0.0
-        - newtype-generics < 0 # GHC 8.4 via base-4.11.0.0
         - numhask < 0 # GHC 8.4 via base-4.11.0.0
         - numhask-range < 0 # GHC 8.4 via base-4.11.0.0
         - palette < 0 # GHC 8.4 via base-4.11.0.0
@@ -3546,9 +3731,6 @@ packages:
         - ratel < 0 # GHC 8.4 via base-4.11.0.0
         - ratel-wai < 0 # GHC 8.4 via base-4.11.0.0
         - regex-applicative-text < 0 # GHC 8.4 via base-4.11.0.0
-        - repa < 0 # GHC 8.4 via base-4.11.0.0
-        - repa-algorithms < 0 # GHC 8.4 via base-4.11.0.0
-        - repa-io < 0 # GHC 8.4 via base-4.11.0.0
         - rest-core < 0 # GHC 8.4 via base-4.11.0.0
         - rest-stringmap < 0 # GHC 8.4 via base-4.11.0.0
         - rest-types < 0 # GHC 8.4 via base-4.11.0.0
@@ -3558,6 +3740,7 @@ packages:
         - servant < 0 # GHC 8.4 via base-4.11.0.0
         - servant-JuicyPixels < 0 # GHC 8.4 via base-4.11.0.0
         - servant-client < 0 # GHC 8.4 via base-4.11.0.0
+        - servant-client-core < 0 # GHC 8.4 via base-4.11.0.0
         - servant-docs < 0 # GHC 8.4 via base-4.11.0.0
         - servant-foreign < 0 # GHC 8.4 via base-4.11.0.0
         - servant-generic < 0 # GHC 8.4 via base-4.11.0.0
@@ -3565,7 +3748,6 @@ packages:
         - servant-server < 0 # GHC 8.4 via base-4.11.0.0
         - servant-swagger < 0 # GHC 8.4 via base-4.11.0.0
         - servant-yaml < 0 # GHC 8.4 via base-4.11.0.0
-        - setlocale < 0 # GHC 8.4 via base-4.11.0.0
         - slack-web < 0 # GHC 8.4 via base-4.11.0.0
         - snap < 0 # GHC 8.4 via base-4.11.0.0
         - spdx < 0 # GHC 8.4 via base-4.11.0.0
@@ -3577,7 +3759,6 @@ packages:
         - tdigest < 0 # GHC 8.4 via base-4.11.0.0
         - through-text < 0 # GHC 8.4 via base-4.11.0.0
         - transformers-lift < 0 # GHC 8.4 via base-4.11.0.0
-        - tree-diff < 0 # GHC 8.4 via base-4.11.0.0
         - union < 0 # GHC 8.4 via base-4.11.0.0
         - uri-bytestring-aeson < 0 # GHC 8.4 via base-4.11.0.0
         - userid < 0 # GHC 8.4 via base-4.11.0.0
@@ -3588,7 +3769,7 @@ packages:
         - versions < 0 # GHC 8.4 via base-4.11.0.0
         - wavefront < 0 # GHC 8.4 via base-4.11.0.0
         - apply-refact < 0 # GHC 8.4 via ghc-8.4.1
-        - ghc-parser < 0 # GHC 8.4 via ghc-8.4.1
+        - brittany < 0 # GHC 8.4 via ghc-8.4.1
         - haskell-tools-prettyprint < 0 # GHC 8.4 via ghc-8.4.1
         - haskell-tools-rewrite < 0 # GHC 8.4 via ghc-8.4.1
         - inline-java < 0 # GHC 8.4 via ghc-8.4.1
@@ -3601,10 +3782,8 @@ packages:
         - classyplate < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - czipwith < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - data-accessor-template < 0 # GHC 8.4 via template-haskell-2.13.0.0
-        - eliminators < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - ghc-typelits-knownnat < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - happstack-server < 0 # GHC 8.4 via template-haskell-2.13.0.0
-        - haskell-src-meta < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - haskell-tools-ast < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - haskell-tools-backend-ghc < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - haskell-tools-refactor < 0 # GHC 8.4 via template-haskell-2.13.0.0
@@ -3614,140 +3793,94 @@ packages:
         - rank2classes < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - servant-swagger-ui < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - stache < 0 # GHC 8.4 via template-haskell-2.13.0.0
-        - static-text < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - strive < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - test-fixture < 0 # GHC 8.4 via template-haskell-2.13.0.0
-        - text-show < 0 # GHC 8.4 via template-haskell-2.13.0.0
-        - text-show-instances < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - th-to-exp < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - threepenny-gui < 0 # GHC 8.4 via template-haskell-2.13.0.0
-        - time-parsers < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - tz < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - web-routes-th < 0 # GHC 8.4 via template-haskell-2.13.0.0
-        - monad-logger-prefix < 0 # GHC 8.4 via transformers-0.5.5.0
-        - morte < 0 # GHC 8.4 via Earley
+
+        # missed by first wave
+        - snap-server < 0 # GHC 8.4 via base-4.11.0.0
+        - Frames < 0 # GHC 8.4 via base-4.11.0.0
+        - cryptohash-md5 < 0 # GHC 8.4 via base-4.11.0.0
+        - cryptohash-sha1 < 0 # GHC 8.4 via base-4.11.0.0
+        - ixset-typed < 0 # GHC 8.4 via template-haskell-2.13.0.0
+
+
+        # trans deps, gen 1
+        - cabal-toolkit < 0 # GHC 8.4 via Cabal-2.2.0.0
+        - cairo < 0 # GHC 8.4 via Cabal-2.2.0.0
+        - direct-rocksdb < 0 # GHC 8.4 via Cabal-2.2.0.0
+        - glib < 0 # GHC 8.4 via Cabal-2.2.0.0
+        - gtk2hs-buildtools < 0 # GHC 8.4 via Cabal-2.2.0.0
+        - pango < 0 # GHC 8.4 via Cabal-2.2.0.0
+        - cassava-conduit < 0 # GHC 8.4 via QuickCheck-2.11.3
+        - data-clist < 0 # GHC 8.4 via QuickCheck-2.11.3
+        - hedgehog-quickcheck < 0 # GHC 8.4 via QuickCheck-2.11.3
+        - repa < 0 # GHC 8.4 via QuickCheck-2.11.3
+        - unicode-transforms < 0 # GHC 8.4 via QuickCheck-2.11.3
         - stm-supply < 0 # GHC 8.4 via Unique
         - linear-accelerate < 0 # GHC 8.4 via accelerate
+        - mwc-random-accelerate < 0 # GHC 8.4 via accelerate
         - wrecker < 0 # GHC 8.4 via ansigraph
+        - hinotify < 0 # GHC 8.4 via async-2.2.1
+        - brick < 0 # GHC 8.4 via base-4.11.0.0
+        - ghc-prof < 0 # GHC 8.4 via base-4.11.0.0
+        - hastache < 0 # GHC 8.4 via base-4.11.0.0
+        - tasty-hedgehog < 0 # GHC 8.4 via base-4.11.0.0
+        - token-bucket < 0 # GHC 8.4 via base-4.11.0.0
         - GLFW-b < 0 # GHC 8.4 via bindings-GLFW
-        - HStringTemplate < 0 # GHC 8.4 via blaze-builder
-        - airship < 0 # GHC 8.4 via blaze-builder
-        - atom-conduit < 0 # GHC 8.4 via blaze-builder
-        - authenticate < 0 # GHC 8.4 via blaze-builder
-        - authenticate-oauth < 0 # GHC 8.4 via blaze-builder
-        - blaze-html < 0 # GHC 8.4 via blaze-builder
-        - blaze-markup < 0 # GHC 8.4 via blaze-builder
-        - blaze-textual < 0 # GHC 8.4 via blaze-builder
-        - bloodhound < 0 # GHC 8.4 via blaze-builder
-        - csv-conduit < 0 # GHC 8.4 via blaze-builder
-        - docker < 0 # GHC 8.4 via blaze-builder
-        - fn < 0 # GHC 8.4 via blaze-builder
-        - groundhog < 0 # GHC 8.4 via blaze-builder
-        - groundhog-postgresql < 0 # GHC 8.4 via blaze-builder
-        - haxr < 0 # GHC 8.4 via blaze-builder
-        - hbeanstalk < 0 # GHC 8.4 via blaze-builder
-        - heist < 0 # GHC 8.4 via blaze-builder
-        - hjsmin < 0 # GHC 8.4 via blaze-builder
-        - hosc < 0 # GHC 8.4 via blaze-builder
-        - http-client < 0 # GHC 8.4 via blaze-builder
-        - http-common < 0 # GHC 8.4 via blaze-builder
-        - http-conduit < 0 # GHC 8.4 via blaze-builder
-        - http-reverse-proxy < 0 # GHC 8.4 via blaze-builder
-        - http-streams < 0 # GHC 8.4 via blaze-builder
-        - json-builder < 0 # GHC 8.4 via blaze-builder
-        - language-javascript < 0 # GHC 8.4 via blaze-builder
-        - lucid < 0 # GHC 8.4 via blaze-builder
-        - mime-mail < 0 # GHC 8.4 via blaze-builder
-        - mysql-simple < 0 # GHC 8.4 via blaze-builder
-        - oauthenticated < 0 # GHC 8.4 via blaze-builder
-        - persistent-mysql < 0 # GHC 8.4 via blaze-builder
-        - pipes-csv < 0 # GHC 8.4 via blaze-builder
-        - pipes-wai < 0 # GHC 8.4 via blaze-builder
-        - riak < 0 # GHC 8.4 via blaze-builder
-        - scotty < 0 # GHC 8.4 via blaze-builder
-        - servius < 0 # GHC 8.4 via blaze-builder
-        - simple < 0 # GHC 8.4 via blaze-builder
-        - simple-session < 0 # GHC 8.4 via blaze-builder
-        - snap-server < 0 # GHC 8.4 via blaze-builder
-        - sqlite-simple < 0 # GHC 8.4 via blaze-builder
-        - stack < 0 # GHC 8.4 via blaze-builder
-        - tagstream-conduit < 0 # GHC 8.4 via blaze-builder
-        - trifecta < 0 # GHC 8.4 via blaze-builder
-        - uri-bytestring < 0 # GHC 8.4 via blaze-builder
-        - vty < 0 # GHC 8.4 via blaze-builder
-        - wai < 0 # GHC 8.4 via blaze-builder
-        - wai-app-static < 0 # GHC 8.4 via blaze-builder
-        - wai-conduit < 0 # GHC 8.4 via blaze-builder
-        - wai-extra < 0 # GHC 8.4 via blaze-builder
-        - wai-handler-launch < 0 # GHC 8.4 via blaze-builder
-        - wai-middleware-caching < 0 # GHC 8.4 via blaze-builder
-        - wai-middleware-caching-lru < 0 # GHC 8.4 via blaze-builder
-        - wai-middleware-caching-redis < 0 # GHC 8.4 via blaze-builder
-        - wai-middleware-crowd < 0 # GHC 8.4 via blaze-builder
-        - wai-predicates < 0 # GHC 8.4 via blaze-builder
-        - wai-routing < 0 # GHC 8.4 via blaze-builder
-        - wai-session < 0 # GHC 8.4 via blaze-builder
-        - wai-websockets < 0 # GHC 8.4 via blaze-builder
-        - warp < 0 # GHC 8.4 via blaze-builder
-        - web-routes < 0 # GHC 8.4 via blaze-builder
-        - websockets < 0 # GHC 8.4 via blaze-builder
-        - xmlgen < 0 # GHC 8.4 via blaze-builder
-        - xmlhtml < 0 # GHC 8.4 via blaze-builder
-        - yesod-auth < 0 # GHC 8.4 via blaze-builder
-        - yesod-bin < 0 # GHC 8.4 via blaze-builder
-        - yesod-eventsource < 0 # GHC 8.4 via blaze-builder
-        - yesod-persistent < 0 # GHC 8.4 via blaze-builder
-        - yesod-static < 0 # GHC 8.4 via blaze-builder
-        - yesod-test < 0 # GHC 8.4 via blaze-builder
         - web-routes-boomerang < 0 # GHC 8.4 via boomerang
         - uuid < 0 # GHC 8.4 via cryptohash-md5
-        - github-webhooks < 0 # GHC 8.4 via deepseq-generics
-        - hidapi < 0 # GHC 8.4 via deepseq-generics
-        - kdt < 0 # GHC 8.4 via deepseq-generics
-        - yesod-core < 0 # GHC 8.4 via deepseq-generics
+        - uuid < 0 # GHC 8.4 via cryptohash-sha1
+        - attoparsec-time < 0 # GHC 8.4 via doctest-0.15.0
+        - flow < 0 # GHC 8.4 via doctest-0.15.0
+        - hasmin < 0 # GHC 8.4 via doctest-0.15.0
+        - turtle < 0 # GHC 8.4 via doctest-0.15.0
+        - eventstore < 0 # GHC 8.4 via ekg-core
         - monad-metrics < 0 # GHC 8.4 via ekg-core
         - wai-middleware-metrics < 0 # GHC 8.4 via ekg-core
+        - uuid < 0 # GHC 8.4 via entropy-0.4.1.1
         - download < 0 # GHC 8.4 via feed
         - json-schema < 0 # GHC 8.4 via generic-aeson
-        - profiterole < 0 # GHC 8.4 via ghc-prof
+        - hint < 0 # GHC 8.4 via ghc-8.4.1
         - ghc-typelits-extra < 0 # GHC 8.4 via ghc-typelits-knownnat
         - hmatrix-backprop < 0 # GHC 8.4 via ghc-typelits-knownnat
         - hmatrix-vector-sized < 0 # GHC 8.4 via ghc-typelits-knownnat
-        - servant-github-webhook < 0 # GHC 8.4 via github
-        - pandoc < 0 # GHC 8.4 via haddock-library
+        - stack < 0 # GHC 8.4 via hackage-security
+        - pandoc < 0 # GHC 8.4 via haddock-library-1.5.0.1
         - happstack-jmacro < 0 # GHC 8.4 via happstack-server
         - happstack-server-tls < 0 # GHC 8.4 via happstack-server
         - jmacro-rpc-happstack < 0 # GHC 8.4 via happstack-server
         - reform-happstack < 0 # GHC 8.4 via happstack-server
         - web-routes-happstack < 0 # GHC 8.4 via happstack-server
         - haskell-lsp-client < 0 # GHC 8.4 via haskell-lsp
-        - QuasiText < 0 # GHC 8.4 via haskell-src-meta
-        - aeson-qq < 0 # GHC 8.4 via haskell-src-meta
-        - codo-notation < 0 # GHC 8.4 via haskell-src-meta
-        - here < 0 # GHC 8.4 via haskell-src-meta
-        - interpolate < 0 # GHC 8.4 via haskell-src-meta
-        - interpolatedstring-perl6 < 0 # GHC 8.4 via haskell-src-meta
-        - invertible < 0 # GHC 8.4 via haskell-src-meta
-        - jmacro < 0 # GHC 8.4 via haskell-src-meta
-        - language-c-quote < 0 # GHC 8.4 via haskell-src-meta
-        - marvin-interpolate < 0 # GHC 8.4 via haskell-src-meta
-        - postgresql-typed < 0 # GHC 8.4 via haskell-src-meta
-        - qm-interpolated-string < 0 # GHC 8.4 via haskell-src-meta
-        - buchhaltung < 0 # GHC 8.4 via hint
-        - haskintex < 0 # GHC 8.4 via hint
-        - xmonad-extras < 0 # GHC 8.4 via hint
-        - Spock-core < 0 # GHC 8.4 via http-api-data
-        - envelope < 0 # GHC 8.4 via http-api-data
-        - eventful-core < 0 # GHC 8.4 via http-api-data
-        - http-link-header < 0 # GHC 8.4 via http-api-data
-        - persistent < 0 # GHC 8.4 via http-api-data
-        - persistent-mongoDB < 0 # GHC 8.4 via http-api-data
-        - persistent-redis < 0 # GHC 8.4 via http-api-data
-        - persistent-template < 0 # GHC 8.4 via http-api-data
-        - pushbullet-types < 0 # GHC 8.4 via http-api-data
-        - req < 0 # GHC 8.4 via http-api-data
-        - reroute < 0 # GHC 8.4 via http-api-data
-        - slug < 0 # GHC 8.4 via http-api-data
+        - hjsonschema < 0 # GHC 8.4 via hjsonpointer
+        - IPv6DB < 0 # GHC 8.4 via hspec-2.5.0
+        - cayley-client < 0 # GHC 8.4 via hspec-2.5.0
+        - chatwork < 0 # GHC 8.4 via hspec-2.5.0
+        - clay < 0 # GHC 8.4 via hspec-2.5.0
+        - fmt < 0 # GHC 8.4 via hspec-2.5.0
+        - genvalidity-aeson < 0 # GHC 8.4 via hspec-2.5.0
+        - genvalidity-containers < 0 # GHC 8.4 via hspec-2.5.0
+        - genvalidity-hspec < 0 # GHC 8.4 via hspec-2.5.0
+        - genvalidity-hspec-hashable < 0 # GHC 8.4 via hspec-2.5.0
+        - genvalidity-property < 0 # GHC 8.4 via hspec-2.5.0
+        - genvalidity-unordered-containers < 0 # GHC 8.4 via hspec-2.5.0
+        - genvalidity-vector < 0 # GHC 8.4 via hspec-2.5.0
+        - haddock-library < 0 # GHC 8.4 via hspec-2.5.0
+        - hsyslog-udp < 0 # GHC 8.4 via hspec-2.5.0
+        - postgresql-simple-migration < 0 # GHC 8.4 via hspec-2.5.0
+        - rakuten < 0 # GHC 8.4 via hspec-2.5.0
+        - servant-kotlin < 0 # GHC 8.4 via hspec-2.5.0
+        - simple-log < 0 # GHC 8.4 via hspec-2.5.0
+        - tasty-hspec < 0 # GHC 8.4 via hspec-2.5.0
+        - xmlhtml < 0 # GHC 8.4 via hspec-2.5.0
+        - tasty-hspec < 0 # GHC 8.4 via hspec-core-2.5.0
+        - chatwork < 0 # GHC 8.4 via http-api-data-0.3.8.1
+        - rakuten < 0 # GHC 8.4 via http-api-data-0.3.8.1
+        - servant-kotlin < 0 # GHC 8.4 via http-api-data-0.3.8.1
         - airship < 0 # GHC 8.4 via http-media
         - lxd-client < 0 # GHC 8.4 via http-media
         - servant-blaze < 0 # GHC 8.4 via http-media
@@ -3759,14 +3892,13 @@ packages:
         - jvm-batching < 0 # GHC 8.4 via inline-java
         - jvm-streaming < 0 # GHC 8.4 via inline-java
         - sparkle < 0 # GHC 8.4 via inline-java
-        - snap-server < 0 # GHC 8.4 via io-streams-haproxy
         - hOpenPGP < 0 # GHC 8.4 via ixset-typed
         - text-generic-pretty < 0 # GHC 8.4 via ixset-typed
+        - log-warper < 0 # GHC 8.4 via lifted-async-0.10.0.1
         - heist < 0 # GHC 8.4 via map-syntax
         - mmark < 0 # GHC 8.4 via modern-uri
         - mmark-ext < 0 # GHC 8.4 via modern-uri
         - req-url-extra < 0 # GHC 8.4 via modern-uri
-        - MemoTrie < 0 # GHC 8.4 via newtype-generics
         - online < 0 # GHC 8.4 via numhask
         - plot-light < 0 # GHC 8.4 via palette
         - online < 0 # GHC 8.4 via perf
@@ -3797,13 +3929,7 @@ packages:
         - teardown < 0 # GHC 8.4 via protolude
         - text-generic-pretty < 0 # GHC 8.4 via protolude
         - stack < 0 # GHC 8.4 via regex-applicative-text
-        - hmatrix-repa < 0 # GHC 8.4 via repa
         - rest-snap < 0 # GHC 8.4 via rest-core
-        - approximate < 0 # GHC 8.4 via safecopy
-        - compensated < 0 # GHC 8.4 via safecopy
-        - hyperloglog < 0 # GHC 8.4 via safecopy
-        - ixset < 0 # GHC 8.4 via safecopy
-        - large-hashable < 0 # GHC 8.4 via safecopy
         - lxd-client < 0 # GHC 8.4 via servant
         - miso < 0 # GHC 8.4 via servant
         - servant-blaze < 0 # GHC 8.4 via servant
@@ -3838,907 +3964,160 @@ packages:
         - servant-subscriber < 0 # GHC 8.4 via servant-server
         - servant-websockets < 0 # GHC 8.4 via servant-server
         - hledger-api < 0 # GHC 8.4 via servant-swagger
-        - xmonad < 0 # GHC 8.4 via setlocale
-        - xturtle < 0 # GHC 8.4 via setlocale
+        - pandoc < 0 # GHC 8.4 via skylighting-0.7.1
+        - websockets-snap < 0 # GHC 8.4 via snap-server
         - mmark-cli < 0 # GHC 8.4 via stache
+        - pipes-text < 0 # GHC 8.4 via streaming-commons-0.2.0.0
         - highjson-swagger < 0 # GHC 8.4 via swagger2
         - highjson-th < 0 # GHC 8.4 via swagger2
         - hledger-api < 0 # GHC 8.4 via swagger2
+        - teardown < 0 # GHC 8.4 via tasty-rerun
+        - online < 0 # GHC 8.4 via tdigest
+        - wrecker < 0 # GHC 8.4 via tdigest
+        - syb-with-class < 0 # GHC 8.4 via template-haskell-2.13.0.0
+        - type-assertions < 0 # GHC 8.4 via test-fixture
+        - threepenny-editors < 0 # GHC 8.4 via threepenny-gui
+        - threepenny-gui-flexbox < 0 # GHC 8.4 via threepenny-gui
+        - MonadRandom < 0 # GHC 8.4 via transformers-compat-0.6.0.6
+        - exception-transformers < 0 # GHC 8.4 via transformers-compat-0.6.0.6
+        - monad-control-aligned < 0 # GHC 8.4 via transformers-compat-0.6.0.6
+        - websockets-rpc < 0 # GHC 8.4 via websockets-simple-0.0.6.3
+
+        # trans deps, gen 2
+        - netwire-input-glfw < 0 # GHC 8.4 via GLFW-b
+        - auto < 0 # GHC 8.4 via MonadRandom
+        - boltzmann-samplers < 0 # GHC 8.4 via MonadRandom
+        - distribution < 0 # GHC 8.4 via MonadRandom
+        - diversity < 0 # GHC 8.4 via MonadRandom
+        - general-games < 0 # GHC 8.4 via MonadRandom
+        - hmatrix-morpheus < 0 # GHC 8.4 via MonadRandom
+        - kdt < 0 # GHC 8.4 via MonadRandom
+        - mltool < 0 # GHC 8.4 via MonadRandom
+        - random-shuffle < 0 # GHC 8.4 via MonadRandom
+        - random-tree < 0 # GHC 8.4 via MonadRandom
+        - vivid < 0 # GHC 8.4 via MonadRandom
+        - herms < 0 # GHC 8.4 via brick
+        - hledger-iadd < 0 # GHC 8.4 via brick
+        - hledger-ui < 0 # GHC 8.4 via brick
+        - Chart-cairo < 0 # GHC 8.4 via cairo
+        - plot < 0 # GHC 8.4 via cairo
+        - markup < 0 # GHC 8.4 via clay
+        - exception-mtl < 0 # GHC 8.4 via exception-transformers
+        - language-c-quote < 0 # GHC 8.4 via exception-transformers
+        - shikensu < 0 # GHC 8.4 via flow
+        - genvalidity-bytestring < 0 # GHC 8.4 via genvalidity-hspec
+        - genvalidity-hspec-aeson < 0 # GHC 8.4 via genvalidity-hspec
+        - genvalidity-hspec-binary < 0 # GHC 8.4 via genvalidity-hspec
+        - genvalidity-hspec-cereal < 0 # GHC 8.4 via genvalidity-hspec
+        - genvalidity-path < 0 # GHC 8.4 via genvalidity-hspec
+        - genvalidity-scientific < 0 # GHC 8.4 via genvalidity-hspec
+        - genvalidity-text < 0 # GHC 8.4 via genvalidity-hspec
+        - genvalidity-time < 0 # GHC 8.4 via genvalidity-hspec
+        - genvalidity-uuid < 0 # GHC 8.4 via genvalidity-hspec
+        - profiterole < 0 # GHC 8.4 via ghc-prof
+        - follow-file < 0 # GHC 8.4 via hinotify
+        - fsnotify < 0 # GHC 8.4 via hinotify
+        - ztail < 0 # GHC 8.4 via hinotify
+        - buchhaltung < 0 # GHC 8.4 via hint
+        - haskintex < 0 # GHC 8.4 via hint
+        - xmonad-extras < 0 # GHC 8.4 via hint
+        - urlpath < 0 # GHC 8.4 via monad-control-aligned
+        - pandoc-citeproc < 0 # GHC 8.4 via pandoc
+        - plot < 0 # GHC 8.4 via pango
+        - eventful-postgresql < 0 # GHC 8.4 via persistent-postgresql
+        - serversession-backend-persistent < 0 # GHC 8.4 via persistent-postgresql
+        - blosum < 0 # GHC 8.4 via pipes-text
+        - fasta < 0 # GHC 8.4 via pipes-text
+        - modify-fasta < 0 # GHC 8.4 via pipes-text
+        - hmatrix-repa < 0 # GHC 8.4 via repa
+        - repa-algorithms < 0 # GHC 8.4 via repa
+        - repa-io < 0 # GHC 8.4 via repa
         - ixset < 0 # GHC 8.4 via syb-with-class
         - rng-utils < 0 # GHC 8.4 via tasty-hedgehog
         - tasty-discover < 0 # GHC 8.4 via tasty-hedgehog
         - universum < 0 # GHC 8.4 via tasty-hedgehog
-        - teardown < 0 # GHC 8.4 via tasty-rerun
-        - online < 0 # GHC 8.4 via tdigest
-        - wrecker < 0 # GHC 8.4 via tdigest
-        - type-assertions < 0 # GHC 8.4 via test-fixture
-        - blosum < 0 # GHC 8.4 via text-show
-        - find-clumpiness < 0 # GHC 8.4 via text-show
-        - hpqtypes < 0 # GHC 8.4 via text-show
-        - log < 0 # GHC 8.4 via text-show
-        - log-elasticsearch < 0 # GHC 8.4 via text-show
-        - log-postgres < 0 # GHC 8.4 via text-show
-        - modify-fasta < 0 # GHC 8.4 via text-show
-        - tibetan-utils < 0 # GHC 8.4 via text-show
-        - snap-server < 0 # GHC 8.4 via threads
-        - threads-extras < 0 # GHC 8.4 via threads
-        - wrecker < 0 # GHC 8.4 via threads
-        - threepenny-editors < 0 # GHC 8.4 via threepenny-gui
-        - threepenny-gui-flexbox < 0 # GHC 8.4 via threepenny-gui
+        - aeson-typescript < 0 # GHC 8.4 via tasty-hspec
+        - eventsource-store-specs < 0 # GHC 8.4 via tasty-hspec
+        - htoml < 0 # GHC 8.4 via tasty-hspec
+        - jose < 0 # GHC 8.4 via tasty-hspec
+        - milena < 0 # GHC 8.4 via tasty-hspec
+        - tasty-auto < 0 # GHC 8.4 via tasty-hspec
+        - tasty-discover < 0 # GHC 8.4 via tasty-hspec
+        - websockets-simple < 0 # GHC 8.4 via tasty-hspec
+        - yi-language < 0 # GHC 8.4 via tasty-hspec
         - wai-middleware-throttle < 0 # GHC 8.4 via token-bucket
-        - netwire-input-glfw < 0 # GHC 8.4 via GLFW-b
-        - vector-space < 0 # GHC 8.4 via MemoTrie
-        - Spock < 0 # GHC 8.4 via Spock-core
-        - Spock-api-server < 0 # GHC 8.4 via Spock-core
-        - boltzmann-samplers < 0 # GHC 8.4 via ad
-        - hamilton < 0 # GHC 8.4 via ad
-        - matplotlib < 0 # GHC 8.4 via ad
-        - uncertain < 0 # GHC 8.4 via ad
-        - hspec-wai-json < 0 # GHC 8.4 via aeson-qq
-        - microformats2-parser < 0 # GHC 8.4 via aeson-qq
-        - stratosphere < 0 # GHC 8.4 via aeson-qq
-        - mltool < 0 # GHC 8.4 via ascii-progress
-        - MFlow < 0 # GHC 8.4 via blaze-html
-        - ace < 0 # GHC 8.4 via blaze-html
-        - alerts < 0 # GHC 8.4 via blaze-html
-        - blaze-bootstrap < 0 # GHC 8.4 via blaze-html
-        - cheapskate < 0 # GHC 8.4 via blaze-html
-        - cheapskate-highlight < 0 # GHC 8.4 via blaze-html
-        - cheapskate-lucid < 0 # GHC 8.4 via blaze-html
-        - cmark < 0 # GHC 8.4 via blaze-html
-        - cmark-highlight < 0 # GHC 8.4 via blaze-html
-        - doctemplates < 0 # GHC 8.4 via blaze-html
-        - highlighting-kate < 0 # GHC 8.4 via blaze-html
-        - hledger-web < 0 # GHC 8.4 via blaze-html
-        - jmacro-rpc < 0 # GHC 8.4 via blaze-html
-        - mandrill < 0 # GHC 8.4 via blaze-html
-        - markdown < 0 # GHC 8.4 via blaze-html
-        - markup < 0 # GHC 8.4 via blaze-html
-        - microformats2-parser < 0 # GHC 8.4 via blaze-html
-        - reform-blaze < 0 # GHC 8.4 via blaze-html
-        - ses-html < 0 # GHC 8.4 via blaze-html
-        - shakespeare < 0 # GHC 8.4 via blaze-html
-        - skylighting < 0 # GHC 8.4 via blaze-html
-        - snap-blaze < 0 # GHC 8.4 via blaze-html
-        - tasty-html < 0 # GHC 8.4 via blaze-html
-        - type-of-html < 0 # GHC 8.4 via blaze-html
-        - webpage < 0 # GHC 8.4 via blaze-html
-        - xml-conduit < 0 # GHC 8.4 via blaze-html
-        - yesod < 0 # GHC 8.4 via blaze-html
-        - yesod-alerts < 0 # GHC 8.4 via blaze-html
-        - yesod-newsfeed < 0 # GHC 8.4 via blaze-html
-        - MFlow < 0 # GHC 8.4 via blaze-markup
-        - ace < 0 # GHC 8.4 via blaze-markup
-        - blaze-svg < 0 # GHC 8.4 via blaze-markup
-        - doctemplates < 0 # GHC 8.4 via blaze-markup
-        - hledger-web < 0 # GHC 8.4 via blaze-markup
-        - markdown < 0 # GHC 8.4 via blaze-markup
-        - markup < 0 # GHC 8.4 via blaze-markup
-        - microformats2-parser < 0 # GHC 8.4 via blaze-markup
-        - reform-blaze < 0 # GHC 8.4 via blaze-markup
-        - reform-hamlet < 0 # GHC 8.4 via blaze-markup
-        - shakespeare < 0 # GHC 8.4 via blaze-markup
-        - xml-conduit < 0 # GHC 8.4 via blaze-markup
-        - yesod < 0 # GHC 8.4 via blaze-markup
-        - yesod-alerts < 0 # GHC 8.4 via blaze-markup
-        - yesod-newsfeed < 0 # GHC 8.4 via blaze-markup
-        - mysql-haskell < 0 # GHC 8.4 via blaze-textual
-        - classy-prelude-conduit < 0 # GHC 8.4 via classy-prelude
-        - classy-prelude-yesod < 0 # GHC 8.4 via classy-prelude
-        - brick < 0 # GHC 8.4 via config-ini
-        - cabal2nix < 0 # GHC 8.4 via distribution-nixpkgs
-        - check-email < 0 # GHC 8.4 via email-validate
-        - hailgun < 0 # GHC 8.4 via email-validate
-        - hailgun-simple < 0 # GHC 8.4 via email-validate
-        - mandrill < 0 # GHC 8.4 via email-validate
-        - configuration-tools < 0 # GHC 8.4 via enclosed-exceptions
-        - network-attoparsec < 0 # GHC 8.4 via enclosed-exceptions
-        - eventful-memory < 0 # GHC 8.4 via eventful-core
-        - eventful-postgresql < 0 # GHC 8.4 via eventful-core
-        - eventful-sql-common < 0 # GHC 8.4 via eventful-core
-        - eventful-sqlite < 0 # GHC 8.4 via eventful-core
-        - eventful-test-helpers < 0 # GHC 8.4 via eventful-core
-        - fixed-vector-hetero < 0 # GHC 8.4 via fixed-vector
-        - shikensu < 0 # GHC 8.4 via flow
-        - filecache < 0 # GHC 8.4 via fsnotify
-        - ghcid < 0 # GHC 8.4 via fsnotify
-        - starter < 0 # GHC 8.4 via fsnotify
-        - data-diverse-lens < 0 # GHC 8.4 via generic-lens
-        - groundhog-inspector < 0 # GHC 8.4 via groundhog
-        - groundhog-mysql < 0 # GHC 8.4 via groundhog
-        - groundhog-sqlite < 0 # GHC 8.4 via groundhog
-        - groundhog-th < 0 # GHC 8.4 via groundhog
-        - gi-atk < 0 # GHC 8.4 via haskell-gi
-        - gi-cairo < 0 # GHC 8.4 via haskell-gi
-        - gi-glib < 0 # GHC 8.4 via haskell-gi
-        - gi-gobject < 0 # GHC 8.4 via haskell-gi
-        - gi-javascriptcore < 0 # GHC 8.4 via haskell-gi
-        - IPv6DB < 0 # GHC 8.4 via hedis
-        - hworker < 0 # GHC 8.4 via hedis
-        - serversession-backend-redis < 0 # GHC 8.4 via hedis
-        - hledger < 0 # GHC 8.4 via here
-        - follow-file < 0 # GHC 8.4 via hinotify
-        - ztail < 0 # GHC 8.4 via hinotify
-        - hledger-web < 0 # GHC 8.4 via hjsmin
-        - hledger < 0 # GHC 8.4 via hledger-lib
-        - hledger-iadd < 0 # GHC 8.4 via hledger-lib
-        - hledger-interest < 0 # GHC 8.4 via hledger-lib
-        - hledger-web < 0 # GHC 8.4 via hledger-lib
-        - cabal2nix < 0 # GHC 8.4 via hopenssl
-        - tidal < 0 # GHC 8.4 via hosc
-        - wai-middleware-static < 0 # GHC 8.4 via hpc-coveralls
-        - mbox-utility < 0 # GHC 8.4 via hsemail
-        - hdaemonize < 0 # GHC 8.4 via hsyslog
-        - hsyslog-udp < 0 # GHC 8.4 via hsyslog
-        - logging-facade-syslog < 0 # GHC 8.4 via hsyslog
-        - monad-logger-syslog < 0 # GHC 8.4 via hsyslog
-        - DAV < 0 # GHC 8.4 via http-client
-        - IPv6DB < 0 # GHC 8.4 via http-client
-        - bitcoin-api < 0 # GHC 8.4 via http-client
-        - bitcoin-api-extra < 0 # GHC 8.4 via http-client
-        - cabal-rpm < 0 # GHC 8.4 via http-client
-        - cayley-client < 0 # GHC 8.4 via http-client
-        - configuration-tools < 0 # GHC 8.4 via http-client
-        - datadog < 0 # GHC 8.4 via http-client
-        - fb < 0 # GHC 8.4 via http-client
-        - gdax < 0 # GHC 8.4 via http-client
-        - goggles < 0 # GHC 8.4 via http-client
-        - hailgun < 0 # GHC 8.4 via http-client
-        - haskell-neo4j-client < 0 # GHC 8.4 via http-client
-        - hledger-web < 0 # GHC 8.4 via http-client
-        - hpack < 0 # GHC 8.4 via http-client
-        - hsebaysdk < 0 # GHC 8.4 via http-client
-        - http-client-openssl < 0 # GHC 8.4 via http-client
-        - http-client-tls < 0 # GHC 8.4 via http-client
-        - kawhi < 0 # GHC 8.4 via http-client
-        - koofr-client < 0 # GHC 8.4 via http-client
-        - mandrill < 0 # GHC 8.4 via http-client
-        - mime-mail-ses < 0 # GHC 8.4 via http-client
-        - opensource < 0 # GHC 8.4 via http-client
-        - pagerduty < 0 # GHC 8.4 via http-client
-        - pipes-http < 0 # GHC 8.4 via http-client
-        - rollbar-hs < 0 # GHC 8.4 via http-client
-        - soap < 0 # GHC 8.4 via http-client
-        - soap-openssl < 0 # GHC 8.4 via http-client
-        - soap-tls < 0 # GHC 8.4 via http-client
-        - textlocal < 0 # GHC 8.4 via http-client
-        - wai-middleware-rollbar < 0 # GHC 8.4 via http-client
-        - wai-slack-middleware < 0 # GHC 8.4 via http-client
-        - webdriver < 0 # GHC 8.4 via http-client
-        - cabal-rpm < 0 # GHC 8.4 via http-conduit
-        - cayley-client < 0 # GHC 8.4 via http-conduit
-        - classy-prelude-yesod < 0 # GHC 8.4 via http-conduit
-        - cryptocompare < 0 # GHC 8.4 via http-conduit
-        - curl-runnings < 0 # GHC 8.4 via http-conduit
-        - fb < 0 # GHC 8.4 via http-conduit
-        - github-types < 0 # GHC 8.4 via http-conduit
-        - haskell-neo4j-client < 0 # GHC 8.4 via http-conduit
-        - hledger-web < 0 # GHC 8.4 via http-conduit
-        - hoogle < 0 # GHC 8.4 via http-conduit
-        - kawhi < 0 # GHC 8.4 via http-conduit
-        - line < 0 # GHC 8.4 via http-conduit
-        - mega-sdist < 0 # GHC 8.4 via http-conduit
-        - mime-mail-ses < 0 # GHC 8.4 via http-conduit
-        - rollbar-hs < 0 # GHC 8.4 via http-conduit
-        - textlocal < 0 # GHC 8.4 via http-conduit
-        - wai-middleware-rollbar < 0 # GHC 8.4 via http-conduit
-        - yesod-auth-fb < 0 # GHC 8.4 via http-conduit
-        - yesod-auth-hashdb < 0 # GHC 8.4 via http-conduit
-        - yesod-fb < 0 # GHC 8.4 via http-conduit
-        - ses-html < 0 # GHC 8.4 via http-streams
-        - aeson-typescript < 0 # GHC 8.4 via interpolate
-        - attoparsec-ip < 0 # GHC 8.4 via ip
-        - attoparsec-uri < 0 # GHC 8.4 via ip
-        - IPv6Addr < 0 # GHC 8.4 via iproute
-        - cql < 0 # GHC 8.4 via iproute
-        - transient-universe < 0 # GHC 8.4 via iproute
-        - irc-client < 0 # GHC 8.4 via irc-conduit
-        - hsx-jmacro < 0 # GHC 8.4 via jmacro
-        - jmacro-rpc < 0 # GHC 8.4 via jmacro
-        - jmacro-rpc-snap < 0 # GHC 8.4 via jmacro
-        - buffer-builder < 0 # GHC 8.4 via json-builder
-        - webdriver-angular < 0 # GHC 8.4 via language-javascript
-        - cabal2nix < 0 # GHC 8.4 via language-nix
-        - higher-leveldb < 0 # GHC 8.4 via leveldb-haskell
-        - asciidiagram < 0 # GHC 8.4 via linear
-        - qchas < 0 # GHC 8.4 via linear
-        - rasterific-svg < 0 # GHC 8.4 via linear
-        - sdl2 < 0 # GHC 8.4 via linear
-        - sdl2-gfx < 0 # GHC 8.4 via linear
-        - smoothie < 0 # GHC 8.4 via linear
-        - svg-tree < 0 # GHC 8.4 via linear
-        - random-fu < 0 # GHC 8.4 via log-domain
-        - Spock-lucid < 0 # GHC 8.4 via lucid
-        - cheapskate-lucid < 0 # GHC 8.4 via lucid
-        - cmark-lucid < 0 # GHC 8.4 via lucid
-        - markup < 0 # GHC 8.4 via lucid
-        - webpage < 0 # GHC 8.4 via lucid
-        - machines-binary < 0 # GHC 8.4 via machines
-        - machines-directory < 0 # GHC 8.4 via machines
-        - machines-io < 0 # GHC 8.4 via machines
-        - HaskellNet < 0 # GHC 8.4 via mime-mail
-        - mime-mail-ses < 0 # GHC 8.4 via mime-mail
-        - smtp-mail < 0 # GHC 8.4 via mime-mail
-        - eventful-test-helpers < 0 # GHC 8.4 via monad-logger
-        - fb < 0 # GHC 8.4 via monad-logger
-        - groundhog-mysql < 0 # GHC 8.4 via monad-logger
-        - markup < 0 # GHC 8.4 via monad-logger
-        - monad-logger-json < 0 # GHC 8.4 via monad-logger
-        - monad-logger-syslog < 0 # GHC 8.4 via monad-logger
-        - persistent-mysql-haskell < 0 # GHC 8.4 via monad-logger
-        - persistent-sqlite < 0 # GHC 8.4 via monad-logger
-        - serversession-backend-persistent < 0 # GHC 8.4 via monad-logger
-        - urlpath < 0 # GHC 8.4 via monad-logger
-        - yesod < 0 # GHC 8.4 via monad-logger
-        - yesod-auth-hashdb < 0 # GHC 8.4 via monad-logger
-        - groundhog-mysql < 0 # GHC 8.4 via mysql-simple
-        - pandoc-citeproc < 0 # GHC 8.4 via pandoc
-        - heatshrink < 0 # GHC 8.4 via pcre-heavy
-        - ignore < 0 # GHC 8.4 via pcre-heavy
-        - microformats2-parser < 0 # GHC 8.4 via pcre-heavy
-        - classy-prelude-yesod < 0 # GHC 8.4 via persistent
-        - eventful-postgresql < 0 # GHC 8.4 via persistent
-        - eventful-sql-common < 0 # GHC 8.4 via persistent
-        - eventful-sqlite < 0 # GHC 8.4 via persistent
-        - persistent-mysql-haskell < 0 # GHC 8.4 via persistent
-        - persistent-sqlite < 0 # GHC 8.4 via persistent
-        - serversession-backend-persistent < 0 # GHC 8.4 via persistent
-        - yesod-auth-hashdb < 0 # GHC 8.4 via persistent
-        - yesod-paginator < 0 # GHC 8.4 via persistent
-        - eventful-postgresql < 0 # GHC 8.4 via persistent-postgresql
-        - serversession-backend-persistent < 0 # GHC 8.4 via persistent-postgresql
-        - eventful-sql-common < 0 # GHC 8.4 via persistent-template
-        - persistent-mysql-haskell < 0 # GHC 8.4 via persistent-template
-        - persistent-sqlite < 0 # GHC 8.4 via persistent-template
-        - serversession-backend-persistent < 0 # GHC 8.4 via persistent-template
-        - pipes-misc < 0 # GHC 8.4 via pipes-concurrency
-        - debug < 0 # GHC 8.4 via prettyprinter
-        - prettyprinter-compat-annotated-wl-pprint < 0 # GHC 8.4 via prettyprinter
-        - prettyprinter-compat-ansi-wl-pprint < 0 # GHC 8.4 via prettyprinter
-        - prettyprinter-compat-wl-pprint < 0 # GHC 8.4 via prettyprinter
-        - prettyprinter-compat-ansi-wl-pprint < 0 # GHC 8.4 via prettyprinter-ansi-terminal
-        - goggles < 0 # GHC 8.4 via req
-        - mapquest-api < 0 # GHC 8.4 via req
-        - Spock < 0 # GHC 8.4 via reroute
-        - Spock-api < 0 # GHC 8.4 via reroute
-        - filter-logger < 0 # GHC 8.4 via scotty
-        - line < 0 # GHC 8.4 via scotty
-        - microformats2-parser < 0 # GHC 8.4 via scotty
-        - c2hs < 0 # GHC 8.4 via shelly
-        - websockets-snap < 0 # GHC 8.4 via snap-server
-        - mbtiles < 0 # GHC 8.4 via sqlite-simple
-        - bitcoin-api-extra < 0 # GHC 8.4 via stm-conduit
-        - html-conduit < 0 # GHC 8.4 via tagstream-conduit
-        - mega-sdist < 0 # GHC 8.4 via tar-conduit
-        - lentil < 0 # GHC 8.4 via terminal-progress-bar
-        - HaskellNet-SSL < 0 # GHC 8.4 via tls
-        - configuration-tools < 0 # GHC 8.4 via tls
-        - connection < 0 # GHC 8.4 via tls
-        - http-client-tls < 0 # GHC 8.4 via tls
-        - irc-client < 0 # GHC 8.4 via tls
-        - mongoDB < 0 # GHC 8.4 via tls
-        - mysql-haskell < 0 # GHC 8.4 via tls
-        - network-conduit-tls < 0 # GHC 8.4 via tls
-        - persistent-mysql-haskell < 0 # GHC 8.4 via tls
-        - soap-tls < 0 # GHC 8.4 via tls
-        - tcp-streams < 0 # GHC 8.4 via tls
-        - tls-debug < 0 # GHC 8.4 via tls
-        - tls-session-manager < 0 # GHC 8.4 via tls
-        - warp-tls < 0 # GHC 8.4 via tls
-        - uri-templater < 0 # GHC 8.4 via trifecta
         - bench < 0 # GHC 8.4 via turtle
         - docker-build-cacher < 0 # GHC 8.4 via turtle
         - turtle-options < 0 # GHC 8.4 via turtle
-        - mega-sdist < 0 # GHC 8.4 via typed-process
-        - tldr < 0 # GHC 8.4 via typed-process
-        - fast-logger < 0 # GHC 8.4 via unix-time
-        - goggles < 0 # GHC 8.4 via unix-time
-        - google-oauth2-jwt < 0 # GHC 8.4 via unix-time
-        - textlocal < 0 # GHC 8.4 via unix-time
-        - tinylog < 0 # GHC 8.4 via unix-time
+        - normalization-insensitive < 0 # GHC 8.4 via unicode-transforms
+        - consul-haskell < 0 # GHC 8.4 via uuid
+        - courier < 0 # GHC 8.4 via uuid
         - cql < 0 # GHC 8.4 via uuid
+        - cql-io < 0 # GHC 8.4 via uuid
+        - docker < 0 # GHC 8.4 via uuid
+        - eventful-core < 0 # GHC 8.4 via uuid
         - eventful-sql-common < 0 # GHC 8.4 via uuid
         - eventful-sqlite < 0 # GHC 8.4 via uuid
+        - eventsource-api < 0 # GHC 8.4 via uuid
+        - eventsource-store-specs < 0 # GHC 8.4 via uuid
         - gdax < 0 # GHC 8.4 via uuid
         - genvalidity-uuid < 0 # GHC 8.4 via uuid
         - hworker < 0 # GHC 8.4 via uuid
         - ipython-kernel < 0 # GHC 8.4 via uuid
         - network-anonymous-i2p < 0 # GHC 8.4 via uuid
         - postgresql-binary < 0 # GHC 8.4 via uuid
+        - postgresql-typed < 0 # GHC 8.4 via uuid
         - rollbar-hs < 0 # GHC 8.4 via uuid
+        - squeal-postgresql < 0 # GHC 8.4 via uuid
         - validity-uuid < 0 # GHC 8.4 via uuid
         - wai-middleware-rollbar < 0 # GHC 8.4 via uuid
-        - brick < 0 # GHC 8.4 via vty
-        - hamilton < 0 # GHC 8.4 via vty
-        - herms < 0 # GHC 8.4 via vty
-        - hledger-iadd < 0 # GHC 8.4 via vty
-        - yi-frontend-vty < 0 # GHC 8.4 via vty
-        - IPv6DB < 0 # GHC 8.4 via wai
-        - MFlow < 0 # GHC 8.4 via wai
-        - Spock < 0 # GHC 8.4 via wai
-        - bimap-server < 0 # GHC 8.4 via wai
-        - configuration-tools < 0 # GHC 8.4 via wai
-        - filter-logger < 0 # GHC 8.4 via wai
-        - hledger-web < 0 # GHC 8.4 via wai
-        - hoogle < 0 # GHC 8.4 via wai
-        - hspec-wai < 0 # GHC 8.4 via wai
-        - line < 0 # GHC 8.4 via wai
-        - serversession-frontend-wai < 0 # GHC 8.4 via wai
-        - wai-cli < 0 # GHC 8.4 via wai
-        - wai-cors < 0 # GHC 8.4 via wai
-        - wai-middleware-rollbar < 0 # GHC 8.4 via wai
-        - wai-middleware-static < 0 # GHC 8.4 via wai
-        - wai-slack-middleware < 0 # GHC 8.4 via wai
-        - wai-transformers < 0 # GHC 8.4 via wai
-        - warp-tls < 0 # GHC 8.4 via wai
-        - web-routes-wai < 0 # GHC 8.4 via wai
-        - yesod < 0 # GHC 8.4 via wai
-        - yesod-auth-fb < 0 # GHC 8.4 via wai
-        - yesod-csp < 0 # GHC 8.4 via wai
-        - yesod-fb < 0 # GHC 8.4 via wai
-        - yesod-gitrepo < 0 # GHC 8.4 via wai
-        - yesod-websockets < 0 # GHC 8.4 via wai
-        - webdriver-angular < 0 # GHC 8.4 via wai-app-static
-        - MFlow < 0 # GHC 8.4 via wai-extra
-        - Spock < 0 # GHC 8.4 via wai-extra
-        - filter-logger < 0 # GHC 8.4 via wai-extra
-        - hledger-web < 0 # GHC 8.4 via wai-extra
-        - hspec-wai < 0 # GHC 8.4 via wai-extra
-        - microformats2-parser < 0 # GHC 8.4 via wai-extra
-        - wai-cli < 0 # GHC 8.4 via wai-extra
-        - wai-cors < 0 # GHC 8.4 via wai-extra
-        - yesod < 0 # GHC 8.4 via wai-extra
-        - yesod-auth-hashdb < 0 # GHC 8.4 via wai-extra
-        - yesod-paginator < 0 # GHC 8.4 via wai-extra
-        - hledger-web < 0 # GHC 8.4 via wai-handler-launch
-        - IPv6DB < 0 # GHC 8.4 via wai-logger
-        - filter-logger < 0 # GHC 8.4 via wai-logger
-        - hoogle < 0 # GHC 8.4 via wai-logger
-        - yesod < 0 # GHC 8.4 via wai-logger
-        - serversession-frontend-wai < 0 # GHC 8.4 via wai-session
-        - wai-cors < 0 # GHC 8.4 via wai-websockets
-        - wai-transformers < 0 # GHC 8.4 via wai-websockets
-        - yesod-websockets < 0 # GHC 8.4 via wai-websockets
-        - IPv6DB < 0 # GHC 8.4 via warp
-        - MFlow < 0 # GHC 8.4 via warp
-        - bimap-server < 0 # GHC 8.4 via warp
-        - configuration-tools < 0 # GHC 8.4 via warp
-        - hledger-web < 0 # GHC 8.4 via warp
-        - hoogle < 0 # GHC 8.4 via warp
-        - wai-cli < 0 # GHC 8.4 via warp
-        - wai-cors < 0 # GHC 8.4 via warp
-        - warp-tls < 0 # GHC 8.4 via warp
-        - webdriver-angular < 0 # GHC 8.4 via warp
-        - yesod < 0 # GHC 8.4 via warp
-        - yesod-paginator < 0 # GHC 8.4 via warp
-        - web-routes-hsp < 0 # GHC 8.4 via web-routes
-        - web-routes-wai < 0 # GHC 8.4 via web-routes
-        - gdax < 0 # GHC 8.4 via websockets
-        - tidal < 0 # GHC 8.4 via websockets
-        - transient-universe < 0 # GHC 8.4 via websockets
-        - wai-cors < 0 # GHC 8.4 via websockets
-        - wai-transformers < 0 # GHC 8.4 via websockets
-        - websockets-snap < 0 # GHC 8.4 via websockets
-        - wuss < 0 # GHC 8.4 via websockets
-        - yesod-websockets < 0 # GHC 8.4 via websockets
-        - bitcoin-api < 0 # GHC 8.4 via wreq
-        - bitcoin-api-extra < 0 # GHC 8.4 via wreq
-        - datasets < 0 # GHC 8.4 via wreq
-        - gdax < 0 # GHC 8.4 via wreq
-        - handwriting < 0 # GHC 8.4 via wreq
-        - mustache < 0 # GHC 8.4 via wreq
-        - package-description-remote < 0 # GHC 8.4 via wreq
-        - wreq-stringless < 0 # GHC 8.4 via wreq
-        - HTF < 0 # GHC 8.4 via xmlgen
-        - xmonad-contrib < 0 # GHC 8.4 via xmonad
-        - yesod-auth-fb < 0 # GHC 8.4 via yesod-auth
-        - yesod-auth-hashdb < 0 # GHC 8.4 via yesod-auth
-        - hledger-web < 0 # GHC 8.4 via yesod-core
-        - yesod < 0 # GHC 8.4 via yesod-core
-        - yesod-alerts < 0 # GHC 8.4 via yesod-core
-        - yesod-auth-fb < 0 # GHC 8.4 via yesod-core
-        - yesod-auth-hashdb < 0 # GHC 8.4 via yesod-core
-        - yesod-csp < 0 # GHC 8.4 via yesod-core
-        - yesod-fb < 0 # GHC 8.4 via yesod-core
-        - yesod-gitrepo < 0 # GHC 8.4 via yesod-core
-        - yesod-newsfeed < 0 # GHC 8.4 via yesod-core
-        - yesod-paginator < 0 # GHC 8.4 via yesod-core
-        - yesod-sitemap < 0 # GHC 8.4 via yesod-core
-        - yesod-table < 0 # GHC 8.4 via yesod-core
-        - yesod-websockets < 0 # GHC 8.4 via yesod-core
-        - hledger-web < 0 # GHC 8.4 via yesod-form
-        - yesod < 0 # GHC 8.4 via yesod-form
-        - yesod-auth-hashdb < 0 # GHC 8.4 via yesod-form
-        - yesod-form-bootstrap4 < 0 # GHC 8.4 via yesod-form
-        - yesod < 0 # GHC 8.4 via yesod-persistent
-        - yesod-auth-hashdb < 0 # GHC 8.4 via yesod-persistent
-        - classy-prelude-yesod < 0 # GHC 8.4 via yesod-static
-        - hledger-web < 0 # GHC 8.4 via yesod-static
-        - hledger-web < 0 # GHC 8.4 via yesod-test
-        - yesod-auth-hashdb < 0 # GHC 8.4 via yesod-test
-        - yesod-csp < 0 # GHC 8.4 via yesod-test
-        - yesod-paginator < 0 # GHC 8.4 via yesod-test
-        - ipython-kernel < 0 # GHC 8.4 via zeromq4-haskell
-        - HPDF < 0 # GHC 8.4 via HTF
-        - Spock-worker < 0 # GHC 8.4 via HTF
-        - dataurl < 0 # GHC 8.4 via HTF
-        - graph-core < 0 # GHC 8.4 via HTF
-        - HsOpenSSL-x509-system < 0 # GHC 8.4 via HsOpenSSL
-        - mysql-haskell-openssl < 0 # GHC 8.4 via HsOpenSSL
-        - ip6addr < 0 # GHC 8.4 via IPv6Addr
-        - Spock-worker < 0 # GHC 8.4 via Spock
-        - pell < 0 # GHC 8.4 via arithmoi
-        - crypto-pubkey-types < 0 # GHC 8.4 via asn1-encoding
-        - cassava-conduit < 0 # GHC 8.4 via bifunctors
-        - descriptive < 0 # GHC 8.4 via bifunctors
-        - nagios-check < 0 # GHC 8.4 via bifunctors
-        - one-liner < 0 # GHC 8.4 via bifunctors
-        - product-profunctors < 0 # GHC 8.4 via bifunctors
-        - result < 0 # GHC 8.4 via bifunctors
-        - barrier < 0 # GHC 8.4 via blaze-svg
-        - redis-resp < 0 # GHC 8.4 via bytestring-conversion
-        - hspec-checkers < 0 # GHC 8.4 via checkers
-        - picedit < 0 # GHC 8.4 via cli
-        - termcolor < 0 # GHC 8.4 via cli
-        - diversity < 0 # GHC 8.4 via fasta
-        - glazier-pipes < 0 # GHC 8.4 via glazier
-        - asn1-types < 0 # GHC 8.4 via hourglass
-        - hourglass-orphans < 0 # GHC 8.4 via hourglass
-        - hslua-aeson < 0 # GHC 8.4 via hslua
-        - hw-json < 0 # GHC 8.4 via hw-rankselect
-        - hw-succinct < 0 # GHC 8.4 via hw-rankselect
-        - H < 0 # GHC 8.4 via inline-r
-        - mysql-haskell-nem < 0 # GHC 8.4 via io-streams
-        - pdf-toolbox-content < 0 # GHC 8.4 via io-streams
-        - pdf-toolbox-core < 0 # GHC 8.4 via io-streams
-        - pdf-toolbox-document < 0 # GHC 8.4 via io-streams
-        - result < 0 # GHC 8.4 via keys
-        - astro < 0 # GHC 8.4 via matrix
-        - general-games < 0 # GHC 8.4 via monad-loops
-        - hindent < 0 # GHC 8.4 via monad-loops
-        - hsass < 0 # GHC 8.4 via monad-loops
-        - misfortune < 0 # GHC 8.4 via monad-loops
-        - pipes-mongodb < 0 # GHC 8.4 via mongoDB
-        - mysql-haskell-nem < 0 # GHC 8.4 via mysql-haskell
-        - mysql-haskell-openssl < 0 # GHC 8.4 via mysql-haskell
-        - messagepack-rpc < 0 # GHC 8.4 via network-simple
-        - distributed-process < 0 # GHC 8.4 via network-transport-tcp
-        - serversession < 0 # GHC 8.4 via nonce
-        - pipes-aeson < 0 # GHC 8.4 via pipes-attoparsec
-        - pipes-fastx < 0 # GHC 8.4 via pipes-attoparsec
+
+        # trans deps, gen 3
+        - wai-middleware-consul < 0 # GHC 8.4 via consul-haskell
+        - eventful-memory < 0 # GHC 8.4 via eventful-core
+        - eventful-test-helpers < 0 # GHC 8.4 via eventful-core
+        - filecache < 0 # GHC 8.4 via fsnotify
+        - fsnotify-conduit < 0 # GHC 8.4 via fsnotify
+        - ghcid < 0 # GHC 8.4 via fsnotify
+        - starter < 0 # GHC 8.4 via fsnotify
+        - yesod-bin < 0 # GHC 8.4 via fsnotify
         - hasql < 0 # GHC 8.4 via postgresql-binary
-        - auto < 0 # GHC 8.4 via profunctors
-        - dejafu < 0 # GHC 8.4 via profunctors
-        - discrimination < 0 # GHC 8.4 via profunctors
-        - hasql < 0 # GHC 8.4 via profunctors
-        - netwire < 0 # GHC 8.4 via profunctors
-        - objective < 0 # GHC 8.4 via profunctors
-        - one-liner < 0 # GHC 8.4 via profunctors
-        - product-profunctors < 0 # GHC 8.4 via profunctors
-        - withdependencies < 0 # GHC 8.4 via profunctors
-        - zlib-lens < 0 # GHC 8.4 via profunctors
-        - hspec-golden-aeson < 0 # GHC 8.4 via quickcheck-arbitrary-adt
-        - dice < 0 # GHC 8.4 via random-fu
-        - misfortune < 0 # GHC 8.4 via random-fu
-        - rank-product < 0 # GHC 8.4 via random-fu
-        - sdl2-image < 0 # GHC 8.4 via sdl2
-        - sdl2-mixer < 0 # GHC 8.4 via sdl2
-        - sdl2-ttf < 0 # GHC 8.4 via sdl2
-        - state-codes < 0 # GHC 8.4 via shakespeare
-        - yi-snippet < 0 # GHC 8.4 via tasty-hunit
-        - yi-snippet < 0 # GHC 8.4 via tasty-th
-        - mysql-haskell-openssl < 0 # GHC 8.4 via tcp-streams
-        - mysql-haskell-openssl < 0 # GHC 8.4 via tcp-streams-openssl
-        - tidal-midi < 0 # GHC 8.4 via tidal
-        - axiom < 0 # GHC 8.4 via transient-universe
-        - haskell-names < 0 # GHC 8.4 via traverse-with-class
-        - universe < 0 # GHC 8.4 via universe-instances-extended
-        - openexr-write < 0 # GHC 8.4 via vector-split
-        - hspec-webdriver < 0 # GHC 8.4 via webdriver
-        - mysql-haskell-openssl < 0 # GHC 8.4 via wire-streams
-        - wl-pprint-console < 0 # GHC 8.4 via wl-pprint-annotated
-        - wl-pprint-terminfo < 0 # GHC 8.4 via wl-pprint-extras
-        - writer-cps-full < 0 # GHC 8.4 via writer-cps-lens
-        - yi-fuzzy-open < 0 # GHC 8.4 via yi-core
-        - yi-ireader < 0 # GHC 8.4 via yi-core
-        - yi-keymap-cua < 0 # GHC 8.4 via yi-core
-        - yi-keymap-emacs < 0 # GHC 8.4 via yi-core
-        - yi-misc-modes < 0 # GHC 8.4 via yi-core
-        - yi-mode-haskell < 0 # GHC 8.4 via yi-core
-        - yi-mode-javascript < 0 # GHC 8.4 via yi-core
-        - yi-snippet < 0 # GHC 8.4 via yi-core
+        - ctrie < 0 # GHC 8.4 via random-shuffle
+        - mongoDB < 0 # GHC 8.4 via random-shuffle
+        - prometheus-client < 0 # GHC 8.4 via random-shuffle
+        - random-fu < 0 # GHC 8.4 via random-shuffle
+        - yi-core < 0 # GHC 8.4 via yi-language
+        - yi-frontend-vty < 0 # GHC 8.4 via yi-language
         - yi-fuzzy-open < 0 # GHC 8.4 via yi-language
         - yi-ireader < 0 # GHC 8.4 via yi-language
         - yi-keymap-emacs < 0 # GHC 8.4 via yi-language
+        - yi-keymap-vim < 0 # GHC 8.4 via yi-language
         - yi-misc-modes < 0 # GHC 8.4 via yi-language
         - yi-mode-haskell < 0 # GHC 8.4 via yi-language
         - yi-mode-javascript < 0 # GHC 8.4 via yi-language
-        - log-base < 0 # GHC 8.4 via aeson-pretty
-        - witherable < 0 # GHC 8.4 via base-orphans
-        - configurator-export < 0 # GHC 8.4 via configurator
-        - monad-unlift < 0 # GHC 8.4 via constraints
-        - monad-unlift-ref < 0 # GHC 8.4 via constraints
-        - poly-arity < 0 # GHC 8.4 via constraints
-        - typelits-witnesses < 0 # GHC 8.4 via constraints
-        - unfoldable-restricted < 0 # GHC 8.4 via constraints
-        - unit-constraint < 0 # GHC 8.4 via constraints
-        - hunit-dejafu < 0 # GHC 8.4 via dejafu
-        - selda-sqlite < 0 # GHC 8.4 via direct-sqlite
-        - distributed-process-monad-control < 0 # GHC 8.4 via distributed-process
-        - flat-mcmc < 0 # GHC 8.4 via formatting
-        - process-extras < 0 # GHC 8.4 via generic-deriving
-        - unicode-transforms < 0 # GHC 8.4 via getopt-generics
-        - disposable < 0 # GHC 8.4 via ghcjs-base-stub
-        - javascript-extras < 0 # GHC 8.4 via ghcjs-base-stub
+
+        # trans deps, gen 4
+        - hasql-migration < 0 # GHC 8.4 via hasql
         - hasql-optparse-applicative < 0 # GHC 8.4 via hasql
         - hasql-pool < 0 # GHC 8.4 via hasql
-        - hxt < 0 # GHC 8.4 via hxt-regex-xmlschema
-        - shake < 0 # GHC 8.4 via js-flot
-        - shake < 0 # GHC 8.4 via js-jquery
-        - monad-unlift-ref < 0 # GHC 8.4 via mutable-containers
-        - netwire-input < 0 # GHC 8.4 via netwire
-        - one-liner-instances < 0 # GHC 8.4 via one-liner
-        - unfoldable < 0 # GHC 8.4 via one-liner
-        - users < 0 # GHC 8.4 via path-pieces
-        - protocol-radius-test < 0 # GHC 8.4 via protocol-radius
-        - selda < 0 # GHC 8.4 via psqueues
-        - set-cover < 0 # GHC 8.4 via psqueues
-        - bno055-haskell < 0 # GHC 8.4 via resourcet
-        - h2c < 0 # GHC 8.4 via resourcet
-        - monad-unlift-ref < 0 # GHC 8.4 via resourcet
-        - scalpel < 0 # GHC 8.4 via scalpel-core
-        - hackage-db < 0 # GHC 8.4 via tar
-        - packdeps < 0 # GHC 8.4 via tar
-        - lxd-client-config < 0 # GHC 8.4 via yaml
-        - weeder < 0 # GHC 8.4 via yaml
-        - epub-metadata < 0 # GHC 8.4 via zip-archive
-        - quickbench < 0 # GHC 8.4 via docopt
-        - optparse-simple < 0 # GHC 8.4 via gitrev
-        - RefSerialize < 0 # GHC 8.4 via hashtables
-        - TCache < 0 # GHC 8.4 via hashtables
-        - gtk2hs-buildtools < 0 # GHC 8.4 via hashtables
-        - gl < 0 # GHC 8.4 via hxt
-        - hxt-css < 0 # GHC 8.4 via hxt
-        - hxt-curl < 0 # GHC 8.4 via hxt
-        - hxt-expat < 0 # GHC 8.4 via hxt
-        - hxt-tagsoup < 0 # GHC 8.4 via hxt
-        - network-transport-composed < 0 # GHC 8.4 via network-transport
-        - network-transport-inmemory < 0 # GHC 8.4 via network-transport
-        - network-transport-tests < 0 # GHC 8.4 via network-transport
-        - path-extra < 0 # GHC 8.4 via path
-        - validity-path < 0 # GHC 8.4 via path
-        - pdfinfo < 0 # GHC 8.4 via process-extras
-        - selda-postgresql < 0 # GHC 8.4 via selda
-        - quickcheck-special < 0 # GHC 8.4 via special-values
-        - slave-thread < 0 # GHC 8.4 via stm-containers
-        - quickcheck-combinators < 0 # GHC 8.4 via unfoldable-restricted
-        - Workflow < 0 # GHC 8.4 via RefSerialize
-        - Workflow < 0 # GHC 8.4 via TCache
-        - cairo < 0 # GHC 8.4 via gtk2hs-buildtools
-        - glib < 0 # GHC 8.4 via gtk2hs-buildtools
-        - pango < 0 # GHC 8.4 via gtk2hs-buildtools
-        - mcmc-types < 0 # GHC 8.4 via mwc-probability
-        - cipher-aes < 0 # GHC 8.4 via securemem
-        - cipher-blowfish < 0 # GHC 8.4 via securemem
-        - cipher-camellia < 0 # GHC 8.4 via securemem
-        - cipher-des < 0 # GHC 8.4 via securemem
-        - crypto-cipher-tests < 0 # GHC 8.4 via securemem
-        - crypto-cipher-types < 0 # GHC 8.4 via securemem
-        - plot < 0 # GHC 8.4 via cairo
-        - cryptocipher < 0 # GHC 8.4 via cipher-aes
-        - cryptocipher < 0 # GHC 8.4 via cipher-blowfish
-        - cryptocipher < 0 # GHC 8.4 via cipher-camellia
-        - cryptocipher < 0 # GHC 8.4 via cipher-des
-        - cipher-rc4 < 0 # GHC 8.4 via crypto-cipher-tests
-        - cipher-rc4 < 0 # GHC 8.4 via crypto-cipher-types
-        - cryptocipher < 0 # GHC 8.4 via crypto-cipher-types
-        - plot < 0 # GHC 8.4 via pango
-        - cabal-toolkit < 0 # GHC 8.4 via Cabal-2.2.0.0
-        - entropy < 0 # GHC 8.4 via Cabal-2.2.0.0
-        - crypto-random-api < 0 # GHC 8.4 via entropy
-        - scrypt < 0 # GHC 8.4 via entropy
-
-        # After first wave of unblocks
-        - cabal-toolkit < 0 # GHC 8.4 via Cabal-2.2.0.0
-        - entropy < 0 # GHC 8.4 via Cabal-2.2.0.0
-        - tcp-streams-openssl < 0 # GHC 8.4 via HsOpenSSL-x509-system
-        - megaparsec < 0 # GHC 8.4 via QuickCheck-2.11.3
-        - psqueues < 0 # GHC 8.4 via QuickCheck-2.11.3
-        - bower-json < 0 # GHC 8.4 via aeson-better-errors
-        - asn1-encoding < 0 # GHC 8.4 via asn1-types
-        - asn1-parse < 0 # GHC 8.4 via asn1-types
-        - pkcs10 < 0 # GHC 8.4 via asn1-types
-        - tls < 0 # GHC 8.4 via asn1-types
-        - x509 < 0 # GHC 8.4 via asn1-types
-        - x509-store < 0 # GHC 8.4 via asn1-types
-        - x509-validation < 0 # GHC 8.4 via asn1-types
-        - hinotify < 0 # GHC 8.4 via async-2.2.1
-        - wreq < 0 # GHC 8.4 via authenticate-oauth
-        - seqloc < 0 # GHC 8.4 via biocore
-        - heterocephalus < 0 # GHC 8.4 via blaze-html
-        - heterocephalus < 0 # GHC 8.4 via blaze-markup
-        - hledger-lib < 0 # GHC 8.4 via blaze-markup
-        - xml-html-qq < 0 # GHC 8.4 via blaze-markup
-        - hledger-ui < 0 # GHC 8.4 via brick
-        - tries < 0 # GHC 8.4 via bytestring-trie
-        - weigh < 0 # GHC 8.4 via bytestring-trie
-        - cprng-aes < 0 # GHC 8.4 via cipher-aes
-        - composable-associations-aeson < 0 # GHC 8.4 via composable-associations
-        - amqp < 0 # GHC 8.4 via connection
-        - conduit-connection < 0 # GHC 8.4 via connection
-        - hasbolt < 0 # GHC 8.4 via connection
-        - irc-conduit < 0 # GHC 8.4 via connection
-        - wai-middleware-consul < 0 # GHC 8.4 via consul-haskell
-        - cql-io < 0 # GHC 8.4 via cql
-        - tasty-dejafu < 0 # GHC 8.4 via dejafu
-        - distributed-process-lifted < 0 # GHC 8.4 via distributed-process
-        - distributed-process-simplelocalnet < 0 # GHC 8.4 via distributed-process
-        - distributed-process-tests < 0 # GHC 8.4 via distributed-process
-        - distributed-process-lifted < 0 # GHC 8.4 via distributed-process-monad-control
-        - djinn-ghc < 0 # GHC 8.4 via djinn-lib
-        - email-validate < 0 # GHC 8.4 via doctest-0.15.0
-        - flow < 0 # GHC 8.4 via doctest-0.15.0
-        - turtle < 0 # GHC 8.4 via doctest-0.15.0
-        - eventsource-store-specs < 0 # GHC 8.4 via eventsource-api
-        - hapistrano < 0 # GHC 8.4 via formatting
-        - genvalidity-aeson < 0 # GHC 8.4 via genvalidity-hspec
-        - genvalidity-bytestring < 0 # GHC 8.4 via genvalidity-hspec
-        - genvalidity-containers < 0 # GHC 8.4 via genvalidity-hspec
-        - genvalidity-hspec-aeson < 0 # GHC 8.4 via genvalidity-hspec
-        - genvalidity-hspec-binary < 0 # GHC 8.4 via genvalidity-hspec
-        - genvalidity-hspec-cereal < 0 # GHC 8.4 via genvalidity-hspec
-        - genvalidity-hspec-hashable < 0 # GHC 8.4 via genvalidity-hspec
-        - genvalidity-path < 0 # GHC 8.4 via genvalidity-hspec
-        - genvalidity-scientific < 0 # GHC 8.4 via genvalidity-hspec
-        - genvalidity-text < 0 # GHC 8.4 via genvalidity-hspec
-        - genvalidity-time < 0 # GHC 8.4 via genvalidity-hspec
-        - genvalidity-unordered-containers < 0 # GHC 8.4 via genvalidity-hspec
-        - genvalidity-vector < 0 # GHC 8.4 via genvalidity-hspec
-        - hapistrano < 0 # GHC 8.4 via gitrev
-        - hasmin < 0 # GHC 8.4 via gitrev
-        - hexml-lens < 0 # GHC 8.4 via hexml
-        - xeno < 0 # GHC 8.4 via hexml
-        - hledger-ui < 0 # GHC 8.4 via hledger
-        - blake2 < 0 # GHC 8.4 via hlint
-        - folds < 0 # GHC 8.4 via hlint
-        - gc < 0 # GHC 8.4 via hlint
-        - rcu < 0 # GHC 8.4 via hlint
-        - sbv < 0 # GHC 8.4 via hlint
-        - structs < 0 # GHC 8.4 via hlint
-        - xml-html-qq < 0 # GHC 8.4 via html-conduit
-        - bitx-bitcoin < 0 # GHC 8.4 via http-client
-        - influxdb < 0 # GHC 8.4 via http-client
-        - wai-middleware-consul < 0 # GHC 8.4 via http-client
-        - wreq < 0 # GHC 8.4 via http-client
-        - bitx-bitcoin < 0 # GHC 8.4 via http-client-tls
-        - wreq < 0 # GHC 8.4 via http-client-tls
-        - HandsomeSoup < 0 # GHC 8.4 via hxt
-        - hxt-http < 0 # GHC 8.4 via hxt
-        - katydid < 0 # GHC 8.4 via hxt
-        - xml-to-json < 0 # GHC 8.4 via hxt
-        - xml-to-json < 0 # GHC 8.4 via hxt-curl
-        - xml-to-json < 0 # GHC 8.4 via hxt-expat
-        - xml-to-json < 0 # GHC 8.4 via hxt-tagsoup
-        - generics-eot < 0 # GHC 8.4 via interpolate
-        - katydid < 0 # GHC 8.4 via json
-        - stm-containers < 0 # GHC 8.4 via list-t
-        - timemap < 0 # GHC 8.4 via list-t
-        - mighty-metropolis < 0 # GHC 8.4 via mcmc-types
-        - wai-middleware-consul < 0 # GHC 8.4 via monad-logger
-        - mighty-metropolis < 0 # GHC 8.4 via mwc-probability
-        - network-anonymous-tor < 0 # GHC 8.4 via network-attoparsec
-        - irc-conduit < 0 # GHC 8.4 via network-conduit-tls
-        - distributed-process-tests < 0 # GHC 8.4 via network-transport-inmemory
-        - network-transport-tcp < 0 # GHC 8.4 via network-transport-tests
-        - pkcs10 < 0 # GHC 8.4 via pem
-        - x509 < 0 # GHC 8.4 via pem
-        - x509-store < 0 # GHC 8.4 via pem
-        - x509-validation < 0 # GHC 8.4 via pem
-        - pipes-network < 0 # GHC 8.4 via pipes-safe
-        - pred-trie < 0 # GHC 8.4 via poly-arity
-        - squeal-postgresql < 0 # GHC 8.4 via postgresql-binary
-        - tasty-silver < 0 # GHC 8.4 via process-extras
-        - yi-core < 0 # GHC 8.4 via process-extras
-        - rainbox < 0 # GHC 8.4 via rainbow
-        - lambdabot-core < 0 # GHC 8.4 via random-fu
-        - redis-io < 0 # GHC 8.4 via redis-resp
-        - lexer-applicative < 0 # GHC 8.4 via regex-applicative
-        - crypto-random < 0 # GHC 8.4 via securemem
-        - generics-eot < 0 # GHC 8.4 via shake
-        - shake-language-c < 0 # GHC 8.4 via shake
-        - heterocephalus < 0 # GHC 8.4 via shakespeare
-        - hedis < 0 # GHC 8.4 via slave-thread
-        - wreq < 0 # GHC 8.4 via snap-server
-        - eventsource-store-specs < 0 # GHC 8.4 via tasty-hspec
-        - htoml < 0 # GHC 8.4 via tasty-hspec
-        - websockets-simple < 0 # GHC 8.4 via tasty-hspec
-        - yi-language < 0 # GHC 8.4 via tasty-hspec
-        - tcp-streams-openssl < 0 # GHC 8.4 via tcp-streams
-        - cql-io < 0 # GHC 8.4 via tinylog
-        - redis-io < 0 # GHC 8.4 via tinylog
-        - MonadRandom < 0 # GHC 8.4 via transformers-compat-0.6.0.6
-        - monad-control-aligned < 0 # GHC 8.4 via transformers-compat-0.6.0.6
-        - show-prettyprint < 0 # GHC 8.4 via trifecta
-        - normalization-insensitive < 0 # GHC 8.4 via unicode-transforms
-        - users-test < 0 # GHC 8.4 via users
-        - courier < 0 # GHC 8.4 via uuid
-        - cql-io < 0 # GHC 8.4 via uuid
-        - eventsource-store-specs < 0 # GHC 8.4 via uuid
-        - squeal-postgresql < 0 # GHC 8.4 via uuid
-        - websockets-rpc < 0 # GHC 8.4 via uuid
-        - wreq < 0 # GHC 8.4 via uuid
-        - genvalidity < 0 # GHC 8.4 via validity
-        - genvalidity-aeson < 0 # GHC 8.4 via validity
-        - genvalidity-bytestring < 0 # GHC 8.4 via validity
-        - genvalidity-containers < 0 # GHC 8.4 via validity
-        - genvalidity-hspec-hashable < 0 # GHC 8.4 via validity
-        - genvalidity-property < 0 # GHC 8.4 via validity
-        - genvalidity-scientific < 0 # GHC 8.4 via validity
-        - genvalidity-text < 0 # GHC 8.4 via validity
-        - genvalidity-unordered-containers < 0 # GHC 8.4 via validity
-        - genvalidity-vector < 0 # GHC 8.4 via validity
-        - validity-aeson < 0 # GHC 8.4 via validity
-        - validity-unordered-containers < 0 # GHC 8.4 via validity
-        - validity-vector < 0 # GHC 8.4 via validity
-        - genvalidity-bytestring < 0 # GHC 8.4 via validity-bytestring
-        - genvalidity-containers < 0 # GHC 8.4 via validity-containers
-        - genvalidity-path < 0 # GHC 8.4 via validity-path
-        - genvalidity-scientific < 0 # GHC 8.4 via validity-scientific
-        - validity-aeson < 0 # GHC 8.4 via validity-scientific
-        - genvalidity-text < 0 # GHC 8.4 via validity-text
-        - validity-aeson < 0 # GHC 8.4 via validity-text
-        - genvalidity-time < 0 # GHC 8.4 via validity-time
-        - hledger-ui < 0 # GHC 8.4 via vty
-        - wai-middleware-consul < 0 # GHC 8.4 via wai
-        - wai-middleware-prometheus < 0 # GHC 8.4 via wai
-        - wai-middleware-consul < 0 # GHC 8.4 via wai-app-static
-        - wai-middleware-consul < 0 # GHC 8.4 via wai-conduit
-        - wai-middleware-consul < 0 # GHC 8.4 via wai-extra
-        - websockets-rpc < 0 # GHC 8.4 via wai-transformers
-        - websockets-simple < 0 # GHC 8.4 via wai-transformers
-        - wai-middleware-consul < 0 # GHC 8.4 via warp
-        - websockets-rpc < 0 # GHC 8.4 via websockets
-        - websockets-simple < 0 # GHC 8.4 via websockets
-        - rose-trees < 0 # GHC 8.4 via witherable
-        - sets < 0 # GHC 8.4 via witherable
-        - haskell-gi < 0 # GHC 8.4 via xml-conduit
-        - xml-html-qq < 0 # GHC 8.4 via xml-conduit
-        - xml-indexed-cursor < 0 # GHC 8.4 via xml-conduit
-        - yi-core < 0 # GHC 8.4 via yi-rope
-        - yi-keymap-vim < 0 # GHC 8.4 via yi-rope
-        - git < 0 # GHC 8.4 via zlib-bindings
-        - hit < 0 # GHC 8.4 via zlib-bindings
-        - io-streams < 0 # GHC 8.4 via zlib-bindings
-        - hmatrix-morpheus < 0 # GHC 8.4 via MonadRandom
-        - random-shuffle < 0 # GHC 8.4 via MonadRandom
-        - vivid < 0 # GHC 8.4 via MonadRandom
-        - crypto-api < 0 # GHC 8.4 via entropy
-        - crypto-random-api < 0 # GHC 8.4 via entropy
-        - nonce < 0 # GHC 8.4 via entropy
-        - scrypt < 0 # GHC 8.4 via entropy
-        - fsnotify < 0 # GHC 8.4 via hinotify
-        - openssl-streams < 0 # GHC 8.4 via io-streams
-        - lambdabot-irc-plugins < 0 # GHC 8.4 via lambdabot-core
-        - apecs < 0 # GHC 8.4 via linear
-        - cue-sheet < 0 # GHC 8.4 via megaparsec
-        - dotenv < 0 # GHC 8.4 via megaparsec
-        - hspec-megaparsec < 0 # GHC 8.4 via megaparsec
-        - inflections < 0 # GHC 8.4 via megaparsec
-        - incremental-parser < 0 # GHC 8.4 via monoid-subclasses
-        - picoparsec < 0 # GHC 8.4 via monoid-subclasses
-        - timerep < 0 # GHC 8.4 via monoid-subclasses
-        - freer-simple < 0 # GHC 8.4 via natural-transformation
-        - lrucaching < 0 # GHC 8.4 via psqueues
-        - pcre-heavy < 0 # GHC 8.4 via string-conversions
-        - IntervalMap < 0 # GHC 8.4 via weigh
-        - text-metrics < 0 # GHC 8.4 via weigh
-        - crypto-api-tests < 0 # GHC 8.4 via crypto-api
-        - pureMD5 < 0 # GHC 8.4 via crypto-api
-        - xxhash < 0 # GHC 8.4 via crypto-api
-        - fsnotify-conduit < 0 # GHC 8.4 via fsnotify
-        - hocilib < 0 # GHC 8.4 via inline-c
-        - ctrie < 0 # GHC 8.4 via random-shuffle
-        - prometheus-client < 0 # GHC 8.4 via random-shuffle
-        - prometheus-metrics-ghc < 0 # GHC 8.4 via prometheus-client
-        - gravatar < 0 # GHC 8.4 via pureMD5
-        - hpc-coveralls < 0 # GHC 8.4 via pureMD5
-        - pixelated-avatar-generator < 0 # GHC 8.4 via pureMD5
-        - xxhash-ffi < 0 # GHC 8.4 via xxhash
-        - pipes-bytestring < 0 # GHC 8.4 via pipes-group
-        - pipes-text < 0 # GHC 8.4 via pipes-group
-        - pipes-text < 0 # GHC 8.4 via pipes-safe
-        - pipes-text < 0 # GHC 8.4 via streaming-commons-0.2.0.0
-        - wire-streams < 0 # GHC 8.4 via binary-parsers
-        - wire-streams < 0 # GHC 8.4 via io-streams
-        - haskell-spacegoo < 0 # GHC 8.4 via vector-space
-        - bcrypt < 0 # GHC 8.4 via entropy
-        - cryptohash-md5 < 0 # GHC 8.4 via base-4.11.0.0
-        - cryptohash-sha1 < 0 # GHC 8.4 via base-4.11.0.0
-        - vhd < 0 # GHC 8.4 via cipher-aes
-        - uuid < 0 # GHC 8.4 via entropy
-        - hasql-migration < 0 # GHC 8.4 via hasql
         - hasql-transaction < 0 # GHC 8.4 via hasql
-        - biopsl < 0 # GHC 8.4 via biocore
-        - tagged-binary < 0 # GHC 8.4 via pureMD5
-        - validity-scientific < 0 # GHC 8.4 via validity
-        - Hoed < 0 # GHC 8.4 via hashtables
-        - direct-rocksdb < 0 # GHC 8.4 via Cabal-2.2.0.0
-        - rss-conduit < 0 # GHC 8.4 via atom-conduit
-        - blaze-builder < 0 # GHC 8.4 via base-4.11.0.0
-        - direct-rocksdb < 0 # GHC 8.4 via cabal-toolkit
-        - monad-logger < 0 # GHC 8.4 via fast-logger
-        - pinboard < 0 # GHC 8.4 via http-client
-        - pinboard < 0 # GHC 8.4 via http-client-tls
-        - inline-c-cpp < 0 # GHC 8.4 via inline-c
-        - liboath-hs < 0 # GHC 8.4 via inline-c
-        - irc-dcc < 0 # GHC 8.4 via io-streams
-        - opml-conduit < 0 # GHC 8.4 via monoid-subclasses
-        - dublincore-xml-conduit < 0 # GHC 8.4 via timerep
-        - opml-conduit < 0 # GHC 8.4 via timerep
-        - rss-conduit < 0 # GHC 8.4 via timerep
-        - dublincore-xml-conduit < 0 # GHC 8.4 via uri-bytestring
-        - opml-conduit < 0 # GHC 8.4 via uri-bytestring
-        - rss-conduit < 0 # GHC 8.4 via uri-bytestring
-        - rss-conduit < 0 # GHC 8.4 via vinyl
-        - tar-conduit < 0 # GHC 8.4 via weigh
-        - dublincore-xml-conduit < 0 # GHC 8.4 via xml-conduit
-        - opml-conduit < 0 # GHC 8.4 via xml-conduit
-        - rss-conduit < 0 # GHC 8.4 via xml-conduit
-        - hedgehog-quickcheck < 0 # GHC 8.4 via QuickCheck-2.11.3
-        - eventstore < 0 # GHC 8.4 via connection
-        - eventstore < 0 # GHC 8.4 via ekg-core
-        - eventstore < 0 # GHC 8.4 via fast-logger
-        - log-warper < 0 # GHC 8.4 via fmt
-        - eventstore < 0 # GHC 8.4 via http-client
-        - eventstore < 0 # GHC 8.4 via interpolate
-        - log-warper < 0 # GHC 8.4 via lifted-async-0.10.0.1
-        - async-refresh < 0 # GHC 8.4 via monad-logger
-        - async-refresh-tokens < 0 # GHC 8.4 via monad-logger
-        - eventstore < 0 # GHC 8.4 via monad-logger
-        - pipes-fluid < 0 # GHC 8.4 via pipes-concurrency
-        - pipes-fluid < 0 # GHC 8.4 via pipes-misc
-        - dns < 0 # GHC 8.4 via psqueues
-        - eventstore < 0 # GHC 8.4 via tasty-hspec
-        - eventstore < 0 # GHC 8.4 via text-format
-        - log-warper < 0 # GHC 8.4 via universum
-        - eventsource-api < 0 # GHC 8.4 via uuid
-        - eventstore < 0 # GHC 8.4 via uuid
-        - random-tree < 0 # GHC 8.4 via MonadRandom
-        - Chart-cairo < 0 # GHC 8.4 via cairo
-        - speedy-slice < 0 # GHC 8.4 via mcmc-types
-        - aern2-mp < 0 # GHC 8.4 via mixed-types-num
-        - aern2-real < 0 # GHC 8.4 via mixed-types-num
-        - fasta < 0 # GHC 8.4 via pipes-bytestring
-        - fasta < 0 # GHC 8.4 via pipes-group
-        - fasta < 0 # GHC 8.4 via pipes-text
-        - random-tree < 0 # GHC 8.4 via random-shuffle
-        - dom-parser < 0 # GHC 8.4 via shakespeare
-        - jose < 0 # GHC 8.4 via tasty-hspec
-        - milena < 0 # GHC 8.4 via tasty-hspec
-        - fuzzyset < 0 # GHC 8.4 via text-metrics
-        - backprop < 0 # GHC 8.4 via type-combinators
-        - jose < 0 # GHC 8.4 via x509
-        - xlsx-tabular < 0 # GHC 8.4 via xlsx
-        - dom-parser < 0 # GHC 8.4 via xml-conduit
-        - xml-conduit-writer < 0 # GHC 8.4 via xml-conduit
-        - xml-isogen < 0 # GHC 8.4 via xml-conduit
-        - xml-lens < 0 # GHC 8.4 via xml-conduit
-        - genvalidity-hspec < 0 # GHC 8.4 via genvalidity
-        - genvalidity-hspec < 0 # GHC 8.4 via genvalidity-property
-        - genvalidity-hspec < 0 # GHC 8.4 via hspec-2.5.0
-        - genvalidity-hspec < 0 # GHC 8.4 via validity
-        - elm-export < 0 # GHC 8.4 via wl-pprint-text
-        - tasty-hspec < 0 # GHC 8.4 via hspec-2.5.0
-        - tasty-hspec < 0 # GHC 8.4 via hspec-core-2.5.0
-        - exp-pairs < 0 # GHC 8.4 via matrix
-        - xlsx < 0 # GHC 8.4 via xeno
-        - xlsx < 0 # GHC 8.4 via xml-conduit
-        - tasty-auto < 0 # GHC 8.4 via tasty-hspec
-        - large-hashable < 0 # GHC 8.4 via HTF
-        - approximate < 0 # GHC 8.4 via simple-reflect
-        - compensated < 0 # GHC 8.4 via simple-reflect
-        - hyperloglog < 0 # GHC 8.4 via simple-reflect
-        - safecopy < 0 # GHC 8.4 via template-haskell-2.13.0.0
+        - persistent-mongoDB < 0 # GHC 8.4 via mongoDB
+        - pipes-mongodb < 0 # GHC 8.4 via mongoDB
+        - prometheus-metrics-ghc < 0 # GHC 8.4 via prometheus-client
+        - wai-middleware-prometheus < 0 # GHC 8.4 via prometheus-client
+        - dice < 0 # GHC 8.4 via random-fu
+        - lambdabot-core < 0 # GHC 8.4 via random-fu
+        - misfortune < 0 # GHC 8.4 via random-fu
+        - rank-product < 0 # GHC 8.4 via random-fu
+        - yi-keymap-cua < 0 # GHC 8.4 via yi-core
+        - yi-snippet < 0 # GHC 8.4 via yi-core
+        - yi-keymap-cua < 0 # GHC 8.4 via yi-keymap-emacs
+
+        # trans deps, gen 5
+        - lambdabot-irc-plugins < 0 # GHC 8.4 via lambdabot-core
+
+        # trans deps, rediscovered.
+        # (none yet)
 
 
     "GHC upper bounds":
@@ -4747,17 +4126,11 @@ packages:
 
     "Stackage upper bounds":
 
-        # https://github.com/fpco/stackage/issues/3154
-        - entropy < 0.4
-
         # https://github.com/fpco/stackage/issues/3293
         - tasty-quickcheck < 0.10
 
         # https://github.com/fpco/stackage/issues/3183
         - criterion < 1.4
-
-        # https://github.com/fpco/stackage/issues/3184
-        - eliminators < 0.4
 
         # https://github.com/fpco/stackage/issues/3186
         - haskell-gi-overloading < 1
@@ -4944,12 +4317,13 @@ skipped-tests:
     # These can periodically be checked for updates;
     # just remove these lines and run `stackage-curator check' to verify.
     - Cabal # GHC 8.4 via base-orphans-0.7, tree-diff
-    - lens # GHC 8.4 via simple-reflect # https://github.com/twanvl/simple-reflect/issues/3
-    - lens-aeson # GHC 8.4 via simple-reflect # https://github.com/twanvl/simple-reflect/issues/3
-    - linear # ghc 8.4 via simple-reflect # https://github.com/twanvl/simple-reflect/issues/3
-    - log-domain # ghc 8.4 via simple-reflect # https://github.com/twanvl/simple-reflect/issues/3
+    - hoopl # GHC 8.4 via base-4.11.0.0 https://github.com/haskell/hoopl/issues/46
     - glabrous # hspec 2.5
     - stb-image-redux # hspec 2.5
+    - weigh # ghc 8.4 via bytestring-trie # https://github.com/fpco/weigh/issues/17
+    - wreq # ghc 8.4 via uuid
+    - http-streams # ghc 8.4 via snap-server
+    - enclosed-exceptions # hangs with ghc 8.4 https://github.com/jcristovao/enclosed-exceptions/issues/12
     - HTTP # conduit-extra 1.3
     - colour # QuickCheck-2.11.3
     - aeson
@@ -5272,7 +4646,6 @@ expected-test-failures:
     - unicode-show # https://github.com/nushio3/unicode-show/issues/2
     - xml-picklers # https://github.com/Philonous/xml-picklers/issues/5
     - xmonad # 0.12 https://github.com/xmonad/xmonad/issues/36
-    - xlsx # https://github.com/qrilka/xlsx/issues/113
     - bitx-bitcoin # https://github.com/tebello-thejane/bitx.hs/issues/4
     - http-link-header # https://github.com/myfreeweb/http-link-header/issues/7
     - courier # https://github.com/hargettp/courier/issues/19
@@ -5399,6 +4772,7 @@ expected-haddock-failures:
     # "Compilation" errors
     - MemoTrie # https://github.com/conal/MemoTrie/issues/10
     - cubicbezier # https://github.com/kuribas/cubicbezier/issues/4
+    - classy-prelude-yesod
     - haddock-library # https://github.com/fpco/stackage/issues/3236
     - pusher-http-haskell # https://github.com/pusher-community/pusher-http-haskell/issues/60
     - text-generic-pretty # https://github.com/fpco/stackage/pull/2160
@@ -5437,6 +4811,11 @@ skipped-benchmarks:
     - unicode-transforms # criterion 1.3
     - universum # criterion 1.2 https://github.com/fpco/stackage/issues/3100
     - unordered-containers # criterion 1.2
+
+    # ghc 8.4 outdated dependencies
+    - http2 # ghc 8.4 via hashtables
+    - log # ghc 8.4 via ekg via base-4.11.0.0
+    - psqueues # ghc 8.4 via PSQueue build failure
 
     # Transitive outdated dependencies
     # These packages
@@ -5696,6 +5075,7 @@ hide:
 # Always use the cabal file shipped with the sdist tarball instead.
 no-revisions:
 - hjsonpointer
+- hjsonschema
 - tls
 - mime-mail
 - basement
