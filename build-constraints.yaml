@@ -2573,7 +2573,7 @@ packages:
         # - gi-gtk-hs # GHC 8.4 via base-4.11.0.0
         - gi-gtksource
         - gi-javascriptcore
-        - gi-webkit2
+        # - gi-webkit2 # GHC 8.4
 
     "Brandon Simmons <brandon.m.simmons@gmail.com> @jberryman":
         - directory-tree
@@ -3270,7 +3270,8 @@ packages:
      # request. This will tell us if other packages would be
      # affected. Packages will be kept in this list indefinitely so
      # that new packages depending on it will be flagged as well.
-    "Removed packages": []
+    "Removed packages":
+        - gi-webkit2 < 0 # https://github.com/fpco/stackage/issues/3415
 
     # Packages in the build plan that are blocked
     # from inclusion due to compilation failure with ghc 8.4
