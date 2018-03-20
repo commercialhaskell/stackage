@@ -3654,10 +3654,6 @@ packages:
         - css-syntax < 0 # GHC 8.4 via base-4.11.0.0
         - dictionaries < 0 # GHC 8.4 via base-4.11.0.0
         - doctest-driver-gen < 0 # GHC 8.4 via base-4.11.0.0
-        - ekg < 0 # GHC 8.4 via base-4.11.0.0
-        - ekg-core < 0 # GHC 8.4 via base-4.11.0.0
-        - ekg-json < 0 # GHC 8.4 via base-4.11.0.0
-        - ekg-statsd < 0 # GHC 8.4 via base-4.11.0.0
         - ekg-wai < 0 # GHC 8.4 via base-4.11.0.0
         - ether < 0 # GHC 8.4 via base-4.11.0.0
         - euler-tour-tree < 0 # GHC 8.4 via base-4.11.0.0
@@ -3836,9 +3832,6 @@ packages:
         - flow < 0 # GHC 8.4 via doctest-0.15.0
         - hasmin < 0 # GHC 8.4 via doctest-0.15.0
         - turtle < 0 # GHC 8.4 via doctest-0.15.0
-        - eventstore < 0 # GHC 8.4 via ekg-core
-        - monad-metrics < 0 # GHC 8.4 via ekg-core
-        - wai-middleware-metrics < 0 # GHC 8.4 via ekg-core
         - uuid < 0 # GHC 8.4 via entropy-0.4.1.1
         - download < 0 # GHC 8.4 via feed
         - json-schema < 0 # GHC 8.4 via generic-aeson
@@ -3960,7 +3953,6 @@ packages:
         - servant-websockets < 0 # GHC 8.4 via servant-server
         - hledger-api < 0 # GHC 8.4 via servant-swagger
         - pandoc < 0 # GHC 8.4 via skylighting-0.7.1
-        - websockets-snap < 0 # GHC 8.4 via snap-server
         - mmark-cli < 0 # GHC 8.4 via stache
         - pipes-text < 0 # GHC 8.4 via streaming-commons-0.2.0.0
         - highjson-swagger < 0 # GHC 8.4 via swagger2
@@ -4090,7 +4082,9 @@ packages:
         - lambdabot-irc-plugins < 0 # GHC 8.4 via lambdabot-core
 
         # trans deps, rediscovered.
-        # (none yet)
+        - websockets-snap < 0 # GHC 8.4 via snap-server-1.1.0.0
+        - eventstore < 0 # GHC 8.4 via text-format
+        - eventstore < 0 # GHC 8.4 via uuid
 
 
     "GHC upper bounds":
@@ -4285,7 +4279,7 @@ skipped-tests:
     - stb-image-redux # hspec 2.5
     - weigh # ghc 8.4 via bytestring-trie # https://github.com/fpco/weigh/issues/17
     - wreq # ghc 8.4 via uuid
-    - http-streams # ghc 8.4 via snap-server
+    - http-streams # via snap-server-1.1.0.0
     - enclosed-exceptions # hangs with ghc 8.4 https://github.com/jcristovao/enclosed-exceptions/issues/12
     - HTTP # conduit-extra 1.3
     - colour # QuickCheck-2.11.3
@@ -4780,7 +4774,6 @@ skipped-benchmarks:
     # ghc 8.4 outdated dependencies
     - buffer-builder # ghc 8.4 via json-builder build failure
     - http2 # ghc 8.4 via hashtables
-    - log # ghc 8.4 via ekg via base-4.11.0.0
     - psqueues # ghc 8.4 via PSQueue build failure
 
     # Transitive outdated dependencies
