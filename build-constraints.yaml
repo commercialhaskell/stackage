@@ -2059,7 +2059,7 @@ packages:
         - wai-middleware-metrics
 
     "Gregory Collins <greg@gregorycollins.net> @gregorycollins":
-        # - hashtables # build failure with GHC 8.4 https://github.com/gregorycollins/hashtables/issues/45
+        - hashtables
         - io-streams
         - openssl-streams
 
@@ -3290,7 +3290,6 @@ packages:
         - cabal-rpm < 0 # build failure with GHC 8.4 https://github.com/juhp/cabal-rpm/issues/55
         - enummapset < 0 # build failure with GHC 8.4 https://github.com/michalt/enummapset/issues/11
         - fb < 0 # build failure with GHC 8.4 https://github.com/psibi/fb/issues/3
-        - hashtables < 0 # build failure with GHC 8.4 https://github.com/gregorycollins/hashtables/issues/45
         - haskell-neo4j-client < 0 # build failure with GHC 8.4 https://github.com/asilvestre/haskell-neo4j-rest-client/issues/32
         - heap < 0 # build failure with GHC 8.4 https://github.com/pruvisto/heap/issues/5
         - hspec-webdriver < 0 # https://bitbucket.org/wuzzeb/webdriver-utils/issues/9/hspec-webdriver-build-failure-with-ghc-84
@@ -3384,7 +3383,6 @@ packages:
         - yjsvg < 0 # build failure with GHC 8.4
 
         # round 2:
-        - HSet < 0 # DependencyFailed (PackageName "hashtables")
         - bookkeeping < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - cartel < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - cases < 0 # DependencyFailed (PackageName "loch-th")
@@ -3519,10 +3517,6 @@ packages:
         - groundhog-mysql < 0 # GHC 8.4 via groundhog
         - groundhog-sqlite < 0 # GHC 8.4 via groundhog
         - groundhog-th < 0 # GHC 8.4 via groundhog
-        - RefSerialize < 0 # GHC 8.4 via hashtables
-        - TCache < 0 # GHC 8.4 via hashtables
-        - hledger-lib < 0 # GHC 8.4 via hashtables
-        - pred-trie < 0 # GHC 8.4 via hashtables
         - hsass < 0 # GHC 8.4 via hlibsass
         - hocilib < 0 # GHC 8.4 via inline-c
         - inline-c-cpp < 0 # GHC 8.4 via inline-c
@@ -4760,7 +4754,6 @@ skipped-benchmarks:
 
     # ghc 8.4 outdated dependencies
     - buffer-builder # ghc 8.4 via json-builder build failure
-    - http2 # ghc 8.4 via hashtables
     - psqueues # ghc 8.4 via PSQueue build failure
 
     # Transitive outdated dependencies
