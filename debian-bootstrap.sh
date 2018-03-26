@@ -25,14 +25,20 @@ add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://down
 add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy-apache24-compat main'
 add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy-libjpeg62-compat main'
 
+# odbc
+curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql-release.list
+
 GHCVER=8.4.1
 
 apt-get update
 apt-get install -y \
+    apt-transport-https \
     build-essential \
     cmake \
     curl \
     freeglut3-dev \
+    freetds-dev \
     fsharp \
     g++ \
     gawk \
@@ -41,6 +47,7 @@ apt-get install -y \
     ghc-$GHCVER-htmldocs \
     ghc-$GHCVER-prof \
     git \
+    gnupg \
     gradle \
     hscolour \
     libadns1-dev \
@@ -143,11 +150,14 @@ apt-get install -y \
     r-base-dev \
     ruby-dev \
     sudo \
+    unixodbc-dev \
     wget \
     xclip \
     z3 \
     zip \
     zlib1g-dev
+
+ACCEPT_EULA=Y apt-get install msodbcsql17 -y
 
 locale-gen en_US.UTF-8
 
