@@ -486,7 +486,7 @@ packages:
 
     "Stefan Wehr <wehr@factisresearch.com> @skogsbaer":
         - HTF
-        # - xmlgen # build failure with ghc 8.4 https://github.com/skogsbaer/xmlgen/issues/7
+        - xmlgen
         - stm-stats
         - large-hashable
 
@@ -3318,7 +3318,6 @@ packages:
         - type-combinators < 0 # build failure with GHC 8.4 https://github.com/kylcarte/type-combinators/issues/8
         - vhd < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - wl-pprint-text < 0 # build failure with GHC 8.4 https://github.com/ivan-m/wl-pprint-text/issues/18
-        - xmlgen < 0 # build faiulre with GHC 8.4 https://github.com/skogsbaer/xmlgen/issues/7
         - xlsx < 0 # build failure with GHC 8.4 https://github.com/qrilka/xlsx/issues/116
 
         # may have no issue yet
@@ -3449,10 +3448,6 @@ packages:
         - Spock-core < 0 # GHC 8.4 via reroute
         - Spock-api-server < 0 # GHC 8.4 via Spock-api
         - Spock-api-server < 0 # GHC 8.4 via Spock-core
-        - HTF < 0 # GHC 8.4 via xmlgen
-        - HPDF < 0 # GHC 8.4 via HTF
-        - dataurl < 0 # GHC 8.4 via HTF
-        - graph-core < 0 # GHC 8.4 via HTF
         - invertible < 0 # GHC 8.4 via TypeCompose
         - apecs < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - binary-tagged < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
@@ -3500,9 +3495,7 @@ packages:
 
 
         # Transitive failures, reported on https://github.com/fpco/stackage/issues/3394
-        - Spock-worker < 0 # GHC 8.4 via HTF
-        - ignore < 0 # GHC 8.4 via HTF
-        - large-hashable < 0 # GHC 8.4 via HTF
+        - Spock-worker < 0 # GHC 8.4 via Spock
         - haxr < 0 # GHC 8.4 via HaXml
         - Spock < 0 # GHC 8.4 via Spock-core
         - pell < 0 # GHC 8.4 via arithmoi
@@ -4267,7 +4260,6 @@ skipped-tests:
     - binary-parser # tasty-quickcheck
     - blaze-html
     - blaze-markup
-    - buffer-builder # ghc 8.4 via HTF via xmlgen https://github.com/skogsbaer/xmlgen/issues/7
     - case-insensitive # HUnit 1.6
     - diagrams-solve # tasty-quickcheck
     - drawille # hspec 2.4
@@ -4421,7 +4413,7 @@ skipped-tests:
     - hpack # haskell-src-exts via interpolate
 
     - ihaskell # haskell-src-exts via here
-    
+
     # Uses Cabal's "library internal" stanza feature
     - s3-signer
 
