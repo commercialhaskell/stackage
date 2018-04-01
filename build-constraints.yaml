@@ -453,9 +453,9 @@ packages:
     "Sibi Prabakaran <sibi@psibi.in> @psibi":
         - download
         - textlocal
-        # - shell-conduit # https://github.com/psibi/shell-conduit/issues/15
+        - shell-conduit
         - tldr
-        # - fb # build failure with ghc 8.4 https://github.com/psibi/fb/issues/3
+        - fb
         - yesod-fb
         - yesod-auth-fb
         - hourglass-orphans
@@ -998,7 +998,7 @@ packages:
         - redis-resp
         - redis-io
         - swagger
-        # - tinylog # build failure with ghc 8.4 https://gitlab.com/twittner/tinylog/issues/1
+        - tinylog
         - wai-predicates
         - wai-routing
         - zeromq4-haskell
@@ -3318,7 +3318,6 @@ packages:
         - reroute < 0 # build faiulre with GHC 8.4 https://github.com/agrafix/Spock/issues/140
         - riak < 0 # build failure with GHC 8.4 https://github.com/riak-haskell-client/riak-haskell-client/issues/105
         - text-format < 0 # build failure with GHC 8.4 https://github.com/bos/text-format/issues/22
-        - tinylog < 0 # build failure with GHC 8.4 https://gitlab.com/twittner/tinylog/issues/1
         - type-combinators < 0 # build failure with GHC 8.4 https://github.com/kylcarte/type-combinators/issues/8
         - vhd < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - wl-pprint-text < 0 # build failure with GHC 8.4 https://github.com/ivan-m/wl-pprint-text/issues/18
@@ -3757,7 +3756,6 @@ packages:
         - strive < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - test-fixture < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - th-to-exp < 0 # GHC 8.4 via template-haskell-2.13.0.0
-        - threepenny-gui < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - web-routes-th < 0 # GHC 8.4 via template-haskell-2.13.0.0
 
         # missed by first wave
@@ -3860,8 +3858,6 @@ packages:
         - wrecker < 0 # GHC 8.4 via tdigest
         - syb-with-class < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - type-assertions < 0 # GHC 8.4 via test-fixture
-        - threepenny-editors < 0 # GHC 8.4 via threepenny-gui
-        - threepenny-gui-flexbox < 0 # GHC 8.4 via threepenny-gui
         - exception-transformers < 0 # GHC 8.4 via transformers-compat-0.6.0.6
         - monad-control-aligned < 0 # GHC 8.4 via transformers-compat-0.6.0.6
 
@@ -3961,7 +3957,6 @@ packages:
         - lambdabot-irc-plugins < 0 # GHC 8.4 via lambdabot-core
 
         # trans deps, rediscovered.
-        - websockets-snap < 0 # GHC 8.4 via snap-server-1.1.0.0
         - eventstore < 0 # GHC 8.4 via text-format
 
         - language-ecmascript < 0 # wl-pprint
@@ -4342,7 +4337,6 @@ expected-test-failures:
     # GHC 8.4
     - concurrent-extra # https://github.com/basvandijk/concurrent-extra/issues/12
     - doctest # https://github.com/sol/doctest/issues/198
-    - transformers-compat # https://github.com/ekmett/transformers-compat/issues/32
 
 
     # Intermittent failures or unreliable. These tests may pass when
