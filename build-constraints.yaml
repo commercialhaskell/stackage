@@ -948,11 +948,18 @@ packages:
         - uri-encode
 
     "Simon Michael <simon@joyful.com> @simonmichael":
-        - hledger
+        #
+        # The hledger project prefers to keep the latest release of the core
+        # hledger-lib and hledger packages in stackage. If other hledger-* packages have 
+        # too-restrictive bounds, we would prefer they be removed rather than holding back
+        # hledger-lib and hledger. (https://github.com/fpco/stackage/issues/3494)
+        #
         - hledger-lib
+        - hledger
         - hledger-ui
         - hledger-web
         - hledger-api
+        #
         - quickbench
         - regex-compat-tdfa
         - shelltestrunner
