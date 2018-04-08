@@ -33,6 +33,7 @@ apt-get install -y \
     build-essential \
     cmake \
     curl \
+    erlang-base \
     freeglut3-dev \
     freetds-dev \
     fsharp \
