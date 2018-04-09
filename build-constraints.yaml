@@ -948,11 +948,18 @@ packages:
         - uri-encode
 
     "Simon Michael <simon@joyful.com> @simonmichael":
-        - hledger
+        #
+        # The hledger project aims to keep the latest release of the core
+        # hledger-lib and hledger packages in stackage. When other hledger-* packages have 
+        # too-restrictive bounds, we prefer they be removed rather than holding back
+        # hledger-lib and hledger. (https://github.com/fpco/stackage/issues/3494)
+        #
         - hledger-lib
+        - hledger
         - hledger-ui
         - hledger-web
         - hledger-api
+        #
         - quickbench
         - regex-compat-tdfa
         - shelltestrunner
@@ -1857,8 +1864,8 @@ packages:
 
     "Vladislav Zavialov <vlad.z.4096@gmail.com> @int-index":
         - transformers-lift
-        - ether
         - union
+        - named
 
     "Stack Builders stackage@stackbuilders.com @stackbuilders":
         - atomic-write
@@ -3273,7 +3280,9 @@ packages:
         - hierarchy
 
     "Kofi Gumbs <h.kofigumbs@gmail.com> @hkgumbs":
-        - codec-beam
+        []
+        # Tests currently fail: https://github.com/fpco/stackage/pull/3496#issuecomment-379571009
+        # - codec-beam
 
     # If you stop maintaining a package you can move it here.
     # It will then be disabled if it starts causing problems.
@@ -3375,7 +3384,6 @@ packages:
         - hsshellscript < 0 # build failure with GHC 8.4
         - hstatistics < 0 # build failure with GHC 8.4
         - hw-fingertree < 0 # build failure with GHC 8.4
-        - json < 0 # build failure with GHC 8.4
         - language-fortran < 0 # build failure with GHC 8.4
         - language-glsl < 0 # build failure with GHC 8.4
         - median-stream < 0 # build failure with GHC 8.4
@@ -3629,7 +3637,6 @@ packages:
         - css-syntax < 0 # GHC 8.4 via base-4.11.0.0
         - dictionaries < 0 # GHC 8.4 via base-4.11.0.0
         - ekg-wai < 0 # GHC 8.4 via base-4.11.0.0
-        - ether < 0 # GHC 8.4 via base-4.11.0.0
         - euler-tour-tree < 0 # GHC 8.4 via base-4.11.0.0
         - exhaustive < 0 # GHC 8.4 via base-4.11.0.0
         - extensible-effects < 0 # GHC 8.4 via base-4.11.0.0
@@ -3707,8 +3714,6 @@ packages:
         - svg-builder < 0 # GHC 8.4 via base-4.11.0.0
         - tasty-rerun < 0 # GHC 8.4 via base-4.11.0.0
         - tdigest < 0 # GHC 8.4 via base-4.11.0.0
-        - transformers-lift < 0 # GHC 8.4 via base-4.11.0.0
-        - union < 0 # GHC 8.4 via base-4.11.0.0
         - uri-bytestring-aeson < 0 # GHC 8.4 via base-4.11.0.0
         - userid < 0 # GHC 8.4 via base-4.11.0.0
         - vado < 0 # GHC 8.4 via base-4.11.0.0
@@ -3725,7 +3730,6 @@ packages:
         - ihaskell < 0 # GHC 8.4 via ghc-boot-8.4.1
         - Agda < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - aeson-extra < 0 # GHC 8.4 via template-haskell-2.13.0.0
-        - bindings-GLFW < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - boomerang < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - classyplate < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - czipwith < 0 # GHC 8.4 via template-haskell-2.13.0.0
@@ -3762,7 +3766,6 @@ packages:
         - wrecker < 0 # GHC 8.4 via ansigraph
         - hastache < 0 # GHC 8.4 via base-4.11.0.0
         - token-bucket < 0 # GHC 8.4 via base-4.11.0.0
-        - GLFW-b < 0 # GHC 8.4 via bindings-GLFW
         - web-routes-boomerang < 0 # GHC 8.4 via boomerang
         - uuid < 0 # GHC 8.4 via cryptohash-md5
         - attoparsec-time < 0 # GHC 8.4 via doctest-0.15.0
@@ -3844,7 +3847,6 @@ packages:
         - monad-control-aligned < 0 # GHC 8.4 via transformers-compat-0.6.0.6
 
         # trans deps, gen 2
-        - netwire-input-glfw < 0 # GHC 8.4 via GLFW-b
         - Chart-cairo < 0 # GHC 8.4 via cairo
         - plot < 0 # GHC 8.4 via cairo
         - markup < 0 # GHC 8.4 via clay
@@ -4171,7 +4173,6 @@ skipped-tests:
     - genvalidity-hspec-cereal # doctest 0.13
     - genvalidity-hspec-hashable # doctest 0.13
     - genvalidity-property # doctest 0.13
-    - GLFW-b # HUnit 1.6
     - haskell-tools-refactor # either, tasty, and tasty-hunit
     - hasql-transaction # rebase, see https://github.com/nikita-volkov/rebase/issues/11
     - haddock-library # hspec 2.5
