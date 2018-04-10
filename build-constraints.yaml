@@ -897,13 +897,11 @@ packages:
         - disk-free-space
 
     "Colin Woodbury <colingw@gmail.com> @fosskers":
-        - microlens-aeson
-        - repa
-        - repa-io
-        - repa-algorithms
-        - versions
         - kanji
+        - microlens-aeson
         - pipes-random
+        - streaming-attoparsec
+        - versions
         - vectortiles
 
     "Ketil Malde @ketil-malde":
@@ -2634,6 +2632,9 @@ packages:
     "Henri Verroken <henriverroken@gmail.com> @hverr":
         - bordacount
         - cache
+        - haskey-btree
+        - haskey
+        - haskey-mtl
         - lxd-client
         - lxd-client-config
         - xxhash-ffi
@@ -3535,8 +3536,6 @@ packages:
         - inline-c-cpp < 0 # GHC 8.4 via inline-c
         - inline-r < 0 # GHC 8.4 via inline-c
         - liboath-hs < 0 # GHC 8.4 via inline-c
-        - hledger-web < 0 # GHC 8.4 via json
-        - katydid < 0 # GHC 8.4 via json
         - timemap < 0 # GHC 8.4 via list-t
         - pred-trie < 0 # GHC 8.4 via pred-set
         - rainbox < 0 # GHC 8.4 via rainbow
@@ -3562,7 +3561,6 @@ packages:
         - distributed-process < 0 # GHC 8.4 via network-transport-tcp
         - distributed-process-lifted < 0 # GHC 8.4 via network-transport-tcp
         - distributed-process-simplelocalnet < 0 # GHC 8.4 via network-transport-tcp
-        - xxhash-ffi < 0 # GHC 8.4 via xxhash
 
         # transitive failures, gen 2
         - MFlow < 0 # GHC 8.4 via RefSerialize
@@ -3683,7 +3681,6 @@ packages:
         - palette < 0 # GHC 8.4 via base-4.11.0.0
         - partial-semigroup < 0 # GHC 8.4 via base-4.11.0.0
         - path-text-utf8 < 0 # GHC 8.4 via base-4.11.0.0
-        - pipes-random < 0 # GHC 8.4 via base-4.11.0.0
         - pomaps < 0 # GHC 8.4 via base-4.11.0.0
         - posix-paths < 0 # GHC 8.4 via base-4.11.0.0
         - postgresql-simple < 0 # GHC 8.4 via base-4.11.0.0
@@ -3719,8 +3716,6 @@ packages:
         - vado < 0 # GHC 8.4 via base-4.11.0.0
         - vcswrapper < 0 # GHC 8.4 via base-4.11.0.0
         - vector-fftw < 0 # GHC 8.4 via base-4.11.0.0
-        - vectortiles < 0 # GHC 8.4 via base-4.11.0.0
-        - versions < 0 # GHC 8.4 via base-4.11.0.0
         - wavefront < 0 # GHC 8.4 via base-4.11.0.0
         - apply-refact < 0 # GHC 8.4 via ghc-8.4.1
         - brittany < 0 # GHC 8.4 via ghc-8.4.1
@@ -3825,7 +3820,6 @@ packages:
         - eventsource-geteventstore-store < 0 # GHC 8.4 via protolude
         - eventsource-stub-store < 0 # GHC 8.4 via protolude
         - hpio < 0 # GHC 8.4 via protolude
-        - kanji < 0 # GHC 8.4 via protolude
         - logger-thread < 0 # GHC 8.4 via protolude
         - teardown < 0 # GHC 8.4 via protolude
         - text-generic-pretty < 0 # GHC 8.4 via protolude
@@ -3836,7 +3830,6 @@ packages:
         - pipes-text < 0 # GHC 8.4 via streaming-commons-0.2.0.0
         - highjson-swagger < 0 # GHC 8.4 via swagger2
         - highjson-th < 0 # GHC 8.4 via swagger2
-        - hledger-api < 0 # GHC 8.4 via swagger2
         - teardown < 0 # GHC 8.4 via tasty-rerun
         - wrecker < 0 # GHC 8.4 via tdigest
         - syb-with-class < 0 # GHC 8.4 via template-haskell-2.13.0.0
@@ -3983,6 +3976,12 @@ packages:
         - base-compat-batteries < 0.10
         - text-show < 3.7.3
         - text-show-instances < 3.6.4
+
+        # https://github.com/fpco/stackage/issues/3508
+        - hw-rankselect < 0.11
+
+        # https://github.com/fpco/stackage/issues/3512
+        - temporary < 1.3
 
 # end of packages
 
@@ -4301,6 +4300,7 @@ skipped-tests:
     # Uncategorized, please categorize!
     - hackage-security # Cabal 2.0
     - ed25519 # QuickCheck, hlint and more
+    - snappy # https://github.com/fpco/stackage/issues/3511
 
     # tasty 0.12 and tasty-hunit 0.10
     - airship
@@ -4588,6 +4588,7 @@ expected-benchmark-failures:
     - xxhash # https://github.com/christian-marie/xxhash/issues/4
     - monad-memo # https://github.com/EduardSergeev/monad-memo/issues/3
     - cmark-gfm # https://github.com/kivikakk/cmark-gfm-hs/issues/5
+    - lz4 # https://github.com/fpco/stackage/issues/3510
 
 # end of expected-benchmark-failures
 
@@ -4655,6 +4656,7 @@ skipped-benchmarks:
     # ghc 8.4 outdated dependencies
     - buffer-builder # ghc 8.4 via json-builder build failure
     - psqueues # ghc 8.4 via PSQueue build failure
+    - xxhash-ffi # ghc 8.4 via xxhash build failure
 
     # Transitive outdated dependencies
     # These packages
