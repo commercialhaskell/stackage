@@ -905,7 +905,7 @@ packages:
         - vectortiles
 
     "Ketil Malde @ketil-malde":
-        # - biocore # build failure with ghc 8.4 https://github.com/fpco/stackage/pull/3359
+        - biocore < 0 # build failure with GHC 8.4 https://github.com/fpco/stackage/pull/3359
         # - biofasta # ghc 8.4 via biocore
         - biofastq
         # - blastxml # ghc 8.4 via biocore
@@ -1168,7 +1168,7 @@ packages:
         - HaskellNet-SSL
 
     "Jens Petersen <juhpetersen@gmail.com> @juhp":
-        - cabal-rpm
+        - cabal-rpm < 0 # build failure with GHC 8.4 https://github.com/juhp/cabal-rpm/issues/55
         - fedora-haskell-tools
 
         # - idris # ansi-terminal-0.8
@@ -1848,7 +1848,7 @@ packages:
         # - webdriver-angular # via hspec-webdriver
 
     "Sven Heyll <svh@posteo.de> @sheyll":
-        # - b9 # GHC 8.4 https://github.com/sheyll/b9-vm-image-builder/issues/4
+        - b9 < 0 # build failure with GHC 8.4 https://github.com/sheyll/b9-vm-image-builder/issues/4
         - type-spec
         - pretty-types
 
@@ -2456,9 +2456,8 @@ packages:
         # - katip-elasticsearch # async 2.2
 
     "Sid Kapur sidharthkapur1@gmail.com @sid-kap":
-        []
         # - tuple # ghc 8.4 via OneTuple
-        # - OneTuple # build failure with ghc 8.4 https://github.com/fpco/stackage/pull/3359
+        - OneTuple < 0 # build failure with GHC 8.4 https://github.com/fpco/stackage/pull/3359
         # - SVGFonts # lens 4.16 via diagrams
 
     "Aaron Levin <vilevin@gmail.com> @aaronmblevin":
@@ -3315,17 +3314,13 @@ packages:
      # that new packages depending on it will be flagged as well.
     "Removed packages":
         - gi-webkit2 < 0 # https://github.com/fpco/stackage/issues/3415
+        - PSQueue < 0 # build failure with GHC 8.4 (nowhere to report, it's ancient just let it die)
 
     # Packages in the build plan that are blocked
     # from inclusion due to compilation failure with ghc 8.4
     "Build failure with GHC 8.4":
         - Chart < 0 # build failure with GHC 8.4 https://github.com/timbod7/haskell-chart/issues/181
-        - OneTuple < 0 # build failure with GHC 8.4 https://github.com/fpco/stackage/pull/3359
-        - PSQueue < 0 # build failure with GHC 8.4 (nowhere to report, it's ancient just let it die)
         - TypeCompose < 0 # build failure with GHC 8.4 https://github.com/conal/TypeCompose/issues/6
-        - b9 < 0 # build failure with GHC 8.4 https://github.com/sheyll/b9-vm-image-builder/issues/4
-        - biocore < 0 # build failure with GHC 8.4 https://github.com/fpco/stackage/pull/3359
-        - cabal-rpm < 0 # build failure with GHC 8.4 https://github.com/juhp/cabal-rpm/issues/55
         - enummapset < 0 # build failure with GHC 8.4 https://github.com/michalt/enummapset/issues/11
         - fb < 0 # build failure with GHC 8.4 https://github.com/psibi/fb/issues/3
         - haskell-neo4j-client < 0 # build failure with GHC 8.4 https://github.com/asilvestre/haskell-neo4j-rest-client/issues/32
