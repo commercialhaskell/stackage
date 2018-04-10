@@ -396,7 +396,7 @@ packages:
         - http-conduit
 
     "Omari Norman <omari@smileystation.com> @massysett":
-        # - rainbow # build failure with GHC 8.4 https://github.com/massysett/rainbow/issues/6
+        - rainbow < 0 # build failure with GHC 8.4 https://github.com/massysett/rainbow/issues/6
         - rainbox
         - multiarg
         - cartel
@@ -520,7 +520,7 @@ packages:
         - socks
         - tls
         - tls-debug
-        # - vhd # build failure with ghc 8.4
+        - vhd < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - xenstore
 
     "Chris Done @chrisdone":
@@ -1085,7 +1085,7 @@ packages:
        - Spock-worker
        - graph-core
        - hvect
-       # - reroute # build failure with ghc 8.4 https://github.com/agrafix/Spock/issues/140
+       - reroute < 0 # build faiulre with GHC 8.4 https://github.com/agrafix/Spock/issues/140
        - users
        # - users-persistent # persistent 2.8
        - users-postgresql-simple
@@ -1527,7 +1527,7 @@ packages:
         # - gogol-youtube-analytics
         # - gogol-youtube-reporting
         # - ede # https://github.com/brendanhay/ede/issues/28
-        # - pagerduty # build failure with ghc 8.4 https://github.com/brendanhay/pagerduty/issues/10
+        - pagerduty < 0 # build failure with GHC 8.4 https://github.com/brendanhay/pagerduty/issues/10
         - semver
         - text-manipulate
 
@@ -1677,7 +1677,7 @@ packages:
         - markup
         - monad-control-aligned
         - monadoid
-        # - n-tuple # build failure with GHC 8.4 https://github.com/athanclark/n-tuple/issues/1
+        - n-tuple < 0 # build failure with GHC 8.4 https://github.com/athanclark/n-tuple/issues/1
         - path-extra
         - pred-trie
         - pred-set
@@ -1842,9 +1842,8 @@ packages:
         - seqalign
 
     "John Lenz <wuzzeb@gmail.com> @wuzzeb":
-        []
         # - yesod-static-angular # conduit 1.3, yesod 1.6
-        # - hspec-webdriver # https://bitbucket.org/wuzzeb/webdriver-utils/issues/9/hspec-webdriver-build-failure-with-ghc-84
+        - hspec-webdriver < 0 # https://bitbucket.org/wuzzeb/webdriver-utils/issues/9/hspec-webdriver-build-failure-with-ghc-84
         # - webdriver-angular # via hspec-webdriver
 
     "Sven Heyll <svh@posteo.de> @sheyll":
@@ -1892,8 +1891,7 @@ packages:
         # Test suite needs a running neo4j server with auth disabled
         # unfortunately the cabal package name and the github repo don't have the exact same name
         # package name is haskell-neo4j-client github name is haskell-neo4j-rest-client
-        []
-        # - haskell-neo4j-client # ghc 8.4 build failure https://github.com/asilvestre/haskell-neo4j-rest-client/issues/32
+        - haskell-neo4j-client < 0 # build failure with GHC 8.4 https://github.com/asilvestre/haskell-neo4j-rest-client/issues/32
 
     "Anton Kholomiov <anton.kholomiov@gmail.com>":
         - data-fix
@@ -1932,7 +1930,7 @@ packages:
         - thread-local-storage
 
     "Kirill Zaborsky <qrilka@gmail.com> @qrilka":
-        - xlsx
+        - xlsx < 0 # build failure with GHC 8.4 https://github.com/qrilka/xlsx/issues/116
 
     "Matt Parsons <parsonsmatt@gmail.com> @parsonsmatt":
         - monad-logger-prefix
@@ -2094,7 +2092,7 @@ packages:
     "Ivan Miljenovic <Ivan.Miljenovic@gmail.com> @ivan-m":
         - fgl
         # - graphviz # fgl 5.6.0.0
-        # - wl-pprint-text # build failure with ghc 8.4 https://github.com/ivan-m/wl-pprint-text/issues/18
+        - wl-pprint-text < 0 # build failure with GHC 8.4 https://github.com/ivan-m/wl-pprint-text/issues/18
         - servant-pandoc
 
     "Sharif Olorin <sio@tesser.org> @olorin":
@@ -2256,7 +2254,7 @@ packages:
         - webdriver
 
     "Luke Iannini <lukexi@me.com> @lukexi":
-        # - inline-c # build failure with GHC 8.4 https://github.com/fpco/inline-c/issues/73
+        - inline-c < 0 # build failure with GHC 8.4 https://github.com/fpco/inline-c/issues/73
         - inline-c-cpp
         - ekg
 
@@ -3160,7 +3158,7 @@ packages:
         - time-locale-vietnamese
 
     "Tim McGilchrist <timmcgil@gmail.com>  @tmcgilchrist":
-        # - riak # build failure with GHC 8.4 https://github.com/riak-haskell-client/riak-haskell-client/issues/105
+        - riak < 0 # build failure with GHC 8.4 https://github.com/riak-haskell-client/riak-haskell-client/issues/105
         - airship
 
     "Sam Stites <sam@stites.io> @stites":
@@ -3323,21 +3321,10 @@ packages:
         - TypeCompose < 0 # build failure with GHC 8.4 https://github.com/conal/TypeCompose/issues/6
         - enummapset < 0 # build failure with GHC 8.4 https://github.com/michalt/enummapset/issues/11
         - fb < 0 # build failure with GHC 8.4 https://github.com/psibi/fb/issues/3
-        - haskell-neo4j-client < 0 # build failure with GHC 8.4 https://github.com/asilvestre/haskell-neo4j-rest-client/issues/32
         - heap < 0 # build failure with GHC 8.4 https://github.com/pruvisto/heap/issues/5
-        - hspec-webdriver < 0 # https://bitbucket.org/wuzzeb/webdriver-utils/issues/9/hspec-webdriver-build-failure-with-ghc-84
-        - inline-c < 0 # build failure with GHC 8.4 https://github.com/fpco/inline-c/issues/73
         - json-builder < 0 # build failure with GHC 8.4 https://github.com/lpsmith/json-builder/issues/2
-        - n-tuple < 0 # build failure with GHC 8.4 https://github.com/athanclark/n-tuple/issues/1
-        - pagerduty < 0 # build failure with GHC 8.4 https://github.com/brendanhay/pagerduty/issues/10
-        - rainbow < 0 # build failure with GHC 8.4 https://github.com/massysett/rainbow/issues/6
-        - reroute < 0 # build faiulre with GHC 8.4 https://github.com/agrafix/Spock/issues/140
-        - riak < 0 # build failure with GHC 8.4 https://github.com/riak-haskell-client/riak-haskell-client/issues/105
         - text-format < 0 # build failure with GHC 8.4 https://github.com/bos/text-format/issues/22
         - type-combinators < 0 # build failure with GHC 8.4 https://github.com/kylcarte/type-combinators/issues/8
-        - vhd < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - wl-pprint-text < 0 # build failure with GHC 8.4 https://github.com/ivan-m/wl-pprint-text/issues/18
-        - xlsx < 0 # build failure with GHC 8.4 https://github.com/qrilka/xlsx/issues/116
 
         # may have no issue yet
         - FPretty < 0 # build failure with GHC 8.4
