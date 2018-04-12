@@ -33,7 +33,6 @@ apt-get install -y \
     build-essential \
     cmake \
     curl \
-    erlang-base \
     freeglut3-dev \
     freetds-dev \
     fsharp \
@@ -224,6 +223,15 @@ cd /tmp \
 # Add JDK to system paths.
 echo "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/" > /etc/ld.so.conf.d/openjdk.conf \
     && ldconfig
+
+# Install erlang/otp platform and its dependencies
+ERLANG_VERSION="20.2.2"
+ERLANG_DEB_FILE="esl-erlang_${ERLANG_VERSION}-1~debian~jessie_amd64.deb"
+pushd /tmp \
+    && wget https://packages.erlang-solutions.com/erlang/esl-erlang/FLAVOUR_1_general/${ERLANG_DEB_FILE} \
+    && (dpkg -i ${ERLANG_DEB_FILE}; apt-get install -yf) \
+    && rm ${ERLANG_DEB_FILE} \
+    && popd
 
 # Install version 3 of the protobuf compiler.  (The `protobuf-compiler` package only
 # supports version 2.)
