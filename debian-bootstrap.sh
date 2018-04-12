@@ -245,6 +245,14 @@ curl https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-l
     && rm libtensorflow.tar.gz \
     && ldconfig
 
+# Install libsodium
+curl https://download.libsodium.org/libsodium/releases/LATEST.tar.gz > libsodium.tar.gz \
+	&& sudo tar xfz libsodium.tar.gz -C /tmp \
+	&& rm libsodium.tar.gz \
+	&& cd /tmp/libsodium-stable \
+	&& ./configure \
+	&& make install
+
 # NOTE: also update Dockerfile when cuda version changes
 # Install CUDA toolkit
 # The current version can be found at: https://developer.nvidia.com/cuda-downloads
