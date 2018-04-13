@@ -200,7 +200,7 @@ packages:
         - threepenny-gui-flexbox
 
     "Romain Edelmann <romain.edelmann@gmail.com> @redelmann":
-        - distribution
+        - distribution < 0 # build failure with GHC 8.4
 
     "Nikita Tchayka <nikitatchayka@gmail.com> @nickseagull":
         - ramus
@@ -729,10 +729,10 @@ packages:
         - colour-accelerate
         - lens-accelerate
         - mwc-random-accelerate
-        - cuda
-        - cublas
-        - cusparse
-        - cusolver
+        - cuda < 0 # build failure with GHC 8.4
+        - cublas < 0 # build failure with GHC 8.4
+        - cusparse < 0 # build failure with GHC 8.4
+        - cusolver < 0 # build failure with GHC 8.4
         - nvvm
         - wide-word
 
@@ -1015,8 +1015,8 @@ packages:
         - zeromq4-haskell
 
     "trupill@gmail.com":
-        - djinn-lib
-        - djinn-ghc
+        - djinn-lib < 0 # build failure with GHC 8.4
+        - djinn-ghc < 0 # GHC 8.4 via djinn-lib
 
     "Matvey Aksenov <matvey.aksenov@gmail.com> @supki":
         - terminal-size
@@ -1102,7 +1102,7 @@ packages:
        - psql-helpers
        - superbuffer
        # - timespan # build failure GHC 8.4 https://github.com/agrafix/timespan/issues/1
-       - distance
+       - distance < 0 # build failure with GHC 8.4
        - async-extra
        - format-numbers
        - highjson
@@ -1883,7 +1883,7 @@ packages:
         - Network-NineP
 
     "Oliver Charles <ollie@ocharles.org.uk> @ocharles":
-        - diff3
+        - diff3 < 0 # build failure with GHC 8.4
         - exhaustive
         - libsystemd-journal
         - network-carbon
@@ -2738,7 +2738,7 @@ packages:
         - intro
         - tasty-auto
         - tasty-stats
-        - colorful-monoids
+        - colorful-monoids < 0 # build failure with GHC 8.4
         - ihs
 
     "Taras Serduke <taras.serduke@gmail.com> @tserduke":
@@ -3331,17 +3331,8 @@ packages:
 
         # may have no issue yet
         - HaXml < 0 # build failure with GHC 8.4
-        - colorful-monoids < 0 # build failure with GHC 8.4
-        - cublas < 0 # build failure with GHC 8.4
-        - cuda < 0 # build failure with GHC 8.4
-        - cusolver < 0 # build failure with GHC 8.4
-        - cusparse < 0 # build failure with GHC 8.4
         - data-inttrie < 0 # build failure with GHC 8.4
         - data-memocombinators < 0 # build failure with GHC 8.4
-        - diff3 < 0 # build failure with GHC 8.4
-        - distance < 0 # build failure with GHC 8.4
-        - distribution < 0 # build failure with GHC 8.4
-        - djinn-lib < 0 # build failure with GHC 8.4
         - fitspec < 0 # build failure with GHC 8.4
         - ghc-events < 0 # build failure with GHC 8.4
         - ghc-syb-utils < 0 # build failure with GHC 8.4
@@ -3489,7 +3480,6 @@ packages:
         - tldr < 0 # GHC 8.4 via cmark
         - wl-pprint-console < 0 # GHC 8.4 via colorful-monoids
         - groundhog-sqlite < 0 # GHC 8.4 via direct-sqlite
-        - djinn-ghc < 0 # GHC 8.4 via djinn-lib
         - disposable < 0 # GHC 8.4 via ghcjs-base-stub
         - javascript-extras < 0 # GHC 8.4 via ghcjs-base-stub
         - axiom < 0 # GHC 8.4 via ghcjs-perch
