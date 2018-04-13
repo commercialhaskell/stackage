@@ -1083,10 +1083,10 @@ packages:
         - prefix-units
 
     "Alexander Thiemann <mail@athiemann.net> @agrafix":
-       - Spock
-       - Spock-core
-       - Spock-api
-       - Spock-api-server
+       - Spock < 0 # GHC 8.4 via Spock-core
+       - Spock-core < 0 # GHC 8.4 via reroute
+       - Spock-api < 0 # GHC 8.4 via reroute
+       - Spock-api-server < 0 # GHC 8.4 via Spock-api
        - Spock-worker
        - graph-core
        - hvect
@@ -3341,9 +3341,6 @@ packages:
 
         # round 2:
         - fingertree-psqueue < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - Spock-api < 0 # GHC 8.4 via reroute
-        - Spock-core < 0 # GHC 8.4 via reroute
-        - Spock-api-server < 0 # GHC 8.4 via Spock-api
         - apecs < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - binary-tagged < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - cli < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
@@ -3394,7 +3391,6 @@ packages:
         # Transitive failures, reported on https://github.com/fpco/stackage/issues/3394
         - Spock-worker < 0 # GHC 8.4 via Spock
         - haxr < 0 # GHC 8.4 via HaXml
-        - Spock < 0 # GHC 8.4 via Spock-core
         - pell < 0 # GHC 8.4 via arithmoi
         - biopsl < 0 # GHC 8.4 via biocore
         - seqloc < 0 # GHC 8.4 via biocore
