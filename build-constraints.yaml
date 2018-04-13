@@ -150,7 +150,7 @@ packages:
         - explicit-exception
         - fixed-length
         - gnuplot
-        - group-by-date
+        - group-by-date < 0 # build failure with GHC 8.4
         - iff
         - interpolation
         - jack
@@ -557,7 +557,7 @@ packages:
         - MFlow
         - transient
         - transient-universe
-        - axiom
+        - axiom < 0 # GHC 8.4 via ghcjs-perch
 
     "Edward Kmett <ekmett@gmail.com> @ekmett":
         - ad
@@ -973,14 +973,14 @@ packages:
     "Dimitri Sabadie <dimitri.sabadie@gmail.com> @phaazon":
         - al
         - event
-        - hid
+        - hid < 0 # build failure with GHC 8.4
         - monad-journal
         - smoothie
         - wavefront
         - zero
 
     "Thomas Schilling <nominolo@googlemail.com> @nominolo":
-        - ghc-syb-utils
+        - ghc-syb-utils < 0 # build failure with GHC 8.4
 
     "Boris Buliga <d12frosted@icloud.com> @d12frosted":
         - io-choice
@@ -1052,7 +1052,7 @@ packages:
         - parallel-io
         - text-binary
         - Chart-cairo
-        - ghc-events
+        - ghc-events < 0 # build failure with GHC 8.4
         - monad-extras
         - optparse-simple
         - hpack
@@ -1122,7 +1122,7 @@ packages:
 
     "Arthur Fayzrakhmanov <heraldhoi@gmail.com> @geraldus":
         # - yesod-form-richtext # conduit 1.3, yesod 1.6
-        - ghcjs-perch
+        - ghcjs-perch < 0 # build failure with GHC 8.4
 
     "Tom Ellis <tom-stackage@jaguarpaw.co.uk> @tomjaguarpaw":
         - opaleye
@@ -1561,8 +1561,8 @@ packages:
 
     "Vivian McPhail <haskell.vivian.mcphail@gmail.com> @amcphail":
         - hmatrix-gsl-stats
-        - hsignal
-        - hstatistics
+        - hsignal < 0 # build failure with GHC 8.4
+        - hstatistics < 0 # build failure with GHC 8.4
         - plot
         - vector-buffer
         - hmatrix-repa
@@ -2016,7 +2016,7 @@ packages:
 
     "Rudy Matela <rudy@matela.com.br> @rudymatela":
         - leancheck
-        - fitspec
+        - fitspec < 0 # build failure with GHC 8.4
         - speculate
         - extrapolate
 
@@ -2270,8 +2270,8 @@ packages:
         - exp-pairs
 
     "Stefan Kersten <kaoskorobase@gmail.com> @kaoskorobase":
-        - hsndfile
-        - hsndfile-vector
+        - hsndfile < 0 # build failure with GHC 8.4
+        - hsndfile-vector < 0 # build failure with GHC 8.4
 
     "yihuang <yi.codeplayer@gmail.com> @yihuang":
         - tagstream-conduit
@@ -2401,7 +2401,7 @@ packages:
 
     "Anthony Cowley <acowley@gmail.com> @acowley":
         - Frames
-        # - hpp # GHC 8.4 via bytestring-trie
+        - hpp < 0 # build failure with GHC 8.4 via bytestring-trie
 
     "Takayuki Muranushi <muranushi@gmail.com> @nushio3":
         - binary-search
@@ -2432,7 +2432,7 @@ packages:
         - typography-geometry
 
     "John MacFarlane <jgm@berkeley.edu> @jgm":
-        - hsb2hs
+        - hsb2hs < 0 # build failure with GHC 8.4
         - cmark
         - texmath
         - highlighting-kate
@@ -2520,7 +2520,7 @@ packages:
         - X11-xft
         - Imlib
         - xturtle
-        - gluturtle
+        - gluturtle < 0 # build failure with GHC 8.4
         - papillon
 
     "Jan Gerlinger <git@jangerlinger.de> @JanGe":
@@ -2536,7 +2536,7 @@ packages:
         - hw-hedgehog
         - hw-hspec-hedgehog
         - hw-int
-        - hw-fingertree
+        - hw-fingertree < 0 # build failure with GHC 8.4
         - hw-fingertree-strict
         - hw-json
         - hw-parser
@@ -2694,7 +2694,7 @@ packages:
     "Dominic Orchard <dom.orchard@gmail.com> @dorchard":
         - array-memoize
         - codo-notation
-        - language-fortran
+        - language-fortran < 0 # build failure with GHC 8.4
 
     "Philipp Schuster <phischu3000@gmail.com> @phischu":
         - haskell-names
@@ -3333,22 +3333,7 @@ packages:
         - HaXml < 0 # build failure with GHC 8.4
         - data-inttrie < 0 # build failure with GHC 8.4
         - data-memocombinators < 0 # build failure with GHC 8.4
-        - fitspec < 0 # build failure with GHC 8.4
-        - ghc-events < 0 # build failure with GHC 8.4
-        - ghc-syb-utils < 0 # build failure with GHC 8.4
-        - ghcjs-perch < 0 # build failure with GHC 8.4
-        - gluturtle < 0 # build failure with GHC 8.4
-        - group-by-date < 0 # build failure with GHC 8.4
-        - hid < 0 # build failure with GHC 8.4
-        - hpp < 0 # build failure with GHC 8.4
-        - hsb2hs < 0 # build failure with GHC 8.4
-        - hsignal < 0 # build failure with GHC 8.4
-        - hsndfile < 0 # build failure with GHC 8.4
-        - hsndfile-vector < 0 # build failure with GHC 8.4
         - hsshellscript < 0 # build failure with GHC 8.4
-        - hstatistics < 0 # build failure with GHC 8.4
-        - hw-fingertree < 0 # build failure with GHC 8.4
-        - language-fortran < 0 # build failure with GHC 8.4
         - language-glsl < 0 # build failure with GHC 8.4
         - miniutter < 0 # build failure with GHC 8.4
         - monadoid < 0 # build failure with GHC 8.4
@@ -3482,7 +3467,6 @@ packages:
         - groundhog-sqlite < 0 # GHC 8.4 via direct-sqlite
         - disposable < 0 # GHC 8.4 via ghcjs-base-stub
         - javascript-extras < 0 # GHC 8.4 via ghcjs-base-stub
-        - axiom < 0 # GHC 8.4 via ghcjs-perch
         - groundhog-inspector < 0 # GHC 8.4 via groundhog
         - groundhog-mysql < 0 # GHC 8.4 via groundhog
         - groundhog-th < 0 # GHC 8.4 via groundhog
