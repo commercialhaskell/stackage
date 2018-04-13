@@ -555,8 +555,8 @@ packages:
         - TCache
         - Workflow
         - MFlow
-        - transient
-        - transient-universe
+        - transient < 0 # build failure with GHC 8.4
+        - transient-universe < 0 # GHC 8.4 via transient
         - axiom < 0 # GHC 8.4 via ghcjs-perch
 
     "Edward Kmett <ekmett@gmail.com> @ekmett":
@@ -744,7 +744,7 @@ packages:
         - lens-family-th
         - numbers
         - rev-state
-        - runmemo
+        - runmemo < 0 # build failure with GHC 8.4
         - tardis
         - yesod-gitrev
 
@@ -866,7 +866,7 @@ packages:
     "George Giorgidze <giorgidze@gmail.com> @giorgidze":
         - HCodecs < 0 # build failure with GHC 8.4
         - YampaSynth < 0 # build failure with GHC 8.4
-        - set-monad
+        - set-monad < 0 # build failure with GHC 8.4
 
     "Phil Hargett <phil@haphazardhouse.net> @hargettp":
         - courier
@@ -1101,7 +1101,7 @@ packages:
        - dataurl
        - psql-helpers
        - superbuffer
-       # - timespan # build failure GHC 8.4 https://github.com/agrafix/timespan/issues/1
+       - timespan < 0 # build failure with GHC 8.4
        - distance < 0 # build failure with GHC 8.4
        - async-extra
        - format-numbers
@@ -1570,7 +1570,7 @@ packages:
     "Noam Lewis <jones.noamle@gmail.com> @sinelaw":
         - xml-to-json
         - xml-to-json-fast
-        - wl-pprint
+        - wl-pprint < 0 # base-4.11
         # not a maintainer
         - hxt-curl
         - hxt-expat
@@ -1637,7 +1637,7 @@ packages:
         - pipes-csv
         - pipes-mongodb
         - servant-elm
-        - skeletons
+        - skeletons < 0 # build failure with GHC 8.4
 
     "David Raymond Christiansen <david@davidchristiansen.dk> @david-christiansen":
         - annotated-wl-pprint
@@ -2484,10 +2484,10 @@ packages:
     "Kei Hibino <ex8k.hibino@gmail.com> @khibino":
         - th-data-compat
         - th-reify-compat
-        - relational-query
-        - relational-query-HDBC
+        - relational-query < 0 # build failure with GHC 8.4
+        - relational-query-HDBC < 0 # build failure with GHC 8.4
         - persistable-types-HDBC-pg < 0 # build failure with GHC 8.4
-        - relational-record
+        - relational-record < 0 # build failure with GHC 8.4
         - text-ldap
         - debian-build
         - aeson-generic-compat
@@ -2515,11 +2515,11 @@ packages:
         - zot
         - yjtools
         - io-machine
-        - yjsvg
+        - yjsvg < 0 # build failure with GHC 8.4
         - x11-xim
         - X11-xft
         - Imlib
-        - xturtle
+        - xturtle < 0 # GHC 8.4 via yjsvg
         - gluturtle < 0 # build failure with GHC 8.4
         - papillon
 
@@ -3188,17 +3188,17 @@ packages:
         - genvalidity-unordered-containers
         - genvalidity-uuid
         - genvalidity-vector
-        - validity
-        - validity-aeson
-        - validity-bytestring
-        - validity-containers
-        - validity-path
-        - validity-scientific
-        - validity-text
-        - validity-time
-        - validity-unordered-containers
-        - validity-uuid
-        - validity-vector
+        - validity < 0 # build failure with GHC 8.4
+        - validity-aeson < 0 # GHC 8.4 via validity
+        - validity-bytestring < 0 # build failure with GHC 8.4
+        - validity-containers < 0 # build failure with GHC 8.4
+        - validity-path < 0 # GHC 8.4 via validity
+        - validity-scientific < 0 # GHC 8.4 via validity
+        - validity-text < 0 # build failure with GHC 8.4
+        - validity-time < 0 # build failure with GHC 8.4
+        - validity-unordered-containers < 0 # GHC 8.4 via validity
+        - validity-uuid < 0 # GHC 8.4 via uuid
+        - validity-vector < 0 # GHC 8.4 via validity
 
     "Henry Laxen <nadine.and.henry@pobox.com> @HenryLaxen":
         - bbdb
@@ -3333,24 +3333,9 @@ packages:
         - data-memocombinators < 0 # build failure with GHC 8.4
         - hsshellscript < 0 # build failure with GHC 8.4
         - preprocessor-tools < 0 # build failure with GHC 8.4
-        - relational-query < 0 # build failure with GHC 8.4
-        - relational-query-HDBC < 0 # build failure with GHC 8.4
-        - relational-record < 0 # build failure with GHC 8.4
         - relational-schemas < 0 # build failure with GHC 8.4
-        - runmemo < 0 # build failure with GHC 8.4
-        - set-monad < 0 # build failure with GHC 8.4
-        - skeletons < 0 # build failure with GHC 8.4
         - sql-words < 0 # build failure with GHC 8.4
-        - timespan < 0 # build failure with GHC 8.4
         - tinytemplate < 0 # build failure with GHC 8.4
-        - transient < 0 # build failure with GHC 8.4
-        - validity < 0 # build failure with GHC 8.4
-        - validity-bytestring < 0 # build failure with GHC 8.4
-        - validity-containers < 0 # build failure with GHC 8.4
-        - validity-text < 0 # build failure with GHC 8.4
-        - validity-time < 0 # build failure with GHC 8.4
-        - wl-pprint < 0 # base-4.11
-        - yjsvg < 0 # build failure with GHC 8.4
 
         # round 2:
         - bookkeeping < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
@@ -3469,18 +3454,11 @@ packages:
         - rainbox < 0 # GHC 8.4 via rainbow
         - simple < 0 # GHC 8.4 via simple-templates
         - redis-io < 0 # GHC 8.4 via tinylog
-        - transient-universe < 0 # GHC 8.4 via transient
         - backprop < 0 # GHC 8.4 via type-combinators
         - genvalidity < 0 # GHC 8.4 via validity
-        - validity-aeson < 0 # GHC 8.4 via validity
-        - validity-path < 0 # GHC 8.4 via validity
-        - validity-scientific < 0 # GHC 8.4 via validity
-        - validity-unordered-containers < 0 # GHC 8.4 via validity
-        - validity-vector < 0 # GHC 8.4 via validity
         - elm-export < 0 # GHC 8.4 via wl-pprint-text
         - hsx-jmacro < 0 # GHC 8.4 via wl-pprint-text
         - jmacro < 0 # GHC 8.4 via wl-pprint-text
-        - xturtle < 0 # GHC 8.4 via yjsvg
         - hindent < 0 # GHC 8.4 via descriptive
         - wai-middleware-crowd < 0 # GHC 8.4 via http-reverse-proxy
         - distributed-process < 0 # GHC 8.4 via network-transport-tcp
@@ -3819,7 +3797,6 @@ packages:
         - postgresql-typed < 0 # GHC 8.4 via uuid
         - rollbar-hs < 0 # GHC 8.4 via uuid
         - squeal-postgresql < 0 # GHC 8.4 via uuid
-        - validity-uuid < 0 # GHC 8.4 via uuid
         - wai-middleware-rollbar < 0 # GHC 8.4 via uuid
         - websockets-rpc < 0 # GHC 8.4 via uuid
 
