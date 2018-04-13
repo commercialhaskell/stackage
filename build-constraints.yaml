@@ -54,7 +54,7 @@ packages:
         - sdl2-ttf
         - assert-failure
         - minimorph
-        - miniutter
+        - miniutter < 0 # build failure with GHC 8.4
 
     "Jürgen Keck <jhyphenkeck@gmail.com> @j-keck":
         - wreq-stringless
@@ -540,7 +540,7 @@ packages:
         - lucid
         - pdfinfo
         - present
-        - pure-io
+        - pure-io < 0 # build failure with GHC 8.4
         - sourcemap
         - hindent
         - descriptive
@@ -733,7 +733,7 @@ packages:
         - cublas < 0 # build failure with GHC 8.4
         - cusparse < 0 # build failure with GHC 8.4
         - cusolver < 0 # build failure with GHC 8.4
-        - nvvm
+        - nvvm < 0 # build failure with GHC 8.4
         - wide-word
 
     "Dan Burton <danburton.email@gmail.com> @DanBurton":
@@ -1114,7 +1114,7 @@ packages:
         - aeson-pretty
         - digest
         - elm-core-sources
-        - language-glsl
+        - language-glsl < 0 # build failure with GHC 8.4
         - prettyclass
         - QuasiText
         - union-find
@@ -1680,7 +1680,7 @@ packages:
         - HSet
         - markup
         - monad-control-aligned
-        - monadoid
+        - monadoid < 0 # build failure with GHC 8.4
         - n-tuple < 0 # build failure with GHC 8.4 https://github.com/athanclark/n-tuple/issues/1
         - path-extra
         - pred-trie
@@ -2252,7 +2252,7 @@ packages:
 
     "John Galt <jgalt@centromere.net> @centromere":
         - blake2
-        - nfc
+        - nfc < 0 # build failure with GHC 8.4
 
     "Adam Curtis <kallisti.dev@gmail.com> @kallisti-dev":
         - webdriver
@@ -2331,10 +2331,10 @@ packages:
         - happstack-server-tls
         - hsx-jmacro
         - ixset
-        - reform
-        - reform-blaze
-        - reform-hamlet
-        - reform-happstack
+        - reform < 0 # build failure with GHC 8.4
+        - reform-blaze < 0 # GHC 8.4 via reform
+        - reform-hamlet < 0 # GHC 8.4 via reform
+        - reform-happstack < 0 # GHC 8.4 via happstack-server
         # - reform-hsp # haskell-src-exts via hsx2hs
         - userid
         - web-plugins
@@ -2486,7 +2486,7 @@ packages:
         - th-reify-compat
         - relational-query
         - relational-query-HDBC
-        - persistable-types-HDBC-pg
+        - persistable-types-HDBC-pg < 0 # build failure with GHC 8.4
         - relational-record
         - text-ldap
         - debian-build
@@ -3328,21 +3328,11 @@ packages:
         - json-builder < 0 # build failure with GHC 8.4 https://github.com/lpsmith/json-builder/issues/2
         - text-format < 0 # build failure with GHC 8.4 https://github.com/bos/text-format/issues/22
         - type-combinators < 0 # build failure with GHC 8.4 https://github.com/kylcarte/type-combinators/issues/8
-
-        # may have no issue yet
         - HaXml < 0 # build failure with GHC 8.4
         - data-inttrie < 0 # build failure with GHC 8.4
         - data-memocombinators < 0 # build failure with GHC 8.4
         - hsshellscript < 0 # build failure with GHC 8.4
-        - language-glsl < 0 # build failure with GHC 8.4
-        - miniutter < 0 # build failure with GHC 8.4
-        - monadoid < 0 # build failure with GHC 8.4
-        - nfc < 0 # build failure with GHC 8.4
-        - nvvm < 0 # build failure with GHC 8.4
-        - persistable-types-HDBC-pg < 0 # build failure with GHC 8.4
         - preprocessor-tools < 0 # build failure with GHC 8.4
-        - pure-io < 0 # build failure with GHC 8.4
-        - reform < 0 # build failure with GHC 8.4
         - relational-query < 0 # build failure with GHC 8.4
         - relational-query-HDBC < 0 # build failure with GHC 8.4
         - relational-record < 0 # build failure with GHC 8.4
@@ -3477,8 +3467,6 @@ packages:
         - timemap < 0 # GHC 8.4 via list-t
         - pred-trie < 0 # GHC 8.4 via pred-set
         - rainbox < 0 # GHC 8.4 via rainbow
-        - reform-blaze < 0 # GHC 8.4 via reform
-        - reform-hamlet < 0 # GHC 8.4 via reform
         - simple < 0 # GHC 8.4 via simple-templates
         - redis-io < 0 # GHC 8.4 via tinylog
         - transient-universe < 0 # GHC 8.4 via transient
@@ -3708,7 +3696,6 @@ packages:
         - happstack-jmacro < 0 # GHC 8.4 via happstack-server
         - happstack-server-tls < 0 # GHC 8.4 via happstack-server
         - jmacro-rpc-happstack < 0 # GHC 8.4 via happstack-server
-        - reform-happstack < 0 # GHC 8.4 via happstack-server
         - web-routes-happstack < 0 # GHC 8.4 via happstack-server
         - haskell-lsp-client < 0 # GHC 8.4 via haskell-lsp
         - hjsonschema < 0 # GHC 8.4 via hjsonpointer
