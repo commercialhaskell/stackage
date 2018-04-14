@@ -108,10 +108,10 @@ packages:
         - NoHoed
         - threepenny-editors < 0 # GHC 8.4
         # - clr-inline # haskell-src-exts via here # possibly nondeterministic failures, see https://github.com/fpco/stackage/issues/2510
-        - strict-types
+        - strict-types < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
 
     "Roman Gonzalez <open-source@roman-gonzalez.info> @roman":
-        - teardown # 0 # GHC 8.4 via protolude
+        - teardown
         - capataz < 0 # GHC 8.4 via base-4.11.0.0
 
     "Richard Cook <rcook@rcook.org> @rcook":
@@ -3961,7 +3961,6 @@ expected-test-failures:
     - makefile
 
     # Doctest failures
-    - teardown
     - model # https://github.com/Quid2/model/issues/2
 
     # Misc.
@@ -4067,7 +4066,6 @@ skipped-benchmarks:
     - pipes # optparse-applicative 0.13
     - splitmix # criterion 1.3
     - superbuffer # criterion 1.3
-    - teardown # criterion 1.3
     - ttrie # criterion-plus and th-pprint
     - tz # criterion 1.3
     - unicode-transforms # criterion 1.3
