@@ -70,7 +70,7 @@ packages:
         - state-codes
 
     "Sebastian Mihai Ardelean <ardeleanasm@gmail.com> @ardeleanasm":
-        - qchas
+        - qchas < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
 
     "Patrick Pelletier <code@funwithsoftware.org> @ppelleti":
         - mercury-api
@@ -316,7 +316,7 @@ packages:
     "Michael Snoyman michael@snoyman.com @snoyberg":
         - bzlib-conduit
         - cabal-install
-        - mega-sdist
+        - mega-sdist < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - case-insensitive
         - classy-prelude-yesod
         - conduit-combinators
@@ -350,7 +350,7 @@ packages:
         - binary-conduit
         - lzma-conduit
         - mutable-containers
-        - hpc-coveralls
+        - hpc-coveralls < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - monad-unlift
         - monad-unlift-ref
         - yaml
@@ -379,7 +379,7 @@ packages:
         - quickcheck-assertions
 
         - wai-middleware-consul
-        - wai-middleware-crowd
+        - wai-middleware-crowd < 0 # GHC 8.4 via http-reverse-proxy
         - monad-logger-json
         - safe-exceptions
         - monad-logger-syslog
@@ -402,7 +402,7 @@ packages:
 
     "Omari Norman <omari@smileystation.com> @massysett":
         - rainbow < 0 # build failure with GHC 8.4 https://github.com/massysett/rainbow/issues/6
-        - rainbox
+        - rainbox < 0 # GHC 8.4 via rainbow
         - multiarg
         - cartel < 0 # GHC 8.4 BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - Earley
@@ -440,7 +440,7 @@ packages:
         - Strafunski-StrategyLib
 
     "Alfredo Di Napoli <alfredo.dinapoli@gmail.com> @adinapoli":
-        - mandrill
+        - mandrill < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
 
     "Jon Schoning <jonschoning@gmail.com> @jonschoning":
         - pinboard
@@ -460,7 +460,7 @@ packages:
         - download
         - textlocal
         - shell-conduit
-        - tldr
+        - tldr < 0 # GHC 8.4 via cmark
         - fb
         - yesod-fb
         - yesod-auth-fb
@@ -469,7 +469,7 @@ packages:
         - sysinfo
         - xmonad-extras
         - shelly
-        - persistent-redis
+        - persistent-redis < 0 # GHC 8.4 via hedis
 
     "haskell-openal":
         - OpenAL
@@ -515,8 +515,8 @@ packages:
         - crypto-random-api
         - foundation
         - gauge
-        - git
-        - hit
+        - git < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - hit < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - memory
         - language-java
         - libgit
@@ -542,8 +542,8 @@ packages:
         - present
         - pure-io < 0 # build failure with GHC 8.4
         - sourcemap
-        - hindent
-        - descriptive
+        - hindent < 0 # GHC 8.4 via descriptive
+        - descriptive < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - wrap
         - path
         - weigh
@@ -553,8 +553,8 @@ packages:
     "Alberto G. Corona <agocorona@gmail.com> @agocorona":
         - RefSerialize
         - TCache
-        - Workflow
-        - MFlow
+        - Workflow < 0 # GHC 8.4 via RefSerialize
+        - MFlow < 0 # GHC 8.4 via RefSerialize
         - transient < 0 # build failure with GHC 8.4
         - transient-universe < 0 # GHC 8.4 via transient
         - axiom < 0 # GHC 8.4 via ghcjs-perch
@@ -638,8 +638,8 @@ packages:
         - zlib-lens
 
     "Andrew Farmer <afarmer@ittc.ku.edu> @xich":
-        - scotty
-        - wai-middleware-static
+        - scotty < 0.11.1 # due to hpc-coveralls dep
+        - wai-middleware-static < 0 # DependencyFailed (PackageName "hpc-coveralls")
 
     "Simon Hengel <sol@typeful.net> @sol":
         - hspec
@@ -653,9 +653,9 @@ packages:
     "Mario Blazevic <blamario@yahoo.com> @blamario":
         - monad-parallel
         - monad-coroutine
-        - incremental-parser
+        - incremental-parser < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - monoid-subclasses
-        - picoparsec
+        - picoparsec < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - rank2classes
 
     "Brent Yorgey <byorgey@gmail.com> @byorgey":
@@ -669,7 +669,7 @@ packages:
         # - diagrams-rasterific # lens 4.16
         # - diagrams-svg # lens 4.16
         - force-layout
-        - haxr
+        - haxr < 0 # GHC 8.4 via HaXml
         - MonadRandom
         - monoid-extras
 
@@ -679,7 +679,7 @@ packages:
         - Rasterific
         - svg-tree
         - rasterific-svg
-        - asciidiagram
+        - asciidiagram < 0 # GHC 8.4 via rasterific-svg
 
     "Patrick Brisbin @pbrisbin":
         - gravatar
@@ -693,7 +693,7 @@ packages:
         - nonce
         - serversession
         - serversession-backend-persistent
-        - serversession-backend-redis
+        - serversession-backend-redis < 0 # GHC 8.4 via hedis
         - serversession-frontend-wai
         # - serversession-frontend-yesod # conduit 1.3, yesod 1.6
         # - thumbnail-plus # https://github.com/prowdsponsor/thumbnail-plus/issues/5
@@ -848,7 +848,7 @@ packages:
         - heredoc
         - immortal
         - regex-applicative
-        - lexer-applicative
+        - lexer-applicative < 0 # DependencyFailed (PackageName "srcloc")
         - smallcheck
         - socket < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - tasty
@@ -915,8 +915,8 @@ packages:
         - biofastq < 0 # build failure with GHC 8.4
         # - blastxml # ghc 8.4 via biocore
         - bioace < 0 # build failure with GHC 8.4
-        - biopsl
-        - seqloc
+        - biopsl < 0 # GHC 8.4 via biocore
+        - seqloc < 0 # GHC 8.4 via biocore
         - bioalign < 0 # build failure with GHC 8.4
         # - BlastHTTP # https://github.com/eggzilla/BlastHTTP/issues/1
 
@@ -990,7 +990,7 @@ packages:
         # - holy-project # https://github.com/yogsototh/holy-project/issues/7
         - wai-middleware-caching
         - wai-middleware-caching-lru
-        - wai-middleware-caching-redis
+        - wai-middleware-caching-redis < 0 # GHC 8.4 via hedis
         # not package maintainer
         - ekg
         - ekg-json
@@ -1006,8 +1006,8 @@ packages:
         - bytestring-conversion
         - cql
         - cql-io
-        - redis-resp
-        - redis-io
+        - redis-resp < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - redis-io < 0 # GHC 8.4 via tinylog
         - swagger
         - tinylog
         - wai-predicates
@@ -1087,7 +1087,7 @@ packages:
         - Spock-core < 0 # GHC 8.4 via reroute
         - Spock-api < 0 # GHC 8.4 via reroute
         - Spock-api-server < 0 # GHC 8.4 via Spock-api
-        - Spock-worker
+        - Spock-worker < 0 # GHC 8.4 via Spock
         - graph-core
         - hvect
         - reroute < 0 # build faiulre with GHC 8.4 https://github.com/agrafix/Spock/issues/140
@@ -1178,7 +1178,7 @@ packages:
 
         # - idris # ansi-terminal-0.8
         - libffi
-        - xmonad-contrib
+        - xmonad-contrib < 0 # DependencyFailed (PackageName "xmonad")
         - cairo
         - glib
         - pango
@@ -1271,7 +1271,7 @@ packages:
         - aeson-compat
         - aeson-extra
         - binary-orphans
-        - binary-tagged
+        - binary-tagged < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - cabal-doctest
         - crypt-sha512
         - dlist-nonempty
@@ -1540,10 +1540,10 @@ packages:
         - cabal-file-th < 0 # build failure with GHC 8.4
 
     "Gershom Bazerman <gershomb@gmail.com> @gbaz":
-        - jmacro
-        - jmacro-rpc
+        - jmacro < 0 # GHC 8.4 via wl-pprint-text
+        - jmacro-rpc < 0 # GHC 8.4 via jmacro
+        - jmacro-rpc-snap < 0 # GHC 8.4 via jmacro
         - jmacro-rpc-happstack
-        - jmacro-rpc-snap
 
         - mbox
         - kmeans
@@ -1632,7 +1632,7 @@ packages:
     "William Casarin <bill@casarin.me> @jb55":
         - bson-lens
         - cased
-        - elm-export
+        - elm-export < 0 # GHC 8.4 via wl-pprint-text
         # - elm-export-persistent # https://github.com/jb55/elm-export-persistent/issues/2
         - pipes-csv
         - pipes-mongodb
@@ -1687,21 +1687,21 @@ packages:
         - pred-trie < 0 # GHC 8.4 via pred-set
         - path-extra
         - poly-arity
-        - quickcheck-combinators
-        - rose-trees
-        - sets
+        - quickcheck-combinators < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - rose-trees < 0 # DependencyFailed (PackageName "sets")
+        - sets < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - since
-        - timemap
+        - timemap < 0 # GHC 8.4 via list-t
         - tmapchan
         - tmapmvar
-        - tries
+        - tries < 0 # GHC 8.4 via bytestring-trie
         - unit-constraint
         - unfoldable-restricted
         - urlpath
         - wai-transformers
         - websockets-rpc
         # - websockets-simple # needs monad-control-aligned and wai-transformers-0.1.0
-        - webpage
+        - webpage < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - ws
 
     "Fumiaki Kinoshita <fumiexcel@gmail.com> @fumieval":
@@ -1730,10 +1730,10 @@ packages:
 
     "Justin Le <justin@jle.im> @mstksg":
         - auto
-        - backprop
+        - backprop < 0 # GHC 8.4 via type-combinators
         - configurator-export
         - hamilton
-        - hmatrix-backprop
+        - hmatrix-backprop < 0 # GHC 8.4 via ghc-typelits-knownnat
         - hmatrix-vector-sized
         - one-liner-instances
         - prompt
@@ -1777,11 +1777,11 @@ packages:
         - choice
         - distributed-closure
         - inline-java
-        # - inline-r # GHC 8.4 via inline-c
+        - inline-r < 0 # GHC 8.4 via inline-c
         # - jni # GHC 8.4 via inline-c
         # - jvm # GHC 8.4 via inline-c
         - jvm-streaming
-        - H
+        - H < 0 # GHC 8.4 via inline-r
         - sparkle
         - th-lift
 
@@ -1941,7 +1941,7 @@ packages:
         - monad-metrics
         # - ekg-cloudwatch # http-conduit 2.3 via amazonka
         - smtp-mail
-        - liboath-hs
+        - liboath-hs < 0 # GHC 8.4 via inline-c
 
     "Matthew Pickering <matthewtpickering@gmail.com> @mpickering":
         - refact
@@ -1977,9 +1977,9 @@ packages:
         - shortcut-links
         - cheapskate-lucid
         - cheapskate-highlight
-        - cmark-lucid
+        - cmark-lucid < 0 # GHC 8.4 via cmark
         - cmark-highlight < 0 # GHC 8.4 via cmark
-        - Spock-lucid
+        - Spock-lucid < 0 # GHC 8.4 via Spock
         - charsetdetect-ae
         - ilist
         # - text-all # text-1.2.3.0
@@ -2073,7 +2073,7 @@ packages:
         - GPipe
 
     "Jonas Carpay <jonascarpay@gmail.com> @jonascarpay":
-        - apecs
+        - apecs < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
 
     "Spencer Janssen <spencerjanssen@gmail.com> @spencerjanssen":
         - Xauth
@@ -2205,14 +2205,14 @@ packages:
         - flat-mcmc
 
     "Facundo Domínguez <facundo.dominguez@tweag.io> @facundominguez":
-        - distributed-process
-        - distributed-process-tests
-        - distributed-process-simplelocalnet
+        - distributed-process < 0 # GHC 8.4 via network-transport-tcp
+        - distributed-process-simplelocalnet < 0 # GHC 8.4 via network-transport-tcp
+        - distributed-process-tests < 0 # GHC 8.4 via distributed-process
         - distributed-static
         - jvm-batching
         - network-transport
         - network-transport-tests
-        - network-transport-tcp
+        - network-transport-tcp < 0 # BuildFailureException Process exited with ExitFailure 1: dist/build/TestTCP/TestTCP
         - network-transport-inmemory
         - network-transport-composed
         - pthread < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
@@ -2233,9 +2233,9 @@ packages:
         - hashable-time
 
     "Yuras Shumovich <shumovichy@gmail.com> @Yuras":
-        - pdf-toolbox-core
-        - pdf-toolbox-content
-        - pdf-toolbox-document
+        - pdf-toolbox-content < 0 # DependencyFailed (PackageName "pdf-toolbox-core")
+        - pdf-toolbox-core < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - pdf-toolbox-document < 0 # DependencyFailed (PackageName "pdf-toolbox-content")
         - io-region
         - scanner
 
@@ -2259,7 +2259,7 @@ packages:
 
     "Luke Iannini <lukexi@me.com> @lukexi":
         - inline-c < 0 # build failure with GHC 8.4 https://github.com/fpco/inline-c/issues/73
-        - inline-c-cpp
+        - inline-c-cpp < 0 # GHC 8.4 via inline-c
         - ekg
 
     "Michael Schröder <mc.schroeder@gmail.com> @mcschroeder":
@@ -2329,7 +2329,7 @@ packages:
         - happstack-jmacro
         - happstack-server
         - happstack-server-tls
-        - hsx-jmacro
+        - hsx-jmacro < 0 # GHC 8.4 via wl-pprint-text
         - ixset
         - reform < 0 # build failure with GHC 8.4
         - reform-blaze < 0 # GHC 8.4 via reform
@@ -2353,7 +2353,7 @@ packages:
         - frontmatter
         - read-editor
         # - list-prompt # https://github.com/yamadapc/list-prompt/issues/3
-        - package-description-remote
+        - package-description-remote < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - projectroot
         # - questioner # ansi-terminal-0.7
         # - language-dockerfile # https://github.com/beijaflor-io/haskell-language-dockerfile/issues/11
@@ -2391,7 +2391,7 @@ packages:
     "Amit Levy <amit@amitlevy.com> @alevy":
         - simple < 0 # GHC 8.4 via simple-templates
         - simple-templates < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - simple-session
+        - simple-session < 0 # GHC 8.4 via simple
 
     "Sergey Astanin <s.astanin@gmail.com> @astanin":
         # Stackage server uses Ubuntu 16.04 which ships libzip-1.0.1.
@@ -2467,7 +2467,7 @@ packages:
         - free-vl
 
     "Kazuo Koga <obiwanko@me.com> @kkazuo":
-        - xlsx-tabular
+        - xlsx-tabular < 0 # DependencyFailed (PackageName "xlsx")
 
     "Mikhail Glushenkov <mikhail.glushenkov@gmail.com> @23Skidoo":
         - Cabal
@@ -2478,8 +2478,8 @@ packages:
         - binary-bits
 
     "Alex McLean <lxyxpx@gmail.com> @yaxu":
-        - tidal
-        - tidal-midi
+        - tidal < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - tidal-midi < 0 # DependencyFailed (PackageName "tidal")
 
     "Kei Hibino <ex8k.hibino@gmail.com> @khibino":
         - th-data-compat
@@ -2689,7 +2689,7 @@ packages:
         - elerea
 
     "Christopher Wells <cwellsny@nycap.rr.com> @ExcalburZero":
-        - pixelated-avatar-generator
+        - pixelated-avatar-generator < 0 # DependencyFailed (PackageName "cli")
 
     "Dominic Orchard <dom.orchard@gmail.com> @dorchard":
         - array-memoize
@@ -2697,7 +2697,7 @@ packages:
         - language-fortran < 0 # build failure with GHC 8.4
 
     "Philipp Schuster <phischu3000@gmail.com> @phischu":
-        - haskell-names
+        - haskell-names < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
 
     "Shao Cheng <astrohavoc@gmail.com> @TerrorJack":
         - cabal-toolkit
@@ -2721,8 +2721,8 @@ packages:
         - llvm-hs-pure
 
     "Thierry Bourrillon <thierry.bourrillon@fpinsight.com> @tbourrillon":
-        - heatshrink
-        - hocilib
+        - heatshrink < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup configure hindent: DependencyFailed (PackageName "descriptive")
+        - hocilib < 0 # GHC 8.4 via inline-c
 
     "Daniel Mendler <mail@daniel-mendler.de> @minad":
         - quickcheck-special
@@ -2732,7 +2732,7 @@ packages:
         - writer-cps-lens
         - writer-cps-full
         - wl-pprint-annotated
-        - wl-pprint-console
+        - wl-pprint-console < 0 # GHC 8.4 via colorful-monoids
         - console-style
         - unlit
         - intro
@@ -2813,9 +2813,9 @@ packages:
         - postgresql-simple-queue
 
     "Mahdi Dibaiee <mdibaiee@aol.com> @mdibaiee":
-        - picedit
+        - picedit < 0 # DependencyFailed (PackageName "cli")
         - mathexpr
-        - termcolor
+        - termcolor < 0 # DependencyFailed (PackageName "cli")
 
     "XT <e@xtendo.org> @xtendo-org":
         - rawfilepath
@@ -2896,12 +2896,12 @@ packages:
         - arrow-extras
         - data-diverse
         - data-diverse-lens
-        - disposable
+        - disposable < 0 # GHC 8.4 via ghcjs-base-stub
         - ghcjs-base-stub < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - glaze
         - glazier
         - glazier-pipes
-        - javascript-extras
+        - javascript-extras < 0 # GHC 8.4 via ghcjs-base-stub
         - l10n
         - pipes-category
         - pipes-fluid
@@ -2927,7 +2927,7 @@ packages:
     "Andrei Barbu <andrei@0xab.com> @abarbu":
         - nondeterminism
         - csp
-        - matplotlib
+        - matplotlib < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
 
     "mackeyrms <librarymaintainer@mackeycorp.com> @mackeyrms":
         - tsv2csv
@@ -3058,14 +3058,14 @@ packages:
         - bno055-haskell
 
     "Lars Brünjes <brunjlar@gmail.com> @brunjlar":
-        - pell
+        - pell < 0 # GHC 8.4 via arithmoi
 
     "Matt Noonan <matt.noonan@gmail.com> @matt-noonan":
         - justified-containers
         - roles >= 0.2
 
     "Levent Erkok <erkokl@gmail.com> @LeventErkok":
-        - sbv
+        - sbv < 0 # DependencyFailed (PackageName "crackNum")
 
     "János Tapolczai <janos.tapolczai@gmail.com> @jtapolczai":
         - listsafe
@@ -3105,8 +3105,8 @@ packages:
 
     "Jeremy Huffman <jeremy@jeremyhuffman.com> @jeremyjh":
         - higher-leveldb
-        - distributed-process-monad-control
-        - distributed-process-lifted
+        - distributed-process-lifted < 0 # GHC 8.4 via network-transport-tcp
+        - distributed-process-monad-control < 0 # GHC 8.4 via distributed-process
 
     "Adam Curtis <kallisti.dev@gmail.com> @kallisti-dev":
         - webdriver
@@ -3171,23 +3171,23 @@ packages:
         # - gym-http-api # https://github.com/fpco/stackage/issues/3354
 
     "Tom Sydney Kerckhove <syd.kerckhove@gmail.com> @NorfairKing":
-        - genvalidity
-        - genvalidity-aeson
-        - genvalidity-bytestring
-        - genvalidity-containers
-        - genvalidity-hspec
-        - genvalidity-hspec-aeson
-        - genvalidity-hspec-binary
-        - genvalidity-hspec-cereal
-        - genvalidity-hspec-hashable
-        - genvalidity-path
-        - genvalidity-property
-        - genvalidity-scientific
-        - genvalidity-text
-        - genvalidity-time
-        - genvalidity-unordered-containers
-        - genvalidity-uuid
-        - genvalidity-vector
+        - genvalidity < 0 # GHC 8.4 via validity
+        - genvalidity-aeson < 0 # GHC 8.4 via hspec-2.5.0
+        - genvalidity-bytestring < 0 # GHC 8.4 via genvalidity-hspec
+        - genvalidity-containers < 0 # GHC 8.4 via hspec-2.5.0
+        - genvalidity-hspec < 0 # GHC 8.4 via hspec-2.5.0
+        - genvalidity-hspec-aeson < 0 # GHC 8.4 via genvalidity-hspec
+        - genvalidity-hspec-binary < 0 # GHC 8.4 via genvalidity-hspec
+        - genvalidity-hspec-cereal < 0 # GHC 8.4 via genvalidity-hspec
+        - genvalidity-hspec-hashable < 0 # GHC 8.4 via hspec-2.5.0
+        - genvalidity-path < 0 # GHC 8.4 via genvalidity-hspec
+        - genvalidity-property < 0 # GHC 8.4 via hspec-2.5.0
+        - genvalidity-scientific < 0 # GHC 8.4 via genvalidity-hspec
+        - genvalidity-text < 0 # GHC 8.4 via genvalidity-hspec
+        - genvalidity-time < 0 # GHC 8.4 via genvalidity-hspec
+        - genvalidity-unordered-containers < 0 # GHC 8.4 via hspec-2.5.0
+        - genvalidity-uuid < 0 # GHC 8.4 via genvalidity-hspec
+        - genvalidity-vector < 0 # GHC 8.4 via hspec-2.5.0
         - validity < 0 # build failure with GHC 8.4
         - validity-aeson < 0 # GHC 8.4 via validity
         - validity-bytestring < 0 # build failure with GHC 8.4
@@ -3338,105 +3338,15 @@ packages:
         - tinytemplate < 0 # build failure with GHC 8.4
         - wai-route < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - wai-routing < 0 # DependencyFailed (PackageName "wai-route")
-
-        # round 2:
         - fingertree-psqueue < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - apecs < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - binary-tagged < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - cli < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - crackNum < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - descriptive < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - git < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - haskell-names < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - heatshrink < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup configure hindent: DependencyFailed (PackageName "descriptive")
-        - hit < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-
-        - hpc-coveralls < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - scotty < 0.11.1 # due to hpc-coveralls dep
-
         - http-reverse-proxy < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - incremental-parser < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - lexer-applicative < 0 # DependencyFailed (PackageName "srcloc")
-        - mandrill < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - matplotlib < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - mega-sdist < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - network-transport-tcp < 0 # BuildFailureException Process exited with ExitFailure 1: dist/build/TestTCP/TestTCP
-        - package-description-remote < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - pdf-toolbox-content < 0 # DependencyFailed (PackageName "pdf-toolbox-core")
-        - pdf-toolbox-core < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - pdf-toolbox-document < 0 # DependencyFailed (PackageName "pdf-toolbox-content")
-        - picedit < 0 # DependencyFailed (PackageName "cli")
-        - picoparsec < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - pixelated-avatar-generator < 0 # DependencyFailed (PackageName "cli")
         - prim-array < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - qchas < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - quickcheck-classes < 0 # DependencyFailed (PackageName "prim-array")
-        - quickcheck-combinators < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - redis-resp < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - rose-trees < 0 # DependencyFailed (PackageName "sets")
-        - sbv < 0 # DependencyFailed (PackageName "crackNum")
-        - sets < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - srcloc < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - termcolor < 0 # DependencyFailed (PackageName "cli")
-        - tidal < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - tidal-midi < 0 # DependencyFailed (PackageName "tidal")
-        - wai-middleware-static < 0 # DependencyFailed (PackageName "hpc-coveralls")
-        - webpage < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - xlsx-tabular < 0 # DependencyFailed (PackageName "xlsx")
         - xmonad < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - xmonad-contrib < 0 # DependencyFailed (PackageName "xmonad")
         - xxhash < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-
-
-        # Transitive failures, reported on https://github.com/fpco/stackage/issues/3394
-        - Spock-worker < 0 # GHC 8.4 via Spock
-        - haxr < 0 # GHC 8.4 via HaXml
-        - pell < 0 # GHC 8.4 via arithmoi
-        - biopsl < 0 # GHC 8.4 via biocore
-        - seqloc < 0 # GHC 8.4 via biocore
-        - tries < 0 # GHC 8.4 via bytestring-trie
-        - cmark-lucid < 0 # GHC 8.4 via cmark
-        - tldr < 0 # GHC 8.4 via cmark
-        - wl-pprint-console < 0 # GHC 8.4 via colorful-monoids
-        - disposable < 0 # GHC 8.4 via ghcjs-base-stub
-        - javascript-extras < 0 # GHC 8.4 via ghcjs-base-stub
-        - hocilib < 0 # GHC 8.4 via inline-c
-        - inline-c-cpp < 0 # GHC 8.4 via inline-c
-        - inline-r < 0 # GHC 8.4 via inline-c
-        - liboath-hs < 0 # GHC 8.4 via inline-c
-        - timemap < 0 # GHC 8.4 via list-t
-        - rainbox < 0 # GHC 8.4 via rainbow
-        - redis-io < 0 # GHC 8.4 via tinylog
-        - backprop < 0 # GHC 8.4 via type-combinators
-        - genvalidity < 0 # GHC 8.4 via validity
-        - elm-export < 0 # GHC 8.4 via wl-pprint-text
-        - hsx-jmacro < 0 # GHC 8.4 via wl-pprint-text
-        - jmacro < 0 # GHC 8.4 via wl-pprint-text
-        - hindent < 0 # GHC 8.4 via descriptive
-        - wai-middleware-crowd < 0 # GHC 8.4 via http-reverse-proxy
-        - distributed-process < 0 # GHC 8.4 via network-transport-tcp
-        - distributed-process-lifted < 0 # GHC 8.4 via network-transport-tcp
-        - distributed-process-simplelocalnet < 0 # GHC 8.4 via network-transport-tcp
-
-        # transitive failures, gen 2
-        - MFlow < 0 # GHC 8.4 via RefSerialize
-        - Workflow < 0 # GHC 8.4 via RefSerialize
-        - Spock-lucid < 0 # GHC 8.4 via Spock
-        - MFlow < 0 # GHC 8.4 via TCache
-        - H < 0 # GHC 8.4 via inline-r
-        - jmacro-rpc < 0 # GHC 8.4 via jmacro
-        - jmacro-rpc-snap < 0 # GHC 8.4 via jmacro
-        - asciidiagram < 0 # GHC 8.4 via rasterific-svg
-        - simple-session < 0 # GHC 8.4 via simple
-        - distributed-process-monad-control < 0 # GHC 8.4 via distributed-process
-        - distributed-process-tests < 0 # GHC 8.4 via distributed-process
-
-        # transitive failures, gen 3
-        - persistent-redis < 0 # GHC 8.4 via hedis
-        - serversession-backend-redis < 0 # GHC 8.4 via hedis
-        - wai-middleware-caching-redis < 0 # GHC 8.4 via hedis
-
-        # transitive failures, rediscovered.
 
     # This section was used to programmatically generate a set of removals
     # that would result in a valid build plan.
@@ -3587,7 +3497,6 @@ packages:
         # missed by first wave
         - ixset-typed < 0 # GHC 8.4 via template-haskell-2.13.0.0
 
-
         # trans deps, gen 1
         - cabal-toolkit < 0 # GHC 8.4 via Cabal-2.2.0.0
         - cairo < 0 # GHC 8.4 via Cabal-2.2.0.0
@@ -3612,7 +3521,6 @@ packages:
         - hasmin < 0 # GHC 8.4 via doctest-0.15.0
         - download < 0 # GHC 8.4 via feed
         - hint < 0 # GHC 8.4 via ghc-8.4.1
-        - hmatrix-backprop < 0 # GHC 8.4 via ghc-typelits-knownnat
         - happstack-jmacro < 0 # GHC 8.4 via happstack-server
         - happstack-server-tls < 0 # GHC 8.4 via happstack-server
         - jmacro-rpc-happstack < 0 # GHC 8.4 via happstack-server
@@ -3620,13 +3528,6 @@ packages:
         - haskell-lsp-client < 0 # GHC 8.4 via haskell-lsp
         - hjsonschema < 0 # GHC 8.4 via hjsonpointer
         - IPv6DB < 0 # GHC 8.4 via hspec-2.5.0
-        - genvalidity-aeson < 0 # GHC 8.4 via hspec-2.5.0
-        - genvalidity-containers < 0 # GHC 8.4 via hspec-2.5.0
-        - genvalidity-hspec < 0 # GHC 8.4 via hspec-2.5.0
-        - genvalidity-hspec-hashable < 0 # GHC 8.4 via hspec-2.5.0
-        - genvalidity-property < 0 # GHC 8.4 via hspec-2.5.0
-        - genvalidity-unordered-containers < 0 # GHC 8.4 via hspec-2.5.0
-        - genvalidity-vector < 0 # GHC 8.4 via hspec-2.5.0
         - xmlhtml < 0 # GHC 8.4 via hspec-2.5.0
         - chatwork < 0 # GHC 8.4 via http-api-data-0.3.8.1 hspec-2.5.0
         - rakuten < 0 # GHC 8.4 via http-api-data-0.3.8.1 hspec-2.5.0
@@ -3689,15 +3590,6 @@ packages:
         - exception-mtl < 0 # GHC 8.4 via exception-transformers
         - language-c-quote < 0 # GHC 8.4 via exception-transformers
         - shikensu < 0 # GHC 8.4 via flow
-        - genvalidity-bytestring < 0 # GHC 8.4 via genvalidity-hspec
-        - genvalidity-hspec-aeson < 0 # GHC 8.4 via genvalidity-hspec
-        - genvalidity-hspec-binary < 0 # GHC 8.4 via genvalidity-hspec
-        - genvalidity-hspec-cereal < 0 # GHC 8.4 via genvalidity-hspec
-        - genvalidity-path < 0 # GHC 8.4 via genvalidity-hspec
-        - genvalidity-scientific < 0 # GHC 8.4 via genvalidity-hspec
-        - genvalidity-text < 0 # GHC 8.4 via genvalidity-hspec
-        - genvalidity-time < 0 # GHC 8.4 via genvalidity-hspec
-        - genvalidity-uuid < 0 # GHC 8.4 via genvalidity-hspec
         - follow-file < 0 # GHC 8.4 via hinotify
         - fsnotify < 0 # GHC 8.4 via hinotify
         - buchhaltung < 0 # GHC 8.4 via hint
@@ -3775,7 +3667,6 @@ packages:
 
         # trans deps, rediscovered.
         - eventstore < 0 # GHC 8.4 via text-format
-
         - language-ecmascript < 0 # wl-pprint
         - servant-js < 0 # language-ecmascript
         - mainland-pretty < 0
@@ -3785,7 +3676,6 @@ packages:
         - Win32 == 2.5.4.1
 
     "Stackage upper bounds":
-
         # https://github.com/fpco/stackage/issues/3293
         - tasty-quickcheck < 0.10
 
