@@ -25,7 +25,7 @@ add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://down
 add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy-apache24-compat main'
 add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy-libjpeg62-compat main'
 
-GHCVER=8.4.1
+GHCVER=8.4.2
 
 apt-get update
 apt-get install -y \
@@ -33,7 +33,6 @@ apt-get install -y \
     build-essential \
     cmake \
     curl \
-    erlang-base \
     freeglut3-dev \
     freetds-dev \
     fsharp \
@@ -225,6 +224,15 @@ cd /tmp \
 echo "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/" > /etc/ld.so.conf.d/openjdk.conf \
     && ldconfig
 
+# Install erlang/otp platform and its dependencies
+ERLANG_VERSION="20.2.2"
+ERLANG_DEB_FILE="esl-erlang_${ERLANG_VERSION}-1~debian~jessie_amd64.deb"
+pushd /tmp \
+    && wget https://packages.erlang-solutions.com/erlang/esl-erlang/FLAVOUR_1_general/${ERLANG_DEB_FILE} \
+    && (dpkg -i ${ERLANG_DEB_FILE}; apt-get install -yf) \
+    && rm ${ERLANG_DEB_FILE} \
+    && popd
+
 # Install version 3 of the protobuf compiler.  (The `protobuf-compiler` package only
 # supports version 2.)
 curl -OL https://github.com/google/protobuf/releases/download/v3.3.0/protoc-3.3.0-linux-x86_64.zip \
@@ -236,6 +244,14 @@ curl https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-l
     && sudo tar zxf libtensorflow.tar.gz -C /usr \
     && rm libtensorflow.tar.gz \
     && ldconfig
+
+# Install libsodium
+curl https://download.libsodium.org/libsodium/releases/LATEST.tar.gz > libsodium.tar.gz \
+	&& sudo tar xfz libsodium.tar.gz -C /tmp \
+	&& rm libsodium.tar.gz \
+	&& cd /tmp/libsodium-stable \
+	&& ./configure \
+	&& make install
 
 # NOTE: also update Dockerfile when cuda version changes
 # Install CUDA toolkit
