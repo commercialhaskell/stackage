@@ -296,6 +296,7 @@ Valid arguments to include in this environment variable:
 * `--add-package` to add a brand new package
 * `--expect-test-failure` to expect tests to fail
 * `--expect-haddock-failure` to expect haddocks to fail
+* `--expect-bench-failure` to expect benchmarks to fail
 
 If a build fails for bounds reasons, see all of the advice above. If the code
 itself doesn't build, or tests fail, open up an issue and then either put in a
