@@ -247,7 +247,7 @@ packages:
         - network-multicast
         - xeno
         - goggles
-        - plot-light < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - plot-light
         - mapquest-api
 
     "Joseph Canero <jmc41493@gmail.com> @caneroj1":
@@ -436,6 +436,7 @@ packages:
         - weeder
         - profiterole
         - debug
+        - record-dot-preprocessor
 
     "Karl Ostmo <kostmo@gmail.com> @kostmo":
         - perfect-hash-generator
@@ -457,7 +458,7 @@ packages:
     "Jasper Van der Jeugt @jaspervdj":
         - blaze-html
         - blaze-markup
-        - stylish-haskell < 0 # BuildFailureException with GHC 8.4
+        - stylish-haskell
         # - profiteur # js-jquery 3.3
         - psqueues
         - websockets
@@ -873,7 +874,6 @@ packages:
         - tuples-homogenous-h98
 
     "George Giorgidze <giorgidze@gmail.com> @giorgidze":
-        - HCodecs < 0 # build failure with GHC 8.4
         - YampaSynth < 0 # build failure with GHC 8.4
         - set-monad < 0 # build failure with GHC 8.4
 
@@ -1040,6 +1040,7 @@ packages:
         - netwire-input-glfw
         - yoga
         - freetype2
+        - HCodecs
 
     "Emanuel Borsboom <manny@fpcomplete.com> @borsboom":
         - BoundedChan
@@ -2096,8 +2097,10 @@ packages:
         - openssl-streams
 
     "Andrew Cowie <andrew@operationaldynamics.com> @afcowie":
+        - chronologique
         - http-common
         - http-streams
+        - locators
 
     "Sean Hunt <scshunt@csclub.uwaterloo.ca @scshunt":
         - cheapskate
@@ -2267,8 +2270,8 @@ packages:
         - webdriver
 
     "Luke Iannini <lukexi@me.com> @lukexi":
-        - inline-c < 0 # build failure with GHC 8.4 https://github.com/fpco/inline-c/issues/73
-        - inline-c-cpp < 0 # GHC 8.4 via inline-c
+        - inline-c
+        - inline-c-cpp
         - ekg
 
     "Michael Schröder <mc.schroeder@gmail.com> @mcschroeder":
@@ -2532,6 +2535,7 @@ packages:
         - xturtle < 0 # GHC 8.4 via yjsvg
         - gluturtle < 0 # build failure with GHC 8.4
         - papillon
+        - exception-hierarchy
 
     "Jan Gerlinger <git@jangerlinger.de> @JanGe":
         - irc-dcc
@@ -2650,6 +2654,7 @@ packages:
         - lxd-client < 0 # GHC 8.4 via http-media
         - lxd-client-config
         - xxhash-ffi
+        - zeromq4-patterns
 
     "Cliff Harvey <cs.hbar+hs@gmail.com> @BlackBrane":
         - ansigraph < 0 # GHC 8.4 via base-4.11.0.0
@@ -2669,7 +2674,7 @@ packages:
         - open-witness
 
     "Victor Denisov <denisovenator@gmail.com> @VictorDenisov":
-        - mongoDB < 0 # GHC 8.4 via random-shuffle
+        - mongoDB
         - bson
 
     "Alexis King <lexi.lambda@gmail.com> @lexi-lambda":
@@ -2742,13 +2747,13 @@ packages:
         - writer-cps-lens
         - writer-cps-full
         - wl-pprint-annotated
-        - wl-pprint-console < 0 # GHC 8.4 via colorful-monoids
+        - wl-pprint-console
         - console-style
         - unlit
         - intro
         - tasty-auto
         - tasty-stats
-        - colorful-monoids < 0 # build failure with GHC 8.4
+        - colorful-monoids
         - ihs
 
     "Taras Serduke <taras.serduke@gmail.com> @tserduke":
@@ -2997,14 +3002,13 @@ packages:
         - hslua-aeson
 
     "Judah Jacobson <judah.jacobson@gmail.com> @judah":
-        - lens-labels < 0 # GHC 8.4 via base-4.11.0.0
-        # - proto-lens-combinators # haskell-src-exts via proto-lens-protoc
-        # - proto-lens-protobuf-types # haskell-src-exts via proto-lens-protoc
-        # - proto-lens-protoc # haskell-src-exts
-        - proto-lens < 0 # GHC 8.4 via base-4.11.0.0
-        - proto-lens-arbitrary < 0 # GHC 8.4 via base-4.11.0.0
-        - proto-lens-descriptors < 0 # GHC 8.4 via base-4.11.0.0
-        - proto-lens-optparse < 0 # GHC 8.4 via base-4.11.0.0
+        - lens-labels
+        - proto-lens-combinators
+        - proto-lens-protobuf-types
+        - proto-lens-protoc
+        - proto-lens
+        - proto-lens-arbitrary
+        - proto-lens-optparse
         - tensorflow-test
 
     "Christof Schramm <christof.schramm@campus.lmu.de>":
@@ -3309,6 +3313,20 @@ packages:
 
     "ALeX Kazik <alex@kazik.de> @alexkazik":
         - qnap-decrypt
+        
+    "Reed Oei <oei.reed@gmail.com> @ReedOei":
+        - fuzzy-dates
+
+    "Matthew Farkas-Dyck <strake888@gmail.com> @strake":
+        - alg
+        - category
+        - constraint
+        - filtrable
+        - hs-functors
+        - lenz
+        - peano
+        - unconstrained
+        - util
 
     # If you stop maintaining a package you can move it here.
     # It will then be disabled if it starts causing problems.
@@ -3377,7 +3395,6 @@ packages:
         - attoparsec-time < 0 # GHC 8.4 via doctest-0.15.0
         - hint < 0 # GHC 8.4 via ghc-8.4.1
         - syb-with-class < 0 # GHC 8.4 via template-haskell-2.13.0.0
-        - exception-transformers < 0 # GHC 8.4 via transformers-compat-0.6.0.6
         - exception-mtl < 0 # GHC 8.4 via exception-transformers
         - consul-haskell < 0 # GHC 8.4 via uuid
         - hasql-transaction < 0 # GHC 8.4 via hasql
@@ -3445,6 +3462,20 @@ packages:
 
         # https://github.com/fpco/stackage/issues/3566
         - network < 2.7
+
+        # https://github.com/fpco/stackage/issues/3595
+        - unexceptionalio < 0.4
+
+        # https://github.com/fpco/stackage/issues/3596
+        - brick < 0.37
+
+        # https://github.com/fpco/stackage/issues/3597
+        - ghc-typelits-knownnat < 0.5
+        - ghc-tcplugins-extra < 0.3 # https://github.com/fpco/stackage/issues/3599
+
+        # https://github.com/fpco/stackage/issues/3598
+        - numhask < 0.2.1
+        - numhask-prelude < 0.0.4
 
 # end of packages
 
@@ -3942,6 +3973,7 @@ expected-test-failures:
     - nettle # https://github.com/stbuehler/haskell-nettle/issues/8
     - pipes-misc # https://github.com/louispan/pipes-misc/issues/1
     - pixelated-avatar-generator # 0.1.3 https://github.com/ExcaliburZero/pixelated-avatar-generator/issues/19
+    - req # https://github.com/mrkkrp/req/issues/44
     - servant-elm # https://github.com/mattjbray/servant-elm/issues/38
     - shikensu # https://github.com/icidasset/shikensu/issues/5
     - unicode-show # https://github.com/nushio3/unicode-show/issues/2
@@ -3956,6 +3988,7 @@ expected-test-failures:
     - yeshql # https://bitbucket.org/tdammers/yeshql/issues/1/stackage-nightly-test-failure
     - ListLike # No issue tracker, e-mail sent to maintainer
     - amazonka-core # https://github.com/brendanhay/amazonka/issues/397
+    - clash-prelude # https://github.com/fpco/stackage/issues/3600
     - commutative # https://github.com/athanclark/commutative/issues/4
     - conduit-throttle # https://github.com/mtesseract/conduit-throttle/issues/12
     - flat # https://github.com/Quid2/flat/issues/1
@@ -4353,6 +4386,7 @@ hide:
 - matrices # conflicts with matrix
 - pretty-class # conflicts with pretty and prettyclass
 - prettyclass # conflicts with pretty and pretty-class
+- lenz # conflicts with lens, see #3600
 
 # Cryptonite deprecations
 - cipher-aes
