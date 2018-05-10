@@ -16,7 +16,7 @@ packages:
     "Travis Athougies <travis@athougies.net> @tathougies":
         - beam-core
         - beam-migrate
-        - beam-sqlite
+        - beam-sqlite < 0 # via aeson-1.3.1.0
 
     "Fraser Murray <fraser.m.murray@gmail.com @intolerable":
         - stitch < 0 # GHC 8.4 via base-4.11.0.0
@@ -315,7 +315,7 @@ packages:
         - ses-html
         # - stripe-haskell # free 5
         # - stripe-http-streams # free 5
-        - stripe-core
+        - stripe-core < 0 # via aeson-1.3.1.0
 
     "Piotr Mlodawski @pmlodawski":
         - error-util
@@ -453,7 +453,7 @@ packages:
 
     "Jon Schoning <jonschoning@gmail.com> @jonschoning":
         - pinboard
-        - swagger-petstore
+        - swagger-petstore < 0 # via katip
 
     "Jasper Van der Jeugt @jaspervdj":
         - blaze-html
@@ -797,7 +797,7 @@ packages:
     "Chris Allen <cma@bitemyapp.com> @bitemyapp":
         - machines-directory
         - machines-io
-        - bloodhound
+        - bloodhound < 0 # via aeson-1.3.1.0
         # - esqueleto # persistent 2.8
 
     "Adam Bergmark <adam@bergmark.nl> @bergmark":
@@ -970,7 +970,7 @@ packages:
         - hledger
         - hledger-ui
         - hledger-web
-        - hledger-api
+        - hledger-api < 0 # via swagger2
         #
         - quickbench
         - regex-compat-tdfa
@@ -1309,16 +1309,16 @@ packages:
         - tree-diff
 
         # scrive/log
-        - log
+        - log < 0 # via log-elasticsearch
         - log-base
-        - log-elasticsearch
+        - log-elasticsearch < 0 # via bloodhound
         - log-postgres
 
         # Not a maintainer
         - folds
         - friendly-time
         - hashable
-        - haxl
+        - haxl < 0 # via aeson-1.3.1.0
         - monad-time
         - packdeps
         - recursion-schemes
@@ -1670,8 +1670,8 @@ packages:
         - ghc-typelits-knownnat
         - ghc-typelits-natnormalise
         - clash-prelude
-        - clash-lib
-        - clash-ghc
+        - clash-lib < 0 # via aeson-1.3.1.0
+        - clash-ghc < 0 # via clash-lib
 
     "Athan Clark <athan.clark@gmail.com> @athanclark":
         - aeson-attoparsec
@@ -2203,8 +2203,8 @@ packages:
 
     "Nickolay Kudasov <nickolay.kudasov@gmail.com> @fizruk":
         - http-api-data
-        - swagger2
-        - servant-swagger
+        - swagger2 < 0 # via base-compat-0.10.1
+        - servant-swagger < 0 # via swagger2
 
     "Jared Tobin <jared@jtobin.ca> @jtobin":
         - mwc-probability
@@ -2465,10 +2465,10 @@ packages:
     "Ozgun Ataman ozgun.ataman@soostone.com @ozataman":
         - string-conv
         - rng-utils
-        - ua-parser
+        - ua-parser < 0 # via aeson-1.3.1.0
         - hs-GeoIP
         - retry
-        - katip
+        - katip < 0 # via aeson-1.3.1.0
         # - katip-elasticsearch # async 2.2
 
     "Sid Kapur sidharthkapur1@gmail.com @sid-kap":
@@ -2996,7 +2996,7 @@ packages:
         - wai-middleware-rollbar < 0 # GHC 8.4 via uuid
 
     "Andrey Mokhov <andrey.mokhov@gmail.com> @snowleopard":
-        - algebraic-graphs
+        - algebraic-graphs < 0 # via base-compat-0.10.1
 
     "Albert Krewinkel <albert+stackage@zeitkraut.de> @tarleb":
         - hslua
@@ -3030,7 +3030,7 @@ packages:
 
     "Simon Hafner <hafnersimon@gmail.com> @reactormonk":
         - uri-bytestring-aeson < 0 # GHC 8.4 via base-4.11.0.0
-        - katip-scalyr-scribe
+        - katip-scalyr-scribe < 0 # via katip
 
     "Sebastian Witte <woozletoff@gmail.com> @saep":
         - nvim-hs
@@ -3407,33 +3407,15 @@ packages:
         # https://github.com/fpco/stackage/issues/3293
         - tasty-quickcheck < 0.10
 
-        # https://github.com/fpco/stackage/issues/3183
-        - criterion < 1.4
-
-        # https://github.com/fpco/stackage/issues/3337
-        - aeson < 1.3
-
         # needed by path
         # https://github.com/fpco/stackage/issues/3315
         - exceptions < 0.9
-
-        # https://github.com/fpco/stackage/issues/3457
-        - log-elasticsearch < 0.10.0.0
-
-        # https://github.com/fpco/stackage/issues/3493
-        - base-compat < 0.10
-        - base-compat-batteries < 0.10
-        - text-show < 3.7.3
-        - text-show-instances < 3.6.4
 
         # https://github.com/fpco/stackage/issues/3508
         - hw-rankselect < 0.11
 
         # https://github.com/fpco/stackage/issues/3512
         - temporary < 1.3
-
-        # https://github.com/fpco/stackage/issues/3515
-        - swagger2 < 2.2.2
 
         # https://github.com/fpco/stackage/issues/3531
         - jwt < 0.8.0
@@ -4132,6 +4114,7 @@ skipped-benchmarks:
     - cryptohash-sha512 # criterion 1.2
     - heist # criterion 1.3
     - pipes # optparse-applicative 0.13
+    - simple-vec3 # via criterion-1.4.1.0
     - splitmix # criterion 1.3
     - superbuffer # criterion 1.3
     - ttrie # criterion-plus and th-pprint
