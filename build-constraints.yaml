@@ -1664,7 +1664,7 @@ packages:
 
     "Mitchell Rosen <mitchellwrosen@gmail.com> @mitchellwrosen":
         - safe-exceptions-checked
-        - tasty-hspec
+        - tasty-hspec < 0 # via tasty-quickcheck-0.10
 
     "Christiaan Baaij <christiaan.baaij@gmail.com> @christiaanb":
         - ghc-tcplugins-extra
@@ -3410,9 +3410,6 @@ packages:
         - Win32 == 2.6.1.0
 
     "Stackage upper bounds":
-        # https://github.com/fpco/stackage/issues/3293
-        - tasty-quickcheck < 0.10
-
         # needed by path
         # https://github.com/fpco/stackage/issues/3315
         - exceptions < 0.9
@@ -3685,6 +3682,15 @@ skipped-tests:
     - static-text # tasty
     - test-framework # QuickCheck 2.10
     - heist # lens 4.16
+    - htoml # via tasty-hspec
+    - jose # via tasty-hspec
+    - llvm-hs-pretty # via tasty-hspec
+    - milena # via tasty-hspec
+    - servant-static-th # via tasty-hspec
+    - tasty-auto # via tasty-hspec
+    - tasty-discover # via tasty-hspec
+    - yi-language # via tasty-hspec
+
 
     # Transitive outdated dependencies
     # These can also be checked for updates periodically.
