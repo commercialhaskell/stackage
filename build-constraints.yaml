@@ -92,7 +92,7 @@ packages:
         - transformers-bifunctors
 
     "Walter Schulze <awalterschulze@gmail.com> @awalterschulze":
-        - katydid
+        - katydid < 0 # via transformers-either
 
     "Nobutada Matsubara <t12307043@gunma-u.ac.jp> @matsubara0507":
         - chatwork
@@ -831,7 +831,7 @@ packages:
 
     "Rodrigo Setti <rodrigosetti@gmail.com> @rodrigosetti":
         - messagepack
-        - messagepack-rpc
+        - messagepack-rpc < 0 # via network-simple
 
     "Boris Lykah <lykahb@gmail.com> @lykahb":
         - groundhog < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
@@ -1211,10 +1211,10 @@ packages:
         - cryptohash-sha1
 
     "Renzo Carbonara <renzocarbonara@gmail.com> @k0001":
-        - network-simple
+        - network-simple < 0 # via exceptions-0.10.0
         - pipes-aeson
         - pipes-attoparsec
-        - pipes-network
+        - pipes-network < 0 # via network-simple
 
     "Tomas Carnecky @wereHamster":
         # - avers # cryptonite 0.25
@@ -1254,9 +1254,9 @@ packages:
         - bitcoin-tx
         - bitcoin-types
         - hexstring
-        - network-attoparsec
+        - network-attoparsec < 0 # via network-simple
         - network-anonymous-i2p < 0 # GHC 8.4 via uuid
-        - network-anonymous-tor
+        - network-anonymous-tor < 0 # via network-simple
 
     "Timothy Jones <tim@zmthy.net> @zmthy":
         - http-media
@@ -1955,7 +1955,7 @@ packages:
 
     "Matt Parsons <parsonsmatt@gmail.com> @parsonsmatt":
         - monad-logger-prefix
-        - monad-metrics
+        - monad-metrics < 0 # via exceptions-0.10.0
         # - ekg-cloudwatch # http-conduit 2.3 via amazonka
         - smtp-mail
         - liboath-hs < 0 # GHC 8.4 via inline-c
@@ -2044,8 +2044,8 @@ packages:
         - emailaddress < 0 # GHC 8.4 via postgresql-simple
         - envelope
         - from-sum
-        - hailgun
-        - hailgun-simple
+        - hailgun < 0 # via exceptions-0.10.0
+        - hailgun-simple < 0 # via hailgun
         - natural-transformation
         # - opaleye-trans # product-profunctors 0.9
         - pretty-simple
@@ -3268,7 +3268,7 @@ packages:
         - snap < 0 # GHC 8.4 via base-4.11.0.0
 
     "Tim Humphries <tim+stackage@utf8.me> @thumphries":
-        - transformers-either
+        - transformers-either < 0 # via exceptions-0.10.0
         - transformers-fix
 
     "Andre Van Der Merwe <stackage@andrevdm.com> @andrevdm":
@@ -3345,7 +3345,7 @@ packages:
         - yesod-text-markdown
 
     "Alexander Krupenkin <mail@akru.me> @akru":
-        - web3
+        - web3 < 0 # via exceptions-0.10.0
 
     # If you stop maintaining a package you can move it here.
     # It will then be disabled if it starts causing problems.
@@ -3421,12 +3421,13 @@ packages:
         # Need to always match the version shipped with GHC
         - Win32 == 2.6.1.0
 
-    "Stackage upper bounds":
-        # needed by path
-        # https://github.com/fpco/stackage/issues/3315
-        - exceptions < 0.9
-        - hierarchy < 1.0.2
+    # Unlike "Removed packages", these are not permanently blacklisted.
+    # Rather, they are simply known to cause build plan failures, for now.
+    "Stackage removed due to bounds":
+        - cayley-client < 0 # via exceptions-0.10.0
 
+
+    "Stackage upper bounds":
         # https://github.com/fpco/stackage/issues/3508
         - hw-rankselect < 0.11
 
