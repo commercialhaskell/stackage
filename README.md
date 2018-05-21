@@ -1,7 +1,7 @@
 stackage
 ========
 
-[![Build Status](https://travis-ci.org/fpco/stackage.svg?branch=master)](https://travis-ci.org/fpco/stackage)
+[![Build Status](https://travis-ci.org/commercialhaskell/stackage.svg?branch=master)](https://travis-ci.org/commercialhaskell/stackage)
 
 "Stable Hackage": creating a vetted set of packages from Hackage.
 This repository is for package authors and maintainers to get their packages into Stackage.
