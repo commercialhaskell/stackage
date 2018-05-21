@@ -4,7 +4,7 @@
 # up-and-running on a freshly installed Debian-based system (including Ubuntu).
 
 # Quick start:
-# wget -O - https://raw.github.com/fpco/stackage/master/debian-bootstrap.sh | bash -ex
+# wget -O - https://raw.github.com/commercialhaskell/stackage/master/debian-bootstrap.sh | bash -ex
 
 # NOTE: Requires that GHC and Cabal are installed and on your PATH. For
 # instructions, see:

@@ -17,12 +17,12 @@ The following is the current list of curators, in alphabetical order:
 This section sketches out at a high level how the entire Stackage build/curation
 process works:
 
-* [build-constraints.yaml](https://github.com/fpco/stackage/blob/master/build-constraints.yaml) specifies packages to be included in Stackage
+* [build-constraints.yaml](https://github.com/commercialhaskell/stackage/blob/master/build-constraints.yaml) specifies packages to be included in Stackage
 * [stackage-curator](http://www.stackage.org/package/stackage-curator) combines build-constraints.yaml with the current state of Hackage to create a build plan for a Stackage Nightly
 * stackage-curator can check that build plan to ensure all version bounds are consistent
-    * The [Travis job](https://github.com/fpco/stackage/blob/master/.travis.yml) performs these two steps to provide immediate feedback on pull requests
-* Docker Hub [builds](https://github.com/fpco/stackage/blob/master/Dockerfile) a [Docker image](https://registry.hub.docker.com/u/snoyberg/stackage/) for running builds
-* The stackage-build server (described below) is able to run automated builds using the [build.sh script](https://github.com/fpco/stackage/blob/master/automated/build.sh)
+    * The [Travis job](https://github.com/commercialhaskell/stackage/blob/master/.travis.yml) performs these two steps to provide immediate feedback on pull requests
+* Docker Hub [builds](https://github.com/commercialhaskell/stackage/blob/master/Dockerfile) a [Docker image](https://registry.hub.docker.com/u/snoyberg/stackage/) for running builds
+* The stackage-build server (described below) is able to run automated builds using the [build.sh script](https://github.com/commercialhaskell/stackage/blob/master/automated/build.sh)
 * When a new Nightly build is completed, it is uploaded to [the nightly repo](https://github.com/fpco/stackage-nightly)
 * Once a week, we run an LTS minor bump. Instead of using build-constraints.yaml, that job takes the previous LTS release, turns it into constraints, and then bumps the version numbers to the latest on Hackage, in accordance with the version bounds in the build plan. This plans are uploaded to [the LTS repo](https://github.com/fpco/lts-haskell)
 * Cutting a new LTS major release is essentially just a Stackage Nightly that gets rebuilt and uploaded as an LTS
@@ -34,7 +34,7 @@ author only added packages under his/her own name, merge it.  If the
 build later fails (see [Adding Debian packages]), then block the
 package until it's fixed.
 
-[Adding Debian packages]: https://github.com/fpco/stackage/blob/master/CURATORS.md#adding-debian-packages-for-required-system-tools-or-libraries
+[Adding Debian packages]: https://github.com/commercialhaskell/stackage/blob/master/CURATORS.md#adding-debian-packages-for-required-system-tools-or-libraries
 
 If benchmarks, haddocks, or test suites fails at this point we
 typically also block the package until these issues are fixed. This in
@@ -73,13 +73,13 @@ being included immediately. This also applies to when only benchmarks
 and tests are affected.
 
 * Copy the stackage-curator output and create a new issue, see e.g
-https://github.com/fpco/stackage/issues/2108
+https://github.com/commercialhaskell/stackage/issues/2108
 
 * Add a new entry under the "stackage upper bounds" section of `build-constraints.yaml`. For the above example it would be
 
 ```yaml
     "Stackage upper bounds":
-        # https://github.com/fpco/stackage/issues/2108
+        # https://github.com/commercialhaskell/stackage/issues/2108
         - pipes < 4.3.0
 ```
 
@@ -90,7 +90,7 @@ https://github.com/fpco/stackage/issues/2108
 
 Sometimes releases for different packages are tightly coupled. Then it
 can make sense to combine them into one issue, as in
-https://github.com/fpco/stackage/issues/2143.
+https://github.com/commercialhaskell/stackage/issues/2143.
 
 If a dependency that is not explicitly in stackage is causing test or
 benchmark failures you can skip or expect them to fail (see "Skipping
@@ -123,7 +123,7 @@ enough time to upgrade for this case as well.
 With the `pipes` example above there was later a new release of
 `pipes-safe` that required the **newer** version of `pipes`. You can
 add that package to the same upper bounds section,
-(e.g. https://github.com/fpco/stackage/commit/6429b1eb14db3f2a0779813ef2927085fa4ad673)
+(e.g. https://github.com/commercialhaskell/stackage/commit/6429b1eb14db3f2a0779813ef2927085fa4ad673)
 as we want to lift them simultaneously.
 
 ### Skipping tests and benchmarks
@@ -149,7 +149,7 @@ dependencies and compile them.
 
 If there are no version bounds that would fix the issue or if you
 can't figure it out, file it
-(e.g. https://github.com/fpco/stackage/issues/2133) to ask the
+(e.g. https://github.com/commercialhaskell/stackage/issues/2133) to ask the
 maintainer for help.
 
 ### Waiting for new releases
@@ -228,7 +228,7 @@ docker rmi $(docker images -q)
 but `docker pull snoyberg/stackage:nightly` can also be run instead just to update the nightly image say.
 
 For a new GHC version you should also delete the cache directories on the stackage-build server to
-force all packages to be rebuilt. See: [issue#746](https://github.com/fpco/stackage/issues/746). Eg:
+force all packages to be rebuilt. See: [issue#746](https://github.com/commercialhaskell/stackage/issues/746). Eg:
 ```
 rm -r nightly/work/builds/nightly/
 ```
@@ -241,7 +241,7 @@ following command:
 ```
 DIR=$(mktemp -d)
 (cd $DIR \
-  && git clone https://github.com/fpco/stackage \
+  && git clone https://github.com/commercialhaskell/stackage \
   && cd stackage \
   && docker build --tag snoyberg/stackage:nightly .)
 rm -rf $DIR
@@ -360,7 +360,7 @@ Then, clone the stackage repo, get the latest packages and run dependency
 resolution:
 
 ```
-$ git clone git@github.com:fpco/stackage.git
+$ git clone git@github.com:commercialhaskell/stackage.git
 $ stack update && stackage-curator check
 ```
 
@@ -372,12 +372,12 @@ test suites and benchmarks, to check whether bounds can be lifted, and to get
 errors for builds, tests and benchmarks.
 
 [the Linux binary]: https://s3.amazonaws.com/stackage-travis/stackage-curator/stackage-curator.bz2
-[tell-me-when-its-released]: https://github.com/fpco/stackage/blob/master/CURATORS.md#waiting-for-new-releases
+[tell-me-when-its-released]: https://github.com/commercialhaskell/stackage/blob/master/CURATORS.md#waiting-for-new-releases
 
 ## Adding new curators
 
 1. Add public ssh key to `~/.ssh/authorized_keys` on build server
-2. Add to fpco/stackage project.
+2. Add to commercialhaskell/stackage project.
 
 ## Dealing with a new GHC release
 
@@ -401,4 +401,4 @@ After the first LTS release, the package pruning process may begin in the
 nightly build in order to move forward with getting the latest versions of
 packages compatible with the new GHC release.
 
-[GHC upgrade note]: https://github.com/fpco/stackage/blob/master/MAINTAINERS.md#upgrading-to-a-new-ghc-version
+[GHC upgrade note]: https://github.com/commercialhaskell/stackage/blob/master/MAINTAINERS.md#upgrading-to-a-new-ghc-version
