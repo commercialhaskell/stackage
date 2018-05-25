@@ -344,7 +344,7 @@ packages:
         - network-conduit-tls
         - persistent
         - persistent-mysql
-        - persistent-postgresql < 0 # GHC 8.4 via postgresql-simple
+        - persistent-postgresql
         - persistent-sqlite
         - persistent-template
         # - stackage-curator # http-conduit 2.3 via amazonka
@@ -1111,13 +1111,13 @@ packages:
         - reroute < 0 # build faiulre with GHC 8.4 https://github.com/agrafix/Spock/issues/140
         - users
         # - users-persistent # persistent 2.8
-        - users-postgresql-simple < 0 # GHC 8.4 via postgresql-simple
+        - users-postgresql-simple
         - users-test
         # - validate-input # https://github.com/agrafix/validate-input/issues/3
         # - ignore # https://github.com/agrafix/ignore/issues/5
         - blaze-bootstrap
         - dataurl
-        - psql-helpers < 0 # GHC 8.4 via postgresql-simple
+        - psql-helpers
         - superbuffer
         - timespan < 0 # build failure with GHC 8.4
         - distance < 0 # build failure with GHC 8.4
@@ -1143,7 +1143,7 @@ packages:
         - ghcjs-perch < 0 # build failure with GHC 8.4
 
     "Tom Ellis <tom-stackage@jaguarpaw.co.uk> @tomjaguarpaw":
-        - opaleye < 0 # GHC 8.4 via postgresql-simple
+        - opaleye < 0 # aeson 1.3
         - product-profunctors
 
     "Samplecount stefan@samplecount.com @kaoskorobase":
@@ -1637,7 +1637,7 @@ packages:
         - gloss-rendering
         - gpolyline # @fegu
         - monad-memo # @EduardSergeev
-        - postgresql-simple-migration < 0 # GHC 8.4 via postgresql-simple
+        - postgresql-simple-migration
         - statestack
 
     "Marios Titas <redneb@gmx.com> @redneb":
@@ -1785,7 +1785,7 @@ packages:
         # - tasty-tap # https://github.com/MichaelXavier/tasty-tap/issues/2
         # - tasty-fail-fast # https://github.com/MichaelXavier/tasty-tap/issues/2
         - drifter
-        - drifter-postgresql < 0 # GHC 8.4 via postgresql-simple
+        - drifter-postgresql
 
     "Lars Kuhtz <lakuhtz@gmail.com> @larskuhtz":
         - wai-cors
@@ -1899,7 +1899,7 @@ packages:
 
     "Stack Builders stackage@stackbuilders.com @stackbuilders":
         - atomic-write
-        - dbcleaner < 0 # GHC 8.4 via postgresql-simple
+        - dbcleaner
         - dotenv
         - hapistrano
         - inflections
@@ -2054,7 +2054,7 @@ packages:
         - irc
 
     "Dennis Gosnell <cdep.illabout@gmail.com> @cdepillabout":
-        - emailaddress < 0 # GHC 8.4 via postgresql-simple
+        - emailaddress < 0  # opaleye
         - envelope
         - from-sum
         - hailgun < 0 # via exceptions-0.10.0
@@ -2158,7 +2158,7 @@ packages:
         - titlecase
 
     "Mark Fine <mark.fine@gmail.com> @markfine":
-        - postgresql-schema < 0 # GHC 8.4 via postgresql-simple
+        - postgresql-schema
         - sbp
 
     "Jinjing Wang <nfjinjing@gmail.com> @nfjinjing":
@@ -2410,7 +2410,7 @@ packages:
     "Hans-Christian Esperer <hc@hcesperer.org> @hce":
         - avwx
         - saltine
-        - wai-session-postgresql < 0 # GHC 8.4 via postgresql-simple
+        - wai-session-postgresql
 
     "Haisheng Wu <freizl@gmail.com> @freizl":
         []
@@ -2596,7 +2596,7 @@ packages:
         - api-field-json-th
 
     "Patrick Thomson <patrick@helium.com> @helium":
-        - postgresql-transactional < 0 # GHC 8.4 via postgresql-simple
+        - postgresql-transactional
 
     "Tom Murphy <amindfv@gmail.com> @amindfv":
         - vivid
@@ -2845,10 +2845,10 @@ packages:
         - clock-extras
         - next-ref
         - threads-extras
-        - tmp-postgres < 0 # GHC 8.4 via postgresql-simple
-        - pg-transact < 0 # GHC 8.4 via postgresql-simple
-        - hspec-pg-transact < 0 # GHC 8.4 via postgresql-simple
-        - postgresql-simple-queue < 0 # GHC 8.4 via postgresql-simple
+        - tmp-postgres
+        - pg-transact
+        - hspec-pg-transact
+        - postgresql-simple-queue
 
     "Mahdi Dibaiee <mdibaiee@aol.com> @mdibaiee":
         - picedit < 0 # DependencyFailed (PackageName "cli")
@@ -3420,8 +3420,6 @@ packages:
         - xxhash < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - Unique < 0 # GHC 8.4 via base-4.11.0.0
         - ghc-compact < 0 # GHC 8.4 via base-4.11.0.0
-        - postgresql-simple < 0 # GHC 8.4 via base-4.11.0.0
-        - postgresql-simple-url < 0 # GHC 8.4 via base-4.11.0.0
         - classyplate < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - hastache < 0 # GHC 8.4 via base-4.11.0.0
         - token-bucket < 0 # GHC 8.4 via base-4.11.0.0
@@ -3668,6 +3666,7 @@ skipped-tests:
     - parsec # HUnit 1.6
     - partial-order # HUnit 1.6
     - pipes-group # doctest 0.13
+    - postgresql-simple-migration # hspec 2.5
     - printcess # QuickCheck 2.10
     - superbuffer # QuickCheck 2.10
     - tar # tasty-quickcheck
