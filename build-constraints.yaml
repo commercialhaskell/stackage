@@ -1219,7 +1219,7 @@ packages:
         - di-df1
         - di-handle
         - di-monad
-        - exinst < 0 # via serialize and cborg https://github.com/commercialhaskell/stackage/issues/3666 and 3667
+        - exinst
         - flay
         - network-simple
         - network-simple-tls
@@ -1228,7 +1228,7 @@ packages:
         - pipes-binary
         - pipes-network
         - pipes-network-tls
-        - safe-money < 0 # via serialise https://github.com/commercialhaskell/stackage/issues/3666
+        - safe-money
         - vector-bytes-instances
         - xmlbf-xeno
         - xmlbf-xmlhtml < 0 # GHC 8.4 via xmlhtml via hspec-2.5.0
@@ -3559,6 +3559,10 @@ package-flags:
         ghc_7_7: false
         ghc_8_0: true
 
+    # https://github.com/commercialhaskell/stackage/issues/3666 and 3667
+    exinst:
+        serialise: false
+
     functor-classes-compat:
         containers: true
 
@@ -3573,6 +3577,10 @@ package-flags:
 
     cabal-install:
         lib: true
+
+    # https://github.com/commercialhaskell/stackage/issues/3666
+    safe-money:
+        serialise: false
 
     scotty:
         hpc-coveralls: false
