@@ -1219,7 +1219,7 @@ packages:
         - di-df1
         - di-handle
         - di-monad
-        - exinst
+        - exinst < 0 # via serialize and cborg https://github.com/commercialhaskell/stackage/issues/3666 and 3667
         - flay
         - network-simple
         - network-simple-tls
@@ -1228,10 +1228,10 @@ packages:
         - pipes-binary
         - pipes-network
         - pipes-network-tls
-        - safe-money
+        - safe-money < 0 # via serialise https://github.com/commercialhaskell/stackage/issues/3666
         - vector-bytes-instances
         - xmlbf-xeno
-        - xmlbf-xmlhtml
+        - xmlbf-xmlhtml < 0 # GHC 8.4 via xmlhtml via hspec-2.5.0
         - xmlbf
 
     "Tomas Carnecky @wereHamster":
@@ -2007,7 +2007,7 @@ packages:
     "Timo von Holtz <tvh@tvholtz.de> @tvh":
         - ekg-wai
         # - haxl-amazonka # http-conduit 2.3 via amazonka
-        - hasql-migration
+        - hasql-migration < 0 # https://github.com/tvh/hasql-migration/issues/4
         - servant-JuicyPixels < 0 # GHC 8.4 via base-4.11.0.0
 
     "Artyom <yom@artyom.me> @neongreen":
@@ -2333,7 +2333,7 @@ packages:
     "Yorick Laupa yo.eight@gmail.com @YoEight":
         - eventstore < 0 # GHC 8.4 via text-format
         - dotnet-timespan
-        - eventsource-api < 0 # https://github.com/YoEight/eventsource-api/issues/4
+        - eventsource-api < 0 # GHC 8.4 build failure
         - eventsource-geteventstore-store < 0 # GHC 8.4 via protolude
         - eventsource-store-specs < 0 # tasty-hspec
         - eventsource-stub-store < 0 # GHC 8.4 via protolude
@@ -3725,7 +3725,6 @@ skipped-tests:
     # Compilation failures
     - proto-lens-combinators # https://github.com/google/proto-lens/issues/119
     - pell # https://github.com/brunjlar/pell/issues/1
-    - protobuf # https://github.com/alphaHeavy/protobuf/issues/34
     - store # https://github.com/fpco/store/issues/125
 
     # Runtime issues
@@ -4153,6 +4152,7 @@ skipped-benchmarks:
     - pipes # optparse-applicative 0.13
     - splitmix # criterion 1.3
     - superbuffer # criterion 1.3
+    - text-builder # criterion 1.1 https://github.com/commercialhaskell/stackage/issues/3668
     - ttrie # criterion-plus and th-pprint
     - tz # criterion 1.3
     - unicode-transforms # criterion 1.3
