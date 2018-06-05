@@ -21,7 +21,6 @@ IMAGE=snoyberg/stackage:$TAG
 
 PLAN_FILE=current-plan.yaml
 DOCMAP_FILE=current-docmap.yaml
-BUNDLE_FILE=current.bundle
 
 CABAL_DIR=$ROOT/cabal
 STACK_DIR=$ROOT/stack
@@ -127,7 +126,7 @@ esac
 # Now do the actual build. We need to first set the owner of the home directory
 # correctly, so we run the command as root, change owner, and then use sudo to
 # switch back to the current user
-docker run $ARGS_BUILD $IMAGE nice -n 15 /bin/bash -c "chown $USER $HOME && exec sudo -E -u $USER env \"HOME=$HOME\" \"PATH=\$PATH\" stackage-curator make-bundle --jobs $JOBS --plan-file $PLAN_FILE --docmap-file $DOCMAP_FILE --bundle-file $BUNDLE_FILE --target $TARGET"
+docker run $ARGS_BUILD $IMAGE nice -n 15 /bin/bash -c "chown $USER $HOME && exec sudo -E -u $USER env \"HOME=$HOME\" \"PATH=\$PATH\" stackage-curator make-bundle --jobs $JOBS --plan-file $PLAN_FILE --docmap-file $DOCMAP_FILE --target $TARGET"
 
 # Make sure we actually need this snapshot. We used to perform this check
 # exclusively before building. Now we perform it after as well for the case of
@@ -142,7 +141,7 @@ docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec stackage-curator check-target-
 # * Upload the 00-index.tar file to S3 (TODO: this is probably no longer necessary, since snapshots never modify .cabal files)
 # * Upload the new plan .yaml file to the appropriate Github repo
 # * Register as a new Hackage distro
-docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "stackage-curator upload-docs --target $TARGET --bundle-file $BUNDLE_FILE && stackage-curator upload-index --plan-file $PLAN_FILE --target $TARGET && stackage-curator upload-github --plan-file $PLAN_FILE --docmap-file $DOCMAP_FILE --target $TARGET && exec stackage-curator hackage-distro --plan-file $PLAN_FILE --target $TARGET"
+docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "stackage-curator upload-docs --target $TARGET && stackage-curator upload-index --plan-file $PLAN_FILE --target $TARGET && stackage-curator upload-github --plan-file $PLAN_FILE --docmap-file $DOCMAP_FILE --target $TARGET && exec stackage-curator hackage-distro --plan-file $PLAN_FILE --target $TARGET"
 
 echo -n "Completed at "
 date
