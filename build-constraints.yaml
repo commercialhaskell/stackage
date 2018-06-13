@@ -990,9 +990,10 @@ packages:
     "Simon Michael <simon@joyful.com> @simonmichael":
         #
         # The hledger project aims to keep the latest release of the core
-        # hledger-lib and hledger packages in stackage. When other hledger-* packages have
-        # too-restrictive bounds, we prefer they be removed rather than holding back
-        # hledger-lib and hledger. (https://github.com/fpco/stackage/issues/3494)
+        # hledger-lib and hledger packages in stackage nightly at all times. 
+        # When other hledger-* packages have too-restrictive bounds, we prefer they
+        # be removed, rather than putting an upper bound on hledger-lib and hledger.
+        # (https://github.com/fpco/stackage/issues/3494)
         #
         - hledger-lib
         - hledger
@@ -3524,14 +3525,6 @@ packages:
         # https://github.com/commercialhaskell/stackage/issues/3702
         - hw-rankselect < 0.11
 
-        # https://github.com/commercialhaskell/stackage/issues/3706
-        - hledger < 1.9.1
-        - hledger-lib < 1.9.1
-        - hledger-ui < 1.9.1
-        - hledger-web < 1.9.2
-        - hledger-api < 1.9.1
-        - hledger-interest < 1.5.2
-
         # https://github.com/commercialhaskell/stackage/issues/3728
         - aeson < 1.4
 # end of packages
@@ -4368,7 +4361,6 @@ tell-me-when-its-released:
 - freer-effects-0.3.0.1 # re-enable extensible benchmarks
 - logging-effect-1.3.0 # reenable benchmarks
 - hoopl-3.10.2.2 # reenable tests, https://github.com/haskell/hoopl/issues/50
-- hledger-1.9.1 # remove upper bounds
 - ip-1.2.1 # remove from skipped-tests, close https://github.com/andrewthad/haskell-ip/issues/33
 - store-0.5.0 # remove from skipped-tests, https://github.com/fpco/store/issues/125
 - cpio-conduit-0.7.0 # remove from skipped-tests, https://github.com/da-x/cpio-conduit/issues/1
@@ -4449,6 +4441,13 @@ no-revisions:
 - foundation
 - gauge
 - stack
+# https://github.com/commercialhaskell/stackage/issues/3706:
+- hledger
+- hledger-lib
+- hledger-ui
+- hledger-web
+- hledger-api
+
 
 # Do not build these packages in parallel with others. Useful for high memory
 # usage.
