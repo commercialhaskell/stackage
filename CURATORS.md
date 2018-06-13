@@ -402,3 +402,25 @@ nightly build in order to move forward with getting the latest versions of
 packages compatible with the new GHC release.
 
 [GHC upgrade note]: https://github.com/commercialhaskell/stackage/blob/master/MAINTAINERS.md#upgrading-to-a-new-ghc-version
+
+## New LTS major bump
+
+Every 3-6 months, we make a new major release of LTS. The procedure we follow for this is:
+
+1. Write a blog post on stackage.org announcing the intent to cut a major
+   release. Give an estimated date two weeks in the future from the publication
+   date of the post.
+2. Spread the blog post on social media and mailing lists as much as possible.
+3. Expect maintainers to send significant requests for added packages and
+   relaxed upper bounds. There will likely be some hard decisions to be made
+   regarding relaxing a bound versus keeping more packages. All of these changes
+   occur on master and affect nightly.
+4. Once the estimated date hits, push a new `lts-XX` branch and trigger Docker
+   Hub to build a Docker image for the new release.
+5. Run the build procedure for the new LTS release.
+6. After the LTS build completes, more aggressively prune upper bounds from
+   `build-constraints.yaml`.
+7. Once both (5) and (6) are done, publish a new blog post on stackage.org
+   announcing the new LTS and Nightly, with links to the change pages on
+   stackage.org. Include a reminder that requests for packages to be added to LTS
+   may be made on commercialhaskell/lts-haskell.
