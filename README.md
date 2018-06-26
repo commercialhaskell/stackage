@@ -1,7 +1,7 @@
 stackage
 ========
 
-[![Build Status](https://travis-ci.org/fpco/stackage.svg?branch=master)](https://travis-ci.org/fpco/stackage)
+[![Build Status](https://travis-ci.org/commercialhaskell/stackage.svg?branch=master)](https://travis-ci.org/commercialhaskell/stackage)
 
 "Stable Hackage": creating a vetted set of packages from Hackage.
 This repository is for package authors and maintainers to get their packages into Stackage.
@@ -16,12 +16,12 @@ Add your package
 
 We welcome all packages, provided:
 
-* The package author/maintainer agrees to the [maintainers agreement](https://github.com/fpco/stackage/blob/master/MAINTAINERS.md).
+* The package author/maintainer agrees to the [maintainers agreement](https://github.com/commercialhaskell/stackage/blob/master/MAINTAINERS.md).
 * The package is buildable and testable from Hackage. We recommend [the Stack Travis script](https://docs.haskellstack.org/en/stable/travis_ci/), which ensures a package is not accidentally incomplete.
 * The package is compatible with the newest versions of all dependencies (You can find restrictive upper bounds by visiting http://packdeps.haskellers.com/feed?needle=PACKAGENAME).
 * The package is compatible with the versions of libraries that ship with GHC ([more information on lenient lower bounds](https://www.fpcomplete.com/blog/2014/05/lenient-lower-bounds)).
 
-Full details on how to add and test a package can be found in the [maintainers agreement](https://github.com/fpco/stackage/blob/master/MAINTAINERS.md#adding-a-package).
+Full details on how to add and test a package can be found in the [maintainers agreement](https://github.com/commercialhaskell/stackage/blob/master/MAINTAINERS.md#adding-a-package).
 
 __NOTE__: There is an approximate 30 minute delay between a package uploading
 to Hackage and being available to the Travis build script to check upper
@@ -37,7 +37,6 @@ project information. In addition, we have the following repositories:
 
 * [stackage-server](https://github.com/fpco/stackage-server) [![Build Status](https://travis-ci.org/fpco/stackage-server.svg?branch=master)](https://travis-ci.org/fpco/stackage-server)
 * [stackage-curator](https://github.com/fpco/stackage-curator) [![Build Status](https://travis-ci.org/fpco/stackage-curator.svg?branch=master)](https://travis-ci.org/fpco/stackage-curator)
-* [stackage-types](https://github.com/fpco/stackage-types) [![Build Status](https://travis-ci.org/fpco/stackage-types.svg?branch=master)](https://travis-ci.org/fpco/stackage-types)
 * [lts-haskell](https://github.com/fpco/lts-haskell)
 * [stackage-nightly](https://github.com/fpco/stackage-nightly)
 
@@ -51,17 +50,17 @@ Stackage both easier and more secure:
 * [stackage-build-plan](https://github.com/fpco/stackage-build-plan) [![Build Status](https://travis-ci.org/fpco/stackage-build-plan.svg?branch=master)](https://travis-ci.org/fpco/stackage-build-plan)
 
 Curious how it all fits together? See the [Stackage data
-flow](https://github.com/fpco/stackage/blob/master/DATA-FLOW.md).
+flow](https://github.com/commercialhaskell/stackage/blob/master/DATA-FLOW.md).
 
 
 Build the package set
 ---------------------
 
 Generally only the stackage build server run by the stackage curator
-team and people intrested in incorporating stackage snapshots into an
+team and people interested in incorporating stackage snapshots into an
 OS distribution need to build the entire package set. If you're
 interested in trying this yourself, please check out
-[the curator guide](https://github.com/fpco/stackage/blob/master/CURATORS.md),
+[the curator guide](https://github.com/commercialhaskell/stackage/blob/master/CURATORS.md),
 though be aware that this is not a recommended practice and there
 likely will be problems you will need to debug yourself.
 
@@ -103,7 +102,7 @@ There are a number of answers to this question:
   another update in the LTS 6 line
 * Sometimes we have upper bounds in place because other packages have
   problems with newer versions of dependencies. Open up the
-  [build-constraints file](https://github.com/fpco/stackage/blob/master/build-constraints.yaml)
+  [build-constraints file](https://github.com/commercialhaskell/stackage/blob/master/build-constraints.yaml)
   and search for "Stackage upper bounds"
 * Wired-in packages - those that ship with GHC and cannot be upgraded,
   and packages depending on them - are fixed to GHC versions. Common

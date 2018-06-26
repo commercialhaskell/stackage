@@ -15,7 +15,7 @@ There are three inputs into the data flow:
   Hackage provides both cabal file metadata (via the 00-index.tar file) and
   tarballs of the individual packages.
 
-* [build-constraints.yaml](https://github.com/fpco/stackage/blob/master/build-constraints.yaml)
+* [build-constraints.yaml](https://github.com/commercialhaskell/stackage/blob/master/build-constraints.yaml)
   is the primary Stackage input file. This is where package maintainers can add
   packages to the Stackage package set. This also defines upper bounds, skipped
   tests, and a few other pieces of metadata.
@@ -60,7 +60,7 @@ The heart of running Stackage builds is the
 [stackage-curator](https://github.com/fpco/stackage-curator) tool. We run this
 on a daily basis on the Stackage build server for Stackage Nightly, and on a
 weekly basis for LTS Haskell. The build process is [highly
-automated](https://github.com/fpco/stackage/blob/master/automated/build.sh) and
+automated](https://github.com/commercialhaskell/stackage/blob/master/automated/build.sh) and
 leverages Docker quite a bit.
 
 stackage-curator needs to know about the most recent versions of all packages,
@@ -80,7 +80,7 @@ By combining these constraints with the current package data, stackage-curator
 can generate a build plan and check it. (As an aside, this build plan
 generation and checking also occurs every time you make a pull request to the
 stackage repo.) If there are version bounds problems, one of the [Stackage
-curators](https://github.com/fpco/stackage/blob/master/CURATORS.md) will open
+curators](https://github.com/commercialhaskell/stackage/blob/master/CURATORS.md) will open
 up a Github issue and will add upper bounds, temporarily block a package, or
 some other corrective action.
 

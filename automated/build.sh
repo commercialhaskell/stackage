@@ -21,7 +21,6 @@ IMAGE=snoyberg/stackage:$TAG
 
 PLAN_FILE=current-plan.yaml
 DOCMAP_FILE=current-docmap.yaml
-BUNDLE_FILE=current.bundle
 
 CABAL_DIR=$ROOT/cabal
 STACK_DIR=$ROOT/stack
@@ -30,6 +29,7 @@ DOT_STACKAGE_DIR=$ROOT/dot-stackage
 WORKDIR=$ROOT/$TAG/work
 EXTRA_BIN_DIR=$ROOT/extra-bin
 SSH_DIR=$ROOT/ssh-$SHORTNAME
+USERID=$(id -u)
 
 mkdir -p \
 	"$CABAL_DIR" \
@@ -81,9 +81,9 @@ chmod +x stackage-curator
 )
 
 ARGS_COMMON="--rm -v $WORKDIR:$HOME/work -w $HOME/work -v $BINDIR/stackage-curator:/usr/bin/stackage-curator:ro -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v $EXTRA_BIN_DIR/stack:/usr/bin/stack:ro"
-ARGS_PREBUILD="$ARGS_COMMON -u $USER -e HOME=$HOME -v $CABAL_DIR:$HOME/.cabal -v $STACK_DIR:$HOME/.stack -v $GHC_DIR:$HOME/.ghc -v $DOT_STACKAGE_DIR:$HOME/.stackage"
+ARGS_PREBUILD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $CABAL_DIR:$HOME/.cabal -v $STACK_DIR:$HOME/.stack -v $GHC_DIR:$HOME/.ghc -v $DOT_STACKAGE_DIR:$HOME/.stackage"
 ARGS_BUILD="$ARGS_COMMON -v $CABAL_DIR:$HOME/.cabal:ro -v $STACK_DIR:$HOME/.stack:ro -v $GHC_DIR:$HOME/.ghc:ro"
-ARGS_UPLOAD="$ARGS_COMMON -u $USER -e HOME=$HOME -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -v $AUTH_TOKEN:/auth-token:ro -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:$HOME/.stackage -v $SSH_DIR:$HOME/.ssh:ro -v $GITCONFIG:$HOME/.gitconfig:ro -v $CABAL_DIR:$HOME/.cabal:ro -v $STACK_DIR:$HOME/.stack:ro"
+ARGS_UPLOAD="$ARGS_COMMON -u $USERID -e HOME=$HOME -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -v $AUTH_TOKEN:/auth-token:ro -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:$HOME/.stackage -v $SSH_DIR:$HOME/.ssh:ro -v $GITCONFIG:$HOME/.gitconfig:ro -v $CABAL_DIR:$HOME/.cabal:ro -v $STACK_DIR:$HOME/.stack:ro"
 
 # Make sure we actually need this snapshot. We only check this for LTS releases
 # since, for nightlies, we'd like to run builds even if they are unnecessary to
@@ -118,10 +118,15 @@ fi
 # * Do a single unpack to create the package index cache (again due to directory perms)
 docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "stackage-curator check --plan-file $PLAN_FILE && stackage-curator fetch --plan-file $PLAN_FILE && cd /tmp && exec stack unpack random"
 
+case $SHORTNAME in
+    lts) JOBS=1 ;;
+    nightly) JOBS=2 ;;
+esac
+
 # Now do the actual build. We need to first set the owner of the home directory
 # correctly, so we run the command as root, change owner, and then use sudo to
 # switch back to the current user
-docker run $ARGS_BUILD $IMAGE nice -n 15 /bin/bash -c "chown $USER $HOME && exec sudo -E -u $USER env \"HOME=$HOME\" \"PATH=\$PATH\" stackage-curator make-bundle --jobs 4 --plan-file $PLAN_FILE --docmap-file $DOCMAP_FILE --bundle-file $BUNDLE_FILE --target $TARGET"
+docker run $ARGS_BUILD $IMAGE nice -n 15 /bin/bash -c "chown $USER $HOME && exec sudo -E -u $USER env \"HOME=$HOME\" \"PATH=\$PATH\" stackage-curator make-bundle --jobs $JOBS --plan-file $PLAN_FILE --docmap-file $DOCMAP_FILE --target $TARGET"
 
 # Make sure we actually need this snapshot. We used to perform this check
 # exclusively before building. Now we perform it after as well for the case of
@@ -136,7 +141,7 @@ docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec stackage-curator check-target-
 # * Upload the 00-index.tar file to S3 (TODO: this is probably no longer necessary, since snapshots never modify .cabal files)
 # * Upload the new plan .yaml file to the appropriate Github repo
 # * Register as a new Hackage distro
-docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "stackage-curator upload-docs --target $TARGET --bundle-file $BUNDLE_FILE && stackage-curator upload-index --plan-file $PLAN_FILE --target $TARGET && stackage-curator upload-github --plan-file $PLAN_FILE --docmap-file $DOCMAP_FILE --target $TARGET && exec stackage-curator hackage-distro --plan-file $PLAN_FILE --target $TARGET"
+docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "stackage-curator upload-docs --target $TARGET && stackage-curator upload-index --plan-file $PLAN_FILE --target $TARGET && stackage-curator upload-github --plan-file $PLAN_FILE --docmap-file $DOCMAP_FILE --target $TARGET && exec stackage-curator hackage-distro --plan-file $PLAN_FILE --target $TARGET"
 
 echo -n "Completed at "
 date
