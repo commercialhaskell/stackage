@@ -2,6 +2,7 @@ stackage
 ========
 
 [![Build Status](https://travis-ci.org/commercialhaskell/stackage.svg?branch=master)](https://travis-ci.org/commercialhaskell/stackage)
+[![Join the chat at https://gitter.im/commercialhaskell/stackage](https://badges.gitter.im/commercialhaskell/stackage.svg)](https://gitter.im/commercialhaskell/stackage?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 "Stable Hackage": creating a vetted set of packages from Hackage.
 This repository is for package authors and maintainers to get their packages into Stackage.
