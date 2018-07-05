@@ -2988,8 +2988,8 @@ packages:
         - haskell-tools-refactor
         - haskell-tools-rewrite
         - haskell-tools-demo
-        - haskell-tools-cli
-        - haskell-tools-daemon
+        # - haskell-tools-cli # via fswatch
+        # - haskell-tools-daemon # via fswatch
         - haskell-tools-debug
 
     "David Fisher <ddf1991@gmail.com> @ddfisher":
@@ -3378,7 +3378,7 @@ packages:
         - transformers-fix
 
     "Domen Kozar <domen@enlambda.com> @domenkozar":
-        - cachix
+        # - cachix # https://github.com/cachix/cachix/issues/93
         - cachix-api
         - servant-auth
         - servant-auth-server
@@ -3513,6 +3513,7 @@ packages:
     # be removed from this list if they are fixed.
     "Unmaintained packages with compilation failures":
         - stackage-types < 0
+        - fswatch < 0 # https://github.com/kelemzol/watch/issues/3
 
      # If you want to make sure a package is removed from stackage,
      # place it here with a `< 0` constraint and send a pull
