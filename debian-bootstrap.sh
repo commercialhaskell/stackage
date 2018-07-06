@@ -276,3 +276,6 @@ pushd /tmp \
 apt-add-repository multiverse \
     && apt-get update \
     && apt-get install -y nvidia-cuda-dev
+
+export CLANG_PURE_LLVM_LIB_DIR=/usr/lib/llvm-3.9/lib;
+export CLANG_PURE_LLVM_INCLUDE_DIR=/usr/lib/llvm-3.9/include;
