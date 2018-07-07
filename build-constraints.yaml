@@ -2784,7 +2784,7 @@ packages:
 
     "Patrick Chilton <chpatrick@gmail.com> @chpatrick":
         - webrtc-vad
-        - servant-generic
+        - servant-generic < 0 # merged into servant >= 0.14.1
         - clang-pure
         - codec
 
@@ -3611,14 +3611,6 @@ packages:
         # https://github.com/commercialhaskell/stackage/issues/3795
         - lens < 4.17
 
-        # https://github.com/commercialhaskell/stackage/issues/3805
-        - servant < 0.14.1
-        - servant-client-core < 0.14.1
-        - servant-server < 0.14.1
-        # WHEN LIFTED:
-        # * remove servant-generic
-        # * unblock servant and servant-server tests
-
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
@@ -3846,8 +3838,6 @@ skipped-tests:
     - pandoc # tasty 1.1
     - text-short # tasty 1.1
     - servant-auth-docs # doctest 0.16
-    - servant # until servant-0.14.1 is allowed
-    - servant-server # until servant-server-0.14.1 is allowed
 
     # Transitive outdated dependencies
     # These can also be checked for updates periodically.
