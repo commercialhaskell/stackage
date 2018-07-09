@@ -1187,7 +1187,7 @@ packages:
 
     "Tom Ellis <tom-stackage@jaguarpaw.co.uk> @tomjaguarpaw":
         - opaleye < 0 # aeson 1.3
-        - product-profunctors
+        - product-profunctors < 0 # via contravariant-1.5
 
     "Samplecount stefan@samplecount.com @kaoskorobase":
         - shake-language-c
@@ -1788,7 +1788,7 @@ packages:
         - tmapmvar
         - tries < 0 # GHC 8.4 via bytestring-trie
         - unit-constraint
-        - unfoldable-restricted
+        - unfoldable-restricted < 0 # via unfoldable
         - urlpath
         - wai-transformers
         - websockets-rpc < 0 # websockets-simple
@@ -1827,7 +1827,7 @@ packages:
         - hamilton
         - hmatrix-backprop
         - hmatrix-vector-sized
-        - one-liner-instances
+        - one-liner-instances < 0 # via one-liner
         - prompt
         - tagged-binary
         # - type-combinators-singletons # GHC 8.4 via type-combinators
@@ -3515,6 +3515,8 @@ packages:
     "Unmaintained packages with compilation failures":
         - stackage-types < 0
         - fswatch < 0 # https://github.com/kelemzol/watch/issues/3
+        - one-liner < 0 # via contravariant-1.5
+        - unfoldable < 0 # via one-liner
 
      # If you want to make sure a package is removed from stackage,
      # place it here with a `< 0` constraint and send a pull
@@ -3571,10 +3573,6 @@ packages:
         # needed by statistics, in turn needed by criterion
         # https://github.com/commercialhaskell/stackage/issues/3781
         - base-orphans < 0.8
-
-        # https://github.com/commercialhaskell/stackage/issues/3782
-        - contravariant < 1.5
-        - base-compat-batteries < 0.10.2
 
         # https://github.com/commercialhaskell/stackage/issues/3783
         - criterion < 1.5
