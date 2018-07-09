@@ -40,8 +40,8 @@ packages:
         - geodetics
 
     "Travis Athougies <travis@athougies.net> @tathougies":
-        - beam-core
-        - beam-migrate
+        - beam-core < 0 # via vector-sized
+        - beam-migrate < 0 # via beam-core
         - beam-sqlite < 0 # via aeson-1.3.1.0
 
     "Fraser Murray <fraser.m.murray@gmail.com @intolerable":
@@ -1824,16 +1824,16 @@ packages:
         - auto
         - backprop
         - configurator-export
-        - hamilton
-        - hmatrix-backprop
-        - hmatrix-vector-sized
+        - hamilton < 0 # via vector-sized
+        - hmatrix-backprop < 0 # via vector-sized
+        - hmatrix-vector-sized < 0 # via vector-sized
         - one-liner-instances < 0 # via one-liner
         - prompt
         - tagged-binary
         # - type-combinators-singletons # GHC 8.4 via type-combinators
         - typelits-witnesses
         - uncertain
-        - vector-sized
+        - vector-sized < 0 # via distributive-0.6
 
     "Ian Duncan <ian@iankduncan.com> @iand675":
         - feature-flags
@@ -3577,9 +3577,6 @@ packages:
         # can't unconstrain until base-orphans is unconstrained
         # https://github.com/commercialhaskell/stackage/issues/3787
         - semigroupoids < 5.3
-
-        # https://github.com/commercialhaskell/stackage/issues/3789
-        - distributive < 0.6
 
         # https://github.com/commercialhaskell/stackage/issues/3791
         - tagged < 0.8.6
