@@ -705,22 +705,22 @@ packages:
         - rank2classes
 
     "Brent Yorgey <byorgey@gmail.com> @byorgey":
-        - active
-        - diagrams
-        - diagrams-builder
-        - diagrams-cairo
-        - diagrams-gtk
-        - diagrams-contrib
+        - active < 0 # via lens-4.17
+        - diagrams < 0 # via diagrams-contrib
+        - diagrams-builder < 0 # via lens-4.17
+        - diagrams-cairo < 0 # via lens-4.17
+        - diagrams-canvas < 0 # via lens-4.17
+        - diagrams-contrib < 0 # via lens-4.17
+        - diagrams-core < 0 # via lens-4.17
+        - diagrams-gtk < 0 # via diagrams-cairo
+        - diagrams-html5 < 0 # via lens-4.17
+        - diagrams-lib < 0 # via lens-4.17
+        - diagrams-postscript < 0 # via lens-4.17
+        - diagrams-rasterific < 0 # via lens-4.17
         - diagrams-solve
-        - diagrams-core
-        - diagrams-lib
-        - diagrams-rasterific
-        - diagrams-svg
-        - diagrams-html5
-        - diagrams-canvas
-        - diagrams-postscript
-        - force-layout
-        - SVGFonts
+        - diagrams-svg < 0 # via lens-4.17
+        - force-layout < 0 # via lens-4.17
+        - SVGFonts < 0 # via diagrams-core
         - palette
         - haxr < 0 # GHC 8.4 via HaXml
         - MonadRandom
@@ -891,7 +891,7 @@ packages:
     "Michal J. Gajda <maintainer@migamake.com> @mgajda":
         - iterable
         - FenwickTree
-        - json-autotype
+        - json-autotype < 0 # via lens-4.17
 
     "Dom De Re <domdere@domdere.com> @domdere":
         - cassava-conduit
@@ -2904,7 +2904,7 @@ packages:
         - numhask-range
         - perf
         - online
-        - chart-unit
+        - chart-unit < 0 # via diagrams-lib
 
     "Iphigenia Df <iphydf@gmail.com> @iphydf":
         - data-msgpack
@@ -3526,31 +3526,6 @@ packages:
     "Removed packages":
         - gi-webkit2 < 0 # https://github.com/fpco/stackage/issues/3415
         - PSQueue < 0 # build failure with GHC 8.4 (nowhere to report, it's ancient just let it die)
-
-        # TODO: move these out of this section
-        - active < 0 # via lens-4.17
-        - diagrams-builder < 0 # via lens-4.17
-        - diagrams-cairo < 0 # via lens-4.17
-        - diagrams-canvas < 0 # via lens-4.17
-        - diagrams-contrib < 0 # via lens-4.17
-        - diagrams-core < 0 # via lens-4.17
-        - diagrams-html5 < 0 # via lens-4.17
-        - diagrams-lib < 0 # via lens-4.17
-        - diagrams-postscript < 0 # via lens-4.17
-        - diagrams-rasterific < 0 # via lens-4.17
-        - diagrams-svg < 0 # via lens-4.17
-        - force-layout < 0 # via lens-4.17
-        - json-autotype < 0 # via lens-4.17
-        - diagrams-gtk < 0 # via diagrams-cairo
-        - diagrams < 0 # via diagrams-contrib
-        - SVGFonts < 0 # via diagrams-core
-        - diagrams < 0 # via diagrams-core
-        - SVGFonts < 0 # via diagrams-lib
-        - chart-unit < 0 # via diagrams-lib
-        - diagrams < 0 # via diagrams-lib
-        - diagrams-gtk < 0 # via diagrams-lib
-        - chart-unit < 0 # via diagrams-svg
-        - diagrams < 0 # via diagrams-svg
 
     # Packages in the build plan that are blocked
     # from inclusion due to compilation failure with ghc 8.4
