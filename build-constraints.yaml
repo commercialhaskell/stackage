@@ -245,7 +245,7 @@ packages:
     "Nikita Tchayka <nikitatchayka@gmail.com> @nickseagull":
         - ramus
         - require
-        - tintin
+        - tintin < 0 # strange build failure theam/tintin#38
 
     "Simon Jakobi <simon.jakobi@gmail.com> @sjakobi":
         - path
@@ -262,7 +262,9 @@ packages:
 
     "Li-yao Xia <lysxia@gmail.com> @Lysxia":
         - boltzmann-samplers
+        - generic-data
         - generic-random
+        - scanf 
         - show-combinators
 
     "Tobias Dammers <tdammers@gmail.com> @tdammers":
@@ -382,7 +384,7 @@ packages:
         - yesod
         - yesod-auth
         - authenticate-oauth
-        - yesod-bin
+        # - yesod-bin # yaml-0.9.0 commercialhaskell/stackage#3823
         - yesod-eventsource
         - yesod-gitrepo
         - yesod-newsfeed
@@ -732,7 +734,7 @@ packages:
         - Rasterific
         - svg-tree
         - rasterific-svg
-        - asciidiagram < 0 # GHC 8.4 via rasterific-svg
+        - asciidiagram
 
     "Patrick Brisbin @pbrisbin":
         - gravatar
@@ -830,7 +832,7 @@ packages:
         - bench
         - dhall
         - dhall-bash
-        - dhall-json
+          # - dhall-json # yaml-0.9.0 commercialhaskell/stackage#3823
         # - dhall-nix # deriving-compat via hnix
         - dhall-text
 
@@ -1367,7 +1369,7 @@ packages:
         - github
         - insert-ordered-containers
         - integer-logarithms
-        - JuicyPixels-scale-dct
+        - JuicyPixels-scale-dct < 0 # JuicyPixels 3.3 commercialhaskell/stackage#3818
         - kleene
         - lattices
         - microstache
@@ -1378,7 +1380,7 @@ packages:
         - regex-applicative-text
         - servant-dhall
         - servant-swagger-ui
-        - servant-yaml
+        # - servant-yaml # yaml-0.9.0 commercialhaskell/stackage#3823
         - singleton-bool
         - spdx < 0 # GHC 8.4 via base-4.11.0.0
         - splitmix
@@ -1868,13 +1870,13 @@ packages:
         - cassette < 0 # build failure with GHC 8.4
         - choice
         - distributed-closure
-        - inline-java < 0 # GHC 8.4 via ghc-8.4.1
-        - inline-r < 0 # GHC 8.4 via inline-c
-        # - jni # GHC 8.4 via inline-c
-        # - jvm # GHC 8.4 via inline-c
-        - jvm-streaming < 0 # GHC 8.4 via inline-java
-        - H < 0 # GHC 8.4 via inline-r
-        - sparkle < 0 # GHC 8.4 via inline-java
+        - inline-java
+        - inline-r
+        - jni
+        - jvm
+        - jvm-streaming
+        - H
+        - sparkle
         - th-lift
 
     "Christopher Reichert <creichert07@gmail.com> @creichert":
@@ -2170,7 +2172,7 @@ packages:
         - GPipe < 0 # GHC 8.4 via base-4.11.0.0
 
     "Jonas Carpay <jonascarpay@gmail.com> @jonascarpay":
-        - apecs < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - apecs
 
     "Spencer Janssen <spencerjanssen@gmail.com> @spencerjanssen":
         - Xauth
@@ -2203,7 +2205,7 @@ packages:
         - nagios-check
 
     "Peter Simons <simons@cryp.to> @peti":
-        - cabal2nix
+        - cabal2nix < 0 # build failure via hpack-0.29 NixOS/cabal2nix#359
         - cabal2spec
         - distribution-nixpkgs
         - flexible-defaults
@@ -2315,7 +2317,8 @@ packages:
         - distributed-process-simplelocalnet < 0 # GHC 8.4 via network-transport-tcp
         - distributed-process-tests < 0 # GHC 8.4 via distributed-process
         - distributed-static
-        - jvm-batching < 0 # GHC 8.4 via inline-java
+        - inline-c
+        - jvm-batching
         - network-transport
         - network-transport-tests
         - network-transport-tcp < 0 # BuildFailureException Process exited with ExitFailure 1: dist/build/TestTCP/TestTCP
@@ -2474,6 +2477,7 @@ packages:
         - yes-precure5-command
         - th-strict-compat
         - main-tester
+        - skews
 
     "Hans-Christian Esperer <hc@hcesperer.org> @hce":
         - avwx
@@ -2817,7 +2821,7 @@ packages:
 
     "Anton Gushcha <ncrashed@gmail.com> @ncrashed":
         - aeson-injector < 0 # GHC 8.4 via base-4.11.0.0
-        - JuicyPixels-blp
+        - JuicyPixels-blp < 0 # JuicyPixels 3.3 commercialhaskell/stackate#3818
 
     "Al Zohali <zohl@fmap.me> @zohl":
         # - servant-auth-cookie # servant 0.13
@@ -2887,10 +2891,10 @@ packages:
     "Lennart Spitzner <hexagoxel@hexagoxel.de> @lspitzner":
         - multistate
         - pqueue
-        - butcher < 0 # via free-5.1
+        - butcher
         - czipwith
         - data-tree-print
-        - brittany < 0 # via butcher
+        - brittany < 0 # via yaml-0.9.0 commercialhaskell/stackage#3823
 
     "Ryan Mulligan <ryan@ryantm.com> @ryantm":
         - HDBC-mysql
@@ -2986,8 +2990,8 @@ packages:
         - haskell-tools-refactor
         - haskell-tools-rewrite
         - haskell-tools-demo
-        # - haskell-tools-cli # via fswatch
-        # - haskell-tools-daemon # via fswatch
+        # - haskell-tools-cli # via tasty-1.1.0.2
+        # - haskell-tools-daemon # via tasty-1.1.0.2
         - haskell-tools-debug < 0 # via criterion-1.5.0.0
 
     "David Fisher <ddf1991@gmail.com> @ddfisher":
@@ -3038,7 +3042,7 @@ packages:
         # - haskell-import-graph # fgl via graphviz
         - string-transform
         - uniq-deep
-        - yesod-form-bootstrap4 < 0 # https://github.com/ncaq/yesod-form-bootstrap4/issues/2
+        - yesod-form-bootstrap4
         - yesod-recaptcha2
 
     "Andrei Barbu <andrei@0xab.com> @abarbu":
@@ -3390,7 +3394,8 @@ packages:
         - streaming-wai
 
     "Andre Van Der Merwe <stackage@andrevdm.com> @andrevdm":
-        - bhoogle < 0 # GHC 8.4 via protolude
+        - bhoogle
+        - hyraxAbif
 
     "David Millar-Durrant <dmillardurrant@gmail.com> @DavidM-D":
         - indexed-list-literals
@@ -3416,7 +3421,7 @@ packages:
         - cryptocompare
 
     "Jack Kiefer <jack.c.kiefer@gmail.com> @JackKiefer":
-        - herms < 0 # semigroups 0.18.5
+        - herms
 
     "Sergey Vinokurov <serg.foo@gmail.com> @sergv":
         - tasty-ant-xml
@@ -3456,6 +3461,7 @@ packages:
         - alg
         - category
         - constraint
+        - either-both
         - filtrable
         - hs-functors
         - lenz
@@ -3491,6 +3497,12 @@ packages:
 
     "Owen Lynch <root@owenlynch.org> @olynch":
         - natural-sort
+        
+    "John Biesnecker <jbiesnecker@gmail.com> @biesnecker":
+        - async-pool
+
+    "Zoltan Kelemen <kelemzol@elte.hu> @kelemzol":
+        - fswatch
 
     # If you stop maintaining a package you can move it here.
     # It will then be disabled if it starts causing problems.
@@ -3514,7 +3526,6 @@ packages:
     # be removed from this list if they are fixed.
     "Unmaintained packages with compilation failures":
         - stackage-types < 0
-        - fswatch < 0 # https://github.com/kelemzol/watch/issues/3
         - one-liner < 0 # via contravariant-1.5
         - unfoldable < 0 # via one-liner
 
@@ -3577,6 +3588,11 @@ packages:
         # can't unconstrain until base-orphans is unconstrained
         # https://github.com/commercialhaskell/stackage/issues/3787
         - semigroupoids < 5.3
+
+        # needed by foldl, in turn needed by many others (mono-traversable, 
+        # turtle, etc.)
+        # https://github.com/commercialhaskell/stackage/issues/3828
+        - mwc-random < 0.14
 
 # end of packages
 
