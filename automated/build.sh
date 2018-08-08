@@ -17,7 +17,7 @@ else
     TAG=$SHORTNAME
 fi
 
-IMAGE=snoyberg/stackage:$TAG
+IMAGE=commercialhaskell/stackage:$TAG
 
 PLAN_FILE=current-plan.yaml
 DOCMAP_FILE=current-docmap.yaml
