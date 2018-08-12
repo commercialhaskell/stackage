@@ -3,7 +3,7 @@ ghc-major-version: "8.4"
 # This affects which version of the Cabal file format we allow. We
 # should ensure that this is always no greater than the version
 # supported by the most recent cabal-install and Stack releases.
-cabal-format-version: "2.0"
+cabal-format-version: "2.2"
 
 # Constraints for brand new builds
 packages:
@@ -266,6 +266,7 @@ packages:
 
     "Li-yao Xia <lysxia@gmail.com> @Lysxia":
         - boltzmann-samplers
+        - first-class-families
         - generic-data
         - generic-random
         - scanf
@@ -445,6 +446,7 @@ packages:
         - hinotify
         - hfsevents
         - Win32-notify
+        - windns
 
         - mono-traversable
         - http-client
@@ -1833,16 +1835,13 @@ packages:
         - auto
         - backprop
         - configurator-export
-        - hamilton < 0 # via vector-sized
-        - hmatrix-backprop < 0 # via vector-sized
-        - hmatrix-vector-sized < 0 # via vector-sized
         - one-liner-instances
         - prompt
         - tagged-binary
         # - type-combinators-singletons # GHC 8.4 via type-combinators
         - typelits-witnesses
         - uncertain
-        - vector-sized < 0 # via distributive-0.6
+        - vector-sized
 
     "Ian Duncan <ian@iankduncan.com> @iand675":
         - feature-flags
@@ -1992,6 +1991,7 @@ packages:
         - network-carbon < 0 # GHC 8.4 via base-4.11.0.0
         - tasty-rerun < 0 # GHC 8.4 via base-4.11.0.0
         - logging-effect
+        - dhall-to-cabal
         # - reactive-banana # pqueue-1.4.1
 
     "Antoni Silvestre <antoni.silvestre@gmail.com> @asilvestre":
@@ -3631,6 +3631,9 @@ packages:
         # https://github.com/commercialhaskell/stackage/issues/3884
         - pretty-show < 1.8
 
+        # https://github.com/commercialhaskell/stackage/issues/3901
+        - attoparsec-uri < 0.0.5
+
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
@@ -3748,7 +3751,10 @@ package-flags:
         five-three: true
 
     greskell:
-      hint-test: false
+        hint-test: false
+
+    windns:
+        allow-non-windows: true
 
 # end of package-flags
 
@@ -3801,6 +3807,7 @@ skipped-builds:
     - lzma-clib
     - Win32
     - Win32-notify
+    - windns
 
 # end of skipped-builds
 
