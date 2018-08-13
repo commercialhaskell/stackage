@@ -4050,6 +4050,7 @@ expected-test-failures:
     - postgresql-query # PostgreSQL
     - postgresql-simple # PostgreSQL
     - postgresql-simple-migration
+    - postgresql-simple-queue
     - postgresql-typed # PostgreSQL
     - purescript # git 128 https://github.com/purescript/purescript/issues/2292
     - redis-io
@@ -4080,23 +4081,29 @@ expected-test-failures:
     # Missing test files in sdist
     # Hopefully gets fixed in the next release...
     - crypto-pubkey # https://github.com/vincenthz/hs-crypto-pubkey/issues/23
+    - doctest-discover # 0.1.0.9 https://github.com/karun012/doctest-discover/issues/22
     - graylog # 0.1.0.1 https://github.com/fpco/stackage/pull/1254
 
     # Assertion failures, these can be real bugs or just limitations
     # in the test cases.
     - DRBG # https://github.com/TomMD/DRBG/issues/7
+    - bitx-bitcoin # https://github.com/tebello-thejane/bitx.hs/issues/4
     - courier # https://github.com/hargettp/courier/issues/19
     - download # https://github.com/fpco/stackage/issues/2811
+    - haskell-tools-demo # https://github.com/haskell-tools/haskell-tools/issues/624
     - http-client # https://github.com/snoyberg/http-client/issues/360
     - http-client-tls # https://github.com/snoyberg/http-client/issues/360
     - http-link-header # https://github.com/myfreeweb/http-link-header/issues/7
     - main-tester # https://github.com/fpco/stackage/pull/3528
+    - servant-swagger # https://github.com/haskell-servant/servant-swagger/issues/89
     - unicode-show # https://github.com/nushio3/unicode-show/issues/2
     - wreq
+    - xml-picklers # https://github.com/Philonous/xml-picklers/issues/5
 
     # Compilation failures
     - ListLike # No issue tracker, e-mail sent to maintainer
     - amazonka-core # https://github.com/brendanhay/amazonka/issues/397
+    - async-timer # https://github.com/mtesseract/async-timer/issues/8
     - commutative # https://github.com/athanclark/commutative/issues/4
     - conduit-throttle # https://github.com/mtesseract/conduit-throttle/issues/12
     - haddock
@@ -4109,6 +4116,7 @@ expected-test-failures:
     - pkcs10 # https://github.com/fcomb/pkcs10-hs/issues/2
     - sourcemap # https://github.com/chrisdone/sourcemap/issues/3
     - squeal-postgresql # https://github.com/fpco/stackage/issues/3180
+    - store # https://github.com/fpco/store/issues/125
     - text-icu # https://github.com/bos/text-icu/issues/32
     - text-ldap # https://github.com/khibino/haskell-text-ldap/issues/1
     - tls # https://github.com/vincenthz/hs-tls/issues/247
@@ -4137,14 +4145,15 @@ expected-test-failures:
     # Doctest failures
 
     # Misc.
+    - HTTP # e.g. "ERROR: Network.Socket.connect: <socket: 6>: unsupported operation (Cannot assign requested address)", I'm not sure if this is a build server issue...
     - dbus
     - ghcid # Weird conflicts with sandboxingistributed/distributed-process-supervisor/issues/1
+    - pg-transact # https://github.com/jfischoff/pg-transact/issues/2
+    - postgresql-simple-queue # same issue as before, see also https://github.com/fpco/stackage/issues/2592 as that will fix both
     - rattletrap # OOM? https://github.com/fpco/stackage/issues/2232
     - stm-delay # https://github.com/joeyadams/haskell-stm-delay/issues/5
-    - pg-transact # https://github.com/jfischoff/pg-transact/issues/2
     - tcp-streams # https://github.com/didi-FP/tcp-streams/issues/5
     - tmp-postgres # https://github.com/jfischoff/tmp-postgres/issues/1
-    - HTTP # e.g. "ERROR: Network.Socket.connect: <socket: 6>: unsupported operation (Cannot assign requested address)", I'm not sure if this is a build server issue...
     - zstd # ghc 8.2.2 bug? https://github.com/fpco/stackage/issues/3219
 
     # Linting failures (these may break every time HLint gets updated so keep them disabled)
