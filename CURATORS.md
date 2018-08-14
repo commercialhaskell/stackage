@@ -342,6 +342,14 @@ file, e.g.:
 $ rm /var/stackage/stackage/automated/nightly/work/builds/nightly/prevres/Build/cryptohash-0.11.9
 ```
 
+### Restarting docker
+
+If docker hangs with e.g. `docker: Error response from daemon:
+connection error: desc = "transport: dial unix
+/var/run/docker/containerd/docker-containerd .sock: connect:
+connection refused".` you can restart it with `sudo systemctl restart
+docker.service`.
+
 ## Local curator setup
 
 We do not run the full stackage build locally as that might take too
