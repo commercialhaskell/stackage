@@ -3646,9 +3646,6 @@ packages:
         # https://github.com/commercialhaskell/stackage/issues/3905
         - typed-process < 0.2.3.0
 
-        # https://github.com/commercialhaskell/stackage/issues/3906
-        - modern-uri < 0.2.2.0
-
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
@@ -4110,6 +4107,7 @@ expected-test-failures:
     - http-client-tls # https://github.com/snoyberg/http-client/issues/360
     - http-link-header # https://github.com/myfreeweb/http-link-header/issues/7
     - main-tester # https://github.com/fpco/stackage/pull/3528
+    - mmark # https://github.com/commercialhaskell/stackage/issues/3906#issuecomment-413061849
     - servant-swagger # https://github.com/haskell-servant/servant-swagger/issues/89
     - unicode-show # https://github.com/nushio3/unicode-show/issues/2
     - wreq
@@ -4441,12 +4439,13 @@ build-tool-overrides:
 # If bindings-GLFW-3.1.2.1 is the current latest version write
 # - bindings-GLFW-3.1.2.1 # Comment saying what should be done when the new version is releasedskipped test-suite
 tell-me-when-its-released:
-- point-octree-0.5.5.3 # re-enable test and then we can resolve https://github.com/fpco/lts-haskell/issues/27
-- yarr-1.4.0.2 # Re-enable package https://github.com/fpco/stackage/issues/1876
+- cpio-conduit-0.7.0 # remove from skipped-tests, https://github.com/da-x/cpio-conduit/issues/1
 - freer-effects-0.3.0.1 # re-enable extensible benchmarks
 - hoopl-3.10.2.2 # reenable tests, https://github.com/haskell/hoopl/issues/50
+- mmark-0.0.5.6 # remove from expected test failures
+- point-octree-0.5.5.3 # re-enable test and then we can resolve https://github.com/fpco/lts-haskell/issues/27
 - store-0.5.0 # remove from skipped-tests, https://github.com/fpco/store/issues/125
-- cpio-conduit-0.7.0 # remove from skipped-tests, https://github.com/da-x/cpio-conduit/issues/1
+- yarr-1.4.0.2 # Re-enable package https://github.com/fpco/stackage/issues/1876
 
 # Packages which should be hidden after registering, to avoid module name
 # conflicts. This is intended for at least two use cases:
