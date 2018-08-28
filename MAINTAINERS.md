@@ -178,7 +178,7 @@ release (e.g., if `lts-8.9` is out, you would want your package to appear in
 * Be patient! The LTS releases are less frequent than Nightly. The
   Stackage curators will try to get to your issue as soon as possible,
   but it may take some time.
-* We gradually stop maintainng old LTS major versions, so your
+* We gradually stop maintaining old LTS major versions, so your
   request may take longer or be declined if it's for an old LTS.
 
 ## LTS package guarantees and exceptions
