@@ -1,0 +1,15 @@
+image: fpco/stack-build:lts-12.8
+
+cache:
+  paths:
+    - $HOME/.stack
+    - $HOME/.stackage/curator/cache
+
+stages:
+  - build
+
+build:
+  stage: build
+  script:
+    # Edit etc/ci-script.sh to change GHC version
+    - ./etc/ci-script.sh
