@@ -215,6 +215,11 @@ Hub to create a new Docker tag for the relevant branch name.
 You'll need to update both the `PATH` in `Dockerfile` and the `GHCVER` variable
 in `debian-bootstrap.sh`.
 
+Ensure that the [global-hints.yaml
+file](https://github.com/fpco/stackage-content/blob/master/stack/global-hints.yaml)
+is updated with information on the latest GHC release by cloning that
+repo and running `./update-global-hints.yaml ghc-X.Y.Z`.
+
 ### Getting the new image to the build server
 Once a new Docker image is available, you'll need to pull it onto the stackage-build server (see
 below). Instead of pulling an unbounded number of images, I typically just
