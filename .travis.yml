@@ -1,5 +1,5 @@
-# Use new container infrastructure to enable caching
-sudo: false
+# Disable Docker stuff to try to make it faster
+sudo: true
 
 # Choose a lightweight base image; we provide our own build tools.
 language: generic
@@ -14,7 +14,8 @@ addons:
 script:
 - ./etc/ci-script.sh
 
-cache:
-  directories:
-    - $HOME/.stack
-    - $HOME/.stackage/curator/cache
+# Caching doesn't work with sudo: true
+#cache:
+#  directories:
+#    - $HOME/.stack
+#    - $HOME/.stackage/curator/cache
