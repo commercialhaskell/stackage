@@ -103,6 +103,7 @@ apt-get install -y \
     libpcap0.8-dev \
     libpq-dev \
     libre2-dev \
+    librocksdb-dev \
     libsdl1.2-dev \
     libsdl2-dev \
     libsdl2-gfx-dev \
@@ -253,6 +254,16 @@ curl https://download.libsodium.org/libsodium/releases/LATEST.tar.gz > libsodium
 	&& cd /tmp/libsodium-stable \
 	&& ./configure \
 	&& make install
+
+# Install secp256k1
+cd /tmp \
+  && git clone https://github.com/bitcoin-core/secp256k1.git \
+  && cd secp256k1 \
+  && ./autogen.sh \
+  && ./configure --enable-module-recovery \
+  && make \
+  && make install
+
 
 # NOTE: also update Dockerfile when cuda version changes
 # Install CUDA toolkit
