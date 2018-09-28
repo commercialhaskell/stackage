@@ -21,7 +21,7 @@ process works:
 * [stackage-curator](http://www.stackage.org/package/stackage-curator) combines build-constraints.yaml with the current state of Hackage to create a build plan for a Stackage Nightly
 * stackage-curator can check that build plan to ensure all version bounds are consistent
     * The [Travis job](https://github.com/commercialhaskell/stackage/blob/master/.travis.yml) performs these two steps to provide immediate feedback on pull requests
-* Docker Hub [builds](https://github.com/commercialhaskell/stackage/blob/master/Dockerfile) a [Docker image](https://registry.hub.docker.com/u/snoyberg/stackage/) for running builds
+* Docker Hub [builds](https://github.com/commercialhaskell/stackage/blob/master/Dockerfile) a [Docker image](https://hub.docker.com/r/commercialhaskell/stackage/) for running builds
 * The stackage-build server (described below) is able to run automated builds using the [build.sh script](https://github.com/commercialhaskell/stackage/blob/master/automated/build.sh)
 * When a new Nightly build is completed, it is uploaded to [the nightly repo](https://github.com/fpco/stackage-nightly)
 * Once a week, we run an LTS minor bump. Instead of using build-constraints.yaml, that job takes the previous LTS release, turns it into constraints, and then bumps the version numbers to the latest on Hackage, in accordance with the version bounds in the build plan. This plans are uploaded to [the LTS repo](https://github.com/fpco/lts-haskell)
