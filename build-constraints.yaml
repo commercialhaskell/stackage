@@ -4446,55 +4446,55 @@ packages:
         - yesod-websockets < 0
 
         # failed to build
-        - extensible < 0
-        - universe-instances-extended < 0
-        - yoga < 0
-        - vivid < 0
-        - typography-geometry < 0
-        - typenums < 0
-        - typelits-witnesses < 0
-        - teardown < 0
-        - jni < 0
+        - ClustalParser < 0
+        - Fin < 0
+        - HPDF < 0
         - apecs < 0
         - broadcast-chan < 0
-        - o-clock < 0
-        - fgl < 0
         - df1 < 0
-        - first-class-families < 0
-        - histogram-fill < 0
-        - libmpd < 0
-        - hdevtools < 0
-        - llvm-hs-pretty < 0
-        - med-module < 0
-        - multistate < 0
-        - exinst < 0
-        - dimensional < 0
-        - monad-recorder < 0
-        - stm-stats < 0
-        - Fin < 0
-        - matrix-static < 0
-        - ClustalParser < 0
         - di-handle < 0
+        - dimensional < 0
         - dunai < 0
-        - HPDF < 0
-        - llvm-hs < 0
-        - large-hashable < 0
+        - exinst < 0
+        - extensible < 0
+        - fgl < 0
+        - first-class-families < 0
         - gtk2hs-buildtools < 0
+        - hdevtools < 0
+        - histogram-fill < 0
         - hprotoc < 0
+        - jni < 0
+        - large-hashable < 0
+        - libmpd < 0
+        - llvm-hs < 0
+        - llvm-hs-pretty < 0
+        - matrix-static < 0
+        - med-module < 0
+        - monad-recorder < 0
+        - multistate < 0
+        - o-clock < 0
+        - stm-stats < 0
+        - teardown < 0
+        - typelits-witnesses < 0
+        - typenums < 0
+        - typography-geometry < 0
+        - universe-instances-extended < 0
+        - vivid < 0
+        - yoga < 0
 
         # transitive dependencies of packages failing to build
-        - jvm < 0
+        - butcher < 0
         - capataz < 0
         - componentm < 0
         - componentm-devel < 0
-        - universe < 0
         - di < 0
         - di-df1 < 0
+        - geodetics < 0
+        - jvm < 0
+        - plot-light < 0
         - rdf < 0
         - rpmbuild-order < 0
-        - plot-light < 0
-        - butcher < 0
-        - geodetics < 0
+        - universe < 0
 
     "GHC upper bounds":
         # Need to always match the version shipped with GHC
@@ -4807,41 +4807,44 @@ skipped-tests:
     - zlib # tasty-quickcheck, tasty-hunit, tasty
 
     # Blocked due to tests failing to compile for GHC 8.6
-    - HPDF
-    - apecs
     - async-refresh
     - async-refresh-tokens
     - async-timer
-    - atom-conduit
+    - binary-ext
     - binary-tagged
-    - bitcoin-api-extra
     - blake2
     - blaze-html
-    - bugsnag-haskell
-    - chatwork
-    - cipher-rc4
+    - butter
     - conduit-parse
-    - csg
     - dataurl
     - detour-via-sci
+    - distributed-closure
     - dotenv
-    - dublincore-xml-conduit
     - enum-subset-generate
     - folds
     - gc
+    - generic-lens
     - geojson
     - github-types
     - graph-core
     - hexml-lens
+    - higher-leveldb
+    - hspec-core
     - inflections
-    - large-hashable
+    - inline-r
+    - inspection-testing
+    - kanji
+    - megaparsec
     - mighty-metropolis
+    - monad-par
+    - multiarg
     - mustache
     - opml-conduit
     - pipes-csv
     - postgresql-simple
     - quickcheck-state-machine
     - rakuten
+    - rank1dynamic
     - rcu
     - rss-conduit
     - servant-blaze
@@ -4849,11 +4852,15 @@ skipped-tests:
     - siggy-chardust
     - simple-vec3
     - skews
+    - skylighting-core
     - speedy-slice
     - static-text
     - store
     - structs
     - tomland
+    - universum
+    - unordered-containers
+    - unordered-intmap
     - vector-builder
     - vivid-supercollider
     - wai-cors
@@ -4861,22 +4868,6 @@ skipped-tests:
     - wreq
     - xml-conduit-parse
     - yesod-test
-    - inspection-testing
-    - rank1dynamic
-    - hspec-core
-    - unordered-containers
-    - unordered-intmap
-    - monad-par
-    - inline-r
-    - megaparsec
-    - higher-leveldb
-    - generic-lens
-    - butter
-    - distributed-closure
-    - binary-ext
-    - multiarg
-    - skylighting-core
-    - kanji
 
     # Transitive outdated dependencies
     # These can also be checked for updates periodically.
@@ -5023,7 +5014,6 @@ expected-test-failures:
     - aws # AWS Credentials
     - bindings-GLFW # Expects running X server
     - bitcoin-api
-    - bitcoin-api-extra
     - bitcoin-api-extra
     - bloodhound # ElasticSearch
     - cabal-install
@@ -5272,12 +5262,10 @@ skipped-benchmarks:
 
     # Blocked due to benchmarks failing to compile for GHC 8.6
     - binary-tagged
-    - large-hashable
     - Earley
     - IntervalMap
     - JuicyPixels-extra
     - ad
-    - apecs
     - attoparsec
     - backprop
     - binary-list
