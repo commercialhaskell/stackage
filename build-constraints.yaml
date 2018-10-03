@@ -8,6 +8,9 @@ cabal-format-version: "2.2"
 # Constraints for brand new builds
 packages:
 
+    "Laurent P. René de Cotret <laurent.decotret@outlook.com> @LaurentRDC":
+        - pandoc-pyplot
+
     "Andrew Newman <andrewfnewman@gmail.com> @andrewfnewman":
         - geojson
 
@@ -384,6 +387,7 @@ packages:
         - markdown
         - mime-mail
         - mime-mail-ses
+        - mime-types
         - network-conduit-tls
         - persistent
         - persistent-mysql
@@ -584,6 +588,7 @@ packages:
         - pem
         - siphash
         - socks
+        - tasty-kat
         - tls
         - tls-debug
         - vhd < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
@@ -789,8 +794,8 @@ packages:
         - accelerate-llvm-ptx < 0 # GHC 8.4 via base-4.11.0.0
         - accelerate-examples < 0 # GHC 8.4 via accelerate
         - repa
-        - repa-algorithms < 0 # GHC 8.4 via repa
-        - repa-io < 0 # GHC 8.4 via repa
+        - repa-algorithms
+        - repa-io
         - gloss
         - gloss-accelerate < 0 # GHC 8.4 via base-4.11.0.0
         - gloss-algorithms < 0 # GHC 8.4 via base-4.11.0.0
@@ -800,11 +805,12 @@ packages:
         - colour-accelerate < 0 # GHC 8.4 via base-4.11.0.0
         - lens-accelerate < 0 # GHC 8.4 via base-4.11.0.0
         - mwc-random-accelerate < 0 # GHC 8.4 via accelerate
-        - cuda < 0 # build failure with GHC 8.4
-        - cublas < 0 # build failure with GHC 8.4
-        - cusparse < 0 # build failure with GHC 8.4
-        - cusolver < 0 # build failure with GHC 8.4
-        - nvvm < 0 # build failure with GHC 8.4
+        - cuda
+        - cufft
+        - cublas
+        - cusparse
+        - cusolver
+        - nvvm
         - wide-word
 
     "Dan Burton <danburton.email@gmail.com> @DanBurton":
@@ -1306,7 +1312,7 @@ packages:
 
     "Tomas Carnecky @wereHamster":
         - avers
-        # - avers-api # cryptonite 0.25
+        # - avers-api # avers, GHC 8.6
         # - avers-server # cryptonite 0.25
         - css-syntax
         # - etcd # https://github.com/wereHamster/etcd-hs/issues/5
@@ -2568,6 +2574,7 @@ packages:
         # - marvin # https://github.com/JustusAdam/marvin/issues/22
         - marvin-interpolate
         - mustache
+        - exit-codes >= 1.0.0
 
     "Cindy Wang <cindylinz@gmail.com> @CindyLinz":
         - NoTrace < 0 # GHC 8.4 via base-4.11.0.0
@@ -2685,6 +2692,7 @@ packages:
         - hw-balancedparens
         - hw-bits
         - hw-conduit
+        - hw-conduit-merges
         - hw-diagnostics
         - hw-dsv
         - hw-eliasfano
@@ -3188,6 +3196,7 @@ packages:
         - tensorflow-test
         - pier-core
         - pier
+        - haskeline
 
     "Christof Schramm <christof.schramm@campus.lmu.de>":
         - mnist-idx
@@ -3612,7 +3621,7 @@ packages:
 
     "asakamirai <asakamirai_hackage@towanowa.net> @asakamirai":
         - kazura-queue
-        
+
     "Eric Torreborre <etorreborre@yahoo.com> @etorreborre":
         - registry
 
@@ -3679,7 +3688,6 @@ packages:
         - Allure < 0
         - DAV < 0
         - DRBG < 0
-        - FontyFruity < 0
         - HTF < 0
         - HTTP < 0
         - HaTeX < 0
@@ -3688,7 +3696,6 @@ packages:
         - HaskellNet-SSL < 0
         - IPv6Addr < 0
         - IPv6DB < 0
-        - JuicyPixels < 0
         - JuicyPixels-extra < 0
         - JuicyPixels-scale-dct < 0
         - LambdaHack < 0
@@ -3697,7 +3704,6 @@ packages:
         - Network-NineP < 0
         - QuasiText < 0
         - RSA < 0
-        - Rasterific < 0
         - RefSerialize < 0
         - SCalendar < 0
         - ShellCheck < 0
@@ -3806,7 +3812,6 @@ packages:
         - antiope-s3 < 0
         - antiope-sns < 0
         - antiope-sqs < 0
-        - app-settings < 0
         - apply-refact < 0
         - approximate < 0
         - arrow-list < 0
@@ -3829,7 +3834,6 @@ packages:
         - beam-migrate < 0
         - beam-sqlite < 0
         - bench < 0
-        - benchpress < 0
         - bhoogle < 0
         - binary-orphans < 0
         - bins < 0
@@ -3962,7 +3966,6 @@ packages:
         - fswatch < 0
         - gdax < 0
         - generic-aeson < 0
-        - generic-random < 0
         - generic-xmlpickler < 0
         - generics-eot < 0
         - ghc-parser < 0
@@ -4044,7 +4047,6 @@ packages:
         - hpqtypes < 0
         - hquantlib < 0
         - hsebaysdk < 0
-        - hsexif < 0
         - hslua < 0
         - hslua-aeson < 0
         - hslua-module-text < 0
@@ -4053,7 +4055,6 @@ packages:
         - hspec-wai-json < 0
         - hsx-jmacro < 0
         - hsyslog-udp < 0
-        - http-client < 0
         - http-client-openssl < 0
         - http-client-tls < 0
         - http-conduit < 0
@@ -4131,7 +4132,6 @@ packages:
         - massiv-io < 0
         - mbug < 0
         - mega-sdist < 0
-        - memory < 0
         - messagepack < 0
         - messagepack-rpc < 0
         - microformats2-parser < 0
@@ -4239,7 +4239,6 @@ packages:
         - rebase < 0
         - ref-fd < 0
         - registry < 0
-        - repa < 0
         - repline < 0
         - req < 0
         - req-conduit < 0
@@ -4453,7 +4452,6 @@ packages:
         - exinst < 0
         - extensible < 0
         - fgl < 0
-        - first-class-families < 0
         - gtk2hs-buildtools < 0
         - hdevtools < 0
         - histogram-fill < 0
@@ -4461,7 +4459,6 @@ packages:
         - jni < 0
         - large-hashable < 0
         - libmpd < 0
-        - llvm-hs
         - llvm-hs-pretty < 0
         - matrix-static < 0
         - med-module < 0
@@ -4470,7 +4467,6 @@ packages:
         - o-clock < 0
         - stm-stats < 0
         - teardown < 0
-        - typelits-witnesses < 0
         - typenums < 0
         - typography-geometry < 0
         - universe-instances-extended < 0
@@ -4756,7 +4752,6 @@ skipped-tests:
     - github-types
     - graph-core
     - hexml-lens
-    - higher-leveldb
     - hspec-core
     - inflections
     - inline-r
@@ -5005,7 +5000,6 @@ expected-test-failures:
     - serialport # "The tests need two serial ports as command line arguments" https://github.com/jputcu/serialport/issues/30
     - serversession-backend-redis # redis
     - shake # Needs ghc on $PATH with some installed haskell packages
-    - singletons # Needs ghc on $PATH with som installed haskell packages
     - stack # https://github.com/fpco/stackage/issues/3707
     - stripe-http-streams # https://github.com/fpco/stackage/issues/2945, needs Stripe account
     - users-persistent # sqlite
