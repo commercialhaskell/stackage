@@ -268,12 +268,13 @@ cd /tmp \
 # NOTE: also update Dockerfile when cuda version changes
 # Install CUDA toolkit
 # The current version can be found at: https://developer.nvidia.com/cuda-downloads
-CUDA_PKG=8.0.61-1         # update this on new version
-CUDA_VER=${CUDA_PKG:0:3}
-CUDA_APT=${CUDA_VER/./-}
+CUDA_PKG=10.0.130-1
+CUDA_VER=10.0
+CUDA_APT=10-0
 
 pushd /tmp \
     && wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_${CUDA_PKG}_amd64.deb \
+    && apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub \
     && dpkg -i cuda-repo-ubuntu1604_${CUDA_PKG}_amd64.deb \
     && apt-get update -qq \
     && apt-get install -y cuda-drivers cuda-core-${CUDA_APT} cuda-cudart-dev-${CUDA_APT} cuda-cufft-dev-${CUDA_APT} cuda-cublas-dev-${CUDA_APT} cuda-cusparse-dev-${CUDA_APT} cuda-cusolver-dev-${CUDA_APT} \
