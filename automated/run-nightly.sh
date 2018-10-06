@@ -7,6 +7,7 @@ while true; do
     date
 
     ./new-stackage-format/convert.sh
+    date
 
     sleep 30m
     echo
