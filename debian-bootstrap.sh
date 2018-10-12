@@ -290,5 +290,11 @@ apt-add-repository multiverse \
     && apt-get update \
     && apt-get install -y nvidia-cuda-dev
 
+# newer gcc version for yoga
+add-apt-repository ppa:ubuntu-toolchain-r/test \
+    && apt-get update \
+    && apt-get install gcc-7 \
+    && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 60 --slave /usr/bin/g++ g++ /usr/bin/g++-7
+
 export CLANG_PURE_LLVM_LIB_DIR=/usr/lib/llvm-3.9/lib;
 export CLANG_PURE_LLVM_INCLUDE_DIR=/usr/lib/llvm-3.9/include;
