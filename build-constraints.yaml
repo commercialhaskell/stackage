@@ -8,6 +8,9 @@ cabal-format-version: "2.2"
 # Constraints for brand new builds
 packages:
 
+    "Yang Bo <pop.atry@gmail.com> @Atry":
+        - control-dsl
+
     "Laurent P. René de Cotret <laurent.decotret@outlook.com> @LaurentRDC":
         - pandoc-pyplot
 
@@ -290,6 +293,7 @@ packages:
 
     "Yair Chuchem <yairchu@gmail.com> @yairchu":
         - List
+        - ListTree
 
     "Luke Murphy <lukewm@riseup.net> @lwm":
         - tasty-discover
@@ -783,7 +787,7 @@ packages:
         # My own packages:
         - ChannelT
 
-    "Trevor L. McDonell <tmcdonell@cse.unsw.edu.au> @tmcdonell":
+    "Trevor L. McDonell <trevor.mcdonell@gmail.com> @tmcdonell":
         - accelerate < 0 # GHC 8.4 via base-4.11.0.0
         - accelerate-bignum < 0 # GHC 8.4 via base-4.11.0.0
         - accelerate-blas < 0 # GHC 8.4 via base-4.11.0.0
@@ -797,11 +801,12 @@ packages:
         - repa-algorithms
         - repa-io
         - gloss
-        - gloss-accelerate < 0 # GHC 8.4 via base-4.11.0.0
-        - gloss-algorithms < 0 # GHC 8.4 via base-4.11.0.0
-        - gloss-raster
-        - gloss-raster-accelerate < 0 # GHC 8.4 via base-4.11.0.0
         - gloss-rendering
+        - gloss-algorithms
+        - gloss-raster
+        - gloss-examples
+        - gloss-accelerate < 0 # GHC 8.4 via base-4.11.0.0
+        - gloss-raster-accelerate < 0 # GHC 8.4 via base-4.11.0.0
         - colour-accelerate < 0 # GHC 8.4 via base-4.11.0.0
         - lens-accelerate < 0 # GHC 8.4 via base-4.11.0.0
         - mwc-random-accelerate < 0 # GHC 8.4 via accelerate
@@ -809,9 +814,9 @@ packages:
         - cufft
         - cublas
         - cusparse
-        - cusolver
+        - cusolver < 0 #4029
         - nvvm
-        - wide-word
+        - wide-word # @erikd
 
     "Dan Burton <danburton.email@gmail.com> @DanBurton":
         - ANum
@@ -1113,7 +1118,7 @@ packages:
         - netwire
         - netwire-input
         - netwire-input-glfw
-        - yoga
+        - yoga < 0 # `gcc' failed in phase `C Compiler'. (Exit code: 1) https://github.com/Mokosha/yoga-hs/issues/2
         - freetype2
         - HCodecs
 
@@ -1259,7 +1264,7 @@ packages:
         - HaskellNet-SSL
 
     "Jens Petersen <juhpetersen@gmail.com> @juhp":
-        - cabal-rpm
+        # - cabal-rpm
         - fedora-haskell-tools
         - rpmbuild-order
         - simple-cmd
@@ -1762,6 +1767,7 @@ packages:
         - annotated-wl-pprint
 
     "Yitz Gale <gale@sefer.org> @ygale":
+        - boolean-normal-forms
         - strict-concurrency
         - timezone-series
         - timezone-olson
@@ -1857,6 +1863,7 @@ packages:
         - backprop
         - bins
         - configurator-export
+        - decidable
         - emd
         - hamilton
         - hmatrix-backprop
@@ -1999,9 +2006,9 @@ packages:
     "Stack Builders stackage@stackbuilders.com @stackbuilders":
         - atomic-write
         - dbcleaner
-        - dotenv
+        - dotenv < 0.6.0.1 # https://github.com/commercialhaskell/stackage/issues/3955
         - hapistrano
-        - inflections
+        - inflections < 0.4.0.4 # https://github.com/commercialhaskell/stackage/issues/3955
         - stache
         - scalendar
 
@@ -2883,9 +2890,6 @@ packages:
         - codo-notation
         - language-fortran < 0 # build failure with GHC 8.4
 
-    "Philipp Schuster <phischu3000@gmail.com> @phischu":
-        - haskell-names < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-
     "Shao Cheng <astrohavoc@gmail.com> @TerrorJack":
         - cabal-toolkit < 0 # GHC 8.4 via Cabal-2.2.0.0
         - direct-rocksdb < 0 # GHC 8.4 via Cabal-2.2.0.0
@@ -3625,6 +3629,12 @@ packages:
     "Eric Torreborre <etorreborre@yahoo.com> @etorreborre":
         - registry
 
+    "Ryota Kameoka <kameoka.ryota@gmail.com> @ryota-ka":
+        - duration
+
+    "Takenobu Tani <takenobu.hs@gmail.com> @takenobu-hs":
+        - ghci-hexcalc
+
     # If you stop maintaining a package you can move it here.
     # It will then be disabled if it starts causing problems.
     # See https://github.com/fpco/stackage/issues/1056
@@ -3689,12 +3699,10 @@ packages:
         - DAV < 0
         - DRBG < 0
         - HTF < 0
-        - HTTP < 0
         - HaTeX < 0
         - HandsomeSoup < 0
         - HaskellNet < 0
         - HaskellNet-SSL < 0
-        - IPv6Addr < 0
         - IPv6DB < 0
         - JuicyPixels-extra < 0
         - JuicyPixels-scale-dct < 0
@@ -3815,11 +3823,7 @@ packages:
         - apply-refact < 0
         - approximate < 0
         - arrow-list < 0
-        - asciidiagram < 0
         - asif < 0
-        - asn1-encoding < 0
-        - asn1-parse < 0
-        - asn1-types < 0
         - async-pool < 0
         - atom-conduit < 0
         - authenticate-oauth < 0
@@ -3847,7 +3851,6 @@ packages:
         - bson-lens < 0
         - bugsnag-haskell < 0
         - cabal-install < 0
-        - cabal-rpm < 0
         - cabal2nix < 0
         - cachix < 0
         - cachix-api < 0
@@ -3881,7 +3884,6 @@ packages:
         - compressed < 0
         - conduit-connection < 0
         - configuration-tools < 0
-        - connection < 0
         - consul-haskell < 0
         - containers-unicode-symbols < 0
         - country < 0
@@ -3889,7 +3891,6 @@ packages:
         - cprng-aes < 0
         - cql-io < 0
         - credential-store < 0
-        - criterion < 0
         - crypto-cipher-tests < 0
         - crypto-cipher-types < 0
         - crypto-enigma < 0
@@ -3900,7 +3901,6 @@ packages:
         - cryptocompare < 0
         - cryptohash < 0
         - cryptohash-cryptoapi < 0
-        - cryptonite < 0
         - cryptonite-conduit < 0
         - cryptonite-openssl < 0
         - csg < 0
@@ -3927,7 +3927,6 @@ packages:
         - distribution-opensuse < 0
         - dns < 0
         - docker < 0
-        - doctest-driver-gen < 0
         - download < 0
         - drawille < 0
         - drifter < 0
@@ -3951,7 +3950,6 @@ packages:
         - fay-base < 0
         - fay-dom < 0
         - fb < 0
-        - fedora-haskell-tools < 0
         - feed < 0
         - file-modules < 0
         - filecache < 0
@@ -3980,9 +3978,6 @@ packages:
         - glazier-react < 0
         - glazier-react-widget < 0
         - glib < 0
-        - gloss < 0
-        - gloss-raster < 0
-        - gloss-rendering < 0
         - goggles < 0
         - google-oauth2-jwt < 0
         - graph-wrapper < 0
@@ -4056,12 +4051,9 @@ packages:
         - hsx-jmacro < 0
         - hsyslog-udp < 0
         - http-client-openssl < 0
-        - http-client-tls < 0
-        - http-conduit < 0
         - http-media < 0
         - http-reverse-proxy < 0
         - http-streams < 0
-        - httpd-shed < 0
         - hunit-dejafu < 0
         - hw-json < 0
         - hworker < 0
@@ -4095,8 +4087,6 @@ packages:
         - jmacro-rpc-snap < 0
         - jose < 0
         - jose-jwt < 0
-        - js-flot < 0
-        - js-jquery < 0
         - json-feed < 0
         - json-rpc-client < 0
         - json-rpc-server < 0
@@ -4182,7 +4172,6 @@ packages:
         - papillon < 0
         - parallel-io < 0
         - partial-order < 0
-        - pem < 0
         - perf < 0
         - persistent < 0
         - persistent-iproute < 0
@@ -4226,13 +4215,11 @@ packages:
         - protocol-radius-test < 0
         - protolude < 0
         - publicsuffix < 0
-        - pusher-http-haskell < 0
         - qm-interpolated-string < 0
         - qnap-decrypt < 0
         - rakuten < 0
         - random-bytestring < 0
         - rank2classes < 0
-        - rasterific-svg < 0
         - ratel < 0
         - ratel-wai < 0
         - rattletrap < 0
@@ -4306,7 +4293,6 @@ packages:
         - shake < 0
         - shake-language-c < 0
         - shikensu < 0
-        - simple-log < 0
         - simplest-sqlite < 0
         - slack-web < 0
         - slave-thread < 0
@@ -4324,7 +4310,6 @@ packages:
         - stack < 0
         - statestack < 0
         - static-text < 0
-        - statistics < 0
         - stm-containers < 0
         - stm-hamt < 0
         - store < 0
@@ -4333,7 +4318,6 @@ packages:
         - strive < 0
         - summoner < 0
         - svg-builder < 0
-        - svg-tree < 0
         - swagger2 < 0
         - swish < 0
         - tasty-dejafu < 0
@@ -4358,9 +4342,7 @@ packages:
         - tibetan-utils < 0
         - timer-wheel < 0
         - timerep < 0
-        - tls < 0
         - tls-debug < 0
-        - tls-session-manager < 0
         - transformers-lift < 0
         - triplesec < 0
         - turtle < 0
@@ -4373,7 +4355,6 @@ packages:
         - users < 0
         - users-postgresql-simple < 0
         - users-test < 0
-        - vector-binary-instances < 0
         - vector-sized < 0
         - vector-space < 0
         - vectortiles < 0
@@ -4389,7 +4370,6 @@ packages:
         - wai-slack-middleware < 0
         - wai-transformers < 0
         - wai-websockets < 0
-        - warp-tls < 0
         - warp-tls-uid < 0
         - wave < 0
         - web-plugins < 0
@@ -4408,10 +4388,6 @@ packages:
         - ws < 0
         - wss-client < 0
         - wuss < 0
-        - x509 < 0
-        - x509-store < 0
-        - x509-system < 0
-        - x509-validation < 0
         - xml-html-qq < 0
         - xmonad-contrib < 0
         - xmonad-extras < 0
@@ -4471,7 +4447,6 @@ packages:
         - typography-geometry < 0
         - universe-instances-extended < 0
         - vivid < 0
-        - yoga < 0
 
         # transitive dependencies of packages failing to build
         - butcher < 0
@@ -4501,11 +4476,14 @@ packages:
 
         # https://github.com/commercialhaskell/stackage/issues/3955
         - megaparsec < 7.0.0
-        - hspec-megaparsec < 2.0.0
-        - modern-uri < 0.3.0.0
-        - cue-sheet < 2.0.0
-        - stache < 2.0.0
+        - hspec-megaparsec
+        - modern-uri
+        - cue-sheet
+        - stache
         - neat-interpolation < 0.3.2.3
+
+        # https://github.com/commercialhaskell/stackage/issues/4047
+        - statistics < 0.15
 
 # end of packages
 
@@ -4807,6 +4785,7 @@ skipped-tests:
     # Compilation failures
     - snappy # https://github.com/bos/snappy/issues/1
     - thyme # https://github.com/commercialhaskell/stackage/issues/4003
+    - genvalidity-time # https://github.com/NorfairKing/validity/issues/51
 
     # Runtime issues
     - blank-canvas # Never finishes https://github.com/ku-fpg/blank-canvas/issues/73
@@ -5433,7 +5412,7 @@ github-users:
         - jsl
         - sestrella
         - juanpaucar
-        - cmotoche
+        - CristhianMotoche
     scotty-web:
         - RyanGlScott
         - xich
@@ -5549,6 +5528,7 @@ hide:
 - hs-functors # conflicts with profunctors, see https://github.com/fpco/stackage/issues/3609
 - constraint # conflicts with constraints
 - summoner # conflicts with Prelude in base
+- temporary-rc # conflicts with temporary
 
 # Cryptonite deprecations
 - cipher-aes
