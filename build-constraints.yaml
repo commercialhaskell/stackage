@@ -1403,14 +1403,15 @@ packages:
         - kleene
         - lattices
         - microstache
-        # - monad-http # http-types 0.12
         - OneTuple
         - postgresql-simple-url
         - range-set-list
         - regex-applicative-text
         - servant-dhall
         - servant-swagger-ui
-        # - servant-yaml # yaml-0.9.0 commercialhaskell/stackage#3823
+        - servant-swagger-ui-core
+        - servant-swagger-ui-redoc
+        - servant-yaml
         - singleton-bool
         - spdx < 0 # GHC 8.4 via base-4.11.0.0
         - splitmix
@@ -4242,17 +4243,13 @@ packages:
         - servant-auth-docs < 0
         - servant-auth-server < 0
         - servant-auth-swagger < 0
-        - servant-blaze < 0
-        - servant-cassava < 0
         - servant-checked-exceptions < 0
         - servant-checked-exceptions-core < 0
         - servant-dhall < 0
         - servant-elm < 0
         - servant-exceptions < 0
         - servant-github-webhook < 0
-        - servant-js < 0
         - servant-kotlin < 0
-        - servant-lucid < 0
         - servant-pandoc < 0
         - servant-quickcheck < 0
         - servant-rawm < 0
@@ -4261,9 +4258,6 @@ packages:
         - servant-streaming < 0
         - servant-streaming-client < 0
         - servant-streaming-server < 0
-        - servant-swagger < 0
-        - servant-swagger-ui < 0
-        - servant-swagger-ui-core < 0
         - servant-tracing < 0
         - servant-websockets < 0
         - serverless-haskell < 0
@@ -4998,7 +4992,6 @@ expected-test-failures:
     - http-client-tls # https://github.com/snoyberg/http-client/issues/360
     - http-link-header # https://github.com/myfreeweb/http-link-header/issues/7
     - mmark # https://github.com/commercialhaskell/stackage/issues/3906#issuecomment-413061849
-    - servant-swagger # https://github.com/haskell-servant/servant-swagger/issues/89
     - unicode-show # https://github.com/nushio3/unicode-show/issues/2
     - wreq
     - xml-picklers # https://github.com/Philonous/xml-picklers/issues/5
