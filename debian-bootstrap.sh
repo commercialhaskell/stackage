@@ -99,6 +99,7 @@ apt-get install -y \
     liboath-dev \
     libnotify-dev \
     libopenal-dev \
+    libopenmpi-dev \
     libpango1.0-dev \
     libpcap0.8-dev \
     libpq-dev \
