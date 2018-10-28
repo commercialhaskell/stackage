@@ -230,7 +230,7 @@ docker rm $(docker ps -a -q)
 docker rmi $(docker images -q)
 ```
 
-but `docker pull snoyberg/stackage:nightly` can also be run instead just to update the nightly image say.
+but `docker pull commercialhaskell/stackage:nightly` can also be run instead just to update the nightly image say.
 
 For a new GHC version you should also delete the cache directories on the stackage-build server to
 force all packages to be rebuilt. See: [issue#746](https://github.com/commercialhaskell/stackage/issues/746). Eg:
@@ -241,14 +241,16 @@ This should also be done when moving the Nightly docker image to a new version o
 
 If you're impatient and would like to build the Docker image on the
 build server instead of waiting for Docker Hub, you can run the
-following command:
+following command (replacing `BRANCH=nightly` if the image for a different branch is desired):
 
 ```
+BRANCH=nightly
 DIR=$(mktemp -d)
 (cd $DIR \
   && git clone https://github.com/commercialhaskell/stackage \
   && cd stackage \
-  && docker build --tag snoyberg/stackage:nightly .)
+  && git checkout $BRANCH
+  && docker build --tag commercialhaskell/stackage:$BRANCH .)
 rm -rf $DIR
 ```
 
