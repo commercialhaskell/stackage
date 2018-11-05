@@ -314,7 +314,10 @@ develop this advice over time. For now: if you're not sure, ask for guidance.
 __`NOPLAN=1`__ If you wish to rerun a build without recalculating a
 build plan, you can set the environment variable `NOPLAN=1`. This is
 useful for such cases as an intermittent test failure, out of memory
-condition, or manually tweaking the plan file.
+condition, or manually tweaking the plan file. (When using `NOPLAN=1`,
+if one needs to revert one package, say due to a build or test regression,
+one can edit `current-plan.yaml` and updated the SHA256 hash of the .cabal file,
+to avoid having to rebuild everything again.)
 
 Note LTS builds inherit the current Hackage data (stack updated for Nigthly) to avoid excess extra rebuilding.
 
