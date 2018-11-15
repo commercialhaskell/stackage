@@ -3794,7 +3794,6 @@ packages:
         - bench < 0
         - bhoogle < 0
         - binary-orphans < 0
-        - bins < 0
         - bitcoin-api < 0
         - bitcoin-api-extra < 0
         - bitcoin-block < 0
@@ -3865,7 +3864,6 @@ packages:
         - edit < 0
         - ekg-core < 0
         - ekg-statsd < 0
-        - emd < 0
         - enummapset < 0
         - envy < 0
         - event < 0
@@ -3913,7 +3911,6 @@ packages:
         - gym-http-api < 0
         - hOpenPGP < 0
         - hailgun < 0
-        - hamilton < 0
         - handwriting < 0
         - happstack-server < 0
         - hasbolt < 0
@@ -3952,8 +3949,6 @@ packages:
         - hledger-lib < 0
         - hledger-ui < 0
         - hledger-web < 0
-        - hmatrix-backprop < 0
-        - hmatrix-vector-sized < 0
         - hoopl < 0
         - hopenpgp-tools < 0
         - hpqtypes < 0
@@ -4194,7 +4189,6 @@ packages:
         - users < 0
         - users-postgresql-simple < 0
         - users-test < 0
-        - vector-sized < 0
         - vector-space < 0
         - vectortiles < 0
         - wai-cli < 0
@@ -4952,6 +4946,12 @@ expected-haddock-failures:
     - classy-prelude-yesod
     - haddock-library # https://github.com/fpco/stackage/issues/3236
 
+    # Modules use compiler plugins
+    # https://github.com/haskell/haddock/issues/900
+    - bins
+    - emd
+    - hmatrix-backprop
+
 # end of expected-haddock-failures
 
 # For packages with haddock issues
@@ -5000,7 +5000,6 @@ skipped-benchmarks:
     - IntervalMap
     - ad
     - attoparsec
-    - backprop
     - binary-list
     - binary-tagged
     - bit-stream
