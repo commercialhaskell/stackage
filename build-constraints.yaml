@@ -7,6 +7,10 @@ cabal-format-version: "2.2"
 
 # Constraints for brand new builds
 packages:
+    "Edward Wastell <edward@wastell.co.uk> @edwardwas":
+        - TotalMap
+        - sized-grid
+
     "Antonio Alonso Dominguez <alonso.domin@gmail.com> @alonsodomin":
         - hschema
         - hschema-aeson
@@ -520,6 +524,9 @@ packages:
         - hjsmin
         - language-javascript
         - Strafunski-StrategyLib
+
+    "Luke  Lau <luke_lau@icloud.com> @bubba":
+        - lsp-test
 
     "Alfredo Di Napoli <alfredo.dinapoli@gmail.com> @adinapoli":
         - mandrill < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
@@ -1116,10 +1123,12 @@ packages:
         - wai-routing
         - zeromq4-haskell
 
-    "trupill@gmail.com":
+    "Alejandro Serrano <trupill@gmail.com> @serras":
         - djinn-lib < 0 # build failure with GHC 8.4
         - djinn-ghc < 0 # GHC 8.4 via djinn-lib
         - generics-mrsop
+        - kind-apply
+        - kind-generics
 
     "Matvey Aksenov <matvey.aksenov@gmail.com> @supki":
         - terminal-size
@@ -1746,7 +1755,7 @@ packages:
         - wuss
 
         - bmp # @benl23x5
-        - ekg-statsd < 0 # @tibbe
+        - ekg-statsd
         - gloss # @benl23x5
         - gloss-rendering # @benl23x5
         - gpolyline # @fegu
@@ -1980,7 +1989,7 @@ packages:
         - data-ordlist
         - digits
         - dns
-        - ekg-core < 0
+        - ekg-core
         - friday < 0
         - friday-juicypixels < 0
         - hbeanstalk
@@ -3310,7 +3319,8 @@ packages:
         - gdp
 
     "Levent Erkok <erkokl@gmail.com> @LeventErkok":
-        - sbv < 0 # DependencyFailed (PackageName "crackNum")
+        - sbv
+        - crackNum
 
     "János Tapolczai <janos.tapolczai@gmail.com> @jtapolczai":
         - listsafe
@@ -3735,7 +3745,6 @@ packages:
         - wai-routing < 0 # DependencyFailed (PackageName "wai-route")
         - fingertree-psqueue < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - cli < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - crackNum < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - prim-array < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - quickcheck-classes < 0 # DependencyFailed (PackageName "prim-array")
         - xxhash < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
@@ -3823,9 +3832,6 @@ packages:
         # https://github.com/commercialhaskell/stackage/issues/4056
         - postgresql-simple < 0.6
 
-        # https://github.com/commercialhaskell/stackage/issues/4066
-        - generics-sop < 0.4.0.0
-
         # https://github.com/commercialhaskell/stackage/issues/4073
         - pretty-show < 1.9
 
@@ -3843,6 +3849,9 @@ packages:
 
         # https://github.com/commercialhaskell/stackage/issues/4131
         - http-api-data < 0.4
+
+        # https://github.com/commercialhaskell/stackage/issues/4156
+        - base-unicode-symbols < 0.2.3
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
@@ -4318,6 +4327,7 @@ expected-test-failures:
     - jvm
     - katip-elasticsearch # elasticsearch
     - log # ElasticSearch
+    - lsp-test
     - lxd-client # Needs LXD, not available on debian
     - mangopay # https://github.com/prowdsponsor/mangopay/issues/30
     - memcached-binary # memcached
@@ -4420,6 +4430,7 @@ expected-test-failures:
     # these if we want them fixed
     - skein # openfile: does not exist https://github.com/fpco/stackage/issues/1187
     - haskell-tools-daemon # openFile: permission denied https://github.com/fpco/stackage/issues/2502
+    - rounded # ExitFailure -11
 
     # Doctests require hidden Glob package
     - makefile
