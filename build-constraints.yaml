@@ -7,10 +7,14 @@ cabal-format-version: "2.2"
 
 # Constraints for brand new builds
 packages:
+
     "Christopher Davenport <chris@christopherdavenport.tech> @ChristopherDavenport":
         - nonemptymap
         - hinfo
     
+    "Joerg Winter <jwin1968@gmail.com> @clojj":
+        - rosezipper
+        
     "Edward Wastell <edward@wastell.co.uk> @edwardwas":
         - TotalMap
         - sized-grid
@@ -1127,9 +1131,11 @@ packages:
         - wai-routing
         - zeromq4-haskell
 
-    "trupill@gmail.com":
+    "Alejandro Serrano <trupill@gmail.com> @serras":
         - djinn-lib < 0 # build failure with GHC 8.4
         - djinn-ghc < 0 # GHC 8.4 via djinn-lib
+        - kind-apply
+        - kind-generics
 
     "Matvey Aksenov <matvey.aksenov@gmail.com> @supki":
         - terminal-size
@@ -1756,7 +1762,7 @@ packages:
         - wuss
 
         - bmp # @benl23x5
-        - ekg-statsd < 0 # @tibbe
+        - ekg-statsd
         - gloss # @benl23x5
         - gloss-rendering # @benl23x5
         - gpolyline # @fegu
@@ -1990,7 +1996,7 @@ packages:
         - data-ordlist
         - digits
         - dns
-        - ekg-core < 0
+        - ekg-core
         - friday < 0
         - friday-juicypixels < 0
         - hbeanstalk
@@ -2783,6 +2789,7 @@ packages:
         - bulletproofs
         - pedersen-commitment
         - merkle-tree
+        - oblivious-transfer
 
     "Daishi Nakajima <nakaji.dayo@gmail.com> @nakaji-dayo":
         - api-field-json-th
@@ -3682,7 +3689,7 @@ packages:
         - kazura-queue
 
     "Eric Torreborre <etorreborre@yahoo.com> @etorreborre":
-        - registry < 0
+        - registry
 
     "Ryota Kameoka <kameoka.ryota@gmail.com> @ryota-ka":
         - duration
@@ -3832,9 +3839,6 @@ packages:
 
         # https://github.com/commercialhaskell/stackage/issues/4056
         - postgresql-simple < 0.6
-
-        # https://github.com/commercialhaskell/stackage/issues/4066
-        - generics-sop < 0.4.0.0
 
         # https://github.com/commercialhaskell/stackage/issues/4073
         - pretty-show < 1.9
