@@ -201,7 +201,9 @@ purely on Stackage Curator discretion. The most common examples are:
     considered a major version bump, and disallowed in an LTS minor
     version bump. However, if a package is following SemVer, this
     would not be a breaking change, and curators may elect to include
-    it.
+    it. Note though that curators and their tooling will not know your
+    package is following SemVer, so in this case you would have to open
+    an issue on the [lts-haskell repo](https://github.com/fpco/lts-haskell/issues/new).
 
 *   If a package has overly restrictive version bounds on a
     dependency, in particular constraining a minor version
