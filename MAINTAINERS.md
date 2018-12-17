@@ -21,6 +21,9 @@ To add your package you can edit [`build-constraints.yaml`](https://github.com/f
 
 If your library depends on a C library, please add it to the `debian-bootstrap.sh` script.
 
+Any dependencies of your packages that are not already part of stackage are added implictly, but it is prefered
+to add all packages explicitly. It is planned to remove this behaviour in the future.
+
 After doing that commit with a message like "add foo-bar" and send a pull request.
 
 The continuous integration job will do some checks to see if your package's dependencies are up-to-date.
@@ -201,7 +204,9 @@ purely on Stackage Curator discretion. The most common examples are:
     considered a major version bump, and disallowed in an LTS minor
     version bump. However, if a package is following SemVer, this
     would not be a breaking change, and curators may elect to include
-    it.
+    it. Note though that curators and their tooling will not know your
+    package is following SemVer, so in this case you would have to open
+    an issue on the [lts-haskell repo](https://github.com/fpco/lts-haskell/issues/new).
 
 *   If a package has overly restrictive version bounds on a
     dependency, in particular constraining a minor version
