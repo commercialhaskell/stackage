@@ -434,7 +434,7 @@ packages:
         - yesod
         - yesod-auth
         - authenticate-oauth
-        - yesod-bin
+        - yesod-bin < 0 # yaml 0.11 https://github.com/yesodweb/yesod/issues/1566
         - yesod-eventsource
         - yesod-gitrepo
         - yesod-newsfeed
@@ -1083,7 +1083,7 @@ packages:
         #
         - hledger-lib
         - hledger
-        - hledger-ui
+        - hledger-ui < 0 # QuickCheck 2.12 via brick via data-clist
         - hledger-web
         - hledger-api
         #
@@ -1804,6 +1804,9 @@ packages:
         - pipes-csv
         - pipes-mongodb < 0 # GHC 8.4 via mongoDB
         - servant-elm
+        - servant-streaming < 0 # servant 0.15
+        - servant-streaming-client < 0 # servant-client-core 0.15
+        - servant-streaming-server < 0 # servant-server 0.15
         - skeletons < 0 # build failure with GHC 8.4
 
     "David Raymond Christiansen <david@davidchristiansen.dk> @david-christiansen":
@@ -2764,7 +2767,7 @@ packages:
         - hw-eliasfano
         - hw-excess
         - hw-hedgehog
-        - hw-hspec-hedgehog
+        - hw-hspec-hedgehog < 0 # hspec 2.6
         - hw-int
         - hw-ip
         - hw-fingertree < 0 # build failure with GHC 8.4
@@ -3128,7 +3131,7 @@ packages:
         - massiv-io
 
     "Hans-Peter Deifel <hpd@hpdeifel.de> @hpdeifel":
-        - hledger-iadd
+        - hledger-iadd < 0 # QuickCheck 2.12 via brick via data-clist
 
     "Roy Levien <royl@aldaron.com> @orome":
         - crypto-enigma
@@ -3552,7 +3555,7 @@ packages:
 
     "Domen Kozar <domen@enlambda.com> @domenkozar":
         - cachix < 0
-        - cachix-api
+        - cachix-api < 0 # servant 0.15 via servant-streaming
         - mixpanel-client
         - pretty-sop
         - servant-auth
@@ -3561,9 +3564,6 @@ packages:
         - servant-auth-swagger
         - servant-auth-docs
         - servant-elm
-        - servant-streaming
-        - servant-streaming-client
-        - servant-streaming-server
         - streaming-wai
         - systemd
 
@@ -3738,7 +3738,7 @@ packages:
 
     "Josef Thorne <joseft.168@gmail.com> @Grendel-Grendel-Grendel":
         - focuslist
-        
+
     "Pavan Rikhi <pavan.rikhi@gmail.com> @prikhi":
         - hs-php-session
 
@@ -3799,6 +3799,8 @@ packages:
         - hastache < 0 # GHC 8.4 via base-4.11.0.0
         - attoparsec-time < 0 # GHC 8.4 via doctest-0.15.0
         - syb-with-class < 0 # GHC 8.4 via template-haskell-2.13.0.0
+        - data-clist < 0 # QuickCheck 2.12
+        - brick < 0 # QuickCheck 2.12 via data-clist
 
     # Packages in the build plan that are blocked from inclusion due to
     # compilation failure with ghc 8.6
@@ -3859,38 +3861,11 @@ packages:
         - Win32 == 2.6.1.0
 
     "Stackage upper bounds":
-        # https://github.com/commercialhaskell/stackage/issues/3949
-        - QuickCheck < 2.12
-        - hspec < 2.5.6
-        - hspec-core < 2.5.6
-        - hspec-discover < 2.5.6
-        - hspec-meta < 2.5.6
-        - hspec-contrib < 0.5.1
-        - cassava-conduit < 0.5.1 # https://github.com/commercialhaskell/stackage/pull/4139#issuecomment-443035843
-
-        # https://github.com/commercialhaskell/stackage/issues/4053
-        - yaml < 0.11
-
         # https://github.com/commercialhaskell/stackage/issues/4056
         - postgresql-simple < 0.6
 
         # https://github.com/commercialhaskell/stackage/issues/4073
         - pretty-show < 1.9
-
-        # https://github.com/commercialhaskell/stackage/issues/4130
-        - servant < 0.15
-        - servant-client < 0.15
-        - servant-client-core < 0.15
-        - servant-foreign < 0.15
-        - servant-server < 0.15
-        - servant-docs < 0.11.3
-        - servant-js < 0.9.4
-        - servant-mock < 0.8.5
-        - servant-swagger < 1.1.7
-        - servant-yaml < 0.1.0.1
-
-        # https://github.com/commercialhaskell/stackage/issues/4131
-        - http-api-data < 0.4
 
         # https://github.com/commercialhaskell/stackage/issues/4167
         - protocol-buffers < 2.4.12
@@ -4139,6 +4114,41 @@ skipped-tests:
     - zlib # tasty-quickcheck, tasty-hunit, tasty
     - MissingH # testpack, quickcheck
     - DBFunctor # missing file test_options.csv
+    # A new swath of tests per QuickCheck 2.12, hspec-2.6
+    - hw-balancedparens # via QuickCheck-2.12.6.1
+    - hw-bits # via QuickCheck-2.12.6.1
+    - hw-excess # via QuickCheck-2.12.6.1
+    - hw-prim # via QuickCheck-2.12.6.1
+    - hw-rankselect # via QuickCheck-2.12.6.1
+    - hw-rankselect-base # via QuickCheck-2.12.6.1
+    - psqueues # via QuickCheck-2.12.6.1
+    - pure-zlib # via QuickCheck-2.12.6.1
+    - antiope-s3 # via hspec-2.6.0
+    - cayley-client # via hspec-2.6.0
+    - clay # via hspec-2.6.0
+    - codec-rpm # via hspec-2.6.0
+    - hw-balancedparens # via hspec-2.6.0
+    - hw-excess # via hspec-2.6.0
+    - hw-ip # via hspec-2.6.0
+    - hw-json # via hspec-2.6.0
+    - hw-prim # via hspec-2.6.0
+    - hw-rankselect # via hspec-2.6.0
+    - hw-rankselect-base # via hspec-2.6.0
+    - hw-streams # via hspec-2.6.0
+    - clay # via hspec-discover-2.6.0
+    - antiope-s3 # via hw-hspec-hedgehog
+    - arbor-lru-cache # via hw-hspec-hedgehog
+    - asif # via hw-hspec-hedgehog
+    - bits-extra # via hw-hspec-hedgehog
+    - hw-bits # via hw-hspec-hedgehog
+    - hw-dsv # via hw-hspec-hedgehog
+    - hw-fingertree-strict # via hw-hspec-hedgehog
+    - hw-ip # via hw-hspec-hedgehog
+    - hw-prim # via hw-hspec-hedgehog
+    - hw-rankselect # via hw-hspec-hedgehog
+    - hw-rankselect-base # via hw-hspec-hedgehog
+    - hw-simd # via hw-hspec-hedgehog
+    - hw-streams # via hw-hspec-hedgehog
 
     # Blocked due to tests failing to compile for GHC 8.6
     - async-refresh
