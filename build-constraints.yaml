@@ -3468,7 +3468,7 @@ packages:
 
     "Tim McGilchrist <timmcgil@gmail.com>  @tmcgilchrist":
         - riak < 0 # via aeson-1.4.0.0
-        - riak-protobuf
+        - riak-protobuf < 0 # build failure: https://github.com/commercialhaskell/stackage/issues/4167
         - airship < 0 # GHC 8.4 via http-media
         - hedgehog-corpus
 
@@ -3863,10 +3863,6 @@ packages:
     "Stackage upper bounds":
         # https://github.com/commercialhaskell/stackage/issues/4073
         - pretty-show < 1.9
-
-        # https://github.com/commercialhaskell/stackage/issues/4167
-        - protocol-buffers < 2.4.12
-        - protocol-buffers-descriptor < 2.4.12
 
         # https://github.com/commercialhaskell/stackage/issues/4193
         - Earley < 0.13
