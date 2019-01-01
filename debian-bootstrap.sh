@@ -299,3 +299,8 @@ add-apt-repository ppa:ubuntu-toolchain-r/test \
 
 export CLANG_PURE_LLVM_LIB_DIR=/usr/lib/llvm-3.9/lib;
 export CLANG_PURE_LLVM_INCLUDE_DIR=/usr/lib/llvm-3.9/include;
+
+
+# finally run:
+ldconfig
+# EOF: don't build anything below this line
