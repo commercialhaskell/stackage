@@ -90,6 +90,7 @@ apt-get install -y \
     libpango1.0-dev \
     libpcap0.8-dev \
     libpq-dev \
+    libprotobuf-dev \
     libre2-dev \
     librocksdb-dev \
     libsdl1.2-dev \
@@ -100,6 +101,7 @@ apt-get install -y \
     libsdl2-ttf-dev \
     libsnappy-dev \
     libsndfile1-dev \
+    libsodium-dev \
     libsox-dev \
     libsqlite3-dev \
     libssl-dev \
@@ -215,30 +217,16 @@ echo "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/" > /etc/ld.so.conf
 ERLANG_VERSION="20.2.2"
 ERLANG_DEB_FILE="esl-erlang_21.2-1~ubuntu~bionic_amd64.deb"
 pushd /tmp \
-    && wget http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_1_general/${ERLANG_DEB_FILE}
+    && wget http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_1_general/${ERLANG_DEB_FILE} \
     && (dpkg -i ${ERLANG_DEB_FILE}; apt-get install -yf) \
     && rm ${ERLANG_DEB_FILE} \
     && popd
-
-# Install version 3 of the protobuf compiler.  (The `protobuf-compiler` package only
-# supports version 2.)
-curl -OL https://github.com/google/protobuf/releases/download/v3.3.0/protoc-3.3.0-linux-x86_64.zip \
-  && sudo unzip -o protoc-3.3.0-linux-x86_64.zip -d /usr bin/protoc \
-  && rm -f protoc-3.3.0-linux-x84_64.zip
 
 # Install the TensorFlow C API.
 curl https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-1.1.0.tar.gz > libtensorflow.tar.gz \
     && sudo tar zxf libtensorflow.tar.gz -C /usr \
     && rm libtensorflow.tar.gz \
     && ldconfig
-
-# Install libsodium
-curl https://download.libsodium.org/libsodium/releases/LATEST.tar.gz > libsodium.tar.gz \
-	&& sudo tar xfz libsodium.tar.gz -C /tmp \
-	&& rm libsodium.tar.gz \
-	&& cd /tmp/libsodium-stable \
-	&& ./configure \
-	&& make install
 
 # Install secp256k1
 cd /tmp \
