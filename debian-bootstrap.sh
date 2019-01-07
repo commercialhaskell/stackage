@@ -12,21 +12,13 @@
 
 set -exu
 
-mkdir /home/stackage -p
+mkdir -p /home/stackage
 
+export LANG=C.UTF-8
 export DEBIAN_FRONTEND=noninteractive
-apt-get update
-apt-get install -y software-properties-common
-
-add-apt-repository ppa:hvr/ghc -y
-apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy main'
-add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy-apache24-compat main'
-add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy-libjpeg62-compat main'
-
-GHCVER=8.6.3
 
 apt-get update
+
 apt-get install -y \
     apt-transport-https \
     build-essential \
@@ -37,10 +29,6 @@ apt-get install -y \
     fsharp \
     g++ \
     gawk \
-    ghc-$GHCVER \
-    ghc-$GHCVER-dyn \
-    ghc-$GHCVER-htmldocs \
-    ghc-$GHCVER-prof \
     git \
     gnupg \
     gradle \
@@ -145,6 +133,7 @@ apt-get install -y \
     r-base \
     r-base-dev \
     ruby-dev \
+    software-properties-common \
     sudo \
     unixodbc-dev \
     wget \
@@ -152,6 +141,11 @@ apt-get install -y \
     z3 \
     zip \
     zlib1g-dev
+
+GHCVER=8.6.3
+
+add-apt-repository ppa:hvr/ghc -y
+apt-get install -y ghc-$GHCVER ghc-$GHCVER-dyn ghc-$GHCVER-htmldocs ghc-$GHCVER-prof
 
 # odbc
 curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
