@@ -99,6 +99,7 @@ apt-get install -y \
     libsdl2-image-dev \
     libsdl2-mixer-dev \
     libsdl2-ttf-dev \
+    libsecp256k1-dev \
     libsnappy-dev \
     libsndfile1-dev \
     libsodium-dev \
@@ -227,16 +228,6 @@ curl https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-l
     && sudo tar zxf libtensorflow.tar.gz -C /usr \
     && rm libtensorflow.tar.gz \
     && ldconfig
-
-# Install secp256k1
-cd /tmp \
-  && git clone https://github.com/bitcoin-core/secp256k1.git \
-  && cd secp256k1 \
-  && ./autogen.sh \
-  && ./configure --enable-module-recovery \
-  && make \
-  && make install
-
 
 # NOTE: also update Dockerfile when cuda version changes
 # Install CUDA toolkit
