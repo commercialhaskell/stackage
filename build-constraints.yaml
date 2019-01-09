@@ -2319,7 +2319,7 @@ packages:
 
     "Peter Simons <simons@cryp.to> @peti":
         - cabal2nix
-        - cabal2spec
+        # - cabal2spec # https://github.com/peti/cabal2spec/issues/2
         - cgi
         - distribution-nixpkgs
         - distribution-opensuse
@@ -3359,8 +3359,10 @@ packages:
         - hmatrix-morpheus
 
     "Edward Amsden <edwardamsden@gmail.com> @eamsden":
-        - h2c
-        - bno055-haskell
+        []
+        # https://bitbucket.org/fmapE/h2c/issues/1/compilation-failure-since-upgrading-to
+        #- h2c
+        #- bno055-haskell
 
     "Lars Brünjes <brunjlar@gmail.com> @brunjlar":
         - pell < 0 # GHC 8.4 via arithmoi
@@ -4582,6 +4584,15 @@ expected-test-failures:
     # Linting failures (these may break every time HLint gets updated so keep them disabled)
     # https://www.snoyman.com/blog/2017/11/future-proofing-test-suites
     - folds
+
+    # https://github.com/pruvisto/heap/issues/11
+    - heap
+
+    # https://github.com/commercialhaskell/stackage/issues/4289
+    - Diff
+
+    # https://gitlab.com/twittner/zeromq-haskell/issues/63
+    - zeromq4-haskell
 
 # end of expected-test-failures
 
