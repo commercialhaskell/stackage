@@ -260,3 +260,10 @@ export CLANG_PURE_LLVM_INCLUDE_DIR=/usr/lib/llvm-6.0/include;
 # finally run:
 ldconfig
 # EOF: don't build anything below this line
+
+# protoc, for proto-lens-combinators test suite
+# Instructions from: https://google.github.io/proto-lens/installing-protoc.html
+PROTOC_ZIP=protoc-3.3.0-linux-x86_64.zip
+curl -OL https://github.com/google/protobuf/releases/download/v3.3.0/$PROTOC_ZIP
+sudo unzip -o $PROTOC_ZIP -d /usr/local bin/protoc
+rm -f $PROTOC_ZIP
