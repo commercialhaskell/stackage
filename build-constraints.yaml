@@ -4350,8 +4350,10 @@ skipped-tests:
     - json-autotype # https://github.com/commercialhaskell/stackage/issues/4185
 # end of skipped-tests
 
-# Tests which we should build and run, but which are expected to fail. We
-# should not fail a build based on a test failure for one of these packages.
+# Tests listed in expected-test-failures configure correctly but may fail to run
+# or even build correctly. A Stackage build should not fail based on a test build
+# or test run failure for these packages.
+# (Testsuites which can't configure should be placed under skipped-tests.)
 expected-test-failures:
 
     # GHC 8.4

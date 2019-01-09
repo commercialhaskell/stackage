@@ -140,8 +140,9 @@ exist.
 ### Expecting test/benchmark/haddock failures
 
 The difference from the `skipped` sections is that items listed here
-are compiled and their dependencies are taken into account. These
-sections also have sub sections with groups and descriptions.
+are compiled and their dependencies are taken into account
+(but they are allowed to fail to build).
+These sections also have subsections with groups and descriptions.
 
 One big category of test suites in this section are those requiring
 running services. We don't want to run those, but we do want to check
