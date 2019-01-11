@@ -143,7 +143,8 @@ apt-get install -y \
     xclip \
     z3 \
     zip \
-    zlib1g-dev
+    zlib1g-dev \
+    zsh
 
 GHCVER=8.6.3
 
