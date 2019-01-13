@@ -4022,47 +4022,9 @@ package-flags:
 
 # Special configure options for individual packages
 
-configure-args:
-  jni:
-  - --extra-lib-dirs
-  - /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server
-  - --extra-include-dirs
-  - /usr/lib/jvm/java-8-openjdk-amd64/include
-  - --extra-include-dirs
-  - /usr/lib/jvm/java-8-openjdk-amd64/include/linux
-  jvm:
-  - --extra-lib-dirs
-  - /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server
-  - --extra-include-dirs
-  - /usr/lib/jvm/java-8-openjdk-amd64/include
-  - --extra-include-dirs
-  - /usr/lib/jvm/java-8-openjdk-amd64/include/linux
-  jvm-streaming:
-  - --extra-lib-dirs
-  - /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server
-  - --extra-include-dirs
-  - /usr/lib/jvm/java-8-openjdk-amd64/include
-  - --extra-include-dirs
-  - /usr/lib/jvm/java-8-openjdk-amd64/include/linux
-  sparkle:
-  - --extra-lib-dirs
-  - /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server
-  - --extra-include-dirs
-  - /usr/lib/jvm/java-8-openjdk-amd64/include
-  - --extra-include-dirs
-  - /usr/lib/jvm/java-8-openjdk-amd64/include/linux
-  hocilib:
-  - --extra-lib-dirs
-  - /usr/local/lib
-  clang-pure:
-  - --extra-lib-dirs
-  - /usr/lib/llvm-3.7/lib
-  - --extra-include-dirs
-  - /usr/lib/llvm-3.7/include
-  secp256k1-haskell:
-  - --extra-lib-dirs
-  - /usr/local/lib
-
+# This used to be used for extra-include-dirs and extra-lib-dirs
+# Instead, we set this in the Docker image itself
+configure-args: {}
 # end of configure-args
 
 

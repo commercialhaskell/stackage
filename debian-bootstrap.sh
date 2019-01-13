@@ -268,3 +268,13 @@ PROTOC_ZIP=protoc-3.3.0-linux-x86_64.zip
 curl -OL https://github.com/google/protobuf/releases/download/v3.3.0/$PROTOC_ZIP
 sudo unzip -o $PROTOC_ZIP -d /usr bin/protoc
 rm -f $PROTOC_ZIP
+
+# Update library search paths
+echo /usr/local/cuda-10.0/lib64 > /etc/ld.so.conf.d/cuda.conf
+echo /usr/local/cuda-10.0/nvvm/lib64 >> /etc/ld.so.conf.d/cuda.conf
+
+echo /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server > /etc/ld.so.conf.d/java.conf
+
+echo /usr/lib/llvm-3.7/lib > /etc/ld.so.conf.d/llvm.conf
+
+ldconfig
