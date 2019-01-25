@@ -15,6 +15,13 @@ bunzip2 stackage-curator.bz2
 chmod +x stackage-curator
 mv stackage-curator ~/.local/bin
 
+# Get new stackage-curator
+CURATOR2=stackage-curator-2-d1f0fde156245ddbb6656461f3f3531ea84488a2
+wget  "https://s3.amazonaws.com/www.snoyman.com/stackage-curator-2/$CURATOR2.bz2"
+bunzip2 "$CURATOR2.bz2"
+chmod +x $CURATOR2
+mv $CURATOR2 ~/.local/bin/stackage-curator-2
+
 # Install GHC
 stack setup $GHCVER
 
@@ -22,4 +29,11 @@ stack setup $GHCVER
 stack update
 
 # Check
-exec stack --resolver ghc-$GHCVER exec stackage-curator check
+stack --resolver ghc-$GHCVER exec stackage-curator check
+
+# New curator check
+stackage-curator-2 update &&
+  stackage-curator-2 constraints &&
+  stackage-curator-2 snapshotincomplete &&
+  stackage-curator-2 snapshot &&
+  stackage-curator-2 checksnapshot
