@@ -237,6 +237,7 @@ packages:
         - checksum
         - combinatorial
         - comfort-graph
+        - comfort-array
         - concurrent-split
         - cutter
         - data-accessor
@@ -252,6 +253,7 @@ packages:
         - fixed-length
         - gnuplot
         - group-by-date < 0 # build failure with GHC 8.4 via hsshellscript
+        - guarded-allocation
         - iff
         - interpolation
         - jack
@@ -268,6 +270,7 @@ packages:
         - pathtype
         - pooled-io
         - probability
+        - quickcheck-transformer
         - sample-frame
         - sample-frame-np
         - set-cover
@@ -289,10 +292,17 @@ packages:
         - prelude-compat
         - fft
         - carray
+        - lapack-ffi-tools
         - netlib-ffi
         - blas-ffi
         - lapack-ffi
-        - lapack-ffi-tools
+        - netlib-carray
+        - blas-carray
+        - lapack-carray
+        - netlib-comfort-array
+        - blas-comfort-array
+        - lapack-comfort-array
+        - hmm-lapack
         # Not a maintainer
         - ix-shapable
 
@@ -2328,7 +2338,7 @@ packages:
 
     "Peter Simons <simons@cryp.to> @peti":
         - cabal2nix
-        # - cabal2spec # https://github.com/peti/cabal2spec/issues/2
+        - cabal2spec
         - cgi
         - distribution-nixpkgs
         - distribution-opensuse
@@ -3612,7 +3622,7 @@ packages:
         - indexed-list-literals
 
     "Dmitry Dzhus <dima@dzhus.org> @dzhus":
-        - csg < 0
+        - csg
         - simple-vec3
         - static-text
         - th-nowq < 0
@@ -4320,6 +4330,9 @@ packages:
 
         # https://github.com/commercialhaskell/stackage/issues/4316
         - hsdev < 0.3.3
+
+        # https://github.com/commercialhaskell/stackage/issues/4325
+        - wreq < 0.5.3.2
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
