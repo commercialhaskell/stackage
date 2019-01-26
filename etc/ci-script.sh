@@ -16,7 +16,7 @@ chmod +x stackage-curator
 mv stackage-curator ~/.local/bin
 
 # Get new stackage-curator
-CURATOR2=stackage-curator-2-d1f0fde156245ddbb6656461f3f3531ea84488a2
+CURATOR2=stackage-curator-2-9132b4b184f1f7f27c4c80ec0609460cea22ae75
 wget  "https://s3.amazonaws.com/www.snoyman.com/stackage-curator-2/$CURATOR2.bz2"
 bunzip2 "$CURATOR2.bz2"
 chmod +x $CURATOR2
