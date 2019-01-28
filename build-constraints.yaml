@@ -361,6 +361,7 @@ packages:
         - goggles
         - plot-light
         - mapquest-api
+        - datasets        
 
     "Joseph Canero <jmc41493@gmail.com> @caneroj1":
         - sqlite-simple-errors
@@ -1876,7 +1877,7 @@ packages:
         - composition-extra
         - every
         - extractable-singleton
-        - follow-file < 0 # https://github.com/fpco/stackage/issues/3551
+        - follow-file
         - HSet
         - markup < 0 # GHC 8.4 via clay
         - monad-control-aligned
@@ -2082,6 +2083,7 @@ packages:
         - transformers-lift
         - union
         - named
+        - inj
 
     "Stack Builders stackage@stackbuilders.com @stackbuilders":
         - atomic-write
@@ -3142,6 +3144,8 @@ packages:
         - bookkeeping < 0 # GHC 8.4 BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - ochintin-daicho < 0 # GHC 8.4 DependencyFailed (PackageName "bookkeeping")
         - transaction
+        - tonaparser
+        - tonalude
 
     "Marcin Tolysz <tolysz@gmail.com> @tolysz":
         - rawstring-qm
@@ -3154,7 +3158,6 @@ packages:
         - menshen
 
     "Tom Nielsen <tanielsen@gmail.com> @glutamate":
-        - datasets < 0
         - plotlyhs
         - lucid-extras
         - inliterate
@@ -4298,18 +4301,43 @@ packages:
         - rdf < 0
         - universe < 0
 
+        - haskell-src-meta < 0
+        - stylish-haskell < 0
+        - QuasiText < 0
+        - aeson-qq < 0
+        - codo-notation < 0
+        - here < 0
+        - interpolate < 0
+        - interpolatedstring-perl6 < 0
+        - invertible < 0
+        - language-c-quote < 0
+        - postgresql-typed < 0
+        - qm-interpolated-string < 0
+        - bugsnag-haskell < 0
+        - hspec-wai-json < 0
+        - microformats2-parser < 0
+        - elm2nix < 0
+        - hledger < 0
+        - ucam-webauth < 0
+        - aeson-typescript < 0
+        - eventstore < 0
+        - fmt < 0
+        - generics-eot < 0
+        - hpack < 0
+        - servant-elm < 0
+        - hledger-api < 0
+        - hledger-ui < 0
+        - hledger-web < 0
+        - cabal2nix < 0
+        - hpack-dhall < 0
+        - stack < 0
+        - stack2nix < 0
+
     "GHC upper bounds":
         # Need to always match the version shipped with GHC
         - Win32 == 2.6.1.0
 
     "Stackage upper bounds":
-        # https://github.com/commercialhaskell/stackage/issues/4214
-        # waiting on haskell-src-meta
-        - haskell-src-exts < 1.21
-        - hlint < 2.1.12
-        - hoogle < 5.0.17.4
-        - haskell-names < 0.9.5
-
         # https://github.com/kuribas/cubicbezier/issues/9
         # waiting on cubicbezier
         - matrices < 0.5 # build failure because of cubicbezier
@@ -4336,6 +4364,9 @@ packages:
 
         # https://github.com/commercialhaskell/stackage/issues/4325
         - wreq < 0.5.3.2
+
+        # https://github.com/commercialhaskell/stackage/issues/4329
+        - ansi-terminal < 0.9
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
