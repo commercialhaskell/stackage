@@ -6,7 +6,7 @@ mkdir -p ~/.local/bin
 export PATH=$HOME/.local/bin:$PATH
 
 # Get new Stackage curator
-CURATOR2=stackage-curator-2-9132b4b184f1f7f27c4c80ec0609460cea22ae75
+CURATOR2=stackage-curator-2-90cf65bfddea4e8abb5bc68fe83d59a7f8766757
 wget  "https://s3.amazonaws.com/www.snoyman.com/stackage-curator-2/$CURATOR2.bz2"
 bunzip2 "$CURATOR2.bz2"
 chmod +x $CURATOR2
