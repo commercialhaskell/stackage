@@ -777,7 +777,7 @@ packages:
         - hspec-wai
         - hspec-wai-json
         - aeson-qq
-        - interpolate
+        - interpolate < 0 # via haskell-src-meta
         - doctest
         - base-compat
 
@@ -4320,7 +4320,6 @@ packages:
         - aeson-qq < 0
         - codo-notation < 0
         - here < 0
-        - interpolate < 0
         - interpolatedstring-perl6 < 0
         - invertible < 0
         - language-c-quote < 0
@@ -4336,12 +4335,10 @@ packages:
         - eventstore < 0
         - fmt < 0
         - generics-eot < 0
-        - hpack < 0
         - servant-elm < 0
         - hledger-api < 0
         - hledger-ui < 0
         - hledger-web < 0
-        - cabal2nix < 0
         - hpack-dhall < 0
         - stack < 0
         - stack2nix < 0
@@ -4706,6 +4703,7 @@ skipped-tests:
     - system-fileio # ansi-terminal-0.8 via chell
     - system-filepath # ansi-terminal-0.8 via chell
     - buffer-builder # per HTF per cpphs per polyparse (ghc 8.6 failure)
+    - hpack # haskell-src-meta via interpolate
 
     # Blocked by stackage upper bounds. These can be re-enabled once
     # the relevant stackage upper bound is lifted.
