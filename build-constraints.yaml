@@ -899,7 +899,7 @@ packages:
         - grouped-list < 0 # GHC 8.4 via base-4.11.1.0
         - haskintex < 0
         - HaTeX < 0
-        - include-file
+        - include-file < 0 # https://github.com/Daniel-Diaz/include-file/pull/3
         - matrix
         - pcre-light
         - phantom-state
@@ -4789,6 +4789,23 @@ skipped-tests:
     # Uses Cabal's "library internal" stanza feature
     - s3-signer
 
+    # Due to cycles, which are actually just limitations in Stack right now.
+    - call-stack
+    - HUnit
+    - criterion
+    - hspec
+    - foundation
+    - attoparsec
+    - case-insensitive
+    - nanospec
+    - scientific
+    - vector-binary-instances
+    - clock
+    - js-flot
+    - js-jquery
+
+    - relapse # because of include-file
+
     # Requires filesystem access
     - json-autotype # https://github.com/commercialhaskell/stackage/issues/4185
 # end of skipped-tests
@@ -5324,6 +5341,16 @@ skipped-benchmarks:
     # Benchmark dependencies with multiple libraries per package
     # See: https://github.com/fpco/stackage-curator/issues/68
     - tomland
+
+    # Due to cycles, which are actually just limitations in Stack right now.
+    - criterion
+    - foundation
+    - hspec
+    - attoparsec
+    - case-insensitive
+    - nanospec
+    - scientific
+    - vector-binary-instances
 
 # end of skipped-benchmarks
 
