@@ -4,8 +4,10 @@ set -euxo pipefail
 
 export GHCVER=8.6.3
 
+# Download and unpack the stack executable
 mkdir -p ~/.local/bin
 export PATH=$HOME/.local/bin:$PATH
+curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
 
 # Get new Stackage curator
 CURATOR2=stackage-curator-2-6ec4ac4ee5016e2ecd86af2abfa722b94d2a56c3
