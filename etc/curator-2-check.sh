@@ -2,6 +2,8 @@
 
 set -euxo pipefail
 
+export GHCVER=8.6.3
+
 mkdir -p ~/.local/bin
 export PATH=$HOME/.local/bin:$PATH
 
@@ -12,9 +14,12 @@ bunzip2 "$CURATOR2.bz2"
 chmod +x $CURATOR2
 mv $CURATOR2 ~/.local/bin/stackage-curator-2
 
+# Install GHC
+stack setup $GHCVER
+
 # New curator check
 stackage-curator-2 update &&
   stackage-curator-2 constraints &&
   stackage-curator-2 snapshotincomplete &&
   stackage-curator-2 snapshot &&
-  stackage-curator-2 checksnapshot
+  stack --resolver ghc-$GHCVER exec stackage-curator-2 checksnapshot
