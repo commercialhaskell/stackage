@@ -2799,7 +2799,7 @@ packages:
         - hw-eliasfano
         - hw-excess
         - hw-hedgehog
-        - hw-hspec-hedgehog
+        - hw-hspec-hedgehog < 0 # via hspec-2.7.0
         - hw-int
         - hw-ip
         - hw-fingertree < 0 # build failure with GHC 8.4
@@ -4357,11 +4357,6 @@ packages:
         # https://github.com/commercialhaskell/stackage/issues/4297
         - tomland < 1.0.0
 
-        # https://github.com/commercialhaskell/stackage/issues/4306
-        - hspec < 2.7.0
-        - hspec-core < 2.7.0
-        - hspec-discover < 2.7.0
-
         # https://github.com/commercialhaskell/stackage/issues/4312
         - network < 3.0.0.0
         - hsdev < 0.3.3
@@ -4620,6 +4615,23 @@ skipped-tests:
     - tdigest # via tasty-1.2
     - temporary-resourcet # via tasty-1.2
     - these # via tasty-1.2
+    - mmtf # via hspec-2.7.0
+    - records-sop # via hspec-2.7.0
+    - servant # via hspec-2.7.0
+    - servant-client # via hspec-2.7.0
+    - servant-client-core # via hspec-2.7.0
+    - servant-foreign # via hspec-2.7.0
+    - servant-js # via hspec-2.7.0
+    - servant-server # via hspec-2.7.0
+    - servant-swagger # via hspec-2.7.0
+    - vinyl # via hspec-2.7.0
+    - arbor-lru-cache # via hw-hspec-hedgehog via hspec-2.7.0
+    - asif # via hw-hspec-hedgehog via hspec-2.7.0
+    - bits-extra # via hw-hspec-hedgehog via hspec-2.7.0
+    - hw-dsv # via hw-hspec-hedgehog via hspec-2.7.0
+    - hw-fingertree-strict # via hw-hspec-hedgehog via hspec-2.7.0
+    - hw-mquery # via hw-hspec-hedgehog via hspec-2.7.0
+    - hw-simd # via hw-hspec-hedgehog via hspec-2.7.0
 
 
     # Blocked due to tests failing to compile for GHC 8.6
