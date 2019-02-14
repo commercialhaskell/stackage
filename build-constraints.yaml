@@ -174,8 +174,8 @@ packages:
         - normalization-insensitive < 0 # GHC 8.4 via unicode-transforms
 
     "Jacob Stanley <jacob@stanley.io> @jystic":
-        - hedgehog
-        - hedgehog-quickcheck
+        - hedgehog < 0
+        - hedgehog-quickcheck < 0 # via hedgehog
         - transformers-bifunctors
 
     "Walter Schulze <awalterschulze@gmail.com> @awalterschulze":
@@ -2799,10 +2799,10 @@ packages:
         - hw-conduit
         - hw-conduit-merges
         - hw-diagnostics
-        - hw-dsv
+        - hw-dsv < 0 # via hedgehog
         - hw-eliasfano
         - hw-excess
-        - hw-hedgehog
+        - hw-hedgehog < 0 # via hedgehog
         - hw-hspec-hedgehog < 0 # via hspec-2.7.0
         - hw-int
         - hw-ip
@@ -2829,10 +2829,10 @@ packages:
         - antiope-sqs
 
     "George Wilson <george@wils.online> @gwils":
-        - sv
+        - sv < 0 # via hedgehog via hw-dsv
         - sv-cassava
         - sv-core
-        - tasty-hedgehog
+        - tasty-hedgehog < 0 # via hedgehog
 
     "Ismail Mustafa <ismailmustafa@rocketmail.com> @ismailmustafa":
         - handwriting < 0
@@ -3423,10 +3423,10 @@ packages:
     "Kowainik <xrom.xkov@gmail.com> @ChShersh":
         - base-noprelude == 4.12.0.0
         - co-log-core
-        - co-log
+        - co-log < 0
         - first-class-patterns
         - relude
-        - summoner
+        - summoner < 0
         - tomland
         - typerep-map
 
@@ -4275,7 +4275,7 @@ packages:
         - syb-with-class < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - data-clist
         - brick
-        - hedgehog-fn
+        - hedgehog-fn < 0 # via hedgehog (not sure why listed here)
         - lens-labels < 0 # deprecated https://github.com/commercialhaskell/stackage/pull/4358
         - proto-lens-combinators < 0 # deprecated https://github.com/commercialhaskell/stackage/pull/4358
 
@@ -4366,10 +4366,6 @@ packages:
         # https://github.com/commercialhaskell/stackage/issues/4312
         - network < 3.0.0.0
         - hsdev < 0.3.3
-
-        # https://github.com/commercialhaskell/stackage/issues/4329
-        - ansi-terminal < 0.9
-        - tasty < 1.2.1
 
         # https://github.com/commercialhaskell/stackage/issues/4347
         - snap-server < 1.1.1.0
@@ -4708,6 +4704,7 @@ skipped-tests:
     - system-filepath # ansi-terminal-0.8 via chell
     - buffer-builder # per HTF per cpphs per polyparse (ghc 8.6 failure)
     - hpack # haskell-src-meta via interpolate
+    - hedn # via hedgehog via ansi-terminal-0.9
 
     # Blocked by stackage upper bounds. These can be re-enabled once
     # the relevant stackage upper bound is lifted.
