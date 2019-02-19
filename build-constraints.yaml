@@ -588,7 +588,7 @@ packages:
     "Jasper Van der Jeugt @jaspervdj":
         - blaze-html
         - blaze-markup
-        - stylish-haskell
+        - stylish-haskell < 0 # haskell-src-exts 1.21
         # profiteur # aeson-1.4.0.0
         - psqueues
         - websockets
@@ -791,7 +791,7 @@ packages:
         - hspec-wai
         - hspec-wai-json
         - aeson-qq
-        - interpolate < 0 # via haskell-src-meta
+        - interpolate
         - doctest
         - base-compat
 
@@ -894,6 +894,7 @@ packages:
         - ANum
         - basic-prelude
         - composition
+        - haskell-src-meta
         - io-memoize
         - lens-family-th
         - numbers
@@ -3984,7 +3985,6 @@ packages:
         - haskell-lsp-types
         - haskell-src
         - haskell-src-exts
-        - haskell-src-meta
         - heap
         - hex
         - hint
@@ -4338,28 +4338,6 @@ packages:
         - rdf < 0
         - universe < 0
 
-        - haskell-src-meta < 0
-        - stylish-haskell < 0
-        - QuasiText < 0
-        - aeson-qq < 0
-        - codo-notation < 0
-        - here < 0
-        - interpolatedstring-perl6 < 0
-        - invertible < 0
-        - language-c-quote < 0
-        - postgresql-typed < 0
-        - qm-interpolated-string < 0
-        - bugsnag-haskell < 0
-        - hspec-wai-json < 0
-        - microformats2-parser < 0
-        - elm2nix < 0
-        - ucam-webauth < 0
-        - aeson-typescript < 0
-        - eventstore < 0
-        - fmt < 0
-        - generics-eot < 0
-        - servant-elm < 0
-        - stack2nix < 0
 
     "Blocked per http-client-0.6":
         - amazonka < 0 # via http-client-0.6.1
@@ -4652,7 +4630,6 @@ skipped-tests:
     - github # hspec-2.6.0, hspec-discover-2.6.0
     - hackage-security # QuickCheck
     - haddock-library # base-compat-0.10.1, hspec-2.5.1
-    - haskell-src-meta # GHC 8.6, template-haskell
     - http-streams # via snap-server-1.1.0.0
     - indents # tasty 0.12 and tasty-hunit 0.10
     - ip # hspec 2.5 https://github.com/andrewthad/haskell-ip/issues/33
@@ -4825,7 +4802,6 @@ skipped-tests:
     - system-fileio # ansi-terminal-0.8 via chell
     - system-filepath # ansi-terminal-0.8 via chell
     - buffer-builder # per HTF per cpphs per polyparse (ghc 8.6 failure)
-    - hpack # haskell-src-meta via interpolate
 
     # Blocked by stackage upper bounds. These can be re-enabled once
     # the relevant stackage upper bound is lifted.
