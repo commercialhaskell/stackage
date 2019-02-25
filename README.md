@@ -9,7 +9,7 @@ This repository is for package authors and maintainers to get their packages int
 If you simply want to use Stackage as an end user, please follow the instructions on [https://www.stackage.org/](https://www.stackage.org).
 
 We strongly recommend using the Haskell tool stack for doing builds, which
-includes built-in Stackage support: [stack](https://github.com/commercialhaskell/stack) [![Build Status](https://travis-ci.org/commercialhaskell/stack.svg?branch=master)](https://travis-ci.org/commercialhaskell/stack).
+includes built-in Stackage support: [stack](https://github.com/commercialhaskell/stack) [![Build Status](https://dev.azure.com/commercialhaskell/stack/_apis/build/status/commercialhaskell.stack?branchName=master)](https://dev.azure.com/commercialhaskell/stack/_build/latest?definitionId=1?branchName=master).
 
 
 Add your package
