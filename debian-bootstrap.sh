@@ -146,7 +146,7 @@ apt-get install -y \
     zlib1g-dev \
     zsh
 
-GHCVER=8.6.3
+GHCVER=8.6.4
 
 add-apt-repository ppa:hvr/ghc -y
 apt-get install -y ghc-$GHCVER ghc-$GHCVER-dyn ghc-$GHCVER-htmldocs ghc-$GHCVER-prof
