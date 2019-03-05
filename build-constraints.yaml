@@ -1157,8 +1157,8 @@ packages:
         - wai-middleware-caching-lru < 0
         - wai-middleware-caching-redis < 0 # GHC 8.4 via hedis
         # not package maintainer
-        - ekg < 0 # via aeson-1.4.0.0
-        - ekg-json < 0 # via aeson-1.4.0.0
+        - ekg
+        - ekg-json
 
     "Paul Rouse <pgr@doynton.org> @paul-rouse":
         - mysql
@@ -2358,7 +2358,7 @@ packages:
         - cabal2nix
         - cabal2spec
         - cgi
-        - distribution-nixpkgs
+        - distribution-nixpkgs < 1.2 # https://github.com/commercialhaskell/stackage/issues/4406
         - distribution-opensuse
         - flexible-defaults
         - funcmp
@@ -3842,6 +3842,9 @@ packages:
 
     "Jan Path <jan@jpath.de> @janpath":
         - smallcheck-series
+
+    "Taisuke Hikawa <23.prime.37@gmail.com> @23prime":
+        - oeis2
 
     "Grandfathered dependencies":
         - Boolean
