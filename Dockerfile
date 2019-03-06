@@ -2,9 +2,10 @@ FROM fpco/pid1:16.04
 
 ENV HOME /home/stackage
 ENV LANG en_US.UTF-8
+ENV GHCVER 8.6.4
 
 # NOTE: also update debian-bootstrap.sh when cuda version changes
-ENV PATH /usr/local/cuda-10.0/bin:/opt/ghc/8.6.4/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ENV PATH /home/stackage/.stack/programs/x86_64-linux/ghc-$GHCVER/bin:/usr/local/cuda-10.0/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV CUDA_PATH /usr/local/cuda-10.0
 ENV LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib64:/usr/local/cuda-10.0/nvvm/lib64
 

@@ -10,11 +10,20 @@
 # instructions, see:
 #    http://www.stackage.org/install
 
-set -exu
+set -exuo pipefail
 
 mkdir /home/stackage -p
 
 export DEBIAN_FRONTEND=noninteractive
+
+# Get curl
+apt-get update
+apt-get install -y curl
+
+# Get Stack and GHC
+curl -sSL https://get.haskellstack.org/ | sh -s - -d /usr/bin
+stack setup --resolver ghc-$GHCVER
+
 apt-get update
 apt-get install -y software-properties-common
 
@@ -164,11 +173,6 @@ ACCEPT_EULA=Y apt-get install msodbcsql17 -y
 
 locale-gen en_US.UTF-8
 
-curl -sSL https://get.haskellstack.org/ | sh
-
-# Put documentation where we expect it
-mv /opt/ghc/$GHCVER/share/doc/ghc-$GHCVER/ /opt/ghc/$GHCVER/share/doc/ghc
-
 # llvm-5.0 for GHC (separate since it needs wget)
 wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
     && add-apt-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-5.0 main" \
@@ -304,3 +308,7 @@ export CLANG_PURE_LLVM_INCLUDE_DIR=/usr/lib/llvm-3.9/include;
 # finally run:
 ldconfig
 # EOF: don't build anything below this line
+
+# Cleanup
+apt-get clean
+rm -rf /var/lib/apt/lists/*
