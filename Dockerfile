@@ -3,10 +3,9 @@ FROM fpco/pid1:18.04
 ENV HOME /home/stackage
 ENV LANG en_US.UTF-8
 ENV GHCVER 8.6.4
-ENV GHCDIR /home/stackage/.stack/programs/x86_64-linux/ghc-$GHCVER
 
 # NOTE: also update debian-bootstrap.sh when cuda version changes
-ENV PATH /usr/local/cuda-10.0/bin:/home/stackage/.stack/programs/x86_64-linux/ghc-$GHCVER:/usr/sbin:/usr/bin:/sbin:/bin
+ENV PATH /home/stackage/.stack/programs/x86_64-linux/ghc-$GHCVER/bin:/usr/local/cuda-10.0/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV CUDA_PATH /usr/local/cuda-10.0
 
 ADD debian-bootstrap.sh /tmp/debian-bootstrap.sh
