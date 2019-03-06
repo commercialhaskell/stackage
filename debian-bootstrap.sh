@@ -27,11 +27,14 @@ stack setup --resolver ghc-$GHCVER
 apt-get update
 apt-get install -y software-properties-common
 
+add-apt-repository ppa:hvr/ghc -y
 add-apt-repository -y ppa:marutter/rrutter
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
 add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy main'
 add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy-apache24-compat main'
 add-apt-repository -y --keyserver hkp://keyserver.ubuntu.com:80 'deb http://download.mono-project.com/repo/debian wheezy-libjpeg62-compat main'
+
+GHCVER=8.6.4
 
 apt-get update
 apt-get install -y \
@@ -44,6 +47,10 @@ apt-get install -y \
     fsharp \
     g++ \
     gawk \
+    ghc-$GHCVER \
+    ghc-$GHCVER-dyn \
+    ghc-$GHCVER-htmldocs \
+    ghc-$GHCVER-prof \
     git \
     gnupg \
     gradle \
