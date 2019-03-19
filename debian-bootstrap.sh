@@ -32,6 +32,7 @@ apt-get install -y \
     build-essential \
     cmake \
     curl \
+    dvipng \
     freeglut3-dev \
     freetds-dev \
     fsharp \
@@ -141,11 +142,13 @@ apt-get install -y \
     python3-matplotlib \
     python3-numpy \
     python3-pip \
+    python3-scipy \
     r-base \
     r-base-dev \
     ruby-dev \
     software-properties-common \
     sudo \
+    texlive \
     unixodbc-dev \
     wget \
     xclip \
