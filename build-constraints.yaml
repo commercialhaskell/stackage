@@ -1252,7 +1252,7 @@ packages:
         - partial-handler
         - postgresql-binary
         - slave-thread < 0
-        - stm-containers < 0
+        - stm-containers
         - refined < 0 # https://github.com/nikita-volkov/refined/issues/33
 
     "Iustin Pop <iustin@k1024.org> @iustin":
@@ -3323,6 +3323,8 @@ packages:
         - regex
         - regex-pcre-text
         - regex-with-pcre
+        - possibly
+        - enum-text
 
     "Elliot Cameron <eacameron@gmail.com> @3noch":
         []
@@ -4507,6 +4509,9 @@ packages:
         - dependent-sum < 0.5
         - typerep-map < 0.3.2
 
+        # https://github.com/commercialhaskell/stackage/issues/4463
+        - mime-mail < 0.5.0
+
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
@@ -4760,7 +4765,6 @@ skipped-tests:
     - rakuten
     - rank1dynamic
     - rcu
-    - registry
     - rss-conduit
     - servant-blaze
     - servant-cassava
@@ -5094,6 +5098,8 @@ expected-test-failures:
     - yeshql-hdbc # https://github.com/tdammers/yeshql/issues/6
     - yesod-gitrev # https://github.com/DanBurton/yesod-gitrev/issues/5
     - record-dot-preprocessor # https://github.com/commercialhaskell/stackage/issues/4449
+    - hledger-lib # https://github.com/commercialhaskell/stackage/issues/4464
+    - servant-static-th # https://github.com/commercialhaskell/stackage/issues/4465
 
     # Stackage upper bounds, re-enable these when their upper bound is removed
 
@@ -5200,9 +5206,6 @@ expected-benchmark-failures:
     - http2
     - lz4 # https://github.com/fpco/stackage/issues/3510
     - xmlgen # https://github.com/skogsbaer/xmlgen/issues/6
-
-    # https://github.com/commercialhaskell/stackage/issues/4452
-    - tensors
 
 # end of expected-benchmark-failures
 
