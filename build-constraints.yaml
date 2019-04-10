@@ -3877,7 +3877,8 @@ packages:
 
     "Juri Chomé <juri.chome@gmail.com> @2mol":
         - msgpack
-        - msgpack-rpc
+        # - msgpack-rpc # https://github.com/commercialhaskell/stackage/pull/4471
+        # - msgpack-idl # https://github.com/commercialhaskell/stackage/pull/4471
         - msgpack-aeson
         - int-cast
 
@@ -4530,6 +4531,9 @@ packages:
         # https://github.com/commercialhaskell/stackage/issues/4463
         - mime-mail < 0.5.0
 
+        # https://github.com/commercialhaskell/stackage/issues/4469
+        - cmark-gfm < 0.2.0
+
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
@@ -4707,6 +4711,7 @@ skipped-tests:
     - hw-streams # via hspec-2.6.0
     - indents # tasty 0.12 and tasty-hunit 0.10
     - insert-ordered-containers # via tasty-1.2
+    - int-cast # QuickCheck 2.12
     - ip # hspec 2.5 https://github.com/andrewthad/haskell-ip/issues/33
     - language-ecmascript # testing-feat 1.1.0.0
     - lattices # via tasty-1.2
@@ -5246,6 +5251,7 @@ expected-haddock-failures:
     # "Compilation" errors
     - MemoTrie # https://github.com/conal/MemoTrie/issues/10
     - classy-prelude-yesod
+    - elm-street # https://github.com/commercialhaskell/stackage/issues/4470
     - haddock-library # https://github.com/fpco/stackage/issues/3236
     - ghc-lib # https://github.com/commercialhaskell/stackage/issues/4377
 
