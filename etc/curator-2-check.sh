@@ -2,7 +2,8 @@
 
 set -euxo pipefail
 
-export GHCVER=8.6.3
+ETC=$(cd $(dirname $0) ; pwd)
+export GHCVER=$(sed -n "s/^ghc-version: \"\(.*\)\"/\1/p" "$ETC/../build-constraints.yaml")
 
 # Download and unpack the stack executable
 mkdir -p ~/.local/bin
