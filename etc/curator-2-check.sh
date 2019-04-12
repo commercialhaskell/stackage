@@ -20,9 +20,12 @@ mv $CURATOR2 ~/.local/bin/stackage-curator-2
 # Install GHC
 stack setup $GHCVER
 
+# curator's constraint command has target as a required parameter
+# because of a different constraints handling in minor LTS version bumps
+NIGHTLY="nightly-$(date +%Y-%m-%d)"
 # New curator check
 stackage-curator-2 update &&
-  stackage-curator-2 constraints &&
-  stackage-curator-2 snapshotincomplete &&
+  stackage-curator-2 constraints --target=$NIGHTLY &&
+  stackage-curator-2 snapshot-incomplete &&
   stackage-curator-2 snapshot &&
-  stack --resolver ghc-$GHCVER exec stackage-curator-2 checksnapshot
+  stack --resolver ghc-$GHCVER exec stackage-curator-2 check-snapshot
