@@ -18,7 +18,8 @@ fi
 IMAGE=commercialhaskell/stackage:$TAG
 
 CABAL_DIR=$ROOT/cabal
-STACK_DIR=$ROOT/stack
+PANTRY_DIR=$ROOT/pantry
+STACK_DIR=$ROOT/stack-$TAG
 GHC_DIR=$ROOT/ghc
 DOT_STACKAGE_DIR=$ROOT/dot-stackage
 WORKDIR=$ROOT/$TAG/work
@@ -28,6 +29,7 @@ USERID=$(id -u)
 
 mkdir -p \
 	"$CABAL_DIR" \
+	"$PANTRY_DIR" \
 	"$STACK_DIR" \
 	"$GHC_DIR" \
 	"$DOT_STACKAGE_DIR" \
@@ -69,8 +71,10 @@ mv $CURATOR2 stackage-curator
 ./stackage-curator --version
 )
 
-
-ARGS_COMMON="--rm -v $WORKDIR:$HOME/work -w $HOME/work -v $BINDIR/stackage-curator:/usr/bin/stackage-curator:ro -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v $BINDIR/stack:/usr/bin/stack:ro -v $STACK_DIR:$HOME/.stack"
+# We share pantry directory between snapshots while the other content in .stack
+# is stored separately (because e.g. Ubuntu releases between LTS and nightly
+# could differ). Also the order of binds is important.
+ARGS_COMMON="--rm -v $WORKDIR:$HOME/work -w $HOME/work -v $BINDIR/stackage-curator:/usr/bin/stackage-curator:ro -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v $BINDIR/stack:/usr/bin/stack:ro -v $STACK_DIR:$HOME/.stack -v $PANTRY_DIR:$HOME/.stack/pantry"
 ARGS_PREBUILD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $CABAL_DIR:$HOME/.cabal -v $GHC_DIR:$HOME/.ghc -v $DOT_STACKAGE_DIR:$HOME/.stackage"
 ARGS_BUILD="$ARGS_COMMON -v $CABAL_DIR:$HOME/.cabal:ro -v $GHC_DIR:$HOME/.ghc:ro"
 # instance-data is an undocumented feature of S3 used by amazonka,
