@@ -11,7 +11,7 @@ export PATH=$HOME/.local/bin:$PATH
 curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
 
 # Get new Stackage curator
-CURATOR2=stackage-curator-2-7e65b644121812d9a3a8b24d7130bb8865485f8f
+CURATOR2=stackage-curator-2-b6102fdf8a6017e7fee131cf24f470bf1a396665
 wget "https://download.fpcomplete.com/stackage-curator-2/$CURATOR2.bz2"
 bunzip2 "$CURATOR2.bz2"
 chmod +x $CURATOR2
