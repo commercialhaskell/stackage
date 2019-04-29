@@ -4,7 +4,7 @@ set -eux
 
 if [[ ! -f convert ]]
 then
-    curl https://s3.amazonaws.com/michael.snoyman.com/convert-old-stackage-22f85f4829da949df601f2facf2d9b8c794232cf.bz2 > convert.bz2
+    curl https://s3.amazonaws.com/www.snoyman.com/convert-old-stackage-f780174e2c84e4fb171f6526228d9243beb7fd71.bz2 > convert.bz2
     chmod +x convert.bz2
     bunzip2 convert.bz2
 fi
