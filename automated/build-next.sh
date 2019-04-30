@@ -18,7 +18,8 @@ fi
 IMAGE=commercialhaskell/stackage:$TAG
 
 CABAL_DIR=$ROOT/cabal
-STACK_DIR=$ROOT/stack
+PANTRY_DIR=$ROOT/pantry
+STACK_DIR=$ROOT/stack-$TAG
 GHC_DIR=$ROOT/ghc
 DOT_STACKAGE_DIR=$ROOT/dot-stackage
 WORKDIR=$ROOT/$TAG/work
@@ -28,6 +29,7 @@ USERID=$(id -u)
 
 mkdir -p \
 	"$CABAL_DIR" \
+	"$PANTRY_DIR" \
 	"$STACK_DIR" \
 	"$GHC_DIR" \
 	"$DOT_STACKAGE_DIR" \
@@ -61,7 +63,7 @@ BINDIR=$(cd $ROOT/bin ; pwd)
 (
 cd $BINDIR
 rm -f stackage-curator stackage-curator-2*.bz2
-CURATOR2=stackage-curator-2-7e65b644121812d9a3a8b24d7130bb8865485f8f
+CURATOR2=stackage-curator-2-7e161449fa1b63a7e41299f3f87bd6f3d7e13082
 wget "https://download.fpcomplete.com/stackage-curator-2/$CURATOR2.bz2"
 bunzip2 "$CURATOR2.bz2"
 chmod +x $CURATOR2
@@ -69,8 +71,10 @@ mv $CURATOR2 stackage-curator
 ./stackage-curator --version
 )
 
-
-ARGS_COMMON="--rm -v $WORKDIR:$HOME/work -w $HOME/work -v $BINDIR/stackage-curator:/usr/bin/stackage-curator:ro -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v $BINDIR/stack:/usr/bin/stack:ro -v $STACK_DIR:$HOME/.stack"
+# We share pantry directory between snapshots while the other content in .stack
+# is stored separately (because e.g. Ubuntu releases between LTS and nightly
+# could differ). Also the order of binds is important.
+ARGS_COMMON="--rm -v $WORKDIR:$HOME/work -w $HOME/work -v $BINDIR/stackage-curator:/usr/bin/stackage-curator:ro -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v $BINDIR/stack:/usr/bin/stack:ro -v $STACK_DIR:$HOME/.stack -v $PANTRY_DIR:$HOME/.stack/pantry"
 ARGS_PREBUILD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $CABAL_DIR:$HOME/.cabal -v $GHC_DIR:$HOME/.ghc -v $DOT_STACKAGE_DIR:$HOME/.stackage"
 ARGS_BUILD="$ARGS_COMMON -v $CABAL_DIR:$HOME/.cabal:ro -v $GHC_DIR:$HOME/.ghc:ro"
 # instance-data is an undocumented feature of S3 used by amazonka,
@@ -90,7 +94,7 @@ fi
 (
 cd $BINDIR
 rm -f stack stack-*.bz2
-STACK=stack-7e65b644121812d9a3a8b24d7130bb8865485f8f
+STACK=stack-7e161449fa1b63a7e41299f3f87bd6f3d7e13082
 wget "https://download.fpcomplete.com/stackage-curator-2/$STACK.bz2"
 bunzip2 "$STACK.bz2"
 chmod +x $STACK
@@ -128,7 +132,7 @@ esac
 # Now do the actual build. We need to first set the owner of the home directory
 # correctly, so we run the command as root, change owner, and then use sudo to
 # switch back to the current user
-docker run $ARGS_BUILD $IMAGE nice -n 15 /bin/bash -c "chown $USER $HOME && exec sudo -E -u $USER env \"HOME=$HOME\" \"PATH=\$PATH\" stackage-curator build --jobs $JOBS"
+docker run $ARGS_BUILD $IMAGE nice -n 15 /bin/bash -c "chown $USER $HOME && exec sudo -E -u $USER env \"HOME=$HOME\" \"PATH=\$PATH\" stackage-curator build --jobs $JOBS" 2>&1 | tee "$SHORTNAME-build.log"
 
 # Make sure we actually need this snapshot. We used to perform this check
 # exclusively before building. Now we perform it after as well for the case of
