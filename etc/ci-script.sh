@@ -2,7 +2,7 @@
 
 set -euxo pipefail
 
-export GHCVER=8.6.4
+export GHCVER=8.6.5
 
 # Download and unpack the stack executable
 mkdir -p ~/.local/bin
