@@ -5007,7 +5007,6 @@ expected-test-failures:
     - distributed-process
     - distributed-process-execution # https://github.com/haskell-distributed/distributed-process-execution/issues/2
     - distributed-process-task
-    # dns # https://github.com/kazu-yamamoto/dns/issues/29
     - foldl-statistics # https://github.com/data61/foldl-statistics/issues/2
     - fsnotify # Often runs out of inotify handles
     - hastache
@@ -5033,7 +5032,6 @@ expected-test-failures:
     - punycode
     - unagi-chan
     - zeromq4-patterns
-    # zip
 
     # Requires running servers, accounts, or a specific environment.
     # These shouldn't be re-enabled unless we know a fix has been released.
@@ -5143,8 +5141,6 @@ expected-test-failures:
     - courier # https://github.com/hargettp/courier/issues/19
     - download # https://github.com/fpco/stackage/issues/2811
     - haskell-tools-demo # https://github.com/haskell-tools/haskell-tools/issues/624
-    # http-client # https://github.com/snoyberg/http-client/issues/360
-    # http-client-tls # https://github.com/snoyberg/http-client/issues/360
     - http-link-header # https://github.com/myfreeweb/http-link-header/issues/7
     - mmark # https://github.com/commercialhaskell/stackage/issues/3906#issuecomment-413061849
     - rando # https://github.com/commercialhaskell/stackage/issues/4249
@@ -5175,7 +5171,6 @@ expected-test-failures:
     - squeal-postgresql # https://github.com/fpco/stackage/issues/3180
     - text-icu # https://github.com/bos/text-icu/issues/32
     - text-ldap # https://github.com/khibino/haskell-text-ldap/issues/1
-    # tls # https://github.com/vincenthz/hs-tls/issues/247
     - unicode-transforms # https://github.com/harendra-kumar/unicode-transforms/issues/15
     - vector-algorithms # http://hub.darcs.net/dolio/vector-algorithms/issue/9
     - vivid-supercollider # https://github.com/commercialhaskell/stackage/issues/4250
@@ -5186,14 +5181,10 @@ expected-test-failures:
     - yesod-gitrev # https://github.com/DanBurton/yesod-gitrev/issues/5
     - record-dot-preprocessor # https://github.com/commercialhaskell/stackage/issues/4449
     - hledger-lib # https://github.com/commercialhaskell/stackage/issues/4464
-    # servant-static-th # https://github.com/commercialhaskell/stackage/issues/4465
-
-    # Stackage upper bounds, re-enable these when their upper bound is removed
 
     # Recursive deps https://github.com/fpco/stackage/issues/1818
     - options
     - text # 1.2.2.1
-    # wai-logger # Missing build dep because of this https://github.com/kazu-yamamoto/logger/issues/42
 
     # Problem on the stackage build server, we need to dig deeper into
     # these if we want them fixed
@@ -5204,12 +5195,7 @@ expected-test-failures:
     # Doctests require hidden Glob package
     - makefile
 
-    # Doctest failures
-    # bugsnag-haskell # https://github.com/pbrisbin/bugsnag-haskell/issues/42
-
     # Misc.
-    # HTTP # e.g. "ERROR: Network.Socket.connect: <socket: 6>: unsupported operation (Cannot assign requested address)", I'm not sure if this is a build server issue...
-    # dbus
     - genvalidity-hspec # https://github.com/NorfairKing/validity/issues/55
     - genvalidity-hspec-hashable # https://github.com/NorfairKing/validity/issues/55
     - ghcid # Weird conflicts with sandboxingistributed/distributed-process-supervisor/issues/1
@@ -5218,7 +5204,6 @@ expected-test-failures:
     - postgresql-simple-queue # same issue as before, see also https://github.com/fpco/stackage/issues/2592 as that will fix both
     - rattletrap # OOM? https://github.com/fpco/stackage/issues/2232
     - stm-delay # https://github.com/joeyadams/haskell-stm-delay/issues/5
-    # tcp-streams # https://github.com/didi-FP/tcp-streams/issues/5
     - tmp-postgres # https://github.com/jfischoff/tmp-postgres/issues/1
     - zstd # ghc 8.2.2 bug? https://github.com/fpco/stackage/issues/3219
 
@@ -5241,9 +5226,6 @@ expected-test-failures:
     # https://github.com/cchalmers/pcg-random/pull/7
     - pcg-random
 
-    # https://github.com/snoyberg/conduit/issues/385
-    # conduit-extra
-
     # Stack builds test and benchmarks in one pass so benchmark could prevent tests from getting built
     - cryptohash
 
@@ -5258,24 +5240,6 @@ expected-test-failures:
 
     # https://github.com/Bodigrim/exp-pairs/issues/16
     - exp-pairs
-
-    # doctests for the following packages fail because of ambiguous module
-    # names, to be fixed in https://github.com/sol/doctest/pull/218
-    # blaze-colonnade
-    # co-log-core
-    # colonnade
-    # control-dsl
-    # dhall
-    # greskell-core
-    # jose-jwt
-    # jwt
-    # language-nix
-    # lens-regex
-    # pcre-heavy
-    # servant-checked-exceptions-core
-    # servant-rawm
-    # vinyl
-    # world-peace
 
 # end of expected-test-failures
 
