@@ -184,7 +184,7 @@ packages:
 
     "Jacob Stanley <jacob@stanley.io> @jystic":
         - hedgehog
-        - hedgehog-quickcheck
+        - hedgehog-quickcheck < 0 # via QuickCheck https://github.com/commercialhaskell/stackage/issues/4444
         - transformers-bifunctors
 
     "Walter Schulze <awalterschulze@gmail.com> @awalterschulze":
@@ -1138,7 +1138,7 @@ packages:
         #
         - hledger-lib
         - hledger
-        - hledger-ui
+        - hledger-ui < 0  # via brick, via data-clist, via QuickCheck https://github.com/commercialhaskell/stackage/issues/4444
         - hledger-web
         - hledger-api
         #
@@ -2393,7 +2393,7 @@ packages:
         - identicon
         - lame
         - megaparsec
-        - megaparsec-tests
+        - megaparsec-tests < 0 # via QuickCheck https://github.com/commercialhaskell/stackage/issues/4444
         - mmark
         - mmark-cli
         - mmark-ext
@@ -3168,7 +3168,7 @@ packages:
         - scheduler
 
     "Hans-Peter Deifel <hpd@hpdeifel.de> @hpdeifel":
-        - hledger-iadd
+        - hledger-iadd < 0  # via brick, via data-clist, via QuickCheck https://github.com/commercialhaskell/stackage/issues/4444
 
     "Roy Levien <royl@aldaron.com> @orome":
         - crypto-enigma
@@ -3196,7 +3196,7 @@ packages:
     "Mitsutoshi Aoe <maoe@foldr.in> @maoe":
         - influxdb
         - sensu-run < 0 # GHC 8.4 via base-4.11.0.0
-        - viewprof
+        - viewprof < 0  # via brick, via data-clist, via QuickCheck https://github.com/commercialhaskell/stackage/issues/4444
 
     "Dylan Simon <dylan-stack@dylex.net> @dylex":
         - postgresql-typed
@@ -3630,8 +3630,8 @@ packages:
         - indexed-list-literals
 
     "Dmitry Dzhus <dima@dzhus.org> @dzhus":
-        - csg
-        - simple-vec3
+        - csg < 0 # via QuickCheck https://github.com/commercialhaskell/stackage/issues/4444
+        - simple-vec3 < 0 # via QuickCheck https://github.com/commercialhaskell/stackage/issues/4444
         - static-text
         - th-nowq
 
@@ -3852,7 +3852,7 @@ packages:
 
     "Grandfathered dependencies":
         - Boolean
-        - ChasingBottoms
+        - ChasingBottoms < 0 # due to QuickCheck, https://github.com/commercialhaskell/stackage/issues/4444
         - Decimal
         - Diff
         - FloatingHex
@@ -3898,7 +3898,7 @@ packages:
         - blaze-svg
         - blaze-textual
         - boring
-        - brick
+        - brick < 0  # via data-clist, via QuickCheck https://github.com/commercialhaskell/stackage/issues/4444
         - buffer-builder
         - byteable
         - bytestring-builder
@@ -3953,7 +3953,7 @@ packages:
         - data-binary-ieee754
         - data-bword
         - data-checked
-        - data-clist
+        - data-clist < 0 # via QuickCheck https://github.com/commercialhaskell/stackage/issues/4444
         - data-default
         - data-default-class
         - data-default-instances-containers
@@ -4534,13 +4534,6 @@ packages:
         # https://github.com/simonmichael/hledger/issues/983
         - easytest < 0.3
 
-        # https://github.com/commercialhaskell/stackage/issues/4444
-        - QuickCheck < 2.13
-        - quickcheck-instances < 0.3.20
-        - hspec-core < 2.7.1
-        - hspec < 2.7.1
-        - hspec-discover < 2.7.1
-
         # https://github.com/commercialhaskell/stackage/issues/4463
         - mime-mail < 0.5.0
 
@@ -4892,6 +4885,18 @@ skipped-tests:
 
     # Blocked by stackage upper bounds. These can be re-enabled once
     # the relevant stackage upper bound is lifted.
+    # QuickCheck failures https://github.com/commercialhaskell/stackage/issues/4444
+    - boolean-normal-forms
+    - cassava-conduit
+    - dlist-nonempty
+    - msgpack
+    - optparse-applicative
+    - typerep-map
+    - ucam-webauth
+    - unicode-transforms
+    - websockets
+    # via ChasingBottoms, via QuickCheck https://github.com/commercialhaskell/stackage/issues/4444
+    - lapack
 
     # Compilation failures
     - snappy # https://github.com/bos/snappy/issues/1
