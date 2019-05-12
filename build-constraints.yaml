@@ -2311,7 +2311,7 @@ packages:
         - fgl
         - graphviz
         - wl-pprint-text
-        - servant-pandoc
+        - servant-pandoc < 0 # blocks http-media https://github.com/commercialhaskell/stackage/issues/4483
 
     "Sharif Olorin <sio@tesser.org> @olorin":
         - quickcheck-text
@@ -4537,9 +4537,6 @@ packages:
         # https://github.com/commercialhaskell/stackage/issues/4463
         - mime-mail < 0.5.0
 
-        # https://github.com/commercialhaskell/stackage/issues/4483
-        - http-media < 0.8.0.0
-
         # https://github.com/commercialhaskell/stackage/issues/4484
         - hslogger < 1.3.0.0
 
@@ -5279,7 +5276,7 @@ expected-haddock-failures:
     # "Compilation" errors
     - MemoTrie # https://github.com/conal/MemoTrie/issues/10
     - classy-prelude-yesod
-    # elm-street # https://github.com/commercialhaskell/stackage/issues/4470
+    - elm-street # https://github.com/commercialhaskell/stackage/issues/4470
 
     # Modules use compiler plugins
     # https://github.com/haskell/haddock/issues/900
