@@ -63,7 +63,7 @@ BINDIR=$(cd $ROOT/bin ; pwd)
 (
 cd $BINDIR
 rm -f stackage-curator stackage-curator-2*.bz2
-CURATOR2=stackage-curator-2-7e161449fa1b63a7e41299f3f87bd6f3d7e13082
+CURATOR2=stackage-curator-2-f6258124cff9a7e92bcb5704164a70e149080e88
 wget "https://download.fpcomplete.com/stackage-curator-2/$CURATOR2.bz2"
 bunzip2 "$CURATOR2.bz2"
 chmod +x $CURATOR2
@@ -94,7 +94,7 @@ fi
 (
 cd $BINDIR
 rm -f stack stack-*.bz2
-STACK=stack-7e161449fa1b63a7e41299f3f87bd6f3d7e13082
+STACK=stack-f6258124cff9a7e92bcb5704164a70e149080e88
 wget "https://download.fpcomplete.com/stackage-curator-2/$STACK.bz2"
 bunzip2 "$STACK.bz2"
 chmod +x $STACK
