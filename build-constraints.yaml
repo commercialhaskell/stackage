@@ -101,7 +101,7 @@ packages:
 
     "Matthew Ahrens <matt.p.ahrens@gmail.com> @mpahrens":
         - forkable-monad
-        - butter
+        - butter < 0 # connection-0.5 via network-simple
 
     "Iris Ward <aditu.venyhandottir@gmail.com> @AdituV":
         - typenums
@@ -939,8 +939,8 @@ packages:
         - tardis
         - yesod-gitrev
         # @mr's packages
-        - ftp-client
-        - ftp-client-conduit
+        - ftp-client < 0 # connection-0.3.0
+        - ftp-client-conduit < 0 # connection-0.3.0
 
     "Daniel Díaz dhelta.diaz@gmail.com @Daniel-Diaz":
         - bimap-server
@@ -1432,13 +1432,13 @@ packages:
         - di-monad
         - exinst
         - flay
-        - network-simple
-        - network-simple-tls
+        - network-simple < 0 # connection-0.3.0
+        - network-simple-tls < 0 # connection-0.3 via network-simple
         - pipes-aeson
         - pipes-attoparsec
         - pipes-binary
-        - pipes-network
-        - pipes-network-tls
+        - pipes-network < 0 # connection-0.3 via network-simple
+        - pipes-network-tls < 0 # connection-0.3 via network-simple
         - safe-money < 0
         - vector-bytes-instances
         - xmlbf-xeno
@@ -1484,8 +1484,8 @@ packages:
         - bitcoin-types
         - hexstring
         - network-attoparsec
-        - network-anonymous-i2p
-        - network-anonymous-tor
+        - network-anonymous-i2p < 0 # connection-0.3 via network-simple
+        - network-anonymous-tor < 0 # connection-0.3 via network-simple
 
     "Timothy Jones <tim@zmthy.net> @zmthy":
         - http-media
@@ -2542,7 +2542,7 @@ packages:
 
     "Sebastian Dröge slomo@coaxion.net @sdroege":
         - conduit-iconv
-        - conduit-connection
+        - conduit-connection < 0 # connection-0.3.0
 
     "Andrew Rademacher <andrewrademacher@gmail.com> @AndrewRademacher":
         - aeson-casing
@@ -2847,7 +2847,7 @@ packages:
         - merkle-tree
         - oblivious-transfer
         - pairing
-        - libraft
+        - libraft < 0 # connection-0.3 via network-simple
 
     "Daishi Nakajima <nakaji.dayo@gmail.com> @nakaji-dayo":
         - api-field-json-th
@@ -4564,10 +4564,6 @@ packages:
         # https://github.com/commercialhaskell/stackage/issues/4484
         - hslogger < 1.3.0.0
 
-        # https://github.com/commercialhaskell/stackage/issues/4494
-        - connection < 0.3
-        - socks < 0.6
-
         # https://github.com/commercialhaskell/stackage/issues/4504
         - th-abstraction < 0.3.0.0
         - polysemy < 0.2.2
@@ -4867,6 +4863,7 @@ skipped-tests:
     - lattices # via tasty-1.2
     - makefile # GHC 8.2
     - mmtf # via hspec-2.7.0
+    - network-attoparsec # connection-0.3 via network-simple
     - next-ref # hspec 2.3
     - partial-order # HUnit 1.6
     - psqueues # via QuickCheck-2.12.6.1
