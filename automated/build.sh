@@ -94,8 +94,9 @@ then
   docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec stackage-curator check-target-available --target $TARGET"
 fi
 
-# Get latest stack
-curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C $EXTRA_BIN_DIR '*/stack'
+# Get latest compatible stack
+curl -L https://github.com/commercialhaskell/stack/releases/download/v1.9.3/stack-1.9.3-linux-x86_64-static.tar.gz | tar xz --wildcards --strip-components=1 -C $EXTRA_BIN_DIR '*/stack'
+
 
 # Determine the new build plan unless NOPLAN is set
 #
