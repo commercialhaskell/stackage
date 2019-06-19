@@ -42,6 +42,7 @@ apt-get install -y \
     gnupg \
     gradle \
     hscolour \
+    libdbusmenu-gtk3-dev \
     libadns1-dev \
     libaio1 \
     libalut-dev \
@@ -92,8 +93,8 @@ apt-get install -y \
     libmysqlclient-dev \
     libncurses5-dev \
     libnfc-dev \
-    liboath-dev \
     libnotify-dev \
+    liboath-dev \
     libopenal-dev \
     libopenmpi-dev \
     libpango1.0-dev \
