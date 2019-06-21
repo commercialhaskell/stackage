@@ -150,5 +150,31 @@ docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "stackage-curator upload-docs --targ
 # FIXME - add back "stackage-curator hackage-distro --target $TARGET" when we will be ready to publish
 # information about the new snapshots on Hackage
 
+$BINDIR/stackage-curator legacy-bulk --stackage-snapshots dot-stackage/curator/stackage-snapshots/ --lts-haskell dot-stackage/curator/lts-haskell/ --stackage-nightly dot-stackage/curator/stackage-nightly/
+
+(
+
+if [ $SHORTNAME = "lts" ]
+then
+    cd dot-stackage/curator/lts-haskell
+else
+    cd dot-stackage/curator/stackage-nightly
+fi
+
+git add *.yaml
+git diff-index --quiet HEAD && echo No changes && exit 0
+git config user.name "Stackage build server"
+git config user.email "michael@snoyman.com"
+git commit -a -m "More conversions $(date)"
+
+if [ $SHORTNAME = "lts" ]
+then
+    GIT_SSH_COMMAND="ssh -i $ROOT/ssh-lts/id_rsa" git push origin master
+else
+    GIT_SSH_COMMAND="ssh -i $ROOT/ssh-nightly/id_rsa" git push origin master
+fi
+
+)
+
 echo -n "Completed at "
 date
