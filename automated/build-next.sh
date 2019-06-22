@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eu +x
+set -eu +x -o pipefail
 
 ROOT=$(cd $(dirname $0) ; pwd)
 TARGET=$1
