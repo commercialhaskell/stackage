@@ -13,6 +13,10 @@ packages:
     "Chris Penner <christopher.penner@gmail.com> @ChrisPenner":
         - lens-regex-pcre
 
+   "Emily Pillmore <emilypi@cohomolo.gy> @topos":
+        - lens-process
+        - microlens-process
+ 
     "Matthieu Monsch <mtth@apache.org> @mtth":
         - tracing
 
@@ -27,6 +31,7 @@ packages:
         - interpolatedstring-qq2
         - prospect
         - do-notation
+        - unagi-chan
 
     "William Yao <williamyaoh@gmail.com> @williamyaoh":
         - string-interpolate
@@ -298,7 +303,7 @@ packages:
         - markov-chain
         - midi
         - midi-music-box
-        - mbox-utility
+        - mbox-utility < 0 # https://github.com/commercialhaskell/stackage/issues/4655
         - med-module
         - monoid-transformer
         - non-empty
@@ -1401,9 +1406,9 @@ packages:
         - HaskellNet-SSL < 0 # mime-mail-0.5 via HaskellNet
 
     "Jens Petersen <juhpetersen@gmail.com> @juhp":
-        - cabal-rpm
+        - cabal-rpm < 0 # https://github.com/commercialhaskell/stackage/issues/4666
         - fedora-dists
-        - fedora-haskell-tools
+        - fedora-haskell-tools < 0 # https://github.com/commercialhaskell/stackage/issues/4662
         - fedora-img-dl
         - hkgr
         - http-directory
@@ -3655,7 +3660,7 @@ packages:
         - cachix < 0
         - cachix-api
         - elm2nix
-        - stack2nix
+        - stack2nix < 0 # https://github.com/commercialhaskell/stackage/issues/4665
         - mixpanel-client < 0 # https://github.com/domenkozar/mixpanel-client/issues/3
         - pretty-sop
         - servant-auth
@@ -3850,7 +3855,7 @@ packages:
         - servant-auth-wordpress
         - ca-province-codes
 
-    "David Baynard <haskell@baynard.me> @dbaynard":
+    "David Baynard <haskell@baynard.dev> @dbaynard":
         - time-qq # see christian-marie/time-qq#3
         - ucam-webauth
         - ucam-webauth-types
@@ -4456,7 +4461,6 @@ packages:
         - amazonka-core < 0 # via http-client-0.6.1
         - github < 0 # via http-client-0.6.1
         - hailgun < 0 # via http-client-0.6.1
-        - language-puppet < 0 # via http-client-0.6.1
         - mbug < 0 # via http-client-0.6.1
 
         - antiope-athena < 0 # via amazonka
@@ -4698,6 +4702,19 @@ packages:
 
         # New http2 not supported by Warp yet
         - http2 < 2
+
+        # https://github.com/commercialhaskell/stackage/issues/4645 but see
+        # also http2 < 2 bound above
+        - warp < 3.3.0
+
+        # https://github.com/commercialhaskell/stackage/issues/4647
+        - tls-session-manager < 0.0.2.0
+
+        # https://github.com/commercialhaskell/stackage/issues/4657
+        - hw-rankselect < 0.13.1.0
+
+        # https://github.com/commercialhaskell/stackage/issues/4673
+        - hlint < 2.2
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
@@ -5091,6 +5108,25 @@ skipped-tests:
 
     # Requires running pg-harness-server
     - peregrin
+
+    # Internal errors with move to the new curator tool?
+    - blaze-collonade # https://github.com/commercialhaskell/stackage/issues/4639
+    - tasty-discover # https://github.com/commercialhaskell/stackage/issues/4648
+    - show-prettyprint # https://github.com/commercialhaskell/stackage/issues/4649
+    - servant-ruby # https://github.com/commercialhaskell/stackage/issues/4650
+    - prettyprinter # https://github.com/commercialhaskell/stackage/issues/4651
+    - pretty-simple # https://github.com/commercialhaskell/stackage/issues/4652
+    - password-instances # https://github.com/commercialhaskell/stackage/issues/4653
+    - password # https://github.com/commercialhaskell/stackage/issues/4654
+    - human-readable-duration # https://github.com/commercialhaskell/stackage/issues/4658
+    - heterocephalus # https://github.com/commercialhaskell/stackage/issues/4659
+    - fmt # https://github.com/commercialhaskell/stackage/issues/4660
+    - haskell-gi # https://github.com/commercialhaskell/stackage/issues/4661
+    - libraft # https://github.com/commercialhaskell/stackage/issues/4664
+    - bugsnag-haskell # https://github.com/commercialhaskell/stackage/issues/4667
+    - hint # https://github.com/commercialhaskell/stackage/issues/4668
+    - envelope # https://github.com/commercialhaskell/stackage/issues/4669
+    - algebraic-graphs # https://github.com/commercialhaskell/stackage/issues/4670
 # end of skipped-tests
 
 # Tests listed in expected-test-failures configure correctly but may fail to run
@@ -5349,6 +5385,18 @@ expected-test-failures:
 
     # https://github.com/jgm/pandoc/issues/5582
     - pandoc
+
+    # https://github.com/commercialhaskell/stackage/issues/4642
+    - ghc-exactprint
+
+    # https://github.com/commercialhaskell/stackage/issues/4643
+    - world-peace
+
+    # https://github.com/commercialhaskell/stackage/issues/4644
+    - triplesec
+
+    # https://github.com/commercialhaskell/stackage/issues/4646
+    - singletons
 # end of expected-test-failures
 
 # Benchmarks which are known not to build. Note that, currently we do not run

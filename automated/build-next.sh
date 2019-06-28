@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
-set -eu +x
+set -eu +x -o pipefail
 
 ROOT=$(cd $(dirname $0) ; pwd)
 TARGET=$1
+
+source aws.sh
 
 # For nightly-YYYY-MM-DD, tag should be nightly
 # For lts-X.Y, tag should be ltsX
@@ -79,7 +81,7 @@ ARGS_PREBUILD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $CABAL_DIR:$HOME/.cabal 
 ARGS_BUILD="$ARGS_COMMON -v $CABAL_DIR:$HOME/.cabal:ro -v $GHC_DIR:$HOME/.ghc:ro"
 # instance-data is an undocumented feature of S3 used by amazonka,
 # see https://github.com/brendanhay/amazonka/issues/271
-ARGS_UPLOAD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:$HOME/.stackage -v $SSH_DIR:$HOME/.ssh:ro -v $GITCONFIG:$HOME/.gitconfig:ro -v $CABAL_DIR:$HOME/.cabal:ro --add-host instance-data:169.254.169.254"
+ARGS_UPLOAD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:$HOME/.stackage -v $SSH_DIR:$HOME/.ssh:ro -v $GITCONFIG:$HOME/.gitconfig:ro -v $CABAL_DIR:$HOME/.cabal:ro -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY"
 
 # Make sure we actually need this snapshot. We only check this for LTS releases
 # since, for nightlies, we'd like to run builds even if they are unnecessary to
