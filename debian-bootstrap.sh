@@ -275,6 +275,12 @@ echo /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server > /etc/ld.so.conf.d/
 echo /usr/lib/llvm-3.7/lib > /etc/ld.so.conf.d/llvm.conf
 
 ldconfig
+
+# Install librdkafka (Apache Kafka C/C++ library)
+wget -qO - https://packages.confluent.io/deb/5.2/archive.key | apt-key add -
+add-apt-repository "deb https://packages.confluent.io/deb/5.2 stable main"
+apt-get update && apt install -y librdkafka-dev
+
 # EOF: don't build anything below this line
 
 # Cleanup
