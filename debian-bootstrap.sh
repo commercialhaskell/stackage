@@ -165,11 +165,11 @@ ACCEPT_EULA=Y apt-get install msodbcsql17 -y
 
 locale-gen en_US.UTF-8
 
-# llvm-7.0 for llvm-hs (separate since it needs wget)
+# llvm-8.0 for llvm-hs (separate since it needs wget)
 wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
     && add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-7 main" \
     && apt-get update \
-    && apt-get install -y llvm-7
+    && apt-get install -y llvm-8
 
 # Buggy versions of ld.bfd fail to link some Haskell packages:
 # https://sourceware.org/bugzilla/show_bug.cgi?id=17689. Gold is
