@@ -217,10 +217,9 @@ echo "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/" > /etc/ld.so.conf
     && ldconfig
 
 # Install erlang/otp platform and its dependencies
-ERLANG_VERSION="20.2.2"
-ERLANG_DEB_FILE="esl-erlang_21.2-1~ubuntu~bionic_amd64.deb"
+ERLANG_DEB_FILE="esl-erlang_21.1-1~ubuntu~bionic_amd64.deb"
 pushd /tmp \
-    && wget http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_1_general/${ERLANG_DEB_FILE} \
+    && wget https://packages.erlang-solutions.com/erlang/debian/pool/${ERLANG_DEB_FILE} \
     && (dpkg -i ${ERLANG_DEB_FILE}; apt-get install -yf) \
     && rm ${ERLANG_DEB_FILE} \
     && popd
