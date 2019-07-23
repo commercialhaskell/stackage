@@ -370,8 +370,8 @@ yourself, e.g. verifying constraints without building anything.
 To get started, install `curator` via Git:
 
 ```
-$ git clone git@github.com:commercialhaskell/stack.git
-$ cd stack && stack install curator
+$ git clone git@github.com:commercialhaskell/curator.git
+$ cd curator && stack install curator
 ```
 
 It is a good idea to upgrade `curator` at the start of your week.
