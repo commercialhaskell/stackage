@@ -513,7 +513,7 @@ packages:
         - persistent-postgresql
         - persistent-sqlite
         - persistent-template
-        # persistent-test # https://github.com/commercialhaskell/stackage/pull/4492
+        - persistent-test # https://github.com/commercialhaskell/stackage/pull/4492
         # - stackage-curator # http-conduit 2.3 via amazonka
         - store
         - wai-websockets
@@ -2921,7 +2921,7 @@ packages:
         # - eventful-dynamodb # http-conduit 2.3 via amazonka
         - eventful-memory
         - eventful-postgresql < 0 # GHC 8.4 via persistent-postgresql
-        - eventful-sql-common
+        - eventful-sql-common < 0 # persistent 2.10.0 #4551
         - eventful-sqlite
         - eventful-test-helpers
         - stratosphere
@@ -3385,7 +3385,7 @@ packages:
         - mnist-idx
 
     "Naushadh <naushadh@protonmail.com> @naushadh":
-        - persistent-mysql-haskell
+    - persistent-mysql-haskell < 0 # persistent 2.10.0 #4550
 
     "Moritz Schulte <mtesseract@silverratio.net> @mtesseract":
         - async-refresh
@@ -3741,7 +3741,7 @@ packages:
 
     "Maximilian Tagher <feedback.tagher@gmail.com> @MaxGabriel":
         - aeson-iproute
-        - persistent-iproute
+        - persistent-iproute < 0 # persistent-2.10.0 #4553
 
     "Damian Nadales <damian.nadales@gmail.com> @capitanbatata":
         - hierarchy < 0
@@ -4656,20 +4656,6 @@ packages:
 
         # https://github.com/commercialhaskell/stackage/issues/4541
         - dependent-sum < 0.5
-
-        # causes build failure in persistent-mysql-haskell https://github.com/commercialhaskell/stackage/issues/4550
-        # causes build failure in eventful-sql-common https://github.com/commercialhaskell/stackage/issues/4551
-        # causes build failure in persistent-test https://github.com/commercialhaskell/stackage/issues/4552
-        # causes build failure in persistent-iproute https://github.com/commercialhaskell/stackage/issues/4553
-        - persistent < 2.10
-        - persistent-mysql < 2.10
-        - persistent-postgresql < 2.10
-        - persistent-sqlite < 2.10
-        - persistent-template < 2.7.0
-        - persistent-typed-db < 0.1.0.0
-        
-        # Needs persistent >= 2.10, currently blocked by any of #4550 #4551 #4552 #4553
-        - esqueleto < 3.1.0
 
         # https://github.com/commercialhaskell/stackage/issues/4564
         - primitive < 0.7.0.0
