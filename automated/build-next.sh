@@ -117,6 +117,8 @@ then
     else
         docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "stackage-curator update && stackage-curator constraints --target $TARGET && stackage-curator snapshot-incomplete && stackage-curator snapshot"
     fi
+else
+    docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "stackage-curator snapshot"
 fi
 
 
