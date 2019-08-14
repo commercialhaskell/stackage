@@ -9,6 +9,6 @@ export GHCVER=$(sed -n "s/^ghc-version: \"\(.*\)\"/\1/p" "build-constraints.yaml
 NIGHTLY="nightly-$(date +%Y-%m-%d)"
 curator update &&
   curator constraints --target=$NIGHTLY &&
-  curator snapshot-incomplete &&
+  curator snapshot-incomplete --target=$NIGHTLY &&
   curator snapshot &&
   stack --resolver ghc-$GHCVER exec curator check-snapshot
