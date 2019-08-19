@@ -98,6 +98,7 @@ apt-get install -y \
     libopenmpi-dev \
     libpango1.0-dev \
     libpcap0.8-dev \
+    libpcre2-dev \
     libpq-dev \
     libprotobuf-dev \
     libre2-dev \
