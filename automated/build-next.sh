@@ -63,6 +63,7 @@ require_400_file "$HACKAGE_CREDS"
 mkdir -p $ROOT/bin
 BINDIR=$(cd $ROOT/bin ; pwd)
 (
+# See etc/curator-exes/README.md
 CURATOR_EXES=95a207fb4d5bd2e2a255350ce18f55976344eeb71e6f27a25f63e8dba28a4cd1
 cd $BINDIR
 rm -f curator stack *.bz2
