@@ -106,7 +106,7 @@ if [ "${NOPLAN:-}x" = "x" ]
 then
     if [ $SHORTNAME = "lts" ]
     then
-        docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "exec stackage-curator create-plan --plan-file $PLAN_FILE --target $TARGET ${CONSTRAINTS:-}"
+        docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "stack update && exec stackage-curator create-plan --plan-file $PLAN_FILE --target $TARGET ${CONSTRAINTS:-}"
     else
         docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "stack update && exec stackage-curator create-plan --plan-file $PLAN_FILE --target $TARGET ${CONSTRAINTS:-}"
     fi
@@ -146,3 +146,5 @@ docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "stackage-curator upload-docs --targ
 
 echo -n "Completed at "
 date
+
+(cd new-stackage-format && ./convert.sh)
