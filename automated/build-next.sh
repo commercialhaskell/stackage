@@ -63,20 +63,19 @@ require_400_file "$HACKAGE_CREDS"
 mkdir -p $ROOT/bin
 BINDIR=$(cd $ROOT/bin ; pwd)
 (
+CURATOR_EXES=95a207fb4d5bd2e2a255350ce18f55976344eeb71e6f27a25f63e8dba28a4cd1
 cd $BINDIR
-rm -f stackage-curator stackage-curator-2*.bz2
-CURATOR2=stackage-curator-2-f6258124cff9a7e92bcb5704164a70e149080e88
-wget "https://download.fpcomplete.com/stackage-curator-2/$CURATOR2.bz2"
-bunzip2 "$CURATOR2.bz2"
-chmod +x $CURATOR2
-mv $CURATOR2 stackage-curator
-./stackage-curator --version
+rm -f curator stack *.bz2
+wget "https://s3.amazonaws.com/download.fpcomplete.com/curator-exes/curator-exes-$CURATOR_EXES.tar.bz2"
+tar xf "curator-exes-$CURATOR_EXES.tar.bz2"
+echo curator: $(./curator --version)
+echo stack: $(./stack --version)
 )
 
 # We share pantry directory between snapshots while the other content in .stack
 # is stored separately (because e.g. Ubuntu releases between LTS and nightly
 # could differ). Also the order of binds is important.
-ARGS_COMMON="--rm -v $WORKDIR:$HOME/work -w $HOME/work -v $BINDIR/stackage-curator:/usr/bin/stackage-curator:ro -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v $BINDIR/stack:/usr/bin/stack:ro -v $STACK_DIR:$HOME/.stack -v $PANTRY_DIR:$HOME/.stack/pantry"
+ARGS_COMMON="--rm -v $WORKDIR:$HOME/work -w $HOME/work -v $BINDIR/curator:/usr/bin/curator:ro -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v $BINDIR/stack:/usr/bin/stack:ro -v $STACK_DIR:$HOME/.stack -v $PANTRY_DIR:$HOME/.stack/pantry"
 ARGS_PREBUILD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $CABAL_DIR:$HOME/.cabal -v $GHC_DIR:$HOME/.ghc -v $DOT_STACKAGE_DIR:$HOME/.stackage"
 ARGS_BUILD="$ARGS_COMMON -v $CABAL_DIR:$HOME/.cabal:ro -v $GHC_DIR:$HOME/.ghc:ro"
 # instance-data is an undocumented feature of S3 used by amazonka,
@@ -89,20 +88,8 @@ ARGS_UPLOAD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $HACKAGE_CREDS:/hackage-cr
 # below for why this is safe.)
 if [ $SHORTNAME = "lts" ]
 then
-  docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec stackage-curator check-target-available --target $TARGET"
+  docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator check-target-available --target $TARGET"
 fi
-
-# Get latest stack
-(
-cd $BINDIR
-rm -f stack stack-*.bz2
-STACK=stack-f6258124cff9a7e92bcb5704164a70e149080e88
-wget "https://download.fpcomplete.com/stackage-curator-2/$STACK.bz2"
-bunzip2 "$STACK.bz2"
-chmod +x $STACK
-mv $STACK stack
-./stack --version
-)
 
 
 # Determine the new build plan unless NOPLAN is set
@@ -113,12 +100,12 @@ if [ "${NOPLAN:-}x" = "x" ]
 then
     if [ $SHORTNAME = "lts" ]
     then
-        docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "stackage-curator constraints --target $TARGET && stackage-curator snapshot-incomplete && stackage-curator snapshot"
+        docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator constraints --target $TARGET && curator snapshot-incomplete --target $TARGET && curator snapshot"
     else
-        docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "stackage-curator update && stackage-curator constraints --target $TARGET && stackage-curator snapshot-incomplete && stackage-curator snapshot"
+        docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator update && curator constraints --target $TARGET && curator snapshot-incomplete --target $TARGET && curator snapshot"
     fi
 else
-    docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "stackage-curator snapshot"
+    docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator snapshot"
 fi
 
 
@@ -126,7 +113,7 @@ fi
 #
 # * Check that the snapshot is valid
 # * Fetch and unpack all needed tarballs (the build step does not have write access to the tarball directory)
-docker run $ARGS_PREBUILD $IMAGE /bin/bash -c 'GHCVER=$(sed -n "s/^ghc-version: \(.*\)/\1/p" constraints.yaml) && stack setup ghc-$GHCVER --verbosity=error && stack exec --resolver=ghc-$GHCVER stackage-curator check-snapshot && stackage-curator unpack'
+docker run $ARGS_PREBUILD $IMAGE /bin/bash -c 'GHCVER=$(sed -n "s/^ghc-version: \(.*\)/\1/p" constraints.yaml) && stack setup ghc-$GHCVER --verbosity=error && stack exec --resolver=ghc-$GHCVER curator check-snapshot && curator unpack'
 
 case $SHORTNAME in
     lts) JOBS=1 ;;
@@ -136,25 +123,24 @@ esac
 # Now do the actual build. We need to first set the owner of the home directory
 # correctly, so we run the command as root, change owner, and then use sudo to
 # switch back to the current user
-docker run $ARGS_BUILD $IMAGE nice -n 15 /bin/bash -c "chown $USER $HOME && exec sudo -E -u $USER env \"HOME=$HOME\" \"PATH=\$PATH\" stackage-curator build --jobs $JOBS" 2>&1 | tee "$SHORTNAME-build.log"
+docker run $ARGS_BUILD $IMAGE nice -n 15 /bin/bash -c "chown $USER $HOME && exec sudo -E -u $USER env \"HOME=$HOME\" \"PATH=\$PATH\" curator build --jobs $JOBS" 2>&1 | tee "$SHORTNAME-build.log"
 
 # Make sure we actually need this snapshot. We used to perform this check
 # exclusively before building. Now we perform it after as well for the case of
 # nightly, where we don't perform this check beforehand. This is also slightly
 # safer, in case someone else already uploaded a specific snapshot while we
 # were building.
-docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec stackage-curator check-target-available --target $TARGET"
+docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator check-target-available --target $TARGET"
 
 # Successful build, so we need to:
 #
 # * Upload the docs to S3
 # * Upload the new snapshot .yaml file to the appropriate Github repo, also upload its constraints
 # * Register as a new Hackage distro (currently disabled)
-docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "stackage-curator upload-docs --target $TARGET && exec stackage-curator upload-github --target $TARGET"
-# FIXME - add back "stackage-curator hackage-distro --target $TARGET" when we will be ready to publish
+docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "curator upload-docs --target $TARGET && curator upload-github --target $TARGET && exec curator hackage-distro --target $TARGET"
 # information about the new snapshots on Hackage
 
-$BINDIR/stackage-curator legacy-bulk --stackage-snapshots dot-stackage/curator/stackage-snapshots/ --lts-haskell dot-stackage/curator/lts-haskell/ --stackage-nightly dot-stackage/curator/stackage-nightly/
+$BINDIR/curator legacy-bulk --stackage-snapshots dot-stackage/curator/stackage-snapshots/ --lts-haskell dot-stackage/curator/lts-haskell/ --stackage-nightly dot-stackage/curator/stackage-nightly/
 
 (
 

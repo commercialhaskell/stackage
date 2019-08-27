@@ -21,7 +21,10 @@ do
     fi
 done
 
+(
+export HOME=$(pwd)
 ./convert
+)
 
 cd stackage-snapshots
 git add lts nightly
