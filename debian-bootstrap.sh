@@ -165,6 +165,12 @@ curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources
 apt-get update
 ACCEPT_EULA=Y apt-get install msodbcsql17 -y
 
+# llvm for llvm-hs
+curl https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
+add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main"
+apt-get update
+apt-get install llvm-9-dev -y
+
 locale-gen en_US.UTF-8
 
 # Buggy versions of ld.bfd fail to link some Haskell packages:
