@@ -98,6 +98,7 @@ apt-get install -y \
     libopenmpi-dev \
     libpango1.0-dev \
     libpcap0.8-dev \
+    libpcre2-dev \
     libpq-dev \
     libprotobuf-dev \
     libre2-dev \
@@ -131,6 +132,7 @@ apt-get install -y \
     libzstd-dev \
     libzmq3-dev \
     llvm-6.0 \
+    llvm-8 \
     locales \
     m4 \
     minisat \
@@ -163,13 +165,13 @@ curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources
 apt-get update
 ACCEPT_EULA=Y apt-get install msodbcsql17 -y
 
-locale-gen en_US.UTF-8
+# llvm for llvm-hs
+curl https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
+add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main"
+apt-get update
+apt-get install llvm-9-dev -y
 
-# llvm-7.0 for llvm-hs (separate since it needs wget)
-wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
-    && add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-7 main" \
-    && apt-get update \
-    && apt-get install -y llvm-7
+locale-gen en_US.UTF-8
 
 # Buggy versions of ld.bfd fail to link some Haskell packages:
 # https://sourceware.org/bugzilla/show_bug.cgi?id=17689. Gold is
@@ -217,10 +219,9 @@ echo "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/" > /etc/ld.so.conf
     && ldconfig
 
 # Install erlang/otp platform and its dependencies
-ERLANG_VERSION="20.2.2"
-ERLANG_DEB_FILE="esl-erlang_21.2-1~ubuntu~bionic_amd64.deb"
+ERLANG_DEB_FILE="esl-erlang_21.1-1~ubuntu~bionic_amd64.deb"
 pushd /tmp \
-    && wget http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_1_general/${ERLANG_DEB_FILE} \
+    && wget https://packages.erlang-solutions.com/erlang/debian/pool/${ERLANG_DEB_FILE} \
     && (dpkg -i ${ERLANG_DEB_FILE}; apt-get install -yf) \
     && rm ${ERLANG_DEB_FILE} \
     && popd
@@ -275,6 +276,12 @@ echo /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server > /etc/ld.so.conf.d/
 echo /usr/lib/llvm-3.7/lib > /etc/ld.so.conf.d/llvm.conf
 
 ldconfig
+
+# Install librdkafka (Apache Kafka C/C++ library)
+wget -qO - https://packages.confluent.io/deb/5.2/archive.key | apt-key add -
+add-apt-repository "deb https://packages.confluent.io/deb/5.2 stable main"
+apt-get update && apt install -y librdkafka-dev
+
 # EOF: don't build anything below this line
 
 # Cleanup

@@ -4,7 +4,7 @@ set -eux
 
 if [[ ! -f convert ]]
 then
-    curl https://s3.amazonaws.com/www.snoyman.com/convert-old-stackage-f780174e2c84e4fb171f6526228d9243beb7fd71.bz2 > convert.bz2
+    curl https://s3.amazonaws.com/www.snoyman.com/convert-old-stackage-c9c4d06b31cb7aafedd23aa316b8008c45e4d4dd.bz2 > convert.bz2
     chmod +x convert.bz2
     bunzip2 convert.bz2
 fi
@@ -21,7 +21,10 @@ do
     fi
 done
 
+(
+export HOME=$(pwd)
 ./convert
+)
 
 cd stackage-snapshots
 git add lts nightly
