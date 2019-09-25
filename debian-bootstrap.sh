@@ -131,7 +131,7 @@ apt-get install -y \
     libzip-dev \
     libzstd-dev \
     libzmq3-dev \
-    llvm-7.0 \
+    llvm-7 \
     llvm-8 \
     locales \
     m4 \
