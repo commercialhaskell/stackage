@@ -4810,7 +4810,6 @@ packages:
         - ucam-webauth-types < 0 # via base-4.13.0.0
         - unagi-chan < 0 # via base-4.13.0.0
         - union < 0 # via base-4.13.0.0
-        - vector-th-unbox < 0 # via base-4.13.0.0
         - viewprof < 0 # via base-4.13.0.0
         - wai-middleware-travisci < 0 # via base-4.13.0.0
         - web3 < 0 # via base-4.13.0.0
@@ -5148,7 +5147,6 @@ packages:
         - threepenny-gui < 0 # via template-haskell-2.15.0.0
         - tz < 0 # via template-haskell-2.15.0.0
         - uri-bytestring < 0 # via template-haskell-2.15.0.0
-        - vector-th-unbox < 0 # via template-haskell-2.15.0.0
         - web3 < 0 # via template-haskell-2.15.0.0
         - hyraxAbif < 0 # via text-1.2.4.0
         - sqlite-simple-errors < 0 # via text-1.2.4.0
@@ -5645,12 +5643,6 @@ packages:
         - uri-bytestring-aeson < 0 # via uri-bytestring
         - wai-middleware-auth < 0 # via uri-bytestring
         - yesod-auth-oauth2 < 0 # via uri-bytestring
-        - Hoed < 0 # via vector-th-unbox
-        - dense-linear-algebra < 0 # via vector-th-unbox
-        - math-functions < 0 # via vector-th-unbox
-        - netpbm < 0 # via vector-th-unbox
-        - statistics < 0 # via vector-th-unbox
-        - thyme < 0 # via vector-th-unbox
         - hamilton < 0 # via vty
         - hledger-iadd < 0 # via vty
         - avers-server < 0 # via wai
@@ -5813,8 +5805,6 @@ packages:
         - chronologique < 0 # via aeson
         - codec < 0 # via aeson
         - composable-associations-aeson < 0 # via aeson
-        - criterion < 0 # via aeson
-        - criterion-measurement < 0 # via aeson
         - cuckoo-filter < 0 # via aeson
         - debug < 0 # via aeson
         - deriveJsonNoPrefix < 0 # via aeson
@@ -5868,7 +5858,6 @@ packages:
         - matplotlib < 0 # via aeson
         - menshen < 0 # via aeson
         - microlens-aeson < 0 # via aeson
-        - microstache < 0 # via aeson
         - miso < 0 # via aeson
         - monad-logger-json < 0 # via aeson
         - mustache < 0 # via aeson
@@ -5940,9 +5929,6 @@ packages:
         - magico < 0 # via lapack
         - resistor-cube < 0 # via lapack
         - cmark-gfm < 0 # via markdown
-        - bins < 0 # via math-functions
-        - mwc-random < 0 # via math-functions
-        - random-fu < 0 # via math-functions
         - async-refresh < 0 # via monad-logger
         - async-refresh-tokens < 0 # via monad-logger
         - eventful-test-helpers < 0 # via monad-logger
@@ -5983,8 +5969,6 @@ packages:
         - miso < 0 # via servant-lucid
         - state-codes < 0 # via shakespeare
         - xml-hamlet < 0 # via shakespeare
-        - criterion < 0 # via statistics
-        - emd < 0 # via statistics
         - stm-containers < 0 # via stm-hamt
         - show-prettyprint < 0 # via trifecta
         - bench < 0 # via turtle
@@ -6072,21 +6056,6 @@ packages:
         - mwc-probability-transition < 0 # via logging-effect
         - incremental-parser < 0 # via monoid-subclasses
         - timerep < 0 # via monoid-subclasses
-        - Spintax < 0 # via mwc-random
-        - backprop < 0 # via mwc-random
-        - conduit < 0 # via mwc-random
-        - foldl < 0 # via mwc-random
-        - metrics < 0 # via mwc-random
-        - monad-par < 0 # via mwc-random
-        - mono-traversable < 0 # via mwc-random
-        - mwc-probability < 0 # via mwc-random
-        - pipes-random < 0 # via mwc-random
-        - random-bytestring < 0 # via mwc-random
-        - random-source < 0 # via mwc-random
-        - sampling < 0 # via mwc-random
-        - sparse-linear-algebra < 0 # via mwc-random
-        - uncertain < 0 # via mwc-random
-        - vector-algorithms < 0 # via mwc-random
         - hschema < 0 # via natural-transformation
         - hschema-prettyprinter < 0 # via natural-transformation
         - asciidiagram < 0 # via pandoc-types
@@ -6238,6 +6207,10 @@ packages:
         - string-interpolate < 0 # via text-conversions
         - xmlbf-xeno < 0 # via xeno
         - text-show-instances < 0 # via text-show
+        - random-fu < 0 # via random-source
+        - Hoed < 0 # via regex-tdfa
+        - Hoed < 0 # via regex-tdfa-text
+        - random-fu < 0 # via rvar
 
 
     "GHC 8.8-related build failures":
@@ -6328,6 +6301,9 @@ packages:
         - network-messagepack-rpc < 0 # via data-msgpack
         - hunit-dejafu < 0 # via dejafu
         - tasty-dejafu < 0 # via dejafu
+
+        # More build failure transitive deps
+        - random-source < 0 # via flexible-defaults
 
         # Some more failures
         - present < 0 # MonadFail
@@ -6496,6 +6472,7 @@ skipped-tests:
     - base-orphans # via hspec
 
     # test-framework per ghc 8.8
+    - statistics # via test-framework
     - Decimal # via test-framework
     - Diff # via test-framework
     - ENIG # via test-framework
