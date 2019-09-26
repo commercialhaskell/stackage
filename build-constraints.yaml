@@ -4822,7 +4822,6 @@ packages:
         - feed < 0 # via base-compat-0.11.0
         - gi-gtk-hs < 0 # via base-compat-0.11.0
         - pure-zlib < 0 # via base-compat-0.11.0
-        - time-compat < 0 # via base-compat-0.11.0
         - wl-pprint-text < 0 # via base-compat-0.11.0
         - hledger < 0 # via base-compat-batteries-0.11.0
         - hledger-lib < 0 # via base-compat-batteries-0.11.0
@@ -5631,10 +5630,6 @@ packages:
         - servant-swagger-ui < 0 # via swagger2
         - servant-swagger-ui-core < 0 # via swagger2
         - servant-swagger-ui-redoc < 0 # via swagger2
-        - aeson < 0 # via time-compat
-        - hsemail < 0 # via time-compat
-        - http-api-data < 0 # via time-compat
-        - quickcheck-instances < 0 # via time-compat
         - configuration-tools < 0 # via tls
         - soap-tls < 0 # via tls
         - stack < 0 # via tls
@@ -5938,12 +5933,6 @@ packages:
         - mbox-utility < 0 # via hsemail
         - postgresql-simple-queue < 0 # via hspec-pg-transact
         - hspec-wai-json < 0 # via hspec-wai
-        - base64-bytestring-type < 0 # via http-api-data
-        - envelope < 0 # via http-api-data
-        - eventful-core < 0 # via http-api-data
-        - http-link-header < 0 # via http-api-data
-        - miso < 0 # via http-api-data
-        - pushbullet-types < 0 # via http-api-data
         - dl-fedora < 0 # via http-directory
         - hw-balancedparens < 0 # via hw-fingertree
         - hmm-lapack < 0 # via lapack
@@ -5968,38 +5957,6 @@ packages:
         - postgresql-simple-queue < 0 # via pg-transact
         - inliterate < 0 # via plotlyhs
         - polysemy-plugin < 0 # via polysemy
-        - attoparsec-uri < 0 # via quickcheck-instances
-        - caster < 0 # via quickcheck-instances
-        - commutative < 0 # via quickcheck-instances
-        - concise < 0 # via quickcheck-instances
-        - crypt-sha512 < 0 # via quickcheck-instances
-        - deferred-folds < 0 # via quickcheck-instances
-        - deque < 0 # via quickcheck-instances
-        - edit-distance-vector < 0 # via quickcheck-instances
-        - envy < 0 # via quickcheck-instances
-        - hschema-aeson < 0 # via quickcheck-instances
-        - hschema-quickcheck < 0 # via quickcheck-instances
-        - hslua < 0 # via quickcheck-instances
-        - hslua-aeson < 0 # via quickcheck-instances
-        - http-types < 0 # via quickcheck-instances
-        - interpolate < 0 # via quickcheck-instances
-        - jose < 0 # via quickcheck-instances
-        - katip < 0 # via quickcheck-instances
-        - monoid-subclasses < 0 # via quickcheck-instances
-        - natural-transformation < 0 # via quickcheck-instances
-        - parsers < 0 # via quickcheck-instances
-        - protobuf-simple < 0 # via quickcheck-instances
-        - strict-list < 0 # via quickcheck-instances
-        - string-conversions < 0 # via quickcheck-instances
-        - string-interpolate < 0 # via quickcheck-instances
-        - text-show < 0 # via quickcheck-instances
-        - text-show-instances < 0 # via quickcheck-instances
-        - tmapmvar < 0 # via quickcheck-instances
-        - winery < 0 # via quickcheck-instances
-        - xml-isogen < 0 # via quickcheck-instances
-        - xmlbf < 0 # via quickcheck-instances
-        - xmlbf-xeno < 0 # via quickcheck-instances
-        - yi-rope < 0 # via quickcheck-instances
         - epub-metadata < 0 # via regex-compat-tdfa
         - highlighting-kate < 0 # via regex-pcre-builtin
         - html-email-validate < 0 # via regex-pcre-builtin
@@ -6269,6 +6226,20 @@ packages:
         - hi-file-parser < 0 # via rio
         - tonalude < 0 # via rio
 
+        # Misc. Removed from above but must still be re-removed due to *another* issue
+        - attoparsec-uri < 0 # via attoparsec-ip
+        - string-interpolate < 0 # via criterion
+        - text-show < 0 # via criterion
+        - caster < 0 # via fast-builder
+        - deferred-folds < 0 # via foldl
+        - hschema-quickcheck < 0 # via hschema
+        - string-interpolate < 0 # via interpolatedstring-perl6
+        - attoparsec-uri < 0 # via ip
+        - string-interpolate < 0 # via text-conversions
+        - xmlbf-xeno < 0 # via xeno
+        - text-show-instances < 0 # via text-show
+
+
     "GHC 8.8-related build failures":
         # MonadFail stuff
         - generics-mrsop < 0
@@ -6516,6 +6487,7 @@ skipped-tests:
     # Outdated dependencies
     # These can periodically be checked for updates;
     # just remove these lines and run `stackage-curator check' to verify.
+    - time-compat # base-compat 0.11
 
     # fails with ghc 8.8
     - alex # as of alex-3.2.4
