@@ -183,9 +183,9 @@ update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
 # This version is tracked here:
 # https://ghc.haskell.org/trac/ghc/wiki/Commentary/Compiler/Backends/LLVM/Installing
 #
-# GHC 8.8 requires LLVM 7.0 tools (?) (specifically, llc-7.0 and opt-7.0).
-update-alternatives --install "/usr/bin/llc" "llc" "/usr/bin/llc-7.0" 50
-update-alternatives --install "/usr/bin/opt" "opt" "/usr/bin/opt-7.0" 50
+# GHC 8.8 requires LLVM 7 tools (?) (specifically, llc-7 and opt-7).
+update-alternatives --install "/usr/bin/llc" "llc" "/usr/bin/llc-7" 50
+update-alternatives --install "/usr/bin/opt" "opt" "/usr/bin/opt-7" 50
 
 # nodejs 10 (nodejs8 in bionic needs conflicting libssl10-dev)
 curl -sL https://deb.nodesource.com/setup_10.x | bash -
