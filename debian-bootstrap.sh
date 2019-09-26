@@ -257,8 +257,8 @@ apt-add-repository multiverse \
     && apt-get update \
     && apt-get install -y nvidia-cuda-dev
 
-export CLANG_PURE_LLVM_LIB_DIR=/usr/lib/llvm-7.0/lib;
-export CLANG_PURE_LLVM_INCLUDE_DIR=/usr/lib/llvm-7.0/include;
+export CLANG_PURE_LLVM_LIB_DIR=/usr/lib/llvm-7/lib;
+export CLANG_PURE_LLVM_INCLUDE_DIR=/usr/lib/llvm-7/include;
 
 # protoc, for proto-lens-combinators test suite
 # Instructions from: https://google.github.io/proto-lens/installing-protoc.html
