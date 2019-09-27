@@ -5444,13 +5444,6 @@ packages:
         - streaming-bytestring < 0 # via streaming
         - streaming-cassava < 0 # via streaming
         - streaming-wai < 0 # via streaming
-        - conduit-algorithms < 0 # via streaming-commons
-        - datasets < 0 # via streaming-commons
-        - qnap-decrypt < 0 # via streaming-commons
-        - stack < 0 # via streaming-commons
-        - turtle < 0 # via streaming-commons
-        - wai-handler-launch < 0 # via streaming-commons
-        - yesod < 0 # via streaming-commons
         - sv-cassava < 0 # via sv-core
         - Chart-diagrams < 0 # via svg-builder
         - cachix-api < 0 # via swagger2
@@ -5603,9 +5596,6 @@ packages:
         - xml-hamlet < 0 # via shakespeare
         - stm-containers < 0 # via stm-hamt
         - show-prettyprint < 0 # via trifecta
-        - bench < 0 # via turtle
-        - distribution-opensuse < 0 # via turtle
-        - singletons < 0 # via turtle
         - emd < 0 # via typelits-witnesses
         - stripe-wreq < 0 # via wreq
         - jose < 0 # via x509
@@ -5682,12 +5672,6 @@ packages:
         - massiv < 0 # via scheduler
         - massiv-test < 0 # via scheduler
         - servant-ruby < 0 # via servant-foreign
-        - decidable < 0 # via singletons
-        - eliminators < 0 # via singletons
-        - functor-products < 0 # via singletons
-        - lens-typelevel < 0 # via singletons
-        - list-witnesses < 0 # via singletons
-        - singleton-nats < 0 # via singletons
         - filecache < 0 # via strict-base-types
         - pcre-heavy < 0 # via string-conversions
         - secp256k1-haskell < 0 # via string-conversions
@@ -5769,7 +5753,6 @@ packages:
         - hschema-aeson < 0 # via prettyprinter-ansi-terminal
         - winery < 0 # via prettyprinter-ansi-terminal
         - aeson-extra < 0 # via semialign
-        - inline-r < 0 # via singletons
         - lxd-client-config < 0 # via test-framework
         - pandoc-types < 0 # via test-framework
         - lxd-client-config < 0 # via test-framework-hunit
@@ -5867,7 +5850,6 @@ packages:
         - servant-multipart < 0 # via servant-foreign
         - yesod-bin < 0 # via shakespeare
         - yesod-core < 0 # via shakespeare
-        - wai-predicates < 0 # via singletons
         - connection < 0 # via socks
         - network-simple < 0 # via socks
         - store < 0 # via store-core
@@ -5988,18 +5970,14 @@ packages:
         - datadog < 0 # via http-client-tls
         - oauthenticated < 0 # via http-client-tls
         - conduit-throttle < 0 # via test-framework
-        - conduit-zstd < 0 # via test-framework
-        - stm-conduit < 0 # via test-framework
         - conduit-throttle < 0 # via test-framework-hunit
-        - conduit-zstd < 0 # via test-framework-hunit
-        - stm-conduit < 0 # via test-framework-hunit
-        - stm-conduit < 0 # via test-framework-quickcheck2
-        - conduit-zstd < 0 # via test-framework-th
         - html-conduit < 0 # via xml-conduit
         - tagstream-conduit < 0 # via xml-conduit
-        - hamtsolo < 0 # via stm-conduit
-        - json-rpc < 0 # via stm-conduit
-        - nqe < 0 # via stm-conduit
+        - decidable < 0 # via vinyl
+        - functor-products < 0 # via vinyl
+        - list-witnesses < 0 # via vinyl
+        - wai-handler-launch < 0 # via wai
+        - wai-handler-launch < 0 # via warp
 
 
     "GHC 8.8-related build failures":
@@ -6282,6 +6260,9 @@ skipped-tests:
     - base-orphans # via hspec
 
     # test-framework per ghc 8.8
+    - stm-conduit # via test-framework
+    - conduit-zstd # via test-framework
+    - conduit-algorithms # via test-framework
     - statistics # via test-framework
     - Decimal # via test-framework
     - Diff # via test-framework
