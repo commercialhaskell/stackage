@@ -21,6 +21,9 @@ To add your package you can edit [`build-constraints.yaml`](https://github.com/f
 
 If your library depends on a C library, please add it to the `debian-bootstrap.sh` script.
 
+Any dependencies of your packages that are not already part of stackage are added implictly, but it is prefered
+to add all packages explicitly. It is planned to remove this behaviour in the future.
+
 After doing that commit with a message like "add foo-bar" and send a pull request.
 
 The continuous integration job will do some checks to see if your package's dependencies are up-to-date.
@@ -32,7 +35,7 @@ If you want to be proactive or if CI fails, you can make sure that your package 
 # Build from the tarball on Hackage to check for missing files
 $ stack unpack yourpackage && cd yourpackage-*
 # Generate a pristine stack.yaml, adding any missing extra-deps
-$ rm -f stack.yaml && stack init --resolver nightly --solver
+$ rm -f stack.yaml && stack init --resolver nightly
 # Build, generate docs, test, and build benchmarks
 $ stack build --resolver nightly --haddock --test --bench --no-run-benchmarks
 ```
@@ -178,7 +181,7 @@ release (e.g., if `lts-8.9` is out, you would want your package to appear in
 * Be patient! The LTS releases are less frequent than Nightly. The
   Stackage curators will try to get to your issue as soon as possible,
   but it may take some time.
-* We gradually stop maintainng old LTS major versions, so your
+* We gradually stop maintaining old LTS major versions, so your
   request may take longer or be declined if it's for an old LTS.
 
 ## LTS package guarantees and exceptions
@@ -201,7 +204,9 @@ purely on Stackage Curator discretion. The most common examples are:
     considered a major version bump, and disallowed in an LTS minor
     version bump. However, if a package is following SemVer, this
     would not be a breaking change, and curators may elect to include
-    it.
+    it. Note though that curators and their tooling will not know your
+    package is following SemVer, so in this case you would have to open
+    an issue on the [lts-haskell repo](https://github.com/fpco/lts-haskell/issues/new).
 
 *   If a package has overly restrictive version bounds on a
     dependency, in particular constraining a minor version

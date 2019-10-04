@@ -18,13 +18,13 @@ This section sketches out at a high level how the entire Stackage build/curation
 process works:
 
 * [build-constraints.yaml](https://github.com/commercialhaskell/stackage/blob/master/build-constraints.yaml) specifies packages to be included in Stackage
-* [stackage-curator](http://www.stackage.org/package/stackage-curator) combines build-constraints.yaml with the current state of Hackage to create a build plan for a Stackage Nightly
-* stackage-curator can check that build plan to ensure all version bounds are consistent
+* [curator](https://github.com/commercialhaskell/stack/tree/master/subs/curator) combines build-constraints.yaml with the current state of Hackage to create a build plan for a Stackage Nightly
+* `curator` can check that build plan to ensure all version bounds are consistent
     * The [Travis job](https://github.com/commercialhaskell/stackage/blob/master/.travis.yml) performs these two steps to provide immediate feedback on pull requests
-* Docker Hub [builds](https://github.com/commercialhaskell/stackage/blob/master/Dockerfile) a [Docker image](https://registry.hub.docker.com/u/snoyberg/stackage/) for running builds
+* Docker Hub [builds](https://github.com/commercialhaskell/stackage/blob/master/Dockerfile) a [Docker image](https://hub.docker.com/r/commercialhaskell/stackage/) for running builds
 * The stackage-build server (described below) is able to run automated builds using the [build.sh script](https://github.com/commercialhaskell/stackage/blob/master/automated/build.sh)
-* When a new Nightly build is completed, it is uploaded to [the nightly repo](https://github.com/fpco/stackage-nightly)
-* Once a week, we run an LTS minor bump. Instead of using build-constraints.yaml, that job takes the previous LTS release, turns it into constraints, and then bumps the version numbers to the latest on Hackage, in accordance with the version bounds in the build plan. This plans are uploaded to [the LTS repo](https://github.com/fpco/lts-haskell)
+* When a new Nightly build is completed, it is uploaded to [the nightly repo](https://github.com/commercialhaskell/stackage-nightly)
+* Once a week, we run an LTS minor bump. Instead of using build-constraints.yaml, that job takes the previous LTS release, turns it into constraints, and then bumps the version numbers to the latest on Hackage, in accordance with the version bounds in the build plan. This plans are uploaded to [the LTS repo](https://github.com/commercialhaskell/lts-haskell)
 * Cutting a new LTS major release is essentially just a Stackage Nightly that gets rebuilt and uploaded as an LTS
 
 ## Pull requests
@@ -72,7 +72,7 @@ Most common technique, just prevent a new version of a library from
 being included immediately. This also applies to when only benchmarks
 and tests are affected.
 
-* Copy the stackage-curator output and create a new issue, see e.g
+* Copy the `curator` output and create a new issue, see e.g
 https://github.com/commercialhaskell/stackage/issues/2108
 
 * Add a new entry under the "stackage upper bounds" section of `build-constraints.yaml`. For the above example it would be
@@ -84,7 +84,7 @@ https://github.com/commercialhaskell/stackage/issues/2108
 ```
 
 * Commit (message e.g. "Upper bound for #2108")
-* Optionally: Verify with `stackage-curator check` locally
+* Optionally: Verify with `./check` locally
 * Push
 * Verify that everything works on the build server (you can restart the build or wait for it to to run again)
 
@@ -110,7 +110,7 @@ new package may appear if its dependencies were part of this issue but
 have been updated since the last time we checked. We want to give
 these new packages ample time to be upgraded.
 
-If stackage-curator is happy commit the change ("Remove upper bounds
+If `curator` is happy commit the change ("Remove upper bounds
 and close #X"). After doing this the next nightly build may fail
 because some packages didn't have an upper bound in place, but
 compilation failed. In this case revert the previous commit so any
@@ -140,8 +140,9 @@ exist.
 ### Expecting test/benchmark/haddock failures
 
 The difference from the `skipped` sections is that items listed here
-are compiled and their dependencies are taken into account. These
-sections also have sub sections with groups and descriptions.
+are compiled and their dependencies are taken into account
+(but they are allowed to fail to build).
+These sections also have subsections with groups and descriptions.
 
 One big category of test suites in this section are those requiring
 running services. We don't want to run those, but we do want to check
@@ -215,6 +216,11 @@ Hub to create a new Docker tag for the relevant branch name.
 You'll need to update both the `PATH` in `Dockerfile` and the `GHCVER` variable
 in `debian-bootstrap.sh`.
 
+Ensure that the [global-hints.yaml
+file](https://github.com/fpco/stackage-content/blob/master/stack/global-hints.yaml)
+is updated with information on the latest GHC release by cloning that
+repo and running `./update-global-hints.yaml ghc-X.Y.Z`.
+
 ### Getting the new image to the build server
 Once a new Docker image is available, you'll need to pull it onto the stackage-build server (see
 below). Instead of pulling an unbounded number of images, I typically just
@@ -225,7 +231,7 @@ docker rm $(docker ps -a -q)
 docker rmi $(docker images -q)
 ```
 
-but `docker pull snoyberg/stackage:nightly` can also be run instead just to update the nightly image say.
+but `docker pull commercialhaskell/stackage:nightly` can also be run instead just to update the nightly image say.
 
 For a new GHC version you should also delete the cache directories on the stackage-build server to
 force all packages to be rebuilt. See: [issue#746](https://github.com/commercialhaskell/stackage/issues/746). Eg:
@@ -236,14 +242,16 @@ This should also be done when moving the Nightly docker image to a new version o
 
 If you're impatient and would like to build the Docker image on the
 build server instead of waiting for Docker Hub, you can run the
-following command:
+following command (replacing `BRANCH=nightly` if the image for a different branch is desired):
 
 ```
+BRANCH=nightly
 DIR=$(mktemp -d)
 (cd $DIR \
   && git clone https://github.com/commercialhaskell/stackage \
   && cd stackage \
-  && docker build --tag snoyberg/stackage:nightly .)
+  && git checkout $BRANCH
+  && docker build --tag commercialhaskell/stackage:$BRANCH .)
 rm -rf $DIR
 ```
 
@@ -307,7 +315,10 @@ develop this advice over time. For now: if you're not sure, ask for guidance.
 __`NOPLAN=1`__ If you wish to rerun a build without recalculating a
 build plan, you can set the environment variable `NOPLAN=1`. This is
 useful for such cases as an intermittent test failure, out of memory
-condition, or manually tweaking the plan file.
+condition, or manually tweaking the plan file. (When using `NOPLAN=1`,
+if one needs to revert one package, say due to a build or test regression,
+one can edit `current-plan.yaml` and updated the SHA256 hash of the .cabal file,
+to avoid having to rebuild everything again.)
 
 Note LTS builds inherit the current Hackage data (stack updated for Nigthly) to avoid excess extra rebuilding.
 
@@ -342,36 +353,44 @@ file, e.g.:
 $ rm /var/stackage/stackage/automated/nightly/work/builds/nightly/prevres/Build/cryptohash-0.11.9
 ```
 
+### Restarting docker
+
+If docker hangs with e.g. `docker: Error response from daemon:
+connection error: desc = "transport: dial unix
+/var/run/docker/containerd/docker-containerd .sock: connect:
+connection refused".` you can restart it with `sudo systemctl restart
+docker.service`.
+
 ## Local curator setup
 
 We do not run the full stackage build locally as that might take too
 much time. However, some steps on the other hand are much faster to do
 yourself, e.g. verifying constraints without building anything.
 
-To get started, install `stackage-curator` via Git, or [the Linux binary]:
+To get started, install `curator` via Git:
 
 ```
-$ git clone git@github.com:fpco/stackage-curator.git
-$ cd stackage-curator && stack install
+$ git clone git@github.com:commercialhaskell/curator.git
+$ cd curator && stack install curator
 ```
 
-It is a good idea to upgrade `stackage-curator` at the start of your week.
+It is a good idea to upgrade `curator` at the start of your week.
 Then, clone the stackage repo, get the latest packages and run dependency
 resolution:
 
 ```
 $ git clone git@github.com:commercialhaskell/stackage.git
-$ stack update && stackage-curator check
+$ cd stackage
+$ ./check
 ```
 
 This can be used to make sure all version bounds are in place, including for
 test suites and benchmarks, to check whether bounds can be lifted, and to get
 [tell-me-when-its-released] notifications.
 
-`stackage-curator` does not build anything, so you wont see any compilation
+`curator` does not build anything, so you wont see any compilation
 errors for builds, tests and benchmarks.
 
-[the Linux binary]: https://s3.amazonaws.com/stackage-travis/stackage-curator/stackage-curator.bz2
 [tell-me-when-its-released]: https://github.com/commercialhaskell/stackage/blob/master/CURATORS.md#waiting-for-new-releases
 
 ## Adding new curators

@@ -1,6 +1,14 @@
-#!/bin/sh
+#!/bin/bash
 
 # Convenience script for checking constraints locally
 
 cd `dirname $0`
-exec stack exec --resolver ghc-8.4.3 stackage-curator check
+
+export GHCVER=$(sed -n "s/^ghc-version: \"\(.*\)\"/\1/p" "build-constraints.yaml")
+
+NIGHTLY="nightly-$(date +%Y-%m-%d)"
+curator update &&
+  curator constraints --target=$NIGHTLY &&
+  curator snapshot-incomplete --target=$NIGHTLY &&
+  curator snapshot &&
+  stack --resolver ghc-$GHCVER exec curator check-snapshot
