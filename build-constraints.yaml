@@ -5606,6 +5606,12 @@ packages:
         - references < 0
         - interpolatedstring-perl6 < 0
 
+        # compilation errors
+        - xml-conduit-parse < 0
+        - scalpel-core < 0
+        - configuration-tools < 0
+        - bitx-bitcoin < 0
+
         # Round 2 build failure transitive deps
         - cryptocipher < 0 # via cipher-blowfish
         - dejafu < 0 # via concurrency
@@ -5666,6 +5672,15 @@ packages:
         - regex-pcre-builtin < 0 # MonadFail
         - wai-predicates < 0 # MonadFail
         - sbv < 0 # MonadFail
+        - crypto-pubkey-openssh < 0 # MonadFail
+        - tagstream-conduit < 0 # MonadFail
+        - xlsx < 0 # MonadFail
+        - jose < 0 # MonadFail
+        - data-textual < 0 # MonadFail
+        - data-serializer < 0 # MonadFail
+        - crypto-pubkey-openssh < 0 # MonadFail
+        - RSA < 0 # MonadFail
+
         # https://github.com/psibi/fakedata/issues/5
         - fakedata < 0
         # https://github.com/alevy/simple/issues/23
@@ -5682,12 +5697,16 @@ packages:
         - groundhog-th < 0 # via groundhog
         - cql-io < 0 # via cql
         - groundhog-mysql < 0 # via groundhog
-        - logging-effect < 0 # via prettyprinter
-        - xmlbf-xeno < 0 # via xmlbf
-
-        # previously blocked by http-client
         - mmtf < 0 # via data-msgpack
         - gym-http-api < 0 # via servant servant-client
+        - logging-effect < 0 # via prettyprinter
+        - xmlbf-xeno < 0 # via xmlbf
+        - authenticate-oauth < 0 # via RSA
+        - http-directory < 0 # via html-conduit
+        - xml-html-qq < 0 # via html-conduit
+        - scalpel < 0 # via scalpel-core
+        - authenticate < 0 # via tagstream-conduit
+        - wreq < 0 # via authenticate-oauth
 
         # hashable-1.3.0
         - concurrent-supply < 0
