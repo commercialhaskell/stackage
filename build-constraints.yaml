@@ -5718,6 +5718,9 @@ package-flags:
     hsdev:
         docs: false
 
+    http-client:
+        # https://github.com/snoyberg/http-client/issues/415
+        network3: true
 # end of package-flags
 
 # Special configure options for individual packages
@@ -6290,7 +6293,6 @@ expected-test-failures:
     - haskell-tools-builtin-refactorings
     - hoopl # https://github.com/haskell/hoopl/issues/50
     - hspec-expectations-pretty-diff # GHC 8 issue not reported upstream since issue tracker disabled
-    - http-conduit # https://github.com/snoyberg/http-client/issues/415
     - hweblib # https://github.com/aycanirican/hweblib/issues/3
     - libraft # https://github.com/commercialhaskell/stackage/issues/4337#issuecomment-462465921
     - multiset # doctests require Glob, a hidden package
