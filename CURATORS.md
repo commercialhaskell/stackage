@@ -291,7 +291,10 @@ we're just not there yet.
 
 Recommended: run these from inside a `tmux` session. If you get version bound
 problems on nightly or LTS major, you need to fix build-constraints.yaml (see
-info above). For an LTS minor bump, you'll typically want to:
+info above). 
+
+### Building LTS minor releases
+For an LTS minor bump, you'll typically want to:
 
 * Add constraints to package `range:` fields in eg `work/lts14/constraints.yaml`.
 * Add new packages versioned to eg `work/lts14/snapshot-incomplete.yaml` (the `@<hash>` suffix is optional)
@@ -313,7 +316,7 @@ if one needs to revert one package, say due to a build or test regression,
 one can edit `current-plan.yaml` and updated the SHA256 hash of the .cabal file,
 to avoid having to rebuild everything again.)
 
-_Sadly no longer true currently_: ~~Note LTS builds inherit the current Hackage data (stack updated for Nigthly) to avoid excess extra rebuilding.~~
+_Sadly no longer true currently_: ~~Note LTS builds inherit the current Hackage data (stack updated for Nightly) to avoid excess extra rebuilding.~~
 
 ### Timing
 
