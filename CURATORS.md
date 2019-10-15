@@ -294,11 +294,15 @@ problems on nightly or LTS major, you need to fix build-constraints.yaml (see
 info above). 
 
 ### Building LTS minor releases
+First run `build-next.sh` to regenerate updated `work/ltsXX/constraints.yaml` and `work/ltsXX/snapshot-incomplete.yaml` files.
+
 For an LTS minor bump, you'll typically want to:
 
-* Add constraints to package `range:` fields in eg `work/lts14/constraints.yaml`.
-* Add new packages versioned to eg `work/lts14/snapshot-incomplete.yaml` (the `@<hash>` suffix is optional)
-* Test, benchmark, haddock failures can also be added to package fields in eg `work/lts14/constraints.yaml` if necessary, though it should be avoided if possible for LTS.
+* Add constraints to package `range:` fields in that `constraints.yaml`.
+* Add new packages versioned to `snapshot-incomplete.yaml` (the `@<hash>` suffix is optional)
+* Test, benchmark, haddock failures can also be added to package fields in the `constraints.yaml` if necessary, though it should be avoided if possible for LTS.
+
+Then run `NOPLAN=1 build-next.sh` to build the generate an updated snapshot.
 
 This replaces `CONSTRAINTS=...' /opt/stackage-build/stackage/automated/build.sh lts-x.y` for the old curator-1.
 
