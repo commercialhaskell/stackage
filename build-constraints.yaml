@@ -9,6 +9,9 @@ cabal-format-version: "2.4"
 
 # Constraints for brand new builds
 packages:
+    "Callan McGill <callan.mcgill@gmail.com> @callanmcgill":
+        - perfect-vector-shuffle
+
     "Luke Clifton <lukec@themk.net> @luke-clifton":
         - generic-monoid
 
@@ -30,11 +33,22 @@ packages:
     "Emily Pillmore <emilypi@cohomolo.gy> @topos":
         - lens-process
         - microlens-process
+        - nonempty-vector
 
     "Matthieu Monsch <mtth@apache.org> @mtth":
         - flags-applicative
         - more-containers
         - tracing
+        # transitive dependencies for tracing
+        - ip
+        - byteslice
+        - bytesmith
+        - contiguous
+        - natural-arithmetic
+        - primitive-offset
+        - primitive-unlifted
+        - run-st
+        - small-bytearray-builder < 0.3.0.0 # #4919
 
     "Robert Vollmert <rob@vllmrt.net> @robx":
         - configurator-pg
@@ -566,7 +580,7 @@ packages:
         - async
         - base16-bytestring
         - c2hs
-        - csv-conduit < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - csv-conduit
         - executable-hash
         - executable-path
         - foreign-store
@@ -674,7 +688,7 @@ packages:
     "Jasper Van der Jeugt @jaspervdj":
         - blaze-html
         - blaze-markup
-        - stylish-haskell < 0 # haskell-src-exts 1.21
+        - stylish-haskell
         # profiteur # aeson-1.4.0.0
         - psqueues
         - websockets
@@ -1412,6 +1426,14 @@ packages:
         - servant-swagger-ui
         - servant-swagger-ui-core
 
+    "Optics <optics@well-typed.com>":
+        - indexed-profunctors
+        - optics
+        - optics-core
+        - optics-extra
+        - optics-th
+        - optics-vl
+
     "Alexandr Ruchkin <voidex@live.com> @mvoidex":
         - hformat
         - simple-log
@@ -1613,7 +1635,7 @@ packages:
         - amazonka-ds
         - amazonka-dynamodb
         - amazonka-dynamodb-streams
-        - amazonka-ec2
+        # - amazonka-ec2 # https://github.com/brendanhay/amazonka/issues/549
         - amazonka-ecr
         - amazonka-ecs
         - amazonka-efs
@@ -2203,6 +2225,7 @@ packages:
         - mtl-compat
         - ordered-containers
         - proxied
+        - rdtsc
         - singleton-nats
         - text-show
         - text-show-instances
@@ -2435,6 +2458,7 @@ packages:
         - streamproc
         - stringsearch          # for cgi
         - titlecase
+        - X11
         - xmonad
 
     "Mark Fine <mark.fine@gmail.com> @markfine":
@@ -2517,6 +2541,7 @@ packages:
         - sampling
         - flat-mcmc
         - urbit-hob
+        - hnock
 
     "Facundo Domínguez <facundo.dominguez@tweag.io> @facundominguez":
         - distributed-process < 0 # GHC 8.4 via network-transport-tcp
@@ -2626,7 +2651,7 @@ packages:
     "David Luposchainsky <dluposchainsky (λ) googles email service> @quchen":
         - pgp-wordlist
         - show-prettyprint
-        - prettyprinter
+        - prettyprinter < 1.4 # https://github.com/commercialhaskell/stackage/issues/4932
         - prettyprinter-ansi-terminal
         - prettyprinter-compat-wl-pprint
         - prettyprinter-compat-ansi-wl-pprint
@@ -2668,7 +2693,7 @@ packages:
         # - language-dockerfile # https://github.com/beijaflor-io/haskell-language-dockerfile/issues/11
 
     "Pascal Hartig <phartig@rdrei.net> @passy":
-        - giphy-api < 0 # https://github.com/passy/giphy-api/issues/18
+        - giphy-api
         - optparse-text
 
     "rightfold <rightfold@gmail.com> @rightfold":
@@ -2731,7 +2756,7 @@ packages:
         - tao-example
 
     "Suhail Shergill <suhailshergill@gmail.com> @suhailshergill":
-        - extensible-effects < 0 # GHC 8.4 via base-4.11.0.0
+        - extensible-effects
 
     "Justus Adam <dev@justus.science> @JustusAdam":
         # - marvin # https://github.com/JustusAdam/marvin/issues/22
@@ -3030,6 +3055,8 @@ packages:
         - arithmoi
         - bitvec
         - poly
+        - extended-reals
+        - ChasingBottoms
 
     "Ashley Yakeley <ashley@semantic.org> @AshleyYakeley":
         - countable
@@ -3457,6 +3484,7 @@ packages:
 
     "Alex Biehl <alexbiehl@gmail.com> @alexbiehl":
         - haddock-library
+        - http-client-openssl
 
     "Mark Hopkins <markjohnhopkins@gmail.com> @mjhopkins":
         []
@@ -3502,7 +3530,6 @@ packages:
         - universum
 
     "Kowainik <xrom.xkov@gmail.com> @chshersh @vrom911":
-        - base-noprelude == 4.12.0.0
         - co-log-core
         - co-log
         - first-class-patterns
@@ -3538,6 +3565,7 @@ packages:
         - blas-hs
 
     "Eitan Chatav <eitan@gmail.com> @echatav":
+        - free-categories
         - squeal-postgresql < 0
 
     "Sam Quinn <lazersmoke@gmail.com> @Lazersmoke":
@@ -3710,6 +3738,11 @@ packages:
         - map-syntax < 0 # GHC 8.4 via base-4.11.0.0
         - heist < 0 # GHC 8.4 via map-syntax
         - snap < 0 # GHC 8.4 via base-4.11.0.0
+        - conferer
+        # - conferer-snap # Because snap
+        - conferer-warp
+        - conferer-hspec
+        # - conferer-provider-json # via aeson-qq
 
     "Tim Humphries <tim+stackage@utf8.me> @thumphries":
         - transformers-either < 0 # via exceptions-0.10.0
@@ -3807,6 +3840,7 @@ packages:
         - alg
         - category
         - constraint
+        - dual
         - either-both
         - filtrable
         - foldable1
@@ -3980,10 +4014,12 @@ packages:
     "Robbie McMichael @robbiemcmichael":
         - http-client-overrides
 
+    "Ian Graves <thegravian@gmail.com> @igraves":
+        - monad-resumption
+
     "Grandfathered dependencies":
         - network
         - Boolean
-        - ChasingBottoms < 0 # due to QuickCheck, https://github.com/commercialhaskell/stackage/issues/4444
         - Decimal
         - Diff
         - FloatingHex
@@ -3998,14 +4034,13 @@ packages:
         - ListLike
         - MemoTrie
         - NumInstances
-        - OneTuple
         - Only
         - ParsecTools
         - QuickCheck
         - RSA
-        - X11
         - aeson-compat
         - aeson-extra
+        - aeson-optics
         - alsa-mixer
         - ansi-terminal
         - appar
@@ -4197,7 +4232,6 @@ packages:
         - inspection-testing
         - integer-logarithms
         - io-streams-haproxy
-        - ip
         - ixset-typed
         - json
         - json-alt
@@ -4311,6 +4345,8 @@ packages:
         - servant-swagger-ui-redoc
         - servant-yaml
         - semialign
+        - semialign-indexed
+        - semialign-optics
         - setenv
         - shakespeare
         - shell-escape
@@ -4322,6 +4358,7 @@ packages:
         - skein
         - skylighting-core
         - snap-core
+        - some
         - special-values
         - splice
         - split
@@ -4372,6 +4409,8 @@ packages:
         - th-lift-instances
         - th-utilities
         - these
+        - these-lens
+        - these-optics
         - threads
         - thyme
         - time-locale-compat
@@ -4391,6 +4430,7 @@ packages:
         - unbounded-delays
         - universe
         - universe-base
+        - universe-some
         - universe-dependent-sum
         - universe-instances-base
         - universe-instances-extended
@@ -4537,117 +4577,28 @@ packages:
 
 
     "Blocked per http-client-0.6":
-        - amazonka < 0 # via http-client-0.6.1
-        - amazonka-core < 0 # via http-client-0.6.1
         - github < 0 # via http-client-0.6.1
         - hailgun < 0 # via http-client-0.6.1
         - mbug < 0 # via http-client-0.6.1
 
-        - antiope-athena < 0 # via amazonka
-        - antiope-core < 0 # via amazonka
-        - antiope-dynamodb < 0 # via amazonka
-        - antiope-messages < 0 # via amazonka
-        - antiope-s3 < 0 # via amazonka
-        - antiope-sns < 0 # via amazonka
-        - antiope-sqs < 0 # via amazonka
-        - confcrypt < 0 # via amazonka
-        - amazonka-apigateway < 0 # via amazonka-core
-        - amazonka-application-autoscaling < 0 # via amazonka-core
-        - amazonka-appstream < 0 # via amazonka-core
-        - amazonka-athena < 0 # via amazonka-core
-        - amazonka-autoscaling < 0 # via amazonka-core
-        - amazonka-budgets < 0 # via amazonka-core
-        - amazonka-certificatemanager < 0 # via amazonka-core
-        - amazonka-cloudformation < 0 # via amazonka-core
-        - amazonka-cloudfront < 0 # via amazonka-core
-        - amazonka-cloudhsm < 0 # via amazonka-core
-        - amazonka-cloudsearch < 0 # via amazonka-core
-        - amazonka-cloudsearch-domains < 0 # via amazonka-core
-        - amazonka-cloudtrail < 0 # via amazonka-core
-        - amazonka-cloudwatch < 0 # via amazonka-core
-        - amazonka-cloudwatch-events < 0 # via amazonka-core
-        - amazonka-cloudwatch-logs < 0 # via amazonka-core
-        - amazonka-codebuild < 0 # via amazonka-core
-        - amazonka-codecommit < 0 # via amazonka-core
-        - amazonka-codedeploy < 0 # via amazonka-core
-        - amazonka-codepipeline < 0 # via amazonka-core
-        - amazonka-cognito-identity < 0 # via amazonka-core
-        - amazonka-cognito-idp < 0 # via amazonka-core
-        - amazonka-cognito-sync < 0 # via amazonka-core
-        - amazonka-config < 0 # via amazonka-core
-        - amazonka-datapipeline < 0 # via amazonka-core
-        - amazonka-devicefarm < 0 # via amazonka-core
-        - amazonka-directconnect < 0 # via amazonka-core
-        - amazonka-discovery < 0 # via amazonka-core
-        - amazonka-dms < 0 # via amazonka-core
-        - amazonka-ds < 0 # via amazonka-core
-        - amazonka-dynamodb < 0 # via amazonka-core
-        - amazonka-dynamodb-streams < 0 # via amazonka-core
-        - amazonka-ec2 < 0 # via amazonka-core
-        - amazonka-ecr < 0 # via amazonka-core
-        - amazonka-ecs < 0 # via amazonka-core
-        - amazonka-efs < 0 # via amazonka-core
-        - amazonka-elasticache < 0 # via amazonka-core
-        - amazonka-elasticbeanstalk < 0 # via amazonka-core
-        - amazonka-elasticsearch < 0 # via amazonka-core
-        - amazonka-elastictranscoder < 0 # via amazonka-core
-        - amazonka-elb < 0 # via amazonka-core
-        - amazonka-elbv2 < 0 # via amazonka-core
-        - amazonka-emr < 0 # via amazonka-core
-        - amazonka-gamelift < 0 # via amazonka-core
-        - amazonka-glacier < 0 # via amazonka-core
-        - amazonka-glue < 0 # via amazonka-core
-        - amazonka-health < 0 # via amazonka-core
-        - amazonka-iam < 0 # via amazonka-core
-        - amazonka-importexport < 0 # via amazonka-core
-        - amazonka-inspector < 0 # via amazonka-core
-        - amazonka-iot < 0 # via amazonka-core
-        - amazonka-iot-dataplane < 0 # via amazonka-core
-        - amazonka-kinesis < 0 # via amazonka-core
-        - amazonka-kinesis-analytics < 0 # via amazonka-core
-        - amazonka-kinesis-firehose < 0 # via amazonka-core
-        - amazonka-kms < 0 # via amazonka-core
-        - amazonka-lambda < 0 # via amazonka-core
-        - amazonka-lightsail < 0 # via amazonka-core
-        - amazonka-marketplace-analytics < 0 # via amazonka-core
-        - amazonka-marketplace-metering < 0 # via amazonka-core
-        - amazonka-ml < 0 # via amazonka-core
-        - amazonka-opsworks < 0 # via amazonka-core
-        - amazonka-opsworks-cm < 0 # via amazonka-core
-        - amazonka-pinpoint < 0 # via amazonka-core
-        - amazonka-polly < 0 # via amazonka-core
-        - amazonka-rds < 0 # via amazonka-core
-        - amazonka-redshift < 0 # via amazonka-core
-        - amazonka-rekognition < 0 # via amazonka-core
-        - amazonka-route53 < 0 # via amazonka-core
-        - amazonka-route53-domains < 0 # via amazonka-core
-        - amazonka-s3 < 0 # via amazonka-core
-        - amazonka-sdb < 0 # via amazonka-core
-        - amazonka-servicecatalog < 0 # via amazonka-core
-        - amazonka-ses < 0 # via amazonka-core
-        - amazonka-shield < 0 # via amazonka-core
-        - amazonka-sms < 0 # via amazonka-core
-        - amazonka-snowball < 0 # via amazonka-core
-        - amazonka-sns < 0 # via amazonka-core
-        - amazonka-sqs < 0 # via amazonka-core
-        - amazonka-ssm < 0 # via amazonka-core
-        - amazonka-stepfunctions < 0 # via amazonka-core
-        - amazonka-storagegateway < 0 # via amazonka-core
-        - amazonka-sts < 0 # via amazonka-core
-        - amazonka-support < 0 # via amazonka-core
-        - amazonka-swf < 0 # via amazonka-core
-        - amazonka-test < 0 # via amazonka-core
-        - amazonka-waf < 0 # via amazonka-core
-        - amazonka-workspaces < 0 # via amazonka-core
-        - amazonka-xray < 0 # via amazonka-core
-        - antiope-athena < 0 # via amazonka-core
-        - antiope-core < 0 # via amazonka-core
-        - antiope-dynamodb < 0 # via amazonka-core
-        - antiope-messages < 0 # via amazonka-core
-        - antiope-s3 < 0 # via amazonka-core
-        - antiope-sns < 0 # via amazonka-core
-        - antiope-sqs < 0 # via amazonka-core
-        - serverless-haskell < 0 # via amazonka-core
+        # Things that were blocked by amazonka but are now
+        # blocked by other things
+        - serverless-haskell < 0 # via aeson-extra
+        - antiope-core < 0 # via aeson-lens
+        - confcrypt < 0 # via crypto-pubkey-openssh
+        - antiope-core < 0 # via hspec-2.7.1
+        - antiope-messages < 0 # via hspec-2.7.1
+        - antiope-sns < 0 # via hspec-2.7.1
+        - antiope-sqs < 0 # via hspec-2.7.1
+        - antiope-core < 0 # via hw-hspec-hedgehog
+        - antiope-messages < 0 # via hw-hspec-hedgehog
+        - antiope-sns < 0 # via hw-hspec-hedgehog
+        - antiope-sqs < 0 # via hw-hspec-hedgehog
+        - serverless-haskell < 0 # via network-simple
+        - confcrypt < 0 # via optparse-applicative-0.15.1.0
+        - antiope-dynamodb < 0 # via antiope-core
+        - antiope-s3 < 0 # via antiope-core
+        - antiope-s3 < 0 # via antiope-messages
 
 
     "GHC 8.8 bounds failures":
@@ -4655,7 +4606,6 @@ packages:
         - cipher-aes128 < 0 # via Cabal-3.0.0.0
         - proto-lens-setup < 0 # via Cabal-3.0.0.0
         - language-ecmascript < 0 # via Diff-0.4.0
-        - pandoc < 0 # via Diff-0.4.0
         - pandoc < 0 # via HsYAML-0.2.0.0
         - MissingH < 0 # via array-0.5.4.0
         - MissingH < 0 # via base-4.13.0.0
@@ -4664,17 +4614,13 @@ packages:
         - active < 0 # via base-4.13.0.0
         - aeson-diff < 0 # via base-4.13.0.0
         - alarmclock < 0 # via base-4.13.0.0
-        - asn1-encoding < 0 # via base-4.13.0.0
         - autoexporter < 0 # via base-4.13.0.0
         - bank-holidays-england < 0 # via base-4.13.0.0
         - base-noprelude < 0 # via base-4.13.0.0
         - benchpress < 0 # via base-4.13.0.0
         - bencode < 0 # via base-4.13.0.0
-        - blaze-markup < 0 # via base-4.13.0.0
         - boolean-normal-forms < 0 # via base-4.13.0.0
         - brick < 0 # via base-4.13.0.0
-        - brittany < 0 # via base-4.13.0.0
-        - butcher < 0 # via base-4.13.0.0
         - bzlib < 0 # via base-4.13.0.0
         - cabal-install < 0 # via base-4.13.0.0
         - cborg-json < 0 # via base-4.13.0.0
@@ -4685,11 +4631,8 @@ packages:
         - compact < 0 # via base-4.13.0.0
         - configurator-pg < 0 # via base-4.13.0.0
         - country < 0 # via base-4.13.0.0
-        - crypto-enigma < 0 # via base-4.13.0.0
         - css-syntax < 0 # via base-4.13.0.0
         - cyclotomic < 0 # via base-4.13.0.0
-        - data-tree-print < 0 # via base-4.13.0.0
-        - dbus < 0 # via base-4.13.0.0
         - derulo < 0 # via base-4.13.0.0
         - diagrams-contrib < 0 # via base-4.13.0.0
         - diagrams-core < 0 # via base-4.13.0.0
@@ -4711,7 +4654,6 @@ packages:
         - essence-of-live-coding-pulse < 0 # via base-4.13.0.0
         - essence-of-live-coding-quickcheck < 0 # via base-4.13.0.0
         - fclabels < 0 # via base-4.13.0.0
-        - feed < 0 # via base-4.13.0.0
         - flow < 0 # via base-4.13.0.0
         - fold-debounce-conduit < 0 # via base-4.13.0.0
         - force-layout < 0 # via base-4.13.0.0
@@ -4736,7 +4678,6 @@ packages:
         - hledger-ui < 0 # via base-4.13.0.0
         - hledger-web < 0 # via base-4.13.0.0
         - hspec-need-env < 0 # via base-4.13.0.0
-        - http-media < 0 # via base-4.13.0.0
         - hyper < 0 # via base-4.13.0.0
         - ihaskell < 0 # via base-4.13.0.0
         - indentation-core < 0 # via base-4.13.0.0
@@ -4767,8 +4708,6 @@ packages:
         - proto-lens-protoc < 0 # via base-4.13.0.0
         - proto-lens-runtime < 0 # via base-4.13.0.0
         - proto-lens-setup < 0 # via base-4.13.0.0
-        - protolude < 0 # via base-4.13.0.0
-        - pusher-http-haskell < 0 # via base-4.13.0.0
         - raaz < 0 # via base-4.13.0.0
         - ratel < 0 # via base-4.13.0.0
         - ratel-wai < 0 # via base-4.13.0.0
@@ -4780,20 +4719,17 @@ packages:
         - rhine < 0 # via base-4.13.0.0
         - rhine-gloss < 0 # via base-4.13.0.0
         - salve < 0 # via base-4.13.0.0
-        - servant-JuicyPixels < 0 # via base-4.13.0.0
         - servant-auth < 0 # via base-4.13.0.0
         - servant-auth-client < 0 # via base-4.13.0.0
         - servant-auth-docs < 0 # via base-4.13.0.0
         - servant-auth-server < 0 # via base-4.13.0.0
         - servant-auth-swagger < 0 # via base-4.13.0.0
         - sexpr-parser < 0 # via base-4.13.0.0
-        - shellmet < 0 # via base-4.13.0.0
         - shower < 0 # via base-4.13.0.0
         - sized-grid < 0 # via base-4.13.0.0
         - slack-web < 0 # via base-4.13.0.0
         - smallcheck-series < 0 # via base-4.13.0.0
         - snap-server < 0 # via base-4.13.0.0
-        - socks < 0 # via base-4.13.0.0
         - sqlite-simple < 0 # via base-4.13.0.0
         - statestack < 0 # via base-4.13.0.0
         - strive < 0 # via base-4.13.0.0
@@ -4807,8 +4743,6 @@ packages:
         - threepenny-gui < 0 # via base-4.13.0.0
         - timer-wheel < 0 # via base-4.13.0.0
         - token-bucket < 0 # via base-4.13.0.0
-        - tomland < 0 # via base-4.13.0.0
-        - type-errors-pretty < 0 # via base-4.13.0.0
         - ucam-webauth < 0 # via base-4.13.0.0
         - ucam-webauth-types < 0 # via base-4.13.0.0
         - unagi-chan < 0 # via base-4.13.0.0
@@ -4819,9 +4753,7 @@ packages:
         - wild-bind < 0 # via base-4.13.0.0
         - wild-bind-x11 < 0 # via base-4.13.0.0
         - wuss < 0 # via base-4.13.0.0
-        - aeson-pretty < 0 # via base-compat-0.11.0
         - algebraic-graphs < 0 # via base-compat-0.11.0
-        - feed < 0 # via base-compat-0.11.0
         - gi-gtk-hs < 0 # via base-compat-0.11.0
         - pure-zlib < 0 # via base-compat-0.11.0
         - wl-pprint-text < 0 # via base-compat-0.11.0
@@ -4830,9 +4762,9 @@ packages:
         - hledger-ui < 0 # via base-compat-batteries-0.11.0
         - hoauth2 < 0 # via binary-0.8.7.0
         - hyraxAbif < 0 # via binary-0.8.7.0
-        - GLFW-b < 0 # via bindings-GLFW-3.3.0.0
         - hyraxAbif < 0 # via bytestring-0.10.9.0
         - hw-hspec-hedgehog < 0 # via call-stack-0.2.0
+        - dhall < 0 # via cborg-json
         - sized-grid < 0 # via constraints-0.11.2
         - dependent-map < 0 # via constraints-extras
         - dependent-sum < 0 # via constraints-extras
@@ -4857,17 +4789,11 @@ packages:
         - hw-packed-vector < 0 # via generic-lens-1.2.0.0
         - hw-rankselect < 0 # via generic-lens-1.2.0.0
         - apply-refact < 0 # via ghc-8.8.1
-        - brittany < 0 # via ghc-8.8.1
         - ghc-parser < 0 # via ghc-8.8.1
-        - ghc-syntax-highlighter < 0 # via ghc-8.8.1
-        - hint < 0 # via ghc-8.8.1
         - ihaskell < 0 # via ghc-8.8.1
         - loopbreaker < 0 # via ghc-8.8.1
         - hsdev < 0 # via ghc-boot-8.8.1
         - ihaskell < 0 # via ghc-boot-8.8.1
-        - brittany < 0 # via ghc-boot-th-8.8.1
-        - brittany < 0 # via ghc-exactprint-0.6.2
-        - hlint < 0 # via ghc-lib-parser-8.8.1
         - gi-gtk-hs < 0 # via gi-gdk-4.0.1
         - gi-gtksource < 0 # via gi-gdk-4.0.1
         - gi-vte < 0 # via gi-gdk-4.0.1
@@ -4876,37 +4802,6 @@ packages:
         - gi-gtk-hs < 0 # via gi-gtk-4.0.1
         - gi-gtksource < 0 # via gi-gtk-4.0.1
         - gi-vte < 0 # via gi-gtk-4.0.1
-        - beam-core < 0 # via hashable-1.3.0.0
-        - beam-migrate < 0 # via hashable-1.3.0.0
-        - beam-mysql < 0 # via hashable-1.3.0.0
-        - beam-postgres < 0 # via hashable-1.3.0.0
-        - beam-sqlite < 0 # via hashable-1.3.0.0
-        - concurrent-supply < 0 # via hashable-1.3.0.0
-        - core-data < 0 # via hashable-1.3.0.0
-        - core-program < 0 # via hashable-1.3.0.0
-        - core-text < 0 # via hashable-1.3.0.0
-        - diagrams-contrib < 0 # via hashable-1.3.0.0
-        - diagrams-lib < 0 # via hashable-1.3.0.0
-        - diagrams-postscript < 0 # via hashable-1.3.0.0
-        - diagrams-rasterific < 0 # via hashable-1.3.0.0
-        - diagrams-svg < 0 # via hashable-1.3.0.0
-        - gothic < 0 # via hashable-1.3.0.0
-        - greskell-core < 0 # via hashable-1.3.0.0
-        - haxl < 0 # via hashable-1.3.0.0
-        - json-autotype < 0 # via hashable-1.3.0.0
-        - language-puppet < 0 # via hashable-1.3.0.0
-        - msgpack < 0 # via hashable-1.3.0.0
-        - path < 0 # via hashable-1.3.0.0
-        - protolude < 0 # via hashable-1.3.0.0
-        - regex < 0 # via hashable-1.3.0.0
-        - registry < 0 # via hashable-1.3.0.0
-        - relude < 0 # via hashable-1.3.0.0
-        - svg-builder < 0 # via hashable-1.3.0.0
-        - swish < 0 # via hashable-1.3.0.0
-        - threepenny-gui < 0 # via hashable-1.3.0.0
-        - tomland < 0 # via hashable-1.3.0.0
-        - ttl-hashtables < 0 # via hashable-1.3.0.0
-        - union < 0 # via hashable-1.3.0.0
         - easytest < 0 # via hedgehog-1.0.1
         - hsdev < 0 # via hlint-2.2.2
         - language-puppet < 0 # via hslogger-1.3.0.0
@@ -4955,15 +4850,12 @@ packages:
         - diagrams-svg < 0 # via optparse-applicative-0.15.1.0
         - proto-lens-optparse < 0 # via optparse-applicative-0.15.1.0
         - wai-middleware-crowd < 0 # via optparse-applicative-0.15.1.0
-        - paripari < 0 # via parser-combinators-1.2.0
         - hapistrano < 0 # via path-io-1.5.0
         - graphviz < 0 # via polyparse-1.13
         - core-data < 0 # via prettyprinter-1.3.0
-        - core-program < 0 # via prettyprinter-1.3.0
-        - core-text < 0 # via prettyprinter-1.3.0
-        - invertible-grammar < 0 # via prettyprinter-1.3.0
-        - sexp-grammar < 0 # via prettyprinter-1.3.0
-        - primitive-extras < 0 # via primitive-unlifted
+        - core-program < 0 # via prettyprinter-1.3.0 and template-haskell-2.15
+        - core-text < 0 # via prettyprinter-1.3.0 and template-haskell-2.15
+        - sexp-grammar < 0 # via prettyprinter-1.3.0 and semigroups-0.19
         - MissingH < 0 # via process-1.6.5.1
         - blaze-colonnade < 0 # via profunctors-5.5
         - colonnade < 0 # via profunctors-5.5
@@ -4972,49 +4864,13 @@ packages:
         - ixset-typed < 0 # via safecopy-0.10.0
         - selda-postgresql < 0 # via selda-0.5.0.0
         - selda-sqlite < 0 # via selda-0.5.0.0
-        - brittany < 0 # via semigroups-0.19.1
-        - chronos < 0 # via semigroups-0.19.1
-        - diagrams-contrib < 0 # via semigroups-0.19.1
-        - diagrams-core < 0 # via semigroups-0.19.1
-        - diagrams-lib < 0 # via semigroups-0.19.1
-        - diagrams-postscript < 0 # via semigroups-0.19.1
-        - diagrams-svg < 0 # via semigroups-0.19.1
-        - direct-sqlite < 0 # via semigroups-0.19.1
-        - greskell < 0 # via semigroups-0.19.1
-        - greskell-core < 0 # via semigroups-0.19.1
-        - invertible-grammar < 0 # via semigroups-0.19.1
-        - registry < 0 # via semigroups-0.19.1
-        - sexp-grammar < 0 # via semigroups-0.19.1
-        - sqlite-simple < 0 # via semigroups-0.19.1
         - universe-dependent-sum < 0 # via some
-        - PyF < 0 # via template-haskell-2.15.0.0
-        - classyplate < 0 # via template-haskell-2.15.0.0
-        - core-program < 0 # via template-haskell-2.15.0.0
-        - core-text < 0 # via template-haskell-2.15.0.0
         - data-accessor-template < 0 # via template-haskell-2.15.0.0
-        - dbus < 0 # via template-haskell-2.15.0.0
-        - email-validate < 0 # via template-haskell-2.15.0.0
-        - fclabels < 0 # via template-haskell-2.15.0.0
-        - flow < 0 # via template-haskell-2.15.0.0
-        - freer-simple < 0 # via template-haskell-2.15.0.0
-        - hsdev < 0 # via template-haskell-2.15.0.0
         - interpolatedstring-qq2 < 0 # via template-haskell-2.15.0.0
-        - invertible-grammar < 0 # via template-haskell-2.15.0.0
-        - ixset-typed < 0 # via template-haskell-2.15.0.0
-        - modern-uri < 0 # via template-haskell-2.15.0.0
         - quickcheck-arbitrary-template < 0 # via template-haskell-2.15.0.0
         - rank2classes < 0 # via template-haskell-2.15.0.0
-        - rattletrap < 0 # via template-haskell-2.15.0.0
-        - safecopy < 0 # via template-haskell-2.15.0.0
         - size-based < 0 # via template-haskell-2.15.0.0
-        - stache < 0 # via template-haskell-2.15.0.0
         - static-text < 0 # via template-haskell-2.15.0.0
-        - strive < 0 # via template-haskell-2.15.0.0
-        - th-nowq < 0 # via template-haskell-2.15.0.0
-        - threepenny-gui < 0 # via template-haskell-2.15.0.0
-        - tz < 0 # via template-haskell-2.15.0.0
-        - uri-bytestring < 0 # via template-haskell-2.15.0.0
-        - web3 < 0 # via template-haskell-2.15.0.0
         - hyraxAbif < 0 # via text-1.2.4.0
         - sqlite-simple-errors < 0 # via text-1.2.4.0
         - universum < 0 # via text-1.2.4.0
@@ -5024,7 +4880,6 @@ packages:
         - ekg < 0 # via time-1.9.3
         - ekg-statsd < 0 # via time-1.9.3
         - esqueleto < 0 # via time-1.9.3
-        - feed < 0 # via time-1.9.3
         - fold-debounce < 0 # via time-1.9.3
         - gnuplot < 0 # via time-1.9.3
         - hapistrano < 0 # via time-1.9.3
@@ -5032,12 +4887,8 @@ packages:
         - hquantlib-time < 0 # via time-1.9.3
         - hsdev < 0 # via time-1.9.3
         - hsexif < 0 # via time-1.9.3
-        - irc-client < 0 # via time-1.9.3
-        - irc-conduit < 0 # via time-1.9.3
-        - libmpd < 0 # via time-1.9.3
         - pinboard < 0 # via time-1.9.3
         - postgresql-simple-migration < 0 # via time-1.9.3
-        - req < 0 # via time-1.9.3
         - rhine < 0 # via time-1.9.3
         - safe-json < 0 # via time-1.9.3
         - servant-auth-client < 0 # via time-1.9.3
@@ -5049,19 +4900,16 @@ packages:
         - tz < 0 # via time-1.9.3
         - web3 < 0 # via time-1.9.3
         - wild-bind-x11 < 0 # via time-1.9.3
-        - zip < 0 # via time-1.9.3
         - ztail < 0 # via time-1.9.3
-        - mysql-haskell < 0 # via tls-1.5.1
-        - universe < 0 # via universe-some
-        - universe-dependent-sum < 0 # via universe-some
         - MissingH < 0 # via unix-2.7.2.2
         - beam-core < 0 # via vector-sized-1.4.0.0
+        - beam-mysql < 0 # via beam-core
+        - beam-postgres < 0 # via beam-core
+        - beam-sqlite < 0 # via beam-core
         - elm-street < 0 # via warp-3.3.2
         - servant-auth-client < 0 # via warp-3.3.2
-        - xmonad-extras < 0 # via xmonad-contrib-0.16
 
         # round 2
-        - netwire-input-glfw < 0 # via GLFW-b
         - HDBC-mysql < 0 # via HDBC
         - HDBC-session < 0 # via HDBC
         - persistable-types-HDBC-pg < 0 # via HDBC
@@ -5081,66 +4929,14 @@ packages:
         - file-modules < 0 # via MissingH
         - hadolint < 0 # via ShellCheck
         - ipynb < 0 # via aeson-diff
-        - HTF < 0 # via aeson-pretty
-        - aws-cloudfront-signed-cookies < 0 # via aeson-pretty
-        - filter-logger < 0 # via aeson-pretty
-        - ginger < 0 # via aeson-pretty
-        - glabrous < 0 # via aeson-pretty
-        - groundhog-inspector < 0 # via aeson-pretty
-        - hpack-dhall < 0 # via aeson-pretty
-        - hspec-golden-aeson < 0 # via aeson-pretty
-        - hvega < 0 # via aeson-pretty
-        - kanji < 0 # via aeson-pretty
-        - log-base < 0 # via aeson-pretty
-        - lsp-test < 0 # via aeson-pretty
-        - sbp < 0 # via aeson-pretty
-        - servant-docs < 0 # via aeson-pretty
-        - servant-swagger < 0 # via aeson-pretty
-        - stratosphere < 0 # via aeson-pretty
-        - yesod-auth-oauth2 < 0 # via aeson-pretty
-        - asn1-parse < 0 # via asn1-encoding
-        - aws-cloudfront-signed-cookies < 0 # via asn1-encoding
-        - crypto-pubkey-openssh < 0 # via asn1-encoding
-        - crypto-pubkey-types < 0 # via asn1-encoding
-        - pkcs10 < 0 # via asn1-encoding
-        - x509 < 0 # via asn1-encoding
-        - x509-store < 0 # via asn1-encoding
-        - x509-validation < 0 # via asn1-encoding
         - avers-api < 0 # via servant
         - fib < 0 # via base-noprelude
         - bencoding < 0 # via bencode
-        - Chart-diagrams < 0 # via blaze-markup
-        - SVGFonts < 0 # via blaze-markup
-        - ace < 0 # via blaze-markup
-        - blaze-html < 0 # via blaze-markup
-        - blaze-svg < 0 # via blaze-markup
-        - heterocephalus < 0 # via blaze-markup
-        - hoogle < 0 # via blaze-markup
-        - markdown < 0 # via blaze-markup
-        - plotlyhs < 0 # via blaze-markup
-        - servant-swagger-ui-core < 0 # via blaze-markup
-        - shakespeare < 0 # via blaze-markup
-        - trifecta < 0 # via blaze-markup
-        - xml-conduit < 0 # via blaze-markup
-        - xml-html-qq < 0 # via blaze-markup
-        - yesod < 0 # via blaze-markup
-        - yesod-alerts < 0 # via blaze-markup
-        - yesod-auth < 0 # via blaze-markup
-        - yesod-form < 0 # via blaze-markup
-        - yesod-form-bootstrap4 < 0 # via blaze-markup
-        - yesod-newsfeed < 0 # via blaze-markup
-        - yesod-paginator < 0 # via blaze-markup
         - hledger-iadd < 0 # via brick
         - bson-lens < 0 # via bson
         - debian < 0 # via bzlib
         - chronos-bench < 0 # via chronos
         - qnap-decrypt < 0 # via cipher-aes128
-        - configuration-tools < 0 # via connection
-        - eventstore < 0 # via connection
-        - hoogle < 0 # via connection
-        - minio-hs < 0 # via connection
-        - soap-tls < 0 # via connection
-        - credential-store < 0 # via dbus
         - functor-combinators < 0 # via dependent-sum
         - prim-uniq < 0 # via dependent-sum
         - typelits-witnesses < 0 # via dependent-sum
@@ -5161,7 +4957,6 @@ packages:
         - eventstore < 0 # via ekg-core
         - monad-metrics < 0 # via ekg-core
         - check-email < 0 # via email-validate
-        - mmark < 0 # via email-validate
         - yesod-auth < 0 # via email-validate
         - yesod-form < 0 # via email-validate
         - persistent-pagination < 0 # via esqueleto
@@ -5169,9 +4964,6 @@ packages:
         - shake-language-c < 0 # via fclabels
         - download < 0 # via feed
         - shikensu < 0 # via flow
-        - polysemy < 0 # via freer-simple
-        - mmark-cli < 0 # via ghc-syntax-highlighter
-        - mmark-ext < 0 # via ghc-syntax-highlighter
         - termonad < 0 # via gi-gtk
         - termonad < 0 # via gi-vte
         - apecs-gloss < 0 # via gloss
@@ -5185,118 +4977,14 @@ packages:
         - haskintex < 0 # via hint
         - hledger-iadd < 0 # via hledger-lib
         - hledger-interest < 0 # via hledger-lib
-        - cacophony < 0 # via hlint
-        - dublincore-xml-conduit < 0 # via hlint
-        - sbv < 0 # via hlint
         - wai-middleware-auth < 0 # via hoauth2
         - yesod-auth-oauth2 < 0 # via hoauth2
         - haskell-lsp < 0 # via hslogger
-        - aur < 0 # via http-client
-        - authenticate-oauth < 0 # via http-client
-        - aws-lambda-haskell-runtime < 0 # via http-client
-        - configuration-tools < 0 # via http-client
-        - eventstore < 0 # via http-client
-        - fb < 0 # via http-client
-        - gym-http-api < 0 # via http-client
-        - hopenpgp-tools < 0 # via http-client
-        - hpack < 0 # via http-client
-        - hsebaysdk < 0 # via http-client
-        - http-client-overrides < 0 # via http-client
-        - http-directory < 0 # via http-client
-        - http-download < 0 # via http-client
-        - kawhi < 0 # via http-client
-        - koofr-client < 0 # via http-client
-        - mime-mail-ses < 0 # via http-client
-        - minio-hs < 0 # via http-client
-        - opensource < 0 # via http-client
-        - pipes-http < 0 # via http-client
-        - planb-token-introspection < 0 # via http-client
-        - req-conduit < 0 # via http-client
-        - scalpel < 0 # via http-client
-        - servant-checked-exceptions < 0 # via http-client
-        - servant-cli < 0 # via http-client
-        - servant-client < 0 # via http-client
-        - servant-conduit < 0 # via http-client
-        - servant-machines < 0 # via http-client
-        - servant-pipes < 0 # via http-client
-        - servant-rawm < 0 # via http-client
-        - servant-tracing < 0 # via http-client
-        - soap < 0 # via http-client
-        - soap-tls < 0 # via http-client
-        - stack < 0 # via http-client
-        - textlocal < 0 # via http-client
-        - wai-middleware-auth < 0 # via http-client
-        - wai-slack-middleware < 0 # via http-client
-        - webex-teams-conduit < 0 # via http-client
-        - webex-teams-pipes < 0 # via http-client
-        - wreq < 0 # via http-client
-        - yesod-auth < 0 # via http-client
-        - yesod-auth-oauth2 < 0 # via http-client
-        - aur < 0 # via http-client-tls
-        - configuration-tools < 0 # via http-client-tls
-        - hopenpgp-tools < 0 # via http-client-tls
-        - hpack < 0 # via http-client-tls
-        - http-client-overrides < 0 # via http-client-tls
-        - http-directory < 0 # via http-client-tls
-        - koofr-client < 0 # via http-client-tls
-        - mime-mail-ses < 0 # via http-client-tls
-        - minio-hs < 0 # via http-client-tls
-        - opensource < 0 # via http-client-tls
-        - pipes-http < 0 # via http-client-tls
-        - planb-token-introspection < 0 # via http-client-tls
-        - scalpel < 0 # via http-client-tls
-        - soap-tls < 0 # via http-client-tls
-        - stack < 0 # via http-client-tls
-        - textlocal < 0 # via http-client-tls
-        - wai-middleware-auth < 0 # via http-client-tls
-        - wreq < 0 # via http-client-tls
-        - yesod-auth < 0 # via http-client-tls
-        - yesod-fb < 0 # via http-client-tls
-        - MusicBrainz < 0 # via http-conduit
-        - authenticate < 0 # via http-conduit
-        - cisco-spark-api < 0 # via http-conduit
-        - classy-prelude-yesod < 0 # via http-conduit
-        - cryptocompare < 0 # via http-conduit
-        - fb < 0 # via http-conduit
-        - google-isbn < 0 # via http-conduit
-        - hoogle < 0 # via http-conduit
-        - http-download < 0 # via http-conduit
-        - kawhi < 0 # via http-conduit
-        - line < 0 # via http-conduit
-        - mime-mail-ses < 0 # via http-conduit
-        - minio-hs < 0 # via http-conduit
-        - mmtf < 0 # via http-conduit
-        - nuxeo < 0 # via http-conduit
-        - oeis2 < 0 # via http-conduit
-        - stack < 0 # via http-conduit
-        - textlocal < 0 # via http-conduit
-        - wai-middleware-auth < 0 # via http-conduit
-        - webex-teams-api < 0 # via http-conduit
-        - webex-teams-conduit < 0 # via http-conduit
-        - webex-teams-pipes < 0 # via http-conduit
-        - yesod-auth < 0 # via http-conduit
-        - yesod-auth-hashdb < 0 # via http-conduit
-        - yesod-auth-oauth2 < 0 # via http-conduit
-        - yesod-fb < 0 # via http-conduit
-        - yesod-recaptcha2 < 0 # via http-conduit
         - cachix-api < 0 # via http-media
-        - servant < 0 # via http-media
-        - servant-blaze < 0 # via http-media
-        - servant-cassava < 0 # via http-media
         - servant-checked-exceptions-core < 0 # via http-media
-        - servant-client < 0 # via http-media
-        - servant-client-core < 0 # via http-media
-        - servant-conduit < 0 # via http-media
-        - servant-docs < 0 # via http-media
-        - servant-lucid < 0 # via http-media
-        - servant-machines < 0 # via http-media
-        - servant-pipes < 0 # via http-media
         - servant-rawm < 0 # via http-media
         - servant-static-th < 0 # via http-media
-        - servant-swagger < 0 # via http-media
-        - servant-swagger-ui-core < 0 # via http-media
         - servant-xml < 0 # via http-media
-        - servant-yaml < 0 # via http-media
         - wai-middleware-auth < 0 # via http-reverse-proxy
         - ses-html < 0 # via http-streams
         - board-games < 0 # via httpd-shed
@@ -5321,8 +5009,6 @@ packages:
         - rainbow < 0 # via lens-simple
         - rainbox < 0 # via lens-simple
         - polysemy < 0 # via loopbreaker
-        - mmark < 0 # via modern-uri
-        - mmark-ext < 0 # via modern-uri
         - witherable < 0 # via monoidal-containers
         - msgpack-aeson < 0 # via msgpack
         - mysql-haskell-nem < 0 # via mysql-haskell
@@ -5331,18 +5017,6 @@ packages:
         - pandoc-markdown-ghci-filter < 0 # via pandoc
         - pandoc-pyplot < 0 # via pandoc
         - pencil < 0 # via pandoc
-        - attoparsec-path < 0 # via path
-        - aws-lambda-haskell-runtime < 0 # via path
-        - follow-file < 0 # via path
-        - genvalidity-path < 0 # via path
-        - http-download < 0 # via path
-        - mega-sdist < 0 # via path
-        - path-extra < 0 # via path
-        - path-io < 0 # via path
-        - rio-prettyprint < 0 # via path
-        - stack < 0 # via path
-        - urlpath < 0 # via path
-        - validity-path < 0 # via path
         - classy-prelude-yesod < 0 # via persistent
         - closed < 0 # via persistent
         - password-instances < 0 # via persistent
@@ -5363,7 +5037,6 @@ packages:
         - yesod-paginator < 0 # via persistent
         - yesod-persistent < 0 # via persistent
         - yesod-text-markdown < 0 # via persistent
-        - stm-hamt < 0 # via primitive-extras
         - aos-signature < 0 # via protolude
         - bulletproofs < 0 # via protolude
         - cachix-api < 0 # via protolude
@@ -5375,21 +5048,11 @@ packages:
         - pedersen-commitment < 0 # via protolude
         - avro < 0 # via pure-zlib
         - regex-with-pcre < 0 # via regex
-        - regex-compat < 0 # via regex-base-0.94.0.0
-        - regex-pcre < 0 # via regex-base-0.94.0.0
         - regex-pcre-text < 0 # via regex-base-0.94.0.0
-        - regex-posix < 0 # via regex-base-0.94.0.0
-        - regex-tdfa < 0 # via regex-base-0.94.0.0
+        - regex-tdfa-text < 0 # via regex-base-0.94.0.0
         - yi-language < 0 # via regex-base-0.94.0.0
-        - lens-regex < 0 # via regex-posix
-        - regex-compat-tdfa < 0 # via regex-tdfa
-        - regex-tdfa-text < 0 # via regex-tdfa
-        - scalpel-core < 0 # via regex-tdfa
         - datasets < 0 # via req
         - elm2nix < 0 # via req
-        - req-conduit < 0 # via req
-        - approximate < 0 # via safecopy
-        - compensated < 0 # via safecopy
         - filter-logger < 0 # via scotty
         - line < 0 # via scotty
         - pg-harness-server < 0 # via scotty
@@ -5401,19 +5064,9 @@ packages:
         - servant-auth-wordpress < 0 # via servant-server
         - servant-checked-exceptions < 0 # via servant-server
         - servant-cli < 0 # via servant-server
-        - servant-conduit < 0 # via servant-server
-        - servant-js < 0 # via servant-server
-        - servant-lucid < 0 # via servant-server
-        - servant-machines < 0 # via servant-server
-        - servant-mock < 0 # via servant-server
-        - servant-pipes < 0 # via servant-server
         - servant-rawm < 0 # via servant-server
         - servant-static-th < 0 # via servant-server
-        - servant-swagger-ui < 0 # via servant-server
-        - servant-swagger-ui-core < 0 # via servant-server
-        - servant-swagger-ui-redoc < 0 # via servant-server
         - servant-tracing < 0 # via servant-server
-        - servant-yaml < 0 # via servant-server
         - tonatona-servant < 0 # via servant-server
         - testing-feat < 0 # via size-based
         - gingersnap < 0 # via snap-core
@@ -5421,7 +5074,6 @@ packages:
         - websockets-snap < 0 # via snap-core
         - websockets-snap < 0 # via snap-server
         - mbtiles < 0 # via sqlite-simple
-        - mmark-cli < 0 # via stache
         - mpi-hs < 0 # via store
         - datasets < 0 # via streaming
         - eventstore < 0 # via streaming
@@ -5432,10 +5084,6 @@ packages:
         - sv-cassava < 0 # via sv-core
         - Chart-diagrams < 0 # via svg-builder
         - cachix-api < 0 # via swagger2
-        - servant-swagger < 0 # via swagger2
-        - servant-swagger-ui < 0 # via swagger2
-        - servant-swagger-ui-core < 0 # via swagger2
-        - servant-swagger-ui-redoc < 0 # via swagger2
         - hspec-pg-transact < 0 # via tmp-postgres
         - pg-transact < 0 # via tmp-postgres
         - salak-toml < 0 # via tomland
@@ -5443,29 +5091,12 @@ packages:
         - polysemy < 0 # via unagi-chan
         - require < 0 # via universum
         - tintin < 0 # via universum
-        - dublincore-xml-conduit < 0 # via uri-bytestring
-        - uri-bytestring-aeson < 0 # via uri-bytestring
-        - wai-middleware-auth < 0 # via uri-bytestring
-        - yesod-auth-oauth2 < 0 # via uri-bytestring
         - hamilton < 0 # via vty
         - hledger-iadd < 0 # via vty
         - servant-rawm < 0 # via wai-app-static
-        - servant-swagger-ui-core < 0 # via wai-app-static
         - servius < 0 # via wai-app-static
         - wai-middleware-auth < 0 # via wai-app-static
         - yesod-static < 0 # via wai-app-static
-        - filter-logger < 0 # via wai-extra
-        - fn < 0 # via wai-extra
-        - hspec-wai < 0 # via wai-extra
-        - simple < 0 # via wai-extra
-        - simple-session < 0 # via wai-extra
-        - tonatona-servant < 0 # via wai-extra
-        - wai-middleware-auth < 0 # via wai-extra
-        - yesod < 0 # via wai-extra
-        - yesod-auth-hashdb < 0 # via wai-extra
-        - yesod-eventsource < 0 # via wai-extra
-        - yesod-persistent < 0 # via wai-extra
-        - yesod-static < 0 # via wai-extra
         - filter-logger < 0 # via wai-logger
         - hoogle < 0 # via wai-logger
         - yesod < 0 # via wai-logger
@@ -5508,7 +5139,6 @@ packages:
 
         # round 3
         - debug < 0 # via Hoed
-        - hyperloglog < 0 # via approximate
         - hw-rankselect-base < 0 # via bits-extra
         - alerts < 0 # via blaze-html
         - blaze-bootstrap < 0 # via blaze-html
@@ -5518,18 +5148,10 @@ packages:
         - cmark-gfm < 0 # via blaze-html
         - highlighting-kate < 0 # via blaze-html
         - inliterate < 0 # via blaze-html
-        - skylighting < 0 # via blaze-html
-        - skylighting-core < 0 # via blaze-html
         - barrier < 0 # via blaze-svg
-        - RSA < 0 # via crypto-pubkey-types
-        - crypto-pubkey < 0 # via crypto-pubkey-types
         - cabal-debian < 0 # via debian
         - xml-isogen < 0 # via dom-parser
-        - scheduler < 0 # via fib
         - cabal2nix < 0 # via hpack
-        - cabal-debian < 0 # via hsemail
-        - distribution-opensuse < 0 # via hsemail
-        - mbox-utility < 0 # via hsemail
         - postgresql-simple-queue < 0 # via hspec-pg-transact
         - hspec-wai-json < 0 # via hspec-wai
         - dl-fedora < 0 # via http-directory
@@ -5544,48 +5166,19 @@ packages:
         - postgresql-simple-queue < 0 # via pg-transact
         - inliterate < 0 # via plotlyhs
         - polysemy-plugin < 0 # via polysemy
-        - epub-metadata < 0 # via regex-compat-tdfa
         - highlighting-kate < 0 # via regex-pcre-builtin
         - html-email-validate < 0 # via regex-pcre-builtin
         - pcre-utils < 0 # via regex-pcre-builtin
-        - skylighting < 0 # via regex-pcre-builtin
-        - skylighting-core < 0 # via regex-pcre-builtin
         - template-toolkit < 0 # via regex-pcre-builtin
-        - dl-fedora < 0 # via regex-posix
-        - inline-c < 0 # via regex-posix
-        - language-haskell-extract < 0 # via regex-posix
-        - test-framework < 0 # via regex-posix
-        - test-framework-th < 0 # via regex-posix
-        - xml-to-json < 0 # via regex-posix
-        - cabal-debian < 0 # via regex-tdfa
-        - haskell-gi < 0 # via regex-tdfa
-        - katip < 0 # via regex-tdfa
-        - menshen < 0 # via regex-tdfa
-        - shelltestrunner < 0 # via regex-tdfa
-        - tasty-silver < 0 # via regex-tdfa
         - relational-record < 0 # via relational-query-HDBC
         - wikicfp-scraper < 0 # via scalpel-core
         - miso < 0 # via servant
-        - servant-foreign < 0 # via servant
         - miso < 0 # via servant-lucid
         - state-codes < 0 # via shakespeare
         - xml-hamlet < 0 # via shakespeare
-        - stm-containers < 0 # via stm-hamt
         - show-prettyprint < 0 # via trifecta
         - emd < 0 # via typelits-witnesses
         - stripe-wreq < 0 # via wreq
-        - jose < 0 # via x509
-        - jwt < 0 # via x509
-        - x509-system < 0 # via x509
-        - jwt < 0 # via x509-store
-        - x509-system < 0 # via x509-store
-        - haskell-gi < 0 # via xml-conduit
-        - xlsx < 0 # via xml-conduit
-        - xml-conduit-parse < 0 # via xml-conduit
-        - xml-conduit-writer < 0 # via xml-conduit
-        - xml-hamlet < 0 # via xml-conduit
-        - xml-indexed-cursor < 0 # via xml-conduit
-        - xml-isogen < 0 # via xml-conduit
         - yeshql < 0 # via yeshql-hdbc
 
         # round 4
@@ -5609,9 +5202,6 @@ packages:
         - bitcoin-block < 0 # via hexstring
         - bitcoin-tx < 0 # via hexstring
         - bitcoin-types < 0 # via hexstring
-        - hslua-module-system < 0 # via hslua
-        - hslua-module-text < 0 # via hslua
-        - tasty-lua < 0 # via hslua
         - purescript-bridge < 0 # via hspec-expectations-pretty-diff
         - s3-signer < 0 # via http-types
         - web-routes < 0 # via http-types
@@ -5622,20 +5212,11 @@ packages:
         - H < 0 # via inline-r
         - fmt < 0 # via interpolate
         - generics-eot < 0 # via interpolate
-        - attoparsec-ip < 0 # via ip
         - mwc-probability-transition < 0 # via logging-effect
-        - incremental-parser < 0 # via monoid-subclasses
-        - timerep < 0 # via monoid-subclasses
         - hschema < 0 # via natural-transformation
         - hschema-prettyprinter < 0 # via natural-transformation
         - asciidiagram < 0 # via pandoc-types
         - texmath < 0 # via pandoc-types
-        - conduit-parse < 0 # via parsers
-        - data-serializer < 0 # via parsers
-        - data-textual < 0 # via parsers
-        - network-ip < 0 # via parsers
-        - replace-attoparsec < 0 # via parsers
-        - time-parsers < 0 # via parsers
         - hasql < 0 # via postgresql-binary
         - dbcleaner < 0 # via postgresql-simple
         - peregrin < 0 # via postgresql-simple
@@ -5645,22 +5226,15 @@ packages:
         - psql-helpers < 0 # via postgresql-simple
         - users-postgresql-simple < 0 # via postgresql-simple
         - protocol-buffers-descriptor < 0 # via protocol-buffers
-        - massiv < 0 # via scheduler
-        - massiv-test < 0 # via scheduler
         - servant-ruby < 0 # via servant-foreign
-        - filecache < 0 # via strict-base-types
         - pcre-heavy < 0 # via string-conversions
         - secp256k1-haskell < 0 # via string-conversions
         - bv-little < 0 # via text-show
         - nonempty-containers < 0 # via these
         - pipes-fluid < 0 # via these
-        - semialign < 0 # via these
         - quickcheck-state-machine < 0 # via tree-diff
         - users-postgresql-simple < 0 # via users
         - users-test < 0 # via users
-        - dotenv < 0 # via yaml
-        - fakedata < 0 # via yaml
-        - frontmatter < 0 # via yaml
 
         # round 5
         - hmatrix-backprop < 0 # via backprop
@@ -5683,10 +5257,6 @@ packages:
         - abstract-deque-tests < 0 # via test-framework
         - crypto-api-tests < 0 # via test-framework
         - crypto-cipher-tests < 0 # via test-framework
-        - test-framework-hunit < 0 # via test-framework
-        - test-framework-leancheck < 0 # via test-framework
-        - test-framework-quickcheck2 < 0 # via test-framework
-        - test-framework-smallcheck < 0 # via test-framework
         - tonatona < 0 # via tonaparser
         - tonatona-logger < 0 # via tonaparser
         - Rasterific < 0 # via vector-algorithms
@@ -5696,38 +5266,25 @@ packages:
         # round 6
         - rasterific-svg < 0 # via Rasterific
         - fmt-for-rio < 0 # via enum-text-rio
-        - monad-unlift-ref < 0 # via mutable-containers
-        - xeno < 0 # via mutable-containers
         - pipes-category < 0 # via pipes-extras
-        - password < 0 # via scrypt
 
         # round 7
         - pipes-misc < 0 # via pipes-category
 
         # Misc. Removed from above but must still be re-removed due to *another* issue
-        - attoparsec-uri < 0 # via attoparsec-ip
         - caster < 0 # via fast-builder
         - hschema-quickcheck < 0 # via hschema
         - string-interpolate < 0 # via interpolatedstring-perl6
-        - attoparsec-uri < 0 # via ip
         - string-interpolate < 0 # via text-conversions
-        - xmlbf-xeno < 0 # via xeno
-        - text-show-instances < 0 # via text-show
         - random-fu < 0 # via random-source
-        - Hoed < 0 # via regex-tdfa
         - Hoed < 0 # via regex-tdfa-text
         - random-fu < 0 # via rvar
         - codec < 0 # via binary-bits
-        - opaleye < 0 # via dotenv
         - hschema-aeson < 0 # via hschema
         - hschema-aeson < 0 # via hschema-prettyprinter
         - hschema-aeson < 0 # via hschema-quickcheck
         - inline-r < 0 # via inline-c
         - postgresql-binary < 0 # via network-ip
-        - hschema-aeson < 0 # via prettyprinter
-        - winery < 0 # via prettyprinter
-        - hschema-aeson < 0 # via prettyprinter-ansi-terminal
-        - winery < 0 # via prettyprinter-ansi-terminal
         - aeson-extra < 0 # via semialign
         - lxd-client-config < 0 # via test-framework
         - pandoc-types < 0 # via test-framework
@@ -5740,19 +5297,12 @@ packages:
         - postgresql-typed < 0 # via HDBC
         - tcp-streams-openssl < 0 # via HsOpenSSL-x509-system
         - pandoc-citeproc < 0 # via HsYAML-aeson
-        - http2 < 0 # via aeson-pretty
-        - microformats2-parser < 0 # via aeson-pretty
-        - pandoc-citeproc < 0 # via aeson-pretty
-        - hOpenPGP < 0 # via asn1-encoding
-        - tls < 0 # via asn1-encoding
         - ws < 0 # via attoparsec-uri
         - microformats2-parser < 0 # via blaze-html
         - persistent-mongoDB < 0 # via blaze-html
-        - wai-app-static < 0 # via blaze-html
         - yesod-core < 0 # via blaze-html
         - yesod-test < 0 # via blaze-html
         - microformats2-parser < 0 # via blaze-markup
-        - wai-app-static < 0 # via blaze-markup
         - yesod-core < 0 # via blaze-markup
         - hOpenPGP < 0 # via bzlib
         - xml-lens < 0 # via case-insensitive-1.2.1.0
@@ -5764,14 +5314,7 @@ packages:
         - pantry < 0 # via hackage-security
         - hasbolt < 0 # via hex
         - pantry < 0 # via hpack
-        - scotty < 0 # via hspec-wai
-        - microformats2-parser < 0 # via html-conduit
-        - yesod-test < 0 # via html-conduit
         - pantry < 0 # via http-download
-        - servant-http-streams < 0 # via http-media
-        - servant-multipart < 0 # via http-media
-        - servant-server < 0 # via http-media
-        - swagger2 < 0 # via http-media
         - asif < 0 # via hw-hspec-hedgehog
         - asif < 0 # via hw-ip
         - hOpenPGP < 0 # via incremental-parser
@@ -5781,6 +5324,7 @@ packages:
         - bson < 0 # via network-3.1.1.0
         - hslogger < 0 # via network-3.1.1.0
         - mongoDB < 0 # via network-3.1.1.0
+        - network-bsd < 0 # via network-3.1.1.0
         - openssl-streams < 0 # via network-3.1.1.0
         - socket-activation < 0 # via network-3.1.1.0
         - tcp-streams-openssl < 0 # via network-3.1.1.0
@@ -5790,12 +5334,9 @@ packages:
         - httpd-shed < 0 # via network-bsd
         - network-multicast < 0 # via network-bsd
         - network-simple < 0 # via network-bsd
+        - network-simple-tls < 0 # via network-simple
         - pandoc-citeproc < 0 # via pandoc
         - pandoc-citeproc < 0 # via pandoc-types
-        - nvim-hs < 0 # via path
-        - pantry < 0 # via path
-        - nvim-hs < 0 # via path-io
-        - pantry < 0 # via path-io
         - microformats2-parser < 0 # via pcre-heavy
         - pantry < 0 # via persistent
         - persistent-mongoDB < 0 # via persistent
@@ -5806,27 +5347,19 @@ packages:
         - persistent-mongoDB < 0 # via persistent-test
         - postgresql-typed < 0 # via postgresql-binary
         - libraft < 0 # via postgresql-simple-url
-        - hOpenPGP < 0 # via prettyprinter
-        - nvim-hs < 0 # via prettyprinter
-        - nvim-hs < 0 # via prettyprinter-ansi-terminal
         - yesod-bin < 0 # via project-template
         - libraft < 0 # via protolude
         - libraft < 0 # via quickcheck-state-machine
-        - scotty < 0 # via regex-compat
-        - snap-core < 0 # via regex-posix
         - pantry < 0 # via rio-orphans
         - pantry < 0 # via rio-prettyprint
         - haskoin-core < 0 # via secp256k1-haskell
         - servant-http-streams < 0 # via servant
         - servant-multipart < 0 # via servant
-        - servant-server < 0 # via servant
         - servant-http-streams < 0 # via servant-client-core
         - servant-multipart < 0 # via servant-docs
         - servant-multipart < 0 # via servant-foreign
         - yesod-bin < 0 # via shakespeare
         - yesod-core < 0 # via shakespeare
-        - connection < 0 # via socks
-        - network-simple < 0 # via socks
         - store < 0 # via store-core
         - pantry < 0 # via tar-conduit
         - libraft < 0 # via tasty-dejafu
@@ -5862,39 +5395,9 @@ packages:
         - vivid < 0 # via vivid-supercollider
         - web-routes-wai < 0 # via web-routes
         - ws < 0 # via wuss
-        - connection < 0 # via x509
-        - network-simple-tls < 0 # via x509
-        - postgresql-typed < 0 # via x509
-        - tcp-streams < 0 # via x509
-        - tls < 0 # via x509
-        - tls-debug < 0 # via x509
-        - warp-tls-uid < 0 # via x509
-        - connection < 0 # via x509-store
-        - network-simple-tls < 0 # via x509-store
-        - postgresql-typed < 0 # via x509-store
-        - tcp-streams < 0 # via x509-store
-        - tls < 0 # via x509-store
-        - tls-debug < 0 # via x509-store
-        - connection < 0 # via x509-system
-        - network-simple-tls < 0 # via x509-system
-        - tcp-streams < 0 # via x509-system
-        - tls-debug < 0 # via x509-system
-        - connection < 0 # via x509-validation
-        - network-simple-tls < 0 # via x509-validation
-        - postgresql-typed < 0 # via x509-validation
-        - tls < 0 # via x509-validation
-        - tls-debug < 0 # via x509-validation
-        - DAV < 0 # via xml-conduit
-        - pandoc-citeproc < 0 # via xml-conduit
-        - xml-lens < 0 # via xml-conduit
-        - yesod-test < 0 # via xml-conduit
         - DAV < 0 # via xml-hamlet
         - HandsomeSoup < 0 # via HTTP
         - hxt-http < 0 # via HTTP
-        - amqp < 0 # via connection
-        - http-client-tls < 0 # via connection
-        - http-conduit < 0 # via connection
-        - network-conduit-tls < 0 # via connection
         - http-streams < 0 # via io-streams
         - butter < 0 # via network-simple
         - network-anonymous-i2p < 0 # via network-simple
@@ -5903,38 +5406,24 @@ packages:
         - pipes-network-tls < 0 # via network-simple
         - pipes-network-tls < 0 # via network-simple-tls
         - http-streams < 0 # via openssl-streams
-        - http-client-tls < 0 # via tls
-        - network-conduit-tls < 0 # via tls
-        - pipes-network-tls < 0 # via tls
-        - tls-session-manager < 0 # via tls
-        - warp-tls < 0 # via tls
         - wai-websockets < 0 # via wai-app-static
-        - wai-enforce-https < 0 # via wai-extra
         - wai-session-postgresql < 0 # via wai-session
-        - bimap-server < 0 # via warp
-        - bugsnag-haskell < 0 # via warp
-        - http-conduit < 0 # via warp
-        - http-reverse-proxy < 0 # via warp
-        - wai-enforce-https < 0 # via warp
-        - wai-websockets < 0 # via warp
-        - warp-tls < 0 # via warp
         - wai-websockets < 0 # via websockets
         - bugsnag-haskell < 0 # via yesod-core
-        - bitx-bitcoin < 0 # via http-client-tls
-        - datadog < 0 # via http-client-tls
-        - oauthenticated < 0 # via http-client-tls
         - conduit-throttle < 0 # via test-framework
         - conduit-throttle < 0 # via test-framework-hunit
-        - html-conduit < 0 # via xml-conduit
-        - tagstream-conduit < 0 # via xml-conduit
         - decidable < 0 # via vinyl
         - functor-products < 0 # via vinyl
         - list-witnesses < 0 # via vinyl
-        - wai-handler-launch < 0 # via wai
-        - wai-handler-launch < 0 # via warp
-        - wai-extra < 0 # via http2
-        - warp < 0 # via http2
-
+        - lsp-test < 0 # via conduit-parse
+        - groundhog-inspector < 0 # via groundhog
+        - groundhog-inspector < 0 # via groundhog-sqlite
+        - groundhog-inspector < 0 # via groundhog-th
+        - lsp-test < 0 # via haskell-lsp
+        - ginger < 0 # via regex-tdfa-1.3.0
+        - menshen < 0 # via regex-tdfa-1.3.0
+        - winery < 0 # via fast-builder
+        - nvim-hs < 0 # via hslogger
 
     "GHC 8.8-related build failures":
         # MonadFail stuff
@@ -5955,7 +5444,6 @@ packages:
         - exceptional < 0
         - true-name < 0
         - probability < 0
-        - concurrency < 0
         - cron < 0
         - store-core < 0
         - bitcoin-script < 0
@@ -5992,13 +5480,18 @@ packages:
         - flay < 0
         - barbies < 0
         - time-qq < 0
-        - prettyprinter < 0
         - references < 0
         - interpolatedstring-perl6 < 0
 
+        # compilation errors
+        - xml-conduit-parse < 0
+        - scalpel-core < 0
+        - html-conduit < 0 # https://github.com/snoyberg/xml/issues/148
+        - configuration-tools < 0
+        - bitx-bitcoin < 0
+
         # Round 2 build failure transitive deps
         - cryptocipher < 0 # via cipher-blowfish
-        - dejafu < 0 # via concurrency
         - cublas < 0 # via cuda
         - cufft < 0 # via cuda
         - cusparse < 0 # via cuda
@@ -6010,27 +5503,18 @@ packages:
         - language-c-quote < 0 # via mainland-pretty
         - cgi < 0 # via multipart
         - pcf-font-embed < 0 # via pcf-font
-        - emacs-module < 0 # via prettyprinter
-        - exp-pairs < 0 # via prettyprinter
-        - prettyprinter-ansi-terminal < 0 # via prettyprinter
-        - prettyprinter-compat-annotated-wl-pprint < 0 # via prettyprinter
-        - prettyprinter-compat-ansi-wl-pprint < 0 # via prettyprinter
-        - prettyprinter-compat-wl-pprint < 0 # via prettyprinter
-        - prettyprinter-convert-ansi-wl-pprint < 0 # via prettyprinter
         - vivid-supercollider < 0 # via vivid-osc
 
         # Round 3 build failure transitive deps
         - network-messagepack-rpc < 0 # via data-msgpack
-        - hunit-dejafu < 0 # via dejafu
-        - tasty-dejafu < 0 # via dejafu
 
         # More build failure transitive deps
         - random-source < 0 # via flexible-defaults
         - backprop < 0 # via vinyl
+        - network-ip < 0 # via data-dword
 
         # Some more failures
         - present < 0 # MonadFail
-        - X11 < 0 # Cabal 3?
         - HSet < 0 # Duplicate Hashable instance
         - data-diverse-lens < 0 # "The liberal coverage condition fails"
         - xmlbf < 0 # MonadFail
@@ -6053,32 +5537,52 @@ packages:
         - cassava-records < 0 # MonadFail
         - haskell-spacegoo < 0 # MonadFail
         - lens-typelevel < 0 # Wrong category of family instance (wat)
-        - regex-pcre-builtin < 0 # MonadFail
-        - th-test-utils < 0 # Template Haskell changes. https://github.com/commercialhaskell/stackage/pull/4839
         - wai-predicates < 0 # MonadFail
+        - sbv < 0 # MonadFail
+        - crypto-pubkey-openssh < 0 # MonadFail
+        - tagstream-conduit < 0 # MonadFail
+        - xlsx < 0 # MonadFail
+        - jose < 0 # MonadFail
+        - hpack < 0 # MonadFail https://github.com/sol/hpack/issues/371
+        - data-textual < 0 # MonadFail
+        - data-serializer < 0 # MonadFail
+        - crypto-pubkey-openssh < 0 # MonadFail
+        # https://github.com/alevy/simple/issues/23
+        - simple < 0
+        - simple-session < 0
 
         # Round 2 transitive from Some more failures
-        - Clipboard < 0 # via X11
-        - Imlib < 0 # via X11
-        - X11-xft < 0 # via X11
-        - x11-xim < 0 # via X11
-        - xmonad < 0 # via X11
-        - xmonad-contrib < 0 # via X11
         - groundhog-postgresql < 0 # via groundhog
         - groundhog-th < 0 # via groundhog
         - cql-io < 0 # via cql
         - groundhog-mysql < 0 # via groundhog
-        - logging-effect < 0 # via prettyprinter
-        - aeson-schemas < 0 # via th-test-utils
+        - mmtf < 0 # via data-msgpack
+        - gym-http-api < 0 # via servant servant-client
+        - xmlbf-xeno < 0 # via xmlbf
+        - http-directory < 0 # via html-conduit
+        - xml-html-qq < 0 # via html-conduit
+        - scalpel < 0 # via scalpel-core
+        - authenticate < 0 # via tagstream-conduit
+        - wreq < 0 # via authenticate-oauth
 
+        # hashable-1.3.0
+        - concurrent-supply < 0
+        - regex < 0
+        - relude < 0
+        - ttl-hashtables < 0
+        - registry < 0 # also protolude, semigroups, universum
+
+        # semigroups-0.19
+        - chronos < 0 # also test-framework
+        - direct-sqlite < 0
+
+        - mega-sdist < 0 # via pantry
 
     "GHC upper bounds":
         # Need to always match the version shipped with GHC
         - Win32 == 2.6.1.0
 
-    "Stackage upper bounds":
-        []
-
+    "Stackage upper bounds": []
 
 # end of packages
 
@@ -6216,6 +5720,7 @@ skipped-tests:
     # These can periodically be checked for updates;
     # just remove these lines and run `stackage-curator check' to verify.
     - time-compat # base-compat 0.11
+    - http-media # base-4.13
 
     # fails with ghc 8.8
     - alex # as of alex-3.2.4
@@ -6224,6 +5729,7 @@ skipped-tests:
     - base-orphans # via hspec
 
     # test-framework per ghc 8.8
+    - extensible-effects # via test-framework
     - stm-conduit # via test-framework
     - conduit-zstd # via test-framework
     - conduit-algorithms # via test-framework
@@ -6259,10 +5765,8 @@ skipped-tests:
     - deepseq-generics # via test-framework
     - doldol # via test-framework
     - double-conversion # via test-framework
-    - either # via test-framework
     - enummapset # via test-framework
     - exception-transformers # via test-framework
-    - exceptions # via test-framework
     - fingertree # via test-framework
     - hashable # via test-framework
     - haskey-btree # via test-framework
@@ -6270,9 +5774,7 @@ skipped-tests:
     - irc # via test-framework
     - language-c-quote # via test-framework
     - largeword # via test-framework
-    - lens # via test-framework
     - lifted-base # via test-framework
-    - linear # via test-framework
     - lockfree-queue # via test-framework
     - lzma-conduit # via test-framework
     - messagepack # via test-framework
@@ -6300,10 +5802,6 @@ skipped-tests:
     - siphash # via test-framework
     - spatial-math # via test-framework
     - terminal-progress-bar # via test-framework
-    - test-framework-hunit # via test-framework
-    - test-framework-leancheck # via test-framework
-    - test-framework-quickcheck2 # via test-framework
-    - test-framework-smallcheck # via test-framework
     - text-icu # via test-framework
     - text-printer # via test-framework
     - threads # via test-framework
@@ -6317,7 +5815,6 @@ skipped-tests:
     - zstd # via test-framework
     - ENIG # via test-framework-th
     - doldol # via test-framework-th
-    - lens # via test-framework-th
     - messagepack # via test-framework-th
     - safeio # via test-framework-th
     - tzdata # via test-framework-th
@@ -6333,7 +5830,6 @@ skipped-tests:
     - attoparsec # QuickCheck-2.11.3
     - barrier # tasty 0.12 and tasty-hunit 0.10
     - binary-parser # tasty-1.0.1.1, tasty-quickcheck-0.10, tasty-hunit-0.10.0.1
-    - blaze-markup # tasty 1.1
     - cabal-install # tasty 1.1
     - cayley-client # via hspec-2.6.0
     - cborg # via tasty-1.2
@@ -6399,6 +5895,7 @@ skipped-tests:
     - wide-word # via semirings
     - zlib # tasty-quickcheck, tasty-hunit, tasty
     - comfort-array # ChasingBottoms
+    - hw-int # via hw-hspec-hedgehog
 
     # Blocked due to tests failing to compile for GHC 8.6
     - async-refresh
@@ -6415,7 +5912,6 @@ skipped-tests:
     - distributed-closure
     - dotenv
     - enum-subset-generate
-    - folds
     - generic-lens
     - geojson
     - github-types
@@ -6437,7 +5933,6 @@ skipped-tests:
     - quickcheck-state-machine
     - rakuten
     - rank1dynamic
-    - rcu
     - rss-conduit
     - servant-auth-server
     - servant-blaze
@@ -6448,7 +5943,6 @@ skipped-tests:
     - skylighting-core
     - speedy-slice
     - static-text
-    - structs
     - thyme
     - universum
     - unordered-containers
@@ -6487,7 +5981,6 @@ skipped-tests:
     # Compilation failures
     - snappy # https://github.com/bos/snappy/issues/1
     - genvalidity-time # https://github.com/NorfairKing/validity/issues/51
-    - uri-bytestring # Could not deduce (SOP.All (SOP.All Arbitrary) xs) arising from a use of ‘SOP.hcpure’
     - cron # Could not deduce (SOP.All (SOP.All Arbitrary) xss) arising from a use of ‘SOP.hcpure’
     - config-ini # https://github.com/aisamanra/config-ini/issues/22
     - polysemy-plugin # https://github.com/commercialhaskell/stackage/issues/4733
@@ -6582,14 +6075,14 @@ skipped-tests:
 
     # Test errors with modules not being visible
     - servant-ruby # https://github.com/commercialhaskell/stackage/issues/4650
-    - pretty-simple # https://github.com/commercialhaskell/stackage/issues/4652
     - password-instances # https://github.com/commercialhaskell/stackage/issues/4653
-    - password # https://github.com/commercialhaskell/stackage/issues/4654
+    - password # https://github.com/cdepillabout/password/issues/2
     - haskell-gi # https://github.com/commercialhaskell/stackage/issues/4661
     - envelope # https://github.com/commercialhaskell/stackage/issues/4669
     - algebraic-graphs # https://github.com/commercialhaskell/stackage/issues/4670
-    - either-both # https://github.com/commercialhaskell/stackage/issues/4757
     - bugsnag-haskell # https://github.com/commercialhaskell/stackage/issues/4759
+    - genvalidity-hspec-cereal # https://github.com/commercialhaskell/stackage/issues/4909
+    - genvalidity-hspec-optics # https://github.com/commercialhaskell/stackage/issues/4910
 # end of skipped-tests
 
 # Tests listed in expected-test-failures configure correctly but may fail to run
@@ -6607,7 +6100,7 @@ expected-test-failures:
     - aeson-lens # https://github.com/tanakh/aeson-lens/issues/10
     - cabal-debian # https://github.com/ddssff/cabal-debian/issues/50
     - capataz # https://github.com/roman/Haskell-capataz/issues/6
-    - concurrent-extra # https://github.com/commercialhaskell/stackage/issues/3717
+    - concurrent-extra # https://github.com/basvandijk/concurrent-extra/issues/12
     - crypto-numbers
     - css-text # 0.1.2.2 https://github.com/yesodweb/css-text/issues/10
     - distributed-process
@@ -6618,7 +6111,6 @@ expected-test-failures:
     - hastache
     - idris # https://github.com/fpco/stackage/issues/1382
     - ihaskell # https://github.com/gibiansky/IHaskell/issues/551
-    - libmpd # https://github.com/vimus/libmpd-haskell/issues/104
     - math-functions # https://github.com/bos/math-functions/issues/25
     - matplotlib # https://github.com/fpco/stackage/issues/2365
     - mltool # https://github.com/Alexander-Ignatyev/mltool/issues/1
@@ -6738,8 +6230,7 @@ expected-test-failures:
     - crypto-pubkey # https://github.com/vincenthz/hs-crypto-pubkey/issues/23
     - doctest-discover # 0.1.0.9 https://github.com/karun012/doctest-discover/issues/22
     - graylog # 0.1.0.1 https://github.com/fpco/stackage/pull/1254
-    - tomland # https://github.com/kowainik/tomland/issues/141
-    - reanimate # https://github.com/commercialhaskell/stackage/issues/4830
+    - reanimate # https://github.com/Lemmih/reanimate/issues/23
 
     # Assertion failures, these can be real bugs or just limitations
     # in the test cases.
@@ -6780,6 +6271,7 @@ expected-test-failures:
     - squeal-postgresql # https://github.com/fpco/stackage/issues/3180
     - text-icu # https://github.com/bos/text-icu/issues/32
     - text-ldap # https://github.com/khibino/haskell-text-ldap/issues/1
+    - th-test-utils # https://github.com/LeapYear/th-test-utils/issues/14
     - unicode-transforms # https://github.com/harendra-kumar/unicode-transforms/issues/15
     - vector-algorithms # http://hub.darcs.net/dolio/vector-algorithms/issue/9
     - vivid-supercollider # https://github.com/commercialhaskell/stackage/issues/4250
@@ -6810,10 +6302,7 @@ expected-test-failures:
     - rattletrap # OOM? https://github.com/fpco/stackage/issues/2232
     - stm-delay # https://github.com/joeyadams/haskell-stm-delay/issues/5
     - tmp-postgres # https://github.com/jfischoff/tmp-postgres/issues/1
-
-    # Linting failures (these may break every time HLint gets updated so keep them disabled)
-    # https://www.snoyman.com/blog/2017/11/future-proofing-test-suites
-    - folds
+    - prettyprinter # Could not load module ‘Test.QuickCheck.Modifiers’ (member of the hidden package ‘QuickCheck-2.13.2’)
 
     # https://github.com/pruvisto/heap/issues/11
     - heap
@@ -6839,23 +6328,11 @@ expected-test-failures:
     # https://github.com/alphaHeavy/lzma-conduit/issues/19
     - lzma-conduit
 
-    # https://github.com/blamario/monoid-subclasses/issues/18
-    - monoid-subclasses
-
     # https://github.com/Bodigrim/exp-pairs/issues/16
     - exp-pairs
 
     # https://github.com/jgm/pandoc/issues/5582
     - pandoc
-
-    # https://github.com/commercialhaskell/stackage/issues/4642
-    - ghc-exactprint
-
-    # https://github.com/commercialhaskell/stackage/issues/4643
-    - world-peace
-
-    # https://github.com/commercialhaskell/stackage/issues/4646
-    - singletons
 
     # Cannot reproduce locally, looks like it may be a bug in Stack or curator
     - shake-language-c
@@ -6880,8 +6357,11 @@ expected-test-failures:
     # https://github.com/commercialhaskell/stackage/issues/4810
     - dns
 
-    # https://github.com/commercialhaskell/stackage/issues/4815
-    - brittany
+    # https://github.com/alanz/ghc-exactprint/issues/82
+    - ghc-exactprint
+
+    # Test-runner expects a cabal-style 'dist-newstyle' directory
+    - hjsmin
 # end of expected-test-failures
 
 # Benchmarks which are known not to build. Note that, currently we do not run
@@ -6933,6 +6413,8 @@ expected-haddock-failures:
 
     # https://github.com/haskell/haddock/issues/1091
     - vault
+    # commercialhaskell/stackage#4904
+    - monoid-subclasses
 # end of expected-haddock-failures
 
 # For packages with haddock issues
@@ -6960,6 +6442,7 @@ skipped-benchmarks:
     - cryptohash-sha512 # criterion 1.5
     - dimensional # base < 4.7, https://github.com/bjornbm/dimensional/issues/207
     - ed25519 # Criterion
+    - extensible-effects # via test-framework
     - hw-balancedparens # criterion 1.5, https://github.com/commercialhaskell/stackage/issues/3880
     - hw-rankselect-base # criterion 1.5, https://github.com/commercialhaskell/stackage/issues/3880
     - identicon # via criterion-1.5.0.0
@@ -6980,7 +6463,6 @@ skipped-benchmarks:
     - binary-tagged
     - Earley
     - IntervalMap
-    - ad
     - attoparsec
     - binary-list
     - binary-tagged
@@ -7003,7 +6485,6 @@ skipped-benchmarks:
     - data-diverse
     - data-has
     - data-msgpack
-    - dbus
     - discrimination
     - do-list
     - edit-distance
@@ -7034,11 +6515,9 @@ skipped-benchmarks:
     - kanji
     - kazura-queue
     - kdt
-    - lens
     - lifted-async
     - lifted-base
     - loop
-    - machines
     - matrices
     - matrix
     - megaparsec
@@ -7054,7 +6533,6 @@ skipped-benchmarks:
     - prettyprinter
     - prometheus-client
     - ramus
-    - rcu
     - reinterpret-cast
     - rng-utils
     - sampling
@@ -7072,7 +6550,6 @@ skipped-benchmarks:
     - text-builder
     - text-manipulate
     - text-metrics
-    - thread-local-storage
     - tinylog
     - turtle
     - type-of-html
@@ -7089,7 +6566,6 @@ skipped-benchmarks:
     - xlsx
     - xmlgen
     - yi-rope
-    - zippers
 
     # Transitive outdated dependencies
     # These packages
@@ -7105,7 +6581,6 @@ skipped-benchmarks:
     - cipher-rc4 # https://github.com/vincenthz/hs-crypto-cipher/issues/46
     - extensible # via freer-effects https://github.com/fumieval/extensible/issues/12
     - hw-bits # https://github.com/haskell-works/hw-bits/issues/8
-    - hslua # https://github.com/commercialhaskell/stackage/issues/4526
     - persistent-template # https://github.com/commercialhaskell/stackage/issues/4760
 
     # Cyclic dependencies
@@ -7151,15 +6626,9 @@ skipped-benchmarks:
     - graphviz
     - graphviz
     - wl-pprint-text
-    # @lexi-lambda https://github.com/fpco/stackage/pull/3080
-    - freer-simple
     # @phadej
     - dlist-nonempty # criterion-1.3
     - splitmix # criterion-1.3
-
-    # Benchmark dependencies with multiple libraries per package
-    # See: https://github.com/fpco/stackage-curator/issues/68
-    - tomland
 
     # Due to cycles, which are actually just limitations in Stack right now.
     - criterion

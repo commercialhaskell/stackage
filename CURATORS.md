@@ -283,28 +283,28 @@ we're just not there yet.
 /opt/stackage-build/stackage/automated/run-nightly.sh
 
 # Run an LTS minor bump
-/opt/stackage-build/stackage/automated/build.sh lts-2.17
+/opt/stackage-build/stackage/automated/build-next.sh lts-14.17
 
 # Run an LTS major bump
-/opt/stackage-build/stackage/automated/build.sh lts-3.0
+/opt/stackage-build/stackage/automated/build-next.sh lts-15.0
 ```
 
 Recommended: run these from inside a `tmux` session. If you get version bound
 problems on nightly or LTS major, you need to fix build-constraints.yaml (see
-info above). For an LTS minor bump, you'll typically want to use the
-`CONSTRAINTS` environment variable, e.g.:
+info above). 
 
-```
-CONSTRAINTS='--constraint "conduit < 1.4.5" --constraint "criterion < 1.2.3"' /opt/stackage-build/stackage/automated/build.sh lts-2.17
-```
+### Building LTS minor releases
+First run `build-next.sh` to regenerate updated `work/ltsXX/constraints.yaml` and `work/ltsXX/snapshot-incomplete.yaml` files.
 
-Valid arguments to include in this environment variable:
+For an LTS minor bump, you'll typically want to:
 
-* `--constraint` to modify an upper or lower bound
-* `--add-package` to add a brand new package
-* `--expect-test-failure` to expect tests to fail
-* `--expect-haddock-failure` to expect haddocks to fail
-* `--expect-bench-failure` to expect benchmarks to fail
+* Add constraints to package `range:` fields in that `constraints.yaml`.
+* Add new packages versioned to `snapshot-incomplete.yaml` (the `@<hash>` suffix is optional)
+* Test, benchmark, haddock failures can also be added to package fields in the `constraints.yaml` if necessary, though it should be avoided if possible for LTS.
+
+Then run `NOPLAN=1 build-next.sh` to build the generate an updated snapshot.
+
+This replaces `CONSTRAINTS=...' /opt/stackage-build/stackage/automated/build.sh lts-x.y` for the old curator-1.
 
 If a build fails for bounds reasons, see all of the advice above. If the code
 itself doesn't build, or tests fail, open up an issue and then either put in a
@@ -320,7 +320,7 @@ if one needs to revert one package, say due to a build or test regression,
 one can edit `current-plan.yaml` and updated the SHA256 hash of the .cabal file,
 to avoid having to rebuild everything again.)
 
-Note LTS builds inherit the current Hackage data (stack updated for Nigthly) to avoid excess extra rebuilding.
+_Sadly no longer true currently_: ~~Note LTS builds inherit the current Hackage data (stack updated for Nightly) to avoid excess extra rebuilding.~~
 
 ### Timing
 
