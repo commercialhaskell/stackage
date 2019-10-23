@@ -2009,7 +2009,8 @@ packages:
         - hamilton
         - hmatrix-backprop
         - hmatrix-vector-sized
-        - lens-typelevel
+        # GHC 8.8 via ghc-typelits-presburger (konn/equational-reasoning-in-haskell#4)
+        # - lens-typelevel
         - list-witnesses
         - nonempty-containers
         - one-liner-instances
@@ -4768,7 +4769,6 @@ packages:
         - dhall < 0 # via cborg-json
         - sized-grid < 0 # via constraints-0.11.2
         - dependent-map < 0 # via constraints-extras
-        - dependent-sum < 0 # via constraints-extras
         - dependent-sum-template < 0 # via constraints-extras
         - MissingH < 0 # via containers-0.6.2.1
         - servant-kotlin < 0 # via containers-0.6.2.1
@@ -4938,9 +4938,7 @@ packages:
         - debian < 0 # via bzlib
         - chronos-bench < 0 # via chronos
         - qnap-decrypt < 0 # via cipher-aes128
-        - functor-combinators < 0 # via dependent-sum
         - prim-uniq < 0 # via dependent-sum
-        - typelits-witnesses < 0 # via dependent-sum
         - dhall-bash < 0 # via dhall
         - dhall-json < 0 # via dhall
         - hpack-dhall < 0 # via dhall
@@ -5069,7 +5067,6 @@ packages:
         - avers-server < 0 # via servant-server
         - servant-auth-wordpress < 0 # via servant-server
         - servant-checked-exceptions < 0 # via servant-server
-        - servant-cli < 0 # via servant-server
         - servant-rawm < 0 # via servant-server
         - servant-static-th < 0 # via servant-server
         - servant-tracing < 0 # via servant-server
@@ -5097,7 +5094,6 @@ packages:
         - polysemy < 0 # via unagi-chan
         - require < 0 # via universum
         - tintin < 0 # via universum
-        - hamilton < 0 # via vty
         - hledger-iadd < 0 # via vty
         - servant-rawm < 0 # via wai-app-static
         - servius < 0 # via wai-app-static
@@ -5183,7 +5179,6 @@ packages:
         - state-codes < 0 # via shakespeare
         - xml-hamlet < 0 # via shakespeare
         - show-prettyprint < 0 # via trifecta
-        - emd < 0 # via typelits-witnesses
         - stripe-wreq < 0 # via wreq
         - yeshql < 0 # via yeshql-hdbc
 
@@ -5236,14 +5231,12 @@ packages:
         - pcre-heavy < 0 # via string-conversions
         - secp256k1-haskell < 0 # via string-conversions
         - bv-little < 0 # via text-show
-        - nonempty-containers < 0 # via these
         - pipes-fluid < 0 # via these
         - quickcheck-state-machine < 0 # via tree-diff
         - users-postgresql-simple < 0 # via users
         - users-test < 0 # via users
 
         # round 5
-        - hmatrix-backprop < 0 # via backprop
         - executable-hash < 0 # via cryptohash
         - locators < 0 # via cryptohash
         - columnar < 0 # via fmt
@@ -5418,9 +5411,6 @@ packages:
         - bugsnag-haskell < 0 # via yesod-core
         - conduit-throttle < 0 # via test-framework
         - conduit-throttle < 0 # via test-framework-hunit
-        - decidable < 0 # via vinyl
-        - functor-products < 0 # via vinyl
-        - list-witnesses < 0 # via vinyl
         - lsp-test < 0 # via conduit-parse
         - groundhog-inspector < 0 # via groundhog
         - groundhog-inspector < 0 # via groundhog-sqlite
@@ -5461,9 +5451,6 @@ packages:
         - FontyFruity < 0
         - yeshql-core < 0
         - pcf-font < 0
-
-        # Kind stuff
-        - vinyl < 0
 
         # Template Haskell stuff
         - data-dword < 0
@@ -5511,7 +5498,6 @@ packages:
 
         # More build failure transitive deps
         - random-source < 0 # via flexible-defaults
-        - backprop < 0 # via vinyl
         - network-ip < 0 # via data-dword
 
         # Some more failures
@@ -5537,7 +5523,6 @@ packages:
         - systemd < 0 # socketToFd is ambiguous
         - cassava-records < 0 # MonadFail
         - haskell-spacegoo < 0 # MonadFail
-        - lens-typelevel < 0 # Wrong category of family instance (wat)
         - wai-predicates < 0 # MonadFail
         - sbv < 0 # MonadFail
         - crypto-pubkey-openssh < 0 # MonadFail
