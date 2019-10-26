@@ -134,3 +134,8 @@ greatly depending on build times for package updates, bounds breakage,
 problems with new packages being added and other build issues, etc. There are
 days when a release does not happen. LTS releases tend to happen over the
 weekend or early in the week.
+
+__Where to get help regarding uploading packages?__
+
+Please ask on [Gitter](https://gitter.im/commercialhaskell/stackage) or open
+an issue or comment on the PR which uploads the package.
