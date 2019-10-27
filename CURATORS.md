@@ -294,7 +294,7 @@ problems on nightly or LTS major, you need to fix build-constraints.yaml (see
 info above). 
 
 ### Building LTS minor releases
-First run `build-next.sh` to regenerate updated `work/ltsXX/constraints.yaml` and `work/ltsXX/snapshot-incomplete.yaml` files.
+First run `build-next.sh` to regenerate updated `ltsXX/work/constraints.yaml` and `ltsXX/work/snapshot-incomplete.yaml` files.
 
 For an LTS minor bump, you'll typically want to:
 
