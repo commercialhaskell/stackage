@@ -19,10 +19,14 @@ To add your package you can edit [`build-constraints.yaml`](https://github.com/f
         - package2
         - package3
 
-If your library depends on a C library, please add it to the `debian-bootstrap.sh` script.
+Any dependencies of your packages that are not already part of
+stackage also need to be added explicitly (When this happens you will
+see `not present` errors in the CI log). As mentioned above: If you
+don't maintain this package yourself it is preferable that the actual
+maintainer is also the stackage maintainer, but you are allowed to add
+it under your own name.
 
-Any dependencies of your packages that are not already part of stackage are added implictly, but it is prefered
-to add all packages explicitly. It is planned to remove this behaviour in the future.
+If your library depends on a C library, please add it to the `debian-bootstrap.sh` script.
 
 After doing that commit with a message like "add foo-bar" and send a pull request.
 
