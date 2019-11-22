@@ -476,7 +476,7 @@ packages:
 
     "Winter Han <winterland1989@gmail.com> @winterland1989":
         - if
-        - tcp-streams < 0 # via test-framework
+        - tcp-streams
         - tcp-streams-openssl < 0 # via HsOpenSSL-x509-system
         - wire-streams
         - binary-parsers
@@ -1135,7 +1135,7 @@ packages:
         - set-monad < 0 # build failure with GHC 8.4
 
     "Phil Hargett <phil@haphazardhouse.net> @hargettp":
-        - courier < 0 # via test-framework & test-framework-hunit
+        - courier < 0 # via hslogger
 
     "Aycan iRiCAN <iricanaycan@gmail.com> @aycanirican":
         - hdaemonize
@@ -2085,7 +2085,7 @@ packages:
         - matrices
 
     "Michel Boucey <michel.boucey@gmail.com> @MichelBoucey":
-        - IPv6Addr < 0 # via test-framework & test-framework-hunit
+        - IPv6Addr
         - ip6addr
         - cayley-client < 0 # via lens-4.18.1
         - Spintax
@@ -2110,7 +2110,7 @@ packages:
         - country < 0 # via base-4.13.0.0
         - semirings
         - torsor
-        - chronos < 0 # also test-framework
+        - chronos
 
     "Kostiantyn Rybnikov <k-bx@k-bx.com> @k-bx":
         - SHA
@@ -2122,7 +2122,7 @@ packages:
         - friday < 0
         - friday-juicypixels < 0
         - hbeanstalk < 0 # sClose not in scope
-        - hedis < 0 # via test-framework
+        - hedis < 0 # via HTTP
         - hprotoc < 0 # compilation failure
         - hsyslog-udp < 0
         - iso3166-country-codes
@@ -2207,7 +2207,7 @@ packages:
 
     "Ryan Scott <ryan.gl.scott@gmail.com> @RyanGlScott":
         - abstract-deque
-        - abstract-deque-tests < 0 # via test-framework
+        - abstract-deque-tests
         - abstract-par
         - atomic-primops
         - base-compat-batteries
@@ -3039,7 +3039,7 @@ packages:
         - haskey-mtl < 0
         - intset-imperative
         - lxd-client < 0 # GHC 8.4 via http-media
-        - lxd-client-config < 0 # via test-framework
+        - lxd-client-config
         - xxhash-ffi
         - zeromq4-patterns
 
@@ -3465,7 +3465,7 @@ packages:
         - async-timer
         # - nakadi-client # http-conduit 2.3
         - throttle-io-stream
-        - conduit-throttle < 0 # via test-framework
+        - conduit-throttle
 
     "Simon Hafner <hafnersimon@gmail.com> @reactormonk":
         - uri-bytestring-aeson
@@ -4051,7 +4051,7 @@ packages:
         - Glob
         - HDBC < 0 # via time-1.9.3
         - HDBC-session < 0 # via HDBC
-        - HTTP < 0 # via test-framework & test-framework-hunit
+        - HTTP
         - HsOpenSSL
         - HsYAML
         - JuicyPixels-scale-dct
@@ -4128,8 +4128,8 @@ packages:
         - cpphs
         - crypt-sha512
         - crypto-api
-        - crypto-api-tests < 0 # via test-framework
-        - crypto-cipher-tests < 0 # via test-framework
+        - crypto-api-tests
+        - crypto-cipher-tests
         - crypto-cipher-types
         - crypto-numbers
         - crypto-pubkey
@@ -4385,7 +4385,7 @@ packages:
         - size-based
         - skein
         - skylighting-core
-        - snap-core < 0 # via test-framework
+        - snap-core
         - some
         - special-values
         - splice
@@ -4639,10 +4639,7 @@ packages:
         - nvim-hs-contrib < 0 # via nvim-hs
         - nvvm < 0 # via cuda
         - oblivious-transfer < 0 # via protolude
-        - oeis < 0 # via test-framework
-        - oeis < 0 # via test-framework-hunit
         - open-witness < 0 # MonadFail
-        - openssl-streams < 0 # via test-framework-hunit
         - optparse-enum < 0 # via fmt
         - oset < 0 # via base-4.13.0.0
         - palette < 0 # via base-4.13.0.0
@@ -4651,7 +4648,6 @@ packages:
         - pandoc-csv2table < 0 # via pandoc
         - pandoc-markdown-ghci-filter < 0 # via pandoc
         - pandoc-pyplot < 0 # via pandoc
-        - pandoc-types < 0 # via test-framework-quickcheck2
         - partial-semigroup < 0 # via base-4.13.0.0
         - password-instances < 0 # via persistent
         - path-text-utf8 < 0 # via base-4.13.0.0
@@ -4874,6 +4870,8 @@ packages:
         - yesod-text-markdown < 0 # via persistent
         - yesod-websockets < 0 # via wai-websockets
         - yi-language < 0 # via regex-base-0.94.0.0
+        - HTTP < 0 # via httpd-shed
+        - oeis < 0 # via HTTP
 
     "GHC upper bounds":
         # Need to always match the version shipped with GHC
@@ -5042,95 +5040,6 @@ skipped-tests:
 
     # Cyclic dependencies
     - base-orphans # via hspec
-
-    # test-framework per ghc 8.8
-    - extensible-effects # via test-framework
-    - stm-conduit # via test-framework
-    - conduit-zstd # via test-framework
-    - conduit-algorithms # via test-framework
-    - statistics # via test-framework
-    - Decimal # via test-framework
-    - Diff # via test-framework
-    - ENIG # via test-framework
-    - Glob # via test-framework
-    - SHA # via test-framework
-    - abstract-deque-tests # via test-framework
-    - astro # via test-framework
-    - async # via test-framework
-    - base64-bytestring # via test-framework
-    - binary-bits # via test-framework
-    - bindings-GLFW # via test-framework
-    - blaze-builder # via test-framework
-    - blaze-textual # via test-framework
-    - c2hs # via test-framework
-    - cereal # via test-framework
-    - chaselev-deque # via test-framework
-    - cipher-aes # via test-framework
-    - cipher-blowfish # via test-framework
-    - cipher-camellia # via test-framework
-    - cipher-des # via test-framework
-    - cipher-rc4 # via test-framework
-    - concurrent-extra # via test-framework
-    - conduit-iconv # via test-framework
-    - configurator # via test-framework
-    - crypto-api-tests # via test-framework
-    - crypto-cipher-tests # via test-framework
-    - ctrie # via test-framework
-    - deepseq-generics # via test-framework
-    - doldol # via test-framework
-    - double-conversion # via test-framework
-    - enummapset # via test-framework
-    - exception-transformers # via test-framework
-    - fingertree # via test-framework
-    - hashable # via test-framework
-    - haskey-btree # via test-framework
-    - hmatrix-morpheus # via test-framework
-    - irc # via test-framework
-    - language-c-quote # via test-framework
-    - largeword # via test-framework
-    - lifted-base # via test-framework
-    - lockfree-queue # via test-framework
-    - lzma-conduit # via test-framework
-    - messagepack # via test-framework
-    - minimorph # via test-framework
-    - miniutter # via test-framework
-    - mltool # via test-framework
-    - monad-memo # via test-framework
-    - monad-peel # via test-framework
-    - murmur3 # via test-framework
-    - nettle # via test-framework
-    - network-uri # via test-framework
-    - numbers # via test-framework
-    - parsec # via test-framework
-    - pem # via test-framework
-    - perfect-hash-generator # via test-framework
-    - pipes # via test-framework
-    - pipes-extras # via test-framework
-    - prefix-units # via test-framework
-    - pureMD5 # via test-framework
-    - range # via test-framework
-    - safeio # via test-framework
-    - saltine # via test-framework
-    - scrypt # via test-framework
-    - siphash # via test-framework
-    - spatial-math # via test-framework
-    - terminal-progress-bar # via test-framework
-    - text-icu # via test-framework
-    - text-printer # via test-framework
-    - threads # via test-framework
-    - throttle-io-stream # via test-framework
-    - ttrie # via test-framework
-    - type-map # via test-framework
-    - tzdata # via test-framework
-    - unicode-show # via test-framework
-    - word24 # via test-framework
-    - zeromq4-patterns # via test-framework
-    - zstd # via test-framework
-    - ENIG # via test-framework-th
-    - doldol # via test-framework-th
-    - messagepack # via test-framework-th
-    - safeio # via test-framework-th
-    - tzdata # via test-framework-th
 
     # other dep issues
     - Cabal # GHC 8.4 via base-orphans-0.7, base-orphans-0.7
@@ -5751,7 +5660,6 @@ skipped-benchmarks:
     - cryptohash-sha512 # criterion 1.5
     - dimensional # base < 4.7, https://github.com/bjornbm/dimensional/issues/207
     - ed25519 # Criterion
-    - extensible-effects # via test-framework
     - hw-balancedparens # criterion 1.5, https://github.com/commercialhaskell/stackage/issues/3880
     - hw-rankselect-base # criterion 1.5, https://github.com/commercialhaskell/stackage/issues/3880
     - identicon # via criterion-1.5.0.0
