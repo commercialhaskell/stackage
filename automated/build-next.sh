@@ -64,7 +64,7 @@ mkdir -p $ROOT/bin
 BINDIR=$(cd $ROOT/bin ; pwd)
 (
 # See etc/curator-exes/README.md
-CURATOR_EXES=95a207fb4d5bd2e2a255350ce18f55976344eeb71e6f27a25f63e8dba28a4cd1
+CURATOR_EXES=1804f7aadc27032715c0dda005aa9b954909302238b45a1106968c1cdcacfc55
 cd $BINDIR
 rm -f curator stack *.bz2
 wget "https://s3.amazonaws.com/download.fpcomplete.com/curator-exes/curator-exes-$CURATOR_EXES.tar.bz2"
