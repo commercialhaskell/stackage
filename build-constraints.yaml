@@ -1072,7 +1072,7 @@ packages:
         - through-text < 0
         # Not my packages
         - HStringTemplate
-        - language-ecmascript
+        - language-ecmascript < 0 # via Diff-0.4.0
         - spoon
         - tagshare
 
@@ -1107,7 +1107,7 @@ packages:
     "Michal J. Gajda <maintainer@migamake.com> @mgajda":
         - iterable
         - FenwickTree
-        - json-autotype
+        - json-autotype < 0 # via lens-4.18.1
 
     "Dom De Re <domdere@domdere.com> @domdere":
         - cassava-conduit
@@ -2074,8 +2074,8 @@ packages:
         - distributed-closure
         - inline-java < 0
         - inline-r < 0 # via inline-c
-        - jni
-        - jvm
+        - jni < 0 # compilation failure
+        - jvm < 0 # transitive compilation failure
         - jvm-streaming < 0
         - H < 0 # via inline-r
         - sparkle < 0
@@ -2096,7 +2096,7 @@ packages:
 
     "Michel Boucey <michel.boucey@gmail.com> @MichelBoucey":
         - IPv6Addr < 0 # via test-framework & test-framework-hunit
-        - ip6addr
+        - ip6addr < 0 # via IPv6Addr
         - cayley-client < 0 # via lens-4.18.1
         - Spintax
         - glabrous
@@ -2459,7 +2459,7 @@ packages:
         - hsyslog
         - jailbreak-cabal
         - lambdabot-core < 0 # via dependent-map-0.3
-        - lambdabot-irc-plugins
+        - lambdabot-irc-plugins < 0 # via lambdabot-core
         - language-nix
         - logging-facade-syslog
         - MonadPrompt
@@ -2798,7 +2798,7 @@ packages:
         - doctemplates < 0 # via doclayout
         - pandoc
         - pandoc-citeproc
-        - ipynb
+        - ipynb < 0 # via aeson-diff
 
     "Karun Ramakrishnan <karun012@gmail.com> @karun012":
         - doctest-discover
@@ -2865,7 +2865,7 @@ packages:
 
     "Fraser Tweedale <frase@frase.id.au> @frasertweedale":
         - concise
-        - jose
+        - jose < 0 # MonadFail
 
     "Yoshikuni Jujo <PAF01143@nifty.ne.jp> @YoshikuniJujo":
         - zot
@@ -3580,7 +3580,7 @@ packages:
 
     "José Lorenzo Rodríguez <jose.zap@gmail.com> @lorenzo":
         - wrecker < 0 # GHC 8.4 via ansigraph
-        - language-docker
+        - language-docker < 0 # Data.Text instance of Lift
         - docker-build-cacher < 0 # GHC 8.4 via turtle
         - mysql-haskell-nem
         - hadolint < 0 # via ShellCheck
@@ -3890,8 +3890,8 @@ packages:
         - sendfile
 
     "Kristen Kozak <grayjay@wordroute.com> @grayjay":
-        - json-rpc-server
-        - json-rpc-client
+        - json-rpc-server < 0 # via base-4.13.0.0
+        - json-rpc-client < 0 # via base-4.13.0.0
 
     "Magnus Therning <magnus@therning.org> @magthe":
         - hsini
@@ -4271,8 +4271,8 @@ packages:
         - inspection-testing
         - integer-logarithms
         - io-streams-haproxy < 0 # via base-4.13.0.0
-        - ixset-typed
-        - json
+        - ixset-typed < 0 # via safecopy-0.10.0
+        - json < 0 # via base-4.13.0.0
         - json-alt
         - kleene < 0 # via regex-applicative
         - language-haskell-extract
@@ -4577,19 +4577,6 @@ packages:
         - proto-lens-combinators < 0 # deprecated https://github.com/commercialhaskell/stackage/pull/4358
 
     "Build failures on GHC upgrades ..,,xxx":
-        - ip6addr < 0 # via IPv6Addr
-        - ipynb < 0 # via aeson-diff
-        - ixset-typed < 0 # via safecopy-0.10.0
-        - jni < 0 # compilation failure
-        - jose < 0 # MonadFail
-        - json < 0 # via base-4.13.0.0
-        - json-autotype < 0 # via lens-4.18.1
-        - json-rpc-client < 0 # via base-4.13.0.0
-        - json-rpc-server < 0 # via base-4.13.0.0
-        - jvm < 0 # transitive compilation failure
-        - lambdabot-irc-plugins < 0 # via lambdabot-core
-        - language-docker < 0 # Data.Text instance of Lift
-        - language-ecmascript < 0 # via Diff-0.4.0
         - lapack < 0 # via hyper
         - large-hashable < 0 # compilation failure
         - learn-physics < 0 # via base-4.13.0.0
