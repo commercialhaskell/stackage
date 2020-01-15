@@ -611,7 +611,7 @@ packages:
         - hybrid-vectors
         - indents
         - language-c
-        - persistent-mongoDB < 0 # via blaze-html & persistent & persistent-qq & persistent-template & persistent-test
+        - persistent-mongoDB < 0 # via mongoDB, bson
         - pretty-class
         - th-expand-syns
         - th-lift
@@ -942,11 +942,11 @@ packages:
 
     "Vincent Berthoux <vincent.berthoux@gmail.com> @Twinside":
         - JuicyPixels
-        - FontyFruity < 0 # MonadFail
-        - Rasterific < 0 # via vector-algorithms
+        - FontyFruity
+        - Rasterific
         - svg-tree
-        - rasterific-svg < 0 # via Rasterific
-        - asciidiagram < 0 # via pandoc-types
+        - rasterific-svg
+        - asciidiagram
 
     "Patrick Brisbin @pbrisbin":
         - bugsnag-haskell < 0 # via yesod-core
@@ -1386,7 +1386,7 @@ packages:
         - users-test < 0 # via users
         # - validate-input # https://github.com/agrafix/validate-input/issues/3
         # - ignore # https://github.com/agrafix/ignore/issues/5
-        - blaze-bootstrap < 0 # via blaze-html
+        - blaze-bootstrap
         - dataurl
         - psql-helpers < 0 # via postgresql-simple
         - superbuffer
@@ -1585,9 +1585,9 @@ packages:
         - http-media
 
     "Greg V <greg@unrelenting.technology> @myfreeweb":
-        - pcre-heavy < 0 # via string-conversions
+        - pcre-heavy
         - http-link-header
-        - microformats2-parser < 0 # via blaze-html
+        - microformats2-parser < 0 # via wai-cli
         - hspec-expectations-pretty-diff
         - wai-cli < 0 # via network-3.1.1.0
         - magicbane < 0 # via ekg-wai
@@ -1999,7 +1999,7 @@ packages:
         - objective < 0
         - winery < 0 # via fast-builder
         - witherable < 0 # via monoidal-containers
-        - xml-lens < 0 # via case-insensitive-1.2.1.0
+        - xml-lens
 
     "Peter Harpending <peter@harpending.org> @pharpend":
         - editor-open
@@ -2299,10 +2299,10 @@ packages:
         - microlens-ghc
         - microlens-contra
         - shortcut-links < 0 # MonadFail
-        - cheapskate-highlight < 0 # via blaze-html
-        - cheapskate-lucid < 0 # via blaze-html
-        - cmark-lucid < 0 # GHC 8.4 via cmark
-        - cmark-highlight < 0 # GHC 8.4 via cmark
+        - cheapskate-highlight
+        - cheapskate-lucid
+        - cmark-lucid
+        - cmark-highlight < 0 # cmark-0.6
         - Spock-lucid < 0 # GHC 8.4 via Spock
         - charsetdetect-ae
         # - text-all # text-1.2.3.0
@@ -2432,7 +2432,7 @@ packages:
         - core-text
 
     "Sean Hunt <scshunt@csclub.uwaterloo.ca @scshunt":
-        - cheapskate < 0 # via blaze-html
+        - cheapskate
 
     "Ivan Miljenovic <Ivan.Miljenovic@gmail.com> @ivan-m":
         - fgl
@@ -2791,16 +2791,18 @@ packages:
     "John MacFarlane <jgm@berkeley.edu> @jgm":
         - hsb2hs < 0 # build failure with GHC 8.4
         - cmark
-        - texmath < 0 # via pandoc-types
-        - highlighting-kate < 0 # via blaze-html
+        - texmath
+        - highlighting-kate
         - skylighting
-        - pandoc-types < 1.19 || > 1.19 # Accidental upload, see: https://github.com/fpco/stackage/issues/2223
-        - pandoc-types < 0 # via test-framework-quickcheck2
+        - pandoc-types > 1.19 # https://github.com/fpco/stackage/issues/2223
         - zip-archive
-        - doctemplates < 0 # via doclayout
-        - pandoc < 0 # via HsYAML-0.2.0.0
-        - pandoc-citeproc < 0 # via pandoc-types
-        - ipynb < 0 # via aeson-diff
+        - doclayout < 0.3 # via pandoc-2.9.1.1
+        - doctemplates < 0.8.1 # via doclayout
+        - emojis
+        - pandoc
+        - pandoc-citeproc
+        - HsYAML-aeson
+        - ipynb #< 0 # via aeson-diff
 
     "Karun Ramakrishnan <karun012@gmail.com> @karun012":
         - doctest-discover
@@ -3289,7 +3291,7 @@ packages:
 
     "Tom Nielsen <tanielsen@gmail.com> @glutamate":
         - plotlyhs
-        - inliterate < 0 # via blaze-html & plotlyhs
+        - inliterate
 
     "Hyunje Jun <me@noraesae.net> @noraesae":
         - line < 0 # via scotty
@@ -3387,7 +3389,7 @@ packages:
         - tsv2csv
 
     "Thomas Sutton <me@thomas-sutton.id.au> @thsutton":
-        - aeson-diff < 0 # via base-4.13.0.0
+        - aeson-diff
         - edit-distance-vector
 
     "Kyle Van Berendonck <kvanberendonck+stackage@gmail.com> @donkeybonks":
@@ -3509,7 +3511,7 @@ packages:
         - conduit-zstd
 
     "Alex Biehl <alexbiehl@gmail.com> @alexbiehl":
-        - haddock-library < 0 # via base-4.13.0.0
+        - haddock-library
         - http-client-openssl
 
     "Mark Hopkins <markjohnhopkins@gmail.com> @mjhopkins":
@@ -3581,7 +3583,7 @@ packages:
 
     "Daniel Campoverde <alx@sillybytes.net> @alx741":
         - currencies
-        - alerts < 0 # via blaze-html
+        - alerts
         - yesod-alerts < 0 # via yesod-core
         - graphite < 0 # via graphviz
 
@@ -3938,12 +3940,12 @@ packages:
         - rfc1751
         - murmur3
         - nqe
-        - secp256k1-haskell < 0 # via string-conversions
+        - secp256k1-haskell
         - rocksdb-haskell
         - rocksdb-query
-        - haskoin-core < 0 # via secp256k1-haskell
-        - haskoin-node < 0
-        - haskoin-store < 0
+        - haskoin-core
+        - haskoin-node
+        - haskoin-store
 
     "asakamirai <asakamirai_hackage@towanowa.net> @asakamirai":
         - kazura-queue
@@ -4144,7 +4146,7 @@ packages:
         - classy-prelude
         - classy-prelude-conduit
         - clientsession
-        - cmark-gfm < 0 # via blaze-html
+        - cmark-gfm
         - colour
         - concurrent-extra
         - conduit
@@ -4439,7 +4441,7 @@ packages:
         - tar
         - tasty-lua
         - tasty-th
-        - tdigest < 0 # via vector-algorithms
+        - tdigest
         - template-haskell-compat-v0208
         - temporary
         - temporary-rc
