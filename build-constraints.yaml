@@ -267,7 +267,7 @@ packages:
         - normalization-insensitive < 0 # GHC 8.4 via unicode-transforms
 
     "Jacob Stanley <jacob@stanley.io> @jacobstanley":
-        - hedgehog
+        - hedgehog < 1.0.2 # the hedgehog bound in tasty-hedgehog is incompatible with the latest version of hedgehog (https://github.com/commercialhaskell/stackage/issues/5068)
         - hedgehog-quickcheck < 0 # via QuickCheck https://github.com/commercialhaskell/stackage/issues/4444
         - transformers-bifunctors
         - unix-compat
@@ -2907,7 +2907,7 @@ packages:
         - hw-hedgehog
         - hw-hspec-hedgehog
         - hw-int
-        - hw-ip
+        - hw-ip < 2.4 # the hw-ip bound in hw-dsv is incompatible with latest version of hw-ip (https://github.com/commercialhaskell/stackage/issues/5063)
         - hw-fingertree
         - hw-fingertree-strict
         - hw-json
