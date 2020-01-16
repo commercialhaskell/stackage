@@ -267,8 +267,8 @@ packages:
         - normalization-insensitive < 0 # GHC 8.4 via unicode-transforms
 
     "Jacob Stanley <jacob@stanley.io> @jacobstanley":
-        - hedgehog < 1.0.2 # the hedgehog bound in tasty-hedgehog is incompatible with the latest version of hedgehog (https://github.com/commercialhaskell/stackage/issues/5068)
-        - hedgehog-quickcheck < 0 # via QuickCheck https://github.com/commercialhaskell/stackage/issues/4444
+        - hedgehog
+        - hedgehog-quickcheck #< 0 # via QuickCheck https://github.com/commercialhaskell/stackage/issues/4444
         - transformers-bifunctors
         - unix-compat
 
@@ -4206,7 +4206,7 @@ packages:
         - double-conversion
         - dual-tree < 0 # via base-4.13.0.0
         - easy-file
-        - easytest < 0 # via hedgehog-1.0.1
+        - easytest < 0 # via hedgehog-1
         - ed25519
         - edit-distance
         - elm-bridge
@@ -4931,7 +4931,7 @@ skipped-tests:
     - wide-word # via semirings
     - zlib # tasty-quickcheck, tasty-hunit, tasty
     - comfort-array # ChasingBottoms
-    - hw-int # via hw-hspec-hedgehog
+    - hw-int
 
     # Blocked due to tests failing to compile for GHC 8.6
     - async-refresh
