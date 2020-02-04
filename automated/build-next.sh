@@ -64,13 +64,15 @@ mkdir -p $ROOT/bin
 BINDIR=$(cd $ROOT/bin ; pwd)
 (
 # See etc/curator-exes/README.md
-CURATOR_EXES=1804f7aadc27032715c0dda005aa9b954909302238b45a1106968c1cdcacfc55
+CURATOR_EXES=84f6e06e11e1bcdab6ec1a302d40213e406748e64ae455bd4ed09a205651a7fd
 cd $BINDIR
 rm -f curator stack *.bz2
 wget "https://s3.amazonaws.com/download.fpcomplete.com/curator-exes/curator-exes-$CURATOR_EXES.tar.bz2"
 tar xf "curator-exes-$CURATOR_EXES.tar.bz2"
-echo curator: $(./curator --version)
-echo stack: $(./stack --version)
+echo -n "curator version: "
+docker run --rm -v $(pwd)/curator:/exe $IMAGE /exe --version
+echo -n "stack version: "
+docker run --rm -v $(pwd)/stack:/exe $IMAGE /exe --version
 )
 
 # We share pantry directory between snapshots while the other content in .stack
