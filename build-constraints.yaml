@@ -1173,7 +1173,7 @@ packages:
         - openpgp-asciiarmor
         - MusicBrainz
         - DAV
-        - hopenpgp-tools < 0 # via graphviz
+        - hopenpgp-tools < 0 # hOpenPGP & ixset-typed
         - opensource
         - debian < 0 # via bzlib
         - cabal-debian < 0 # via debian
@@ -1208,15 +1208,30 @@ packages:
         - biopsl < 0 # GHC 8.4 via biocore
         - seqloc < 0 # GHC 8.4 via biocore
         - bioalign < 0 # build failure with GHC 8.4
-        # - BlastHTTP # https://github.com/eggzilla/BlastHTTP/issues/1
+        # - BlastHTTP # network-2.8
 
     "Florian Eggenhofer <florian.eggenhofer@univie.ac.at> @eggzilla":
-        # - ClustalParser
-        # - EntrezHTTP # graphviz via Taxonomy
+        - ClustalParser
+        # - EntrezHTTP # biocore
         - Genbank < 0 # build failure with GHC 8.4
-        # - RNAlien # graphviz via Taxonomy
-        # - Taxonomy # graphviz
+        # - RNAlien # aeson<=1.4.2
+        # - biocore # base
+        - bimaps
+        # - BiobaseBlast # SciBaseTypes
+        # - BiobaseENA # BiobaseTypes
+        - BiobaseEnsembl
+        # - BiobaseFasta # BiobaseTypes
+        # - BiobaseHTTP
+        # - BiobaseTypes # SciBaseTypes
+        # - BiobaseXNA # BiobaseTypes & PrimitiveArray
+        - DPutils
+        - ForestStructures
+        - OrderedBits
+        - PrimitiveArray < 0.10.0.0
+        # - SciBaseTypes # log-domain-0.12
+        - Taxonomy
         - ViennaRNAParser
+        - either-unwrap
 
     "Silk <code@silk.co>":
         - aeson-utils
@@ -1918,7 +1933,7 @@ packages:
     "William Casarin <bill@casarin.me> @jb55":
         - bson-lens < 0 # via bson
         - cased
-        - elm-export < 0 # via wl-pprint-text
+        - elm-export
         # - elm-export-persistent # https://github.com/jb55/elm-export-persistent/issues/2
         - pipes-csv
         - pipes-mongodb < 0 # GHC 8.4 via mongoDB
@@ -2125,7 +2140,7 @@ packages:
 
     "Daniel Cartwright <chessai1996@gmail.com> @chessai":
         - streaming
-        - streaming-bytestring < 0 # via streaming
+        - streaming-bytestring
         - country < 0 # via base-4.13.0.0
         - semirings
         - torsor
@@ -2443,8 +2458,8 @@ packages:
 
     "Ivan Miljenovic <Ivan.Miljenovic@gmail.com> @ivan-m":
         - fgl
-        - graphviz < 0 # via polyparse-1.13
-        - wl-pprint-text < 0 # via base-compat-0.11.0
+        - graphviz
+        - wl-pprint-text
         - servant-pandoc < 0 # blocks http-media https://github.com/commercialhaskell/stackage/issues/4483
 
     "Sharif Olorin <sio@tesser.org> @olorin":
@@ -2964,7 +2979,7 @@ packages:
         - oblivious-transfer < 0 # via protolude
         - pairing < 0 # #4758
         - libraft < 0 # via concurrency & ejafu & kg & kg-core & onad-metrics & ostgresql-simple-url & rotolude & uickcheck-state-machine & asty-dejafu
-        - galois-field < 0 # via protolude & wl-pprint-text
+        - galois-field < 0 # via protolude
 
     "Daishi Nakajima <nakaji.dayo@gmail.com> @nakaji-dayo":
         - api-field-json-th
@@ -3384,7 +3399,7 @@ packages:
 
     "ncaq <ncaq@ncaq.net> @ncaq":
         - debug-trace-var
-        # - haskell-import-graph # fgl via graphviz
+        - haskell-import-graph
         - string-transform
         - uniq-deep
         - yesod-form-bootstrap4 < 0 # via yesod-core
@@ -3456,7 +3471,7 @@ packages:
         - wai-middleware-rollbar < 0 # aeson
 
     "Andrey Mokhov <andrey.mokhov@gmail.com> @snowleopard":
-        - algebraic-graphs < 0 # via base-compat-0.11.0
+        - algebraic-graphs
 
     "Albert Krewinkel <albert+stackage@zeitkraut.de> @tarleb":
         - hslua
@@ -3596,7 +3611,7 @@ packages:
         - currencies
         - alerts
         - yesod-alerts < 0 # via yesod-core
-        - graphite < 0 # via graphviz
+        - graphite
 
     "José Lorenzo Rodríguez <jose.zap@gmail.com> @lorenzo":
         - wrecker < 0 # GHC 8.4 via ansigraph
@@ -3804,7 +3819,7 @@ packages:
         - servant-auth-client < 0 # via warp-3.3.2
         - servant-auth-swagger < 0 # via base-4.13.0.0
         - servant-auth-docs < 0 # via base-4.13.0.0
-        - servant-elm < 0 # via wl-pprint-text
+        - servant-elm
         - streaming-wai < 0 # via streaming
         - systemd < 0 # socketToFd is ambiguous
 
@@ -4309,7 +4324,7 @@ packages:
         - inspection-testing
         - integer-logarithms
         - io-streams-haproxy
-        - ixset-typed < 0 # via safecopy-0.10.0
+        - ixset-typed < 0 # via safecopy-0.10.0 and template-haskell
         - json < 0 # via base-4.13.0.0
         - json-alt
         - kleene < 0 # via regex-applicative
