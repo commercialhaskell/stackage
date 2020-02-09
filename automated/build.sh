@@ -12,17 +12,18 @@ source aws.sh
 SHORTNAME=$(echo $TARGET | cut -d- -f 1)
 if [ $SHORTNAME = "lts" ]
 then
-    TAG=$(echo $TARGET | sed 's@^lts-\([0-9]*\)\.[0-9]*@lts\1@')
+    TAG=$(echo $TARGET | sed 's@^lts-\([0-9]*\)\.[0-9]*@lts-\1@')
+    WORKDIR=$ROOT/work/$(echo $TARGET | sed 's@^lts-\([0-9]*\)\.[0-9]*@lts\1@')
 else
     TAG=$SHORTNAME
+    WORKDIR=$ROOT/work/$TAG
 fi
 
 IMAGE=commercialhaskell/stackage:$TAG
 
-PANTRY_DIR=$ROOT/pantry
+PANTRY_DIR=$ROOT/stack/pantry
 STACK_DIR=$ROOT/stack
 DOT_STACKAGE_DIR=$ROOT/dot-stackage
-WORKDIR=$ROOT/$TAG/work
 # ssh key is used for committing snapshots (and their constraints) to Github
 SSH_DIR=$ROOT/ssh
 USERID=$(id -u)
