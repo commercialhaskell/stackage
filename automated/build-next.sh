@@ -19,10 +19,8 @@ fi
 
 IMAGE=commercialhaskell/stackage:$TAG
 
-CABAL_DIR=$ROOT/cabal
 PANTRY_DIR=$ROOT/pantry
-STACK_DIR=$ROOT/stack-$TAG
-GHC_DIR=$ROOT/ghc
+STACK_DIR=$ROOT/stack
 DOT_STACKAGE_DIR=$ROOT/dot-stackage
 WORKDIR=$ROOT/$TAG/work
 # ssh key is used for committing snapshots (and their constraints) to Github
@@ -30,10 +28,8 @@ SSH_DIR=$ROOT/ssh
 USERID=$(id -u)
 
 mkdir -p \
-	"$CABAL_DIR" \
 	"$PANTRY_DIR" \
 	"$STACK_DIR" \
-	"$GHC_DIR" \
 	"$DOT_STACKAGE_DIR" \
 	"$WORKDIR" \
 	"$SSH_DIR"
@@ -63,14 +59,16 @@ require_400_file "$HACKAGE_CREDS"
 mkdir -p $ROOT/bin
 BINDIR=$(cd $ROOT/bin ; pwd)
 (
-# See etc/curator-exes/README.md
-CURATOR_EXES=84f6e06e11e1bcdab6ec1a302d40213e406748e64ae455bd4ed09a205651a7fd
 cd $BINDIR
 rm -f curator stack *.bz2
-wget "https://s3.amazonaws.com/download.fpcomplete.com/curator-exes/curator-exes-$CURATOR_EXES.tar.bz2"
-tar xf "curator-exes-$CURATOR_EXES.tar.bz2"
+
+curl "https://download.fpcomplete.com/stackage-curator-2/curator-85b021a53833ff310fc66b3fdc5ca3f7828ce18b.bz2" | bunzip2 > curator
+chmod +x curator
 echo -n "curator version: "
 docker run --rm -v $(pwd)/curator:/exe $IMAGE /exe --version
+
+curl "https://download.fpcomplete.com/stackage-curator-2/stack-4033c93815477e5b565d9a2a61b54e04da0863ef.bz2" | bunzip2 > stack
+chmod +x stack
 echo -n "stack version: "
 docker run --rm -v $(pwd)/stack:/exe $IMAGE /exe --version
 )
@@ -79,11 +77,11 @@ docker run --rm -v $(pwd)/stack:/exe $IMAGE /exe --version
 # is stored separately (because e.g. Ubuntu releases between LTS and nightly
 # could differ). Also the order of binds is important.
 ARGS_COMMON="--rm -v $WORKDIR:$HOME/work -w $HOME/work -v $BINDIR/curator:/usr/bin/curator:ro -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v $BINDIR/stack:/usr/bin/stack:ro -v $STACK_DIR:$HOME/.stack -v $PANTRY_DIR:$HOME/.stack/pantry"
-ARGS_PREBUILD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $CABAL_DIR:$HOME/.cabal -v $GHC_DIR:$HOME/.ghc -v $DOT_STACKAGE_DIR:$HOME/.stackage"
-ARGS_BUILD="$ARGS_COMMON -v $CABAL_DIR:$HOME/.cabal:ro -v $GHC_DIR:$HOME/.ghc:ro"
+ARGS_PREBUILD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $DOT_STACKAGE_DIR:$HOME/.stackage"
+ARGS_BUILD="$ARGS_COMMON"
 # instance-data is an undocumented feature of S3 used by amazonka,
 # see https://github.com/brendanhay/amazonka/issues/271
-ARGS_UPLOAD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:$HOME/.stackage -v $SSH_DIR:$HOME/.ssh:ro -v $GITCONFIG:$HOME/.gitconfig:ro -v $CABAL_DIR:$HOME/.cabal:ro -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY"
+ARGS_UPLOAD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:$HOME/.stackage -v $SSH_DIR:$HOME/.ssh:ro -v $GITCONFIG:$HOME/.gitconfig:ro -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY"
 
 # Make sure we actually need this snapshot. We only check this for LTS releases
 # since, for nightlies, we'd like to run builds even if they are unnecessary to
@@ -139,9 +137,10 @@ docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator check-target-available
 #
 # * Upload the docs to S3
 # * Upload the new snapshot .yaml file to the appropriate Github repo, also upload its constraints
-# * Register as a new Hackage distro (currently disabled)
-docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "curator upload-docs --target $TARGET && curator upload-github --target $TARGET && exec curator hackage-distro --target $TARGET"
-# information about the new snapshots on Hackage
+docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "curator upload-docs --target $TARGET && curator upload-github --target $TARGET"
+
+# For some reason, registering on Hackage fails with inscrutable error messages. Disabling.
+# docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator hackage-distro --target $TARGET"
 
 $BINDIR/curator legacy-bulk --stackage-snapshots dot-stackage/curator/stackage-snapshots/ --lts-haskell dot-stackage/curator/lts-haskell/ --stackage-nightly dot-stackage/curator/stackage-nightly/
 
