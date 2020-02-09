@@ -12,8 +12,8 @@ source aws.sh
 SHORTNAME=$(echo $TARGET | cut -d- -f 1)
 if [ $SHORTNAME = "lts" ]
 then
-    TAG=$(echo $TARGET | sed 's@^lts-\([0-9]*\)\.[0-9]*@lts-\1@')
-    WORKDIR=$ROOT/work/$(echo $TARGET | sed 's@^lts-\([0-9]*\)\.[0-9]*@lts\1@')
+    TAG=$(echo $TARGET | sed 's@^lts-\([0-9]*\)\.[0-9]*@lts\1@')
+    WORKDIR=$ROOT/work/$(echo $TARGET | sed 's@^lts-\([0-9]*\)\.[0-9]*@lts-\1@')
 else
     TAG=$SHORTNAME
     WORKDIR=$ROOT/work/$TAG
