@@ -5,7 +5,7 @@ set -eu +x -o pipefail
 ROOT=$(cd $(dirname $0) ; pwd)
 TARGET=$1
 
-source aws.sh
+source work/aws.sh
 
 # For nightly-YYYY-MM-DD, tag should be nightly
 # For lts-X.Y, tag should be ltsX
@@ -21,11 +21,11 @@ fi
 
 IMAGE=commercialhaskell/stackage:$TAG
 
-PANTRY_DIR=$ROOT/stack/pantry
-STACK_DIR=$ROOT/stack
-DOT_STACKAGE_DIR=$ROOT/dot-stackage
+PANTRY_DIR=$ROOT/work/stack/pantry
+STACK_DIR=$ROOT/work/stack
+DOT_STACKAGE_DIR=$ROOT/work/dot-stackage
 # ssh key is used for committing snapshots (and their constraints) to Github
-SSH_DIR=$ROOT/ssh
+SSH_DIR=$ROOT/work/ssh
 USERID=$(id -u)
 
 mkdir -p \
@@ -35,14 +35,14 @@ mkdir -p \
 	"$WORKDIR" \
 	"$SSH_DIR"
 
-GITCONFIG=$ROOT/gitconfig
+GITCONFIG=$ROOT/work/gitconfig
 cat >$GITCONFIG <<EOF
 [user]
 	email = michael+stackage-build@fpcomplete.com
 	name = Stackage Build host
 EOF
 
-HACKAGE_CREDS=$ROOT/hackage-creds
+HACKAGE_CREDS=$ROOT/work/hackage-creds
 
 function require_400_file {
     if [ ! -f "$1" ]
@@ -57,8 +57,8 @@ function require_400_file {
 require_400_file "$SSH_DIR/id_rsa"
 require_400_file "$HACKAGE_CREDS"
 
-mkdir -p $ROOT/bin
-BINDIR=$(cd $ROOT/bin ; pwd)
+mkdir -p $ROOT/work/bin
+BINDIR=$(cd $ROOT/work/bin ; pwd)
 (
 cd $BINDIR
 rm -f curator stack *.bz2
