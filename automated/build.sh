@@ -82,7 +82,7 @@ ARGS_PREBUILD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $DOT_STACKAGE_DIR:$HOME/
 ARGS_BUILD="$ARGS_COMMON"
 # instance-data is an undocumented feature of S3 used by amazonka,
 # see https://github.com/brendanhay/amazonka/issues/271
-ARGS_UPLOAD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:$HOME/.stackage -v $SSH_DIR:$HOME/.ssh:ro -v $GITCONFIG:$HOME/.gitconfig:ro -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY"
+ARGS_UPLOAD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:$HOME/.stackage -v $SSH_DIR:$HOME/.ssh:ro -v $GITCONFIG:$HOME/.gitconfig:ro -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -v $DOT_STACKAGE_DIR:/dot-stackage"
 
 # Make sure we actually need this snapshot. We only check this for LTS releases
 # since, for nightlies, we'd like to run builds even if they are unnecessary to
@@ -143,15 +143,14 @@ docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "curator upload-docs --target $TARGE
 # For some reason, registering on Hackage fails with inscrutable error messages. Disabling.
 # docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator hackage-distro --target $TARGET"
 
-docker run $ARGS_UPLOAD $IMAGE curator legacy-bulk --stackage-snapshots dot-stackage/curator/stackage-snapshots/ --lts-haskell dot-stackage/curator/lts-haskell/ --stackage-nightly dot-stackage/curator/stackage-nightly/
+docker run $ARGS_UPLOAD $IMAGE curator legacy-bulk --stackage-snapshots /dot-stackage/curator/stackage-snapshots/ --lts-haskell /dot-stackage/curator/lts-haskell/ --stackage-nightly /dot-stackage/curator/stackage-nightly/
 
 (
-
 if [ $SHORTNAME = "lts" ]
 then
-    cd dot-stackage/curator/lts-haskell
+    cd $DOT_STACKAGE_DIR/curator/lts-haskell
 else
-    cd dot-stackage/curator/stackage-nightly
+    cd $DOT_STACKAGE_DIR/curator/stackage-nightly
 fi
 
 git add *.yaml
@@ -159,14 +158,7 @@ git diff-index --quiet HEAD && echo No changes && exit 0
 git config user.name "Stackage build server"
 git config user.email "michael@snoyman.com"
 git commit -a -m "More conversions $(date)"
-
-if [ $SHORTNAME = "lts" ]
-then
-    GIT_SSH_COMMAND="ssh -i $ROOT/ssh-lts/id_rsa" git push origin master
-else
-    GIT_SSH_COMMAND="ssh -i $ROOT/ssh-nightly/id_rsa" git push origin master
-fi
-
+GIT_SSH_COMMAND="ssh -i $SSH_DIR/id_rsa" git push origin master
 )
 
 echo -n "Completed at "
