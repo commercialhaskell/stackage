@@ -3724,7 +3724,7 @@ packages:
         - cursor-brick
         - cursor-fuzzy-time
         - cursor-gen
-        - fuzzy-time
+        - fuzzy-time < 0 # https://github.com/commercialhaskell/stackage/issues/5154
         - genvalidity
         - genvalidity-aeson
         - genvalidity-bytestring
@@ -3749,9 +3749,9 @@ packages:
         - genvalidity-uuid
         - genvalidity-vector
         - mergeful
-        - mergeless
+        - mergeless < 0 # https://github.com/commercialhaskell/stackage/issues/5157
         - pretty-relative-time
-        - typed-uuid
+        - typed-uuid < 0 # https://github.com/commercialhaskell/stackage/issues/5156
         - validity
         - validity-aeson
         - validity-bytestring
@@ -5456,6 +5456,13 @@ expected-test-failures:
 
     # Test-runner expects a cabal-style 'dist-newstyle' directory
     - hjsmin
+
+    # https://github.com/commercialhaskell/stackage/issues/5155
+    - pretty-relative-time
+
+    # https://github.com/commercialhaskell/stackage/issues/5158
+    - genvalidity-mergeful
+    - cursor-gen
 # end of expected-test-failures
 
 # Benchmarks which are known not to build. Note that, currently we do not run
