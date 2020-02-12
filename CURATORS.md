@@ -299,7 +299,7 @@ First run `build-next.sh` to regenerate updated `ltsXX/work/constraints.yaml` an
 For an LTS minor bump, you'll typically want to:
 
 * Add constraints to package `range:` fields _under_ the `source:` field in that `constraints.yaml`.
-* Add new packages versioned to `snapshot-incomplete.yaml` (the `@<hash>` suffix is optional)
+* Add new packages to the `constraints.yaml` file
 * Test, benchmark, haddock failures can also be added to package fields in the `constraints.yaml` if necessary, though it should be avoided if possible for LTS.
 
 Then run `NOPLAN=1 build-next.sh` to build the generate an updated snapshot.
