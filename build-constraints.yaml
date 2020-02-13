@@ -3728,7 +3728,7 @@ packages:
         - cursor-brick
         - cursor-fuzzy-time < 0 # via fuzzy-time
         - cursor-gen
-        - fuzzy-time < 0 # https://github.com/commercialhaskell/stackage/issues/5154
+        - fuzzy-time
         - genvalidity
         - genvalidity-aeson
         - genvalidity-bytestring
@@ -3742,20 +3742,20 @@ packages:
         - genvalidity-hspec-optics
         - genvalidity-hspec-persistent
         - genvalidity-mergeful
-        - genvalidity-mergeless < 0 # via mergeless
+        - genvalidity-mergeless
         - genvalidity-path
         - genvalidity-property
         - genvalidity-scientific
         - genvalidity-text
         - genvalidity-time
-        - genvalidity-typed-uuid < 0 # via typed-uuid and mergeless
+        - genvalidity-typed-uuid
         - genvalidity-unordered-containers
         - genvalidity-uuid
         - genvalidity-vector
         - mergeful
-        - mergeless < 0 # https://github.com/commercialhaskell/stackage/issues/5157
+        - mergeless
         - pretty-relative-time
-        - typed-uuid < 0 # https://github.com/commercialhaskell/stackage/issues/5156
+        - typed-uuid
         - validity
         - validity-aeson
         - validity-bytestring
@@ -5074,7 +5074,6 @@ skipped-tests:
 
     # Compilation failures
     - snappy # https://github.com/bos/snappy/issues/1
-    - genvalidity-time # https://github.com/NorfairKing/validity/issues/51
     - cron # Could not deduce (SOP.All (SOP.All Arbitrary) xss) arising from a use of ‘SOP.hcpure’
     - config-ini # https://github.com/aisamanra/config-ini/issues/22
     - polysemy-plugin # https://github.com/commercialhaskell/stackage/issues/4733
@@ -5175,8 +5174,6 @@ skipped-tests:
     - envelope # https://github.com/commercialhaskell/stackage/issues/4669
     - algebraic-graphs # https://github.com/commercialhaskell/stackage/issues/4670
     - bugsnag-haskell # https://github.com/commercialhaskell/stackage/issues/4759
-    - genvalidity-hspec-cereal # https://github.com/commercialhaskell/stackage/issues/4909
-    - genvalidity-hspec-optics # https://github.com/commercialhaskell/stackage/issues/4910
     - servant-rawm # https://github.com/commercialhaskell/stackage/issues/5162
 # end of skipped-tests
 
@@ -5463,10 +5460,6 @@ expected-test-failures:
 
     # https://github.com/commercialhaskell/stackage/issues/5155
     - pretty-relative-time
-
-    # https://github.com/commercialhaskell/stackage/issues/5158
-    - genvalidity-mergeful
-    - cursor-gen
 # end of expected-test-failures
 
 # Benchmarks which are known not to build. Note that, currently we do not run
@@ -5602,7 +5595,6 @@ skipped-benchmarks:
     - fclabels
     - foldl
     - generic-lens
-    - genvalidity-path
     - hashable
     - histogram-fill
     - hmatrix-morpheus
