@@ -52,6 +52,8 @@ apt-get install -y \
     libclang-3.9-dev \
     libcurl4-openssl-dev \
     libcwiid-dev \
+    libdbusmenu-glib-dev \
+    libdbusmenu-gtk3-dev \
     libdevil-dev \
     libedit-dev \
     libedit2 \
@@ -66,6 +68,7 @@ apt-get install -y \
     libglu1-mesa-dev \
     libgmp3-dev \
     libgnutls28-dev \
+    libgraphene-1.0-dev \
     libgsasl7-dev \
     libgsl-dev \
     libgtk-3-dev \
