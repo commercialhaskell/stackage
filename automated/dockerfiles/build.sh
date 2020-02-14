@@ -21,7 +21,7 @@ VARIANT=build
 usage() {
     echo "$0: $1" >&2
     echo
-    echo "Usage: $0 [--push] [--dry-run] [--small] lts-X.Y|lts-X|lts]"
+    echo "Usage: $0 [--push] [--dry-run] [--small] lts-X.Y]"
     echo "See README.md for more information."
     echo
     exit 1
@@ -77,51 +77,22 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-#
-# Determine actual snapshot version from aliases
-#
-
-SNAPSHOTS="$(mktemp "lts-snapshots.json.XXXXXX")"
-trap "rm -f \"$SNAPSHOTS\"" EXIT
-wget -qO- https://www.stackage.org/download/lts-snapshots.json >"$SNAPSHOTS"
-
 case "$LTS_SLUG_ARG" in
     "")
-        usage "Missing argument: snapshot or alias"
+        usage "Missing argument: snapshot"
         ;;
     lts-*.*)
         LTS_SLUG="$LTS_SLUG_ARG"
         ;;
     *)
-        LTS_SLUG=$(jq -r ".[\"$LTS_SLUG_ARG\"]" "$SNAPSHOTS")
-        if [[ -z "$LTS_SLUG" || "$LTS_SLUG" = "null" ]]; then
-            echo "$0: Cannot find LTS version for slug: $LTS_SLUG_ARG" >&2
-            exit 1
-        fi
+        echo "$0: Wrong snapshot format: $LTS_SLUG_ARG" >&2
+        exit 1
         ;;
 esac
 
 LTS_VERSION="${LTS_SLUG#lts-}"
 LTS_MAJOR="${LTS_VERSION%.*}"
 LTS_MINOR="${LTS_VERSION#*.}"
-
-#
-# Determine latest LTS version
-#
-
-LATEST_LTS_SLUG=$(jq -r ".[\"lts\"]" $SNAPSHOTS)
-LATEST_LTS_VERSION="${LATEST_LTS_SLUG#lts-}"
-LATEST_LTS_MAJOR="${LATEST_LTS_VERSION%.*}"
-LATEST_LTS_MINOR="${LATEST_LTS_VERSION#*.}"
-
-#
-# Determine latest minor version of the selected major version
-#
-
-MAJOR_LATEST_LTS_SLUG=$(jq -r ".[\"lts-$LTS_MAJOR\"]" $SNAPSHOTS)
-MAJOR_LATEST_LTS_VERSION="${MAJOR_LATEST_LTS_SLUG#lts-}"
-MAJOR_LATEST_LTS_MAJOR="${MAJOR_LATEST_LTS_VERSION%.*}"
-MAJOR_LATEST_LTS_MINOR="${MAJOR_LATEST_LTS_VERSION#*.}"
 
 #
 # Find the Dockerfile for the selected snapshot
@@ -157,14 +128,9 @@ fi
 # Create and push additional tags
 #
 
-# If we select the latest minor version for the selected major version, then
-# also create and push an 'lts-X' tag.
-if [[ "$MAJOR_LATEST_LTS_VERSION" = "$LTS_VERSION" ]]; then
-    tagpush "$DOCKER_REPO:$LTS_SLUG" "$DOCKER_REPO:lts-$LTS_MAJOR"
-fi
+# Create and push an 'lts-X' tag.
+tagpush "$DOCKER_REPO:$LTS_SLUG" "$DOCKER_REPO:lts-$LTS_MAJOR"
 
-# If we selected the latest LTS snapshot, also create and push the 'lts' and 'latest' tags.
-if [[ "$LATEST_LTS_VERSION" = "$LTS_VERSION" ]]; then
-    tagpush "$DOCKER_REPO:$LTS_SLUG" "$DOCKER_REPO:lts"
-    tagpush "$DOCKER_REPO:$LTS_SLUG" "$DOCKER_REPO:latest"
-fi
+# Create and push the 'lts' and 'latest' tags.
+tagpush "$DOCKER_REPO:$LTS_SLUG" "$DOCKER_REPO:lts"
+tagpush "$DOCKER_REPO:$LTS_SLUG" "$DOCKER_REPO:latest"

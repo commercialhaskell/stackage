@@ -8,7 +8,7 @@ images. This script and its Dockerfiles are used for building images for LTS >=
 Usage
 -----
 
-    ./build.sh [--push] [--dry-run] [--small] lts-X.Y|lts-X|lts]"
+    ./build.sh [--push] [--dry-run] [--small] lts-X.Y"
 
 Options
 -------
@@ -25,10 +25,7 @@ Options
 Argument
 ---------
 
-If you specify and exact LTS version, that image will be built. If you only
-specify the major version, then an image for the latest minor version for that
-major version will be built. If you specify 'lts', an image for the latest LTS
-snapshot is built.
+The image for the selected LTS version will be built.
 
 This searches for a Dockerfile for the selected snapshot in
 `lts-X.Y/Dockerfile`, and if one isn't found reuses the same image as built the
