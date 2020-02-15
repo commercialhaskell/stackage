@@ -280,13 +280,13 @@ we're just not there yet.
 
 ```
 # Run a nightly build
-/opt/stackage-build/stackage/automated/run-nightly.sh
+/var/stackage/stackage/automated/run-nightly.sh
 
 # Run an LTS minor bump
-/opt/stackage-build/stackage/automated/build-next.sh lts-14.17
+/var/stackage/stackage/automated/build.sh lts-15.1
 
 # Run an LTS major bump
-/opt/stackage-build/stackage/automated/build-next.sh lts-15.0
+/var/stackage/stackage/automated/build.sh lts-16.0
 ```
 
 Recommended: run these from inside a `tmux` session. If you get version bound
@@ -294,7 +294,7 @@ problems on nightly or LTS major, you need to fix build-constraints.yaml (see
 info above). 
 
 ### Building LTS minor releases
-First run `build-next.sh` to regenerate updated `ltsXX/work/constraints.yaml` and `ltsXX/work/snapshot-incomplete.yaml` files.
+First run `build.sh` to regenerate updated `ltsXX/work/constraints.yaml` and `ltsXX/work/snapshot-incomplete.yaml` files.
 
 For an LTS minor bump, you'll typically want to:
 
@@ -302,9 +302,9 @@ For an LTS minor bump, you'll typically want to:
 * Add new packages to the `constraints.yaml` file
 * Test, benchmark, haddock failures can also be added to package fields in the `constraints.yaml` if necessary, though it should be avoided if possible for LTS.
 
-Then run `NOPLAN=1 build-next.sh` to build the generate an updated snapshot.
+Then run `NOPLAN=1 build.sh` to build the generate an updated snapshot.
 
-This replaces `CONSTRAINTS=...' /opt/stackage-build/stackage/automated/build.sh lts-x.y` for the old curator-1.
+This replaces `CONSTRAINTS=...' /var/stackage/stackage/automated/build.sh lts-x.y` for the old curator-1.
 
 If a build fails for bounds reasons, see all of the advice above. If the code
 itself doesn't build, or tests fail, open up an issue and then either put in a
