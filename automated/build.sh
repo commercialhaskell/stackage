@@ -145,6 +145,15 @@ docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "curator upload-docs --target $TARGE
 
 docker run $ARGS_UPLOAD $IMAGE curator legacy-bulk --stackage-snapshots /dot-stackage/curator/stackage-snapshots/ --lts-haskell /dot-stackage/curator/lts-haskell/ --stackage-nightly /dot-stackage/curator/stackage-nightly/
 
+# Build and push docker image fpco/stack-build & fpco/stack-build-small for current release
+
+if [ $SHORTNAME = "lts" ]
+then
+    $ROOT/dockerfiles/build.sh $TARGET
+    $ROOT/dockerfiles/build.sh --push $TARGET
+    $ROOT/dockerfiles/build.sh --push --small $TARGET
+fi
+
 (
 if [ $SHORTNAME = "lts" ]
 then
