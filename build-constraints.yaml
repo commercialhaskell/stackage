@@ -42,6 +42,10 @@ packages:
         - lens-regex-pcre < 0 # via pcre-heavy
 
     "Emily Pillmore <emilypi@cohomolo.gy> @topos":
+        - base16
+        - base16-lens
+        - base32
+        - base32-lens
         - base64
         - base64-lens
         - lens-process < 0 # via lens-4.18.1
@@ -511,6 +515,7 @@ packages:
         - xls
 
     "Pranay Sashank <pranaysashank@gmail.com> @pranaysashank":
+        - fusion-plugin-types
         - fusion-plugin
 
     "Aleksey Uimanov <s9gf4ult@gmail.com> @s9gf4ult":
@@ -1180,7 +1185,7 @@ packages:
         - hopenpgp-tools < 0 # hOpenPGP & ixset-typed
         - opensource
         - debian
-        - cabal-debian < 0 # via debian
+        - cabal-debian
 
     "Piyush P Kurur <ppk@cse.iitk.ac.in> @piyush-kurur":
         - raaz < 0 # via base-4.13.0.0
@@ -1351,7 +1356,7 @@ packages:
         - netwire-input-glfw
         - yoga
         - freetype2
-        - HCodecs < 0 # MonadFail
+        - HCodecs
 
     "Emanuel Borsboom <manny@fpcomplete.com> @borsboom":
         - BoundedChan
@@ -2122,6 +2127,7 @@ packages:
 
     "Kai Zhang <kai@kzhang.org> @kaizhang":
         - matrices
+        - haskell-igraph
 
     "Michel Boucey <michel.boucey@gmail.com> @MichelBoucey":
         - IPv6Addr
@@ -3285,6 +3291,7 @@ packages:
 
     "Jonathan Knowles <stackage@jonathanknowles.net> @jonathanknowles":
         - bech32
+        - bech32-th
         - roc-id
 
     "Mahdi Dibaiee <mdibaiee@aol.com> @mdibaiee":
@@ -3700,7 +3707,7 @@ packages:
         - qm-interpolated-string
 
     "Douglas Burke <dburke.gw@gmail.com> @DougBurke":
-        - swish < 0 # via base-4.13.0.0
+        - swish
         - hvega
         - ihaskell-hvega < 0
 
@@ -3821,7 +3828,7 @@ packages:
 
     "Alexey Kotlyarov <a@koterpillar.com> @koterpillar":
         - appendmap
-        - serverless-haskell < 0 # via aeson-extra
+        - serverless-haskell
 
     "Guru Devanla <grdvnl@gmail.com> @gdevanla":
         - pptable
@@ -4098,6 +4105,7 @@ packages:
     "Brandon Chinn <brandon@leapyear.io> @brandon-leapyear":
         - aeson-schemas
         - github-rest
+        - hpc-lcov
         - th-test-utils
 
     "Akshay Mankar <itsakshaymankar@gmail.com> @akshaymankar":
@@ -4154,6 +4162,13 @@ packages:
         - singletons-presburger
         - type-natural
         - sized
+
+    "Frank Doepper <stackage@woffs.de> @woffs":
+        - amqp-utils
+        - magic
+
+    "Ziyang Liu <free@cofree.io> @zliu41":
+        - multi-containers
 
     "Grandfathered dependencies":
         - network
@@ -4465,6 +4480,7 @@ packages:
         - relapse
         - relational-schemas
         - rerebase
+        - resolv
         - resource-pool
         - resourcet
         - rfc5051
@@ -4679,6 +4695,18 @@ packages:
       # https://github.com/commercialhaskell/stackage/issues/5037
       - haskeline < 0.8.0
       - structured-cli < 2.6
+
+      # https://github.com/commercialhaskell/stackage/issues/5191 - compilation failures
+      - servant < 0.17
+      - servant-client < 0.17
+      - servant-server < 0.17
+      - servant-client-core < 0.17
+      - servant-docs < 0.11.5
+      - servant-foreign < 0.15.1
+      - servant-lucid < 0.9.0.1
+      - servant-mock < 0.8.6
+      - servant-swagger < 1.1.8
+      - aur < 6.3.0
 
 # end of packages
 
@@ -4966,6 +4994,7 @@ skipped-tests:
     - psqueues # via QuickCheck-2.12.6.1
     - pure-zlib # via QuickCheck-2.12.6.1
     - records-sop # via hspec-2.7.0
+    - resolv # via tasty-1.2
     - serialise
     - servant # via hspec-2.7.0
     - servant-client # via hspec-2.7.0
