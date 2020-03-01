@@ -2760,10 +2760,10 @@ packages:
         - yes-precure5-command
         - th-strict-compat
         - main-tester
-        - skews < 0 # via websockets
-        - wss-client < 0
-        - network-messagepack-rpc < 0 # via data-msgpack
-        - network-messagepack-rpc-websocket < 0
+        - skews
+        - wss-client
+        - network-messagepack-rpc
+        - network-messagepack-rpc-websocket
         - unicode-show
         - deriveJsonNoPrefix
 
@@ -3272,7 +3272,7 @@ packages:
         - perf < 0
 
     "Iphigenia Df <iphydf@gmail.com> @iphydf":
-        - data-msgpack < 0 # via data-msgpack-types
+        - data-msgpack
         # - network-msgpack-rpc # conduit 1.3
 
     "Dino Morelli <dino@ui3.info> @dino-":
@@ -3454,7 +3454,7 @@ packages:
     "Pavel Yakovlev <pavel@yakovlev.me> @zmactep":
         - hasbolt < 0 # via hex
         - uniprot-kb
-        - mmtf < 0 # via data-msgpack
+        - mmtf < 0 # MonadFail
 
     "Christopher A. Gorski <cgorski@cgorski.org> @cgorski":
         - general-games
@@ -4289,7 +4289,6 @@ packages:
         - data-inttrie
         - data-lens-light
         - data-memocombinators
-        - data-msgpack-types < 0 # MonadFail
         - data-msgpack-types
         - data-serializer
         - data-textual
@@ -5071,7 +5070,6 @@ skipped-tests:
     - servant-cassava
     - siggy-chardust
     - simple-vec3
-    - skews
     - skylighting-core
     - speedy-slice
     - static-text
@@ -5497,6 +5495,9 @@ expected-test-failures:
 
     # https://github.com/commercialhaskell/stackage/issues/5212
     - dhall-yaml
+
+    # https://github.com/iij-ii/direct-hs/issues/100
+    - skews
 # end of expected-test-failures
 
 # Benchmarks which are known not to build. Note that, currently we do not run
