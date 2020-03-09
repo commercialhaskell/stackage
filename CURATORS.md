@@ -335,8 +335,8 @@ LTS minor bumps typically are run on Sundays.
 
 * You can detect the problem by running `df`. If you see that `/` is out of space, we have a problem
 * If you see that `/var/stackage/` is out of space, you can:
-  * `rm -r /var/stackage/stackage/automated/lts*/work/unpack-dir/unpacked/`
-  * `rm -r /var/stackage/stackage/automated/nightly/work/unpack-dir/unpacked/`
+  * `rm -r /var/stackage/stackage/automated/work/lts*/unpack-dir/unpacked/`
+  * `rm -r /var/stackage/stackage/automated/work/nightly/unpack-dir/unpacked/`
 * (outdated) There are many temp files inside `/home/ubuntu/stackage-server-cron` that can be cleared out occasionally
 * (outdated) You can then manually run `/home/ubuntu/stackage-server-cron.sh`, or wait for the cron job to do it
 
