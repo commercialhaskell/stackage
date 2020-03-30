@@ -92,13 +92,13 @@ apt-get install -y \
     libmono-2.0-dev \
     libmp3lame-dev \
     libmpfr-dev \
+    libmpich-dev \
     libmysqlclient-dev \
     libncurses5-dev \
     libnfc-dev \
     liboath-dev \
     libnotify-dev \
     libopenal-dev \
-    libopenmpi-dev \
     libpango1.0-dev \
     libpcap0.8-dev \
     libpcre2-dev \
