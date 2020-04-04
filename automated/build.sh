@@ -63,12 +63,12 @@ BINDIR=$(cd $ROOT/work/bin ; pwd)
 cd $BINDIR
 rm -f curator stack *.bz2
 
-curl "https://download.fpcomplete.com/stackage-curator-2/curator-85b021a53833ff310fc66b3fdc5ca3f7828ce18b.bz2" | bunzip2 > curator
+curl -L "https://download.fpcomplete.com/stackage-curator-2/curator-85b021a53833ff310fc66b3fdc5ca3f7828ce18b.bz2" | bunzip2 > curator
 chmod +x curator
 echo -n "curator version: "
 docker run --rm -v $(pwd)/curator:/exe $IMAGE /exe --version
 
-curl "https://download.fpcomplete.com/stackage-curator-2/stack-4033c93815477e5b565d9a2a61b54e04da0863ef.bz2" | bunzip2 > stack
+curl -L "https://download.fpcomplete.com/stackage-curator-2/stack-4033c93815477e5b565d9a2a61b54e04da0863ef.bz2" | bunzip2 > stack
 chmod +x stack
 echo -n "stack version: "
 docker run --rm -v $(pwd)/stack:/exe $IMAGE /exe --version
