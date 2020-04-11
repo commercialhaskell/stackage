@@ -1,5 +1,6 @@
 # Disable Docker stuff to try to make it faster
 sudo: true
+dist: bionic
 
 # Choose a lightweight base image; we provide our own build tools.
 language: generic
@@ -12,7 +13,7 @@ addons:
 
 # Edit etc/ci-script.sh to change GHC version
 script:
-- ./etc/ci-script.sh
+- ./etc/check.sh
 
 # Caching doesn't work with sudo: true
 #cache:

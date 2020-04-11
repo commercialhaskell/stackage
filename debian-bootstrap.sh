@@ -10,12 +10,20 @@
 # instructions, see:
 #    http://www.stackage.org/install
 
-set -exu
+set -exuo pipefail
 
 mkdir -p /home/stackage
 
 export LANG=C.UTF-8
 export DEBIAN_FRONTEND=noninteractive
+
+# Get curl
+apt-get update
+apt-get install -y curl
+
+# Get Stack and GHC
+curl -sSL https://get.haskellstack.org/ | sh -s - -d /usr/bin
+stack setup --resolver ghc-$GHCVER
 
 apt-get update
 
@@ -24,6 +32,7 @@ apt-get install -y \
     build-essential \
     cmake \
     curl \
+    dvipng \
     freeglut3-dev \
     freetds-dev \
     fsharp \
@@ -43,6 +52,8 @@ apt-get install -y \
     libclang-3.9-dev \
     libcurl4-openssl-dev \
     libcwiid-dev \
+    libdbusmenu-glib-dev \
+    libdbusmenu-gtk3-dev \
     libdevil-dev \
     libedit-dev \
     libedit2 \
@@ -57,6 +68,7 @@ apt-get install -y \
     libglu1-mesa-dev \
     libgmp3-dev \
     libgnutls28-dev \
+    libgraphene-1.0-dev \
     libgsasl7-dev \
     libgsl-dev \
     libgtk-3-dev \
@@ -80,15 +92,16 @@ apt-get install -y \
     libmono-2.0-dev \
     libmp3lame-dev \
     libmpfr-dev \
+    libmpich-dev \
     libmysqlclient-dev \
     libncurses5-dev \
     libnfc-dev \
     liboath-dev \
     libnotify-dev \
     libopenal-dev \
-    libopenmpi-dev \
     libpango1.0-dev \
     libpcap0.8-dev \
+    libpcre2-dev \
     libpq-dev \
     libprotobuf-dev \
     libre2-dev \
@@ -121,7 +134,8 @@ apt-get install -y \
     libzip-dev \
     libzstd-dev \
     libzmq3-dev \
-    llvm-6.0 \
+    llvm-7 \
+    llvm-8 \
     locales \
     m4 \
     minisat \
@@ -133,11 +147,13 @@ apt-get install -y \
     python3-matplotlib \
     python3-numpy \
     python3-pip \
+    python3-scipy \
     r-base \
     r-base-dev \
     ruby-dev \
     software-properties-common \
     sudo \
+    texlive \
     unixodbc-dev \
     wget \
     xclip \
@@ -146,29 +162,19 @@ apt-get install -y \
     zlib1g-dev \
     zsh
 
-GHCVER=8.6.3
-
-add-apt-repository ppa:hvr/ghc -y
-apt-get install -y ghc-$GHCVER ghc-$GHCVER-dyn ghc-$GHCVER-htmldocs ghc-$GHCVER-prof
-
 # odbc
 curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql-release.list
 apt-get update
 ACCEPT_EULA=Y apt-get install msodbcsql17 -y
 
+# llvm for llvm-hs
+curl https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
+add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main"
+apt-get update
+apt-get install llvm-9-dev -y
+
 locale-gen en_US.UTF-8
-
-curl -sSL https://get.haskellstack.org/ | sh
-
-# Put documentation where we expect it
-mv /opt/ghc/$GHCVER/share/doc/ghc-$GHCVER/ /opt/ghc/$GHCVER/share/doc/ghc
-
-# llvm-7.0 for llvm-hs (separate since it needs wget)
-wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
-    && add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-7 main" \
-    && apt-get update \
-    && apt-get install -y llvm-7
 
 # Buggy versions of ld.bfd fail to link some Haskell packages:
 # https://sourceware.org/bugzilla/show_bug.cgi?id=17689. Gold is
@@ -180,9 +186,9 @@ update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
 # This version is tracked here:
 # https://ghc.haskell.org/trac/ghc/wiki/Commentary/Compiler/Backends/LLVM/Installing
 #
-# GHC 8.6 requires LLVM 6.0 tools (specifically, llc-6.0 and opt-6.0).
-update-alternatives --install "/usr/bin/llc" "llc" "/usr/bin/llc-6.0" 50
-update-alternatives --install "/usr/bin/opt" "opt" "/usr/bin/opt-6.0" 50
+# GHC 8.8 requires LLVM 7 tools (?) (specifically, llc-7 and opt-7).
+update-alternatives --install "/usr/bin/llc" "llc" "/usr/bin/llc-7" 50
+update-alternatives --install "/usr/bin/opt" "opt" "/usr/bin/opt-7" 50
 
 # nodejs 10 (nodejs8 in bionic needs conflicting libssl10-dev)
 curl -sL https://deb.nodesource.com/setup_10.x | bash -
@@ -216,10 +222,9 @@ echo "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/" > /etc/ld.so.conf
     && ldconfig
 
 # Install erlang/otp platform and its dependencies
-ERLANG_VERSION="20.2.2"
-ERLANG_DEB_FILE="esl-erlang_21.2-1~ubuntu~bionic_amd64.deb"
+ERLANG_DEB_FILE="esl-erlang_21.1-1~ubuntu~bionic_amd64.deb"
 pushd /tmp \
-    && wget http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_1_general/${ERLANG_DEB_FILE} \
+    && wget https://packages.erlang-solutions.com/erlang/debian/pool/${ERLANG_DEB_FILE} \
     && (dpkg -i ${ERLANG_DEB_FILE}; apt-get install -yf) \
     && rm ${ERLANG_DEB_FILE} \
     && popd
@@ -255,12 +260,8 @@ apt-add-repository multiverse \
     && apt-get update \
     && apt-get install -y nvidia-cuda-dev
 
-export CLANG_PURE_LLVM_LIB_DIR=/usr/lib/llvm-6.0/lib;
-export CLANG_PURE_LLVM_INCLUDE_DIR=/usr/lib/llvm-6.0/include;
-
-# finally run:
-ldconfig
-# EOF: don't build anything below this line
+export CLANG_PURE_LLVM_LIB_DIR=/usr/lib/llvm-7/lib;
+export CLANG_PURE_LLVM_INCLUDE_DIR=/usr/lib/llvm-7/include;
 
 # protoc, for proto-lens-combinators test suite
 # Instructions from: https://google.github.io/proto-lens/installing-protoc.html
@@ -278,3 +279,14 @@ echo /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server > /etc/ld.so.conf.d/
 echo /usr/lib/llvm-3.7/lib > /etc/ld.so.conf.d/llvm.conf
 
 ldconfig
+
+# Install librdkafka (Apache Kafka C/C++ library)
+wget -qO - https://packages.confluent.io/deb/5.2/archive.key | apt-key add -
+add-apt-repository "deb https://packages.confluent.io/deb/5.2 stable main"
+apt-get update && apt install -y librdkafka-dev
+
+# EOF: don't build anything below this line
+
+# Cleanup
+apt-get clean
+rm -rf /var/lib/apt/lists/*

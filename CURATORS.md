@@ -18,13 +18,13 @@ This section sketches out at a high level how the entire Stackage build/curation
 process works:
 
 * [build-constraints.yaml](https://github.com/commercialhaskell/stackage/blob/master/build-constraints.yaml) specifies packages to be included in Stackage
-* [stackage-curator](http://www.stackage.org/package/stackage-curator) combines build-constraints.yaml with the current state of Hackage to create a build plan for a Stackage Nightly
-* stackage-curator can check that build plan to ensure all version bounds are consistent
+* [curator](https://github.com/commercialhaskell/stack/tree/master/subs/curator) combines build-constraints.yaml with the current state of Hackage to create a build plan for a Stackage Nightly
+* `curator` can check that build plan to ensure all version bounds are consistent
     * The [Travis job](https://github.com/commercialhaskell/stackage/blob/master/.travis.yml) performs these two steps to provide immediate feedback on pull requests
 * Docker Hub [builds](https://github.com/commercialhaskell/stackage/blob/master/Dockerfile) a [Docker image](https://hub.docker.com/r/commercialhaskell/stackage/) for running builds
 * The stackage-build server (described below) is able to run automated builds using the [build.sh script](https://github.com/commercialhaskell/stackage/blob/master/automated/build.sh)
-* When a new Nightly build is completed, it is uploaded to [the nightly repo](https://github.com/fpco/stackage-nightly)
-* Once a week, we run an LTS minor bump. Instead of using build-constraints.yaml, that job takes the previous LTS release, turns it into constraints, and then bumps the version numbers to the latest on Hackage, in accordance with the version bounds in the build plan. This plans are uploaded to [the LTS repo](https://github.com/fpco/lts-haskell)
+* When a new Nightly build is completed, it is uploaded to [the nightly repo](https://github.com/commercialhaskell/stackage-nightly)
+* Once a week, we run an LTS minor bump. Instead of using build-constraints.yaml, that job takes the previous LTS release, turns it into constraints, and then bumps the version numbers to the latest on Hackage, in accordance with the version bounds in the build plan. This plans are uploaded to [the LTS repo](https://github.com/commercialhaskell/lts-haskell)
 * Cutting a new LTS major release is essentially just a Stackage Nightly that gets rebuilt and uploaded as an LTS
 
 ## Pull requests
@@ -72,7 +72,7 @@ Most common technique, just prevent a new version of a library from
 being included immediately. This also applies to when only benchmarks
 and tests are affected.
 
-* Copy the stackage-curator output and create a new issue, see e.g
+* Copy the `curator` output and create a new issue, see e.g
 https://github.com/commercialhaskell/stackage/issues/2108
 
 * Add a new entry under the "stackage upper bounds" section of `build-constraints.yaml`. For the above example it would be
@@ -84,7 +84,7 @@ https://github.com/commercialhaskell/stackage/issues/2108
 ```
 
 * Commit (message e.g. "Upper bound for #2108")
-* Optionally: Verify with `stackage-curator check` locally
+* Optionally: Verify with `./check` locally
 * Push
 * Verify that everything works on the build server (you can restart the build or wait for it to to run again)
 
@@ -110,7 +110,7 @@ new package may appear if its dependencies were part of this issue but
 have been updated since the last time we checked. We want to give
 these new packages ample time to be upgraded.
 
-If stackage-curator is happy commit the change ("Remove upper bounds
+If `curator` is happy commit the change ("Remove upper bounds
 and close #X"). After doing this the next nightly build may fail
 because some packages didn't have an upper bound in place, but
 compilation failed. In this case revert the previous commit so any
@@ -280,31 +280,31 @@ we're just not there yet.
 
 ```
 # Run a nightly build
-/opt/stackage-build/stackage/automated/run-nightly.sh
+/var/stackage/stackage/automated/run-nightly.sh
 
 # Run an LTS minor bump
-/opt/stackage-build/stackage/automated/build.sh lts-2.17
+/var/stackage/stackage/automated/build.sh lts-15.1
 
 # Run an LTS major bump
-/opt/stackage-build/stackage/automated/build.sh lts-3.0
+/var/stackage/stackage/automated/build.sh lts-16.0
 ```
 
 Recommended: run these from inside a `tmux` session. If you get version bound
 problems on nightly or LTS major, you need to fix build-constraints.yaml (see
-info above). For an LTS minor bump, you'll typically want to use the
-`CONSTRAINTS` environment variable, e.g.:
+info above). 
 
-```
-CONSTRAINTS='--constraint "conduit < 1.4.5" --constraint "criterion < 1.2.3"' /opt/stackage-build/stackage/automated/build.sh lts-2.17
-```
+### Building LTS minor releases
+First run `build.sh` to regenerate updated `ltsXX/work/constraints.yaml` and `ltsXX/work/snapshot-incomplete.yaml` files.
 
-Valid arguments to include in this environment variable:
+For an LTS minor bump, you'll typically want to:
 
-* `--constraint` to modify an upper or lower bound
-* `--add-package` to add a brand new package
-* `--expect-test-failure` to expect tests to fail
-* `--expect-haddock-failure` to expect haddocks to fail
-* `--expect-bench-failure` to expect benchmarks to fail
+* Add constraints to package `range:` fields _under_ the `source:` field in that `constraints.yaml`.
+* Add new packages to the `constraints.yaml` file
+* Test, benchmark, haddock failures can also be added to package fields in the `constraints.yaml` if necessary, though it should be avoided if possible for LTS.
+
+Then run `NOPLAN=1 build.sh` to build the generate an updated snapshot.
+
+This replaces `CONSTRAINTS=...' /var/stackage/stackage/automated/build.sh lts-x.y` for the old curator-1.
 
 If a build fails for bounds reasons, see all of the advice above. If the code
 itself doesn't build, or tests fail, open up an issue and then either put in a
@@ -320,7 +320,7 @@ if one needs to revert one package, say due to a build or test regression,
 one can edit `current-plan.yaml` and updated the SHA256 hash of the .cabal file,
 to avoid having to rebuild everything again.)
 
-Note LTS builds inherit the current Hackage data (stack updated for Nigthly) to avoid excess extra rebuilding.
+_Sadly no longer true currently_: ~~Note LTS builds inherit the current Hackage data (stack updated for Nightly) to avoid excess extra rebuilding.~~
 
 ### Timing
 
@@ -334,6 +334,9 @@ LTS minor bumps typically are run on Sundays.
 ### Website sync debugging (and other out of disk space errors)
 
 * You can detect the problem by running `df`. If you see that `/` is out of space, we have a problem
+* If you see that `/var/stackage/` is out of space, you can:
+  * `rm -r /var/stackage/stackage/automated/work/lts*/unpack-dir/unpacked/`
+  * `rm -r /var/stackage/stackage/automated/work/nightly/unpack-dir/unpacked/`
 * (outdated) There are many temp files inside `/home/ubuntu/stackage-server-cron` that can be cleared out occasionally
 * (outdated) You can then manually run `/home/ubuntu/stackage-server-cron.sh`, or wait for the cron job to do it
 
@@ -367,30 +370,30 @@ We do not run the full stackage build locally as that might take too
 much time. However, some steps on the other hand are much faster to do
 yourself, e.g. verifying constraints without building anything.
 
-To get started, install `stackage-curator` via Git, or [the Linux binary]:
+To get started, install `curator` via Git:
 
 ```
-$ git clone git@github.com:fpco/stackage-curator.git
-$ cd stackage-curator && stack install
+$ git clone git@github.com:commercialhaskell/curator.git
+$ cd curator && stack install curator
 ```
 
-It is a good idea to upgrade `stackage-curator` at the start of your week.
+It is a good idea to upgrade `curator` at the start of your week.
 Then, clone the stackage repo, get the latest packages and run dependency
 resolution:
 
 ```
 $ git clone git@github.com:commercialhaskell/stackage.git
-$ stack update && stackage-curator check
+$ cd stackage
+$ ./check
 ```
 
 This can be used to make sure all version bounds are in place, including for
 test suites and benchmarks, to check whether bounds can be lifted, and to get
 [tell-me-when-its-released] notifications.
 
-`stackage-curator` does not build anything, so you wont see any compilation
+`curator` does not build anything, so you wont see any compilation
 errors for builds, tests and benchmarks.
 
-[the Linux binary]: https://s3.amazonaws.com/stackage-travis/stackage-curator/stackage-curator.bz2
 [tell-me-when-its-released]: https://github.com/commercialhaskell/stackage/blob/master/CURATORS.md#waiting-for-new-releases
 
 ## Adding new curators

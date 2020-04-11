@@ -6,9 +6,6 @@ while true; do
     ./build.sh nightly-$(date -u +%F)
     date
 
-    ./new-stackage-format/convert.sh
-    date
-
     sleep 30m
     echo
 done
