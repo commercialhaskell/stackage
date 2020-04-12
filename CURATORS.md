@@ -294,6 +294,8 @@ problems on nightly or LTS major, you need to fix build-constraints.yaml (see
 info above). 
 
 ### Building LTS minor releases
+Before running the build, please make sure that the Dockerfile in `automated/dockerfiles/lts-X.Y` is up to date, where X is the major version that you're building and Y is the latest minor version of X for which a Dockerfile exists. If any changes need to be made, (eg, new GHC version), copy `lts-X.Y/Dockerfile` to `lts-X.Z/Dockerfile`, where Z is the minor version you're building, and include the new changes.
+
 First run `build.sh` to regenerate updated `ltsXX/work/constraints.yaml` and `ltsXX/work/snapshot-incomplete.yaml` files.
 
 For an LTS minor bump, you'll typically want to:

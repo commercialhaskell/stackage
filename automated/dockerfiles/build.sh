@@ -90,9 +90,35 @@ case "$LTS_SLUG_ARG" in
         ;;
 esac
 
+#
+# Determine if lts slug is latest
+#
+
+SNAPSHOTS="$(mktemp "lts-snapshots.json.XXXXXX")"
+trap "rm -f \"$SNAPSHOTS\"" EXIT
+wget -qO- https://www.stackage.org/download/lts-snapshots.json >"$SNAPSHOTS"
+
 LTS_VERSION="${LTS_SLUG#lts-}"
 LTS_MAJOR="${LTS_VERSION%.*}"
 LTS_MINOR="${LTS_VERSION#*.}"
+
+#
+# Determine latest LTS version
+#
+
+LATEST_LTS_SLUG=$(jq -r ".[\"lts\"]" $SNAPSHOTS)
+LATEST_LTS_VERSION="${LATEST_LTS_SLUG#lts-}"
+LATEST_LTS_MAJOR="${LATEST_LTS_VERSION%.*}"
+LATEST_LTS_MINOR="${LATEST_LTS_VERSION#*.}"
+
+#
+# Determine latest minor version of the selected major version
+#
+
+MAJOR_LATEST_LTS_SLUG=$(jq -r ".[\"lts-$LTS_MAJOR\"]" $SNAPSHOTS)
+MAJOR_LATEST_LTS_VERSION="${MAJOR_LATEST_LTS_SLUG#lts-}"
+MAJOR_LATEST_LTS_MAJOR="${MAJOR_LATEST_LTS_VERSION%.*}"
+MAJOR_LATEST_LTS_MINOR="${MAJOR_LATEST_LTS_VERSION#*.}"
 
 #
 # Find the Dockerfile for the selected snapshot
@@ -128,9 +154,14 @@ fi
 # Create and push additional tags
 #
 
-# Create and push an 'lts-X' tag.
-tagpush "$DOCKER_REPO:$LTS_SLUG" "$DOCKER_REPO:lts-$LTS_MAJOR"
+# If we select the latest minor version for the selected major version, then
+# also create and push an 'lts-X' tag.
+if [[ $LTS_MINOR -ge $MAJOR_LATEST_LTS_MINOR ]]; then
+    tagpush "$DOCKER_REPO:$LTS_SLUG" "$DOCKER_REPO:lts-$LTS_MAJOR"
+fi
 
-# Create and push the 'lts' and 'latest' tags.
-tagpush "$DOCKER_REPO:$LTS_SLUG" "$DOCKER_REPO:lts"
-tagpush "$DOCKER_REPO:$LTS_SLUG" "$DOCKER_REPO:latest"
+# If we selected the latest LTS snapshot, also create and push the 'lts' and 'latest' tags.
+if [[ "$LTS_MAJOR" = "$LATEST_LTS_MAJOR" ]] && [[ $LTS_MINOR -ge $LATEST_LTS_MINOR ]]; then
+    tagpush "$DOCKER_REPO:$LTS_SLUG" "$DOCKER_REPO:lts"
+    tagpush "$DOCKER_REPO:$LTS_SLUG" "$DOCKER_REPO:latest"
+fi
