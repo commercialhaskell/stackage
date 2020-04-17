@@ -69,16 +69,6 @@ packages:
         - flags-applicative
         - more-containers
         - tracing
-        # transitive dependencies for tracing
-        - ip
-        - byteslice
-        - bytesmith
-        - contiguous
-        - natural-arithmetic
-        - primitive-offset
-        - primitive-unlifted
-        - run-st
-        - small-bytearray-builder
 
     "Robert Vollmert <rob@vllmrt.net> @robx":
         - configurator-pg
@@ -1406,7 +1396,7 @@ packages:
         - partial-handler
         - postgresql-binary
         - slave-thread < 0
-        - stm-containers
+        - stm-containers < 0 # https://github.com/commercialhaskell/stackage/pull/5289#issuecomment-610353366
         - refined < 0 # https://github.com/nikita-volkov/refined/issues/33
 
     "Iustin Pop <iustin@k1024.org> @iustin":
@@ -4485,7 +4475,6 @@ packages:
         - prettyprinter-convert-ansi-wl-pprint
         - primes
         - primitive
-        - primitive-extras
         - primitive-unaligned
         - process-extras
         - product-isomorphic
@@ -4555,7 +4544,6 @@ packages:
         - statistics
         - step-function
         - stm-delay
-        - stm-hamt
         - storable-complex
         - store-core < 0 # MonadFail
         - streaming-cassava < 0 # via streaming
@@ -4737,9 +4725,6 @@ packages:
       - servant-mock < 0.8.6
       - servant-swagger < 1.1.8
       - aur < 6.3.0
-
-      # https://github.com/commercialhaskell/stackage/issues/5211
-      - small-bytearray-builder < 0.3.4
 
       # https://github.com/commercialhaskell/stackage/issues/5218
       - unliftio-core < 0.2
@@ -5733,7 +5718,6 @@ skipped-benchmarks:
     - sorted-list
     - sourcemap
     - stache
-    - stm-hamt
     - tar
     - tar-conduit
     - text-builder
