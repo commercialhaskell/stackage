@@ -68,7 +68,7 @@ chmod +x curator
 echo -n "curator version: "
 docker run --rm -v $(pwd)/curator:/exe $IMAGE /exe --version
 
-curl -L "https://download.fpcomplete.com/stackage-curator-2/stack-4033c93815477e5b565d9a2a61b54e04da0863ef.bz2" | bunzip2 > stack
+curl -L "https://download.fpcomplete.com/stackage-curator-2/stack-fffc0a40e2253788f6b9cb7471c03fd571d69bde.bz2" | bunzip2 > stack
 chmod +x stack
 echo -n "stack version: "
 docker run --rm -v $(pwd)/stack:/exe $IMAGE /exe --version
