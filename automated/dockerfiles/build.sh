@@ -106,7 +106,11 @@ LTS_MINOR="${LTS_VERSION#*.}"
 # Determine latest LTS version
 #
 
-LATEST_LTS_SLUG=$(jq -r ".[\"lts\"]" $SNAPSHOTS)
+mkdir -p $HOME/.local/bin
+curl -o $HOME/.local/bin/jq -L https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
+chmod +x $HOME/.local/bin/jq
+
+LATEST_LTS_SLUG=$($HOME/.local/bin/jq -r ".[\"lts\"]" $SNAPSHOTS)
 LATEST_LTS_VERSION="${LATEST_LTS_SLUG#lts-}"
 LATEST_LTS_MAJOR="${LATEST_LTS_VERSION%.*}"
 LATEST_LTS_MINOR="${LATEST_LTS_VERSION#*.}"
