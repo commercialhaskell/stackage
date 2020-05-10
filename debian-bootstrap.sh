@@ -17,9 +17,19 @@ mkdir -p /home/stackage
 export LANG=C.UTF-8
 export DEBIAN_FRONTEND=noninteractive
 
-# Get curl
+# Get curl and unzip
 apt-get update
-apt-get install -y curl
+apt-get install -y curl unzip
+
+# Install AWS CLI
+mkdir -p /tmp/awscli
+(
+cd /tmp/awscli
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+./aws/install --bin-dir /usr/bin
+)
+rm -rf /tmp/awscli
 
 # Get Stack and GHC
 curl -sSL https://get.haskellstack.org/ | sh -s - -d /usr/bin
@@ -52,6 +62,8 @@ apt-get install -y \
     libclang-3.9-dev \
     libcurl4-openssl-dev \
     libcwiid-dev \
+    libdbusmenu-glib-dev \
+    libdbusmenu-gtk3-dev \
     libdevil-dev \
     libedit-dev \
     libedit2 \
@@ -66,6 +78,7 @@ apt-get install -y \
     libglu1-mesa-dev \
     libgmp3-dev \
     libgnutls28-dev \
+    libgraphene-1.0-dev \
     libgsasl7-dev \
     libgsl-dev \
     libgtk-3-dev \
@@ -89,13 +102,13 @@ apt-get install -y \
     libmono-2.0-dev \
     libmp3lame-dev \
     libmpfr-dev \
+    libmpich-dev \
     libmysqlclient-dev \
     libncurses5-dev \
     libnfc-dev \
     liboath-dev \
     libnotify-dev \
     libopenal-dev \
-    libopenmpi-dev \
     libpango1.0-dev \
     libpcap0.8-dev \
     libpcre2-dev \

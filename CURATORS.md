@@ -18,7 +18,7 @@ This section sketches out at a high level how the entire Stackage build/curation
 process works:
 
 * [build-constraints.yaml](https://github.com/commercialhaskell/stackage/blob/master/build-constraints.yaml) specifies packages to be included in Stackage
-* [curator](https://github.com/commercialhaskell/stack/tree/master/subs/curator) combines build-constraints.yaml with the current state of Hackage to create a build plan for a Stackage Nightly
+* [curator](https://github.com/commercialhaskell/curator) combines build-constraints.yaml with the current state of Hackage to create a build plan for a Stackage Nightly
 * `curator` can check that build plan to ensure all version bounds are consistent
     * The [Travis job](https://github.com/commercialhaskell/stackage/blob/master/.travis.yml) performs these two steps to provide immediate feedback on pull requests
 * Docker Hub [builds](https://github.com/commercialhaskell/stackage/blob/master/Dockerfile) a [Docker image](https://hub.docker.com/r/commercialhaskell/stackage/) for running builds
@@ -280,31 +280,33 @@ we're just not there yet.
 
 ```
 # Run a nightly build
-/opt/stackage-build/stackage/automated/run-nightly.sh
+/var/stackage/stackage/automated/run-nightly.sh
 
 # Run an LTS minor bump
-/opt/stackage-build/stackage/automated/build-next.sh lts-14.17
+/var/stackage/stackage/automated/build.sh lts-15.1
 
 # Run an LTS major bump
-/opt/stackage-build/stackage/automated/build-next.sh lts-15.0
+/var/stackage/stackage/automated/build.sh lts-16.0
 ```
 
 Recommended: run these from inside a `tmux` session. If you get version bound
 problems on nightly or LTS major, you need to fix build-constraints.yaml (see
-info above). 
+info above).
 
 ### Building LTS minor releases
-First run `build-next.sh` to regenerate updated `ltsXX/work/constraints.yaml` and `ltsXX/work/snapshot-incomplete.yaml` files.
+Before running the build, please make sure that the Dockerfile in `automated/dockerfiles/lts-X.Y` is up to date, where X is the major version that you're building and Y is the latest minor version of X for which a Dockerfile exists. If any changes need to be made, (eg, new GHC version), copy `lts-X.Y/Dockerfile` to `lts-X.Z/Dockerfile`, where Z is the minor version you're building, and include the new changes.
+
+First run `build.sh` to regenerate updated `ltsXX/work/constraints.yaml` and `ltsXX/work/snapshot-incomplete.yaml` files.
 
 For an LTS minor bump, you'll typically want to:
 
 * Add constraints to package `range:` fields _under_ the `source:` field in that `constraints.yaml`.
-* Add new packages versioned to `snapshot-incomplete.yaml` (the `@<hash>` suffix is optional)
+* Add new packages to the `constraints.yaml` file
 * Test, benchmark, haddock failures can also be added to package fields in the `constraints.yaml` if necessary, though it should be avoided if possible for LTS.
 
-Then run `NOPLAN=1 build-next.sh` to build the generate an updated snapshot.
+Then run `NOPLAN=1 build.sh` to build the generate an updated snapshot.
 
-This replaces `CONSTRAINTS=...' /opt/stackage-build/stackage/automated/build.sh lts-x.y` for the old curator-1.
+This replaces `CONSTRAINTS=...' /var/stackage/stackage/automated/build.sh lts-x.y` for the old curator-1.
 
 If a build fails for bounds reasons, see all of the advice above. If the code
 itself doesn't build, or tests fail, open up an issue and then either put in a
@@ -335,8 +337,8 @@ LTS minor bumps typically are run on Sundays.
 
 * You can detect the problem by running `df`. If you see that `/` is out of space, we have a problem
 * If you see that `/var/stackage/` is out of space, you can:
-  * `rm -r /var/stackage/stackage/automated/lts*/work/unpack-dir/unpacked/`
-  * `rm -r /var/stackage/stackage/automated/nightly/work/unpack-dir/unpacked/`
+  * `rm -r /var/stackage/stackage/automated/work/lts*/unpack-dir/unpacked/`
+  * `rm -r /var/stackage/stackage/automated/work/nightly/unpack-dir/unpacked/`
 * (outdated) There are many temp files inside `/home/ubuntu/stackage-server-cron` that can be cleared out occasionally
 * (outdated) You can then manually run `/home/ubuntu/stackage-server-cron.sh`, or wait for the cron job to do it
 

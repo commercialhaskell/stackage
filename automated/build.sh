@@ -5,7 +5,7 @@ set -eu +x -o pipefail
 ROOT=$(cd $(dirname $0) ; pwd)
 TARGET=$1
 
-source aws.sh
+source work/aws.sh
 
 # For nightly-YYYY-MM-DD, tag should be nightly
 # For lts-X.Y, tag should be ltsX
@@ -13,39 +13,36 @@ SHORTNAME=$(echo $TARGET | cut -d- -f 1)
 if [ $SHORTNAME = "lts" ]
 then
     TAG=$(echo $TARGET | sed 's@^lts-\([0-9]*\)\.[0-9]*@lts\1@')
+    WORKDIR=$ROOT/work/$(echo $TARGET | sed 's@^lts-\([0-9]*\)\.[0-9]*@lts-\1@')
 else
     TAG=$SHORTNAME
+    WORKDIR=$ROOT/work/$TAG
 fi
 
 IMAGE=commercialhaskell/stackage:$TAG
 
-CABAL_DIR=$ROOT/cabal
-PANTRY_DIR=$ROOT/pantry
-STACK_DIR=$ROOT/stack-$TAG
-GHC_DIR=$ROOT/ghc
-DOT_STACKAGE_DIR=$ROOT/dot-stackage
-WORKDIR=$ROOT/$TAG/work
+PANTRY_DIR=$ROOT/work/stack/pantry
+STACK_DIR=$ROOT/work/stack
+DOT_STACKAGE_DIR=$ROOT/work/dot-stackage
 # ssh key is used for committing snapshots (and their constraints) to Github
-SSH_DIR=$ROOT/ssh
+SSH_DIR=$ROOT/work/ssh
 USERID=$(id -u)
 
 mkdir -p \
-	"$CABAL_DIR" \
 	"$PANTRY_DIR" \
 	"$STACK_DIR" \
-	"$GHC_DIR" \
 	"$DOT_STACKAGE_DIR" \
 	"$WORKDIR" \
 	"$SSH_DIR"
 
-GITCONFIG=$ROOT/gitconfig
+GITCONFIG=$ROOT/work/gitconfig
 cat >$GITCONFIG <<EOF
 [user]
 	email = michael+stackage-build@fpcomplete.com
 	name = Stackage Build host
 EOF
 
-HACKAGE_CREDS=$ROOT/hackage-creds
+HACKAGE_CREDS=$ROOT/work/hackage-creds
 
 function require_400_file {
     if [ ! -f "$1" ]
@@ -60,17 +57,19 @@ function require_400_file {
 require_400_file "$SSH_DIR/id_rsa"
 require_400_file "$HACKAGE_CREDS"
 
-mkdir -p $ROOT/bin
-BINDIR=$(cd $ROOT/bin ; pwd)
+mkdir -p $ROOT/work/bin
+BINDIR=$(cd $ROOT/work/bin ; pwd)
 (
-# See etc/curator-exes/README.md
-CURATOR_EXES=84f6e06e11e1bcdab6ec1a302d40213e406748e64ae455bd4ed09a205651a7fd
 cd $BINDIR
 rm -f curator stack *.bz2
-wget "https://s3.amazonaws.com/download.fpcomplete.com/curator-exes/curator-exes-$CURATOR_EXES.tar.bz2"
-tar xf "curator-exes-$CURATOR_EXES.tar.bz2"
+
+curl -L "https://download.fpcomplete.com/stackage-curator-2/curator-7c719d6d48839c94a79dc2ad2ace89074e3dd997.bz2" | bunzip2 > curator
+chmod +x curator
 echo -n "curator version: "
 docker run --rm -v $(pwd)/curator:/exe $IMAGE /exe --version
+
+curl -L "https://download.fpcomplete.com/stackage-curator-2/stack-fffc0a40e2253788f6b9cb7471c03fd571d69bde.bz2" | bunzip2 > stack
+chmod +x stack
 echo -n "stack version: "
 docker run --rm -v $(pwd)/stack:/exe $IMAGE /exe --version
 )
@@ -79,11 +78,11 @@ docker run --rm -v $(pwd)/stack:/exe $IMAGE /exe --version
 # is stored separately (because e.g. Ubuntu releases between LTS and nightly
 # could differ). Also the order of binds is important.
 ARGS_COMMON="--rm -v $WORKDIR:$HOME/work -w $HOME/work -v $BINDIR/curator:/usr/bin/curator:ro -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v $BINDIR/stack:/usr/bin/stack:ro -v $STACK_DIR:$HOME/.stack -v $PANTRY_DIR:$HOME/.stack/pantry"
-ARGS_PREBUILD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $CABAL_DIR:$HOME/.cabal -v $GHC_DIR:$HOME/.ghc -v $DOT_STACKAGE_DIR:$HOME/.stackage"
-ARGS_BUILD="$ARGS_COMMON -v $CABAL_DIR:$HOME/.cabal:ro -v $GHC_DIR:$HOME/.ghc:ro"
+ARGS_PREBUILD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $DOT_STACKAGE_DIR:$HOME/.stackage"
+ARGS_BUILD="$ARGS_COMMON"
 # instance-data is an undocumented feature of S3 used by amazonka,
 # see https://github.com/brendanhay/amazonka/issues/271
-ARGS_UPLOAD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:$HOME/.stackage -v $SSH_DIR:$HOME/.ssh:ro -v $GITCONFIG:$HOME/.gitconfig:ro -v $CABAL_DIR:$HOME/.cabal:ro -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY"
+ARGS_UPLOAD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:$HOME/.stackage -v $SSH_DIR:$HOME/.ssh:ro -v $GITCONFIG:$HOME/.gitconfig:ro -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -v $DOT_STACKAGE_DIR:/dot-stackage"
 
 # Make sure we actually need this snapshot. We only check this for LTS releases
 # since, for nightlies, we'd like to run builds even if they are unnecessary to
@@ -108,7 +107,7 @@ then
         docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator update && curator constraints --target $TARGET && curator snapshot-incomplete --target $TARGET && curator snapshot"
     fi
 else
-    docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator snapshot"
+    docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator snapshot-incomplete --target $TARGET && curator snapshot"
 fi
 
 
@@ -139,19 +138,28 @@ docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator check-target-available
 #
 # * Upload the docs to S3
 # * Upload the new snapshot .yaml file to the appropriate Github repo, also upload its constraints
-# * Register as a new Hackage distro (currently disabled)
-docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "curator upload-docs --target $TARGET && curator upload-github --target $TARGET && exec curator hackage-distro --target $TARGET"
-# information about the new snapshots on Hackage
+docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "curator upload-docs --target $TARGET && curator upload-github --target $TARGET"
 
-$BINDIR/curator legacy-bulk --stackage-snapshots dot-stackage/curator/stackage-snapshots/ --lts-haskell dot-stackage/curator/lts-haskell/ --stackage-nightly dot-stackage/curator/stackage-nightly/
+# For some reason, registering on Hackage fails with inscrutable error messages. Disabling.
+# docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator hackage-distro --target $TARGET"
 
-(
+docker run $ARGS_UPLOAD $IMAGE curator legacy-bulk --stackage-snapshots /dot-stackage/curator/stackage-snapshots/ --lts-haskell /dot-stackage/curator/lts-haskell/ --stackage-nightly /dot-stackage/curator/stackage-nightly/
+
+# Build and push docker image fpco/stack-build & fpco/stack-build-small for current release
 
 if [ $SHORTNAME = "lts" ]
 then
-    cd dot-stackage/curator/lts-haskell
+    $ROOT/dockerfiles/build.sh $TARGET
+    $ROOT/dockerfiles/build.sh --push $TARGET
+    $ROOT/dockerfiles/build.sh --push --small $TARGET
+fi
+
+(
+if [ $SHORTNAME = "lts" ]
+then
+    cd $DOT_STACKAGE_DIR/curator/lts-haskell
 else
-    cd dot-stackage/curator/stackage-nightly
+    cd $DOT_STACKAGE_DIR/curator/stackage-nightly
 fi
 
 git add *.yaml
@@ -159,14 +167,7 @@ git diff-index --quiet HEAD && echo No changes && exit 0
 git config user.name "Stackage build server"
 git config user.email "michael@snoyman.com"
 git commit -a -m "More conversions $(date)"
-
-if [ $SHORTNAME = "lts" ]
-then
-    GIT_SSH_COMMAND="ssh -i $ROOT/ssh-lts/id_rsa" git push origin master
-else
-    GIT_SSH_COMMAND="ssh -i $ROOT/ssh-nightly/id_rsa" git push origin master
-fi
-
+GIT_SSH_COMMAND="ssh -i $SSH_DIR/id_rsa" git push origin master
 )
 
 echo -n "Completed at "
