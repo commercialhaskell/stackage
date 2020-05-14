@@ -18,7 +18,7 @@ This section sketches out at a high level how the entire Stackage build/curation
 process works:
 
 * [build-constraints.yaml](https://github.com/commercialhaskell/stackage/blob/master/build-constraints.yaml) specifies packages to be included in Stackage
-* [curator](https://github.com/commercialhaskell/stack/tree/master/subs/curator) combines build-constraints.yaml with the current state of Hackage to create a build plan for a Stackage Nightly
+* [curator](https://github.com/commercialhaskell/curator) combines build-constraints.yaml with the current state of Hackage to create a build plan for a Stackage Nightly
 * `curator` can check that build plan to ensure all version bounds are consistent
     * The [Travis job](https://github.com/commercialhaskell/stackage/blob/master/.travis.yml) performs these two steps to provide immediate feedback on pull requests
 * Docker Hub [builds](https://github.com/commercialhaskell/stackage/blob/master/Dockerfile) a [Docker image](https://hub.docker.com/r/commercialhaskell/stackage/) for running builds
@@ -291,9 +291,11 @@ we're just not there yet.
 
 Recommended: run these from inside a `tmux` session. If you get version bound
 problems on nightly or LTS major, you need to fix build-constraints.yaml (see
-info above). 
+info above).
 
 ### Building LTS minor releases
+Before running the build, please make sure that the Dockerfile in `automated/dockerfiles/lts-X.Y` is up to date, where X is the major version that you're building and Y is the latest minor version of X for which a Dockerfile exists. If any changes need to be made, (eg, new GHC version), copy `lts-X.Y/Dockerfile` to `lts-X.Z/Dockerfile`, where Z is the minor version you're building, and include the new changes.
+
 First run `build.sh` to regenerate updated `ltsXX/work/constraints.yaml` and `ltsXX/work/snapshot-incomplete.yaml` files.
 
 For an LTS minor bump, you'll typically want to:

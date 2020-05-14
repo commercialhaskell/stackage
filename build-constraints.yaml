@@ -9,6 +9,18 @@ cabal-format-version: "2.4"
 
 # Constraints for brand new builds
 packages:
+    "Marcin Rzeźnicki <marcin.rzeznicki@gmail.com> @marcin-rzeznicki":
+        - hspec-tables
+
+    "Mauricio Fierro <mauriciofierrom@gmail.com> @mauriciofierrom":
+        - dialogflow-fulfillment
+
+    "Mihai Giurgeanu <mihai.giurgeanu@gmail.com> @mihaigiurgeanu":
+        - sqlcli
+        - sqlcli-odbc
+        # not a maintainer
+        - logging
+
     "Sasha Bogicevic <sasa.bogicevic@pm.me> @v0d1ch":
         - plaid
 
@@ -63,19 +75,10 @@ packages:
         - flags-applicative
         - more-containers
         - tracing
-        # transitive dependencies for tracing
-        - ip
-        - byteslice
-        - bytesmith
-        - contiguous
-        - natural-arithmetic
-        - primitive-offset
-        - primitive-unlifted
-        - run-st
-        - small-bytearray-builder
 
     "Robert Vollmert <rob@vllmrt.net> @robx":
         - configurator-pg
+        - postgrest
 
     "Sandy Maguire <sandy@sandymaguire.me> @isovector":
         - ecstasy
@@ -132,12 +135,17 @@ packages:
 
     "Preetham Gujjula <preetham.gujjula@gmail.com> @pgujjula":
         - modular
+        - list-predicate
 
     "Guillaume Bouchard <guillaum.bouchard@gmail.com> @guibou":
+        - krank
+        - pretty-terminal
         - PyF
 
     "Erik Schnetter <schnetter@gmail.com> @eschnett":
         - mpi-hs
+        - mpi-hs-binary
+        - mpi-hs-cereal
 
     "Yang Bo <pop.atry@gmail.com> @Atry":
         - control-dsl < 0 # via doctest-discover
@@ -173,7 +181,7 @@ packages:
     "Phil de Joux <phil.dejoux@blockscope.com> @philderbeast":
         - siggy-chardust
         - detour-via-sci
-        - hpack-dhall < 0 # via hpack
+        - hpack-dhall
 
     "Matthew Ahrens <matt.p.ahrens@gmail.com> @mpahrens":
         - forkable-monad
@@ -190,14 +198,13 @@ packages:
 
     "Manuel Bärenz <programming@manuelbaerenz.de> @turion":
         - dunai
-        - rhine < 0 # via base-4.13.0.0
-        - rhine-gloss < 0 # via base-4.13.0.0
-        - dunai-core < 0 # via base-4.13.0.0
+        - rhine
+        - rhine-gloss
         - finite-typelits
-        - essence-of-live-coding < 0 # via base-4.13.0.0
-        - essence-of-live-coding-gloss < 0 # via base-4.13.0.0
-        - essence-of-live-coding-pulse < 0 # via base-4.13.0.0
-        - essence-of-live-coding-quickcheck < 0 # via base-4.13.0.0
+        - essence-of-live-coding
+        - essence-of-live-coding-gloss
+        - essence-of-live-coding-pulse
+        - essence-of-live-coding-quickcheck
         - pulse-simple
         - simple-affine-space
 
@@ -520,7 +527,7 @@ packages:
 
     "Pranay Sashank <pranaysashank@gmail.com> @pranaysashank":
         - fusion-plugin-types
-        - fusion-plugin < 0 # ghc-8.8.3
+        - fusion-plugin
 
     "Aleksey Uimanov <s9gf4ult@gmail.com> @s9gf4ult":
         # - postgresql-query # build errors
@@ -564,7 +571,6 @@ packages:
 
     "Michael Snoyman michael@snoyman.com @snoyberg":
         - bzlib-conduit
-        - mega-sdist
         - case-insensitive
         - classy-prelude-yesod
         - conduit-combinators
@@ -653,8 +659,8 @@ packages:
         - githash
 
         - time-manager
-        - pantry < 0 # via cryptonite-conduit & hackage-security & hpack & http-download & persistent & persistent-sqlite & persistent-template & rio-orphans & rio-prettyprint & tar-conduit & th-utilities
-        - mega-sdist < 0 # via pantry
+        - pantry
+        - mega-sdist < 0 # Cabal issues
         - http-download
         - hi-file-parser
         - rio-prettyprint
@@ -727,13 +733,13 @@ packages:
         - psqueues
         - websockets
         - websockets-snap
-        - hakyll < 0 # jaspervdj/hakyll#691
+        - hakyll
 
     "Sibi Prabakaran <sibi@psibi.in> @psibi":
         - download
         - textlocal
         - shell-conduit
-        - tldr < 0.6.3 # https://github.com/commercialhaskell/stackage/issues/5277
+        - tldr
         - fb
         - yesod-fb
         - yesod-auth-fb
@@ -824,6 +830,8 @@ packages:
         - weigh
         - odbc
         # - structured-haskell-mode  # https://github.com/chrisdone/structured-haskell-mode/issues/156
+        - casa-client
+        - casa-types
 
     "Alberto G. Corona <agocorona@gmail.com> @agocorona":
         - RefSerialize
@@ -848,7 +856,7 @@ packages:
         - comonad
         - compensated
         - compressed < 0
-        - concurrent-supply < 0 # hashable-1.3.0
+        - concurrent-supply
         - constraints < 0.12 # https://github.com/commercialhaskell/stackage/issues/5124
         - contravariant
         - distributive
@@ -1066,10 +1074,11 @@ packages:
         - turtle
         - foldl
         - bench
-        - dhall < 1.31.0 # https://github.com/commercialhaskell/stackage/issues/5275
-        - dhall-bash < 1.0.29 # via dhall
-        - dhall-json < 1.6.3 # via dhall
-        - dhall-yaml < 1.0.3 # via dhall
+        - dhall
+        - dhall-bash
+        - dhall-json
+        - dhall-lsp-server
+        - dhall-yaml
         - aeson-yaml  # req'd by dhall-json
         # - dhall-nix # deriving-compat via hnix
 
@@ -1201,10 +1210,11 @@ packages:
         - mountpoints
         - disk-free-space
 
-    "Colin Woodbury <colingw@gmail.com> @fosskers":
+    "Colin Woodbury <colin@fosskers.ca> @fosskers":
         - aur
         - bounded-queue
         - kanji
+        - language-bash
         - microlens-aeson
         - pipes-random
         - servant-xml < 0 # via http-media
@@ -1361,6 +1371,7 @@ packages:
 
     "Emanuel Borsboom <manny@fpcomplete.com> @borsboom":
         - BoundedChan
+        - broadcast-chan
         - fuzzcheck
         - here
         - hlibgit2
@@ -1368,18 +1379,17 @@ packages:
         - interpolatedstring-perl6
         - iproute
         - missing-foreign
-        - MissingH < 0 # via array-0.5.4.0 & base-4.13.0.0 & containers-0.6.2.1 & directory-1.3.3.2 & filepath-1.4.2.1 & old-time-1.1.0.3 & process-1.6.5.1 & time-1.9.3 & unix-2.7.2.2
+        - MissingH
         - multimap
         - parallel-io
         - text-binary
         - Chart-cairo < 0 # GHC 8.4 via cairo
-        - ghc-events < 0 # build failure with GHC 8.4
+        - ghc-events
         - monad-extras
         - optparse-simple
-        - hpack < 0 # MonadFail https://github.com/sol/hpack/issues/371
+        - hpack
         - bindings-uname
         - stack < 9.9.9 # see https://github.com/fpco/stackage/issues/3563
-        - stack < 0 # via hackage-security
 
     "Michael Sloan <mgsloan@gmail.com> @mgsloan":
         - th-orphans
@@ -1399,7 +1409,7 @@ packages:
         - partial-handler
         - postgresql-binary
         - slave-thread < 0
-        - stm-containers
+        - stm-containers < 0 # https://github.com/commercialhaskell/stackage/pull/5289#issuecomment-610353366
         - refined < 0 # https://github.com/nikita-volkov/refined/issues/33
 
     "Iustin Pop <iustin@k1024.org> @iustin":
@@ -1521,6 +1531,7 @@ packages:
         - fedora-haskell-tools
         - hkgr
         - http-directory
+        - pagure-cli
         - rpmbuild-order
         - simple-cabal
         - simple-cmd
@@ -1577,7 +1588,7 @@ packages:
         - avers
         - avers-api < 0 # via servant
         - avers-server < 0 # via servant-server
-        - css-syntax < 0 # via base-4.13.0.0
+        - css-syntax
         # - etcd # https://github.com/wereHamster/etcd-hs/issues/5
         - github-types
         - github-webhook-handler < 0 # GHC 8.4 via base-4.11.0.0
@@ -1971,14 +1982,14 @@ packages:
         - timer-wheel < 0 # via base-4.13.0.0
         - wai-middleware-travisci < 0 # via base-4.13.0.0
 
-    "Christiaan Baaij <christiaan.baaij@gmail.com> @christiaanb":
+    "QBayLogic B.V. <devops@qbaylogic.com>":
         - ghc-tcplugins-extra
         - ghc-typelits-extra
         - ghc-typelits-knownnat
         - ghc-typelits-natnormalise
-        - clash-prelude < 0
-        - clash-lib < 0
-        - clash-ghc < 0
+        - clash-prelude
+        - clash-lib
+        - clash-ghc
 
     "Athan Clark <athan.clark@gmail.com> @athanclark":
         - aeson-attoparsec
@@ -1986,8 +1997,8 @@ packages:
         - almost-fix
         - attoparsec-base64
         - attoparsec-path
-        - attoparsec-ip
-        - attoparsec-uri
+        # - attoparsec-ip # Deprecated in favor of ip
+        # - attoparsec-uri
         - chan
         - commutative
         - composition-extra
@@ -2014,7 +2025,7 @@ packages:
         - tries < 0 # GHC 8.4 via bytestring-trie
         - unit-constraint
         - unfoldable-restricted < 0 # via unfoldable
-        - urlpath
+        # - urlpath
         - wai-transformers < 0 # via wai-websockets
         - websockets-rpc < 0 # websockets-simple
         - websockets-simple < 0 # BuildFailureException with GHC 8.4
@@ -2221,16 +2232,6 @@ packages:
         - NineP
         - Network-NineP < 0
 
-    "Oliver Charles <ollie@ocharles.org.uk> @ocharles":
-        - diff3 < 0 # build failure with GHC 8.4
-        - exhaustive < 0 # GHC 8.4 via base-4.11.0.0
-        - libsystemd-journal < 0 # GHC 8.4 via base-4.11.0.0
-        - network-carbon < 0 # GHC 8.4 via base-4.11.0.0
-        - logging-effect
-        - dhall-to-cabal < 0
-        - weeder
-        # - reactive-banana # pqueue-1.4.1
-
     "Antoni Silvestre <antoni.silvestre@gmail.com> @asilvestre":
         # Test suite needs a running neo4j server with auth disabled
         # unfortunately the cabal package name and the github repo don't have the exact same name
@@ -2416,8 +2417,8 @@ packages:
         - io-storage
         - oo-prototypes
         - opentelemetry
+        - opentelemetry-extra
         - opentelemetry-wai
-        - opentelemetry-http-client
         - opentelemetry-lightstep
         - planb-token-introspection
         - pointedlist
@@ -2468,7 +2469,7 @@ packages:
         - nagios-check
 
     "Peter Simons <simons@cryp.to> @peti":
-        - cabal2nix < 0 # via hpack
+        - cabal2nix
         - cabal2spec < 2.6 # GHC 8.10 via Cabal-3.2
         - cgi < 0 # via multipart
         - distribution-nixpkgs
@@ -2657,7 +2658,7 @@ packages:
         - fuzzyset
 
     "Will Sewell <me@willsewell.com> @willsewell":
-        - benchpress < 0 # via base-4.13.0.0
+        - benchpress
         - pusher-http-haskell
 
     "Yorick Laupa yo.eight@gmail.com @YoEight":
@@ -2725,7 +2726,7 @@ packages:
     "Pedro Tacla Yamada <tacla.yamada@gmail.com> @yamadapc":
         - ascii-progress
         - drawille < 0
-        - file-modules < 0 # via MissingH
+        - file-modules
         - frontmatter
         - read-editor
         # - list-prompt # https://github.com/yamadapc/list-prompt/issues/3
@@ -2857,7 +2858,7 @@ packages:
 
     "Mikhail Glushenkov <mikhail.glushenkov@gmail.com> @23Skidoo":
         # - Cabal take the one that ships with GHC
-        - cabal-install < 0 # via base-4.13.0.0
+        - cabal-install < 0 # via Cabal
         # - pointful # haskell-src-exts-simple
 
     "Lennart Kolmodin <kolmodin@gmail.com> @kolmodin":
@@ -2871,9 +2872,9 @@ packages:
         - th-data-compat
         - th-reify-compat
         - relational-query
-        - relational-query-HDBC < 0 # via HDBC
-        - persistable-types-HDBC-pg < 0 # via HDBC
-        - relational-record < 0 # via relational-query-HDBC
+        - relational-query-HDBC
+        - persistable-types-HDBC-pg
+        - relational-record
         - text-ldap
         - debian-build
         - aeson-generic-compat
@@ -3497,6 +3498,7 @@ packages:
     "Albert Krewinkel <albert+stackage@zeitkraut.de> @tarleb":
         - hslua < 1.1.0 # https://github.com/commercialhaskell/stackage/issues/5261
         - hslua-aeson
+        - hslua-module-doclayout
         - hslua-module-system
         - hslua-module-text
         - jira-wiki-markup < 1.2.0 # https://github.com/commercialhaskell/stackage/issues/5272
@@ -3631,6 +3633,9 @@ packages:
     "Holmusk <tech@holmusk.com> @arbus":
         - elm-street < 0 # via base-4.13.0.0 & warp-3.3.2
 
+    "Noel Kwan <noelkwan1998@gmail.com> @kwannoel":
+        - servant-docs-simple
+
     "Lorenz Moesenlechner <moesenle@gmail.com> @moesenle":
         - servant-websockets
 
@@ -3692,12 +3697,14 @@ packages:
         - colorize-haskell
 
     "Chris Martin <ch.martin@gmail.com> @chris-martin":
+        - data-forest
         - loc
         - partial-semigroup
         - path-text-utf8
 
     "Type Classes <hello@typeclasses.com> @argumatronic @chris-martin":
         - aws-cloudfront-signed-cookies
+        - d10
         - stripe-concepts
         - stripe-signature
         - stripe-scotty < 0 # via scotty
@@ -3732,6 +3739,7 @@ packages:
 
     "Alexander Vershilov <alexander.vershilov@gmail.com> @qnikst":
         - stm-conduit
+        - co-log-concurrent
 
     "Tung Dao <me@tungdao.com> @tungd":
         - time-locale-vietnamese
@@ -3790,6 +3798,7 @@ packages:
         - validity-unordered-containers
         - validity-uuid
         - validity-vector
+        - yamlparse-applicative
 
     "Henry Laxen <nadine.and.henry@pobox.com> @HenryLaxen":
         - bbdb
@@ -3802,8 +3811,8 @@ packages:
         - servant-exceptions < 0 # https://github.com/ch1bo/servant-exceptions/issues/9
 
     "Vaibhav Sagar <vaibhavsagar@gmail.com> @vaibhavsagar":
-        - ihaskell < 0 # via base-4.13.0.0
-        - ghc-parser < 0 # via ghc-8.8.1
+        - ihaskell < 0 # https://github.com/commercialhaskell/stackage/pull/5354
+        - ghc-parser
 
     "Alexis Williams <alexis@typedr.at> @typedrat":
         - stb-image-redux
@@ -3893,7 +3902,7 @@ packages:
 
     "Avi Press <mail@avi.press> @aviaviavi":
         - curl-runnings < 0
-        - cryptocompare < 0 # via MissingH
+        - cryptocompare
 
     "Jack Kiefer <jack.c.kiefer@gmail.com> @JackKiefer":
         - herms < 0
@@ -3904,8 +3913,8 @@ packages:
         - tasty-ant-xml
 
     "Eugene Smolanka <esmolanka@gmail.com> @esmolanka":
-        - sexp-grammar < 0 # via prettyprinter-1.3.0 and semigroups-0.19
-        - invertible-grammar < 0 # via profunctors-5.5
+        - sexp-grammar
+        - invertible-grammar
 
     "Maximilian Tagher <feedback.tagher@gmail.com> @MaxGabriel":
         - aeson-iproute < 0 # via iproute
@@ -4019,7 +4028,7 @@ packages:
         - kazura-queue
 
     "Eric Torreborre <etorreborre@yahoo.com> @etorreborre":
-        - registry < 0 # also protolude, semigroups, universum
+        - registry
 
     "Ryota Kameoka <kameoka.ryota@gmail.com> @ryota-ka":
         - duration
@@ -4028,7 +4037,7 @@ packages:
         - ghci-hexcalc
 
     "Nikos Karagianndis <nkarag@gmail.com> @nkarag":
-        - DBFunctor < 0 # via MissingH
+        - DBFunctor
 
     "Marat Khafizov <xafizoff@gmail.com> @xafizoff":
         - n2o
@@ -4080,6 +4089,7 @@ packages:
         - chiphunk
         - reanimate-svg
         - reanimate
+        - earcut
 
     "Vitaly Bragilevsky <vit.bragilevsky@gmail.com> @bravit":
         - Chart
@@ -4106,6 +4116,20 @@ packages:
 
     "Elben Shira <elben@shira.im> @elben":
         - pencil < 0 # via hsass
+
+    "Ivan Malison <IvanMalison@gmail.com> @IvanMalison":
+        - ConfigFile
+        - dbus-hslogger
+        - gi-cairo-connector
+        - gi-cairo-render
+        - gtk-sni-tray
+        - gtk-strut
+        - rate-limit
+        - status-notifier-item
+        - taffybar
+        - time-units
+        - xml-helpers
+        - xdg-desktop-entry
 
     "ARATA Mizuki <minorinoki@gmail.com> @minoki":
         - unboxing-vector
@@ -4151,8 +4175,9 @@ packages:
     "Eric Conlon <ejconlon@gmail.com> @ejconlon":
         - blanks
         - climb
-        - heart-core
         - linenoise
+        - little-rio
+        - little-logger
         # Maintainership with @23Skidoo
         - ekg
         - ekg-core
@@ -4164,6 +4189,10 @@ packages:
         - vformat
         - vformat-time
         - vformat-aeson
+        - hkd-default
+
+    "Shintaro Sakata <shintaro.sakata.tokyo@gmail.com> @chemirea":
+        - utf8-conversions
 
     "Alessandro Marrella <amarrella@earnestresearch.com> @amarrella":
         - kubernetes-webhook-haskell
@@ -4195,6 +4224,10 @@ packages:
     "Adrian Sieber <stackage@ad-si.com> @ad-si":
         - ulid
 
+    "Rickey Visinski <rickeyvisinski+hs@gmail.com> @rickeyski":
+        []
+        # - slack-api # https://github.com/commercialhaskell/stackage/pull/5345
+
     "Grandfathered dependencies":
         - network
         - Boolean
@@ -4204,8 +4237,8 @@ packages:
         - GenericPretty
         - Glob
         - HasBigDecimal
-        - HDBC < 0 # via time-1.9.3
-        - HDBC-session < 0 # via HDBC
+        - HDBC
+        - HDBC-session
         - HTTP
         - HsOpenSSL
         - HsYAML
@@ -4342,7 +4375,7 @@ packages:
         - fast-logger
         - fast-math
         - fib < 0 # via base-noprelude-4.13
-        - file-embed
+        - file-embed < 0.0.12
         - file-embed-lzma
         - filemanip
         - fin
@@ -4360,7 +4393,7 @@ packages:
         - github
         - groom
         - groups
-        - hackage-security < 0 # via base-4.13.0.0
+        - hackage-security
         - hashable
         - haskell-gi-overloading
         - haskell-lexer
@@ -4423,6 +4456,7 @@ packages:
         - lockfree-queue
         - log-base
         - logging-facade
+        - lukko
         - lrucache
         - lzma
         - managed
@@ -4475,7 +4509,6 @@ packages:
         - prettyprinter-convert-ansi-wl-pprint
         - primes
         - primitive
-        - primitive-extras
         - primitive-unaligned
         - process-extras
         - product-isomorphic
@@ -4494,7 +4527,7 @@ packages:
         - readable
         - rebase
         - recursion-schemes
-        - regex-applicative-text < 0 # via regex-applicative
+        - regex-applicative-text
         - regex-base
         - regex-compat
         - regex-pcre
@@ -4545,7 +4578,6 @@ packages:
         - statistics
         - step-function
         - stm-delay
-        - stm-hamt
         - storable-complex
         - store-core < 0 # MonadFail
         - streaming-cassava < 0 # via streaming
@@ -4710,6 +4742,7 @@ packages:
         - syb-with-class < 0 # GHC 8.4 via template-haskell-2.13.0.0
         - lens-labels < 0 # deprecated https://github.com/commercialhaskell/stackage/pull/4358
         - proto-lens-combinators < 0 # deprecated https://github.com/commercialhaskell/stackage/pull/4358
+        - heart-core < 0 # deprecated
 
     "GHC upper bounds":
         # Need to always match the version shipped with GHC
@@ -4726,10 +4759,6 @@ packages:
       - servant-lucid < 0.9.0.1
       - servant-mock < 0.8.6
       - servant-swagger < 1.1.8
-      - aur < 6.3.0
-
-      # https://github.com/commercialhaskell/stackage/issues/5211
-      - small-bytearray-builder < 0.3.4
 
       # https://github.com/commercialhaskell/stackage/issues/5218
       - unliftio-core < 0.2
@@ -4738,15 +4767,54 @@ packages:
       # https://github.com/commercialhaskell/stackage/issues/5236
       - rank2classes < 1.4
 
-      # https://github.com/commercialhaskell/stackage/issues/5255
-      - ghc-lib-parser-ex < 8.8.6.0
-
-      # https://github.com/commercialhaskell/stackage/issues/5257
-      - ghc-lib-parser < 8.10.1.20200324
-      - ghc-lib < 8.10.1.20200324
-
       # https://github.com/commercialhaskell/stackage/issues/5293
       - haddock-library < 1.9.0
+
+      # https://github.com/commercialhaskell/stackage/issues/5306
+      - arithmoi < 0.11.0.0
+
+      # https://github.com/commercialhaskell/stackage/issues/5309
+      - optics < 0.3
+      - optics-core < 0.3
+      - optics-extra < 0.3
+      - optics-th < 0.3
+      - optics < 0.3
+      - optics-vl < 0.2.1
+
+      # https://github.com/commercialhaskell/stackage/issues/5319
+      - protolude < 0.3
+
+      # https://github.com/commercialhaskell/stackage/issues/5322
+      - swagger2 < 2.6
+
+      # https://github.com/commercialhaskell/stackage/issues/5323
+      - base64-bytestring < 1.1
+
+      # https://github.com/commercialhaskell/stackage/issues/5324
+      - cabal2nix < 2.15.2
+
+      # https://github.com/commercialhaskell/stackage/issues/5335
+      - brick <0.53
+
+      # https://github.com/commercialhaskell/stackage/issues/5336
+      - colourista < 0.1.0.0
+
+      # https://github.com/commercialhaskell/stackage/issues/5347
+      - persistent-template < 2.8.3
+
+      # https://github.com/commercialhaskell/stackage/issues/5346
+      - validation-selective < 0.1.0.0
+
+      # https://github.com/commercialhaskell/stackage/issues/5348
+      - tasty < 1.3
+      - tasty-golden < 2.3.3.3
+
+      # https://github.com/commercialhaskell/stackage/issues/5349
+      - typed-uuid < 0.1.0.0
+
+      # https://github.com/commercialhaskell/stackage/issues/5351
+      - pantry < 0.5
+
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
@@ -5244,6 +5312,9 @@ skipped-tests:
     - algebraic-graphs # https://github.com/commercialhaskell/stackage/issues/4670
     - bugsnag-haskell # https://github.com/commercialhaskell/stackage/issues/4759
     - servant-rawm # https://github.com/commercialhaskell/stackage/issues/5162
+
+    # https://github.com/commercialhaskell/stackage/issues/5302
+    - registry
 # end of skipped-tests
 
 # Tests listed in expected-test-failures configure correctly but may fail to run
@@ -5268,8 +5339,8 @@ expected-test-failures:
     - distributed-process-execution # https://github.com/haskell-distributed/distributed-process-execution/issues/2
     - distributed-process-task
     - foldl-statistics # https://github.com/data61/foldl-statistics/issues/2
-    - fsnotify # Often runs out of inotify handles
     - forma
+    - fsnotify # Often runs out of inotify handles
     - hastache
     - idris # https://github.com/fpco/stackage/issues/1382
     - ihaskell # https://github.com/gibiansky/IHaskell/issues/551
@@ -5365,6 +5436,7 @@ expected-test-failures:
     - postgresql-simple-migration
     - postgresql-simple-queue
     - postgresql-typed # PostgreSQL
+    - postgrest # PostgreSQL
     - purescript # git 128 https://github.com/purescript/purescript/issues/2292
     - rattle # needs fsatrace
     - redis-io
@@ -5375,7 +5447,6 @@ expected-test-failures:
     - serialport # "The tests need two serial ports as command line arguments" https://github.com/jputcu/serialport/issues/30
     - serversession-backend-redis # redis
     - shake # Needs ghc on $PATH with some installed haskell packages
-    - stack # https://github.com/fpco/stackage/issues/3707
     - stripe-http-streams # https://github.com/fpco/stackage/issues/2945, needs Stripe account
     - users-persistent # sqlite
     - users-postgresql-simple # PostgreSQL
@@ -5534,6 +5605,9 @@ expected-test-failures:
 
     # https://github.com/tomphp/haskell-cfenv/issues/1
     - cfenv
+
+    # https://github.com/centromere/cacophony/issues/15
+    - cacophony
 # end of expected-test-failures
 
 # Benchmarks which are known not to build. Note that, currently we do not run
@@ -5595,7 +5669,6 @@ skipped-haddocks:
 - modular # https://github.com/haskell/haddock/issues/900
 - sparkle # Java function failures tweag/sparkle#144
 - polysemy-zoo # Needs polysemy-plugin GHC plugin
-- haskell-lsp-types # 0.13.0.0 https://github.com/commercialhaskell/stackage/issues/4563#issuecomment-493899809
 - hw-ip # https://github.com/commercialhaskell/stackage/issues/5014
 # end of skipped-haddocks
 
@@ -5642,6 +5715,7 @@ skipped-benchmarks:
     - bit-stream
     - bitset-word8
     - blake2
+    - broadcast-chan
     - bv-little
     - bytestring-conversion
     - case-insensitive
@@ -5714,7 +5788,6 @@ skipped-benchmarks:
     - sorted-list
     - sourcemap
     - stache
-    - stm-hamt
     - tar
     - tar-conduit
     - text-builder

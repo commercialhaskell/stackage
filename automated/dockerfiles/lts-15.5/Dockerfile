@@ -31,7 +31,7 @@ ENV LANG=C.UTF-8 \
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         wget netbase ca-certificates g++ gcc libc6-dev libffi-dev libgmp-dev \
-        make xz-utils zlib1g-dev git gnupg libtinfo-dev && \
+        make xz-utils zlib1g-dev git gnupg libtinfo-dev jq && \
     rm -rf /var/lib/apt/lists/*
 
 #
