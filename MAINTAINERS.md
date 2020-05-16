@@ -118,7 +118,7 @@ is decided on a case-by-case basis.
 * If there are real breaking changes, the curator team will retain
   more discretion on how long a window to give before dropping
   packages.
-* We usually drop all upper bounds and disable packages when we create
+* We typically drop upper bounds and disable conflicting packages in Nightly after we create
   a new Long Term Support (LTS) major version.
 * There are rare cases where an upper bound or build failure are hard
   to deal with so then we may disable
@@ -162,8 +162,8 @@ Note that it is _not_ a goal of LTS Haskell to track the latest
 version of GHC. If you want the latest and greatest, Stackage Nightly
 is your best bet. In particular, LTS Haskell will often&mdash;but not
 always&mdash;avoid upgrading to the first point release of GHC
-releases (e.g., 8.2.1) to allow further testing and to get the
-benefits of the first bugfix release (e.g., 8.2.2).
+releases (e.g., 8.x.1) to allow further testing and to get the
+benefits of the first bugfix release (e.g., 8.x.2).
 
 ## Adding a package to an LTS snapshot
 
@@ -173,20 +173,16 @@ ending in `.0`), the package set is taken from Stackage Nightly. Therefore, by
 following the above steps, you can get your package into the next major LTS
 Haskell release.
 
-If you would like to get your package added to an existing LTS Haskell major
-release (e.g., if `lts-8.9` is out, you would want your package to appear in
-`lts-8.10`), please do the following in addition to the steps above:
+If you would like to get your package added to the current LTS Haskell 
+major release, please do the following in addition to the steps for Nightly described earlier:
 
-* Check that your package can be built with that LTS major version (e.g. `stack build --test --bench --haddock --resolver lts-8.10`)
+* Check that your package can be built with the current LTS version (e.g. `stack build --test --bench --haddock --resolver lts`)
 * Open up a new issue on the [lts-haskell repo](https://github.com/fpco/lts-haskell/issues/new)
-  * Specify the LTS major versions you would like your packages to go into (e.g. lts-8)
   * Provide a list of packages you would like added
     * If relevant, mention any upper bounds that are needed on those packages
 * Be patient! The LTS releases are less frequent than Nightly. The
   Stackage curators will try to get to your issue as soon as possible,
   but it may take some time.
-* We gradually stop maintaining old LTS major versions, so your
-  request may take longer or be declined if it's for an old LTS.
 
 ## LTS package guarantees and exceptions
 
