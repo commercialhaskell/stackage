@@ -143,8 +143,6 @@ docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "curator upload-docs --target $TARGE
 # For some reason, registering on Hackage fails with inscrutable error messages. Disabling.
 # docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator hackage-distro --target $TARGET"
 
-docker run $ARGS_UPLOAD $IMAGE curator legacy-bulk --stackage-snapshots /dot-stackage/curator/stackage-snapshots/ --lts-haskell /dot-stackage/curator/lts-haskell/ --stackage-nightly /dot-stackage/curator/stackage-nightly/
-
 # Build and push docker image fpco/stack-build & fpco/stack-build-small for current release
 
 if [ $SHORTNAME = "lts" ]
@@ -153,22 +151,6 @@ then
     $ROOT/dockerfiles/build.sh --push $TARGET
     $ROOT/dockerfiles/build.sh --push --small $TARGET
 fi
-
-(
-if [ $SHORTNAME = "lts" ]
-then
-    cd $DOT_STACKAGE_DIR/curator/lts-haskell
-else
-    cd $DOT_STACKAGE_DIR/curator/stackage-nightly
-fi
-
-git add *.yaml
-git diff-index --quiet HEAD && echo No changes && exit 0
-git config user.name "Stackage build server"
-git config user.email "michael@snoyman.com"
-git commit -a -m "More conversions $(date)"
-GIT_SSH_COMMAND="ssh -i $SSH_DIR/id_rsa" git push origin master
-)
 
 echo -n "Completed at "
 date
