@@ -1,5 +1,5 @@
 #!/usr/bin/env stack
--- stack --resolver lts script
+-- stack --resolver lts-14 script
 
 -- Utility to remove old libs installed under .stack-work/ to save diskspace
 
