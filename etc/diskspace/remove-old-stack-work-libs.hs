@@ -10,7 +10,7 @@ import Data.List
 import System.Directory
 
 main = do
-  files <- listDirectory "."
+  files <- sort <$> listDirectory "."
   (libdirs,dynlibs) <- partitionM doesDirectoryExist files
   let pkglibdirs = groupBy samePkgLibDir libdirs
       pkgdynlibs = groupBy samePkgDynLib dynlibs
