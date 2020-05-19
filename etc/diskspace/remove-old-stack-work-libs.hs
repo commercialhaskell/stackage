@@ -14,8 +14,10 @@ import System.FilePath
 main = do
   files <- sort <$> listDirectory "."
   let (dynlibs,libdirs) = partition (".so" `isExtensionOf`) files
-      pkglibdirs = groupBy samePkgLibDir libdirs
-      pkgdynlibs = groupBy samePkgDynLib dynlibs
+      pkglibdirs = groupBy samePkgLibDir $
+                   filter (not . ("-internal" `isSuffixOf`)) libdirs
+      pkgdynlibs = groupBy samePkgDynLib $
+                   filter (not . ("-internal-" `isInfixOf`)) dynlibs
   mapM_ (removeOlder removeDirectoryRecursive) pkglibdirs
   mapM_ (removeOlder removeFile) pkgdynlibs
   where
