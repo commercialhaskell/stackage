@@ -21,22 +21,24 @@ main = do
     samePkgLibDir l1 l2 = pkgDirName l1 == pkgDirName l2
       where
         pkgDirName p =
-          if countDashes p < 2
+          if length p < 26 || countDashes p < 2
           then error $ p ++ " not in name-version-hash format"
-          else let nv_ = dropEnd 22 p in
-            if last nv_ == '-' then removeDashSegment $ init nv_
-            else error $ p ++ " not in name-version-hash format"
+          else (removeDashSegment . removeHashSegment) p
 
     countDashes = length . filter (== '-')
 
     removeDashSegment = init . dropWhileEnd (/= '-')
 
+    removeHashSegment p = let nv_ = dropEnd 22 p in
+      if last nv_ == '-' then init nv_
+      else error $ p ++ " has incorrect hash format"
+
     samePkgDynLib d1 d2 = pkgDynName d1 == pkgDynName d2
       where
         pkgDynName p =
-          if countDashes p < 3
+          if length p < 43 || countDashes p < 3
           then error $ p ++ " not in libHSname-version-hash-ghc*.so format"
-          else (removeDashSegment . removeDashSegment . removeDashSegment) p
+          else (removeDashSegment . removeHashSegment . removeDashSegment) p
 
     removeOlder remover files = do
       -- keep 2 latest builds
