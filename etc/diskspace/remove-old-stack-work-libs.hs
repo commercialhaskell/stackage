@@ -7,6 +7,7 @@
 -- work/*/unpack-dir/.stack-work/install/x86_64-linux/*/*/lib/x86_64-linux-ghc-*
 
 import Data.List
+import Data.List.Extra
 import System.Directory
 import System.FilePath
 
@@ -21,23 +22,25 @@ main = do
     samePkgLibDir l1 l2 = pkgDirName l1 == pkgDirName l2
       where
         pkgDirName p =
-          if length p < 26 || countDashes p < 2
-          then error $ p ++ " not in name-version-hash format"
+          if length p < 25
+          then error $ p ++ " too short to be in correct name-version-hash format"
           else (removeDashSegment . removeHashSegment) p
 
-    countDashes = length . filter (== '-')
+    removeHashSegment p =
+      let dashes = elemIndices '-' p in
+        if length dashes < 2
+        then error $ p ++ " not in name-version-hash format"
+        else let final = last dashes in
+          if length p - final `elem` [22,23] then take final p
+          else error $ p ++ " has incorrect hash length"
 
     removeDashSegment = init . dropWhileEnd (/= '-')
-
-    removeHashSegment p = let nv_ = dropEnd 22 p in
-      if last nv_ == '-' then init nv_
-      else error $ p ++ " has incorrect hash format"
 
     samePkgDynLib d1 d2 = pkgDynName d1 == pkgDynName d2
       where
         pkgDynName p =
-          if length p < 43 || countDashes p < 3
-          then error $ p ++ " not in libHSname-version-hash-ghc*.so format"
+          if length p < 42
+          then error $ p ++ " too short to be libHSname-version-hash-ghc*.so format"
           else (removeDashSegment . removeHashSegment . removeDashSegment) p
 
     removeOlder remover files = do
@@ -51,9 +54,3 @@ main = do
       return $ map fst $ sortBy compareSnd fileTimes
 
     compareSnd (_,t1) (_,t2) = compare t1 t2
-
--- from Data.List.Extra
-dropEnd :: Int -> [a] -> [a]
-dropEnd i xs = f xs (drop i xs)
-    where f (x:xs) (y:ys) = x : f xs ys
-          f _ _ = []
