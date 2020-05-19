@@ -31,7 +31,7 @@ main = do
         if length dashes < 2
         then error $ p ++ " not in name-version-hash format"
         else let final = last dashes in
-          if length p - final `elem` [22,23] then take final p
+          if length p - final `elem` [23,22,21] then take final p
           else error $ p ++ " has incorrect hash length"
 
     removeDashSegment = init . dropWhileEnd (/= '-')
