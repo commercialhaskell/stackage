@@ -7,6 +7,7 @@ if [ $# != 1 ]; then
     exit 1
 fi
 
-pushd ~/stackage/automated/work/$1/unpack-dir/.stack-work/install/x86_64-linux/*/*/lib/x86_64-linux-ghc-*
+cd ~/stackage/automated/work/$1/unpack-dir/.stack-work/install/x86_64-linux/*/*/lib/x86_64-linux-ghc-*
+pwd
 
-stack --resolver lts-14 script ~/stackage/etc/diskspace/remove-old-stack-work-libs.hs
+stack --resolver lts-14.27 script ~/stackage/etc/diskspace/remove-old-stack-work-libs.hs
