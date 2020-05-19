@@ -8,11 +8,12 @@
 
 import Data.List
 import System.Directory
+import System.FilePath
 
 main = do
   files <- sort <$> listDirectory "."
-  (libdirs,dynlibs) <- partitionM doesDirectoryExist files
-  let pkglibdirs = groupBy samePkgLibDir libdirs
+  let (dynlibs,libdirs) = partition (".so" `isExtensionOf`) files
+      pkglibdirs = groupBy samePkgLibDir libdirs
       pkgdynlibs = groupBy samePkgDynLib dynlibs
   mapM_ (removeOlder removeDirectoryRecursive) pkglibdirs
   mapM_ (removeOlder removeFile) pkgdynlibs
@@ -32,10 +33,11 @@ main = do
       where
         pkgDynName p =
           if countDashes p < 3
-          then error $ p ++ " not in libname-version-hash-ghc*.so format"
+          then error $ p ++ " not in libHSname-version-hash-ghc*.so format"
           else (removeDashSegment . removeDashSegment . removeDashSegment) p
 
     removeOlder remover files = do
+      -- keep 2 latest builds
       oldfiles <- drop 2 . reverse <$> sortByAge files
       mapM_ remover oldfiles
 
@@ -45,11 +47,3 @@ main = do
       return $ map fst $ sortBy compareSnd fileTimes
 
     compareSnd (_,t1) (_,t2) = compare t1 t2
-
--- borrowed from Control.Monad.Extra
-partitionM :: Monad m => (a -> m Bool) -> [a] -> m ([a], [a])
-partitionM f [] = pure ([], [])
-partitionM f (x:xs) = do
-    res <- f x
-    (as,bs) <- partitionM f xs
-    pure ([x | res]++as, [x | not res]++bs)
