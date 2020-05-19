@@ -23,7 +23,9 @@ main = do
         pkgDirName p =
           if countDashes p < 2
           then error $ p ++ " not in name-version-hash format"
-          else (removeDashSegment . removeDashSegment) p
+          else let nv_ = dropEnd 22 p in
+            if last nv_ == '-' then removeDashSegment $ init nv_
+            else error $ p ++ " not in name-version-hash format"
 
     countDashes = length . filter (== '-')
 
@@ -47,3 +49,9 @@ main = do
       return $ map fst $ sortBy compareSnd fileTimes
 
     compareSnd (_,t1) (_,t2) = compare t1 t2
+
+-- from Data.List.Extra
+dropEnd :: Int -> [a] -> [a]
+dropEnd i xs = f xs (drop i xs)
+    where f (x:xs) (y:ys) = x : f xs ys
+          f _ _ = []
