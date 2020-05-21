@@ -335,9 +335,9 @@ LTS minor bumps typically are run on Sundays.
 
 ### Diskspace errors (and website sync debugging)
 
-* You can detect the problem by running `df`. If you see that `/` is out of space, we have a problem
+* You can detect the problem by running `df`. If you see that `/` is out of space, we have a problem.
 * If you see that `/var/stackage/` is out of space, you can:
-  * run `./stackage/etc/diskspace/remove-old-stack-work-libs.hs` in `/var/stackage/stackage/automated/work/*/unpack-dir/.stack-work/install/x86_64-linux/*/*/` (hopefully sufficient)
+  * run `./etc/diskspace/clean-old-stack-libs.sh [nightly|lts-XX]` (hopefully sufficient)
 
   optionally (not recommended?):
   * `rm -r /var/stackage/stackage/automated/work/lts*/unpack-dir/unpacked/`

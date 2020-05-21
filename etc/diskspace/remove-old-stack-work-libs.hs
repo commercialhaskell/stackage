@@ -8,11 +8,13 @@
 
 import Data.List
 import System.Directory
+import System.FilePath
+import Text.Regex.TDFA
 
 main = do
   files <- sort <$> listDirectory "."
-  (libdirs,dynlibs) <- partitionM doesDirectoryExist files
-  let pkglibdirs = groupBy samePkgLibDir libdirs
+  let (dynlibs,libdirs) = partition (".so" `isExtensionOf`) files
+      pkglibdirs = groupBy samePkgLibDir libdirs
       pkgdynlibs = groupBy samePkgDynLib dynlibs
   mapM_ (removeOlder removeDirectoryRecursive) pkglibdirs
   mapM_ (removeOlder removeFile) pkgdynlibs
@@ -20,22 +22,27 @@ main = do
     samePkgLibDir l1 l2 = pkgDirName l1 == pkgDirName l2
       where
         pkgDirName p =
-          if countDashes p < 2
-          then error $ p ++ " not in name-version-hash format"
-          else (removeDashSegment . removeDashSegment) p
+          if length p < 25
+          then error $ p ++ " too short to be in correct name-version-hash format"
+          else extractNameInternal p
 
-    countDashes = length . filter (== '-')
-
-    removeDashSegment = init . dropWhileEnd (/= '-')
+    extractNameInternal :: String -> String
+    extractNameInternal p =
+      let (name,match,internal) = p =~ "-[0-9.]+-[0-9A-Za-z]{20,22}" :: (String, String, String)
+      in if null match || null name then error $ p ++ " not in correct name-version-hash format"
+         else name ++ internal
 
     samePkgDynLib d1 d2 = pkgDynName d1 == pkgDynName d2
       where
         pkgDynName p =
-          if countDashes p < 3
-          then error $ p ++ " not in libname-version-hash-ghc*.so format"
-          else (removeDashSegment . removeDashSegment . removeDashSegment) p
+          if length p < 42
+          then error $ p ++ " too short to be libHSname-version-hash-ghc*.so format"
+          else (extractNameInternal . removeDashSegment) p
+
+    removeDashSegment = dropWhileEnd (/= '-')
 
     removeOlder remover files = do
+      -- keep 2 latest builds
       oldfiles <- drop 2 . reverse <$> sortByAge files
       mapM_ remover oldfiles
 
@@ -45,11 +52,3 @@ main = do
       return $ map fst $ sortBy compareSnd fileTimes
 
     compareSnd (_,t1) (_,t2) = compare t1 t2
-
--- borrowed from Control.Monad.Extra
-partitionM :: Monad m => (a -> m Bool) -> [a] -> m ([a], [a])
-partitionM f [] = pure ([], [])
-partitionM f (x:xs) = do
-    res <- f x
-    (as,bs) <- partitionM f xs
-    pure ([x | res]++as, [x | not res]++bs)
