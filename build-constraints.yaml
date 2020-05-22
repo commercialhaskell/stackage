@@ -12,6 +12,12 @@ packages:
     "Allan Lukwago <epicallan.al@gmail.com> @epicallan":
         - servant-errors
 
+    "Christian Charukiewicz <c.charukiewicz@gmail.com> @charukiewicz":
+        - isbn
+
+    "Koz Ross <koz.ross@retro-freedom.nz> @kozross":
+        - medea
+
     "Ashlynn Anderson <maintainer@pea.sh> @lambdadog":
         - proto3-wire
 
@@ -86,7 +92,7 @@ packages:
 
     "Robert Vollmert <rob@vllmrt.net> @robx":
         - configurator-pg
-        - postgrest
+        - postgrest < 7.0.1 # https://github.com/commercialhaskell/stackage/issues/5383
 
     "Sandy Maguire <sandy@sandymaguire.me> @isovector":
         - ecstasy
@@ -316,8 +322,8 @@ packages:
 
     "Pasqualino Assini <tittoassini@gmail.com> @tittoassini":
         # - zm
-        # - flat # fails to build
-        - model < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - flat
+        - model
 
     "Jose Iborra <pepeiborra@gmail.com> @pepeiborra":
         # - arrowp-qq # build failure https://github.com/pepeiborra/arrowp/issues/8
@@ -469,7 +475,7 @@ packages:
 
     "Li-yao Xia <lysxia@gmail.com> @Lysxia":
         - boltzmann-samplers
-        - first-class-families < 0.8.0.0
+        - first-class-families
         - generic-data
         - generic-data-surgery < 0 # via generic-data
         - generic-random
@@ -478,7 +484,7 @@ packages:
         - type-map
 
     "Tobias Dammers <tdammers@gmail.com> @tdammers":
-        - ginger < 0 # via regex-tdfa-1.3.0
+        - ginger
         - yeshql < 0 # via yeshql-hdbc
 
     "Yair Chuchem <yairchu@gmail.com> @yairchu":
@@ -865,7 +871,7 @@ packages:
         - compensated
         - compressed < 0
         - concurrent-supply
-        - constraints < 0.12 # https://github.com/commercialhaskell/stackage/issues/5124
+        - constraints
         - contravariant
         - distributive
         - discrimination < 0
@@ -1220,6 +1226,7 @@ packages:
 
     "Colin Woodbury <colin@fosskers.ca> @fosskers":
         - aur
+        - aura
         - bounded-queue
         - kanji
         - language-bash
@@ -3266,7 +3273,7 @@ packages:
         - validation
 
     "Tony Day <tonyday567@gmail.com> @tonyday567":
-        - numhask
+        - numhask < 0.5 # https://github.com/commercialhaskell/stackage/issues/5382
         - numhask-array < 0
         - numhask-prelude < 0
         - numhask-space < 0
@@ -3625,7 +3632,7 @@ packages:
         - ilist
         - life-sync
         - membrain
-        - relude < 0.7 # https://github.com/commercialhaskell/stackage/issues/5361
+        - relude
         - shellmet
         - shortcut-links
         - summoner
@@ -3869,10 +3876,10 @@ packages:
         - heist < 0 # GHC 8.4 via map-syntax
         - snap < 0 # GHC 8.4 via base-4.11.0.0
         - conferer
-        # - conferer-snap # Because snap
+        #- conferer-snap # Because snap
         - conferer-warp
         - conferer-hspec
-        - conferer-provider-json
+        - conferer-source-json
 
     "Tim Humphries <tim+stackage@utf8.me> @thumphries":
         - transformers-either < 0 # via exceptions-0.10.0
@@ -4038,7 +4045,7 @@ packages:
         - secp256k1-haskell
         - rocksdb-haskell
         - rocksdb-query
-        - haskoin-core
+        - haskoin-core < 0.13.5 # https://github.com/haskoin/haskoin-core/issues/385
         - haskoin-node
         - haskoin-store < 0 # https://github.com/haskoin/haskoin-store/issues/12
 
@@ -4175,7 +4182,8 @@ packages:
         - minimal-configuration
 
     "Davit Nalchevanidze <d.nalchevanidze@gmail.com> @nalchevanidze":
-        - morpheus-graphql
+        - morpheus-graphql 
+        - morpheus-graphql-core
 
     "Satoshi Egi <egi@egison.org> @egisatoshi":
         - egison
@@ -4244,6 +4252,12 @@ packages:
 
     "Rickey Visinski <rickeyvisinski+hs@gmail.com> @rickeyski":
         - slack-api
+
+    "Dobromir Nikolov <dnikolovv@hotmail.com> @dnikolovv":
+        - it-has
+
+    "Gabriele Sales <gbrsales@gmail.com> @gbrsales":
+        - cabal-appimage
 
     "Grandfathered dependencies":
         - network
@@ -4403,6 +4417,7 @@ packages:
         - functor-combinators < 0 # via dependent-sum
         - generic-arbitrary
         - generics-sop-lens
+        - ghc-byteorder
         - ghc-compact
         - ghc-paths
         - ghc-prof
@@ -4814,14 +4829,8 @@ packages:
       # https://github.com/commercialhaskell/stackage/issues/5335
       - brick <0.53
 
-      # https://github.com/commercialhaskell/stackage/issues/5336
-      - colourista < 0.1.0.0
-
       # https://github.com/commercialhaskell/stackage/issues/5347
       - persistent-template < 2.8.3
-
-      # https://github.com/commercialhaskell/stackage/issues/5346
-      - validation-selective < 0.1.0.0
 
       # https://github.com/commercialhaskell/stackage/issues/5348
       - tasty < 1.3
@@ -4833,6 +4842,8 @@ packages:
       # https://github.com/commercialhaskell/stackage/issues/5351
       - pantry < 0.5
 
+      # https://github.com/commercialhaskell/path/issues/161
+      - path < 0.7.1
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of

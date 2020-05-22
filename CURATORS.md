@@ -333,14 +333,15 @@ early and hopefully the nightlies will be timely.
 
 LTS minor bumps typically are run on Sundays.
 
-### Website sync debugging (and other out of disk space errors)
+### Diskspace errors (and website sync debugging)
 
-* You can detect the problem by running `df`. If you see that `/` is out of space, we have a problem
+* You can detect the problem by running `df`. If you see that `/` is out of space, we have a problem.
 * If you see that `/var/stackage/` is out of space, you can:
+  * run `./etc/diskspace/clean-old-stack-libs.sh [nightly|lts-XX]` (hopefully sufficient)
+
+  optionally (not recommended?):
   * `rm -r /var/stackage/stackage/automated/work/lts*/unpack-dir/unpacked/`
   * `rm -r /var/stackage/stackage/automated/work/nightly/unpack-dir/unpacked/`
-* (outdated) There are many temp files inside `/home/ubuntu/stackage-server-cron` that can be cleared out occasionally
-* (outdated) You can then manually run `/home/ubuntu/stackage-server-cron.sh`, or wait for the cron job to do it
 
 ### Wiping the cache
 
