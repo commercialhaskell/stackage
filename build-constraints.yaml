@@ -3671,10 +3671,10 @@ packages:
 
     "José Lorenzo Rodríguez <jose.zap@gmail.com> @lorenzo":
         - wrecker < 0 # GHC 8.4 via ansigraph
-        - language-docker < 9.0 # https://github.com/commercialhaskell/stackage/issues/5407
+        - language-docker
         - docker-build-cacher < 0 # GHC 8.4 via turtle
         - mysql-haskell-nem < 0 # via io-streams
-        - hadolint < 1.17.7 # due to language-docker, https://github.com/commercialhaskell/stackage/issues/5407
+        - hadolint
 
     "Phil Ruffwind <rf@rufflewind.com> @Rufflewind":
         - blas-hs < 0 # MonadFail
@@ -5650,6 +5650,9 @@ expected-test-failures:
 
     # https://github.com/centromere/cacophony/issues/15
     - cacophony
+
+    # https://github.com/commercialhaskell/stackage/issues/5407
+    - hadolint
 # end of expected-test-failures
 
 # Benchmarks which are known not to build. Note that, currently we do not run
