@@ -4996,9 +4996,6 @@ skipped-tests:
     - time-compat # base-compat 0.11
     - http-media # base-4.13
 
-    # fails with ghc 8.8
-    # alex # as of alex-3.2.4
-
     # Cyclic dependencies
     - base-orphans # via hspec
 
@@ -5363,7 +5360,7 @@ skipped-tests:
 expected-test-failures:
 
     # GHC 8.4
-    - doctest # https://github.com/sol/doctest/issues/198
+    # doctest # https://github.com/sol/doctest/issues/198
 
     # Intermittent failures or unreliable. These tests may pass when
     # re-enabled, but will eventually fail again. Only remove these
@@ -5405,6 +5402,7 @@ expected-test-failures:
 
     # Requires running servers, accounts, or a specific environment.
     # These shouldn't be re-enabled unless we know a fix has been released.
+    - alex
     - GLFW-b # X
     - HTF # Requires shell script and are incompatible with sandboxed package databases
     - HaRe # # Needs ~/.ghc-mod/cabal-helper https://github.com/fpco/stackage/pull/906
