@@ -146,6 +146,7 @@ apt-get install -y \
     libzmq3-dev \
     llvm-7 \
     llvm-8 \
+    llvm-9 \
     locales \
     m4 \
     minisat \
@@ -196,9 +197,9 @@ update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
 # This version is tracked here:
 # https://ghc.haskell.org/trac/ghc/wiki/Commentary/Compiler/Backends/LLVM/Installing
 #
-# GHC 8.8 requires LLVM 7 tools (?) (specifically, llc-7 and opt-7).
-update-alternatives --install "/usr/bin/llc" "llc" "/usr/bin/llc-7" 50
-update-alternatives --install "/usr/bin/opt" "opt" "/usr/bin/opt-7" 50
+# GHC 8.10 requires LLVM 9 tools (?) (specifically, llc-9 and opt-9).
+update-alternatives --install "/usr/bin/llc" "llc" "/usr/bin/llc-9" 50
+update-alternatives --install "/usr/bin/opt" "opt" "/usr/bin/opt-9" 50
 
 # nodejs 10 (nodejs8 in bionic needs conflicting libssl10-dev)
 curl -sL https://deb.nodesource.com/setup_10.x | bash -
@@ -270,8 +271,8 @@ apt-add-repository multiverse \
     && apt-get update \
     && apt-get install -y nvidia-cuda-dev
 
-export CLANG_PURE_LLVM_LIB_DIR=/usr/lib/llvm-7/lib;
-export CLANG_PURE_LLVM_INCLUDE_DIR=/usr/lib/llvm-7/include;
+export CLANG_PURE_LLVM_LIB_DIR=/usr/lib/llvm-9/lib;
+export CLANG_PURE_LLVM_INCLUDE_DIR=/usr/lib/llvm-9/include;
 
 # protoc, for proto-lens-combinators test suite
 # Instructions from: https://google.github.io/proto-lens/installing-protoc.html
