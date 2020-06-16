@@ -4801,9 +4801,6 @@ packages:
         - Win32 == 2.6.1.0
 
     "Stackage upper bounds":
-      # https://github.com/commercialhaskell/stackage/issues/5191 - compilation failures
-      - servant < 0
-
       # https://github.com/commercialhaskell/stackage/issues/5306
       - arithmoi < 0.11.0.0
 
@@ -4837,6 +4834,11 @@ packages:
 
       # https://github.com/commercialhaskell/stackage/issues/5424
       - smallcheck < 1.2.0
+
+    "GHC 8.10":
+
+      # https://github.com/commercialhaskell/stackage/issues/5191 - compilation failures
+      - servant < 0
 
       # haddock-library-1.9.0 ([changelog](http://hackage.haskell.org/package/haddock-library-1.9.0/changelog)) (Alex Biehl <alexbiehl@gmail.com> @alexbiehl) is out of bounds for:
       - pandoc < 0
@@ -4924,8 +4926,6 @@ packages:
       - brittany < 0
 
 
-
-# TEMP
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
@@ -5063,16 +5063,15 @@ skipped-builds:
 # Otherwise place them in expected-test-failures.
 skipped-tests:
 
-    # TEMP ghc 8.10
-    - simple-vec3
-    - static-text
-    - monad-par
-
     # Outdated dependencies
     # These can periodically be checked for updates;
-    # just remove these lines and run `stackage-curator check' to verify.
+    # just remove these lines and run `./check' to verify.
     - time-compat # base-compat 0.11
     - http-media # base-4.13
+    - simple-vec3 # ghc 8.10
+    - static-text # ghc 8.10
+    - monad-par # ghc 8.10
+
 
     # Cyclic dependencies
     - base-orphans # via hspec
