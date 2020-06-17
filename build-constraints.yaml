@@ -552,8 +552,8 @@ packages:
 
     "Aleksey Uimanov <s9gf4ult@gmail.com> @s9gf4ult":
         # - postgresql-query # build errors
-        - hreader
-        - hset
+        - hreader < 0 # via hset
+        - hset < 0 # via type-fun
 
     "Aaron Taylor <aaron@hamsterdam.co> @hamsterdam":
         - kawhi
@@ -2769,7 +2769,7 @@ packages:
         - open-browser
 
     "Denis Redozubov <denis.redozubov@gmail.com> @dredozubov":
-        - hreader-lens
+        - hreader-lens < 0 # via hreader
         - schematic < 0 # GHC 8.4 via base-4.11.0.0
 
     "Yuji Yamamoto <whosekiteneverfly@gmail.com> @igrep":
@@ -4683,7 +4683,7 @@ packages:
         - trivial-constraint < 0 # ghc 8.10.1 https://github.com/commercialhaskell/stackage/issues/5447
         - true-name < 0 # MonadFail
         - tuple-th
-        - type-fun
+        - type-fun < 0 # ghc 8.10.1 https://github.com/commercialhaskell/stackage/issues/5448
         - type-hint
         - uglymemo
         - unbounded-delays
