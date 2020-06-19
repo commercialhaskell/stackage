@@ -106,9 +106,15 @@ LTS_MINOR="${LTS_VERSION#*.}"
 # Determine latest LTS version
 #
 
-mkdir -p $HOME/.local/bin
-curl -o $HOME/.local/bin/jq -L https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
-chmod +x $HOME/.local/bin/jq
+if [[ ! -x "$HOME/.local/bin/jq" ]]; then
+    mkdir -p $HOME/.local/bin
+    if [[ "$(uname)" = "Darwin" ]]; then
+        curl -o $HOME/.local/bin/jq -L https://github.com/stedolan/jq/releases/download/jq-1.6/jq-osx-amd64
+    else
+        curl -o $HOME/.local/bin/jq -L https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
+    fi
+    chmod +x $HOME/.local/bin/jq
+fi
 
 LATEST_LTS_SLUG=$($HOME/.local/bin/jq -r ".[\"lts\"]" $SNAPSHOTS)
 LATEST_LTS_VERSION="${LATEST_LTS_SLUG#lts-}"
