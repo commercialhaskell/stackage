@@ -475,7 +475,7 @@ packages:
         - coercible-utils < 0 # ghc 8.10
         - hspec-parsec
         - checkers
-        - hnix
+        - hnix < 0 # https://github.com/haskell-nix/hnix/issues/651
         - hashing
         - hnix-store-core
         - monadlist
@@ -3378,10 +3378,10 @@ packages:
         - wai-middleware-auth < 0 # via hoauth2
         # - hip # lens 4.16 via diagrams/chart
         - massiv
-        - massiv-io
+        - massiv-io < 0.3.0.0 # https://github.com/lehins/massiv-io/issues/1
         - massiv-test
         - scheduler
-        - Color
+        - Color < 0.2.0 # https://github.com/commercialhaskell/stackage/issues/5475
         - safe-decimal
         - flush-queue
         - pvar
@@ -5502,7 +5502,7 @@ expected-test-failures:
     - crypto-pubkey # https://github.com/vincenthz/hs-crypto-pubkey/issues/23
     - doctest-discover # 0.1.0.9 https://github.com/karun012/doctest-discover/issues/22
     - doctest
-    - hnix # https://github.com/commercialhaskell/stackage/issues/5469
+    - hnix # (tests) https://github.com/commercialhaskell/stackage/issues/5469
 
     # Assertion failures, these can be real bugs or just limitations
     # in the test cases.
