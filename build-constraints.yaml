@@ -480,6 +480,7 @@ packages:
         - hnix-store-core
         - monadlist
         - ref-tf
+        - unordered-containers
 
     "Joe M <joe9mail@gmail.com> @joe9":
         - logger-thread < 0 # via protolude
@@ -4708,7 +4709,6 @@ packages:
         - universe-instances-trans
         - universe-reverse-instances
         - unix-time
-        - unordered-containers
         - url
         - utf8-light
         - utf8-string
@@ -4845,9 +4845,6 @@ packages:
 
       # https://github.com/commercialhaskell/stackage/issues/5424
       - smallcheck < 1.2.0
-
-      # https://github.com/commercialhaskell/stackage/issues/5449
-      - unordered-containers < 0.2.11
 
       # https://github.com/commercialhaskell/stackage/issues/5466
       - cryptonite < 0.27
@@ -5221,7 +5218,6 @@ skipped-tests:
     - skylighting-core
     - speedy-slice
     - thyme
-    - unordered-containers
     - unordered-intmap
     - vector-builder
     - wai-cors
@@ -5660,7 +5656,6 @@ expected-test-failures:
 expected-benchmark-failures:
     # Recursive deps https://github.com/fpco/stackage/issues/1818
     - hashable
-    - unordered-containers # 0.2.7.1 unordered-containers:bench -> criterion:lib -> aeson:lib -> unordered-containers:lib
 
     # Missing files in sdist
 
@@ -5748,7 +5743,6 @@ skipped-benchmarks:
     - ttrie # criterion-plus and th-pprint
     - tz # criterion 1.5
     - unicode-transforms # path-io
-    - unordered-containers # criterion 1.5
     - xxhash-ffi # ghc 8.4 via xxhash build failure
     - typerep-map # via https://github.com/commercialhaskell/stackage/issues/4541
 
