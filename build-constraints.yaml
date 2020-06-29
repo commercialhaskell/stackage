@@ -475,7 +475,7 @@ packages:
         - coercible-utils < 0 # ghc 8.10
         - hspec-parsec
         - checkers
-        - hnix < 0 # https://github.com/haskell-nix/hnix/issues/651
+        - hnix
         - hashing
         - hnix-store-core
         - monadlist
@@ -3071,24 +3071,24 @@ packages:
         - sum-type-boilerplate
 
     "Iñaki García Etxebarria <garetxe@gmail.com> @garetxe":
-        - haskell-gi <0.24.0
-        - haskell-gi-base <0.24.0
-        - gi-atk <2.0.22
-        - gi-cairo <1.0.24
-        - gi-dbusmenu <0.4.8
-        - gi-dbusmenugtk3 <0.4.9
-        - gi-gdk < 3.0.23
-        - gi-gdkpixbuf <2.0.24
-        - gi-gdkx11 < 3.0.10
-        - gi-gio <2.0.27
-        - gi-glib <2.0.24
-        - gi-gobject <2.0.23
-        - gi-graphene <1.0.2
-        - gi-gtk <3.0.34
-        - gi-gtk-hs <0.3.9
-        - gi-pango <1.0.23
-        - gi-xlib <2.0.9
-        - gi-harfbuzz <0 # system library constraint
+        - haskell-gi <0.24.0        # }
+        - haskell-gi-base <0.24.0   # }
+        - gi-atk <2.0.22            # }
+        - gi-cairo <1.0.24          # }
+        - gi-dbusmenu <0.4.8        # }
+        - gi-dbusmenugtk3 <0.4.9    # }
+        - gi-gdk < 3.0.23           # }
+        - gi-gdkpixbuf <2.0.24      # }
+        - gi-gdkx11 < 3.0.10        # } gi-harfbuzz (below)
+        - gi-gio <2.0.27            # }
+        - gi-glib <2.0.24           # }
+        - gi-gobject <2.0.23        # }
+        - gi-graphene <1.0.2        # }
+        - gi-gtk <3.0.34            # }
+        - gi-gtk-hs <0.3.9          # }
+        - gi-pango <1.0.23          # }
+        - gi-xlib <2.0.9            # }
+        - gi-harfbuzz <0            # https://github.com/haskell-gi/haskell-gi/issues/299
         # - gi-gdk < 4
         # - gi-gdkx11 < 4
         # - gi-gtk < 4
@@ -4175,9 +4175,9 @@ packages:
     "Ivan Malison <IvanMalison@gmail.com> @IvanMalison":
         - ConfigFile
         - dbus-hslogger
-        - gi-cairo-connector <0 # oops gi-cairo-connector
-        - gi-cairo-render <0 # oops
-        - gtk-sni-tray <0 # oops gi-cairo-connector
+        - gi-cairo-connector <0 # needs gi-cairo-render
+        - gi-cairo-render <0    # https://github.com/cohomology/gi-cairo-render/issues/3
+        - gtk-sni-tray <0       # needs gi-cairo-render
         - gtk-strut
         - rate-limit
         - status-notifier-item
