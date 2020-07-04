@@ -28,7 +28,7 @@ main = do
 
     extractNameInternal :: String -> String
     extractNameInternal p =
-      let (name,match,internal) = p =~ "-[0-9.]+-[0-9A-Za-z]{20,22}" :: (String, String, String)
+      let (name,match,internal) = p =~ "-[0-9.]+-[0-9A-Za-z]{19,22}" :: (String, String, String)
       in if null match || null name then error $ p ++ " not in correct name-version-hash format"
          else name ++ internal
 
