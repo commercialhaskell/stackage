@@ -11,6 +11,10 @@ import System.Directory
 import System.FilePath
 import Text.Regex.TDFA
 
+-- keep 2 latest builds
+keepBuilds :: Int
+keepBuilds = 2
+
 main = do
   files <- sort <$> listDirectory "."
   let (dynlibs,libdirs) = partition (".so" `isExtensionOf`) files
@@ -42,8 +46,7 @@ main = do
     removeDashSegment = dropWhileEnd (/= '-')
 
     removeOlder remover files = do
-      -- keep 2 latest builds
-      oldfiles <- drop 2 . reverse <$> sortByAge files
+      oldfiles <- drop keepBuilds . reverse <$> sortByAge files
       mapM_ remover oldfiles
 
     sortByAge files = do
