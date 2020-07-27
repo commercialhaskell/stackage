@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+# Script to verify a package to build successfully
+# Provide pacakge name by the first argument
+#
+# Example:
+#  ./verify-package mtl
+# or
+#  ./verify-package mtl-2.2.2
+
+set -eu
+
+die() {
+    >&2 echo "$1"
+    exit 1
+}
+
+package="${1:-}"
+if [[ -z $package ]]; then
+    die "Package name is not given"
+fi
+
+
+here="$(cd "$(dirname "$0")" > /dev/null; pwd)"
+dir="$(mktemp -d tmp.XXXX)"
+
+exit() {
+    cd "$here"
+    rm -rf "$dir"
+}
+trap exit EXIT
+
+cd "$dir"
+stack unpack "$package"
+cd "$(ls | head -n 1)"
+rm -f stack.yaml
+stack init --resolver nightly
+stack build --resolver nightly --haddock --test --bench --no-run-benchmarks
+
+
+cat <<EOF
+
+
+ 🎉 It looks good!
+
+EOF
