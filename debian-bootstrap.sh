@@ -161,6 +161,7 @@ apt-get install -y \
     python3-scipy \
     r-base \
     r-base-dev \
+    rpm \
     ruby-dev \
     software-properties-common \
     sudo \

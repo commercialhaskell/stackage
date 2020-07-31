@@ -492,6 +492,12 @@ packages:
         - monadlist
         - ref-tf
         - unordered-containers
+        - prettyprinter < 1.7.0 # https://github.com/commercialhaskell/stackage/issues/5558
+        - prettyprinter-ansi-terminal
+        - prettyprinter-compat-wl-pprint
+        - prettyprinter-compat-ansi-wl-pprint
+        - prettyprinter-compat-annotated-wl-pprint
+        - prettyprinter-convert-ansi-wl-pprint
 
     "Joe M <joe9mail@gmail.com> @joe9":
         - logger-thread < 0 # via protolude
@@ -711,6 +717,7 @@ packages:
     "Brandon Barker <brandon.barnnker@gmail.com> @bbarker":
         - unexceptionalio
         - unexceptionalio-trans
+        - zio
 
     "Omari Norman <omari@smileystation.com> @massysett":
         - rainbow
@@ -2682,7 +2689,6 @@ packages:
 
     "Stanislav Chernichkin <schernichkin@gmail.com> @schernichkin":
         - partial-isomorphisms
-        - vinyl < 0 # kind stuff
 
     "Christoph Breitkopf <chbreitkopf@gmail.com> @bokesan":
         - IntervalMap
@@ -2749,11 +2755,6 @@ packages:
     "David Luposchainsky <dluposchainsky (λ) googles email service> @quchen":
         - pgp-wordlist
         - show-prettyprint < 0 # via trifecta
-        - prettyprinter
-        - prettyprinter-ansi-terminal
-        - prettyprinter-compat-wl-pprint
-        - prettyprinter-compat-ansi-wl-pprint
-        - prettyprinter-compat-annotated-wl-pprint
 
     "Jeremy Shaw <jeremy@n-heptane.com> @stepcut":
         - boomerang < 0 # GHC 8.4 via template-haskell-2.13.0.0
@@ -2991,7 +2992,7 @@ packages:
         - antiope-sqs < 0 # ghc 8.10 via amazonka
         - arbor-lru-cache
         - arbor-postgres < 0 # generic-lens 2.0.0.0
-        - asif < 0 # hw-ip due to generic-lens 2.0.0.0
+        - asif
         - avro
         - bits-extra
         - hw-balancedparens
@@ -3007,7 +3008,7 @@ packages:
         - hw-hedgehog
         - hw-hspec-hedgehog
         - hw-int
-        - hw-ip < 0 # generic-lens 2.0.0.0
+        - hw-ip
         - hw-json < 0 # generic-lens 2.0.0.0
         - hw-json-simple-cursor < 0 # generic-lens 2.0.0.0
         - hw-json-standard-cursor < 0 # generic-lens 2.0.0.0
@@ -4326,6 +4327,15 @@ packages:
 
     "Dominik Schrempf <dominik.schrempf@gmail.com> @dschrempf":
         - pava
+        - elynx-nexus
+        - elynx-markov
+        - elynx-seq
+        - elynx-tools
+        - elynx-tree
+        - slynx
+        - tlynx
+        - elynx
+        - mcmc
 
     "Eric Rochester <erochest@gmail.com> @erochest":
         - text-regex-replace
@@ -4592,7 +4602,7 @@ packages:
         - mono-traversable-instances
         - mono-traversable-keys
         - multiset
-        - mwc-random
+        - mwc-random < 0.15.0.0  # https://github.com/commercialhaskell/stackage/issues/5557
         - names-th
         - nanospec
         - nettle
@@ -4920,6 +4930,7 @@ packages:
 
       # https://github.com/commercialhaskell/stackage/issues/5540
       - recursion-schemes < 5.2
+      - stackcollapse-ghc < 0.0.1.3
 
 # end of packages
 
@@ -5193,7 +5204,6 @@ skipped-tests:
     - hw-balancedparens # via QuickCheck-2.12.6.1, via hspec-2.6.0
     - hw-bits # via QuickCheck-2.12.6.1
     - hw-excess # via QuickCheck-2.12.6.1, via hspec-2.6.0
-    - hw-ip # via hspec-2.6.0
     - hw-json # via hspec-2.6.0
     - hw-prim # via QuickCheck-2.12.6.1, via hspec-2.6.0
     - hw-rankselect # via QuickCheck-2.12.6.1, via hspec-2.6.0
@@ -5426,9 +5436,6 @@ skipped-tests:
 
     # https://github.com/commercialhaskell/stackage/issues/5302
     - registry
-
-    # https://github.com/commercialhaskell/stackage/issues/5550
-    - rpmbuild-order
 # end of skipped-tests
 
 # Tests listed in expected-test-failures configure correctly but may fail to run
@@ -5476,12 +5483,12 @@ expected-test-failures:
 
     # Requires running servers, accounts, or a specific environment.
     # These shouldn't be re-enabled unless we know a fix has been released.
-    - alex
     - GLFW-b # X
     - HTF # Requires shell script and are incompatible with sandboxed package databases
     - HaRe # # Needs ~/.ghc-mod/cabal-helper https://github.com/fpco/stackage/pull/906
     - IPv6DB
     - accelerate-bignum # CUDA GPU
+    - alex
     - amqp
     - aws # AWS Credentials
     - beam-postgres # requires Postgress instance
@@ -5498,6 +5505,9 @@ expected-test-failures:
     - dbcleaner # Requires running PostgreSQL server
     - dbmigrations # PostgreSQL
     - drifter-postgresql # PostgreSQL
+    - elynx-markov  # https://github.com/commercialhaskell/stackage/pull/5556
+    - elynx-seq  # https://github.com/commercialhaskell/stackage/pull/5556
+    - elynx-tree  # https://github.com/commercialhaskell/stackage/pull/5556
     - esqueleto # mysql and postgresql
     - etcd # etcd https://github.com/fpco/stackage/issues/811
     - eventful-dynamodb
@@ -5645,16 +5655,12 @@ expected-test-failures:
     - relude # doctest fails due to GHC bugs, will be fixed in the next `relude` release
     - stm-delay # https://github.com/joeyadams/haskell-stm-delay/issues/5
     - tmp-postgres # https://github.com/jfischoff/tmp-postgres/issues/1
-    - prettyprinter # Could not load module ‘Test.QuickCheck.Modifiers’ (member of the hidden package ‘QuickCheck-2.13.2’)
 
     # https://github.com/pruvisto/heap/issues/11
     - heap
 
     # https://github.com/commercialhaskell/stackage/issues/4289
     - Diff
-
-    # https://github.com/commercialhaskell/stackage/issues/4294
-    - asif
 
     # to get fixed in version after 0.3.2 https://github.com/snoyberg/tar-conduit/issues/28
     - tar-conduit
@@ -5902,7 +5908,6 @@ skipped-benchmarks:
     - openpgp-asciiarmor
     - phantom-state
     - pretty-simple
-    - prettyprinter
     - prometheus-client
     - ramus
     - reinterpret-cast
@@ -6000,6 +6005,9 @@ skipped-benchmarks:
     # @phadej
     - dlist-nonempty # criterion-1.3
     - splitmix # criterion-1.3
+    # @sjakobi
+    - prettyprinter
+    - prettyprinter-ansi-terminal # https://github.com/commercialhaskell/stackage/issues/5560
 
     # Due to cycles, which are actually just limitations in Stack right now.
     - criterion
