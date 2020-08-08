@@ -5076,9 +5076,6 @@ skipped-tests:
     - monad-par # ghc 8.10
 
 
-    # Cyclic dependencies
-    - base-orphans # via hspec
-
     # test-framework per ghc 8.8
     - extensible-effects # via test-framework
     - stm-conduit # via test-framework
@@ -5411,6 +5408,9 @@ skipped-tests:
     - js-flot
     - js-jquery
     - splitmix
+    - base-orphans # via hspec
+    - distributive # via hspec
+    - bifunctors # via hspec
 
     # Requires filesystem access
     - json-autotype
@@ -5431,6 +5431,8 @@ skipped-tests:
 
     # TODO
     - rpmbuild-order
+
+
 # end of skipped-tests
 
 # Tests listed in expected-test-failures configure correctly but may fail to run
