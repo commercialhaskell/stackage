@@ -621,7 +621,7 @@ packages:
     "Michael Snoyman michael@snoyman.com @snoyberg":
         - bzlib-conduit
         - case-insensitive
-        - classy-prelude-yesod
+        - classy-prelude-yesod < 0 # aeson 1.5 via yesod
         - conduit-combinators
         - conduit-extra
         - hebrew-time
@@ -631,20 +631,20 @@ packages:
         - mime-types
         - network-conduit-tls
         - persistent
-        - persistent-mysql
-        - persistent-postgresql
-        - persistent-sqlite
-        - persistent-template < 2.8.3 # https://github.com/commercialhaskell/stackage/issues/5347
-        - persistent-test # https://github.com/commercialhaskell/stackage/pull/4492
+        - persistent-mysql < 0 # aeson 1.5
+        - persistent-postgresql < 0 # aeson 1.5
+        - persistent-sqlite < 0 # aeson 1.5
+        - persistent-template < 0 # https://github.com/commercialhaskell/stackage/issues/5347 & aeson 1.5
+        - persistent-test < 0 # aeson 1.5 # https://github.com/commercialhaskell/stackage/pull/4492
         # - stackage-curator # http-conduit 2.3 via amazonka
         - store < 0 # via store-core
         - wai-extra
         - wai-websockets
         - warp-tls
-        - yesod
+        - yesod < 0 # aeson 1.5 via yesod-persistent
         - authenticate
         - html-conduit
-        - yesod-auth
+        - yesod-auth < 0 # aeson 1.5 via yesod-persistent
         - authenticate-oauth
         - yesod-bin
         - yesod-eventsource < 0 # via yesod-core
@@ -708,7 +708,7 @@ packages:
         - githash
 
         - time-manager
-        - pantry
+        - pantry < 0 # aeson 1.5
         - mega-sdist < 0 # Cabal issues
         - http-download
         - hi-file-parser
@@ -797,7 +797,7 @@ packages:
         - tldr
         - fb
         - yesod-fb
-        - yesod-auth-fb
+        - yesod-auth-fb < 0 # aeson 1.5 via yesod-persistent via yesod-auth
         - hourglass-orphans
         - wai-slack-middleware
         - sysinfo
@@ -1345,7 +1345,7 @@ packages:
         - hledger
         - hledger-lib
         - hledger-ui
-        - hledger-web
+        - hledger-web < 0 # aeson 1.5 via yesod-persistent via yesod-form
         #
         - quickbench < 0 # via docopt
         - regex-compat-tdfa
@@ -1381,7 +1381,7 @@ packages:
         - mysql-simple
         - sphinx < 0 # Could not find module Network
         - xmlhtml < 0 # GHC 8.4 via hspec-2.5.0
-        - yesod-auth-hashdb
+        - yesod-auth-hashdb < 0 # aeson 1.5 via yesod-persistent
 
     "Toralf Wittner <tw@dtex.org> @twittner":
         - bytestring-conversion
@@ -2355,11 +2355,11 @@ packages:
         - smtp-mail < 0 # https://github.com/jhickner/smtp-mail/issues/24#issuecomment-499601949
         - liboath-hs < 0 # via inline-c-0.8.0.1
         - servant-quickcheck < 0
-        - esqueleto
+        - esqueleto < 0 # aeson 1.5
         - hedgehog-fakedata
-        - persistent-typed-db
-        - persistent-qq
-        - persistent-pagination
+        - persistent-typed-db < 0 # aeson 1.5
+        - persistent-qq < 0 # aeson 1.5
+        - persistent-pagination < 0 # aeson 1.5
         - hspec-hedgehog
 
     "Matthew Pickering <matthewtpickering@gmail.com> @mpickering":
@@ -3488,8 +3488,8 @@ packages:
         - haskell-import-graph
         - string-transform
         - uniq-deep
-        - yesod-form-bootstrap4
-        - yesod-recaptcha2
+        - yesod-form-bootstrap4 < 0 # aeson 1.5 via yesod-persistent via yesod-form
+        - yesod-recaptcha2 < 0 # aeson 1.5 via yesod-persistent via yesod-form
 
     "Andrei Barbu <andrei@0xab.com> @abarbu":
         - nondeterminism
@@ -4576,7 +4576,7 @@ packages:
         - io-streams-haproxy
         - ixset-typed
         - json < 0 # via base-4.13.0.0
-        - json-alt
+        - json-alt < 0 # aeson 1.5
         - kleene < 0 # via regex-applicative
         - language-haskell-extract < 0 # ghc 8.10
         - largeword
@@ -4816,8 +4816,8 @@ packages:
         - yeshql-core < 0 # MonadFail
         - yeshql-hdbc < 0 # via HDBC
         - yesod-core
-        - yesod-form
-        - yesod-persistent
+        - yesod-form < 0 # aeson 1.5 via yesod-persistent
+        - yesod-persistent < 0 # aeson 1.5
         - zlib
         - zlib-bindings
 
@@ -4887,7 +4887,7 @@ packages:
       - network < 3.1.2.0
 
       # https://github.com/commercialhaskell/stackage/issues/5571
-      - aeson < 1.5.0.0
+      - aeson < 1.5.3.0
       - strict-base-types < 0.7
 
       # https://github.com/commercialhaskell/stackage/issues/5566
