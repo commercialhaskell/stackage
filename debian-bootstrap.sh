@@ -169,7 +169,6 @@ apt-get install -y \
     unixodbc-dev \
     wget \
     xclip \
-    z3 \
     zip \
     zlib1g-dev \
     zsh
@@ -309,6 +308,16 @@ cmake \
   ..
 sudo make install
 popd
+
+Z3_VER=4.8.8
+(
+  cd /usr/local/ \
+    && wget https://github.com/Z3Prover/z3/releases/download/z3-${Z3_VER}/z3-${Z3_VER}-x64-ubuntu-16.04.zip \
+    && unzip z3-${Z3_VER}-x64-ubuntu-16.04.zip \
+    && rm z3-${Z3_VER}-x64-ubuntu-16.04.zip \
+    && ln -s /usr/local/z3-${Z3_VER}-x64-ubuntu-16.04/bin/z3 /usr/bin/z3
+)
+
 
 # EOF: don't build anything below this line
 
