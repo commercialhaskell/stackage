@@ -213,8 +213,7 @@ major version number (e.g., lts3 for lts-3.\*).
 Note that when starting a new LTS major release, you'll need to modify Docker
 Hub to create a new Docker tag for the relevant branch name.
 
-You'll need to update both the `PATH` in `Dockerfile` and the `GHCVER` variable
-in `debian-bootstrap.sh`.
+Update `GHCVER` in `Dockerfile`. (This env var automatically gets passed to `debian-bootstrap.sh`.)
 
 Ensure that the [global-hints.yaml
 file](https://github.com/fpco/stackage-content/blob/master/stack/global-hints.yaml)
