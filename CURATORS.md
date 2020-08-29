@@ -249,7 +249,7 @@ DIR=$(mktemp -d)
 (cd $DIR \
   && git clone https://github.com/commercialhaskell/stackage \
   && cd stackage \
-  && git checkout $BRANCH
+  && git checkout $BRANCH \
   && docker build --tag commercialhaskell/stackage:$BRANCH .)
 rm -rf $DIR
 ```
