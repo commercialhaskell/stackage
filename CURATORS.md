@@ -234,10 +234,14 @@ docker rmi $(docker images -q)
 
 but `docker pull commercialhaskell/stackage:nightly` can also be run instead just to update the nightly image say.
 
-For a new GHC version you should also delete the cache directories on the stackage-build server to
-force all packages to be rebuilt. See: [issue#746](https://github.com/commercialhaskell/stackage/issues/746). Eg:
+For a new GHC version you should also delete the ~~cache~~ .stack-work snapshot install directories on the stackage-build server to
+~~force all packages to be rebuilt~~ clear up some space. See: [issue#746](https://github.com/commercialhaskell/stackage/issues/746). Eg:
+
 ```
-rm -r nightly/work/builds/nightly/
+# for example
+SNAP_SERIES=nightly # or lts16 
+OLD_GHCVER=8.10.1
+rm -r work/$SNAP_SERIES/unpack-dir/.stack-work/install/x86_64-linux/*/$OLD_GHCVER/
 ```
 This should also be done when moving the Nightly docker image to a new version of Ubuntu.
 
