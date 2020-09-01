@@ -3,7 +3,7 @@ Checklist:
 - [ ] At least 30 minutes have passed since uploading to Hackage
 - [ ] On your own machine, you have successfully run the following command (replace `$package` with the name of the package that is submitted, and `$version` with the version of the package you want to get into Stackage):
 
-      ./verify-package $pacakge # or $package-$version
+      ./verify-package $package # or $package-$version
 
 The script runs virtually the following commands in a clean directory:
 
