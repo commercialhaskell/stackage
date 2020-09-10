@@ -94,6 +94,7 @@ apt-get install -y \
     liblapack-dev \
     libleveldb-dev \
     liblmdb-dev \
+    liblz4-tool \
     liblzma-dev \
     libmagic-dev \
     libmagickcore-dev \
