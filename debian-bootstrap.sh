@@ -90,6 +90,7 @@ apt-get install -y \
     libimlib2-dev \
     libjack-jackd2-dev \
     libjavascriptcoregtk-4.0-dev \
+    libjansson-dev \
     libjudy-dev \
     liblapack-dev \
     libleveldb-dev \
@@ -317,6 +318,20 @@ Z3_VER=4.8.8
     && unzip z3-${Z3_VER}-x64-ubuntu-16.04.zip \
     && rm z3-${Z3_VER}-x64-ubuntu-16.04.zip \
     && ln -s /usr/local/z3-${Z3_VER}-x64-ubuntu-16.04/bin/z3 /usr/bin/z3
+)
+
+LIBJWT_VER=1.12.0
+(
+pushd /tmp \
+    && wget https://github.com/benmcollins/libjwt/archive/v${LIBJWT_VER}.zip \
+    && unzip v${LIBJWT_VER}.zip \
+    && pushd libjwt-${LIBJWT_VER} \
+       && autoreconf -fiv \
+       && ./configure --disable-valgrind --disable-doxygen-doc \
+       && make \
+       && sudo make install \
+       && popd \
+    && popd 
 )
 
 
