@@ -327,7 +327,7 @@ pushd /tmp \
     && unzip v${LIBJWT_VER}.zip \
     && pushd libjwt-${LIBJWT_VER} \
        && autoreconf -fiv \
-       && ./configure --disable-valgrind --disable-doxygen-doc \
+       && ./configure --disable-valgrind --disable-doxygen-doc --prefix /usr \
        && make \
        && sudo make install \
        && popd \
