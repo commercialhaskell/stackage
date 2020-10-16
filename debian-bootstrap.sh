@@ -320,7 +320,7 @@ Z3_VER=4.8.8
     && ln -s /usr/local/z3-${Z3_VER}-x64-ubuntu-16.04/bin/z3 /usr/bin/z3
 )
 
-LIBJWT_VER=1.12.0
+LIBJWT_VER=1.12.1
 (
 pushd /tmp \
     && wget https://github.com/benmcollins/libjwt/archive/v${LIBJWT_VER}.zip \
