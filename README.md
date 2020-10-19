@@ -88,6 +88,18 @@ The following describes at a high level the series of steps for processing
 Frequently Asked Questions
 --------------------------
 
+__Why is Stackage LTS still on an older version of GHC?__
+
+Typically it takes some months from a new major ghc release before
+the Haskell ecosystem supports it fully enough that we can push it
+to a new stable Stackage major version release. The lag for minor ghc releases
+should be less but it still requires extra work and there is usually
+some delay, but this also allows for sufficient community testing before updating.
+
+eg Currently there is a 8.10.2 issue with linking on Windows.
+Once 8.10.3 is out and we are satisfied it is working well in Nightly
+we will plan to move to release LTS 17 based on ghc-8.10.
+
 __Why does Stackage have an older version of a package than Hackage?__
 
 There are a number of answers to this question:
