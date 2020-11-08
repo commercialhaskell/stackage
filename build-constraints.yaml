@@ -688,7 +688,7 @@ packages:
 
         - alex
         - async
-        - base16-bytestring < 1 # https://github.com/commercialhaskell/stackage/issues/5649
+        - base16-bytestring
         - csv-conduit < 0 # ghc 8.10
         - executable-hash < 0 # via cryptohash
         - executable-path
@@ -4748,7 +4748,7 @@ packages:
         - relapse
         - relational-schemas
         - rerebase
-        - resolv
+        - resolv < 0 # via base16-bytestring https://github.com/commercialhaskell/stackage/issues/5649
         - resource-pool
         - resourcet
         - rfc5051
@@ -5184,6 +5184,7 @@ skipped-tests:
     - simple-vec3 # ghc 8.10
     - static-text # ghc 8.10
     - monad-par # ghc 8.10
+    - avers # via base16-bytestring https://github.com/commercialhaskell/stackage/issues/5649
 
     # test-framework per ghc 8.8
     - extensible-effects # via test-framework
