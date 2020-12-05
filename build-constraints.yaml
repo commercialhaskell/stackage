@@ -3625,13 +3625,14 @@ packages:
         - proto-lens-runtime
         - proto-lens-setup
         - proto-lens
-        - proto-lens-arbitrary
+        # disabled due to QuickCheck < 2.14
+        # - proto-lens-arbitrary
         - proto-lens-optparse
         - tensorflow-test
         - pier-core < 0
         - pier < 0
         - haskeline
-        - ghc-source-gen
+        - ghc-source-gen # tests disabled due to QuickCheck < 2.14
 
     "Christof Schramm <christof.schramm@campus.lmu.de>":
         - mnist-idx
@@ -4978,11 +4979,6 @@ packages:
       # https://github.com/commercialhaskell/stackage/issues/5587
       - network < 3.1.2.0
 
-      # https://github.com/commercialhaskell/stackage/issues/5566
-      # To close this, we may need to set flags.QuickCheck.old-random = true unless we've updated to random 1.2
-      - quickcheck-instances < 0.3.24
-      - binary-instances < 1.0.1
-
       # https://github.com/commercialhaskell/stackage/issues/5349
       - typed-uuid < 0.1.0.0
 
@@ -5064,6 +5060,8 @@ packages:
 # Package flags are applied to individual packages, and override the values of
 # global-flags
 package-flags:
+    QuickCheck:
+        old-random: true
     pathtype:
         old-time: false
 
@@ -5320,6 +5318,7 @@ skipped-tests:
     - exact-pi # QuickCHeck 2.12, tasty-1.2
     - focuslist # via genvalidity, see https://github.com/commercialhaskell/stackage/pull/4436#issuecomment-475110614
     - ghc-prof # via tasty-1.2
+    - ghc-source-gen # via QuickCheck-
     - github # hspec-2.6.0, hspec-discover-2.6.0
     - hackage-security # QuickCheck
     - haddock-library # base-compat-0.10.1, hspec-2.5.1
