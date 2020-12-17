@@ -1374,21 +1374,20 @@ packages:
         - uri-encode
 
     "Simon Michael <simon@joyful.com> @simonmichael":
-        #
+        - quickbench < 0 # via docopt
+        - regex-compat-tdfa
+        - shelltestrunner
         # The hledger project aims to keep the latest release of the core
-        # hledger-lib and hledger packages in stackage nightly at all times.
-        # When other hledger-* packages have too-restrictive bounds, we prefer they
-        # be removed, rather than putting an upper bound on hledger-lib and hledger.
-        # (https://github.com/fpco/stackage/issues/3494)
-        #
+        # "hledger-lib" and "hledger" packages in stackage nightly at all times.
+        # When other hledger-* packages (or minor non-hledger packages) have
+        # incompatible bounds, we would prefer they be disabled temporarily,
+        # rather than disabling the latest hledger-lib and hledger.
+        # (https://github.com/commercialhaskell/stackage/issues/3494, 
+        #  https://github.com/commercialhaskell/stackage/issues/5779)
         - hledger
         - hledger-lib
         - hledger-ui
         - hledger-web
-        #
-        - quickbench < 0 # via docopt
-        - regex-compat-tdfa
-        - shelltestrunner
 
     "Mihai Maruseac <mihai.maruseac@gmail.com> @mihaimaruseac":
         - io-manager
@@ -5081,12 +5080,7 @@ packages:
       - persistent-typed-db < 0.1.0.2
 
       # https://github.com/commercialhaskell/stackage/issues/5779
-      - prettyprinter < 1.7.0
-      - pretty-simple < 4
-      - hledger-lib < 1.20
-      - hledger < 1.20
-      - hledger-ui < 1.20
-      - hledger-web < 1.20
+      - prettyprinter-compat-annotated-wl-pprint < 0
 
       # https://github.com/commercialhaskell/stackage/issues/5780
       - structured-cli < 2.7
@@ -6410,7 +6404,7 @@ no-revisions:
 - pantry
 - rio-prettyprint
 - hi-file-parser
-# #3706:
+# https://github.com/commercialhaskell/stackage/issues/3706:
 - hledger
 - hledger-lib
 - hledger-ui
