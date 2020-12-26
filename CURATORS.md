@@ -344,7 +344,9 @@ LTS minor bumps typically are run on Sundays.
 
 * You can detect the problem by running `df`. If you see that `/` is out of space, we have a problem.
 * If you see that `/var/stackage/` is out of space, you can:
-  * run `./etc/diskspace/clean-old-stack-libs.sh [nightly|lts-XX]` (hopefully sufficient)
+  * run `./etc/diskspace/clean-old-stack-libs.sh [nightly|lts-XX]`
+  * If that is insufficient then remove all the old builds under the previous ghc/Cabal version: 
+    * `rm -r /var/stackage/stackage/automated/work/[nightly|lts-XX]/unpack-dir/unpacked/*/.stack-work/dist/x86_64-linux/Cabal-X.Y.0.0/`
 
   optionally (not recommended?):
   * `rm -r /var/stackage/stackage/automated/work/lts*/unpack-dir/unpacked/`
