@@ -5078,6 +5078,16 @@ packages:
       # https://github.com/commercialhaskell/stackage/issues/5780
       - structured-cli < 2.7
 
+      # https://github.com/commercialhaskell/stackage/issues/5801
+      - ListLike < 0 # https://github.com/ddssff/listlike/issues/8
+      - Earley < 0
+      - debian < 0
+      - cabal-debian <0 # via debian
+      - process-extras < 0
+      - pdfinfo < 0 # via process-extra
+      - tasty-silver < 0 # via process-extras
+      - hoogle < 0 # via process-extra
+
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
@@ -5337,6 +5347,7 @@ skipped-tests:
     - clay # via hspec-discover-2.6.0
     - codec-rpm # via hspec-2.6.0
     - colour # QuickCheck-2.11.3
+    - dhall-json # tasty-silver https://github.com/commercialhaskell/stackage/issues/5801
     - drawille # hspec 2.4
     - ed25519 # QuickCheck, hlint and more
     - elynx-tree # QuickCheck-2.14
