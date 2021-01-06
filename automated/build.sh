@@ -108,7 +108,7 @@ then
         docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator update && curator constraints --target $TARGET && curator snapshot-incomplete --target $TARGET && curator snapshot"
     fi
 else
-    docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator snapshot-incomplete --target $TARGET && curator snapshot"
+    docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator snapshot"
 fi
 
 
