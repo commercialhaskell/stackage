@@ -307,7 +307,7 @@ First run `build.sh` to regenerate updated `ltsXX/work/constraints.yaml` and `lt
 
 For an LTS minor bump, you'll typically want to:
 
-* Add constraints to package `range:` fields _under_ the `source:` field in that `constraints.yaml`.
+* Add constraints to package `range:` fields _under_ the `source:` field in that `constraints.yaml`, and edit `snapshot-incomplete.yaml` to change the version used for that package, if necessary.
 * Add new packages to the `constraints.yaml` file
 * Test, benchmark, haddock failures can also be added to package fields in the `constraints.yaml` if necessary, though it should be avoided if possible for LTS.
 
