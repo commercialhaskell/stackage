@@ -1511,9 +1511,9 @@ packages:
         - interpolatedstring-perl6
         - iproute
         - missing-foreign
-        - MissingH
+        # - MissingH # due to random < 1.2: https://github.com/commercialhaskell/stackage/issues/5474
         - multimap
-        - parallel-io
+        # - parallel-io # due to random < 1.2: https://github.com/commercialhaskell/stackage/issues/5474
         - text-binary
         - Chart-cairo < 0 # GHC 8.4 via cairo
         - ghc-events
@@ -3072,7 +3072,7 @@ packages:
         - simplest-sqlite < 0 # ghc 8.10
         - warp-tls-uid
         - nowdoc
-        - HaXml
+        # - HaXml # due to random < 1.2: https://github.com/commercialhaskell/stackage/issues/5474
         - typecheck-plugin-nat-simple
         - ranged-list
 
@@ -6802,13 +6802,6 @@ packages:
       # https://github.com/commercialhaskell/path/issues/161
       - path < 0.7.1
 
-      # https://github.com/commercialhaskell/stackage/issues/5474
-      # When closing this, we may need to set flags.QuickCheck.old-random = false unless we've updated to QuickCheck 2.14.1
-      - random < 1.2.0
-      - random-fu < 0.2.7.6
-      - random-source < 0.3.0.10
-      - numhask < 0.7.0.0
-
       # https://github.com/commercialhaskell/stackage/issues/5524
       - dlist < 1.0
       - rebase < 1.7
@@ -6940,8 +6933,6 @@ packages:
 # Package flags are applied to individual packages, and override the values of
 # global-flags
 package-flags:
-    QuickCheck:
-        old-random: true
     pathtype:
         old-time: false
 
