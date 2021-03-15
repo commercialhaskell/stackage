@@ -33,16 +33,8 @@ After doing that commit with a message like "add foo-bar" and send a pull reques
 The continuous integration job will do some checks to see if your package's dependencies are up-to-date.
 
 The CI job notably doesn't compile packages, run tests, build documentation, or find missing C libraries.
-If you want to be proactive or if CI fails, you can make sure that your package builds against the latest nightly:
-
-```
-# Build from the tarball on Hackage to check for missing files
-$ stack unpack yourpackage && cd yourpackage-*
-# Generate a pristine stack.yaml, adding any missing extra-deps
-$ rm -f stack.yaml && stack init --resolver nightly
-# Build, generate docs, test, and build benchmarks
-$ stack build --resolver nightly --haddock --test --bench --no-run-benchmarks
-```
+If you want to be proactive or if CI fails, you can make sure that your package builds against the latest nightly.
+See the [verify-package](https://github.com/commercialhaskell/stackage/blob/master/verify-package) script in this repository.
 
 This approach works well, but has two limitations you should be aware
 of:
@@ -173,7 +165,7 @@ ending in `.0`), the package set is taken from Stackage Nightly. Therefore, by
 following the above steps, you can get your package into the next major LTS
 Haskell release.
 
-If you would like to get your package added to the current LTS Haskell 
+If you would like to get your package added to the current LTS Haskell
 major release, please do the following in addition to the steps for Nightly described earlier:
 
 * Check that your package can be built with the current LTS version (e.g. `stack build --test --bench --haddock --resolver lts`)
