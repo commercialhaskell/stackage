@@ -1,7 +1,7 @@
 Checklist:
 - [ ] Meaningful commit message, eg `add my-cool-package` (please not mention `build-constraints.yml`)
 - [ ] At least 30 minutes have passed since uploading to Hackage
-- [ ] On your own machine, you have successfully run the following command (replace `$package` with the name of the package that is submitted, and `$version` with the version of the package you want to get into Stackage):
+- [ ] On your own machine, you have successfully run the following command (find verify-package in the root of this repo):
 
       ./verify-package $package # or $package-$version
 
