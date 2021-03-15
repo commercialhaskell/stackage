@@ -7,7 +7,7 @@ Checklist:
 
 The script runs virtually the following commands in a clean directory:
 
-      stack unpack $package-$version  # $version is optional
+      stack unpack $package-$version # `-$version` is optional
       cd $package-$version
-      rm -f stack.yaml && stack init --resolver nightly
+      rm -f stack.yaml && stack init --resolver nightly --ignore-subdirs
       stack build --resolver nightly --haddock --test --bench --no-run-benchmarks
