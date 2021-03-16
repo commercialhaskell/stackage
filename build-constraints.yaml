@@ -1084,7 +1084,7 @@ packages:
         - faktory
         - graphula
         - hspec-expectations-json
-        - yesod-page-cursor
+        - yesod-page-cursor < 0 # https://github.com/commercialhaskell/stackage/issues/5948
 
     "Michael Gilliland @mjgpy3":
         # Freckle packages I'm maintaining for us
@@ -1465,7 +1465,7 @@ packages:
         - language-protobuf
         - generic-aeson
         - parameterized
-        - tracing-control
+        - tracing-control < 0 # https://github.com/commercialhaskell/stackage/issues/5948
         - primitive-extras
         - primitive-unlifted < 0.2
         - stm-hamt
@@ -1688,8 +1688,8 @@ packages:
         - binary-shared
         - xdg-userdirs
 
-        - codec-rpm
-        - cpio-conduit
+        - codec-rpm < 0 # via cpio-conduit
+        - cpio-conduit < 0 # https://github.com/commercialhaskell/stackage/issues/5948
 
         # please take these
         - cryptohash-md5
@@ -1754,7 +1754,7 @@ packages:
         - bitcoin-script < 0 # MonadFail
         - bitcoin-tx < 0 # via hexstring
         - bitcoin-types < 0 # via base58string & hexstring
-        - hexstring
+        - hexstring < 0 # https://github.com/commercialhaskell/stackage/issues/5948
         - network-attoparsec < 0 # MonadFail
         - network-anonymous-i2p < 0 # via network-attoparsec
         - network-anonymous-tor < 0 # build failure w/ socks 0.6, see https://github.com/solatis/haskell-network-anonymous-tor/issues/14
@@ -7714,6 +7714,14 @@ expected-test-failures:
     - email-validate # https://github.com/Porges/email-validate-hs/issues/55
     - heterocephalus # doctest requires hidden shakespeare and blaze-markup
     - iproute # doctest with hidden containers and other errors
+    - http-conduit # https://github.com/commercialhaskell/stackage/issues/5948
+    - hw-dsv # https://github.com/commercialhaskell/stackage/issues/5948
+    - relapse # https://github.com/commercialhaskell/stackage/issues/5948
+    - liquid-fixpoint # https://github.com/commercialhaskell/stackage/issues/5948
+    - secp256k1-haskell # https://github.com/commercialhaskell/stackage/issues/5948
+    - base16 # https://github.com/commercialhaskell/stackage/issues/5948
+    - prometheus-client # https://github.com/commercialhaskell/stackage/issues/5948
+
 
     # Recursive deps https://github.com/fpco/stackage/issues/1818
     - options
@@ -7831,6 +7839,11 @@ expected-test-failures:
 
     # https://github.com/unrelentingtech/hspec-expectations-pretty-diff/issues/7
     - hspec-expectations-pretty-diff
+
+    # https://github.com/commercialhaskell/stackage/issues/5878
+    # ordering because of hashable
+    - mmark
+    - mmark-ext
 
 # end of expected-test-failures
 
