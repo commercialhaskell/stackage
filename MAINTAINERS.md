@@ -28,7 +28,7 @@ it under your own name.
 
 If your package depends on a C library, please add it to the `debian-bootstrap.sh` script.
 
-After doing that commit with a message like "add foo-bar" and send a pull request.
+After doing that, commit with a message like "add foo-bar" and send a pull request.
 
 The continuous integration job will do some checks to see if your package's dependencies are up-to-date.
 
