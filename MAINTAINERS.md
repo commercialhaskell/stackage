@@ -26,7 +26,7 @@ don't maintain this package yourself it is preferable that the actual
 maintainer is also the stackage maintainer, but you are allowed to add
 it under your own name.
 
-If your library depends on a C library, please add it to the `debian-bootstrap.sh` script.
+If your package depends on a C library, please add it to the `debian-bootstrap.sh` script.
 
 After doing that commit with a message like "add foo-bar" and send a pull request.
 
