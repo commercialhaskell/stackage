@@ -26,9 +26,9 @@ don't maintain this package yourself it is preferable that the actual
 maintainer is also the stackage maintainer, but you are allowed to add
 it under your own name.
 
-If your library depends on a C library, please add it to the `debian-bootstrap.sh` script.
+If your package depends on a C library, please add it to the `debian-bootstrap.sh` script.
 
-After doing that commit with a message like "add foo-bar" and send a pull request.
+After doing that, commit with a message like "add foo-bar" and send a pull request.
 
 The continuous integration job will do some checks to see if your package's dependencies are up-to-date.
 
@@ -42,25 +42,10 @@ of:
 * It won't notify you of restrictive upper bounds in your package if
   Stackage has the same upper bounds. For that reason, we recommend
   using [Packdeps](http://packdeps.haskellers.com/) (see "Following
-  dependency upgrades" below).
+  dependency upgrades" below). You can also run `cabal outdated`.
 * If the latest Stackage Nightly is missing some of the latest
   packages, your build above may succeed whereas the Travis job may
   fail. Again: Packdeps will help you detect this situation.
-
-Alternatively, you can build with `cabal`. Note that this may end up
-using older dependency versions:
-
-```
-$ ghc --version # Should be the same as the latest nightly, it's in the title of https://www.stackage.org/nightly
-$ cabal update
-$ cabal get PACKAGE
-$ cd PACKAGE-*
-$ cabal sandbox init # Should give "Creating a new sandbox" and not "Using an existing sandbox".
-$ cabal install --enable-tests --enable-benchmarks --dry-run | grep latest # Should give no results
-$ cabal install --enable-tests --enable-benchmarks --allow-newer
-$ cabal test
-$ cabal haddock
-```
 
 ## Github and Notifications
 

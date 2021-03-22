@@ -263,7 +263,7 @@ packages:
         - butter < 0 # MonadFail
 
     "Iris Ward <aditu.venyhandottir@gmail.com> @AdituV":
-        - typenums < 0 # ghc 8.10.1 #5450/closed
+        - typenums
 
     "Jude Taylor <me@jude.xyz> @pikajude":
         - th-printf
@@ -1085,17 +1085,17 @@ packages:
         - yesod-markdown
         - yesod-paginator
 
-        # Freckle packages I'm maintaining for us
+    "Freckle Engineering <freckle-engineering@renaissance.com> @pbrisbin @halogenandtoast @mjgpy3":
         - bcp47
         - bcp47-orphans
         - faktory
         - graphula
         - hspec-expectations-json
         - yesod-page-cursor
-
-    "Michael Gilliland @mjgpy3":
-        # Freckle packages I'm maintaining for us
         - nonempty-zipper
+        - sendgrid-v3
+        - yesod-auth-oauth2
+        - hspec-junit-formatter
 
     "Felipe Lessa <felipe.lessa@gmail.com> @meteficha":
         - fb
@@ -3877,6 +3877,7 @@ packages:
         - stripe-wreq < 0 # via wreq
 
     "Viacheslav Lotsmanov <lotsmanov89@gmail.com> @unclechu":
+        - place-cursor-at
         - qm-interpolated-string
 
     "Douglas Burke <dburke.gw@gmail.com> @DougBurke":
@@ -4547,6 +4548,11 @@ packages:
 
     "Brooklyn Zelenka <hello@brooklynzelenka.com> @expede":
         - rescue
+
+    "Artem Pelenitsyn <artem.pelenitsyn@gmail.com> @ulysses4ever":
+        - alex-meta
+        - happy-meta
+        - BNFC-meta
 
     "Grandfathered dependencies":
         - Boolean
@@ -6889,6 +6895,9 @@ packages:
       # https://github.com/commercialhaskell/stackage/issues/5941
       - http-api-data < 0.4.3
 
+      # https://github.com/commercialhaskell/stackage/issues/5956
+      - pandoc < 2.13
+
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
@@ -7500,6 +7509,9 @@ skipped-tests:
     # via vector-0.12.2 https://github.com/commercialhaskell/stackage/issues/5851
     - lens
 
+    # was in expected test failures, but seems we may have to skip entirely for unknown reasons, previously: https://github.com/clash-lang/clash-compiler/issues/1622
+    - clash-prelude
+
 # end of skipped-tests
 
 # Tests listed in expected-test-failures configure correctly but may fail to run
@@ -7647,6 +7659,7 @@ expected-test-failures:
     - http-client # httpbin issues, https://github.com/snoyberg/http-client/issues/439
     - http-directory # httpbin issues, https://github.com/juhp/http-directory/issues/1
     - faktory # connection refused, https://github.com/commercialhaskell/stackage/issues/5905
+    - sendgrid-v3 # Requires sendgrid API key in env #5951/closed
 
     # Missing test files in sdist
     # Hopefully gets fixed in the next release...
@@ -7824,9 +7837,6 @@ expected-test-failures:
 
     # https://github.com/input-output-hk/bech32/issues/31
     - bech32
-
-    # https://github.com/clash-lang/clash-compiler/issues/1622
-    - clash-prelude
 
     # doctest
     - headroom
