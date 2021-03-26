@@ -63,7 +63,7 @@ BINDIR=$(cd $ROOT/work/bin ; pwd)
 cd $BINDIR
 rm -f curator stack *.bz2
 
-curl -L "https://download.fpcomplete.com/stackage-curator-2/curator-7c719d6d48839c94a79dc2ad2ace89074e3dd997.bz2" | bunzip2 > curator
+curl -L "https://github.com/commercialhaskell/curator/releases/download/commit-8bf6978fc0c3556a2c85b72b48d516ed55834d47/curator.bz2" | bunzip2 > curator
 chmod +x curator
 echo -n "curator version: "
 docker run --rm -v $(pwd)/curator:/exe $IMAGE /exe --version
