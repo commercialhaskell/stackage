@@ -1,16 +1,14 @@
 stackage
 ========
-
-[![Build Status](https://travis-ci.org/commercialhaskell/stackage.svg?branch=master)](https://travis-ci.org/commercialhaskell/stackage)
+[![check](https://github.com/commercialhaskell/stackage/actions/workflows/check.yml/badge.svg)](https://github.com/commercialhaskell/stackage/actions/workflows/check.yml)
 [![Join the chat at https://gitter.im/commercialhaskell/stackage](https://badges.gitter.im/commercialhaskell/stackage.svg)](https://gitter.im/commercialhaskell/stackage?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 "Stable Hackage": creating a vetted set of packages from Hackage.
 This repository is for package authors and maintainers to get their packages into Stackage.
 If you simply want to use Stackage as an end user, please follow the instructions on [https://www.stackage.org/](https://www.stackage.org).
 
-We strongly recommend using the Haskell tool stack for doing builds, which
-includes built-in Stackage support: [stack](https://github.com/commercialhaskell/stack) [![Build Status](https://dev.azure.com/commercialhaskell/stack/_apis/build/status/commercialhaskell.stack?branchName=master)](https://dev.azure.com/commercialhaskell/stack/_build/latest?definitionId=1?branchName=master).
-
+We strongly recommend using the Haskell [stack](https://github.com/commercialhaskell/stack) tool for doing builds, which
+includes built-in Stackage support.
 
 Add your package
 ----------------
@@ -37,22 +35,12 @@ contains the metadata on packages to be included in future builds and some
 project information. In addition, we have the following repositories:
 
 * [stackage-server](https://github.com/fpco/stackage-server) [![Build Status](https://travis-ci.org/fpco/stackage-server.svg?branch=master)](https://travis-ci.org/fpco/stackage-server)
-* [stackage-curator](https://github.com/fpco/stackage-curator) [![Build Status](https://travis-ci.org/fpco/stackage-curator.svg?branch=master)](https://travis-ci.org/fpco/stackage-curator)
-* [lts-haskell](https://github.com/fpco/lts-haskell)
-* [stackage-nightly](https://github.com/fpco/stackage-nightly)
-
-We also support some add-on tools to cabal-install to make its usage with
-Stackage both easier and more secure:
-
-* [stackage-cli](https://github.com/fpco/stackage-cli) [![Build Status](https://travis-ci.org/fpco/stackage-cli.svg?branch=master)](https://travis-ci.org/fpco/stackage-cli)
-* [stackage-update](https://github.com/fpco/stackage-update) [![Build Status](https://travis-ci.org/fpco/stackage-update.svg?branch=master)](https://travis-ci.org/fpco/stackage-update)
-* [stackage-upload](https://github.com/fpco/stackage-upload) [![Build Status](https://travis-ci.org/fpco/stackage-upload.svg?branch=master)](https://travis-ci.org/fpco/stackage-upload)
-* [stackage-install](https://github.com/fpco/stackage-install) [![Build Status](https://travis-ci.org/fpco/stackage-install.svg?branch=master)](https://travis-ci.org/fpco/stackage-install)
-* [stackage-build-plan](https://github.com/fpco/stackage-build-plan) [![Build Status](https://travis-ci.org/fpco/stackage-build-plan.svg?branch=master)](https://travis-ci.org/fpco/stackage-build-plan)
+* [curator](https://github.com/commercialhaskell/curator) [![Build Status](https://travis-ci.org/fpco/stackage-curator.svg?branch=master)](https://travis-ci.org/fpco/stackage-curator)
+* [lts-haskell](https://github.com/commercialhaskell/lts-haskell)
+* [stackage-snapshots](https://github.com/commercialhaskell/stackage-snapshots/)
 
 Curious how it all fits together? See the [Stackage data
 flow](https://github.com/commercialhaskell/stackage/blob/master/DATA-FLOW.md).
-
 
 Build the package set
 ---------------------
