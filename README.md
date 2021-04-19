@@ -3,8 +3,10 @@ stackage
 [![check](https://github.com/commercialhaskell/stackage/actions/workflows/check.yml/badge.svg)](https://github.com/commercialhaskell/stackage/actions/workflows/check.yml)
 [![Join the chat at https://gitter.im/commercialhaskell/stackage](https://badges.gitter.im/commercialhaskell/stackage.svg)](https://gitter.im/commercialhaskell/stackage?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-"Stable Hackage": creating a vetted set of packages from Hackage.
-This repository is for package authors and maintainers to get their packages into Stackage.
+Stable sets of Haskell Packages from Hackage
+
+_This repository is for package authors and maintainers to get their packages into Stackage._
+
 If you simply want to use Stackage as an end user, please follow the instructions on [https://www.stackage.org/](https://www.stackage.org).
 
 We strongly recommend using the Haskell [stack](https://github.com/commercialhaskell/stack) tool for doing builds, which
