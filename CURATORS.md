@@ -313,8 +313,6 @@ For an LTS minor bump, you'll typically want to:
 
 Then run `NOPLAN=1 build.sh` to build the generate an updated snapshot.
 
-This replaces `CONSTRAINTS=...' /var/stackage/stackage/automated/build.sh lts-x.y` for the old curator-1.
-
 If a build fails for bounds reasons, see all of the advice above. If the code
 itself doesn't build, or tests fail, open up an issue and then either put in a
 version bound to avoid that version or something else. It's difficult to give
@@ -329,7 +327,7 @@ if one needs to revert one package, say due to a build or test regression,
 one can edit `current-plan.yaml` and updated the SHA256 hash of the .cabal file,
 to avoid having to rebuild everything again.)
 
-_Sadly no longer true currently_: ~~Note LTS builds inherit the current Hackage data (stack updated for Nightly) to avoid excess extra rebuilding.~~
+Note LTS builds without NOPLAN will use the latest Hackage data.
 
 ### Timing
 
