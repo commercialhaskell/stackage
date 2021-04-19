@@ -141,8 +141,8 @@ docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator check-target-available
 # * Upload the new snapshot .yaml file to the appropriate Github repo, also upload its constraints
 docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "curator upload-docs --target $TARGET && curator upload-github --target $TARGET"
 
-# For some reason, registering on Hackage fails with inscrutable error messages. Disabling.
-# docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator hackage-distro --target $TARGET"
+# fixed in https://github.com/commercialhaskell/curator/pull/24
+docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator hackage-distro --target $TARGET"
 
 # Build and push docker image fpco/stack-build & fpco/stack-build-small for current release
 
