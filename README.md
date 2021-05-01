@@ -1,16 +1,16 @@
 stackage
 ========
-
-[![Build Status](https://travis-ci.org/commercialhaskell/stackage.svg?branch=master)](https://travis-ci.org/commercialhaskell/stackage)
+[![check](https://github.com/commercialhaskell/stackage/actions/workflows/check.yml/badge.svg)](https://github.com/commercialhaskell/stackage/actions/workflows/check.yml)
 [![Join the chat at https://gitter.im/commercialhaskell/stackage](https://badges.gitter.im/commercialhaskell/stackage.svg)](https://gitter.im/commercialhaskell/stackage?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-"Stable Hackage": creating a vetted set of packages from Hackage.
-This repository is for package authors and maintainers to get their packages into Stackage.
+Stable sets of Haskell Packages from Hackage
+
+_This repository is for package authors and maintainers to get their packages into Stackage._
+
 If you simply want to use Stackage as an end user, please follow the instructions on [https://www.stackage.org/](https://www.stackage.org).
 
-We strongly recommend using the Haskell tool stack for doing builds, which
-includes built-in Stackage support: [stack](https://github.com/commercialhaskell/stack) [![Build Status](https://dev.azure.com/commercialhaskell/stack/_apis/build/status/commercialhaskell.stack?branchName=master)](https://dev.azure.com/commercialhaskell/stack/_build/latest?definitionId=1?branchName=master).
-
+We strongly recommend using the Haskell [stack](https://github.com/commercialhaskell/stack) tool for doing builds, which
+includes built-in Stackage support.
 
 Add your package
 ----------------
@@ -20,12 +20,12 @@ We welcome all packages, provided:
 * The package author/maintainer agrees to the [maintainers agreement](https://github.com/commercialhaskell/stackage/blob/master/MAINTAINERS.md).
 * The package is buildable and testable from Hackage. We recommend [the Stack Travis script](https://docs.haskellstack.org/en/stable/travis_ci/), which ensures a package is not accidentally incomplete.
 * The package is compatible with the newest versions of all dependencies (You can find restrictive upper bounds by visiting http://packdeps.haskellers.com/feed?needle=PACKAGENAME).
-* The package is compatible with the versions of libraries that ship with GHC ([more information on lenient lower bounds](https://www.fpcomplete.com/blog/2014/05/lenient-lower-bounds)).
+* The package is compatible with the versions of libraries that ship with GHC ([more information on lenient lower bounds](https://tech.fpcomplete.com/blog/2014/05/lenient-lower-bounds)).
 
 Full details on how to add and test a package can be found in the [maintainers agreement](https://github.com/commercialhaskell/stackage/blob/master/MAINTAINERS.md#adding-a-package).
 
 __NOTE__: There is an approximate 30 minute delay between a package uploading
-to Hackage and being available to the Travis build script to check upper
+to Hackage and being available to the Github workflow action to check upper
 bounds. If a pull request is marked as failed due to using an older version,
 please close and reopen the PR to retrigger a Travis build.
 
@@ -36,23 +36,13 @@ The Stackage project consists of multiple repositories. This repository
 contains the metadata on packages to be included in future builds and some
 project information. In addition, we have the following repositories:
 
-* [stackage-server](https://github.com/fpco/stackage-server) [![Build Status](https://travis-ci.org/fpco/stackage-server.svg?branch=master)](https://travis-ci.org/fpco/stackage-server)
-* [stackage-curator](https://github.com/fpco/stackage-curator) [![Build Status](https://travis-ci.org/fpco/stackage-curator.svg?branch=master)](https://travis-ci.org/fpco/stackage-curator)
-* [lts-haskell](https://github.com/fpco/lts-haskell)
-* [stackage-nightly](https://github.com/fpco/stackage-nightly)
-
-We also support some add-on tools to cabal-install to make its usage with
-Stackage both easier and more secure:
-
-* [stackage-cli](https://github.com/fpco/stackage-cli) [![Build Status](https://travis-ci.org/fpco/stackage-cli.svg?branch=master)](https://travis-ci.org/fpco/stackage-cli)
-* [stackage-update](https://github.com/fpco/stackage-update) [![Build Status](https://travis-ci.org/fpco/stackage-update.svg?branch=master)](https://travis-ci.org/fpco/stackage-update)
-* [stackage-upload](https://github.com/fpco/stackage-upload) [![Build Status](https://travis-ci.org/fpco/stackage-upload.svg?branch=master)](https://travis-ci.org/fpco/stackage-upload)
-* [stackage-install](https://github.com/fpco/stackage-install) [![Build Status](https://travis-ci.org/fpco/stackage-install.svg?branch=master)](https://travis-ci.org/fpco/stackage-install)
-* [stackage-build-plan](https://github.com/fpco/stackage-build-plan) [![Build Status](https://travis-ci.org/fpco/stackage-build-plan.svg?branch=master)](https://travis-ci.org/fpco/stackage-build-plan)
+* [stackage-server](https://github.com/fpco/stackage-server) [![Base image](https://github.com/fpco/stackage-server/actions/workflows/base.yml/badge.svg)](https://github.com/fpco/stackage-server/actions/workflows/base.yml)
+* [curator](https://github.com/commercialhaskell/curator) [![Build Status](https://travis-ci.org/fpco/stackage-curator.svg?branch=master)](https://travis-ci.org/fpco/stackage-curator)
+* [lts-haskell](https://github.com/commercialhaskell/lts-haskell)
+* [stackage-snapshots](https://github.com/commercialhaskell/stackage-snapshots/)
 
 Curious how it all fits together? See the [Stackage data
 flow](https://github.com/commercialhaskell/stackage/blob/master/DATA-FLOW.md).
-
 
 Build the package set
 ---------------------
@@ -88,6 +78,17 @@ The following describes at a high level the series of steps for processing
 Frequently Asked Questions
 --------------------------
 
+__Why is Stackage LTS still on an older version of GHC?__
+
+Typically it takes some months from a new major ghc release before
+the Haskell ecosystem supports it fully enough that we can push it
+to a new stable Stackage major version release. There can also be
+ghc regressions that hold up a LTS major release.
+
+The lag for minor ghc releases should be less
+but it still requires extra work and there is usually some delay - this also
+allows for some community testing before updating LTS.
+
 __Why does Stackage have an older version of a package than Hackage?__
 
 There are a number of answers to this question:
@@ -109,14 +110,14 @@ There are a number of answers to this question:
   and packages depending on them - are fixed to GHC versions. Common
   examples of this are containers and transformers. There's a lot more
   information on this in
-  [an FP Complete blog post](https://www.fpcomplete.com/blog/2014/05/lenient-lower-bounds)
+  [an FP Complete blog post](https://tech.fpcomplete.com/blog/2014/05/lenient-lower-bounds)
 
 __How long do you maintain an LTS build?__
 
 We only guarantee that we will maintain a single LTS major version at
 a time, and that it will be maintained for at least three months. This
 is the
-[originally proposed support window](https://www.fpcomplete.com/blog/2014/12/backporting-bug-fixes),
+[originally proposed support window](https://tech.fpcomplete.com/blog/2014/12/backporting-bug-fixes),
 and hasn't changed since then.
 
 That said, we do maintain the capability to keep multiple LTS runs
@@ -126,4 +127,16 @@ trying to push out the bounds a bit farther.
 
 __What time are Stackage snapshots published?__
 
-Stackage Nightly and LTS are not released at a fixed time of day, they get pushed to stackage.org (and the metadata to the stackage-nightly and stackage-lts github repos) when their builds finish on the Stackage build server and the latest built haddocks have been synced over. This time varies greatly depending on build times for package updates, bounds breakage, problems with new packages being added and other build issues, etc. There are days when a release does not happen. LTS releases tend to happen over the weekend or early in the week.
+Stackage Nightly and LTS are not released at a fixed time of day, they get
+pushed to stackage.org (and the metadata to the stackage-nightly and
+stackage-lts github repos) when their builds finish on the Stackage build
+server and the latest built haddocks have been synced over. This time varies
+greatly depending on build times for package updates, bounds breakage,
+problems with new packages being added and other build issues, etc. There are
+days when a release does not happen. LTS releases tend to happen over the
+weekend or early in the week.
+
+__Where to get help regarding uploading packages?__
+
+Please ask on [Gitter](https://gitter.im/commercialhaskell/stackage) or open
+an issue or comment on the PR which uploads the package.

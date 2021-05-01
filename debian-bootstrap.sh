@@ -17,9 +17,19 @@ mkdir -p /home/stackage
 export LANG=C.UTF-8
 export DEBIAN_FRONTEND=noninteractive
 
-# Get curl
+# Get curl and unzip
 apt-get update
-apt-get install -y curl
+apt-get install -y curl unzip
+
+# Install AWS CLI
+mkdir -p /tmp/awscli
+(
+cd /tmp/awscli
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+./aws/install --bin-dir /usr/bin
+)
+rm -rf /tmp/awscli
 
 # Get Stack and GHC
 curl -sSL https://get.haskellstack.org/ | sh -s - -d /usr/bin
@@ -52,6 +62,8 @@ apt-get install -y \
     libclang-3.9-dev \
     libcurl4-openssl-dev \
     libcwiid-dev \
+    libdbusmenu-glib-dev \
+    libdbusmenu-gtk3-dev \
     libdevil-dev \
     libedit-dev \
     libedit2 \
@@ -66,6 +78,7 @@ apt-get install -y \
     libglu1-mesa-dev \
     libgmp3-dev \
     libgnutls28-dev \
+    libgraphene-1.0-dev \
     libgsasl7-dev \
     libgsl-dev \
     libgtk-3-dev \
@@ -77,10 +90,12 @@ apt-get install -y \
     libimlib2-dev \
     libjack-jackd2-dev \
     libjavascriptcoregtk-4.0-dev \
+    libjansson-dev \
     libjudy-dev \
     liblapack-dev \
     libleveldb-dev \
     liblmdb-dev \
+    liblz4-tool \
     liblzma-dev \
     libmagic-dev \
     libmagickcore-dev \
@@ -89,15 +104,16 @@ apt-get install -y \
     libmono-2.0-dev \
     libmp3lame-dev \
     libmpfr-dev \
+    libmpich-dev \
     libmysqlclient-dev \
     libncurses5-dev \
     libnfc-dev \
     liboath-dev \
     libnotify-dev \
     libopenal-dev \
-    libopenmpi-dev \
     libpango1.0-dev \
     libpcap0.8-dev \
+    libpcre2-dev \
     libpq-dev \
     libprotobuf-dev \
     libre2-dev \
@@ -130,7 +146,9 @@ apt-get install -y \
     libzip-dev \
     libzstd-dev \
     libzmq3-dev \
-    llvm-6.0 \
+    llvm-7 \
+    llvm-8 \
+    llvm-9 \
     locales \
     m4 \
     minisat \
@@ -145,6 +163,7 @@ apt-get install -y \
     python3-scipy \
     r-base \
     r-base-dev \
+    rpm \
     ruby-dev \
     software-properties-common \
     sudo \
@@ -152,7 +171,6 @@ apt-get install -y \
     unixodbc-dev \
     wget \
     xclip \
-    z3 \
     zip \
     zlib1g-dev \
     zsh
@@ -163,13 +181,13 @@ curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources
 apt-get update
 ACCEPT_EULA=Y apt-get install msodbcsql17 -y
 
-locale-gen en_US.UTF-8
+# llvm for llvm-hs
+curl https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
+add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main"
+apt-get update
+apt-get install llvm-9-dev -y
 
-# llvm-7.0 for llvm-hs (separate since it needs wget)
-wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
-    && add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-7 main" \
-    && apt-get update \
-    && apt-get install -y llvm-7
+locale-gen en_US.UTF-8
 
 # Buggy versions of ld.bfd fail to link some Haskell packages:
 # https://sourceware.org/bugzilla/show_bug.cgi?id=17689. Gold is
@@ -181,9 +199,9 @@ update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
 # This version is tracked here:
 # https://ghc.haskell.org/trac/ghc/wiki/Commentary/Compiler/Backends/LLVM/Installing
 #
-# GHC 8.6 requires LLVM 6.0 tools (specifically, llc-6.0 and opt-6.0).
-update-alternatives --install "/usr/bin/llc" "llc" "/usr/bin/llc-6.0" 50
-update-alternatives --install "/usr/bin/opt" "opt" "/usr/bin/opt-6.0" 50
+# GHC 8.10 requires LLVM 9 tools (?) (specifically, llc-9 and opt-9).
+update-alternatives --install "/usr/bin/llc" "llc" "/usr/bin/llc-9" 50
+update-alternatives --install "/usr/bin/opt" "opt" "/usr/bin/opt-9" 50
 
 # nodejs 10 (nodejs8 in bionic needs conflicting libssl10-dev)
 curl -sL https://deb.nodesource.com/setup_10.x | bash -
@@ -217,10 +235,9 @@ echo "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/" > /etc/ld.so.conf
     && ldconfig
 
 # Install erlang/otp platform and its dependencies
-ERLANG_VERSION="20.2.2"
-ERLANG_DEB_FILE="esl-erlang_21.2-1~ubuntu~bionic_amd64.deb"
+ERLANG_DEB_FILE="esl-erlang_21.1-1~ubuntu~bionic_amd64.deb"
 pushd /tmp \
-    && wget http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_1_general/${ERLANG_DEB_FILE} \
+    && wget https://packages.erlang-solutions.com/erlang/debian/pool/${ERLANG_DEB_FILE} \
     && (dpkg -i ${ERLANG_DEB_FILE}; apt-get install -yf) \
     && rm ${ERLANG_DEB_FILE} \
     && popd
@@ -256,8 +273,8 @@ apt-add-repository multiverse \
     && apt-get update \
     && apt-get install -y nvidia-cuda-dev
 
-export CLANG_PURE_LLVM_LIB_DIR=/usr/lib/llvm-6.0/lib;
-export CLANG_PURE_LLVM_INCLUDE_DIR=/usr/lib/llvm-6.0/include;
+export CLANG_PURE_LLVM_LIB_DIR=/usr/lib/llvm-9/lib;
+export CLANG_PURE_LLVM_INCLUDE_DIR=/usr/lib/llvm-9/include;
 
 # protoc, for proto-lens-combinators test suite
 # Instructions from: https://google.github.io/proto-lens/installing-protoc.html
@@ -275,6 +292,49 @@ echo /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server > /etc/ld.so.conf.d/
 echo /usr/lib/llvm-3.7/lib > /etc/ld.so.conf.d/llvm.conf
 
 ldconfig
+
+# Install librdkafka (Apache Kafka C/C++ library)
+wget -qO - https://packages.confluent.io/deb/5.2/archive.key | apt-key add -
+add-apt-repository "deb https://packages.confluent.io/deb/5.2 stable main"
+apt-get update && apt install -y librdkafka-dev
+
+# Install binaryen
+curl -L https://github.com/WebAssembly/binaryen/archive/version_94.tar.gz | tar xz -C /tmp
+pushd /tmp/binaryen-version_94
+mkdir build
+cd build
+cmake \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INSTALL_PREFIX=/usr \
+  -G "Unix Makefiles" \
+  ..
+sudo make install
+popd
+
+Z3_VER=4.8.8
+(
+  cd /usr/local/ \
+    && wget https://github.com/Z3Prover/z3/releases/download/z3-${Z3_VER}/z3-${Z3_VER}-x64-ubuntu-16.04.zip \
+    && unzip z3-${Z3_VER}-x64-ubuntu-16.04.zip \
+    && rm z3-${Z3_VER}-x64-ubuntu-16.04.zip \
+    && ln -s /usr/local/z3-${Z3_VER}-x64-ubuntu-16.04/bin/z3 /usr/bin/z3
+)
+
+LIBJWT_VER=1.12.1
+(
+pushd /tmp \
+    && wget https://github.com/benmcollins/libjwt/archive/v${LIBJWT_VER}.zip \
+    && unzip v${LIBJWT_VER}.zip \
+    && pushd libjwt-${LIBJWT_VER} \
+       && autoreconf -fiv \
+       && ./configure --disable-valgrind --disable-doxygen-doc --prefix /usr \
+       && make \
+       && sudo make install \
+       && popd \
+    && popd 
+)
+
+
 # EOF: don't build anything below this line
 
 # Cleanup

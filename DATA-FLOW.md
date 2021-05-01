@@ -26,7 +26,7 @@ There are three inputs into the data flow:
 ## Travis
 
 For [various
-reasons](https://www.fpcomplete.com/blog/2015/05/distributing-packages-without-sysadmin),
+reasons](https://tech.fpcomplete.com/blog/2015/05/distributing-packages-without-sysadmin),
 we leverage Travis CI for running some processes. In particular:
 
 * [all-cabal-files](https://github.com/commercialhaskell/all-cabal-files/blob/hackage/.travis.yml)

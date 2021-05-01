@@ -4,7 +4,7 @@ The idea behind Stackage is that, if all packages work with the newest versions 
 
 * All packages are buildable and testable from Hackage. We recommend [the Stack Travis script](https://docs.haskellstack.org/en/stable/travis_ci/), which ensures a package is not accidentally incomplete.
 * All packages are compatible with the newest versions of all dependencies (You can find restrictive upper bounds by visiting http://packdeps.haskellers.com/feed?needle=PACKAGENAME).
-* All packages in a snapshot are compatible with the versions of libraries that ship with the GHC used in the snapshot ([more information on lenient lower bounds](https://www.fpcomplete.com/blog/2014/05/lenient-lower-bounds)).
+* All packages in a snapshot are compatible with the versions of libraries that ship with the GHC used in the snapshot ([more information on lenient lower bounds](https://tech.fpcomplete.com/blog/2014/05/lenient-lower-bounds)).
 
 Packages in Stackage are not patched: all package changes occur upstream in Hackage.
 
@@ -19,26 +19,22 @@ To add your package you can edit [`build-constraints.yaml`](https://github.com/f
         - package2
         - package3
 
-If your library depends on a C library, please add it to the `debian-bootstrap.sh` script.
+Any dependencies of your packages that are not already part of
+stackage also need to be added explicitly (When this happens you will
+see `not present` errors in the CI log). As mentioned above: If you
+don't maintain this package yourself it is preferable that the actual
+maintainer is also the stackage maintainer, but you are allowed to add
+it under your own name.
 
-Any dependencies of your packages that are not already part of stackage are added implictly, but it is prefered
-to add all packages explicitly. It is planned to remove this behaviour in the future.
+If your package depends on a C library, please add it to the `debian-bootstrap.sh` script.
 
-After doing that commit with a message like "add foo-bar" and send a pull request.
+After doing that, commit with a message like "add foo-bar" and send a pull request.
 
 The continuous integration job will do some checks to see if your package's dependencies are up-to-date.
 
 The CI job notably doesn't compile packages, run tests, build documentation, or find missing C libraries.
-If you want to be proactive or if CI fails, you can make sure that your package builds against the latest nightly:
-
-```
-# Build from the tarball on Hackage to check for missing files
-$ stack unpack yourpackage && cd yourpackage-*
-# Generate a pristine stack.yaml, adding any missing extra-deps
-$ rm -f stack.yaml && stack init --resolver nightly --solver
-# Build, generate docs, test, and build benchmarks
-$ stack build --resolver nightly --haddock --test --bench --no-run-benchmarks
-```
+If you want to be proactive or if CI fails, you can make sure that your package builds against the latest nightly.
+See the [verify-package](https://github.com/commercialhaskell/stackage/blob/master/verify-package) script in this repository.
 
 This approach works well, but has two limitations you should be aware
 of:
@@ -46,25 +42,10 @@ of:
 * It won't notify you of restrictive upper bounds in your package if
   Stackage has the same upper bounds. For that reason, we recommend
   using [Packdeps](http://packdeps.haskellers.com/) (see "Following
-  dependency upgrades" below).
+  dependency upgrades" below). You can also run `cabal outdated`.
 * If the latest Stackage Nightly is missing some of the latest
   packages, your build above may succeed whereas the Travis job may
   fail. Again: Packdeps will help you detect this situation.
-
-Alternatively, you can build with `cabal`. Note that this may end up
-using older dependency versions:
-
-```
-$ ghc --version # Should be the same as the latest nightly, it's in the title of https://www.stackage.org/nightly
-$ cabal update
-$ cabal get PACKAGE
-$ cd PACKAGE-*
-$ cabal sandbox init # Should give "Creating a new sandbox" and not "Using an existing sandbox".
-$ cabal install --enable-tests --enable-benchmarks --dry-run | grep latest # Should give no results
-$ cabal install --enable-tests --enable-benchmarks --allow-newer
-$ cabal test
-$ cabal haddock
-```
 
 ## Github and Notifications
 
@@ -114,7 +95,7 @@ is decided on a case-by-case basis.
 * If there are real breaking changes, the curator team will retain
   more discretion on how long a window to give before dropping
   packages.
-* We usually drop all upper bounds and disable packages when we create
+* We typically drop upper bounds and disable conflicting packages in Nightly after we create
   a new Long Term Support (LTS) major version.
 * There are rare cases where an upper bound or build failure are hard
   to deal with so then we may disable
@@ -158,8 +139,8 @@ Note that it is _not_ a goal of LTS Haskell to track the latest
 version of GHC. If you want the latest and greatest, Stackage Nightly
 is your best bet. In particular, LTS Haskell will often&mdash;but not
 always&mdash;avoid upgrading to the first point release of GHC
-releases (e.g., 8.2.1) to allow further testing and to get the
-benefits of the first bugfix release (e.g., 8.2.2).
+releases (e.g., 8.x.1) to allow further testing and to get the
+benefits of the first bugfix release (e.g., 8.x.2).
 
 ## Adding a package to an LTS snapshot
 
@@ -169,20 +150,16 @@ ending in `.0`), the package set is taken from Stackage Nightly. Therefore, by
 following the above steps, you can get your package into the next major LTS
 Haskell release.
 
-If you would like to get your package added to an existing LTS Haskell major
-release (e.g., if `lts-8.9` is out, you would want your package to appear in
-`lts-8.10`), please do the following in addition to the steps above:
+If you would like to get your package added to the current LTS Haskell
+major release, please do the following in addition to the steps for Nightly described earlier:
 
-* Check that your package can be built with that LTS major version (e.g. `stack build --test --bench --haddock --resolver lts-8.10`)
+* Check that your package can be built with the current LTS version (e.g. `stack build --test --bench --haddock --resolver lts`)
 * Open up a new issue on the [lts-haskell repo](https://github.com/fpco/lts-haskell/issues/new)
-  * Specify the LTS major versions you would like your packages to go into (e.g. lts-8)
   * Provide a list of packages you would like added
     * If relevant, mention any upper bounds that are needed on those packages
 * Be patient! The LTS releases are less frequent than Nightly. The
   Stackage curators will try to get to your issue as soon as possible,
   but it may take some time.
-* We gradually stop maintaining old LTS major versions, so your
-  request may take longer or be declined if it's for an old LTS.
 
 ## LTS package guarantees and exceptions
 
