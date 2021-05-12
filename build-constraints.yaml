@@ -666,7 +666,7 @@ packages:
         - stripe-haskell
         - stripe-http-client
         - stripe-core
-        - stripe-tests
+        - stripe-tests < 0 # random 1.2
 
     "Piotr Mlodawski @pmlodawski":
         - error-util < 0 # MonadFail
@@ -684,7 +684,7 @@ packages:
         - mime-mail-ses
         - mime-types
         - network-conduit-tls
-        - persistent 
+        - persistent
         - persistent-mysql
         - persistent-postgresql
         - persistent-sqlite
@@ -1515,9 +1515,9 @@ packages:
         - interpolatedstring-perl6
         - iproute
         - missing-foreign
-        - MissingH
+        - MissingH < 0 # random 1.2
         - multimap
-        - parallel-io
+        - parallel-io < 0 # random 1.2
         - text-binary
         - Chart-cairo < 0 # GHC 8.4 via cairo
         - ghc-events
@@ -1620,7 +1620,7 @@ packages:
         - servant-lucid < 0 # ghc 8.10 via servant
         - servant-machines
         - servant-mock < 0 # ghc 8.10 via servant
-        - servant-multipart
+        - servant-multipart < 0
         - servant-pipes
         - servant-server
         - servant-swagger
@@ -2879,7 +2879,7 @@ packages:
     "Pedro Tacla Yamada <tacla.yamada@gmail.com> @yamadapc":
         - ascii-progress
         - drawille < 0
-        - file-modules
+        - file-modules < 0 # random 1.2
         - frontmatter
         - read-editor
         # - list-prompt # https://github.com/yamadapc/list-prompt/issues/3
@@ -4099,7 +4099,7 @@ packages:
 
     "Avi Press <mail@avi.press> @aviaviavi":
         - curl-runnings < 0
-        - cryptocompare
+        - cryptocompare < 0 # random 1.2
 
     "Jack Kiefer <jack.c.kiefer@gmail.com> @JackKiefer":
         - herms < 0
@@ -4237,7 +4237,7 @@ packages:
         - ghci-hexcalc
 
     "Nikos Karagianndis <nkarag@gmail.com> @nkarag":
-        - DBFunctor
+        - DBFunctor < 0 # random 1.2
 
     "Marat Khafizov <xafizoff@gmail.com> @xafizoff":
         - n2o
@@ -4324,7 +4324,7 @@ packages:
         - pencil < 0 # via hsass
 
     "Ivan Malison <IvanMalison@gmail.com> @IvanMalison":
-        - ConfigFile
+        - ConfigFile < 0 # random 1.2
         - dbus-hslogger
         - gi-cairo-connector
         - gi-cairo-render
@@ -4332,10 +4332,10 @@ packages:
         - gtk-strut
         - rate-limit
         - status-notifier-item
-        - taffybar
+        - taffybar < 0 # random 1.2
         - time-units
         - xml-helpers
-        - xdg-desktop-entry
+        - xdg-desktop-entry < 0 # random 1.2
 
     "ARATA Mizuki <minorinoki@gmail.com> @minoki":
         - unboxing-vector
@@ -4519,7 +4519,7 @@ packages:
         - zydiskell
 
     "Alejandro Peralta Bazas <aleperaltabazas@gmail.com> @aleperaltabazas":
-        - hocon
+        - hocon < 0 # random 1.2
 
     "Joshua Booth <joshua.n.booth@gmail.com> @jnbooth":
         - bitwise-enum
@@ -6815,13 +6815,6 @@ packages:
       # https://github.com/commercialhaskell/path/issues/161
       - path < 0.7.1
 
-      # https://github.com/commercialhaskell/stackage/issues/5474
-      # When closing this, we may need to set flags.QuickCheck.old-random = false unless we've updated to QuickCheck 2.14.1
-      - random < 1.2.0
-      - random-fu < 0.2.7.6
-      - random-source < 0.3.0.10
-      - numhask < 0.7.0.0
-
       # https://github.com/commercialhaskell/stackage/issues/5524
       - dlist < 1.0
       - rebase < 1.7
@@ -6977,7 +6970,7 @@ packages:
 # global-flags
 package-flags:
     QuickCheck:
-        old-random: true
+        old-random: false
     pathtype:
         old-time: false
 
@@ -7130,6 +7123,7 @@ skipped-tests:
     - primitive # tasty 1.4
     - proto3-wire # tasty 1.4
     - http-link-header # QuickCheck 2.14.2
+    - stripe-http-client # random 1.2
 
     # test-framework per ghc 8.8
     - extensible-effects # via test-framework
