@@ -565,7 +565,7 @@ packages:
         - generic-data
         - generic-data-surgery
         - generic-functor
-        - generic-random
+        - generic-random < 0 # random 1.2
         - scanf
         - show-combinators
         - type-map
@@ -2205,7 +2205,7 @@ packages:
 
     "Justin Le <justin@jle.im> @mstksg":
         - advent-of-code-api < 0 # ghc 8.10 via servant
-        - auto
+        - auto # random 1.2
         - backprop
         - bins
         - configurator-export
@@ -2218,7 +2218,7 @@ packages:
         - lens-typelevel < 0 # GHC 8.8 via ghc-typelits-presburger (konn/equational-reasoning-in-haskell#4)
         - list-witnesses < 0 # https://github.com/commercialhaskell/stackage/issues/5817
         - nonempty-containers
-        - one-liner-instances
+        - one-liner-instances < 0 # random 1.2
         - prompt
         - servant-cli < 0 # via servant-server
         - tagged-binary
@@ -7370,6 +7370,7 @@ skipped-tests:
     - persistent-postgresql # https://github.com/commercialhaskell/stackage/issues/5641
     - persistent-sqlite # https://github.com/commercialhaskell/stackage/issues/5641
     - vector-circular # (verified requires missing hedgehog-classes) https://github.com/commercialhaskell/stackage/pull/5853#issuecomment-770394206
+    - buttplug-hs-core # via generic-random
 
     # Blocked due to tests failing to compile for GHC 8.6
     - async-refresh
@@ -7806,6 +7807,7 @@ expected-test-failures:
     - secp256k1-haskell # https://github.com/commercialhaskell/stackage/issues/5948
     - base16 # https://github.com/commercialhaskell/stackage/issues/5948
     - prometheus-client # https://github.com/commercialhaskell/stackage/issues/5948
+    - snap-core # random 1.2
 
     # Recursive deps https://github.com/fpco/stackage/issues/1818
     - options
@@ -8155,6 +8157,7 @@ skipped-benchmarks:
     # These can also be checked for updates periodically.
     - o-clock # base-4.10 and time-1.8 via tiempo
     - minisat-solver # Cabal-2.2.0.1 via easyrender
+    - squeal-postgresql # via generic-random
 
     # Compilation failures
     - cipher-aes # https://github.com/vincenthz/hs-crypto-cipher/issues/46
