@@ -9,6 +9,7 @@ cabal-format-version: "3.0"
 
 # Constraints for brand new builds
 packages:
+
     "Lukas Epple <sternenseemann@systemli.org> @sternenseemann":
         - socket
         - spacecookie
@@ -290,7 +291,7 @@ packages:
 
     "Travis Athougies <travis@athougies.net> @tathougies":
         - beam-core < 0 # via vector-sized-1.4.0.0
-        - beam-migrate < 0 # aeson < 1.5 & via dependent-map(/sum)
+        - beam-migrate < 0 # aeson < 1.5
         - beam-mysql < 0 # via beam-core
         - beam-postgres < 0 # via beam-core
         - beam-sqlite < 0 # via beam-core
@@ -1207,6 +1208,7 @@ packages:
         - aeson-yaml  # req'd by dhall-json
         - dhall-nix < 0
         - nix-derivation
+        - list-transformer
 
     "Andrew Thaddeus Martin <andrew.thaddeus@gmail.com> @andrewthad":
         - colonnade < 0 # via profunctors-5.5
@@ -2210,9 +2212,10 @@ packages:
         - auto < 0 # random 1.2
         - backprop
         - bins
+        - conduino
         - configurator-export
         - decidable < 0 # https://github.com/commercialhaskell/stackage/issues/5802
-        - emd < 0 # via typelits-witnesses
+        - emd
         - functor-products < 0 # https://github.com/mstksg/functor-products/issues/1
         - hamilton < 0 # via vty
         - hmatrix-backprop
@@ -2225,7 +2228,7 @@ packages:
         - servant-cli < 0 # via servant-server
         - tagged-binary
         # - type-combinators-singletons # GHC 8.4 via type-combinators
-        - typelits-witnesses < 0 # via dependent-sum
+        - typelits-witnesses
         - uncertain
         - vector-sized
 
@@ -2467,9 +2470,9 @@ packages:
         - ipython-kernel
 
     "James Cook <mokus@deepbondi.net> @mokus0":
-        - dependent-map < 0 # via dependent-sum
-        - dependent-sum < 0 # some < 1.0.3
-        - dependent-sum-template < 0 # via dependent-sum
+        - dependent-map
+        - dependent-sum
+        - dependent-sum-template
         - dice < 0 # GHC 8.4 via random-fu
         - hstatsd < 0 # sClose not in scope
         - misfortune < 0 # GHC 8.4 via random-fu
@@ -2643,14 +2646,14 @@ packages:
         - hsemail
         - hsyslog
         - jailbreak-cabal
-        - lambdabot-core < 0 # via dependent-sum
+        - lambdabot-core
         - lambdabot-irc-plugins < 0 # via lambdabot-core
         - language-nix
         - logging-facade-syslog
         - MonadPrompt
         - nix-paths
         - parsec-class
-        - prim-uniq < 0 # via dependent-sum
+        - prim-uniq
         - random-fu
         - random-source
         - rvar
@@ -4640,6 +4643,7 @@ packages:
         - conduit
         - config-ini
         - configurator
+        - constraints-extras
         - contravariant-extras
         - control-monad-free
         - control-monad-omega
@@ -4715,7 +4719,7 @@ packages:
         - fmlist
         - friendly-time
         - functor-classes-compat
-        - functor-combinators < 0 # via dependent-sum
+        - functor-combinators
         - generic-arbitrary
         - generics-sop-lens
         - ghc-byteorder
@@ -4790,6 +4794,8 @@ packages:
         - log-base < 0 # ghc 8.10 via unliftio-core
         - logging-facade
         - lrucache
+        - lsp
+        - lsp-types
         - lukko
         - lzma
         - managed
@@ -4906,7 +4912,7 @@ packages:
         - skein
         - slist
         - snap-core
-        - some
+        - some < 1.0.3
         - special-values
         - splice
         - split
@@ -5113,11 +5119,6 @@ packages:
       # https://github.com/commercialhaskell/stackage/issues/5667
       - profunctors < 5.6
       - free < 5.1.6
-
-      # https://github.com/commercialhaskell/stackage/issues/5676
-      - haskell-lsp < 0.23
-      - haskell-lsp-types < 0.23
-      - lsp-test < 0.11.0.6
 
       # https://github.com/commercialhaskell/stackage/issues/5686
       - formatting < 7
@@ -5377,7 +5378,6 @@ skipped-builds:
 # or if Setup fails because of missing foreign libraries.
 # Otherwise place them in expected-test-failures.
 skipped-tests:
-
     # Outdated dependencies
     # These can periodically be checked for updates;
     # just remove these lines and run `./check' to verify.
@@ -5397,6 +5397,7 @@ skipped-tests:
     - http-link-header # QuickCheck 2.14.2
     - stripe-http-client # random 1.2
     - hapistrano # path 0.8
+    - dhall-lsp-server # lsp-test 0.14
 
     # test-framework per ghc 8.8
     - extensible-effects # via test-framework
