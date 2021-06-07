@@ -42,6 +42,7 @@ packages:
         - haskell-src
         - fix-whitespace
         - hs-tags
+        - goldplate
 
     "Diogo Biazus <diogo@biazus.ca>":
         - hasql-notifications
@@ -2099,10 +2100,10 @@ packages:
 
     "Will Coster <willcoster@gmail.com> @fimad":
         - prometheus-client
-        - prometheus-metrics-ghc < 0 # Build failure: https://github.com/fimad/prometheus-haskell/issues/39
+        - prometheus-metrics-ghc
         - scalpel
         - scalpel-core
-        - wai-middleware-prometheus < 0 # GHC 8.4 via prometheus-client
+        - wai-middleware-prometheus
 
     "William Casarin <bill@casarin.me> @jb55":
         - bson-lens < 0 # via bson
@@ -2991,11 +2992,11 @@ packages:
         - doclayout
         - doctemplates
         - emojis
-        - pandoc
+        - pandoc                < 2.14  # https://github.com/commercialhaskell/stackage/issues/6053
         - citeproc
-        - commonmark
-        - commonmark-extensions
-        - commonmark-pandoc
+        - commonmark            < 0.2
+        - commonmark-extensions < 0.2.1
+        - commonmark-pandoc     < 0.2.1
         - HsYAML-aeson
         - ipynb #< 0 # via aeson-diff
 
@@ -3334,7 +3335,7 @@ packages:
         - mixed-types-num
         - cdar-mBound
         - aern2-mp
-        #  - aern2-real
+        - aern2-real
 
     "Bartosz Nitka <niteria@gmail.com> @niteria":
         - oeis < 0 # via test-framework
@@ -3954,6 +3955,7 @@ packages:
         - mergeless
         - pretty-relative-time
         - safe-coloured-text
+        - safe-coloured-text-terminfo
         - sydtest
         - sydtest-discover
         - sydtest-persistent-sqlite
@@ -4266,8 +4268,8 @@ packages:
 
     "Pavan Rikhi <pavan.rikhi@gmail.com> @prikhi":
         - hs-php-session
-        - wordpress-auth < 0 # via http-types
-        - servant-auth-wordpress < 0 # via servant-server
+        - wordpress-auth
+        - servant-auth-wordpress
         - ca-province-codes
         - mx-state-codes
         - sitemap-gen
@@ -4393,6 +4395,7 @@ packages:
         - egison-pattern-src-th-mode
 
     "Travis Cardwell <travis.cardwell@extrema.is> @TravisCardwell":
+        - literatex
         - ttc
 
     "Jasper Woudenberg <mail@jasperwoudenberg.com> @jwoudenberg":
@@ -5944,9 +5947,6 @@ packages:
         # wreq (Alois Cochard <alois.cochard@gmail.com> @aloiscochard, Edward Kmett <ekmett@gmail.com> @ekmett, GHC 9) (not present) depended on by:
         - slack-progressbar < 0 # -0.1.0.1 (-any). Tom McLaughlin <tom@codedown.io> @thomasjm. @codedownio. Used by: library
 
-    "Stackage upper bounds": []
-
-
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
@@ -6807,7 +6807,6 @@ expected-test-failures:
     - async-timer # https://github.com/mtesseract/async-timer/issues/8
     - commutative # https://github.com/athanclark/commutative/issues/4
     - conduit-throttle # https://github.com/mtesseract/conduit-throttle/issues/12
-    - fitspec # https://github.com/commercialhaskell/stackage/issues/6026
     - haddock
     - haskell-tools-builtin-refactorings
     - hweblib # https://github.com/aycanirican/hweblib/issues/3
@@ -6968,8 +6967,6 @@ expected-test-failures:
     - servant-elm
 
     - sbv
-
-    - speculate
 
 # end of expected-test-failures
 
