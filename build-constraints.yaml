@@ -1631,6 +1631,7 @@ packages:
         - servant-machines
         - servant-mock < 0 # ghc 8.10 via servant
         - servant-multipart
+        - servant-multipart-api
         - servant-pipes
         - servant-server
         - servant-swagger
@@ -2592,6 +2593,10 @@ packages:
         - yi-rope
         # needed for opentelemetry
         - ghc-trace-events  # @maoe
+        - jsonifier # @nikita-volkov
+        - ptr-poker # @nikita-volkov
+        - rerebase # @nikita-volkov
+        - numeric-limits # Lennart Augustsson
 
     "Tobias Bexelius <tobias_bexelius@hotmail.com> @tobbebex":
         - GPipe < 0 # GHC 8.4 via base-4.11.0.0
@@ -3127,10 +3132,10 @@ packages:
         - hw-hspec-hedgehog
         - hw-int
         - hw-ip
-        - hw-json
+        - hw-json < 0 # dlist 1.0
         - hw-json-simple-cursor
         - hw-json-standard-cursor
-        - hw-mquery
+        - hw-mquery < 0 # dlist 1.0
         - hw-packed-vector
         - hw-parser
         - hw-prim
@@ -3508,8 +3513,8 @@ packages:
         - rawstring-qm
 
     "Daniel YU <leptonyu@gmail.com>":
-        - salak
-        - salak-yaml
+        - salak < 0 # dlist 1.0
+        - salak-yaml < 0 # salak
         - salak-toml < 0 # via tomland
         - tensors
         - menshen < 0 # via regex-tdfa-1.3.0
@@ -3694,11 +3699,11 @@ packages:
         - tasty-lua
 
     "Judah Jacobson <judah.jacobson@gmail.com> @judah":
-        - proto-lens-protobuf-types
-        - proto-lens-protoc
-        - proto-lens-runtime
-        - proto-lens-setup
-        - proto-lens
+        - proto-lens-protobuf-types < 0 # proto-lens
+        - proto-lens-protoc < 0 # proto-lens
+        - proto-lens-runtime < 0 # proto-lens
+        - proto-lens-setup < 0 # proto-lens-protoc
+        - proto-lens < 0 # profunctors 5.6
         # disabled due to QuickCheck < 2.14
         # - proto-lens-arbitrary
         - proto-lens-optparse < 0 # optparse-applicative 0.16.1
@@ -4044,16 +4049,16 @@ packages:
         - aeson-with
         - binary-instances
         - comonad-extras
-        - composite-aeson
-        - composite-aeson-path
-        - composite-aeson-refined
-        - composite-aeson-throw
-        - composite-base
-        - composite-binary
-        - composite-ekg
-        - composite-hashable
-        - composite-tuple
-        - composite-xstep
+        - composite-aeson < 0 # profunctors 5.6
+        - composite-aeson-path < 0 # composite-aeson
+        - composite-aeson-refined < 0 # composite-aeson
+        - composite-aeson-throw < 0 # composite-aeson
+        - composite-base < 0 # profunctors 5.6
+        - composite-binary < 0 # composite-base
+        - composite-ekg < 0 # composite-base
+        - composite-hashable < 0 # composite-base
+        - composite-tuple < 0 # composite-base
+        - composite-xstep < 0 # composite-base
         - ixset-typed-binary-instance
         - ixset-typed-conversions
         - ixset-typed-hashable-instance
@@ -4896,7 +4901,6 @@ packages:
         - relapse
         - relational-schemas
         - relude < 1  # cabal version/parsing issue: https://github.com/commercialhaskell/stackage/issues/5921
-        - rerebase
         - resolv
         - resource-pool
         - resourcet
@@ -5119,11 +5123,6 @@ packages:
       # https://github.com/commercialhaskell/stackage/issues/6013
       - path < 0.8
 
-      # https://github.com/commercialhaskell/stackage/issues/5524
-      - dlist < 1.0
-      - rebase < 1.7
-      - rerebase < 1.7
-
       # https://github.com/commercialhaskell/stackage/issues/5598
       - base64-bytestring < 1.2
 
@@ -5132,10 +5131,6 @@ packages:
 
       # https://github.com/commercialhaskell/stackage/issues/5666
       - generic-deriving < 1.14
-
-      # https://github.com/commercialhaskell/stackage/issues/5667
-      - profunctors < 5.6
-      - free < 5.1.6
 
       # https://github.com/commercialhaskell/stackage/issues/5686
       - formatting < 7
