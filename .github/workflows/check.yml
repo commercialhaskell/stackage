@@ -1,0 +1,21 @@
+name: check
+on: [push,pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Stackage check
+    steps:
+      - uses: actions/checkout@v2
+      - uses: haskell/actions/setup@v1
+        with:
+          ghc-version: '8.10'
+          stack-version: '2.5'
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.stack
+            ~/.stackage/curator/cache
+          key: ${{ runner.os }}-stackage-nightly-${{ hashFiles('**/build-constraints.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-
+      - run: etc/check.sh

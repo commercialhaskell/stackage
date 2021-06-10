@@ -63,7 +63,7 @@ BINDIR=$(cd $ROOT/work/bin ; pwd)
 cd $BINDIR
 rm -f curator stack *.bz2
 
-curl -L "https://download.fpcomplete.com/stackage-curator-2/curator-7c719d6d48839c94a79dc2ad2ace89074e3dd997.bz2" | bunzip2 > curator
+curl -L "https://github.com/commercialhaskell/curator/releases/download/commit-1ef870178f6a0544fe5a3fd23a83fc075aabd695/curator.bz2" | bunzip2 > curator
 chmod +x curator
 echo -n "curator version: "
 docker run --rm -v $(pwd)/curator:/exe $IMAGE /exe --version
@@ -108,7 +108,7 @@ then
         docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator update && curator constraints --target $TARGET && curator snapshot-incomplete --target $TARGET && curator snapshot"
     fi
 else
-    docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator snapshot"
+    docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator snapshot-incomplete --target $TARGET && curator snapshot"
 fi
 
 
@@ -141,8 +141,8 @@ docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator check-target-available
 # * Upload the new snapshot .yaml file to the appropriate Github repo, also upload its constraints
 docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "curator upload-docs --target $TARGET && curator upload-github --target $TARGET"
 
-# For some reason, registering on Hackage fails with inscrutable error messages. Disabling.
-# docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator hackage-distro --target $TARGET"
+# fixed in https://github.com/commercialhaskell/curator/pull/24
+docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator hackage-distro --target $TARGET"
 
 # Build and push docker image fpco/stack-build & fpco/stack-build-small for current release
 

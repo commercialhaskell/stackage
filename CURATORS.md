@@ -220,7 +220,7 @@ file](https://github.com/fpco/stackage-content/blob/master/stack/global-hints.ya
 is updated with information on the latest GHC release by cloning that
 repo and running `./update-global-hints.yaml ghc-X.Y.Z`.
 
-Also required to build an LTS minor bump with a ghc version change: On the build server, modify `/var/stackage/stackage/automated/wrk/lts-$THIS_LTS_MAJOR_VER/constraints.yaml` and update the ghc-version. Then run `NOPLAN=1 /var/stackage/stackage/automated/build lts-$THIS_LTS_MINOR_BUMP` to build the LTS.
+Also required to build an LTS minor bump with a ghc version change: On the build server, modify `/var/stackage/stackage/automated/work/lts-$THIS_LTS_MAJOR_VER/constraints.yaml` and update the ghc-version. (You may need to update sibling files as well.) Then run `NOPLAN=1 /var/stackage/stackage/automated/build.sh lts-$THIS_LTS_MINOR_BUMP` to build the LTS.
 
 ### Getting the new image to the build server
 Once a new Docker image is available, you'll need to pull it onto the stackage-build server (see
@@ -307,13 +307,11 @@ First run `build.sh` to regenerate updated `ltsXX/work/constraints.yaml` and `lt
 
 For an LTS minor bump, you'll typically want to:
 
-* Add constraints to package `range:` fields _under_ the `source:` field in that `constraints.yaml`.
+* Add constraints to package `range:` fields _under_ the `source:` field in that `constraints.yaml`, and edit `snapshot-incomplete.yaml` to change the version used for that package, if necessary.
 * Add new packages to the `constraints.yaml` file
 * Test, benchmark, haddock failures can also be added to package fields in the `constraints.yaml` if necessary, though it should be avoided if possible for LTS.
 
 Then run `NOPLAN=1 build.sh` to build the generate an updated snapshot.
-
-This replaces `CONSTRAINTS=...' /var/stackage/stackage/automated/build.sh lts-x.y` for the old curator-1.
 
 If a build fails for bounds reasons, see all of the advice above. If the code
 itself doesn't build, or tests fail, open up an issue and then either put in a
@@ -329,7 +327,7 @@ if one needs to revert one package, say due to a build or test regression,
 one can edit `current-plan.yaml` and updated the SHA256 hash of the .cabal file,
 to avoid having to rebuild everything again.)
 
-_Sadly no longer true currently_: ~~Note LTS builds inherit the current Hackage data (stack updated for Nightly) to avoid excess extra rebuilding.~~
+Note LTS builds without NOPLAN will use the latest Hackage data.
 
 ### Timing
 

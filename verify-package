@@ -30,11 +30,12 @@ exit() {
 }
 trap exit EXIT
 
+# When updating these commands, make sure to update .github/PULL_REQUEST_TEMPLATE.md as well.
 cd "$dir"
 stack unpack "$package"
 cd "$(ls | head -n 1)"
 rm -f stack.yaml
-stack init --resolver nightly
+stack init --resolver nightly --ignore-subdirs
 stack build --resolver nightly --haddock --test --bench --no-run-benchmarks
 
 

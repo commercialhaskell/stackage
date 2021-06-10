@@ -26,23 +26,15 @@ don't maintain this package yourself it is preferable that the actual
 maintainer is also the stackage maintainer, but you are allowed to add
 it under your own name.
 
-If your library depends on a C library, please add it to the `debian-bootstrap.sh` script.
+If your package depends on a C library, please add it to the `debian-bootstrap.sh` script.
 
-After doing that commit with a message like "add foo-bar" and send a pull request.
+After doing that, commit with a message like "add foo-bar" and send a pull request.
 
 The continuous integration job will do some checks to see if your package's dependencies are up-to-date.
 
 The CI job notably doesn't compile packages, run tests, build documentation, or find missing C libraries.
-If you want to be proactive or if CI fails, you can make sure that your package builds against the latest nightly:
-
-```
-# Build from the tarball on Hackage to check for missing files
-$ stack unpack yourpackage && cd yourpackage-*
-# Generate a pristine stack.yaml, adding any missing extra-deps
-$ rm -f stack.yaml && stack init --resolver nightly
-# Build, generate docs, test, and build benchmarks
-$ stack build --resolver nightly --haddock --test --bench --no-run-benchmarks
-```
+If you want to be proactive or if CI fails, you can make sure that your package builds against the latest nightly.
+See the [verify-package](https://github.com/commercialhaskell/stackage/blob/master/verify-package) script in this repository.
 
 This approach works well, but has two limitations you should be aware
 of:
@@ -50,25 +42,10 @@ of:
 * It won't notify you of restrictive upper bounds in your package if
   Stackage has the same upper bounds. For that reason, we recommend
   using [Packdeps](http://packdeps.haskellers.com/) (see "Following
-  dependency upgrades" below).
+  dependency upgrades" below). You can also run `cabal outdated`.
 * If the latest Stackage Nightly is missing some of the latest
   packages, your build above may succeed whereas the Travis job may
   fail. Again: Packdeps will help you detect this situation.
-
-Alternatively, you can build with `cabal`. Note that this may end up
-using older dependency versions:
-
-```
-$ ghc --version # Should be the same as the latest nightly, it's in the title of https://www.stackage.org/nightly
-$ cabal update
-$ cabal get PACKAGE
-$ cd PACKAGE-*
-$ cabal sandbox init # Should give "Creating a new sandbox" and not "Using an existing sandbox".
-$ cabal install --enable-tests --enable-benchmarks --dry-run | grep latest # Should give no results
-$ cabal install --enable-tests --enable-benchmarks --allow-newer
-$ cabal test
-$ cabal haddock
-```
 
 ## Github and Notifications
 
@@ -173,7 +150,7 @@ ending in `.0`), the package set is taken from Stackage Nightly. Therefore, by
 following the above steps, you can get your package into the next major LTS
 Haskell release.
 
-If you would like to get your package added to the current LTS Haskell 
+If you would like to get your package added to the current LTS Haskell
 major release, please do the following in addition to the steps for Nightly described earlier:
 
 * Check that your package can be built with the current LTS version (e.g. `stack build --test --bench --haddock --resolver lts`)
