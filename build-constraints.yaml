@@ -4306,13 +4306,13 @@ packages:
 
     "David Himmelstrup <lemmih@gmail.com> @lemmih":
         - chiphunk
-        - reanimate-svg < 0 # via reanimate
-        - reanimate < 0 # via hgeometry & hgeometry-combinatorial
+        - reanimate-svg
+        - reanimate
         - earcut
         - vector-circular
         # required by reanimate as of 0.4.2.0
-        - hgeometry < 0 # via vector-0.12.2.0 https://github.com/commercialhaskell/stackage/issues/5886
-        - hgeometry-combinatorial < 0 # via vector-0.12.2.0 https://github.com/commercialhaskell/stackage/issues/5886
+        - hgeometry >= 0.12.0.2
+        - hgeometry-combinatorial
         - approximate-equality # required by hgeometry-combinatorial
         - type-level-natural-number # required by approximate-equality
 
@@ -5255,6 +5255,8 @@ packages:
 # Package flags are applied to individual packages, and override the values of
 # global-flags
 package-flags:
+    hgeometry:
+        planargraph: false # Won't be required by version 0.13
     QuickCheck:
         old-random: false
     pathtype:
