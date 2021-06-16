@@ -239,7 +239,7 @@ For a new GHC version you should also delete the ~~cache~~ .stack-work snapshot 
 
 ```
 # for example
-SNAP_SERIES=nightly # or lts16 
+SNAP_SERIES=nightly # or lts16
 OLD_GHCVER=8.10.1
 rm -r work/$SNAP_SERIES/unpack-dir/.stack-work/install/x86_64-linux/*/$OLD_GHCVER/
 ```
@@ -343,7 +343,7 @@ LTS minor bumps typically are run on Sundays.
 * You can detect the problem by running `df`. If you see that `/` is out of space, we have a problem.
 * If you see that `/var/stackage/` is out of space, you can:
   * run `./etc/diskspace/clean-old-stack-libs.sh [nightly|lts-XX]`
-  * If that is insufficient then remove all the old builds under the previous ghc/Cabal version: 
+  * If that is insufficient then remove all the old builds under the previous ghc/Cabal version:
     * `rm -r /var/stackage/stackage/automated/work/[nightly|lts-XX]/unpack-dir/unpacked/*/.stack-work/dist/x86_64-linux/Cabal-X.Y.0.0/`
 
   optionally (not recommended?):
@@ -447,7 +447,7 @@ Every 3-6 months, we make a new major release of LTS. The procedure we follow fo
    relaxed upper bounds. There will likely be some hard decisions to be made
    regarding relaxing a bound versus keeping more packages. All of these changes
    occur on master and affect nightly.
-4. Once the estimated date hits, push a new `lts-XX` branch and trigger Docker
+4. Once the estimated date hits, push a new `ltsXX` branch and trigger Docker
    Hub to build a Docker image for the new release.
 5. Run the build procedure for the new LTS release.
 6. After the LTS build completes, more aggressively prune upper bounds from
