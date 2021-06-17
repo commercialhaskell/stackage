@@ -176,10 +176,13 @@ apt-get install -y \
     zsh
 
 # odbc
-curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql-release.list
-apt-get update
-ACCEPT_EULA=Y apt-get install msodbcsql17 -y
+# TODO: See if we can fix this...
+# E: Failed to fetch https://packages.microsoft.com/debian/9/prod/pool/main/u/unixodbc/odbcinst_2.3.7_amd64.deb  404  Not Found
+#
+# curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+# curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql-release.list
+# apt-get update
+# ACCEPT_EULA=Y apt-get install msodbcsql17 -y
 
 # llvm for llvm-hs
 curl https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
@@ -331,7 +334,7 @@ pushd /tmp \
        && make \
        && sudo make install \
        && popd \
-    && popd 
+    && popd
 )
 
 
