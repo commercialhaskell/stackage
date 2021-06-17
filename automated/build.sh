@@ -19,7 +19,7 @@ else
     WORKDIR=$ROOT/work/$TAG
 fi
 
-IMAGE=commercialhaskell/stackage:$TAG
+IMAGE=docker.pkg.github.com/commercialhaskell/stackage/build:$TAG
 
 PANTRY_DIR=$ROOT/work/stack/pantry
 STACK_DIR=$ROOT/work/stack
