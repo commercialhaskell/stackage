@@ -301,19 +301,6 @@ wget -qO - https://packages.confluent.io/deb/5.2/archive.key | apt-key add -
 add-apt-repository "deb https://packages.confluent.io/deb/5.2 stable main"
 apt-get update && apt install -y librdkafka-dev
 
-# Install binaryen
-curl -L https://github.com/WebAssembly/binaryen/archive/version_94.tar.gz | tar xz -C /tmp
-pushd /tmp/binaryen-version_94
-mkdir build
-cd build
-cmake \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_INSTALL_PREFIX=/usr \
-  -G "Unix Makefiles" \
-  ..
-sudo make install
-popd
-
 Z3_VER=4.8.8
 (
   cd /usr/local/ \
