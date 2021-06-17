@@ -68,8 +68,7 @@ chmod +x curator
 echo -n "curator version: "
 docker run --rm -v $(pwd)/curator:/exe $IMAGE /exe --version
 
-curl -L https://github.com/commercialhaskell/stack/releases/download/v2.5.1/stack-2.5.1-linux-x86_64-bin > stack
-#curl -L "https://download.fpcomplete.com/stackage-curator-2/stack-fffc0a40e2253788f6b9cb7471c03fd571d69bde.bz2" | bunzip2 > stack
+curl -L https://github.com/commercialhaskell/stack/releases/download/v2.7.1/stack-2.7.1-linux-x86_64-bin > stack
 chmod +x stack
 echo -n "stack version: "
 docker run --rm -v $(pwd)/stack:/exe $IMAGE /exe --version
