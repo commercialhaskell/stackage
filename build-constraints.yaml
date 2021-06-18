@@ -5132,12 +5132,14 @@ packages:
         - clash-prelude < 0
         - compdata < 0
         - crypto-numbers < 0
+        - cuckoo-filter < 0 # benchmarks are an exe
         - data-lens-light < 0
         - derive-topdown < 0
         - distributed-closure < 0
         - do-notation < 0
         - drinkery < 0
         - elm-bridge < 0
+        - elynx-seq < 0
         - elynx-tools < 0
         - enum-subset-generate < 0
         - essence-of-live-coding-quickcheck < 0
@@ -5198,6 +5200,7 @@ packages:
         - typecheck-plugin-nat-simple < 0
         - uncertain < 0
         - wai-middleware-auth < 0
+        - webdriver < 0
         - webex-teams-pipes < 0
         - word24 < 0
         - xlsx < 0
@@ -5726,6 +5729,7 @@ packages:
         - slynx < 0 # tried slynx-0.5.1.1, but its *library* requires the disabled package: elynx-tools
         - tlynx < 0 # tried tlynx-0.5.1.1, but its *library* requires the disabled package: elynx-tools
         - store-streaming < 0 # tried store-streaming-0.2.0.3, but its *library* requires the disabled package: store
+        - elynx-markov < 0 # tried elynx-markov-0.5.1.1, but its *library* requires the disabled package: elynx-seq
 
     "Stackage upper bounds":
 
@@ -6012,13 +6016,10 @@ skipped-tests:
     - leveldb-haskell
     - mono-traversable
     - multiarg
-    - murmur
     - thread-supervisor
     - type-map
     - typecheck-plugin-nat-simple
     - uncertain
-    - webdriver
-    - webdriver
 
     #
     # GHC 9 test bounds issues
@@ -6809,8 +6810,6 @@ skipped-benchmarks:
     #
     - serialise # tried serialise-0.2.3.0, but its *benchmarks* requires the disabled package: store
     - aeson-combinators
-    - cuckoo-filter
-    - cuckoo-filter
     - universum
     - universum-some
 
