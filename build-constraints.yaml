@@ -5121,10 +5121,13 @@ packages:
         - aws-xray-client < 0
         - backprop < 0
         - barbies < 0
+        - binary-ext < 0
         - bins < 0
         - blaze-textual < 0
         - btrfs < 0
+        - bv-little < 0
         - cabal-debian < 0
+        - cabal2nix < 0
         - chaselev-deque < 0
         - clash-prelude < 0
         - compdata < 0
@@ -5135,21 +5138,30 @@ packages:
         - do-notation < 0
         - drinkery < 0
         - elm-bridge < 0
+        - elynx-tools < 0
         - enum-subset-generate < 0
         - essence-of-live-coding-quickcheck < 0
         - eve < 0
+        - flat < 0
         - fmt < 0
+        - ftp-client-conduit < 0
         - generic-lens-core < 0
+        - gi-gdk < 0
+        - ginger < 0
+        - haskell-import-graph < 0
         - hedn < 0
         - heterocephalus < 0
         - hexml-lens < 0
         - hs-functors < 0
         - inline-r < 0
+        - interpolator < 0
         - llvm-hs < 0
+        - machines-binary < 0
         - mixed-types-num < 0
         - mltool < 0
         - monad-unlift < 0
         - murmur < 0
+        - mustache < 0
         - nonempty-containers < 0
         - odbc < 0
         - operational < 0
@@ -5172,6 +5184,7 @@ packages:
         - slack-api < 0
         - squeal-postgresql < 0
         - static-text < 0
+        - store < 0
         - strive < 0
         - text-region < 0
         - th-data-compat < 0
@@ -5181,11 +5194,19 @@ packages:
         - throwable-exceptions < 0
         - thyme < 0
         - traverse-with-class < 0
+        - type-map < 0
+        - typecheck-plugin-nat-simple < 0
+        - uncertain < 0
+        - wai-middleware-auth < 0
+        - webex-teams-pipes < 0
         - word24 < 0
+        - xlsx < 0
+        - xml-lens < 0
         - xmonad < 0
+        - yesod-core < 0
         - zenacy-html < 0
 
-    "GHC 9":
+    "GHC 9 bounds issues":
         - Agda < 0 # tried Agda-2.6.1.3, but its *library* does not support: Cabal-3.4.0.0
         - Agda < 0 # tried Agda-2.6.1.3, but its *library* does not support: base-4.15.0.0
         - Agda < 0 # tried Agda-2.6.1.3, but its *library* does not support: template-haskell-2.17.0.0
@@ -5614,7 +5635,7 @@ packages:
         - yjsvg < 0 # tried yjsvg-0.2.0.1, but its *library* requires the disabled package: HaXml
         - zydiskell < 0 # tried zydiskell-0.2.0.0, but its *library* does not support: base-4.15.0.0
 
-    "GHC 9 compilation failures, part 2":
+    "GHC 9 bounds issues, part 2":
         - Chart < 0 # tried Chart-1.9.3, but its *library* requires the disabled package: operational
         - H < 0 # tried H-0.9.0.1, but its *executable* requires the disabled package: inline-r
         - aern2-mp < 0 # tried aern2-mp-0.2.7.0, but its *library* requires the disabled package: mixed-types-num
@@ -5680,6 +5701,31 @@ packages:
         - xml-html-qq < 0 # tried xml-html-qq-0.1.0.1, but its *library* requires the disabled package: heterocephalus
         - xmonad-contrib < 0 # tried xmonad-contrib-0.16, but its *library* requires the disabled package: xmonad
         - xmonad-extras < 0 # tried xmonad-extras-0.15.3, but its *library* requires the disabled package: xmonad
+
+    "GHC 9 bounds issues, part 3":
+        - ranged-list < 0 # tried ranged-list-0.1.0.0, but its *library* requires the disabled package: typecheck-plugin-nat-simple
+        - xlsx-tabular < 0 # tried xlsx-tabular-0.2.2.1, but its *library* requires the disabled package: xlsx
+        - gi-gdkx11 < 0 # tried gi-gdkx11-4.0.3, but its *library* requires the disabled package: gi-gdk
+        - gi-gsk < 0 # tried gi-gsk-4.0.3, but its *library* requires the disabled package: gi-gdk
+        - gi-gtk < 0 # tried gi-gtk-4.0.4, but its *library* requires the disabled package: gi-gdk
+        - gtk-strut < 0 # tried gtk-strut-0.1.3.0, but its *library* requires the disabled package: gi-gdk
+        - bugsnag-haskell < 0 # tried bugsnag-haskell-0.0.4.1, but its *executable* requires the disabled package: yesod-core
+        - yesod-fb < 0 # tried yesod-fb-0.6.1, but its *library* requires the disabled package: yesod-core
+        - yesod-gitrev < 0 # tried yesod-gitrev-0.2.1, but its *library* requires the disabled package: yesod-core
+        - yesod-newsfeed < 0 # tried yesod-newsfeed-1.7.0.0, but its *library* requires the disabled package: yesod-core
+        - yesod-page-cursor < 0 # tried yesod-page-cursor-2.0.0.8, but its *library* requires the disabled package: yesod-core
+        - yesod-persistent < 0 # tried yesod-persistent-1.6.0.7, but its *library* requires the disabled package: yesod-core
+        - yesod-sitemap < 0 # tried yesod-sitemap-1.6.0, but its *library* requires the disabled package: yesod-core
+        - yesod-static < 0 # tried yesod-static-1.6.1.0, but its *library* requires the disabled package: yesod-core
+        - yesod-test < 0 # tried yesod-test-1.6.12, but its *library* requires the disabled package: yesod-core
+        - yesod-websockets < 0 # tried yesod-websockets-0.3.0.3, but its *library* requires the disabled package: yesod-core
+        - headroom < 0 # tried headroom-0.4.1.0, but its *library* requires the disabled package: mustache
+        - hoauth2 < 0 # tried hoauth2-1.16.0, but its *executable* requires the disabled package: mustache
+        - slick < 0 # tried slick-1.1.1.0, but its *library* requires the disabled package: mustache
+        - elynx < 0 # tried elynx-0.5.1.1, but its *executable* requires the disabled package: elynx-tools
+        - slynx < 0 # tried slynx-0.5.1.1, but its *library* requires the disabled package: elynx-tools
+        - tlynx < 0 # tried tlynx-0.5.1.1, but its *library* requires the disabled package: elynx-tools
+        - store-streaming < 0 # tried store-streaming-0.2.0.3, but its *library* requires the disabled package: store
 
     "Stackage upper bounds":
 
@@ -5956,17 +6002,22 @@ skipped-tests:
     # GHC 9 test compilation failures
     #
     - aeson-commit
+    - blake2
     - data-diverse
+    - focuslist
+    - geojson
     - hsc2hs
     - hsini
     - htoml
     - leveldb-haskell
     - mono-traversable
     - multiarg
+    - murmur
     - thread-supervisor
     - type-map
     - typecheck-plugin-nat-simple
     - uncertain
+    - webdriver
     - webdriver
 
     #
@@ -6159,6 +6210,11 @@ skipped-tests:
     - wreq # tried wreq-0.5.3.3, but its *test-suite* requires the disabled package: snap-server
     - yesod-page-cursor # tried yesod-page-cursor-2.0.0.8, but its *test-suite* requires the disabled package: yesod
     - yesod-test # tried yesod-test-1.6.12, but its *test-suite* requires the disabled package: yesod-form
+    - elynx-markov # tried elynx-markov-0.5.1.1, but its *test-suite* requires the disabled package: elynx-tools
+    - elynx-seq # tried elynx-seq-0.5.1.1, but its *test-suite* requires the disabled package: elynx-tools
+    - elynx-tree # tried elynx-tree-0.5.1.1, but its *test-suite* requires the disabled package: elynx-tools
+    - errors-ext # tried errors-ext-0.4.2, but its *test-suite* requires the disabled package: binary-ext
+
 
 # end of skipped-tests
 
@@ -6525,28 +6581,40 @@ expected-test-failures:
     - control-dsl
     - crypto-enigma
     - debian
+    - dimensional
     - duration
+    - fixed-vector-hetero
+    - genvalidity-persistent
     - genvalidity-property
     - ghc-prof
     - gingersnap
+    - github-types
+    - hspec-golden-aeson
     - jose
     - justified-containers
     - jwt
+    - katip
     - lens-regex
     - list-transformer
     - massiv-io
     - megaparsec-tests
+    - mwc-random
     - openapi3
     - pcre-heavy
     - posix-paths
     - prettyprinter
     - prettyprinter-ansi-terminal
     - rank1dynamic
+    - rescue
     - safe-decimal
+    - sized
     - spatial-math
+    - subcategories
     - turtle
     - type-level-kv-list
     - unicode-show
+    - universe-some
+    - universum
     - utf8-conversions
     - world-peace
 
@@ -6734,11 +6802,14 @@ skipped-benchmarks:
     - uri-bytestring # tried uri-bytestring-0.3.3.0, but its *benchmarks* requires the disabled package: deepseq-generics
     - xeno # tried xeno-0.4.2, but its *benchmarks* requires the disabled package: bzlib
     - xxhash-ffi # tried xxhash-ffi-0.2.0.0, but its *benchmarks* requires the disabled package: xxhash
+    - elynx-tree # tried elynx-tree-0.5.1.1, but its *benchmarks* requires the disabled package: elynx-tools
 
     #
     # GHC 9 benchmark compilation failures
     #
+    - serialise # tried serialise-0.2.3.0, but its *benchmarks* requires the disabled package: store
     - aeson-combinators
+    - cuckoo-filter
     - cuckoo-filter
     - universum
     - universum-some
