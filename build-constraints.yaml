@@ -6825,27 +6825,25 @@ skipped-builds:
 # or if Setup fails because of missing foreign libraries.
 # Otherwise place them in expected-test-failures.
 skipped-tests:
-    # Compilation failures
-    - snappy # https://github.com/bos/snappy/issues/1
-    - cron # Could not deduce (SOP.All (SOP.All Arbitrary) xss) arising from a use of ‘SOP.hcpure’
-    - config-ini # https://github.com/aisamanra/config-ini/issues/22
-    - dhall # https://github.com/dhall-lang/dhall-haskell/issues/1985
-    - mixed-types-num # https://github.com/commercialhaskell/stackage/issues/6005
-    - parameterized # # https://github.com/commercialhaskell/stackage/issues/5746
-    - net-mqtt # https://github.com/commercialhaskell/stackage/issues/6099
+    # Missing foreign libraries
+    - symengine
 
-    # Runtime issues
+    # Timeouts
+    # These tests sometimes take too long and hit the stackage build
+    # servers time limit so these shouldn't be removed from
+    # skipped-tests unless we know a fix has been released.
+    - accelerate-fourier
+    - cabal-helper
+    - graphviz
+    - network-attoparsec
+    - punycode
+    - unagi-chan
+    - zeromq4-patterns
+    - port-utils
     - blank-canvas # Never finishes https://github.com/ku-fpg/blank-canvas/issues/73
     - binary-search # Never finishes https://github.com/nushio3/binary-search/issues/2
-    - cpio-conduit # Test file not in tarball https://github.com/da-x/cpio-conduit/issues/1
     - jsaddle # Never finishes without framebuffer https://github.com/ghcjs/jsaddle/issues/9
-    - binary-parsers # https://github.com/winterland1989/binary-parsers/issues/3
-    - simple-affine-space # https://github.com/commercialhaskell/stackage/issues/5110
-    - hw-kafka-client # https://github.com/commercialhaskell/stackage/pull/5542
     - hpc-codecov # timeouts? https://github.com/commercialhaskell/stackage/issues/5976
-
-    # Missing foreign library
-    - symengine # symengine
 
     # Wontfix. The maintainer doesn't want to keep test dependencies
     # up to date or be notified about it, or doesn't want stackage to
@@ -6927,59 +6925,13 @@ skipped-tests:
     - random
     - split
 
-    # Requires filesystem access
-    - json-autotype
-
-    # Requires running pg-harness-server
-    - peregrin
-
-    # Test errors with modules not being visible
-    - servant-ruby # https://github.com/commercialhaskell/stackage/issues/4650
-    - password-instances # https://github.com/commercialhaskell/stackage/issues/4653
-    - password # https://github.com/cdepillabout/password/issues/2
-    - envelope # https://github.com/commercialhaskell/stackage/issues/4669
-    - algebraic-graphs # https://github.com/commercialhaskell/stackage/issues/4670
-    - bugsnag-haskell # https://github.com/commercialhaskell/stackage/issues/4759
-
-    # executable not found
-    - egison # https://github.com/egison/egison/issues/250
-    - http2 # https://github.com/kazu-yamamoto/http2/issues/22
-
     # TODO
     - rpmbuild-order
 
-    # was in expected test failures, but seems we may have to skip entirely for unknown reasons, previously: https://github.com/clash-lang/clash-compiler/issues/1622
+    # was in expected test failures, but seems we may have to skip
+    # entirely for unknown reasons, previously:
+    # https://github.com/clash-lang/clash-compiler/issues/1622
     - clash-prelude
-
-    # Tasty issue: https://github.com/commercialhaskell/stackage/issues/6090
-    - servant-static-th
-
-    # https://github.com/commercialhaskell/stackage/issues/6093
-    - require
-
-    #
-    # GHC 9 test compilation failures
-    #
-    - aeson-commit
-    - blake2
-    - butter
-    - cabal-file-th
-    - data-diverse
-    - flay
-    - focuslist
-    - geojson
-    - hsc2hs
-    - hsini
-    - htoml
-    - leveldb-haskell
-    - mono-traversable
-    - multiarg
-    - murmur3
-    - protobuf
-    - thread-supervisor
-    - type-map
-    - typecheck-plugin-nat-simple
-    - uncertain
 
     #
     # GHC 9 test bounds issues
@@ -7271,22 +7223,13 @@ expected-test-failures:
     - nsis # Intermittent on non-Windows systems
     - statistics # https://github.com/bos/statistics/issues/42
 
-    # Timeouts
-    # These tests sometimes take too long and hit the stackage build
-    # servers time limit so these shouldn't be removed from
-    # expected-tests unless we know a fix has been released.
-    - accelerate-fourier
-    - cabal-helper
-    - graphviz
-    - network-attoparsec
-    - punycode
-    - unagi-chan
-    - zeromq4-patterns
-    - port-utils
-
     # Requires running servers, accounts, or a specific environment.
     # These shouldn't be re-enabled unless we know a fix has been released.
+    - json-autotype # Requires filesystem access
+    - peregrin # Requires running pg-harness-server
     - GLFW-b # X
+    - egison # executable not found https://github.com/egison/egison/issues/250
+    - http2 # executable not found https://github.com/kazu-yamamoto/http2/issues/22
     - HTF # Requires shell script and are incompatible with sandboxed package databases
     - HaRe # Needs ~/.ghc-mod/cabal-helper https://github.com/fpco/stackage/pull/906
     - IPv6DB
@@ -7314,6 +7257,7 @@ expected-test-failures:
     - eventful-postgresql
     - eventsource-geteventstore-store
     - eventstore # Event Store
+    - faktory # connection refused, https://github.com/commercialhaskell/stackage/issues/5905
     - fb # Facebook app
     - gdax # Needs environment variables set
     - ghc-imported-from # depends on haddocks being generated first https://github.com/fpco/stackage/pull/1315
@@ -7331,7 +7275,10 @@ expected-test-failures:
     - hasql-transaction # PostgreSQL
     - hedis
     - hie-bios # cabal, stack, ghc; see https://github.com/commercialhaskell/stackage/issues/5025
+    - hnix # #5469/closed
     - hocilib # oracle
+    - http-client # httpbin issues, https://github.com/snoyberg/http-client/issues/439
+    - http-directory # httpbin issues, https://github.com/juhp/http-directory/issues/1
     - hworker
     - influxdb
     - jvm
@@ -7367,6 +7314,7 @@ expected-test-failures:
     - rethinkdb-client-driver
     - riak # needs riak server on localhost:8098
     - sdl2 # "Failed to connect to the Mir Server"
+    - sendgrid-v3 # Requires sendgrid API key in env #5951/closed
     - serialport # "The tests need two serial ports as command line arguments" https://github.com/jputcu/serialport/issues/30
     - serversession-backend-redis # redis
     - shake # Needs ghc on $PATH with some installed haskell packages
@@ -7375,26 +7323,21 @@ expected-test-failures:
     - users-persistent # sqlite
     - users-postgresql-simple # PostgreSQL
     - wai-cors # PhantomJS
-    - wai-session-postgresql # PostgreSQL
     - wai-rate-limit-redis # Redis
+    - wai-session-postgresql # PostgreSQL
     - wai-session-redis # https://github.com/commercialhaskell/stackage/pull/5980
     - web3 # requires running server
     - webdriver-angular # webdriver server
     - websockets
-    - hnix # #5469/closed
-    - http-client # httpbin issues, https://github.com/snoyberg/http-client/issues/439
-    - http-directory # httpbin issues, https://github.com/juhp/http-directory/issues/1
-    - faktory # connection refused, https://github.com/commercialhaskell/stackage/issues/5905
-    - sendgrid-v3 # Requires sendgrid API key in env #5951/closed
 
     # Missing test files in sdist
-    # Hopefully gets fixed in the next release...
+    - cpio-conduit # Test file not in tarball https://github.com/da-x/cpio-conduit/issues/1
     - crypto-pubkey # https://github.com/vincenthz/hs-crypto-pubkey/issues/23
-    - doctest-discover # 0.1.0.9 https://github.com/karun012/doctest-discover/issues/22
     - doctest
-    - reanimate-svg # https://github.com/commercialhaskell/stackage/issues/5688
+    - doctest-discover # 0.1.0.9 https://github.com/karun012/doctest-discover/issues/22
     - ghc-events # https://github.com/haskell/ghc-events/issues/70
     - persistent # https://github.com/commercialhaskell/stackage/issues/6037
+    - reanimate-svg # https://github.com/commercialhaskell/stackage/issues/5688
 
     # Assertion failures, these can be real bugs or just limitations
     # in the test cases.
@@ -7423,17 +7366,42 @@ expected-test-failures:
     # Compilation failures
     - amazonka-core # https://github.com/brendanhay/amazonka/issues/397
     - async-timer # https://github.com/mtesseract/async-timer/issues/8
+    - base16 # #5948/closed
+    - chronos # #5443/closed
     - commutative # https://github.com/athanclark/commutative/issues/4
     - conduit-throttle # https://github.com/mtesseract/conduit-throttle/issues/12
+    - config-ini # https://github.com/aisamanra/config-ini/issues/22
+    - cron # Could not deduce (SOP.All (SOP.All Arbitrary) xss) arising from a use of ‘SOP.hcpure’
+    - dhall # https://github.com/dhall-lang/dhall-haskell/issues/1985
+    - email-validate # https://github.com/Porges/email-validate-hs/issues/55
     - haddock
     - haskell-tools-builtin-refactorings
+    - heterocephalus # doctest requires hidden shakespeare and blaze-markup
+    - hgeometry # https://github.com/commercialhaskell/stackage/issues/5777
+    - http-conduit # #5948/closed
+    - hw-dsv # #5948/closed
     - hweblib # https://github.com/aycanirican/hweblib/issues/3
+    - iproute # doctest with hidden containers and other errors
+    - liquid-fixpoint # #5948/closed
+    - massiv
+    - mixed-types-num # https://github.com/commercialhaskell/stackage/issues/6005
     - multiset # doctests require Glob, a hidden package
+    - net-mqtt # https://github.com/commercialhaskell/stackage/issues/6099
+    - parameterized # # https://github.com/commercialhaskell/stackage/issues/5746
     - perf # https://github.com/fpco/stackage/pull/2859
+    - persistent-qq # https://github.com/commercialhaskell/stackage/issues/6034
     - picosat # https://github.com/fpco/stackage/pull/2382
     - pkcs10 # https://github.com/fcomb/pkcs10-hs/issues/2
+    - prometheus-client # #5948/closed
+    - relapse # #5948/closed
+    - require # compilation failure https://github.com/commercialhaskell/stackage/issues/6093
+    - secp256k1-haskell # #5948/closed
+    - servant-static-th # Tasty issue: https://github.com/commercialhaskell/stackage/issues/6090
+    - snap-core # random 1.2
+    - snappy # https://github.com/bos/snappy/issues/1
     - sourcemap # https://github.com/chrisdone/sourcemap/issues/3
     - squeal-postgresql # https://github.com/fpco/stackage/issues/3180
+    - string-random # https://github.com/hiratara/hs-string-random/issues/16
     - text-icu # https://github.com/bos/text-icu/issues/32
     - text-ldap # https://github.com/khibino/haskell-text-ldap/issues/1
     - type-of-html-static # https://github.com/commercialhaskell/stackage/issues/5728
@@ -7445,22 +7413,6 @@ expected-test-failures:
     - yeshql-core # https://github.com/tdammers/yeshql/issues/6
     - yeshql-hdbc # https://github.com/tdammers/yeshql/issues/6
     - yesod-gitrev # https://github.com/DanBurton/yesod-gitrev/issues/5
-    - chronos # #5443/closed
-    - massiv
-    - hgeometry # https://github.com/commercialhaskell/stackage/issues/5777
-    - string-random # https://github.com/hiratara/hs-string-random/issues/16
-    - email-validate # https://github.com/Porges/email-validate-hs/issues/55
-    - heterocephalus # doctest requires hidden shakespeare and blaze-markup
-    - iproute # doctest with hidden containers and other errors
-    - http-conduit # #5948/closed
-    - hw-dsv # #5948/closed
-    - relapse # #5948/closed
-    - liquid-fixpoint # #5948/closed
-    - secp256k1-haskell # #5948/closed
-    - base16 # #5948/closed
-    - prometheus-client # #5948/closed
-    - snap-core # random 1.2
-    - persistent-qq # https://github.com/commercialhaskell/stackage/issues/6034
 
     # Recursive deps https://github.com/fpco/stackage/issues/1818
     - options
@@ -7471,95 +7423,59 @@ expected-test-failures:
     - skein # openfile: does not exist https://github.com/fpco/stackage/issues/1187
     - haskell-tools-daemon # openFile: permission denied https://github.com/fpco/stackage/issues/2502
     - rounded # ExitFailure -11
+    - shake-language-c # Cannot reproduce locally, looks like it may be a bug in Stack or curator
 
     # Doctests require hidden Glob package
     - makefile
 
-    # Misc.
+    # Misc. Please check if there is a better section before adding more packages here.
+    - Diff # https://github.com/commercialhaskell/stackage/issues/4289
+    - algebraic-graphs # Module not visible https://github.com/commercialhaskell/stackage/issues/4670
+    - binary-parsers # runtime failure https://github.com/winterland1989/binary-parsers/issues/3
+    - bugsnag-haskell # Module not visible https://github.com/commercialhaskell/stackage/issues/4759
+    - cacophony # https://github.com/centromere/cacophony/issues/15
+    - cfenv # https://github.com/tomphp/haskell-cfenv/issues/1
+    - cryptohash # Stack builds test and benchmarks in one pass so benchmark could prevent tests from getting built
+    - dbus # https://github.com/commercialhaskell/stackage/issues/5587
+    - dns # https://github.com/kazu-yamamoto/dns/issues/153
+    - envelope # Module not visible https://github.com/commercialhaskell/stackage/issues/4669
+    - exp-pairs # https://github.com/Bodigrim/exp-pairs/issues/16
+    - fmt # https://github.com/cdornan/fmt/issues/30
+    - generic-optics # https://github.com/kcsongor/generic-lens/issues/133
+    - ghc-exactprint # https://github.com/alanz/ghc-exactprint/issues/82
+    - ghci-hexcalc # https://github.com/takenobu-hs/ghci-hexcalc/issues/2
     - ghcid # Weird conflicts with sandboxingistributed/distributed-process-supervisor/issues/1
+    - gitlab-haskell # https://github.com/commercialhaskell/stackage/issues/6088
+    - heap # https://github.com/pruvisto/heap/issues/11
+    - hjsmin # Test-runner expects a cabal-style 'dist-newstyle' directory
+    - hspec-expectations-pretty-diff # https://github.com/unrelentingtech/hspec-expectations-pretty-diff/issues/7
+    - hw-kafka-client # missing exe https://github.com/commercialhaskell/stackage/pull/5542
+    - invertible # https://github.com/dylex/invertible/issues/4
+    - language-docker # https://github.com/commercialhaskell/stackage/issues/5407
+    - lzma-conduit # https://github.com/alphaHeavy/lzma-conduit/issues/19
+    - pandoc # https://github.com/jgm/pandoc/issues/5582
+    - password # Module not visible https://github.com/cdepillabout/password/issues/2
+    - password-instances # Module not visible https://github.com/commercialhaskell/stackage/issues/4653
+    - pcg-random # https://github.com/cchalmers/pcg-random/pull/7
+    - persistent-mongoDB # Requires a running server
+    - persistent-mysql # https://github.com/commercialhaskell/stackage/issues/4764
+    - persistent-postgresql # https://github.com/commercialhaskell/stackage/issues/4763
     - pg-transact # https://github.com/jfischoff/pg-transact/issues/2
+    - poly
     - postgresql-simple-queue # same issue as before, see also https://github.com/fpco/stackage/issues/2592 as that will fix both
+    - raaz # https://github.com/commercialhaskell/stackage/issues/4784
     - rattletrap # OOM? https://github.com/fpco/stackage/issues/2232
     - relude # doctest fails due to GHC bugs, will be fixed in the next `relude` release
-    - stm-delay # https://github.com/joeyadams/haskell-stm-delay/issues/5
-    - tmp-postgres # https://github.com/jfischoff/tmp-postgres/issues/1
-    - invertible # https://github.com/dylex/invertible/issues/4
     - sbv
-    - poly
-
-    # https://github.com/pruvisto/heap/issues/11
-    - heap
-
-    # https://github.com/commercialhaskell/stackage/issues/4289
-    - Diff
-
-    # to get fixed in version after 0.3.2 https://github.com/snoyberg/tar-conduit/issues/28
-    - tar-conduit
-
-    # https://github.com/cchalmers/pcg-random/pull/7
-    - pcg-random
-
-    # Stack builds test and benchmarks in one pass so benchmark could prevent tests from getting built
-    - cryptohash
-
-    # https://github.com/basvandijk/threads/issues/10
-    - threads
-
-    # https://github.com/alphaHeavy/lzma-conduit/issues/19
-    - lzma-conduit
-
-    # https://github.com/Bodigrim/exp-pairs/issues/16
-    - exp-pairs
-
-    # https://github.com/jgm/pandoc/issues/5582
-    - pandoc
-
-    # Cannot reproduce locally, looks like it may be a bug in Stack or curator
-    - shake-language-c
-
-    # https://github.com/commercialhaskell/stackage/issues/4722
-    - tasty-discover
-
-    # https://github.com/commercialhaskell/stackage/issues/4764
-    - persistent-mysql
-    # https://github.com/commercialhaskell/stackage/issues/4763
-    - persistent-postgresql
-
-    # https://github.com/commercialhaskell/stackage/issues/4784
-    - raaz
-
-    # Requires a running server
-    - persistent-mongoDB
-
-    # https://github.com/alanz/ghc-exactprint/issues/82
-    - ghc-exactprint
-
-    # Test-runner expects a cabal-style 'dist-newstyle' directory
-    - hjsmin
-
-    # https://github.com/iij-ii/direct-hs/issues/100
-    - skews
-
-    # https://github.com/tomphp/haskell-cfenv/issues/1
-    - cfenv
-
-    # https://github.com/centromere/cacophony/issues/15
-    - cacophony
-
-    # https://github.com/commercialhaskell/stackage/issues/5407
-    - language-docker
-
-    # https://github.com/takenobu-hs/ghci-hexcalc/issues/2
-    - ghci-hexcalc
-
-    # https://github.com/kazu-yamamoto/dns/issues/153
-    - dns
-
-    # https://github.com/cdornan/fmt/issues/30
-    - fmt
-
-    # https://github.com/yesodweb/yesod/issues/1711
-    - yesod-core
+    - servant-elm # https://github.com/haskell-servant/servant-elm/issues/62
+    - servant-ruby # Module not visible https://github.com/commercialhaskell/stackage/issues/4650
+    - skews # https://github.com/iij-ii/direct-hs/issues/100
+    - stm-delay # https://github.com/joeyadams/haskell-stm-delay/issues/5
+    - tar-conduit # to get fixed in version after 0.3.2 https://github.com/snoyberg/tar-conduit/issues/28
+    - tasty-discover # https://github.com/commercialhaskell/stackage/issues/4722
+    - threads # https://github.com/basvandijk/threads/issues/10
+    - tmp-postgres # https://github.com/jfischoff/tmp-postgres/issues/1
+    - yesod-core # https://github.com/yesodweb/yesod/issues/1711
 
     # doctest
     - headroom
@@ -7567,20 +7483,29 @@ expected-test-failures:
     - yesod-paginator
     - hledger-lib
 
-    # https://github.com/commercialhaskell/stackage/issues/5587
-    - dbus
-
-    # https://github.com/unrelentingtech/hspec-expectations-pretty-diff/issues/7
-    - hspec-expectations-pretty-diff
-
-    # https://github.com/kcsongor/generic-lens/issues/133
-    - generic-optics
-
-    # https://github.com/haskell-servant/servant-elm/issues/62
-    - servant-elm
-
-    # https://github.com/commercialhaskell/stackage/issues/6088
-    - gitlab-haskell
+    #
+    # GHC 9 test compilation failures
+    #
+    - aeson-commit
+    - blake2
+    - butter
+    - cabal-file-th
+    - data-diverse
+    - flay
+    - focuslist
+    - geojson
+    - hsc2hs
+    - hsini
+    - htoml
+    - leveldb-haskell
+    - mono-traversable
+    - multiarg
+    - murmur3
+    - protobuf
+    - thread-supervisor
+    - type-map
+    - typecheck-plugin-nat-simple
+    - uncertain
 
     #
     # GHC 9 test failures
