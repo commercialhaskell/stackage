@@ -1832,7 +1832,7 @@ packages:
 
     "Adam C. Foltzer <acfoltzer@galois.com> @acfoltzer":
         - gitrev
-        - persistent-refs < 0
+        - persistent-refs
 
     "Luke Taylor <tekul.hs@gmail.com> @tekul":
         - jose-jwt
@@ -2270,9 +2270,9 @@ packages:
         - cron
         - tasty-tap
         - tasty-fail-fast
-        - drifter < 0
-        - drifter-postgresql < 0
-        - drifter-sqlite < 0
+        - drifter
+        - drifter-postgresql
+        - drifter-sqlite < 0 # compilation failure
 
     "Lars Kuhtz <lakuhtz@gmail.com> @larskuhtz":
         - wai-cors
@@ -2997,7 +2997,7 @@ packages:
 
     "Cindy Wang <cindylinz@gmail.com> @CindyLinz":
         - NoTrace
-        - linked-list-with-iterator < 0
+        - linked-list-with-iterator
 
     "Jean-Philippe Bernardy <jean-philippe.bernardy@tweag.io> @jyp":
         - polynomials-bernstein
@@ -3119,7 +3119,7 @@ packages:
         - union-angle
 
     "Jan Gerlinger <git@jangerlinger.de> @JanGe":
-        - irc-dcc < 0
+        - irc-dcc < 0 # MonadFail
 
     "Alexey Raga <alexey.raga@gmail.com> @AlexeyRaga":
         - hw-kafka-client
@@ -3174,7 +3174,7 @@ packages:
         - tasty-hedgehog
 
     "Ismail Mustafa <ismailmustafa@rocketmail.com> @ismailmustafa":
-        - handwriting < 0
+        - handwriting
 
     "Stephen Diehl <stephen.m.diehl@gmail.com> @sdiehl":
         - llvm-hs-pretty
@@ -3292,9 +3292,9 @@ packages:
     "Henri Verroken <henriverroken@gmail.com> @hverr":
         - bordacount
         - cache
-        - haskey < 0
+        - haskey
         - haskey-btree
-        - haskey-mtl < 0
+        - haskey-mtl
         - intset-imperative
         - lxd-client
         - lxd-client-config
@@ -3572,7 +3572,7 @@ packages:
 
     "Boldizsár Németh <nboldi@elte.hu> @nboldi":
         - instance-control
-        - references < 0
+        - references < 0 # compilation failure
         - classyplate
         - haskell-tools-ast
         - haskell-tools-backend-ghc
@@ -4603,6 +4603,8 @@ packages:
         - linear-base
 
     "Grandfathered dependencies":
+        - snappy
+        - quicklz
         - Boolean
         - Decimal
         - Diff
@@ -4836,6 +4838,7 @@ packages:
         - lsp
         - lsp-types
         - lukko
+        - lz4
         - lzma
         - managed
         - math-functions
@@ -5910,6 +5913,8 @@ packages:
         - haskell-tools-rewrite < 0 # tried haskell-tools-rewrite-1.1.1.0, but its *library* does not support: base-4.15.0.0
         - haskell-tools-rewrite < 0 # tried haskell-tools-rewrite-1.1.1.0, but its *library* does not support: ghc-9.0.1
         - haskell-tools-rewrite < 0 # tried haskell-tools-rewrite-1.1.1.0, but its *library* requires the disabled package: references
+        - haskey < 0 # tried haskey-0.3.1.0, but its *library* does not support: stm-containers-1.2
+        - haskey-mtl < 0 # tried haskey-mtl-0.3.1.0, but its *library* requires the disabled package: haskey
         - haskoin-store < 0 # tried haskoin-store-0.53.4, but its *library* requires the disabled package: haskoin-node
         - haskoin-store < 0 # tried haskoin-store-0.53.4, but its *library* requires the disabled package: haskoin-store-data
         - hasmin < 0 # tried hasmin-1.0.3, but its *executable* does not support: optparse-applicative-0.16.1.0
@@ -6081,6 +6086,7 @@ packages:
         - licensor < 0 # tried licensor-0.5.0, but its *library* does not support: Cabal-3.4.0.0
         - licensor < 0 # tried licensor-0.5.0, but its *library* does not support: base-4.15.0.0
         - linear-accelerate < 0 # tried linear-accelerate-0.7.0.0, but its *library* does not support: lens-5.0.1
+        - linked-list-with-iterator < 0 # tried linked-list-with-iterator-0.1.1.0, but its *library* does not support: containers-0.6.4.1
         - liquid-fixpoint < 0 # tried liquid-fixpoint-0.8.10.2, but its *library* requires the disabled package: text-format
         - little-logger < 0 # tried little-logger-0.3.2, but its *library* requires the disabled package: co-log
         - loc < 0 # tried loc-0.1.3.10, but its *library* does not support: base-4.15.0.0
@@ -7029,6 +7035,7 @@ skipped-tests:
     - haskell-tools-refactor # tried haskell-tools-refactor-1.1.1.0, but its *test-suite* does not support: tasty-1.4.1
     - haskell-tools-refactor # tried haskell-tools-refactor-1.1.1.0, but its *test-suite* does not support: time-1.9.3
     - haskell-tools-rewrite # tried haskell-tools-rewrite-1.1.1.0, but its *test-suite* does not support: tasty-1.4.1
+    - haskey-mtl # tried haskey-mtl-0.3.1.0, but its *test-suite* does not support: lens-5.0.1
     - hasmin # tried hasmin-1.0.3, but its *test-suite* does not support: doctest-0.18.1
     - heist # tried heist-1.1.0.1, but its *test-suite* does not support: lens-5.0.1
     - hidden-char # tried hidden-char-0.1.0.2, but its *test-suite* does not support: hspec-2.8.2
