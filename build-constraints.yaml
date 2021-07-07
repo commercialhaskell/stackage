@@ -7228,11 +7228,7 @@ expected-test-failures:
 
     # Requires running servers, accounts, or a specific environment.
     # These shouldn't be re-enabled unless we know a fix has been released.
-    - json-autotype # Requires filesystem access
-    - peregrin # Requires running pg-harness-server
     - GLFW-b # X
-    - egison # executable not found https://github.com/egison/egison/issues/250
-    - http2 # executable not found https://github.com/kazu-yamamoto/http2/issues/22
     - HTF # Requires shell script and are incompatible with sandboxed package databases
     - HaRe # Needs ~/.ghc-mod/cabal-helper https://github.com/fpco/stackage/pull/906
     - IPv6DB
@@ -7254,6 +7250,7 @@ expected-test-failures:
     - dbcleaner # Requires running PostgreSQL server
     - dbmigrations # PostgreSQL
     - drifter-postgresql # PostgreSQL
+    - egison # executable not found https://github.com/egison/egison/issues/250
     - esqueleto # mysql and postgresql
     - etcd # etcd https://github.com/fpco/stackage/issues/811
     - eventful-dynamodb
@@ -7282,8 +7279,10 @@ expected-test-failures:
     - hocilib # oracle
     - http-client # httpbin issues, https://github.com/snoyberg/http-client/issues/439
     - http-directory # httpbin issues, https://github.com/juhp/http-directory/issues/1
+    - http2 # executable not found https://github.com/kazu-yamamoto/http2/issues/22
     - hworker
     - influxdb
+    - json-autotype # Requires filesystem access
     - jvm
     - katip-elasticsearch # elasticsearch
     - log # ElasticSearch
@@ -7301,6 +7300,7 @@ expected-test-failures:
     - opaleye # PostgreSQL
     - pandoc-plot # requires matlab, etc and DISPLAY for tcltk
     - pantry # https://github.com/commercialhaskell/stackage/issues/4628
+    - peregrin # Requires running pg-harness-server
     - persistent-redis # redis - https://github.com/fpco/stackage/pull/1581
     - pipes-mongodb
     - postgresql-libpq-notify
