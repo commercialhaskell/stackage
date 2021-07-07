@@ -7562,36 +7562,11 @@ expected-haddock-failures:
     - hw-balancedparens
     - hw-rankselect
 
-    # "Compilation" errors
-    - MemoTrie # https://github.com/conal/MemoTrie/issues/10
-    - classy-prelude-yesod
-
-    # Modules use compiler plugins
-    # https://github.com/haskell/haddock/issues/900
-    - bins
-    - emd
-    - hmatrix-backprop
-
-    # https://github.com/haskell/haddock/issues/1091
-    - vault
-
-    # https://github.com/commercialhaskell/stackage/issues/5681
-    - hw-json
-
-    # https://github.com/egison/egison/issues/251
-    - egison
-
-    # https://github.com/koalaman/shellcheck/issues/2216
-    - ShellCheck
-
 # end of expected-haddock-failures
 
 # For packages with haddock issues
 skipped-haddocks:
-- modular # https://github.com/haskell/haddock/issues/900
-- sparkle # Java function failures tweag/sparkle#144
-- polysemy-zoo # Needs polysemy-plugin GHC plugin
-- hw-ip # https://github.com/commercialhaskell/stackage/issues/5014
+- modular # Module uses compiler plugins https://github.com/haskell/haddock/issues/900
 # end of skipped-haddocks
 
 # Benchmarks which are known not to build. Note that, currently we do not run
@@ -7839,8 +7814,7 @@ build-tool-overrides:
 # Example:
 # If bindings-GLFW-3.1.2.1 is the current latest version write
 # - bindings-GLFW-3.1.2.1 # Comment saying what should be done when the new version is releasedskipped test-suite
-tell-me-when-its-released:
-- cpio-conduit-0.7.0 # remove from skipped-tests, https://github.com/da-x/cpio-conduit/issues/1
+tell-me-when-its-released: []
 
 # Packages which should be hidden after registering, to avoid module name
 # conflicts. This is intended for at least two use cases:
