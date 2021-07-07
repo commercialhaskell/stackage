@@ -1599,13 +1599,13 @@ packages:
         - users-postgresql-simple
         - users-test
         - validate-input
-        - ignore < 0 # https://github.com/agrafix/ignore/issues/5
+        - ignore < 0 # compile fail https://github.com/agrafix/ignore/issues/5
         - blaze-bootstrap
         - dataurl
         - psql-helpers
         - superbuffer
         - timespan
-        - distance < 0 # build failure with GHC 8.4
+        - distance < 0 # compile fail (GHC 8.4)
         - async-extra
         - format-numbers
         - highjson
@@ -1763,7 +1763,7 @@ packages:
         - avers-api
         - avers-server
         - css-syntax
-        - etcd # https://github.com/wereHamster/etcd-hs/issues/5
+        - etcd
         - github-types
         - github-webhook-handler
         - github-webhook-handler-snap
@@ -1796,7 +1796,7 @@ packages:
         - bitcoin-tx
         - bitcoin-types
         - hexstring
-        - network-attoparsec < 0
+        - network-attoparsec < 0 # MonadFail
         - network-anonymous-i2p < 0
         - network-anonymous-tor < 0 # build failure w/ socks 0.6, see https://github.com/solatis/haskell-network-anonymous-tor/issues/14
 
@@ -1828,7 +1828,7 @@ packages:
     "Abhinav Gupta <mail@abhinavg.net> @abhinav":
         - farmhash
         - pinch < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - sandman < 0 # Cabal 3
+        - sandman < 0 # compilation failure (Cabal 3)
 
     "Adam C. Foltzer <acfoltzer@galois.com> @acfoltzer":
         - gitrev
@@ -2181,14 +2181,14 @@ packages:
         - every
         - extractable-singleton
         - follow-file
-        - HSet < 0 # Duplicate Hashable instance
+        - HSet < 0 # compilation failure, duplicate Hashable instance
         - markup
         - monad-control-aligned
         - monadoid
         - n-tuple
         - path-extra
-        - pred-set < 0 # DependencyFailed (PackageName "HSet")
-        - pred-trie < 0 # GHC 8.4 via pred-set
+        - pred-set
+        - pred-trie
         - path-extra
         - poly-arity
         - quickcheck-combinators
@@ -2240,16 +2240,16 @@ packages:
         - bins
         - conduino
         - configurator-export
-        - decidable < 0 # #5802/closed
+        - decidable < 0 # compilation failure #5802/closed
         - emd
-        - functor-products < 0 # https://github.com/mstksg/functor-products/issues/1
+        - functor-products < 0 # compilation failure https://github.com/mstksg/functor-products/issues/1
         - hamilton
         - hmatrix-backprop
         - hmatrix-vector-sized
         - lens-typelevel
-        - list-witnesses < 0 # #5817/closed
+        - list-witnesses
         - nonempty-containers
-        - one-liner-instances  < 0 # random 1.2 ? (maybe not, but still fails)
+        - one-liner-instances < 0 # compile failure (random 1.2)
         - prompt
         - servant-cli
         - tagged-binary
@@ -2291,11 +2291,11 @@ packages:
     "Mathieu Boespflug <mboes@tweag.net> @mboes":
         - choice
         - distributed-closure
-        - inline-java < 0
+        - inline-java
         - inline-r
         - jni < 0 # compilation failure
-        - jvm < 0 # transitive compilation failure
-        - jvm-streaming < 0
+        - jvm
+        - jvm-streaming
         - H
         - sparkle
         - th-lift
@@ -2312,7 +2312,7 @@ packages:
 
     "Kai Zhang <kai@kzhang.org> @kaizhang":
         - matrices
-        - haskell-igraph < 0 # ghc 8.10.1 #5440/closed
+        - haskell-igraph < 0 # compile failure ghc 8.10.1 #5440/closed
 
     "Michel Boucey <michel.boucey@gmail.com> @MichelBoucey":
         - IPv6Addr
@@ -2373,7 +2373,7 @@ packages:
 
     "John Lenz <wuzzeb@gmail.com> @wuzzeb":
         - yesod-static-angular
-        - hspec-webdriver < 0 # https://bitbucket.org/wuzzeb/webdriver-utils/issues/9/hspec-webdriver-build-failure-with-ghc-84
+        - hspec-webdriver
         - webdriver-angular
 
     "Sven Heyll <svh@posteo.de> @sheyll":
@@ -2891,7 +2891,7 @@ packages:
         - happstack-jmacro
         - happstack-server
         - happstack-server-tls
-        - hsx-jmacro < 0
+        - hsx-jmacro
         - ixset
         - reform
         - reform-blaze
@@ -2914,11 +2914,11 @@ packages:
         - file-modules
         - frontmatter
         - read-editor
-        # - list-prompt # https://github.com/yamadapc/list-prompt/issues/3
-        - package-description-remote < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - list-prompt < 0 # compile failure https://github.com/yamadapc/list-prompt/issues/3
+        - package-description-remote < 0 # compile failure
         - projectroot
         - questioner
-        # - language-dockerfile # https://github.com/beijaflor-io/haskell-language-dockerfile/issues/11
+        - language-dockerfile < 0 # compile failure https://github.com/beijaflor-io/haskell-language-dockerfile/issues/11
 
     "Pascal Hartig <phartig@rdrei.net> @passy":
         - giphy-api
@@ -3050,8 +3050,8 @@ packages:
         - xlsx-tabular
 
     "Mikhail Glushenkov <mikhail.glushenkov@gmail.com> @23Skidoo":
-        # - Cabal take the one that ships with GHC
-        - cabal-install < 0 # via Cabal/base
+        # - Cabal # take the one that ships with GHC
+        - cabal-install
         - pointful
 
     "Lennart Kolmodin <kolmodin@gmail.com> @kolmodin":
@@ -3103,7 +3103,7 @@ packages:
         - x11-xim
         - X11-xft
         - Imlib
-        - xturtle < 0 # ghc 8.10
+        - xturtle
         - gluturtle
         - papillon
         - zasni-gerna
@@ -3350,7 +3350,7 @@ packages:
 
     "Patrick Chilton <chpatrick@gmail.com> @chpatrick":
         - webrtc-vad
-        - clang-pure < 0 # #3810/closed
+        - clang-pure < 0 # missing system libraries #3810/closed
         - codec
 
     "Michal Konecny <mikkonecny@gmail.com> @michalkonecny":
@@ -3432,7 +3432,7 @@ packages:
 
     "Michael Swan <mswan@fastmail.com> @michael-swan":
         - pcf-font < 0 # MonadFail
-        - pcf-font-embed < 0 # via pcf-font
+        - pcf-font-embed
 
     "Iago Abal <iagoabal+stack@gmail.com>":
         - bv
@@ -3544,7 +3544,7 @@ packages:
         - inliterate
 
     "Hyunje Jun <me@noraesae.net> @noraesae":
-        - line # via scotty
+        - line
 
     "Hannes Saffrich <m0rphism@zankapfel.org> @m0rphism":
         []
@@ -3552,7 +3552,7 @@ packages:
 
     "Alexey Kuleshevich <lehins@yandex.ru> @lehins":
         - wai-middleware-auth
-        # - hip # lens 4.16 via diagrams/chart
+        - hip
         - massiv
         - massiv-io
         - massiv-test
@@ -3606,10 +3606,10 @@ packages:
         - alternators
         - arrow-extras
         - data-diverse
-        - data-diverse-lens < 0 # "The liberal coverage condition fails"
+        - data-diverse-lens < 0 # compile fail (lens)
         - ghcjs-base-stub
         - glaze
-        - glazier < 0
+        - glazier < 0 # compile fail (lens)
         - glazier-react
         - glazier-react-widget
         - javascript-extras
@@ -3799,7 +3799,7 @@ packages:
         - listsafe
 
     "Serokell <libraries@serokell.io> @serokell":
-        - importify < 0 # transitive compilation failures
+        - importify
         - log-warper
         - o-clock
         - tasty-hunit-compat
@@ -4094,12 +4094,12 @@ packages:
         - mixpanel-client
         - netrc
         - pretty-sop
-        - servant-auth # ghc 8.10
-        - servant-auth-server # ghc 8.10 via servant
-        - servant-auth-client # via warp-3.3.2
-        - servant-auth-swagger # ghc 8.10 via servant
-        - servant-auth-docs # ghc 8.10 via servant
-        - servant-elm # ghc 8.10 via servant
+        - servant-auth
+        - servant-auth-server
+        - servant-auth-client
+        - servant-auth-swagger
+        - servant-auth-docs
+        - servant-elm
         - systemd
 
     "Andre Van Der Merwe <stackage@andrevdm.com> @andrevdm":
@@ -4698,7 +4698,6 @@ packages:
         - crypto-cipher-types
         - crypto-numbers
         - crypto-pubkey
-        - crypto-pubkey-openssh < 0 # MonadFail
         - crypto-random
         - cryptohash-cryptoapi
         - cryptohash-sha256
@@ -5567,6 +5566,9 @@ packages:
         - bytestring-trie < 0 # tried bytestring-trie-0.2.5.0, but its *library* does not support: binary-0.8.8.0
         - cabal-file < 0 # tried cabal-file-0.1.1, but its *library* requires the disabled package: hackage-security
         - cabal-flatpak < 0 # tried cabal-flatpak-0.1.0.2, but its *executable* requires the disabled package: cabal-plan
+        - cabal-install < 0 # tried cabal-install-3.4.0.0, but its *executable* does not support: base-4.15.0.0
+        - cabal-install < 0 # tried cabal-install-3.4.0.0, but its *executable* does not support: base16-bytestring-1.0.1.0
+        - cabal-install < 0 # tried cabal-install-3.4.0.0, but its *executable* requires the disabled package: hackage-security
         - cabal-plan < 0 # tried cabal-plan-0.7.2.0, but its *executable* does not support: optics-core-0.4
         - cabal-plan < 0 # tried cabal-plan-0.7.2.0, but its *executable* does not support: semialign-1.2
         - cabal-plan < 0 # tried cabal-plan-0.7.2.0, but its *library* does not support: base-4.15.0.0
@@ -5940,6 +5942,8 @@ packages:
         - hierarchy < 0 # tried hierarchy-1.0.2, but its *library* does not support: base-4.15.0.0
         - highjson-swagger < 0 # tried highjson-swagger-0.5.0.0, but its *library* requires the disabled package: swagger2
         - highjson-th < 0 # tried highjson-th-0.5.0.0, but its *library* requires the disabled package: swagger2
+        - hip < 0 # tried hip-1.5.6.0, but its *library* requires the disabled package: Chart
+        - hip < 0 # tried hip-1.5.6.0, but its *library* requires the disabled package: Chart-diagrams
         - hit < 0 # tried hit-0.7.0, but its *executable* requires the disabled package: git
         - hledger-iadd < 0 # tried hledger-iadd-1.3.14, but its *library* does not support: hledger-lib-1.22
         - hledger-interest < 0 # tried hledger-interest-1.6.1, but its *executable* does not support: hledger-lib-1.22
@@ -5981,6 +5985,7 @@ packages:
         - hspec-tables < 0 # tried hspec-tables-0.0.1, but its *library* does not support: base-4.15.0.0
         - hspec-tables < 0 # tried hspec-tables-0.0.1, but its *library* does not support: hspec-core-2.8.2
         - hspec-wai-json < 0 # tried hspec-wai-json-0.11.0, but its *library* does not support: hspec-wai-0.11.1
+        - hspec-webdriver < 0 # tried hspec-webdriver-1.2.0, but its *library* requires the disabled package: webdriver
         - hsx2hs < 0 # tried hsx2hs-0.14.1.8, but its *library* does not support: template-haskell-2.17.0.0
         - http-download < 0 # tried http-download-0.2.0.0, but its *library* requires the disabled package: retry
         - hw-balancedparens < 0 # tried hw-balancedparens-0.4.1.1, but its *executable* requires the disabled package: generic-lens
@@ -6011,9 +6016,16 @@ packages:
         - idris < 0 # tried idris-1.3.3, but its *library* does not support: network-3.1.2.2
         - idris < 0 # tried idris-1.3.3, but its *library* does not support: optparse-applicative-0.16.1.0
         - ilist < 0 # tried ilist-0.4.0.1, but its *library* does not support: base-4.15.0.0
+        - importify < 0 # tried importify-1.0.1, but its *library* requires the disabled package: fmt
+        - importify < 0 # tried importify-1.0.1, but its *library* requires the disabled package: haskell-names
+        - importify < 0 # tried importify-1.0.1, but its *library* requires the disabled package: hse-cpp
+        - importify < 0 # tried importify-1.0.1, but its *library* requires the disabled package: log-warper
+        - importify < 0 # tried importify-1.0.1, but its *library* requires the disabled package: text-format
         - incremental-parser < 0 # tried incremental-parser-0.5.0.2, but its *library* requires the disabled package: rank2classes
         - indentation-core < 0 # tried indentation-core-0.0.0.2, but its *library* does not support: base-4.15.0.0
         - indentation-parsec < 0 # tried indentation-parsec-0.0.0.2, but its *library* does not support: base-4.15.0.0
+        - inline-java < 0 # tried inline-java-0.10.0, but its *library* does not support: ghc-9.0.1
+        - inline-java < 0 # tried inline-java-0.10.0, but its *library* requires the disabled package: jni
         - interpolatedstring-qq2 < 0 # tried interpolatedstring-qq2-0.1.0.0, but its *library* does not support: template-haskell-2.17.0.0
         - invertible < 0 # tried invertible-0.2.0.7, but its *library* requires the disabled package: partial-isomorphisms
         - invertible-grammar < 0 # tried invertible-grammar-0.1.3, but its *library* does not support: template-haskell-2.17.0.0
@@ -6039,10 +6051,15 @@ packages:
         - json-schema < 0 # tried json-schema-0.7.4.2, but its *library* does not support: containers-0.6.4.1
         - json-schema < 0 # tried json-schema-0.7.4.2, but its *library* does not support: generic-deriving-1.14
         - json-schema < 0 # tried json-schema-0.7.4.2, but its *library* does not support: time-1.9.3
+        - jvm < 0 # tried jvm-0.6.0, but its *library* requires the disabled package: distributed-closure
+        - jvm < 0 # tried jvm-0.6.0, but its *library* requires the disabled package: jni
         - jvm-batching < 0 # tried jvm-batching-0.2.0, but its *library* requires the disabled package: distributed-closure
         - jvm-batching < 0 # tried jvm-batching-0.2.0, but its *library* requires the disabled package: inline-java
         - jvm-batching < 0 # tried jvm-batching-0.2.0, but its *library* requires the disabled package: jni
         - jvm-batching < 0 # tried jvm-batching-0.2.0, but its *library* requires the disabled package: jvm
+        - jvm-streaming < 0 # tried jvm-streaming-0.4.0, but its *library* requires the disabled package: distributed-closure
+        - jvm-streaming < 0 # tried jvm-streaming-0.4.0, but its *library* requires the disabled package: jni
+        - jvm-streaming < 0 # tried jvm-streaming-0.4.0, but its *library* requires the disabled package: jvm-batching
         - katip-elasticsearch < 0 # tried katip-elasticsearch-0.7.0.0, but its *library* requires the disabled package: retry
         - katip-logstash < 0 # tried katip-logstash-0.1.0.0, but its *library* requires the disabled package: retry
         - katip-rollbar < 0 # tried katip-rollbar-0.3.0.1, but its *library* does not support: aeson-1.5.6.0
@@ -6088,6 +6105,8 @@ packages:
         - linear-accelerate < 0 # tried linear-accelerate-0.7.0.0, but its *library* does not support: lens-5.0.1
         - linked-list-with-iterator < 0 # tried linked-list-with-iterator-0.1.1.0, but its *library* does not support: containers-0.6.4.1
         - liquid-fixpoint < 0 # tried liquid-fixpoint-0.8.10.2, but its *library* requires the disabled package: text-format
+        - list-witnesses < 0 # tried list-witnesses-0.1.3.2, but its *library* requires the disabled package: decidable
+        - list-witnesses < 0 # tried list-witnesses-0.1.3.2, but its *library* requires the disabled package: functor-products
         - little-logger < 0 # tried little-logger-0.3.2, but its *library* requires the disabled package: co-log
         - loc < 0 # tried loc-0.1.3.10, but its *library* does not support: base-4.15.0.0
         - log-warper < 0 # tried log-warper-1.9.0, but its *library* does not support: aeson-1.5.6.0
@@ -6226,6 +6245,7 @@ packages:
         - papillon < 0 # tried papillon-0.1.1.1, but its *library* does not support: template-haskell-2.17.0.0
         - paripari < 0 # tried paripari-0.7.0.0, but its *library* does not support: parser-combinators-1.3.0
         - path-text-utf8 < 0 # tried path-text-utf8-0.0.1.8, but its *library* does not support: path-0.9.0
+        - pcf-font-embed < 0 # tried pcf-font-embed-0.1.2.0, but its *library* requires the disabled package: pcf-font
         - pedersen-commitment < 0 # tried pedersen-commitment-0.2.0, but its *library* requires the disabled package: protolude
         - perfect-vector-shuffle < 0 # tried perfect-vector-shuffle-0.1.1.1, but its *library* does not support: base-4.15.0.0
         - persistable-record < 0 # tried persistable-record-0.6.0.5, but its *library* requires the disabled package: th-data-compat
@@ -6273,6 +6293,8 @@ packages:
         - postgrest < 0 # tried postgrest-7.0.1, but its *library* does not support: base-4.15.0.0
         - pqueue < 0 # tried pqueue-1.4.1.3, but its *library* does not support: base-4.15.0.0
         - prairie < 0 # tried prairie-0.0.1.0, but its *library* does not support: template-haskell-2.17.0.0
+        - pred-set < 0 # tried pred-set-0.0.1, but its *library* requires the disabled package: HSet
+        - pred-trie < 0 # tried pred-trie-0.6.1, but its *library* requires the disabled package: tries
         - prim-uniq < 0 # tried prim-uniq-0.2, but its *library* requires the disabled package: dependent-sum
         - product-isomorphic < 0 # tried product-isomorphic-0.0.3.3, but its *library* requires the disabled package: th-data-compat
         - proto-lens < 0 # tried proto-lens-0.7.0.0, but its *library* does not support: base-4.15.0.0
@@ -6639,6 +6661,7 @@ packages:
         - xml-isogen < 0 # tried xml-isogen-0.3.0, but its *library* requires the disabled package: dom-parser
         - xmonad-contrib < 0 # tried xmonad-contrib-0.16, but its *library* requires the disabled package: xmonad
         - xmonad-extras < 0 # tried xmonad-extras-0.15.3, but its *library* requires the disabled package: xmonad
+        - xturtle < 0 # tried xturtle-0.2.0.0, but its *library* requires the disabled package: yjsvg
         - yeshql < 0 # tried yeshql-4.2.0.0, but its *library* does not support: yeshql-core-4.2.0.0
         - yeshql < 0 # tried yeshql-4.2.0.0, but its *library* requires the disabled package: yeshql-hdbc
         - yesod < 0 # tried yesod-1.6.1.2, but its *library* requires the disabled package: yesod-core
@@ -7686,6 +7709,7 @@ skipped-benchmarks:
     - haskell-tools-cli # tried haskell-tools-cli-1.1.1.0, but its *benchmarks* does not support: aeson-1.5.6.0
     - haskell-tools-cli # tried haskell-tools-cli-1.1.1.0, but its *benchmarks* does not support: time-1.9.3
     - hgeometry # tried hgeometry-0.12.0.4, but its *benchmarks* requires the disabled package: deepseq-generics
+    - hip # tried hip-1.5.6.0, but its *benchmarks* requires the disabled package: repa-algorithms
     - lsp-test # tried lsp-test-0.14.0.0, but its *benchmarks* does not support: base-4.15.0.0
     - lsp-test # tried lsp-test-0.14.0.0, but its *benchmarks* requires the disabled package: lsp
     - o-clock # tried o-clock-1.2.1, but its *benchmarks* requires the disabled package: tiempo
