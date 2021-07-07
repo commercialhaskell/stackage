@@ -1,7 +1,6 @@
 stackage
 ========
 [![check](https://github.com/commercialhaskell/stackage/actions/workflows/check.yml/badge.svg)](https://github.com/commercialhaskell/stackage/actions/workflows/check.yml)
-[![Join the chat at https://gitter.im/commercialhaskell/stackage](https://badges.gitter.im/commercialhaskell/stackage.svg)](https://gitter.im/commercialhaskell/stackage?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Stable sets of Haskell Packages from Hackage
 
@@ -138,5 +137,6 @@ weekend or early in the week.
 
 __Where to get help regarding uploading packages?__
 
-Please ask on [Gitter](https://gitter.im/commercialhaskell/stackage) or open
-an issue or comment on the PR which uploads the package.
+Please ask on the #stackage channel on the
+[Haskell Foundation Slack](https://join.slack.com/t/haskell-foundation/shared_invite/zt-mjh76fw0-CEjg2NbyVE8rVQDvR~0F4A)
+or open an issue or comment on the PR which uploads the package.
