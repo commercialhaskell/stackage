@@ -1558,7 +1558,7 @@ packages:
         - hasql
         - hasql-optparse-applicative
         - hasql-pool
-        - hasql-th
+        - hasql-th < 0 # 0.4.0.9 TH compile error
         - hasql-transaction
         - headed-megaparsec
         - jsonifier
@@ -7298,6 +7298,7 @@ expected-test-failures:
     - network-anonymous-i2p
     - odbc # "Need ODBC_TEST_CONNECTION_STRING environment variable"
     - opaleye # PostgreSQL
+    - optima # `demo` invoked with bad arguments https://github.com/commercialhaskell/stackage/pull/6102
     - pandoc-plot # requires matlab, etc and DISPLAY for tcltk
     - pantry # https://github.com/commercialhaskell/stackage/issues/4628
     - peregrin # Requires running pg-harness-server
@@ -7308,6 +7309,7 @@ expected-test-failures:
     - postgresql-simple # PostgreSQL
     - postgresql-simple-migration
     - postgresql-simple-queue
+    - postgresql-syntax # hedgehog-test executable not found https://github.com/commercialhaskell/stackage/pull/6102
     - postgresql-typed # PostgreSQL
     - postgrest # PostgreSQL
     - purescript # git 128 https://github.com/purescript/purescript/issues/2292
@@ -7379,6 +7381,7 @@ expected-test-failures:
     - vector-algorithms # http://hub.darcs.net/dolio/vector-algorithms/issue/9
     - vivid-supercollider # https://github.com/commercialhaskell/stackage/issues/4250
     - xmlgen # https://github.com/skogsbaer/xmlgen/issues/6
+    - domain-optics # https://github.com/commercialhaskell/stackage/pull/6102
 
     # Recursive deps https://github.com/fpco/stackage/issues/1818
     - options
