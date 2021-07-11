@@ -220,6 +220,15 @@ file](https://github.com/fpco/stackage-content/blob/master/stack/global-hints.ya
 is updated with information on the latest GHC release by cloning that
 repo and running `./update-global-hints.hs ghc-X.Y.Z`.
 
+If enountering an error like the following, this means that the Stack metadata
+has not yet been updated, so wait some time until this happens:
+
+```
+This probably means a GHC bindist has not yet been added for OS key 'linux64', 'linux64-ncurses6', 'linux64-tinfo6'.
+Supported versions: ...
+update-global-hints.hs: Received ExitFailure 1 when running
+```
+
 Also required to build an LTS minor bump with a ghc version change: On the build server, modify `/var/stackage/stackage/automated/work/lts-$THIS_LTS_MAJOR_VER/constraints.yaml` and update the ghc-version. (You may need to update sibling files as well.) Then run `NOPLAN=1 /var/stackage/stackage/automated/build.sh lts-$THIS_LTS_MINOR_BUMP` to build the LTS.
 
 ### Getting the new image to the build server
