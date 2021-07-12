@@ -7449,18 +7449,19 @@ expected-test-failures:
     - tmp-postgres # https://github.com/jfischoff/tmp-postgres/issues/1
     - yesod-core # https://github.com/yesodweb/yesod/issues/1711
 
-    # doctest
+    # doctests can be flaky on the build server, add packages here if
+    # they start causing issues.
     - dhall
+    - doctest-driver-gen
     - headroom
+    - hint
     - hledger-lib
     - kawhi
+    - makefile # Doctests require hidden Glob package
+    - multiset # # Doctests require hidden Glob package
     - perf
     - xml-indexed-cursor
     - yesod-paginator
-
-    # Doctests require hidden Glob package
-    - makefile
-    - multiset # doctests require Glob, a hidden package
 
     #
     # GHC 9 test compilation failures
