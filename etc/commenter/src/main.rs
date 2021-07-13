@@ -1,8 +1,7 @@
-use std::collections::HashMap;
-use std::fs::File;
+use std::collections::{HashMap};
 use std::io::{self, BufRead};
-use std::path::Path;
 
+use lazy_regex::regex;
 use regex::Regex;
 
 type H = HashMap<Header, Vec<(String, String, String)>>;
@@ -18,43 +17,47 @@ fn main() {
     let mut tests: H = Default::default();
     let mut benches: H = Default::default();
     let mut last_header: Option<Header> = None;
-    let empty = Regex::new(r#"^\s*$"#).unwrap();
-    let header_versioned =
-        Regex::new(r#"^(?P<package>[a-zA-z]([a-zA-z0-9.-]*?))-(?P<version>(\d+(\.\d+)*)).+?is out of bounds for:$"#).unwrap();
-    let header_missing =
-        Regex::new(r#"^(?P<package>[a-zA-z]([a-zA-z0-9.-]*)).+?depended on by:$"#).unwrap();
-    let package =
-        Regex::new(r#"^- \[ \] (?P<package>[a-zA-z]([a-zA-z0-9.-]*?))-(?P<version>(\d+(\.\d+)*)).+?Used by: (?P<component>.+)$"#)
-        .unwrap();
 
-    if let Ok(lines) = read_lines("./comments.txt") {
-        for line in lines {
-            if let Ok(line) = line {
-                if empty.captures(&line).is_some() {
-                } else if let Some(cap) = package.captures(&line) {
-                    let root = last_header.clone().unwrap();
-                    let package = cap.name("package").unwrap().as_str();
-                    let version = cap.name("version").unwrap().as_str();
-                    let component = cap.name("component").unwrap().as_str();
-                    match component {
-                        "library" | "executable" => {
-                            insert(&mut lib_exes, root, package, version, component)
-                        }
-                        "benchmark" => insert(&mut benches, root, package, version, "benchmarks"),
-                        "test-suite" => insert(&mut tests, root, package, version, component),
-                        _ => panic!("Bad component: {}", component),
-                    }
-                } else if let Some(cap) = header_versioned.captures(&line) {
-                    let package = cap.name("package").unwrap().as_str().to_owned();
-                    let version = cap.name("version").unwrap().as_str().to_owned();
-                    last_header = Some(Header::Versioned { package, version });
-                } else if let Some(cap) = header_missing.captures(&line) {
-                    let package = cap.name("package").unwrap().as_str().to_owned();
-                    last_header = Some(Header::Missing { package });
-                } else {
-                    panic!("Unhandled: {:?}", line);
+    let header_versioned = regex!(
+        r#"^(?P<package>[a-zA-z]([a-zA-z0-9.-]*?))-(?P<version>(\d+(\.\d+)*)).+?is out of bounds for:$"#
+    );
+    let header_missing = regex!(r#"^(?P<package>[a-zA-z]([a-zA-z0-9.-]*)).+?depended on by:$"#);
+    let package = regex!(
+        r#"^- \[ \] (?P<package>[a-zA-z]([a-zA-z0-9.-]*?))-(?P<version>(\d+(\.\d+)*)).+?Used by: (?P<component>.+)$"#
+    );
+
+    // Ignore everything until the bounds issues show up.
+    let mut process_line = false;
+
+    for line in io::stdin().lock().lines().flatten() {
+        if is_reg_match(&line, regex!(r#"^\s*$"#)) {
+            // noop
+        } else if line == "curator: Snapshot dependency graph contains errors:" {
+            process_line = true;
+        } else if !process_line {
+            println!("[INFO] {}", line);
+        } else if let Some(cap) = package.captures(&line) {
+            let root = last_header.clone().unwrap();
+            let package = cap.name("package").unwrap().as_str();
+            let version = cap.name("version").unwrap().as_str();
+            let component = cap.name("component").unwrap().as_str();
+            match component {
+                "library" | "executable" => {
+                    insert(&mut lib_exes, root, package, version, component)
                 }
+                "benchmark" => insert(&mut benches, root, package, version, "benchmarks"),
+                "test-suite" => insert(&mut tests, root, package, version, component),
+                _ => panic!("Bad component: {}", component),
             }
+        } else if let Some(cap) = header_versioned.captures(&line) {
+            let package = cap.name("package").unwrap().as_str().to_owned();
+            let version = cap.name("version").unwrap().as_str().to_owned();
+            last_header = Some(Header::Versioned { package, version });
+        } else if let Some(cap) = header_missing.captures(&line) {
+            let package = cap.name("package").unwrap().as_str().to_owned();
+            last_header = Some(Header::Missing { package });
+        } else {
+            panic!("Unhandled: {:?}", line);
         }
     }
 
@@ -93,7 +96,7 @@ fn printer(
     version: &str,
     component: &str,
     header: &Header,
-) -> () {
+) {
     let lt0 = if lt0 { " < 0" } else { "" };
     println!(
         "{indent}- {package}{lt0} # tried {package}-{version}, but its *{component}* {cause}",
@@ -117,17 +120,13 @@ fn printer(
 }
 
 fn insert(h: &mut H, header: Header, package: &str, version: &str, component: &str) {
-    (*h.entry(header).or_insert_with(|| vec![])).push((
+    (*h.entry(header).or_insert_with(Vec::new)).push((
         package.to_owned(),
         version.to_owned(),
         component.to_owned(),
     ));
 }
 
-fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
-where
-    P: AsRef<Path>,
-{
-    let file = File::open(filename)?;
-    Ok(io::BufReader::new(file).lines())
+fn is_reg_match(s: &str, r: &Regex) -> bool {
+    r.captures(s).is_some()
 }
