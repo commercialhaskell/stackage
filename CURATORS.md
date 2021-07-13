@@ -218,7 +218,7 @@ Update `GHCVER` in `Dockerfile`. (This env var automatically gets passed to `deb
 Ensure that the [global-hints.yaml
 file](https://github.com/fpco/stackage-content/blob/master/stack/global-hints.yaml)
 is updated with information on the latest GHC release by cloning that
-repo and running `./update-global-hints.yaml ghc-X.Y.Z`.
+repo and running `./update-global-hints.hs ghc-X.Y.Z`.
 
 Also required to build an LTS minor bump with a ghc version change: On the build server, modify `/var/stackage/stackage/automated/work/lts-$THIS_LTS_MAJOR_VER/constraints.yaml` and update the ghc-version. (You may need to update sibling files as well.) Then run `NOPLAN=1 /var/stackage/stackage/automated/build.sh lts-$THIS_LTS_MINOR_BUMP` to build the LTS.
 
