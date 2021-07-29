@@ -173,12 +173,12 @@ This typically happens when we move to a new major GHC release or when
 there are only a few packages waiting for updates on an upper bounds
 issue.
 
-Comment out the offending packages from the "packages" section and add
-a comment saying why it was disabled:
+If a package needs to be disabled due to build failures: Add a `< 0`
+bound to the package to exclude it, and add a comment stating why it
+was disabled: `- swagger < 0 # compile failure againts aeson 1.0`
 
-```
-        # - swagger # bounds: aeson 1.0
-```
+If a package needs to be disabled due to bounds issues, see the "Large
+scale enabling/disabling of packages" section below.
 
 If this causes reverse dependencies to be disabled we should notify
 the maintainers of those packages.
@@ -413,7 +413,19 @@ errors for builds, tests and benchmarks.
 `build-constraints.yaml`. It can only handle bounds issues,
 compilation issues still need to be analyzed manually.
 
-Example usage: After disabling a few packages you get this curator output:
+It disables all offending packages/test suites/benchmarks, so it is
+only meant to be used when we close bounds issues and want to disable
+packages, and when upgrading GHC.
+
+#### Setup
+This is currently a rust program, You can install the rust toolchain
+by using [rustup](https://rustup.rs/).
+
+Then `cd etc/commenter && cargo install --locked --path .`
+
+#### Example usage
+
+After disabling a few packages you get this curator output:
 
 ```
 ConfigFile (GHC 9 bounds issues, @maintainer) (not present) depended on by:
@@ -428,10 +440,14 @@ testing-feat (GHC 9 bounds issues, Grandfathered dependencies) (not present) dep
 - [ ] dual-tree-0.2.3.0 (-any). Grandfathered dependencies. @handles. Used by: test-suite
 ```
 
-Copy this into `etc/commenter/comments.txt` and run `./commenter` (currently requires Rust)
+Now run:
+```
+./check 2>&1 >/dev/null | commenter
+```
 
 You will get this output:
 ```
+[INFO] ...
 LIBS + EXES
 
         - xdg-desktop-entry < 0 # tried xdg-desktop-entry-0.1.1.1, but its *library* requires the disabled package: ConfigFile
@@ -448,7 +464,7 @@ TESTS have a similar section under `skipped-tests`, and BENCHMARKS under `skippe
 
 #### Re-enabling
 
-We can periodically remove all packages under the bounds sections and then re-run the disabling flow above until we get a clean plan. This way we will automatically pick up packages that have been fixed.
+We can periodically remove all packages under the bounds sections and then re-run the disabling flow above until we get a clean plan. This will automatically pick up packages that have been fixed.
 
 #### Notes
 
