@@ -19,7 +19,8 @@ else
     WORKDIR=$ROOT/work/$TAG
 fi
 
-IMAGE=commercialhaskell/stackage:$TAG
+#IMAGE=commercialhaskell/stackage:$TAG
+IMAGE=ghcr.io/commercialhaskell/stackage/build:$TAG
 
 PANTRY_DIR=$ROOT/work/stack/pantry
 STACK_DIR=$ROOT/work/stack
