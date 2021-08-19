@@ -329,6 +329,8 @@ to avoid having to rebuild everything again.)
 
 Note LTS builds without NOPLAN will use the latest Hackage data.
 
+If you need to make further modifications beyond what `constraints.yaml` allows, you can directly edit the `snapshot-incomplete.yaml` file. Then, instead of `NOPLAN=1 build.sh`, you need to use `NOPLAN=2 build.sh`. Note that from this point on, further changes to `constraints.yaml` will not impact the build plan.
+
 ### Timing
 
 A looping script on the build server keeps trying to build nightly
