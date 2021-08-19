@@ -98,16 +98,17 @@ fi
 #
 # * Update the package index (unless LTS)
 # * Create a new plan
-if [ "${NOPLAN:-}x" = "x" ]
+if [ "${NOPLAN:-}x" = "1x" ]
 then
-    if [ $SHORTNAME = "lts" ]
-    then
-        docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator constraints --target $TARGET && curator snapshot-incomplete --target $TARGET && curator snapshot"
-    else
-        docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator update && curator constraints --target $TARGET && curator snapshot-incomplete --target $TARGET && curator snapshot"
-    fi
-else
     docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator snapshot-incomplete --target $TARGET && curator snapshot"
+elif [ "${NOPLAN:-}x" = "2x" ]
+then
+    docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator snapshot-incomplete --target $TARGET && curator snapshot"
+elif [ $SHORTNAME = "lts" ]
+then
+    docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator constraints --target $TARGET && curator snapshot-incomplete --target $TARGET && curator snapshot"
+else
+    docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator update && curator constraints --target $TARGET && curator snapshot-incomplete --target $TARGET && curator snapshot"
 fi
 
 
