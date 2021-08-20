@@ -104,7 +104,7 @@ then
     docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator snapshot-incomplete --target $TARGET && curator snapshot"
 elif [ "${NOPLAN:-}x" = "2x" ]
 then
-    docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator snapshot-incomplete --target $TARGET && curator snapshot"
+    docker run $ARGS_PREBUILD $IMAGE curator snapshot
 elif [ $SHORTNAME = "lts" ]
 then
     docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator constraints --target $TARGET && curator snapshot-incomplete --target $TARGET && curator snapshot"
