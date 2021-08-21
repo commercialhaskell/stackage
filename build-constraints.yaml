@@ -6731,6 +6731,9 @@ packages:
 # Package flags are applied to individual packages, and override the values of
 # global-flags
 package-flags:
+    freckle-app:
+      test-git: false
+
     QuickCheck:
         old-random: false
     pathtype:
@@ -6941,9 +6944,6 @@ skipped-tests:
 
     # Uses Cabal's "library internal" stanza feature
     - s3-signer
-
-    # Tries to execute a `git` command in an external process.
-    - freckle-app # https://github.com/commercialhaskell/stackage/issues/6172
 
     # Due to cycles, which are actually just limitations in Stack right now.
     - call-stack
