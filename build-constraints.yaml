@@ -6935,29 +6935,30 @@ skipped-tests:
     - freckle-app # https://github.com/commercialhaskell/stackage/pull/6173#issuecomment-903228985
 
     # Due to cycles, which are actually just limitations in Stack right now.
-    - call-stack
     - HUnit
-    - criterion
-    - hspec
-    - foundation
     - attoparsec
+    - base-orphans # via hspec
+    - bifunctors # via hspec
+    - call-stack
     - case-insensitive
-    - nanospec
-    - scientific
-    - vector-binary-instances
     - clock
+    - criterion
+    - distributive # via hspec
+    - doctest # via hspec
+    - foundation
+    - hspec
+    - hspec-discover # via logging-facade/mockery
     - js-flot
     - js-jquery
-    - splitmix
-    - base-orphans # via hspec
-    - distributive # via hspec
-    - bifunctors # via hspec
-    - doctest # via hspec
-    - tasty-expected-failure # via tasty-hedgehog
+    - nanospec
+    - primitive
     - random
+    - scientific
     - split
-    - hspec-discover # via logging-facade/mockery
+    - splitmix
+    - tasty-expected-failure # via tasty-hedgehog
     - vector # doctest
+    - vector-binary-instances
 
     # TODO
     - rpmbuild-order
