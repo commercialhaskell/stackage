@@ -4775,8 +4775,6 @@ packages:
         - classy-prelude-conduit
         - clientsession
         - cmark-gfm
-        - co-log-core
-        - co-log-polysemy
         - colour
         - concurrent-extra
         - conduit
@@ -4853,7 +4851,6 @@ packages:
         - filemanip
         - fin
         - fingertree
-        - first-class-patterns
         - fmlist
         - friendly-time
         - functor-classes-compat
@@ -4907,7 +4904,6 @@ packages:
         - hxt-unicode
         - iconv
         - ieee754
-        - ilist
         - indexed
         - infer-license
         - insert-ordered-containers
@@ -4940,7 +4936,6 @@ packages:
         - lzma-clib
         - managed
         - math-functions
-        - membrain
         - mersenne-random
         - mersenne-random-pure64
         - mfsolve
@@ -5013,7 +5008,6 @@ packages:
         - regex-tdfa-text
         - relapse
         - relational-schemas
-        - relude
         - resolv
         - resource-pool
         - resourcet
@@ -5037,15 +5031,12 @@ packages:
         - setenv
         - shakespeare
         - shell-escape
-        - shellmet
-        - shortcut-links
         - silently
         - simple-reflect
         - simple-sendfile
         - singleton-bool
         - size-based
         - skein
-        - slist
         - snap-core
         - some
         - special-values
@@ -5110,10 +5101,8 @@ packages:
         - trivial-constraint
         - true-name
         - tuple-th
-        - type-errors-pretty
         - type-fun
         - type-hint
-        - typerep-map
         - uglymemo
         - unbounded-delays
         - unicode-collation
@@ -5130,7 +5119,6 @@ packages:
         - utf8-light
         - utf8-string
         - uuid-types
-        - validation-selective
         - vault
         - vec
         - vector
@@ -5170,17 +5158,29 @@ packages:
         - zlib
         - zlib-bindings
 
-    # If you stop maintaining a package you can move it here.
-    # It will then be disabled if it starts causing problems.
+    # If you stop maintaining a package (either just on stackage, or
+    # completely),you can move it here. It will be disabled if it
+    # starts causing problems.
+    #
     # See #1056/closed
+    #
+    # When disabling one of these packages, move it to "Removed packages".
     "Abandoned packages":
         - Earley
         - bower-json
         - boxes
         - cassava
         - curl
+        - first-class-patterns # #5965/closed
+        - ilist # #5965/closed
         - non-empty-sequence
         - pattern-arrows
+        - relude # #5965/closed
+        - shellmet # #5965/closed
+        - slist # #5965/closed
+        - type-errors-pretty # #5965/closed
+        - typerep-map # #5965/closed
+        - validation-selective # #5965/closed
 
     # Packages without maintainers that cause issues,
     # this is to prevent us from including them by accident. They can
@@ -5194,22 +5194,26 @@ packages:
      # that new packages depending on it will be flagged as well.
     "Removed packages":
         - PSQueue < 0 # build failure with GHC 8.4 (nowhere to report, it's ancient just let it die)
-        - json-builder < 0 # build failure with GHC 8.4 https://github.com/lpsmith/json-builder/issues/2
-        - type-combinators < 0 # build failure with GHC 8.4 https://github.com/kylcarte/type-combinators/issues/8
-        - preprocessor-tools < 0 # build failure with GHC 8.4
-        - tinytemplate < 0 # build failure with GHC 8.4
-        - wai-route < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - fingertree-psqueue < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - cli < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - prim-array < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - xxhash < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - Unique < 0 # GHC 8.4 via base-4.11.0.0
+        - cli < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - co-log-core < 0 # #5965/closed
+        - co-log-polysemy < 0 # #5965/closed
+        - fingertree-psqueue < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
         - hastache < 0 # GHC 8.4 via base-4.11.0.0
-        - syb-with-class < 0 # GHC 8.4 via template-haskell-2.13.0.0
-        - lens-labels < 0 # deprecated https://github.com/commercialhaskell/stackage/pull/4358
-        - proto-lens-combinators < 0 # deprecated https://github.com/commercialhaskell/stackage/pull/4358
         - heart-core < 0 # deprecated
-        - tomland < 0
+        - json-builder < 0 # build failure with GHC 8.4 https://github.com/lpsmith/json-builder/issues/2
+        - lens-labels < 0 # deprecated https://github.com/commercialhaskell/stackage/pull/4358
+        - membrain < 0 # #5965/closed
+        - preprocessor-tools < 0 # build failure with GHC 8.4
+        - prim-array < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - proto-lens-combinators < 0 # deprecated https://github.com/commercialhaskell/stackage/pull/4358
+        - shortcut-links < 0 # #5965/closed
+        - syb-with-class < 0 # GHC 8.4 via template-haskell-2.13.0.0
+        - tinytemplate < 0 # build failure with GHC 8.4
+        - tomland < 0 # #5965/closed
+        - type-combinators < 0 # build failure with GHC 8.4 https://github.com/kylcarte/type-combinators/issues/8
+        - wai-route < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - xxhash < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
 
     "GHC upper bounds":
         # Need to always match the version shipped with GHC
@@ -5671,9 +5675,6 @@ packages:
         - clock-extras < 0 # tried clock-extras-0.1.0.2, but its *library* does not support: clock-0.8.2
         - cmark-highlight < 0 # tried cmark-highlight-0.2.0.0, but its *library* does not support: cmark-0.6
         - co-log-concurrent < 0 # tried co-log-concurrent-0.5.1.0, but its *library* requires the disabled package: co-log-core
-        - co-log-core < 0 # tried co-log-core-0.2.1.1, but its *library* does not support: base-4.15.0.0
-        - co-log-polysemy < 0 # tried co-log-polysemy-0.0.1.2, but its *library* does not support: base-4.15.0.0
-        - co-log-polysemy < 0 # tried co-log-polysemy-0.0.1.2, but its *library* does not support: polysemy-1.6.0.0
         - code-builder < 0 # tried code-builder-0.1.3, but its *library* does not support: containers-0.6.4.1
         - codec < 0 # tried codec-0.2.1, but its *library* requires the disabled package: binary-bits
         - colonnade < 0 # tried colonnade-1.2.0.2, but its *library* does not support: profunctors-5.6.2
@@ -6190,7 +6191,6 @@ packages:
         - mbug < 0 # tried mbug-1.3.2, but its *library* does not support: time-1.9.3
         - medea < 0 # tried medea-1.2.0, but its *library* requires the disabled package: nonempty-containers
         - mega-sdist < 0 # tried mega-sdist-0.4.1.0, but its *executable* requires the disabled package: pantry
-        - membrain < 0 # tried membrain-0.0.0.2, but its *library* does not support: base-4.15.0.0
         - menshen < 0 # tried menshen-0.0.3, but its *library* does not support: regex-tdfa-1.3.1.1
         - merkle-tree < 0 # tried merkle-tree-0.1.1, but its *library* requires the disabled package: protolude
         - messagepack-rpc < 0 # tried messagepack-rpc-0.5.1, but its *library* does not support: containers-0.6.4.1
@@ -6504,7 +6504,6 @@ packages:
         - sexpr-parser < 0 # tried sexpr-parser-0.2.0.0, but its *library* does not support: base-4.15.0.0
         - sexpr-parser < 0 # tried sexpr-parser-0.2.0.0, but its *library* does not support: megaparsec-9.0.1
         - shake-plus-extended < 0 # tried shake-plus-extended-0.4.1.0, but its *library* requires the disabled package: ixset-typed
-        - shortcut-links < 0 # tried shortcut-links-0.5.1.1, but its *library* does not support: base-4.15.0.0
         - show-prettyprint < 0 # tried show-prettyprint-0.3.0.1, but its *library* does not support: trifecta-2.1.1
         - shower < 0 # tried shower-0.2.0.2, but its *library* does not support: base-4.15.0.0
         - simplest-sqlite < 0 # tried simplest-sqlite-0.1.0.2, but its *library* does not support: template-haskell-2.17.0.0
@@ -7782,7 +7781,6 @@ hide:
 - base-compat # conflicts with base-compat-batteries, see https://github.com/fpco/stackage/issues/3607
 - hs-functors # conflicts with profunctors, see #3609/closed
 - constraint # conflicts with constraints
-- summoner # conflicts with Prelude in base
 - temporary-rc # conflicts with temporary
 - temporary-resourcet # conflicts with temporary
 - ghc-lib # per its own recommendation. conflicts with template-haskell
