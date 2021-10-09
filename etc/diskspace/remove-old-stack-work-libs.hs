@@ -1,5 +1,5 @@
 #!/usr/bin/env stack
--- stack --resolver nightly script
+-- stack --resolver lts-18.6 script
 
 -- Utility to remove old libs installed under .stack-work/ to save diskspace
 
