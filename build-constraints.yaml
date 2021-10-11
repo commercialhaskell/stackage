@@ -1597,7 +1597,7 @@ packages:
         - neat-interpolation
         - optima
         - partial-handler
-        - postgresql-binary
+        - postgresql-binary < 0.12.4.2 # https://github.com/commercialhaskell/stackage/issues/6217
         - postgresql-syntax
         - primitive-extras
         - ptr-poker
@@ -5110,7 +5110,7 @@ packages:
         - text-latin1
         - text-postgresql
         - text-printer
-        - text-short
+        - text-short < 0.1.4 # https://github.com/commercialhaskell/stackage/issues/6220
         - text-zipper
         - tf-random
         - th-extras
@@ -6867,6 +6867,9 @@ skipped-builds:
 # or if Setup fails because of missing foreign libraries.
 # Otherwise place them in expected-test-failures.
 skipped-tests:
+    # aeson-2
+    - jsonifier
+
     # Missing foreign libraries
     - symengine
 
@@ -7534,6 +7537,8 @@ expected-benchmark-failures:
 # or if Setup fails because of missing foreign libraries.
 # Otherwise place them in expected-benchmark-failures.
 skipped-benchmarks:
+    # aeson-2
+    - jsonifier
 
     # Cyclic dependencies
     - attoparsec
