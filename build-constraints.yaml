@@ -5272,8 +5272,15 @@ packages:
         # Need to always match the version shipped with GHC
         - Win32 == 2.10.0.0
 
-
-    "GHC 9 compilation failures":
+    # Section for packages that have been mass-disabled due to
+    # compilation failures, e.g. after we upgrade GHC. Every package
+    # should have a `< 0` constraint.
+    #
+    # These constraints can (should?) be moved under the maintainers
+    # name, but please add a "compile fail" comment to them there so
+    # it's clear that they must be built if we want to confirm that
+    # they are working.
+    "Compilation failures":
         - Fin < 0 # `@' not in scope
         - HDBC-mysql < 0
         - HStringTemplate < 0
@@ -5422,7 +5429,13 @@ packages:
         - yeshql-hdbc < 0
         - yesod-auth < 0 # 1.6.10.3
 
-    "GHC 9 bounds issues":
+    # See "Large scale enabling/disabling of packages" in CURATORS.md for how to manage this section.
+    #
+    # This section is meant for libraries and executables that have
+    # bene disabled due to bounds issues, there is a separate section
+    # for compilation failures as we need to build those packages to
+    # verify if they have been fixeq.
+    "Library and exe bounds failures":
         - BiobaseHTTP < 0 # tried BiobaseHTTP-1.2.0, but its *library* does not support: network-3.1.2.5
         - BlastHTTP < 0 # tried BlastHTTP-1.4.2, but its *library* does not support: network-3.1.2.5
         - Chart < 0 # tried Chart-1.9.3, but its *library* requires the disabled package: operational
@@ -7033,7 +7046,9 @@ skipped-tests:
     - clash-prelude
 
     #
-    # GHC 9 test bounds issues
+    # Test bounds issues
+    #
+    # See "Large scale enabling/disabling of packages" in CURATORS.md for how to manage this section.
     #
     - ENIG # tried ENIG-0.0.1.0, but its *test-suite* requires the disabled package: test-framework-th
     - aeson # tried aeson-1.5.6.0, but its *test-suite* does not support: hashable-time-0.3
@@ -7156,10 +7171,15 @@ skipped-tests:
 # or even build correctly. A Stackage build should not fail based on a test build
 # or test run failure for these packages.
 # (Testsuites which can't configure should be placed under skipped-tests.)
+#
+# We need to build and run test suites to verify if tests listed here
+# can be re-enabled, so we usually wait for the maintainer to file a
+# PR to re-enable them.
 expected-test-failures:
+
     # Intermittent failures or unreliable. These tests may pass when
-    # re-enabled, but will eventually fail again. Only remove these
-    # from expected-failures if we know a fix has been released.
+    # re-enabled, but will eventually fail again.
+    #
     - aeson-lens # https://github.com/tanakh/aeson-lens/issues/10
     - base64 # https://github.com/emilypi/base64/issues/31
     - binary-instances # https://github.com/haskellari/binary-instances/issues/7
@@ -7185,7 +7205,11 @@ expected-test-failures:
     - statistics # https://github.com/bos/statistics/issues/42
 
     # Requires running servers, accounts, or a specific environment.
-    # These shouldn't be re-enabled unless we know a fix has been released.
+    #
+    # If a maintainer wants us to run a partial tests suite with tests
+    # that do not require external dependencies, see
+    # https://github.com/commercialhaskell/stackage/issues/6172#issuecomment-902072030
+    #
     - GLFW-b # X
     - HTF # Requires shell script and are incompatible with sandboxed package databases
     - HaRe # Needs ~/.ghc-mod/cabal-helper https://github.com/fpco/stackage/pull/906
@@ -7300,6 +7324,12 @@ expected-test-failures:
     - websockets
 
     # Missing test files in sdist
+    #
+    # The cause is that a test suite requires a file that is not
+    # present in the tarball that is uploaded to Hackage. It can be
+    # fixed by adding these files to `extra-source-files` in the
+    # .cabal file.
+    #
     - cpio-conduit # Test file not in tarball https://github.com/da-x/cpio-conduit/issues/1
     - crypto-pubkey # https://github.com/vincenthz/hs-crypto-pubkey/issues/23
     - doctest
@@ -7308,49 +7338,141 @@ expected-test-failures:
     - persistent # https://github.com/commercialhaskell/stackage/issues/6037
     - reanimate-svg # https://github.com/commercialhaskell/stackage/issues/5688
 
-    # Testcase assertion failures: these are typically real testsuite bugs
-    # or maybe limitations in the test cases.
+    # Testcase assertion failures, or other runtime failures.
+    # These can be real testsuite bugs, or maybe limitations in test cases or the test setup.
+    #
+    - JuicyPixels-blurhash
+    - aeson-casing
+    - base32
+    - blaze-colonnade
+    - bsb-http-chunked
+    - c2hs
     - character-cases # https://github.com/aiya000/hs-character-cases/issues/3
+    - colonnade
+    - composable-associations-aeson
+    - control-dsl
+    - crypto-enigma
+    - curl-runnings
+    - debian
     - dhall-yaml # https://github.com/commercialhaskell/stackage/issues/5640
+    - dimensional
     - download # https://github.com/fpco/stackage/issues/2811
+    - duration
+    - ede
+    - fixed-vector-hetero
     - freckle-app # https://github.com/commercialhaskell/stackage/issues/6197
+    - genvalidity-persistent
+    - genvalidity-property
+    - ghc-prof
+    - gingersnap
+    - github-types
     - haskeline # https://github.com/commercialhaskell/stackage/issues/5439
     - haskell-src-exts # https://github.com/commercialhaskell/stackage/issues/5151
+    - haskoin-core
     - hpack # https://github.com/commercialhaskell/stackage/issues/4512
     - hpack-dhall # https://github.com/BlockScope/hpack-dhall/issues/25
+    - hspec-golden-aeson
+    - incremental-parser # 0.5.0.2
+    - jose
+    - justified-containers
+    - jwt
+    - katip
+    - lens-regex
+    - list-transformer
     - lucid # https://github.com/chrisdone/lucid/issues/109
     - lz4-frame-conduit # https://github.com/nh2/lz4-frame-conduit/issues/3
+    - massiv-io
+    - megaparsec-tests
     - mighty-metropolis # https://github.com/jtobin/mighty-metropolis/issues/6
+    - mixpanel-client # https://github.com/domenkozar/mixpanel-client/issues/7
     - mmark # https://github.com/mmark-md/mmark/issues/80
     - mmark-ext # https://github.com/mmark-md/mmark/issues/80
+    - mwc-random
     - nettle # https://github.com/stbuehler/haskell-nettle/issues/10
+    - nri-observability # https://github.com/commercialhaskell/stackage/issues/6179
+    - nri-prelude # https://github.com/commercialhaskell/stackage/issues/6179
+    - numhask-array
+    - ochintin-daicho
+    - openapi3
+    - pcre-heavy
     - persistent-sqlite # https://github.com/yesodweb/persistent/issues/989
+    - posix-paths
+    - prettyprinter
+    - prettyprinter-ansi-terminal
     - rando # https://github.com/commercialhaskell/stackage/issues/4249
-    - simple-vec3 # https://github.com/commercialhaskell/stackage/pull/5410
+    - rank1dynamic
+    - rescue
+    - rose-trees
+    - safe-decimal
     - simple-affine-space
+    - simple-vec3 # https://github.com/commercialhaskell/stackage/pull/5410
+    - sized
+    - spatial-math
+    - subcategories
+    - tasty-fail-fast
+    - triplesec
+    - turtle
+    - type-level-kv-list
+    - unicode-show
+    - universe-some
+    - universum
+    - utf8-conversions
+    - varying
+    - vivid-osc
+    - wakame
+    - world-peace
     - xml-picklers # https://github.com/Philonous/xml-picklers/issues/5
+    - xmlbf
 
-    # Assertion failures due to module name ambiguity
-    # (These _should_ be fixed by using the `hide` section of this file)
+    # Assertion failures due to module name ambiguity.
+    # These _should_ be fixed by using the `hide` section of this file
     - reanimate # https://github.com/commercialhaskell/stackage/issues/5626
 
     # Compilation failures
+    - aeson-commit
     - base16 # #5948/closed
+    - blake2
+    - blas-hs
+    - butter
+    - cabal-file-th
+    - conduit-connection
     - config-ini # https://github.com/aisamanra/config-ini/issues/22
+    - construct # 0.3.0.2
+    - data-diverse
+    - do-notation
+    - domain-optics # https://github.com/commercialhaskell/stackage/pull/6102
+    - flat
+    - flay
+    - fmt
+    - focuslist
+    - geojson
+    - hsc2hs
+    - hsini
+    - htoml
     - hweblib # https://github.com/aycanirican/hweblib/issues/3
+    - leveldb-haskell
+    - mono-traversable
+    - multiarg
+    - murmur3
     - parameterized # # https://github.com/commercialhaskell/stackage/issues/5746
+    - protobuf
+    - record-wrangler
     - relapse # #5948/closed
     - require # compilation failure https://github.com/commercialhaskell/stackage/issues/6093
     - secp256k1-haskell # #5948/closed
     - servant-static-th # Tasty issue: https://github.com/commercialhaskell/stackage/issues/6090
     - snap-core # random 1.2
+    - snappy # Could not find module ‘Functions’
     - string-random # https://github.com/hiratara/hs-string-random/issues/16
     - text-icu # https://github.com/bos/text-icu/issues/32
+    - thread-supervisor
+    - type-map
     - type-of-html-static # https://github.com/commercialhaskell/stackage/issues/5728
+    - typecheck-plugin-nat-simple
+    - uncertain
     - vector-algorithms # http://hub.darcs.net/dolio/vector-algorithms/issue/9
     - vivid-supercollider # https://github.com/commercialhaskell/stackage/issues/4250
     - xmlgen # https://github.com/skogsbaer/xmlgen/issues/6
-    - domain-optics # https://github.com/commercialhaskell/stackage/pull/6102
     - yesod-gitrev # https://github.com/commercialhaskell/stackage/issues/6132
 
     # Recursive deps https://github.com/fpco/stackage/issues/1818
@@ -7361,8 +7483,27 @@ expected-test-failures:
     # these if we want them fixed
     - skein # openfile: does not exist https://github.com/fpco/stackage/issues/1187
     - haskell-tools-daemon # openFile: permission denied https://github.com/fpco/stackage/issues/2502
-    - rounded # ExitFailure -11
+    - rounded # segfault
+    - isocline # segfault https://github.com/daanx/isocline/issues/1
     - shake-language-c # Cannot reproduce locally, looks like it may be a bug in Stack or curator
+
+    # doctests can be flaky on the build server, add packages here if
+    # they start causing issues.
+    - bookkeeping
+    - dhall
+    - doctest-driver-gen
+    - email-validate
+    - headroom
+    - hint
+    - hledger-lib
+    - iproute
+    - kawhi
+    - makefile # Doctests require hidden Glob package
+    - multiset # # Doctests require hidden Glob package
+    - perf
+    - prometheus-client
+    - xml-indexed-cursor
+    - yesod-paginator
 
     # Misc. Please check if there is a better section before adding more packages here.
     - Diff # https://github.com/commercialhaskell/stackage/issues/4289
@@ -7413,127 +7554,7 @@ expected-test-failures:
     - tmp-postgres # https://github.com/jfischoff/tmp-postgres/issues/1
     - yesod-core # https://github.com/yesodweb/yesod/issues/1711
 
-    # doctests can be flaky on the build server, add packages here if
-    # they start causing issues.
-    - bookkeeping
-    - dhall
-    - doctest-driver-gen
-    - email-validate
-    - headroom
-    - hint
-    - hledger-lib
-    - iproute
-    - kawhi
-    - makefile # Doctests require hidden Glob package
-    - multiset # # Doctests require hidden Glob package
-    - perf
-    - prometheus-client
-    - xml-indexed-cursor
-    - yesod-paginator
-
-    #
-    # GHC 9 test compilation failures
-    #
-    - aeson-commit
-    - blake2
-    - blas-hs
-    - butter
-    - cabal-file-th
-    - conduit-connection
-    - construct # 0.3.0.2
-    - data-diverse
-    - do-notation
-    - flat
-    - flay
-    - fmt
-    - focuslist
-    - geojson
-    - hsc2hs
-    - hsini
-    - htoml
-    - leveldb-haskell
-    - mono-traversable
-    - multiarg
-    - murmur3
-    - protobuf
-    - record-wrangler
-    - snappy # Could not find module ‘Functions’
-    - thread-supervisor
-    - type-map
-    - typecheck-plugin-nat-simple
-    - uncertain
-
-    #
-    # GHC 9 test failures
-    #
-    - JuicyPixels-blurhash
-    - aeson-casing
-    - base32
-    - blaze-colonnade
-    - bsb-http-chunked
-    - c2hs
-    - colonnade
-    - composable-associations-aeson
-    - control-dsl
-    - crypto-enigma
-    - curl-runnings
-    - debian
-    - dimensional
-    - duration
-    - ede
-    - fixed-vector-hetero
-    - genvalidity-persistent
-    - genvalidity-property
-    - ghc-prof
-    - gingersnap
-    - github-types
-    - haskoin-core
-    - hspec-golden-aeson
-    - incremental-parser # 0.5.0.2
-    - jose
-    - justified-containers
-    - jwt
-    - katip
-    - lens-regex
-    - list-transformer
-    - massiv-io
-    - megaparsec-tests
-    - mixpanel-client # https://github.com/domenkozar/mixpanel-client/issues/7
-    - mwc-random
-    - numhask-array
-    - ochintin-daicho
-    - openapi3
-    - pcre-heavy
-    - posix-paths
-    - prettyprinter
-    - prettyprinter-ansi-terminal
-    - rank1dynamic
-    - rescue
-    - rose-trees
-    - safe-decimal
-    - sized
-    - spatial-math
-    - subcategories
-    - tasty-fail-fast
-    - triplesec
-    - turtle
-    - type-level-kv-list
-    - unicode-show
-    - universe-some
-    - universum
-    - utf8-conversions
-    - varying
-    - vivid-osc
-    - wakame
-    - world-peace
-    - xmlbf
-
-    # https://github.com/daanx/isocline/issues/1
-    - isocline
-
-    # https://github.com/commercialhaskell/stackage/issues/6179
-    - nri-prelude
-    - nri-observability
+    # Please review the sections above before adding packages to a new section or to Misc.
 
 # end of expected-test-failures
 
@@ -7658,6 +7679,8 @@ skipped-benchmarks:
 
     #
     # GHC 9 benchmark bounds issues
+    #
+    # See "Large scale enabling/disabling of packages" in CURATORS.md for how to manage this section.
     #
     - IntervalMap # tried IntervalMap-0.6.1.2, but its *benchmarks* requires the disabled package: SegmentTree
     - binary-parsers # tried binary-parsers-0.2.4.0, but its *benchmarks* does not support: criterion-1.5.10.0
@@ -7807,7 +7830,7 @@ build-tool-overrides:
 #
 # Example:
 # If bindings-GLFW-3.1.2.1 is the current latest version write
-# - bindings-GLFW-3.1.2.1 # Comment saying what should be done when the new version is releasedskipped test-suite
+# - bindings-GLFW-3.1.2.1 # Comment saying what should be done when the new version is released
 tell-me-when-its-released: []
 
 # Packages which should be hidden after registering, to avoid module name
@@ -7818,68 +7841,66 @@ tell-me-when-its-released: []
 # * Allowing tools like Stack to get a mapping from module name to package name
 # for automatically installing dependencies
 hide:
-- async-dejafu # https://github.com/yesodweb/wai/issues/579
-- monads-tf # mtl is preferred
-- crypto-api # `module Crypto.Random` conflicts with cryptonite
-- fay-base # conflicts with many modules in base and others
-- hashmap # conflicts with Data.HashSet in unordered-containers
-- hxt-unicode # conflicts with Data.String.UTF8 in utf8-string
-- hledger-web # conflicts with Foundation in foundation
-- plot-gtk3 # conflicts with many modules in plot-gtk
-- gtk3 # conflicts with many modules in gtk
-- regex-pcre-builtin # conflicts with many modules in regex-pcre
-- regex-compat-tdfa # conflicts with many modules in regex-compat
-- log # conflicts with modules in its dependencies
-- zip # conflicts with Codec.Archive.Zip in zip-archive
-- monad-extras # conflicts with Control.Monad.Extra in extra
-- control-monad-free # conflicts with Control.Monad.Free in free
-- prompt # conflicts with Control.Monad.Prompt in MonadPrompt
-- kawhi # conflicts with Control.Monad.Http in monad-http
-- language-c # conflicts with modules in language-c-quote
-- gl # conflicts with modules in OpenGLRaw
-- svg-tree # conflicts with Graphics.Svg in svg-builder
-- filemanip # conflicts with System.FilePath.Glob in Glob
-- nanospec # conflicts with Test.Hspec in hspec
 - HTF # conflicts with Test.Framework in test-framework
-- courier # conflicts with Network.Transport in network-transport
-- objective # conflicts with Control.Object in natural-transformation
-- binary-ieee754 # conflicts with data-binary-ieee754
-- rerebase # conflicts with base
-- matrices # conflicts with matrix
-- pretty-class # conflicts with pretty and prettyclass
-- prettyclass # conflicts with pretty and pretty-class
-- lenz # conflicts with lens, see https://github.com/fpco/stackage/issues/3600
+- async-dejafu # https://github.com/yesodweb/wai/issues/579
 - base-compat # conflicts with base-compat-batteries, see https://github.com/fpco/stackage/issues/3607
-- hs-functors # conflicts with profunctors, see #3609/closed
+- base-noprelude # By design, conflicts with base
+- binary-ieee754 # conflicts with data-binary-ieee754
+- cipher-aes # Cryptonite deprecation
+- cipher-blowfish # Cryptonite deprecation
+- cipher-camellia # Cryptonite deprecation
+- cipher-des # Cryptonite deprecation
+- cipher-rc4 # Cryptonite deprecation
 - constraint # conflicts with constraints
-- temporary-rc # conflicts with temporary
-- temporary-resourcet # conflicts with temporary
+- control-monad-free # conflicts with Control.Monad.Free in free
+- courier # conflicts with Network.Transport in network-transport
+- crypto-api # `module Crypto.Random` conflicts with cryptonite
+- crypto-cipher-types # Cryptonite deprecation
+- crypto-numbers # Cryptonite deprecation
+- crypto-pubkey # Cryptonite deprecation
+- crypto-random # Cryptonite deprecation
+- cryptohash # Cryptonite deprecation
+- cryptohash-conduit # Cryptonite deprecation
+- cryptohash-md5 # cryptohash fork
+- cryptohash-sha1 # cryptohash fork
+- cryptohash-sha256 # cryptohash fork
+- fay-base # conflicts with many modules in base and others
+- filemanip # conflicts with System.FilePath.Glob in Glob
 - ghc-lib # per its own recommendation. conflicts with template-haskell
 - ghc-lib-parser # also conflicts with template-haskell
+- gl # conflicts with modules in OpenGLRaw
+- gtk3 # conflicts with many modules in gtk
+- hashmap # conflicts with Data.HashSet in unordered-containers
+- hledger-web # conflicts with Foundation in foundation
+- hs-functors # conflicts with profunctors, see #3609/closed
+- hxt-unicode # conflicts with Data.String.UTF8 in utf8-string
+- kawhi # conflicts with Control.Monad.Http in monad-http
+- language-c # conflicts with modules in language-c-quote
+- lenz # conflicts with lens, see https://github.com/fpco/stackage/issues/3600
+- log # conflicts with modules in its dependencies
+- matrices # conflicts with matrix
+- monad-extras # conflicts with Control.Monad.Extra in extra
+- monads-tf # mtl is preferred
+- nanospec # conflicts with Test.Hspec in hspec
+- objective # conflicts with Control.Object in natural-transformation
+- plot-gtk3 # conflicts with many modules in plot-gtk
+- pretty-class # conflicts with pretty and prettyclass
+- prettyclass # conflicts with pretty and pretty-class
+- prompt # conflicts with Control.Monad.Prompt in MonadPrompt
+- regex-compat-tdfa # conflicts with many modules in regex-compat
+- regex-pcre-builtin # conflicts with many modules in regex-pcre
+- rerebase # conflicts with base
+- svg-tree # conflicts with Graphics.Svg in svg-builder
+- temporary-rc # conflicts with temporary
+- temporary-resourcet # conflicts with temporary
+- zip # conflicts with Codec.Archive.Zip in zip-archive
 
-# Cryptonite deprecations
-- cipher-aes
-- cipher-blowfish
-- cipher-camellia
-- cipher-des
-- cipher-rc4
-- crypto-cipher-types
-- crypto-numbers
-- crypto-pubkey
-- crypto-random
-- cryptohash
-- cryptohash-conduit
-
-# cryptohash forks
-- cryptohash-md5
-- cryptohash-sha1
-- cryptohash-sha256
-
-# By design, conflicts with base
-- base-noprelude
 
 # Experimental: packages where Hackage cabal file revisions should be ignored.
-# Always use the cabal file shipped with the sdist tarball instead.
+#
+# This always use the cabal file shipped with the sdist tarball instead of the latest revision.
+#
+# This only supports pinning to the initial release (revision 0), not to an arbitrary revision.
 no-revisions:
 - hjsonpointer
 - tls
