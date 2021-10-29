@@ -73,6 +73,7 @@ apt-get install -y \
     libgd-dev \
     libgeoip-dev \
     libgirepository1.0-dev \
+    libglew-dev \
     libglfw3-dev \
     libglib2.0-dev \
     libglu1-mesa-dev \
