@@ -347,7 +347,9 @@ with `sleep 30m` interleaved. It only publishes the nightly once per
 day. This way new package versions or build failures can be caught
 early and hopefully the nightlies will be timely.
 
-LTS minor bumps typically are run on Sundays.
+LTS minor bumps are typically run on weekends. It can be a good idea
+to start the build on friday or saturday to have enough time to
+resolve any issues before the next curator shift the coming monday.
 
 ### Diskspace errors (and website sync debugging)
 
