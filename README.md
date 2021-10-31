@@ -36,7 +36,7 @@ contains the metadata on packages to be included in future builds and some
 project information. In addition, we have the following repositories:
 
 * [stackage-server](https://github.com/fpco/stackage-server) [![Base image](https://github.com/fpco/stackage-server/actions/workflows/base.yml/badge.svg)](https://github.com/fpco/stackage-server/actions/workflows/base.yml)
-* [curator](https://github.com/commercialhaskell/curator) [![Build Status](https://github.com/commercialhaskell/curator/workflows/Runtime%20image/badge.svg)
+* [curator](https://github.com/commercialhaskell/curator) ![Build Status](https://github.com/commercialhaskell/curator/workflows/Runtime%20image/badge.svg)
 * [lts-haskell](https://github.com/commercialhaskell/lts-haskell)
 * [stackage-snapshots](https://github.com/commercialhaskell/stackage-snapshots/)
 
