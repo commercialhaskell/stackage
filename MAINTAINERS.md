@@ -105,6 +105,59 @@ remove that: Anyone is free to add a package to Stackage regardless of
 responsiveness guarantees. However, as stated above, we may elect to
 temporarily remove a package if it is not updated in a timely manner.
 
+## Understanding stackage issues
+
+### Bounds issues
+
+These are the most common.
+
+Using https://github.com/commercialhaskell/stackage/issues/6217 as an example.
+
+Our convention is to title a PR after the package that is being held
+back from the nightly snapshot (here: aeson).
+
+The issue body is templated and looks like this:
+
+```
+aeson-2.0.0.0 ([changelog](http://hackage.haskell.org/package/aeson-2.0.0.0/changelog)) (MAINTAINER) is out of bounds for:
+- [ ] Agda-2.6.2 (>=1.1.2.0 && < 1.6). MAINTAINER. Used by: library
+- [ ] HsYAML-aeson-0.2.0.0 (>=1.4.0.0 && < 1.6). MAINTAINER. Used by: library
+- [ ] IPv6Addr-2.0.2 (>=0.8.0.2 && < 1.6). MAINTAINER. Used by: library
+[...]
+```
+
+This (usually - see "Other issues") means that there was a new release of the package in the
+header (aeson). This is expected and the aeson maintainer is
+not expected to act. They are pinged to notify them that the
+latest version of their package will not be part of the nightly
+snapshots until the issue closed.
+
+The list of packages with checkboxes denote the packages that prevent
+us from using the latest version of aeson, the first version number is
+the current version of that package in nightly (e.g. Agda 2.6.2). The
+constraint in parenthesis `(>=1.1.2.0 && < 1.6)` is Agda's current
+bound on `aeson`. To check this box we expect there to be an update
+of Agda to support aeson 2.0.0.0.
+
+Once all boxes are checked we should be able to close the issue and
+upgrade aeson.
+
+### Other issues
+
+Other common types of issues are
+* Packages with failing tests, haddocks, or benchmarks (note that we only *compile* benchmarks)
+  + Maintainers may choose to update these parts of their package, or
+    to exclude them from the stackage build (e.g. adding a package to
+    `skipped-tests`)
+* New releases of packages that depend on packages that are not a part
+  of stackage. This is denoted as `not present`
+  + Maintainers are encouraged to ask the maintainer of these packages
+    to join stackage, or to be the stackage contact person themselves.
+* A new release of a package with stricter upper bounds than its previous version
+  + This will look like a normal bounds issue, and should be treated
+    the same way by maintainers. Curators usually resolve this by
+    adding an upper bound to that package instead of its dependency.
+
 ## Delays
 
 Maintainers are humans, humans get sick/have babies/go on
