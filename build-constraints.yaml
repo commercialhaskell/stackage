@@ -6879,8 +6879,12 @@ package-flags:
     functor-classes-compat:
         containers: true
 
+    # 2021-11-14
+    # Since we are shipping Win32-2.10 (thus not 2.13.1), this flag needs to be set to 'false'.
+    # https://github.com/RyanGlScott/mintty/issues/4#issuecomment-968329124
+    # TODO: revisit when Win32 is bumped
     mintty:
-        win32-2-13-1: true
+        win32-2-13-1: false
 
     cassava:
         bytestring--lt-0_10_4: false
