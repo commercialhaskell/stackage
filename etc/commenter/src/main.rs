@@ -1,8 +1,9 @@
-use std::collections::{HashMap};
+use std::collections::HashMap;
 use std::io::{self, BufRead};
 
 use lazy_regex::regex;
 use regex::Regex;
+use structopt::StructOpt;
 
 type H = HashMap<Header, Vec<(String, String, String)>>;
 
@@ -12,7 +13,29 @@ enum Header {
     Missing { package: String },
 }
 
+#[derive(Debug, StructOpt)]
+#[structopt(
+    name = "commenter",
+    about = "Automates generation of bounds in  build-constraints.yaml"
+)]
+enum Opt {
+    Clear,
+    Add,
+}
+
 fn main() {
+    let opt = Opt::from_args();
+    match opt {
+        Opt::Clear => clear(),
+        Opt::Add => add(),
+    }
+}
+
+fn clear() {
+    commenter::clear();
+}
+
+fn add() {
     let mut lib_exes: H = Default::default();
     let mut tests: H = Default::default();
     let mut benches: H = Default::default();
@@ -61,12 +84,18 @@ fn main() {
         }
     }
 
+    let mut auto_lib_exes = vec![];
+    let mut auto_tests = vec![];
+    let mut auto_benches = vec![];
+
     if !lib_exes.is_empty() {
         println!("\nLIBS + EXES\n");
     }
     for (header, packages) in lib_exes {
         for (package, version, component) in packages {
-            printer("        ", &package, true, &version, &component, &header);
+            let s = printer("        ", &package, true, &version, &component, &header);
+            println!("{}", s);
+            auto_lib_exes.push(s);
         }
     }
 
@@ -75,7 +104,9 @@ fn main() {
     }
     for (header, packages) in tests {
         for (package, version, component) in packages {
-            printer("    ", &package, false, &version, &component, &header);
+            let s = printer("    ", &package, false, &version, &component, &header);
+            println!("{}", s);
+            auto_tests.push(s);
         }
     }
 
@@ -84,9 +115,20 @@ fn main() {
     }
     for (header, packages) in benches {
         for (package, version, component) in packages {
-            printer("    ", &package, false, &version, &component, &header);
+            let s = printer("    ", &package, false, &version, &component, &header);
+            println!("{}", s);
+            auto_benches.push(s);
         }
     }
+
+    println!();
+    println!(
+        "Adding {lib_exes} libs, {tests} tests, {benches} benches to build-constraints.yaml",
+        lib_exes = auto_lib_exes.len(),
+        tests = auto_tests.len(),
+        benches = auto_benches.len()
+    );
+    commenter::add(auto_lib_exes, auto_tests, auto_benches);
 }
 
 fn printer(
@@ -96,9 +138,9 @@ fn printer(
     version: &str,
     component: &str,
     header: &Header,
-) {
+) -> String {
     let lt0 = if lt0 { " < 0" } else { "" };
-    println!(
+    format!(
         "{indent}- {package}{lt0} # tried {package}-{version}, but its *{component}* {cause}",
         indent = indent,
         package = package,
@@ -116,7 +158,7 @@ fn printer(
                 package = package
             ),
         },
-    );
+    )
 }
 
 fn insert(h: &mut H, header: Header, package: &str, version: &str, component: &str) {

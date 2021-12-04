@@ -421,10 +421,10 @@ errors for builds, tests and benchmarks.
 
 ### Large scale enabling/disabling of packages
 
-`etc/commenter` is a binary that semi-automates the translation of
-`./check` errors into lines that can be copy pasted into
-`build-constraints.yaml`. It can only handle bounds issues,
-compilation issues still need to be analyzed manually.
+`etc/commenter` is a binary that mostly automates the translation of
+`./check` errors into lines that go into `build-constraints.yaml`. It
+can only handle bounds issues, compilation issues still need to be
+handled manually.
 
 It disables all offending packages/test suites/benchmarks, so it is
 only meant to be used when we close bounds issues and want to disable
@@ -434,7 +434,7 @@ packages, and when upgrading GHC.
 This is currently a rust program, You can install the rust toolchain
 by using [rustup](https://rustup.rs/).
 
-Then `cd etc/commenter && cargo install --locked --path .`
+Then `cargo install --locked --path etc/commenter`
 
 #### Example usage
 
@@ -455,7 +455,7 @@ testing-feat (GHC 9 bounds issues, Grandfathered dependencies) (not present) dep
 
 Now run:
 ```
-./check 2>&1 >/dev/null | commenter
+./check 2>&1 >/dev/null | commenter add
 ```
 
 You will get this output:
@@ -469,19 +469,27 @@ TESTS
 
     - dual-tree # tried dual-tree-0.2.3.0, but its *test-suite* requires the disabled package: testing-feat
     - pipes-fluid # tried pipes-fluid-0.6.0.1, but its *test-suite* requires the disabled package: pipes-misc
+
+Adding 1 libs, 2 tests, 0 benches to build-constraints.yaml
 ```
 
-The lines under LIBS+EXES should be pasted in the shared section (currently called "GHC 9 bounds issues").
+These bounds are added to build-constraints.yaml automatically.
 
-TESTS have a similar section under `skipped-tests`, and BENCHMARKS under `skipped-benchmarks`.
+Re-run this command until no more packages are disabled.
 
 #### Re-enabling
 
 We can periodically remove all packages under the bounds sections and then re-run the disabling flow above until we get a clean plan. This will automatically pick up packages that have been fixed.
 
+```
+commenter clear
+./check 2>&1 >/dev/null | commenter add
+```
+
+Repeat the second command until no updates are made to build-constraints.yaml.
+
 #### Notes
 
-* Please keep these lists sorted as the diffs will be much cleaner when we re-enable packages and re-run this flow
 * Please make sure to separate bounds issues from compilation failures/test run failures, as we cannot verify that a package builds or that tests pass without running the build!
 
 
