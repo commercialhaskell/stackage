@@ -1,9 +1,13 @@
+use std::collections::{BTreeMap, BTreeSet};
 use std::fs::File;
 use std::io::{BufRead, BufReader, LineWriter, Lines, Write};
 use std::path::Path;
+use std::process::Command;
+
+use lazy_regex::regex;
 
 pub fn clear() {
-    handle(|loc, _lines| match loc {
+    handle(true, |loc, _lines| match loc {
         // Add empty array to keep yaml valid
         Location::Lib => vec!["        []".to_owned()],
         Location::Test | Location::Bench => vec![],
@@ -11,7 +15,7 @@ pub fn clear() {
 }
 
 pub fn add(lib: Vec<String>, test: Vec<String>, bench: Vec<String>) {
-    handle(|loc, mut lines| {
+    handle(true, |loc, mut lines| {
         lines.extend(match loc {
             Location::Lib => lib.clone(),
             Location::Test => test.clone(),
@@ -20,6 +24,82 @@ pub fn add(lib: Vec<String>, test: Vec<String>, bench: Vec<String>) {
         lines.sort();
         lines
     })
+}
+
+pub fn outdated() {
+    let mut all = vec![];
+    handle(false, |_loc, lines| {
+        all.extend(lines);
+        vec![]
+    });
+    let mut map = BTreeMap::new();
+    let mut support: BTreeMap<(String, String), BTreeSet<(String, String)>> = BTreeMap::new();
+    for v in all.into_iter() {
+        let caps = regex!("tried ([^ ]+)-([^,-]+),").captures(&v).unwrap();
+        let package = caps.get(1).unwrap().as_str().to_owned();
+        let version = caps.get(2).unwrap().as_str().to_owned();
+        map.insert(package.clone(), version.clone());
+
+        if let Some(caps) = regex!("does not support: ([^ ]+)-([^-]+)").captures(&v) {
+            let dep_package = caps.get(1).unwrap().as_str().to_owned();
+            let dep_version = caps.get(2).unwrap().as_str().to_owned();
+            let entry = support
+                .entry((dep_package, dep_version))
+                .or_default();
+            entry.insert((package, version));
+        }
+    }
+
+    let entries = map.len() + support.len();
+    let mut i = 0;
+
+    for (package, version) in map {
+        if i % 100 == 0 {
+            println!("{:02}%", ((i as f64 / entries as f64) * 100.0).floor());
+        }
+        i += 1;
+        let latest = latest_version(&package);
+        if version != latest {
+            println!(
+                "{} mismatch, snapshot: {}, hackage: {}",
+                package, version, latest
+            );
+        }
+    }
+
+    for ((package, version), dependents) in support {
+        if i % 100 == 0 {
+            println!("{:02}%", ((i as f64 / entries as f64) * 100.0).floor());
+        }
+        i += 1;
+        let latest = latest_version(&package);
+        if version != latest {
+            println!(
+                "{} mismatch, snapshot: {}, hackage: {}, dependents: {}",
+                package,
+                version,
+                latest,
+                dependents
+                    .into_iter()
+                    .map(|(p, v)| format!("{}-{}", p, v))
+                    .collect::<Vec<String>>()
+                    .join(", "),
+            );
+        }
+    }
+}
+
+fn latest_version(pkg: &str) -> String {
+    String::from_utf8(
+        Command::new("latest-version")
+            .args([pkg])
+            .output()
+            .unwrap()
+            .stdout,
+    )
+    .unwrap()
+    .trim()
+    .to_owned()
 }
 
 enum State {
@@ -32,9 +112,9 @@ enum State {
     Done,
 }
 
-fn handle<F>(f: F)
+fn handle<F>(write: bool, mut f: F)
 where
-    F: Fn(Location, Vec<String>) -> Vec<String>,
+    F: FnMut(Location, Vec<String>) -> Vec<String>,
 {
     let path = "build-constraints.yaml";
     let mut new_lines: Vec<String> = vec![];
@@ -100,13 +180,15 @@ where
         }
     }
 
-    let file = File::create(path).unwrap();
-    let mut file = LineWriter::new(file);
+    if write {
+        let file = File::create(path).unwrap();
+        let mut file = LineWriter::new(file);
 
-    for line in new_lines {
-        file.write_all((line + "\n").as_bytes()).unwrap();
+        for line in new_lines {
+            file.write_all((line + "\n").as_bytes()).unwrap();
+        }
+        file.flush().unwrap();
     }
-    file.flush().unwrap();
 }
 
 enum Location {
