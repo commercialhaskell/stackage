@@ -21,6 +21,7 @@ enum Header {
 enum Opt {
     Clear,
     Add,
+    Outdated,
 }
 
 fn main() {
@@ -28,11 +29,16 @@ fn main() {
     match opt {
         Opt::Clear => clear(),
         Opt::Add => add(),
+        Opt::Outdated => outdated(),
     }
 }
 
 fn clear() {
     commenter::clear();
+}
+
+fn outdated() {
+    commenter::outdated();
 }
 
 fn add() {
