@@ -5473,7 +5473,6 @@ packages:
         - DAV < 0 # tried DAV-1.3.4, but its *library* requires the disabled package: http-client-tls
         - DAV < 0 # tried DAV-1.3.4, but its *library* requires the disabled package: xml-hamlet
         - DPutils < 0 # tried DPutils-0.1.1.0, but its *library* requires the disabled package: streaming-bytestring
-        - ENIG < 0 # tried ENIG-0.0.1.0, but its *library* requires the disabled package: unicode-transforms
         - EntrezHTTP < 0 # tried EntrezHTTP-1.0.4, but its *library* requires the disabled package: biocore
         - FPretty < 0 # tried FPretty-1.1, but its *library* does not support: base-4.16.0.0
         - Frames < 0 # tried Frames-0.7.2, but its *library* does not support: base-4.16.0.0
@@ -5973,9 +5972,6 @@ packages:
         - cointracking-imports < 0 # tried cointracking-imports-0.1.0.1, but its *library* requires the disabled package: xlsx
         - colonnade < 0 # tried colonnade-1.2.0.2, but its *library* does not support: bytestring-0.11.1.0
         - colour-accelerate < 0 # tried colour-accelerate-0.4.0.0, but its *library* requires the disabled package: accelerate
-        - commonmark < 0 # tried commonmark-0.2.1.1, but its *library* requires the disabled package: unicode-transforms
-        - commonmark-extensions < 0 # tried commonmark-extensions-0.2.2.1, but its *library* requires the disabled package: commonmark
-        - commonmark-pandoc < 0 # tried commonmark-pandoc-0.2.1.1, but its *library* requires the disabled package: commonmark
         - compact < 0 # tried compact-0.2.0.0, but its *library* does not support: base-4.16.0.0
         - compact < 0 # tried compact-0.2.0.0, but its *library* does not support: bytestring-0.11.1.0
         - compensated < 0 # tried compensated-0.8.3, but its *library* requires the disabled package: safecopy
@@ -7018,7 +7014,6 @@ packages:
         - network-transport-tcp < 0 # tried network-transport-tcp-0.8.0, but its *library* does not support: bytestring-0.11.1.0
         - network-transport-tests < 0 # tried network-transport-tests-0.3.0, but its *library* does not support: bytestring-0.11.1.0
         - newtype < 0 # tried newtype-0.2.2.0, but its *library* does not support: base-4.16.0.0
-        - normalization-insensitive < 0 # tried normalization-insensitive-2.0.2, but its *library* requires the disabled package: unicode-transforms
         - not-gloss < 0 # tried not-gloss-0.7.7.0, but its *library* requires the disabled package: OpenGL
         - not-gloss < 0 # tried not-gloss-0.7.7.0, but its *library* requires the disabled package: bmp
         - nri-env-parser < 0 # tried nri-env-parser-0.1.0.7, but its *library* does not support: base-4.16.0.0
@@ -7072,7 +7067,6 @@ packages:
         - pairing < 0 # tried pairing-1.1.0, but its *library* requires the disabled package: elliptic-curve
         - palette < 0 # tried palette-0.3.0.2, but its *library* does not support: base-4.16.0.0
         - pandoc < 0 # tried pandoc-2.16.2, but its *library* requires the disabled package: haddock-library
-        - pandoc < 0 # tried pandoc-2.16.2, but its *library* requires the disabled package: unicode-transforms
         - pandoc-csv2table < 0 # tried pandoc-csv2table-1.0.9, but its *library* requires the disabled package: pandoc
         - pandoc-dhall-decoder < 0 # tried pandoc-dhall-decoder-0.1.0.1, but its *library* requires the disabled package: pandoc
         - pandoc-plot < 0 # tried pandoc-plot-1.3.0, but its *library* requires the disabled package: shakespeare
@@ -7695,7 +7689,6 @@ packages:
         - stack < 0 # tried stack-2.7.3, but its *library* requires the disabled package: path
         - stack < 0 # tried stack-2.7.3, but its *library* requires the disabled package: persistent
         - stack < 0 # tried stack-2.7.3, but its *library* requires the disabled package: regex-applicative-text
-        - stack < 0 # tried stack-2.7.3, but its *library* requires the disabled package: unicode-transforms
         - stackcollapse-ghc < 0 # tried stackcollapse-ghc-0.0.1.4, but its *executable* does not support: base-4.16.0.0
         - state-codes < 0 # tried state-codes-0.1.3, but its *library* requires the disabled package: shakespeare
         - status-notifier-item < 0 # tried status-notifier-item-0.3.1.0, but its *library* requires the disabled package: dbus
@@ -7898,7 +7891,6 @@ packages:
         - ucam-webauth-types < 0 # tried ucam-webauth-types-0.1.0.0, but its *library* does not support: bytestring-0.11.1.0
         - ucam-webauth-types < 0 # tried ucam-webauth-types-0.1.0.0, but its *library* does not support: time-1.11.1.1
         - unfoldable-restricted < 0 # tried unfoldable-restricted-0.0.3, but its *library* requires the disabled package: unfoldable
-        - unicode-transforms < 0 # tried unicode-transforms-0.4.0, but its *library* does not support: unicode-data-0.1.0.1
         - uniprot-kb < 0 # tried uniprot-kb-0.1.2.0, but its *library* does not support: attoparsec-0.14.2
         - unjson < 0 # tried unjson-0.15.3, but its *library* does not support: aeson-2.0.2.0
         - unliftio-path < 0 # tried unliftio-path-0.0.2.0, but its *library* requires the disabled package: path
@@ -8198,7 +8190,7 @@ packages:
       - sydtest >= 0.6 # validity 0.12 fails on GHC 9.2
 
       # https://github.com/commercialhaskell/stackage/issues/6313
-      - unicode-data < 0.2 # OK for GHC 9.2
+      - unicode-data >= 0.2
 
       # https://github.com/Gabriel439/Haskell-Pipes-Concurrency-Library/issues/60
       - pipes-concurrency < 2.0.13 # OK for GHC 9.2, 2.0.14 seems broken
@@ -8476,6 +8468,7 @@ skipped-tests:
     # See "Large scale enabling/disabling of packages" in CURATORS.md for how to manage this section.
     #
     # Test bounds issues
+    - ENIG # tried ENIG-0.0.1.0, but its *test-suite* requires the disabled package: test-framework-th
     - HTTP # tried HTTP-4000.3.16, but its *test-suite* does not support: base-4.16.0.0
     - IPv6DB # tried IPv6DB-0.3.2, but its *test-suite* does not support: hspec-2.8.5
     - IPv6DB # tried IPv6DB-0.3.2, but its *test-suite* does not support: http-client-0.7.9
@@ -8823,7 +8816,6 @@ skipped-tests:
     - ucam-webauth # tried ucam-webauth-0.1.0.0, but its *test-suite* does not support: hspec-2.8.5
     - ucam-webauth # tried ucam-webauth-0.1.0.0, but its *test-suite* requires the disabled package: time-qq
     - ucam-webauth-types # tried ucam-webauth-types-0.1.0.0, but its *test-suite* does not support: hspec-2.8.5
-    - unicode-collation # tried unicode-collation-0.1.3.1, but its *test-suite* requires the disabled package: unicode-transforms
     - uniprot-kb # tried uniprot-kb-0.1.2.0, but its *test-suite* does not support: QuickCheck-2.14.2
     - uniprot-kb # tried uniprot-kb-0.1.2.0, but its *test-suite* does not support: hspec-2.8.5
     - universum # tried universum-1.7.2, but its *test-suite* requires the disabled package: hedgehog
