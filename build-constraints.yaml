@@ -14,7 +14,7 @@ packages:
         - socket
         - spacecookie
         - gopher-proxy
-        - filepath-bytestring
+        - filepath-bytestring < 1.4.2.1.10 # OK for GHC 9.2 https://github.com/commercialhaskell/stackage/issues/6355
         - download-curl
         - cabal2nix
         - distribution-nixpkgs
@@ -91,9 +91,6 @@ packages:
 
     "Koz Ross <koz.ross@retro-freedom.nz> @kozross":
         - medea
-
-    "Ashlynn Anderson <maintainer@pea.sh> @lambdadog":
-        - proto3-wire
 
     "Marcin Rzeźnicki <marcin.rzeznicki@gmail.com> @marcin-rzeznicki":
         - hspec-tables
@@ -656,7 +653,7 @@ packages:
         - bench-show
         - monad-recorder
         - packcheck
-        - streamly < 0.8.1 # OK for GHC 9.2 https://github.com/commercialhaskell/stackage/issues/6335
+        - streamly
         - unicode-transforms >= 0.4 # https://github.com/commercialhaskell/stackage/issues/6337
         - xls
 
@@ -1139,7 +1136,7 @@ packages:
         - nonempty-zipper
         - sendgrid-v3
         - yesod-auth-oauth2
-        - hspec-junit-formatter
+        - hspec-junit-formatter < 1.1 # https://github.com/freckle/freckle-app/issues/43
         - aws-xray-client
         - aws-xray-client-wai
         - freckle-app
@@ -1593,7 +1590,7 @@ packages:
         - hasql-pool
         - hasql-th < 0 # 0.4.0.9 TH compile error
         - hasql-transaction
-        - headed-megaparsec
+        - headed-megaparsec >= 0.2.0.2 # OK for GHC 9.2 https://github.com/commercialhaskell/stackage/issues/6348
         - jsonifier
         - list-t
         - mtl-prelude
@@ -1604,8 +1601,8 @@ packages:
         - postgresql-syntax
         - primitive-extras
         - ptr-poker
-        - rebase
-        - rerebase
+        - rebase >= 1.14 # https://github.com/commercialhaskell/stackage/issues/6348
+        - rerebase >= 1.14 # https://github.com/commercialhaskell/stackage/issues/6348
         - slave-thread
         - stm-containers
         - stm-hamt
@@ -1613,7 +1610,7 @@ packages:
         - text-builder
         - th-lego
         - vector-builder
-        - yaml-unscrambler
+        - yaml-unscrambler >= 0.1.0.5 # https://github.com/commercialhaskell/stackage/issues/6348
         - xml-parser
 
     "Iustin Pop <iustin@k1024.org> @iustin":
@@ -1741,7 +1738,7 @@ packages:
         - fedora-dists
         - fedora-haskell-tools
         - hkgr
-        - http-directory
+        - http-directory < 0.1.9 # https://github.com/juhp/dl-fedora/issues/2
         - http-query
         - koji
         - pagure-cli
@@ -2121,7 +2118,7 @@ packages:
         - markdown-unlit
 
     "Brian McKenna <brian@brianmckenna.org> @puffnfresh":
-        - jwt
+        - jwt >= 0.11 # https://github.com/commercialhaskell/stackage/issues/6356
 
     "Sven Bartscher sven.bartscher@weltraumschlangen.de @kritzefitz":
         - setlocale
@@ -2696,7 +2693,7 @@ packages:
         - flexible-defaults
         - funcmp
         - hackage-db
-        - hledger-interest < 0 # https://github.com/commercialhaskell/stackage/issues/6338
+        - hledger-interest
         - hopenssl
         - hsdns
         - hsemail
@@ -2710,7 +2707,7 @@ packages:
         - nix-paths
         - parsec-class
         - prim-uniq
-        - random-fu
+        - random-fu < 0
         - random-source
         - rvar
         - SafeSemaphore
@@ -3586,7 +3583,7 @@ packages:
         - pvar
 
     "Hans-Peter Deifel <hpd@hpdeifel.de> @hpdeifel":
-        - hledger-iadd < 0 # https://github.com/commercialhaskell/stackage/issues/6338
+        - hledger-iadd
 
     "Roy Levien <royl@aldaron.com> @orome":
         - crypto-enigma
@@ -3796,7 +3793,7 @@ packages:
 
     "Luis Pedro Coelho <luis@luispedro.org> @luispedro":
         - safeio
-        - conduit-algorithms
+        - conduit-algorithms < 0 # compile fail
         - conduit-zstd
 
     "Alex Biehl <alexbiehl@gmail.com> @alexbiehl":
@@ -5445,12 +5442,6 @@ packages:
     # verify if they have been fixeq.
     "Library and exe bounds failures":
         - ALUT < 0 # tried ALUT-2.4.0.3, but its *library* requires the disabled package: OpenAL
-        - Agda < 0 # tried Agda-2.6.2, but its *library* does not support: Cabal-3.6.0.0
-        - Agda < 0 # tried Agda-2.6.2, but its *library* does not support: aeson-2.0.2.0
-        - Agda < 0 # tried Agda-2.6.2, but its *library* does not support: base-4.16.0.0
-        - Agda < 0 # tried Agda-2.6.2, but its *library* does not support: hashable-1.4.0.1
-        - Agda < 0 # tried Agda-2.6.2, but its *library* does not support: hashtables-1.3
-        - Agda < 0 # tried Agda-2.6.2, but its *library* does not support: template-haskell-2.18.0.0
         - Allure < 0 # tried Allure-0.10.3.0, but its *library* requires the disabled package: LambdaHack
         - BNFC-meta < 0 # tried BNFC-meta-0.6.1, but its *library* does not support: template-haskell-2.18.0.0
         - BiobaseBlast < 0 # tried BiobaseBlast-0.3.3.0, but its *library* requires the disabled package: BiobaseTypes
@@ -5494,14 +5485,15 @@ packages:
         - HaskellNet < 0 # tried HaskellNet-0.6, but its *library* does not support: base-4.16.0.0
         - HaskellNet-SSL < 0 # tried HaskellNet-SSL-0.3.4.4, but its *library* requires the disabled package: HaskellNet
         - Hoed < 0 # tried Hoed-0.5.1, but its *library* requires the disabled package: regex-tdfa-text
+        - IPv6DB < 0 # tried IPv6DB-0.3.2, but its *executable* does not support: fast-logger-3.1.0
         - IPv6DB < 0 # tried IPv6DB-0.3.2, but its *executable* does not support: optparse-applicative-0.16.1.0
         - IPv6DB < 0 # tried IPv6DB-0.3.2, but its *library* does not support: IPv6Addr-2.0.3
         - IPv6DB < 0 # tried IPv6DB-0.3.2, but its *library* does not support: aeson-2.0.2.0
-        - IPv6DB < 0 # tried IPv6DB-0.3.2, but its *library* does not support: attoparsec-0.14.2
+        - IPv6DB < 0 # tried IPv6DB-0.3.2, but its *library* does not support: attoparsec-0.14.3
         - IPv6DB < 0 # tried IPv6DB-0.3.2, but its *library* does not support: bytestring-0.11.1.0
         - IPv6DB < 0 # tried IPv6DB-0.3.2, but its *library* does not support: hedis-0.15.0
-        - IPv6DB < 0 # tried IPv6DB-0.3.2, but its *library* does not support: unordered-containers-0.2.15.0
-        - JuicyPixels-blp < 0 # tried JuicyPixels-blp-0.2.0.0, but its *library* does not support: attoparsec-0.14.2
+        - IPv6DB < 0 # tried IPv6DB-0.3.2, but its *library* does not support: unordered-containers-0.2.16.0
+        - JuicyPixels-blp < 0 # tried JuicyPixels-blp-0.2.0.0, but its *library* does not support: attoparsec-0.14.3
         - JuicyPixels-blp < 0 # tried JuicyPixels-blp-0.2.0.0, but its *library* does not support: bytestring-0.11.1.0
         - JuicyPixels-blp < 0 # tried JuicyPixels-blp-0.2.0.0, but its *library* does not support: hashable-1.4.0.1
         - JuicyPixels-blp < 0 # tried JuicyPixels-blp-0.2.0.0, but its *library* does not support: text-show-3.9.3
@@ -5572,9 +5564,6 @@ packages:
         - accelerate-llvm-native < 0 # tried accelerate-llvm-native-1.3.0.0, but its *library* requires the disabled package: llvm-hs
         - accelerate-llvm-ptx < 0 # tried accelerate-llvm-ptx-1.3.0.0, but its *library* requires the disabled package: llvm-hs
         - accelerate-utility < 0 # tried accelerate-utility-1.0.0.1, but its *library* does not support: accelerate-1.3.0.0
-        - active < 0 # tried active-0.2.0.15, but its *library* does not support: base-4.16.0.0
-        - active < 0 # tried active-0.2.0.15, but its *library* does not support: lens-5.1
-        - advent-of-code-api < 0 # tried advent-of-code-api-0.2.8.1, but its *library* requires the disabled package: http-media
         - advent-of-code-api < 0 # tried advent-of-code-api-0.2.8.1, but its *library* requires the disabled package: servant
         - advent-of-code-api < 0 # tried advent-of-code-api-0.2.8.1, but its *library* requires the disabled package: servant-client
         - advent-of-code-api < 0 # tried advent-of-code-api-0.2.8.1, but its *library* requires the disabled package: servant-client-core
@@ -5589,13 +5578,14 @@ packages:
         - aeson-injector < 0 # tried aeson-injector-1.1.5.0, but its *library* does not support: aeson-2.0.2.0
         - aeson-injector < 0 # tried aeson-injector-1.1.5.0, but its *library* does not support: base-4.16.0.0
         - aeson-injector < 0 # tried aeson-injector-1.1.5.0, but its *library* does not support: lens-5.1
+        - aeson-iproute < 0 # tried aeson-iproute-0.2.1, but its *library* does not support: aeson-2.0.2.0
         - aeson-optics < 0 # tried aeson-optics-1.1.1, but its *library* does not support: base-4.16.0.0
         - aeson-picker < 0 # tried aeson-picker-0.1.0.5, but its *library* does not support: aeson-2.0.2.0
         - aeson-picker < 0 # tried aeson-picker-0.1.0.5, but its *library* does not support: lens-5.1
         - aeson-qq < 0 # tried aeson-qq-0.8.4, but its *library* requires the disabled package: haskell-src-meta
         - aeson-typescript < 0 # tried aeson-typescript-0.3.0.1, but its *library* requires the disabled package: string-interpolate
         - aeson-utils < 0 # tried aeson-utils-0.3.0.2, but its *library* does not support: aeson-2.0.2.0
-        - aeson-utils < 0 # tried aeson-utils-0.3.0.2, but its *library* does not support: attoparsec-0.14.2
+        - aeson-utils < 0 # tried aeson-utils-0.3.0.2, but its *library* does not support: attoparsec-0.14.3
         - aeson-utils < 0 # tried aeson-utils-0.3.0.2, but its *library* does not support: bytestring-0.11.1.0
         - airship < 0 # tried airship-0.9.4, but its *library* does not support: base64-bytestring-1.2.1.0
         - airship < 0 # tried airship-0.9.4, but its *library* does not support: bytestring-trie-0.2.6
@@ -5718,7 +5708,6 @@ packages:
         - aos-signature < 0 # tried aos-signature-0.1.1, but its *library* requires the disabled package: protolude
         - apecs-gloss < 0 # tried apecs-gloss-0.2.4, but its *library* requires the disabled package: gloss
         - api-maker < 0 # tried api-maker-0.1.0.0, but its *library* requires the disabled package: req
-        - approximate < 0 # tried approximate-0.3.5, but its *library* requires the disabled package: safecopy
         - arbor-postgres < 0 # tried arbor-postgres-0.0.5, but its *library* does not support: bytestring-0.11.1.0
         - arbor-postgres < 0 # tried arbor-postgres-0.0.5, but its *library* does not support: lens-5.1
         - arbor-postgres < 0 # tried arbor-postgres-0.0.5, but its *library* does not support: optparse-applicative-0.16.1.0
@@ -5749,7 +5738,7 @@ packages:
         - autoexporter < 0 # tried autoexporter-1.1.20, but its *library* does not support: Cabal-3.6.0.0
         - autoexporter < 0 # tried autoexporter-1.1.20, but its *library* does not support: base-4.16.0.0
         - avers < 0 # tried avers-0.0.17.1, but its *library* does not support: aeson-2.0.2.0
-        - avers < 0 # tried avers-0.0.17.1, but its *library* does not support: attoparsec-0.14.2
+        - avers < 0 # tried avers-0.0.17.1, but its *library* does not support: attoparsec-0.14.3
         - avers < 0 # tried avers-0.0.17.1, but its *library* does not support: base-4.16.0.0
         - avers < 0 # tried avers-0.0.17.1, but its *library* does not support: bytestring-0.11.1.0
         - avers < 0 # tried avers-0.0.17.1, but its *library* does not support: cryptonite-0.29
@@ -5777,6 +5766,7 @@ packages:
         - bank-holidays-england < 0 # tried bank-holidays-england-0.2.0.6, but its *library* does not support: time-1.11.1.1
         - barrier < 0 # tried barrier-0.1.1, but its *library* does not support: bytestring-0.11.1.0
         - base-noprelude < 0 # tried base-noprelude-4.13.0.0, but its *library* does not support: base-4.16.0.0
+        - base16 < 0 # tried base16-0.3.0.2, but its *library* does not support: base-4.16.0.0
         - base16-lens < 0 # tried base16-lens-0.1.3.2, but its *library* does not support: bytestring-0.11.1.0
         - base16-lens < 0 # tried base16-lens-0.1.3.2, but its *library* does not support: lens-5.1
         - base32 < 0 # tried base32-0.2.1.0, but its *library* does not support: base-4.16.0.0
@@ -5810,12 +5800,12 @@ packages:
         - beam-mysql < 0 # tried beam-mysql-0.2.0.0, but its *library* does not support: mysql-0.2.1
         - beam-mysql < 0 # tried beam-mysql-0.2.0.0, but its *library* does not support: time-1.11.1.1
         - beam-postgres < 0 # tried beam-postgres-0.5.1.0, but its *library* does not support: aeson-2.0.2.0
-        - beam-postgres < 0 # tried beam-postgres-0.5.1.0, but its *library* does not support: attoparsec-0.14.2
+        - beam-postgres < 0 # tried beam-postgres-0.5.1.0, but its *library* does not support: attoparsec-0.14.3
         - beam-postgres < 0 # tried beam-postgres-0.5.1.0, but its *library* does not support: bytestring-0.11.1.0
         - beam-postgres < 0 # tried beam-postgres-0.5.1.0, but its *library* does not support: hashable-1.4.0.1
         - beam-postgres < 0 # tried beam-postgres-0.5.1.0, but its *library* does not support: time-1.11.1.1
         - beam-sqlite < 0 # tried beam-sqlite-0.5.1.0, but its *library* does not support: aeson-2.0.2.0
-        - beam-sqlite < 0 # tried beam-sqlite-0.5.1.0, but its *library* does not support: attoparsec-0.14.2
+        - beam-sqlite < 0 # tried beam-sqlite-0.5.1.0, but its *library* does not support: attoparsec-0.14.3
         - beam-sqlite < 0 # tried beam-sqlite-0.5.1.0, but its *library* does not support: bytestring-0.11.1.0
         - beam-sqlite < 0 # tried beam-sqlite-0.5.1.0, but its *library* does not support: dlist-1.0
         - beam-sqlite < 0 # tried beam-sqlite-0.5.1.0, but its *library* does not support: hashable-1.4.0.1
@@ -5870,7 +5860,6 @@ packages:
         - board-games < 0 # tried board-games-0.3, but its *library* requires the disabled package: cgi
         - boolean-normal-forms < 0 # tried boolean-normal-forms-0.0.1.1, but its *library* does not support: base-4.16.0.0
         - boomerang < 0 # tried boomerang-1.4.7, but its *library* does not support: template-haskell-2.18.0.0
-        - boring < 0 # tried boring-0.2, but its *library* does not support: base-4.16.0.0
         - boundingboxes < 0 # tried boundingboxes-0.2.3, but its *library* does not support: lens-5.1
         - bower-json < 0 # tried bower-json-1.0.0.1, but its *library* requires the disabled package: aeson-better-errors
         - brittany < 0 # tried brittany-0.14.0.0, but its *library* does not support: base-4.16.0.0
@@ -5880,8 +5869,6 @@ packages:
         - brittany < 0 # tried brittany-0.14.0.0, but its *library* does not support: ghc-boot-th-9.2.1
         - brittany < 0 # tried brittany-0.14.0.0, but its *library* does not support: ghc-exactprint-1.3.0
         - broadcast-chan < 0 # tried broadcast-chan-0.2.1.1, but its *library* does not support: base-4.16.0.0
-        - buchhaltung < 0 # tried buchhaltung-0.0.7, but its *library* requires the disabled package: hledger
-        - buchhaltung < 0 # tried buchhaltung-0.0.7, but its *library* requires the disabled package: hledger-lib
         - buchhaltung < 0 # tried buchhaltung-0.0.7, but its *library* requires the disabled package: regex-tdfa-text
         - bugsnag-haskell < 0 # tried bugsnag-haskell-0.0.4.2, but its *executable* requires the disabled package: yesod-core
         - bugsnag-haskell < 0 # tried bugsnag-haskell-0.0.4.2, but its *library* requires the disabled package: http-client-tls
@@ -5974,7 +5961,6 @@ packages:
         - colour-accelerate < 0 # tried colour-accelerate-0.4.0.0, but its *library* requires the disabled package: accelerate
         - compact < 0 # tried compact-0.2.0.0, but its *library* does not support: base-4.16.0.0
         - compact < 0 # tried compact-0.2.0.0, but its *library* does not support: bytestring-0.11.1.0
-        - compensated < 0 # tried compensated-0.8.3, but its *library* requires the disabled package: safecopy
         - composite-aeson < 0 # tried composite-aeson-0.7.5.0, but its *library* does not support: aeson-2.0.2.0
         - composite-aeson < 0 # tried composite-aeson-0.7.5.0, but its *library* does not support: generic-deriving-1.14.1
         - composite-aeson < 0 # tried composite-aeson-0.7.5.0, but its *library* does not support: hashable-1.4.0.1
@@ -5999,7 +5985,6 @@ packages:
         - compressed < 0 # tried compressed-3.11, but its *library* does not support: containers-0.6.5.1
         - compressed < 0 # tried compressed-3.11, but its *library* does not support: hashable-1.4.0.1
         - concurrent-supply < 0 # tried concurrent-supply-0.1.8, but its *library* does not support: hashable-1.4.0.1
-        - conduit-algorithms < 0 # tried conduit-algorithms-0.0.11.0, but its *library* requires the disabled package: lzma-conduit
         - conduit-connection < 0 # tried conduit-connection-0.1.0.5, but its *library* does not support: bytestring-0.11.1.0
         - conduit-throttle < 0 # tried conduit-throttle-0.3.1.0, but its *library* requires the disabled package: throttle-io-stream
         - confcrypt < 0 # tried confcrypt-0.2.3.3, but its *library* does not support: bytestring-0.11.1.0
@@ -6024,7 +6009,7 @@ packages:
         - core-telemetry < 0 # tried core-telemetry-0.1.7.3, but its *library* requires the disabled package: http-streams
         - core-telemetry < 0 # tried core-telemetry-0.1.7.3, but its *library* requires the disabled package: locators
         - country < 0 # tried country-0.2.1, but its *library* does not support: aeson-2.0.2.0
-        - country < 0 # tried country-0.2.1, but its *library* does not support: attoparsec-0.14.2
+        - country < 0 # tried country-0.2.1, but its *library* does not support: attoparsec-0.14.3
         - country < 0 # tried country-0.2.1, but its *library* does not support: base-4.16.0.0
         - country < 0 # tried country-0.2.1, but its *library* does not support: bytestring-0.11.1.0
         - country < 0 # tried country-0.2.1, but its *library* does not support: hashable-1.4.0.1
@@ -6048,7 +6033,7 @@ packages:
         - cryptonite-conduit < 0 # tried cryptonite-conduit-0.2.2, but its *library* requires the disabled package: memory
         - cryptonite-openssl < 0 # tried cryptonite-openssl-0.7, but its *library* requires the disabled package: memory
         - csg < 0 # tried csg-0.1.0.6, but its *library* does not support: QuickCheck-2.14.2
-        - csg < 0 # tried csg-0.1.0.6, but its *library* does not support: attoparsec-0.14.2
+        - csg < 0 # tried csg-0.1.0.6, but its *library* does not support: attoparsec-0.14.3
         - csg < 0 # tried csg-0.1.0.6, but its *library* does not support: bytestring-0.11.1.0
         - csg < 0 # tried csg-0.1.0.6, but its *library* does not support: simple-vec3-0.6.0.1
         - csg < 0 # tried csg-0.1.0.6, but its *library* does not support: strict-0.4.0.1
@@ -6058,7 +6043,7 @@ packages:
         - d10 < 0 # tried d10-1.0.0.1, but its *library* does not support: base-4.16.0.0
         - d10 < 0 # tried d10-1.0.0.1, but its *library* does not support: template-haskell-2.18.0.0
         - darcs < 0 # tried darcs-2.16.4, but its *library* does not support: Cabal-3.6.0.0
-        - darcs < 0 # tried darcs-2.16.4, but its *library* does not support: attoparsec-0.14.2
+        - darcs < 0 # tried darcs-2.16.4, but its *library* does not support: attoparsec-0.14.3
         - darcs < 0 # tried darcs-2.16.4, but its *library* does not support: base-4.16.0.0
         - darcs < 0 # tried darcs-2.16.4, but its *library* does not support: bytestring-0.11.1.0
         - darcs < 0 # tried darcs-2.16.4, but its *library* does not support: constraints-0.13.2
@@ -6085,7 +6070,6 @@ packages:
         - dependent-sum-template < 0 # tried dependent-sum-template-0.1.1.1, but its *library* requires the disabled package: dependent-sum
         - dependent-sum-template < 0 # tried dependent-sum-template-0.1.1.1, but its *library* requires the disabled package: th-extras
         - derulo < 0 # tried derulo-1.0.10, but its *library* does not support: base-4.16.0.0
-        - detour-via-sci < 0 # tried detour-via-sci-1.0.0, but its *library* requires the disabled package: newtype
         - dhall < 0 # tried dhall-1.40.2, but its *library* requires the disabled package: http-client-tls
         - dhall-bash < 0 # tried dhall-bash-1.0.39, but its *library* requires the disabled package: dhall
         - dhall-json < 0 # tried dhall-json-1.7.9, but its *library* requires the disabled package: dhall
@@ -6140,8 +6124,8 @@ packages:
         - dialogflow-fulfillment < 0 # tried dialogflow-fulfillment-0.1.1.4, but its *library* does not support: base-4.16.0.0
         - dialogflow-fulfillment < 0 # tried dialogflow-fulfillment-0.1.1.4, but its *library* does not support: bytestring-0.11.1.0
         - dice < 0 # tried dice-0.1.0.1, but its *library* requires the disabled package: random-fu
-        - dictionaries < 0 # tried dictionaries-0.2.0.4, but its *executable* does not support: criterion-1.5.11.0
-        - dictionaries < 0 # tried dictionaries-0.2.0.4, but its *library* does not support: attoparsec-0.14.2
+        - dictionaries < 0 # tried dictionaries-0.2.0.4, but its *executable* does not support: criterion-1.5.12.0
+        - dictionaries < 0 # tried dictionaries-0.2.0.4, but its *library* does not support: attoparsec-0.14.3
         - dictionaries < 0 # tried dictionaries-0.2.0.4, but its *library* does not support: base-4.16.0.0
         - dictionaries < 0 # tried dictionaries-0.2.0.4, but its *library* does not support: bytestring-0.11.1.0
         - dictionaries < 0 # tried dictionaries-0.2.0.4, but its *library* does not support: containers-0.6.5.1
@@ -6179,7 +6163,6 @@ packages:
         - dom-parser < 0 # tried dom-parser-3.1.0, but its *library* requires the disabled package: xml-lens
         - domain < 0 # tried domain-0.1.1.2, but its *library* requires the disabled package: yaml-unscrambler
         - drawille < 0 # tried drawille-0.1.2.0, but its *library* does not support: containers-0.6.5.1
-        - dual-tree < 0 # tried dual-tree-0.2.3.0, but its *library* does not support: base-4.16.0.0
         - eap < 0 # tried eap-0.9.0.2, but its *library* requires the disabled package: memory
         - earcut < 0 # tried earcut-0.1.0.4, but its *library* does not support: base-4.16.0.0
         - easytest < 0 # tried easytest-0.3, but its *library* does not support: hedgehog-1.0.5
@@ -6206,7 +6189,6 @@ packages:
         - ekg-statsd < 0 # tried ekg-statsd-0.2.5.0, but its *library* does not support: base-4.16.0.0
         - ekg-statsd < 0 # tried ekg-statsd-0.2.5.0, but its *library* does not support: time-1.11.1.1
         - ekg-wai < 0 # tried ekg-wai-0.1.0.3, but its *library* does not support: time-1.11.1.1
-        - elm-export < 0 # tried elm-export-0.6.0.1, but its *library* requires the disabled package: wl-pprint-text
         - elm-export-persistent < 0 # tried elm-export-persistent-1.0.0, but its *library* requires the disabled package: persistent
         - elm-street < 0 # tried elm-street-0.1.0.4, but its *library* does not support: base-4.16.0.0
         - elm2nix < 0 # tried elm2nix-0.2.1, but its *library* requires the disabled package: req
@@ -6267,15 +6249,16 @@ packages:
         - force-layout < 0 # tried force-layout-0.4.0.6, but its *library* does not support: lens-5.1
         - fourmolu < 0 # tried fourmolu-0.4.0.0, but its *library* does not support: Cabal-3.6.0.0
         - fourmolu < 0 # tried fourmolu-0.4.0.0, but its *library* does not support: ghc-lib-parser-9.2.1.20211101
-        - freckle-app < 0 # tried freckle-app-1.0.2.1, but its *library* requires the disabled package: ekg-core
-        - freckle-app < 0 # tried freckle-app-1.0.2.1, but its *library* requires the disabled package: persistent
+        - freckle-app < 0 # tried freckle-app-1.0.2.2, but its *library* does not support: hspec-2.8.5
+        - freckle-app < 0 # tried freckle-app-1.0.2.2, but its *library* does not support: hspec-core-2.8.5
+        - freckle-app < 0 # tried freckle-app-1.0.2.2, but its *library* does not support: hspec-junit-formatter-1.0.3.0
         - freer-simple < 0 # tried freer-simple-1.2.1.1, but its *library* does not support: template-haskell-2.18.0.0
         - friday < 0 # tried friday-0.2.3.1, but its *library* does not support: containers-0.6.5.1
         - friday < 0 # tried friday-0.2.3.1, but its *library* requires the disabled package: ratio-int
         - friday-juicypixels < 0 # tried friday-juicypixels-0.1.2.4, but its *library* requires the disabled package: friday
         - fswatch < 0 # tried fswatch-0.1.0.6, but its *library* does not support: base-4.16.0.0
         - fswatch < 0 # tried fswatch-0.1.0.6, but its *library* does not support: haskeline-0.8.2
-        - ftp-client < 0 # tried ftp-client-0.5.1.4, but its *library* does not support: attoparsec-0.14.2
+        - ftp-client < 0 # tried ftp-client-0.5.1.4, but its *library* does not support: attoparsec-0.14.3
         - ftp-client < 0 # tried ftp-client-0.5.1.4, but its *library* does not support: bytestring-0.11.1.0
         - functor-combinators < 0 # tried functor-combinators-0.4.1.0, but its *library* requires the disabled package: nonempty-containers
         - fused-effects < 0 # tried fused-effects-1.1.1.1, but its *library* does not support: base-4.16.0.0
@@ -6307,7 +6290,6 @@ packages:
         - ghc-prof < 0 # tried ghc-prof-1.4.1.9, but its *library* does not support: base-4.16.0.0
         - ghc-source-gen < 0 # tried ghc-source-gen-0.4.2.0, but its *library* does not support: ghc-9.2.1
         - ghc-syb-utils < 0 # tried ghc-syb-utils-0.3.0.0, but its *library* does not support: ghc-9.2.1
-        - ghc-trace-events < 0 # tried ghc-trace-events-0.1.2.3, but its *library* does not support: base-4.16.0.0
         - ghc-typelits-extra < 0 # tried ghc-typelits-extra-0.4.3, but its *library* does not support: ghc-bignum-1.2
         - ghc-typelits-knownnat < 0 # tried ghc-typelits-knownnat-0.7.6, but its *library* requires the disabled package: ghc-typelits-natnormalise
         - ghc-typelits-natnormalise < 0 # tried ghc-typelits-natnormalise-0.7.6, but its *library* does not support: ghc-bignum-1.2
@@ -6330,8 +6312,7 @@ packages:
         - github < 0 # tried github-0.27, but its *library* requires the disabled package: http-client-tls
         - github < 0 # tried github-0.27, but its *library* requires the disabled package: tls
         - github-release < 0 # tried github-release-1.3.8, but its *library* does not support: base-4.16.0.0
-        - github-rest < 0 # tried github-rest-1.1.1, but its *library* requires the disabled package: http-client-tls
-        - github-rest < 0 # tried github-rest-1.1.1, but its *library* requires the disabled package: jwt
+        - github-rest < 0 # tried github-rest-1.1.2, but its *library* requires the disabled package: jwt
         - github-webhook-handler < 0 # tried github-webhook-handler-0.0.8, but its *library* does not support: base-4.16.0.0
         - github-webhook-handler-snap < 0 # tried github-webhook-handler-snap-0.0.7, but its *library* does not support: base-4.16.0.0
         - github-webhooks < 0 # tried github-webhooks-0.15.0, but its *library* requires the disabled package: memory
@@ -6360,7 +6341,7 @@ packages:
         - gloss-raster-accelerate < 0 # tried gloss-raster-accelerate-2.1.0.0, but its *library* requires the disabled package: gloss
         - gloss-rendering < 0 # tried gloss-rendering-1.13.1.1, but its *library* does not support: bytestring-0.11.1.0
         - gmail-simple < 0 # tried gmail-simple-0.1.0.2, but its *library* requires the disabled package: base64
-        - gmail-simple < 0 # tried gmail-simple-0.1.0.2, but its *library* requires the disabled package: http-media
+        - gmail-simple < 0 # tried gmail-simple-0.1.0.2, but its *library* requires the disabled package: jwt
         - gnuplot < 0 # tried gnuplot-0.5.6.1, but its *library* does not support: time-1.11.1.1
         - google-cloud < 0 # tried google-cloud-0.0.4, but its *library* does not support: base-4.16.0.0
         - google-isbn < 0 # tried google-isbn-1.0.3, but its *library* requires the disabled package: http-conduit
@@ -6402,7 +6383,6 @@ packages:
         - hackernews < 0 # tried hackernews-1.4.0.0, but its *library* does not support: http-client-0.7.9
         - hackernews < 0 # tried hackernews-1.4.0.0, but its *library* does not support: servant-0.18.3
         - hackernews < 0 # tried hackernews-1.4.0.0, but its *library* does not support: servant-client-0.18.3
-        - haddock-library < 0 # tried haddock-library-1.10.0, but its *library* does not support: base-4.16.0.0
         - hadolint < 0 # tried hadolint-2.8.0, but its *library* does not support: deepseq-1.4.6.0
         - hadolint < 0 # tried hadolint-2.8.0, but its *library* requires the disabled package: colourista
         - hadolint < 0 # tried hadolint-2.8.0, but its *library* requires the disabled package: spdx
@@ -6417,7 +6397,8 @@ packages:
         - hapistrano < 0 # tried hapistrano-0.4.3.0, but its *library* does not support: path-0.9.1
         - hapistrano < 0 # tried hapistrano-0.4.3.0, but its *library* does not support: time-1.11.1.1
         - happstack-hsp < 0 # tried happstack-hsp-7.3.7.5, but its *library* requires the disabled package: harp
-        - happstack-jmacro < 0 # tried happstack-jmacro-7.0.12.3, but its *library* requires the disabled package: wl-pprint-text
+        - happstack-jmacro < 0 # tried happstack-jmacro-7.0.12.3, but its *library* requires the disabled package: happstack-server
+        - happstack-jmacro < 0 # tried happstack-jmacro-7.0.12.3, but its *library* requires the disabled package: jmacro
         - happstack-server < 0 # tried happstack-server-7.7.1.1, but its *library* requires the disabled package: sendfile
         - happstack-server-tls < 0 # tried happstack-server-tls-7.2.1.1, but its *library* requires the disabled package: sendfile
         - happy-meta < 0 # tried happy-meta-0.2.0.11, but its *library* does not support: template-haskell-2.18.0.0
@@ -6487,13 +6468,14 @@ packages:
         - haskey < 0 # tried haskey-0.3.1.0, but its *library* does not support: stm-containers-1.2
         - haskey-mtl < 0 # tried haskey-mtl-0.3.1.0, but its *library* does not support: monad-control-1.0.3.1
         - haskintex < 0 # tried haskintex-0.8.0.0, but its *library* requires the disabled package: HaTeX
+        - haskoin-core < 0 # tried haskoin-core-0.21.0, but its *library* requires the disabled package: base16
         - haskoin-core < 0 # tried haskoin-core-0.21.0, but its *library* requires the disabled package: memory
         - haskoin-core < 0 # tried haskoin-core-0.21.0, but its *library* requires the disabled package: secp256k1-haskell
         - haskoin-store < 0 # tried haskoin-store-0.61.0, but its *library* requires the disabled package: haskoin-node
         - haskoin-store < 0 # tried haskoin-store-0.61.0, but its *library* requires the disabled package: haskoin-store-data
         - hasmin < 0 # tried hasmin-1.0.3, but its *executable* does not support: bytestring-0.11.1.0
         - hasmin < 0 # tried hasmin-1.0.3, but its *executable* does not support: optparse-applicative-0.16.1.0
-        - hasmin < 0 # tried hasmin-1.0.3, but its *library* does not support: attoparsec-0.14.2
+        - hasmin < 0 # tried hasmin-1.0.3, but its *library* does not support: attoparsec-0.14.3
         - hasql-migration < 0 # tried hasql-migration-0.3.0, but its *library* requires the disabled package: memory
         - hasql-queue < 0 # tried hasql-queue-1.2.0.2, but its *library* requires the disabled package: here
         - haxl-amazonka < 0 # tried haxl-amazonka-0.1.1, but its *library* requires the disabled package: haxl
@@ -6506,7 +6488,7 @@ packages:
         - hedgehog-quickcheck < 0 # tried hedgehog-quickcheck-0.1.1, but its *library* requires the disabled package: hedgehog
         - hedis < 0 # tried hedis-0.15.0, but its *library* requires the disabled package: tls
         - heist < 0 # tried heist-1.1.0.1, but its *library* does not support: aeson-2.0.2.0
-        - heist < 0 # tried heist-1.1.0.1, but its *library* does not support: attoparsec-0.14.2
+        - heist < 0 # tried heist-1.1.0.1, but its *library* does not support: attoparsec-0.14.3
         - heist < 0 # tried heist-1.1.0.1, but its *library* does not support: base-4.16.0.0
         - heist < 0 # tried heist-1.1.0.1, but its *library* does not support: bytestring-0.11.1.0
         - heist < 0 # tried heist-1.1.0.1, but its *library* does not support: dlist-1.0
@@ -6536,17 +6518,16 @@ packages:
         - hip < 0 # tried hip-1.5.6.0, but its *library* requires the disabled package: Chart-diagrams
         - hit < 0 # tried hit-0.7.0, but its *executable* requires the disabled package: git
         - hjsmin < 0 # tried hjsmin-0.2.0.4, but its *executable* does not support: bytestring-0.11.1.0
-        - hledger < 0 # tried hledger-1.24, but its *library* does not support: base-4.16.0.0
-        - hledger-lib < 0 # tried hledger-lib-1.24, but its *library* does not support: base-4.16.0.0
-        - hledger-stockquotes < 0 # tried hledger-stockquotes-0.1.2.0, but its *library* requires the disabled package: hledger-lib
+        - hledger < 0 # tried hledger-1.24.99, but its *library* requires the disabled package: shakespeare
         - hledger-stockquotes < 0 # tried hledger-stockquotes-0.1.2.0, but its *library* requires the disabled package: req
-        - hledger-ui < 0 # tried hledger-ui-1.24, but its *executable* does not support: base-4.16.0.0
-        - hledger-web < 0 # tried hledger-web-1.24, but its *library* does not support: base-4.16.0.0
-        - hlint < 0 # tried hlint-3.3.4, but its *library* does not support: aeson-2.0.2.0
-        - hlint < 0 # tried hlint-3.3.4, but its *library* does not support: ghc-lib-parser-9.2.1.20211101
-        - hlint < 0 # tried hlint-3.3.4, but its *library* does not support: ghc-lib-parser-ex-9.2.0.1
+        - hledger-ui < 0 # tried hledger-ui-1.24.99, but its *executable* requires the disabled package: hledger
+        - hledger-web < 0 # tried hledger-web-1.24.99, but its *library* requires the disabled package: base64
+        - hledger-web < 0 # tried hledger-web-1.24.99, but its *library* requires the disabled package: hjsmin
+        - hledger-web < 0 # tried hledger-web-1.24.99, but its *library* requires the disabled package: shakespeare
+        - hlint < 0 # tried hlint-3.3.5, but its *library* does not support: ghc-lib-parser-9.2.1.20211101
+        - hlint < 0 # tried hlint-3.3.5, but its *library* does not support: ghc-lib-parser-ex-9.2.0.1
         - hmatrix-backprop < 0 # tried hmatrix-backprop-0.1.3.0, but its *library* requires the disabled package: backprop
-        - hmm-lapack < 0 # tried hmm-lapack-0.4.1, but its *library* requires the disabled package: lapack
+        - hmm-lapack < 0 # tried hmm-lapack-0.5, but its *library* requires the disabled package: lapack
         - hmpfr < 0 # tried hmpfr-0.4.4, but its *library* does not support: integer-gmp-1.1
         - hnix-store-core < 0 # tried hnix-store-core-0.5.0.0, but its *library* requires the disabled package: memory
         - hnix-store-core < 0 # tried hnix-store-core-0.5.0.0, but its *library* requires the disabled package: saltine
@@ -6591,11 +6572,11 @@ packages:
         - hschema-prettyprinter < 0 # tried hschema-prettyprinter-0.0.1.1, but its *library* requires the disabled package: hschema
         - hschema-quickcheck < 0 # tried hschema-quickcheck-0.0.1.1, but its *library* requires the disabled package: hschema
         - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* does not support: aeson-2.0.2.0
-        - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* does not support: attoparsec-0.14.2
+        - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* does not support: attoparsec-0.14.3
         - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* does not support: bytestring-0.11.1.0
         - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* does not support: ghc-boot-9.2.1
         - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* does not support: ghc-lib-parser-9.2.1.20211101
-        - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* does not support: hlint-3.3.4
+        - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* does not support: hlint-3.3.5
         - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* does not support: http-client-0.7.9
         - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* does not support: lens-5.1
         - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* does not support: optparse-applicative-0.16.1.0
@@ -6613,7 +6594,7 @@ packages:
         - hspec-wai < 0 # tried hspec-wai-0.11.1, but its *library* requires the disabled package: wai-extra
         - hspec-wai-json < 0 # tried hspec-wai-json-0.11.0, but its *library* does not support: hspec-wai-0.11.1
         - hspec-webdriver < 0 # tried hspec-webdriver-1.2.0, but its *library* requires the disabled package: webdriver
-        - hsx-jmacro < 0 # tried hsx-jmacro-7.3.8.1, but its *library* requires the disabled package: wl-pprint-text
+        - hsx-jmacro < 0 # tried hsx-jmacro-7.3.8.1, but its *library* requires the disabled package: jmacro
         - hsx2hs < 0 # tried hsx2hs-0.14.1.8, but its *library* does not support: template-haskell-2.18.0.0
         - hsyslog-udp < 0 # tried hsyslog-udp-0.2.5, but its *library* does not support: bytestring-0.11.1.0
         - hsyslog-udp < 0 # tried hsyslog-udp-0.2.5, but its *library* does not support: time-1.11.1.1
@@ -6624,7 +6605,6 @@ packages:
         - http-directory < 0 # tried http-directory-0.1.8, but its *library* requires the disabled package: http-client-tls
         - http-download < 0 # tried http-download-0.2.0.0, but its *library* requires the disabled package: memory
         - http-download < 0 # tried http-download-0.2.0.0, but its *library* requires the disabled package: path
-        - http-media < 0 # tried http-media-0.8.0.0, but its *library* does not support: base-4.16.0.0
         - http-query < 0 # tried http-query-0.1.1, but its *library* requires the disabled package: http-conduit
         - http-streams < 0 # tried http-streams-0.8.9.4, but its *library* requires the disabled package: openssl-streams
         - http2 < 0 # tried http2-3.0.2, but its *executable* requires the disabled package: cryptonite
@@ -6669,7 +6649,7 @@ packages:
         - hworker < 0 # tried hworker-0.1.0.1, but its *library* requires the disabled package: hedis
         - hxt-pickle-utils < 0 # tried hxt-pickle-utils-0.1.0.3, but its *library* does not support: base-4.16.0.0
         - hyper < 0 # tried hyper-0.2.1.1, but its *library* does not support: base-4.16.0.0
-        - hyperloglog < 0 # tried hyperloglog-0.4.5, but its *library* requires the disabled package: approximate
+        - hyperloglog < 0 # tried hyperloglog-0.4.5, but its *library* requires the disabled package: siphash
         - hyraxAbif < 0 # tried hyraxAbif-0.2.3.27, but its *library* does not support: bytestring-0.11.1.0
         - hyraxAbif < 0 # tried hyraxAbif-0.2.3.27, but its *library* does not support: text-1.2.5.0
         - iconv < 0 # tried iconv-0.4.1.3, but its *library* does not support: bytestring-0.11.1.0
@@ -6680,7 +6660,7 @@ packages:
         - iff < 0 # tried iff-0.0.6, but its *library* does not support: bytestring-0.11.1.0
         - ihaskell < 0 # tried ihaskell-0.10.2.2, but its *library* requires the disabled package: ghc-parser
         - ihaskell < 0 # tried ihaskell-0.10.2.2, but its *library* requires the disabled package: hlint
-        - ihaskell-hvega < 0 # tried ihaskell-hvega-0.4.0.0, but its *library* requires the disabled package: ihaskell
+        - ihaskell-hvega < 0 # tried ihaskell-hvega-0.5.0.1, but its *library* requires the disabled package: ihaskell
         - importify < 0 # tried importify-1.0.1, but its *library* requires the disabled package: hse-cpp
         - incremental-parser < 0 # tried incremental-parser-0.5.0.2, but its *library* requires the disabled package: input-parsers
         - incremental-parser < 0 # tried incremental-parser-0.5.0.2, but its *library* requires the disabled package: rank2classes
@@ -6697,7 +6677,7 @@ packages:
         - intro < 0 # tried intro-0.9.0.0, but its *library* does not support: bytestring-0.11.1.0
         - invertible < 0 # tried invertible-0.2.0.7, but its *library* requires the disabled package: partial-isomorphisms
         - invertible-grammar < 0 # tried invertible-grammar-0.1.3.2, but its *library* does not support: template-haskell-2.18.0.0
-        - io-streams-haproxy < 0 # tried io-streams-haproxy-1.0.1.0, but its *library* does not support: attoparsec-0.14.2
+        - io-streams-haproxy < 0 # tried io-streams-haproxy-1.0.1.0, but its *library* does not support: attoparsec-0.14.3
         - io-streams-haproxy < 0 # tried io-streams-haproxy-1.0.1.0, but its *library* does not support: base-4.16.0.0
         - io-streams-haproxy < 0 # tried io-streams-haproxy-1.0.1.0, but its *library* does not support: bytestring-0.11.1.0
         - ipa < 0 # tried ipa-0.3.1.1, but its *library* does not support: template-haskell-2.18.0.0
@@ -6707,7 +6687,7 @@ packages:
         - irc-client < 0 # tried irc-client-1.1.2.2, but its *library* does not support: time-1.11.1.1
         - irc-conduit < 0 # tried irc-conduit-0.3.0.5, but its *library* does not support: bytestring-0.11.1.0
         - irc-conduit < 0 # tried irc-conduit-0.3.0.5, but its *library* does not support: time-1.11.1.1
-        - irc-dcc < 0 # tried irc-dcc-2.0.1, but its *library* does not support: attoparsec-0.14.2
+        - irc-dcc < 0 # tried irc-dcc-2.0.1, but its *library* does not support: attoparsec-0.14.3
         - irc-dcc < 0 # tried irc-dcc-2.0.1, but its *library* does not support: bytestring-0.11.1.0
         - irc-dcc < 0 # tried irc-dcc-2.0.1, but its *library* does not support: network-3.1.2.5
         - irc-dcc < 0 # tried irc-dcc-2.0.1, but its *library* does not support: path-0.9.1
@@ -6719,7 +6699,6 @@ packages:
         - ixset-typed-hashable-instance < 0 # tried ixset-typed-hashable-instance-0.1.0.2, but its *library* requires the disabled package: ixset-typed
         - jack < 0 # tried jack-0.7.2, but its *library* does not support: bytestring-0.11.1.0
         - jmacro < 0 # tried jmacro-0.6.17, but its *library* requires the disabled package: haskell-src-meta
-        - jmacro < 0 # tried jmacro-0.6.17, but its *library* requires the disabled package: wl-pprint-text
         - jmacro-rpc < 0 # tried jmacro-rpc-0.3.3, but its *library* requires the disabled package: jmacro
         - jmacro-rpc-happstack < 0 # tried jmacro-rpc-happstack-0.3.2, but its *library* requires the disabled package: happstack-server
         - jmacro-rpc-happstack < 0 # tried jmacro-rpc-happstack-0.3.2, but its *library* requires the disabled package: jmacro
@@ -6727,7 +6706,7 @@ packages:
         - jose < 0 # tried jose-0.9, but its *library* requires the disabled package: memory
         - jose-jwt < 0 # tried jose-jwt-0.9.2, but its *library* requires the disabled package: memory
         - jsaddle < 0 # tried jsaddle-0.9.8.0, but its *library* does not support: aeson-2.0.2.0
-        - jsaddle < 0 # tried jsaddle-0.9.8.0, but its *library* does not support: attoparsec-0.14.2
+        - jsaddle < 0 # tried jsaddle-0.9.8.0, but its *library* does not support: attoparsec-0.14.3
         - jsaddle < 0 # tried jsaddle-0.9.8.0, but its *library* does not support: base-compat-0.12.1
         - jsaddle < 0 # tried jsaddle-0.9.8.0, but its *library* does not support: base64-bytestring-1.2.1.0
         - jsaddle < 0 # tried jsaddle-0.9.8.0, but its *library* does not support: bytestring-0.11.1.0
@@ -6762,7 +6741,7 @@ packages:
         - jvm-batching < 0 # tried jvm-batching-0.2.0, but its *library* requires the disabled package: jni
         - jvm-streaming < 0 # tried jvm-streaming-0.4.0, but its *library* requires the disabled package: distributed-closure
         - jvm-streaming < 0 # tried jvm-streaming-0.4.0, but its *library* requires the disabled package: jni
-        - jwt < 0 # tried jwt-0.10.1, but its *library* requires the disabled package: memory
+        - jwt < 0 # tried jwt-0.11.0, but its *library* requires the disabled package: cryptostore
         - katip-logstash < 0 # tried katip-logstash-0.1.0.2, but its *library* requires the disabled package: logstash
         - katip-rollbar < 0 # tried katip-rollbar-0.3.0.1, but its *library* does not support: aeson-2.0.2.0
         - katip-rollbar < 0 # tried katip-rollbar-0.3.0.1, but its *library* does not support: async-2.2.4
@@ -6783,7 +6762,7 @@ packages:
         - kubernetes-webhook-haskell < 0 # tried kubernetes-webhook-haskell-0.2.0.3, but its *library* does not support: aeson-2.0.2.0
         - kubernetes-webhook-haskell < 0 # tried kubernetes-webhook-haskell-0.2.0.3, but its *library* does not support: bytestring-0.11.1.0
         - lackey < 0 # tried lackey-1.0.16, but its *library* does not support: base-4.16.0.0
-        - lambdabot-core < 0 # tried lambdabot-core-5.3.0.2, but its *library* requires the disabled package: dependent-sum
+        - lambdabot-core < 0 # tried lambdabot-core-5.3.0.2, but its *library* requires the disabled package: random-fu
         - lambdabot-irc-plugins < 0 # tried lambdabot-irc-plugins-5.3.0.2, but its *library* requires the disabled package: lambdabot-core
         - language-c-quote < 0 # tried language-c-quote-0.13, but its *library* does not support: bytestring-0.11.1.0
         - language-ecmascript < 0 # tried language-ecmascript-0.19.1.0, but its *library* does not support: base-4.16.0.0
@@ -6800,10 +6779,10 @@ packages:
         - language-puppet < 0 # tried language-puppet-1.4.6.5, but its *library* does not support: servant-0.18.3
         - language-puppet < 0 # tried language-puppet-1.4.6.5, but its *library* does not support: servant-client-0.18.3
         - language-puppet < 0 # tried language-puppet-1.4.6.5, but its *library* requires the disabled package: operational
-        - lapack < 0 # tried lapack-0.4, but its *library* requires the disabled package: hyper
+        - lapack < 0 # tried lapack-0.5, but its *library* requires the disabled package: hyper
         - lapack-carray < 0 # tried lapack-carray-0.0.3, but its *library* requires the disabled package: carray
         - lapack-ffi-tools < 0 # tried lapack-ffi-tools-0.1.2.1, but its *executable* does not support: bytestring-0.11.1.0
-        - lapack-hmatrix < 0 # tried lapack-hmatrix-0.0, but its *library* requires the disabled package: lapack
+        - lapack-hmatrix < 0 # tried lapack-hmatrix-0.0.0.1, but its *library* requires the disabled package: lapack
         - large-hashable < 0 # tried large-hashable-0.1.0.4, but its *library* does not support: template-haskell-2.18.0.0
         - learn-physics < 0 # tried learn-physics-0.6.5, but its *library* requires the disabled package: gloss
         - learn-physics < 0 # tried learn-physics-0.6.5, but its *library* requires the disabled package: gnuplot
@@ -6827,7 +6806,7 @@ packages:
         - licensor < 0 # tried licensor-0.5.0, but its *library* does not support: base-4.16.0.0
         - line < 0 # tried line-4.0.1, but its *library* requires the disabled package: http-conduit
         - linear-accelerate < 0 # tried linear-accelerate-0.7.0.0, but its *library* does not support: lens-5.1
-        - linear-circuit < 0 # tried linear-circuit-0.1.0.3, but its *library* requires the disabled package: lapack
+        - linear-circuit < 0 # tried linear-circuit-0.1.0.4, but its *library* requires the disabled package: lapack
         - linked-list-with-iterator < 0 # tried linked-list-with-iterator-0.1.1.0, but its *library* does not support: containers-0.6.5.1
         - liquid-fixpoint < 0 # tried liquid-fixpoint-8.10.7, but its *library* does not support: megaparsec-9.2.0
         - liquid-fixpoint < 0 # tried liquid-fixpoint-8.10.7, but its *library* requires the disabled package: rest-rewrite
@@ -6873,8 +6852,8 @@ packages:
         - magicbane < 0 # tried magicbane-0.5.1, but its *library* requires the disabled package: monad-metrics
         - magicbane < 0 # tried magicbane-0.5.1, but its *library* requires the disabled package: refined
         - magicbane < 0 # tried magicbane-0.5.1, but its *library* requires the disabled package: servant-server
-        - magico < 0 # tried magico-0.0.2.2, but its *executable* requires the disabled package: lapack
-        - makefile < 0 # tried makefile-1.1.0.0, but its *library* does not support: attoparsec-0.14.2
+        - magico < 0 # tried magico-0.0.2.3, but its *executable* requires the disabled package: lapack
+        - makefile < 0 # tried makefile-1.1.0.0, but its *library* does not support: attoparsec-0.14.3
         - mallard < 0 # tried mallard-0.6.1.1, but its *library* does not support: megaparsec-9.2.0
         - mallard < 0 # tried mallard-0.6.1.1, but its *library* requires the disabled package: Interpolation
         - mandrill < 0 # tried mandrill-0.5.5.0, but its *library* does not support: aeson-2.0.2.0
@@ -6933,6 +6912,7 @@ packages:
         - minio-hs < 0 # tried minio-hs-1.5.3, but its *library* requires the disabled package: memory
         - minio-hs < 0 # tried minio-hs-1.5.3, but its *library* requires the disabled package: protolude
         - misfortune < 0 # tried misfortune-0.1.1.2, but its *library* requires the disabled package: knob
+        - misfortune < 0 # tried misfortune-0.1.1.2, but its *library* requires the disabled package: random-fu
         - miso < 0 # tried miso-1.8.0.0, but its *library* requires the disabled package: jsaddle
         - miso < 0 # tried miso-1.8.0.0, but its *library* requires the disabled package: servant
         - miso < 0 # tried miso-1.8.0.0, but its *library* requires the disabled package: servant-lucid
@@ -6977,6 +6957,7 @@ packages:
         - msgpack-rpc < 0 # tried msgpack-rpc-1.0.0, but its *library* does not support: random-1.2.1
         - multipart < 0 # tried multipart-0.2.1, but its *library* does not support: bytestring-0.11.1.0
         - multistate < 0 # tried multistate-0.8.0.3, but its *library* does not support: base-4.16.0.0
+        - mustache < 0 # tried mustache-2.3.2, but its *library* does not support: aeson-2.0.2.0
         - mwc-random-accelerate < 0 # tried mwc-random-accelerate-0.2.0.0, but its *library* requires the disabled package: accelerate
         - mysql-haskell < 0 # tried mysql-haskell-0.8.4.3, but its *library* does not support: memory-0.16.0
         - mysql-haskell < 0 # tried mysql-haskell-0.8.4.3, but its *library* requires the disabled package: word24
@@ -7013,7 +6994,6 @@ packages:
         - network-transport-inmemory < 0 # tried network-transport-inmemory-0.5.2, but its *library* does not support: containers-0.6.5.1
         - network-transport-tcp < 0 # tried network-transport-tcp-0.8.0, but its *library* does not support: bytestring-0.11.1.0
         - network-transport-tests < 0 # tried network-transport-tests-0.3.0, but its *library* does not support: bytestring-0.11.1.0
-        - newtype < 0 # tried newtype-0.2.2.0, but its *library* does not support: base-4.16.0.0
         - not-gloss < 0 # tried not-gloss-0.7.7.0, but its *library* requires the disabled package: OpenGL
         - not-gloss < 0 # tried not-gloss-0.7.7.0, but its *library* requires the disabled package: bmp
         - nri-env-parser < 0 # tried nri-env-parser-0.1.0.7, but its *library* does not support: base-4.16.0.0
@@ -7050,12 +7030,8 @@ packages:
         - openapi3 < 0 # tried openapi3-3.1.0, but its *library* does not support: time-1.11.1.1
         - opensource < 0 # tried opensource-0.1.1.0, but its *library* requires the disabled package: http-client-tls
         - openssl-streams < 0 # tried openssl-streams-1.2.3.0, but its *library* does not support: bytestring-0.11.1.0
-        - opentelemetry < 0 # tried opentelemetry-0.7.0, but its *library* requires the disabled package: ghc-trace-events
         - opentelemetry-extra < 0 # tried opentelemetry-extra-0.7.0, but its *library* requires the disabled package: http-client-tls
-        - opentelemetry-extra < 0 # tried opentelemetry-extra-0.7.0, but its *library* requires the disabled package: opentelemetry
         - opentelemetry-lightstep < 0 # tried opentelemetry-lightstep-0.7.0, but its *library* requires the disabled package: http-client-tls
-        - opentelemetry-lightstep < 0 # tried opentelemetry-lightstep-0.7.0, but its *library* requires the disabled package: opentelemetry
-        - opentelemetry-wai < 0 # tried opentelemetry-wai-0.7.0, but its *library* requires the disabled package: opentelemetry
         - operational-class < 0 # tried operational-class-0.3.0.0, but its *library* requires the disabled package: operational
         - opml-conduit < 0 # tried opml-conduit-0.9.0.0, but its *library* requires the disabled package: refined
         - oset < 0 # tried oset-0.4.0.1, but its *library* does not support: base-4.16.0.0
@@ -7066,8 +7042,9 @@ packages:
         - pairing < 0 # tried pairing-1.1.0, but its *library* does not support: protolude-0.3.0
         - pairing < 0 # tried pairing-1.1.0, but its *library* requires the disabled package: elliptic-curve
         - palette < 0 # tried palette-0.3.0.2, but its *library* does not support: base-4.16.0.0
-        - pandoc < 0 # tried pandoc-2.16.2, but its *library* requires the disabled package: haddock-library
+        - pandoc < 0 # tried pandoc-2.16.2, but its *library* requires the disabled package: http-client-tls
         - pandoc-csv2table < 0 # tried pandoc-csv2table-1.0.9, but its *library* requires the disabled package: pandoc
+        - pandoc-dhall-decoder < 0 # tried pandoc-dhall-decoder-0.1.0.1, but its *library* requires the disabled package: dhall
         - pandoc-dhall-decoder < 0 # tried pandoc-dhall-decoder-0.1.0.1, but its *library* requires the disabled package: pandoc
         - pandoc-plot < 0 # tried pandoc-plot-1.3.0, but its *library* requires the disabled package: shakespeare
         - pandoc-throw < 0 # tried pandoc-throw-0.1.0.0, but its *library* requires the disabled package: pandoc
@@ -7110,6 +7087,7 @@ packages:
         - persistent < 0 # tried persistent-2.13.2.1, but its *library* does not support: template-haskell-2.18.0.0
         - persistent-discover < 0 # tried persistent-discover-0.1.0.5, but its *library* requires the disabled package: persistent
         - persistent-documentation < 0 # tried persistent-documentation-0.1.0.4, but its *library* requires the disabled package: persistent
+        - persistent-iproute < 0 # tried persistent-iproute-0.2.5, but its *library* requires the disabled package: aeson-iproute
         - persistent-iproute < 0 # tried persistent-iproute-0.2.5, but its *library* requires the disabled package: persistent
         - persistent-mongoDB < 0 # tried persistent-mongoDB-2.13.0.0, but its *library* requires the disabled package: persistent
         - persistent-mtl < 0 # tried persistent-mtl-0.3.0.0, but its *library* does not support: base-4.16.0.0
@@ -7187,7 +7165,6 @@ packages:
         - pomaps < 0 # tried pomaps-0.2.0.1, but its *library* does not support: base-4.16.0.0
         - pomaps < 0 # tried pomaps-0.2.0.1, but its *library* does not support: containers-0.6.5.1
         - pomaps < 0 # tried pomaps-0.2.0.1, but its *library* does not support: ghc-prim-0.8.0
-        - postgresql-migration < 0 # tried postgresql-migration-0.2.1.3, but its *library* does not support: bytestring-0.11.1.0
         - postgresql-migration < 0 # tried postgresql-migration-0.2.1.3, but its *library* does not support: time-1.11.1.1
         - postgresql-simple-url < 0 # tried postgresql-simple-url-0.2.1.0, but its *library* does not support: base-4.16.0.0
         - postgresql-typed < 0 # tried postgresql-typed-0.6.2.0, but its *library* requires the disabled package: HDBC
@@ -7231,9 +7208,6 @@ packages:
         - proto-lens-setup < 0 # tried proto-lens-setup-0.4.0.5, but its *library* does not support: Cabal-3.6.0.0
         - proto-lens-setup < 0 # tried proto-lens-setup-0.4.0.5, but its *library* does not support: base-4.16.0.0
         - proto-lens-setup < 0 # tried proto-lens-setup-0.4.0.5, but its *library* does not support: bytestring-0.11.1.0
-        - proto3-wire < 0 # tried proto3-wire-1.2.2, but its *library* does not support: bytestring-0.11.1.0
-        - proto3-wire < 0 # tried proto3-wire-1.2.2, but its *library* does not support: ghc-prim-0.8.0
-        - proto3-wire < 0 # tried proto3-wire-1.2.2, but its *library* does not support: hashable-1.4.0.1
         - protocol-radius < 0 # tried protocol-radius-0.0.1.1, but its *library* requires the disabled package: memory
         - protocol-radius-test < 0 # tried protocol-radius-test-0.1.0.1, but its *library* requires the disabled package: protocol-radius
         - protolude < 0 # tried protolude-0.3.0, but its *library* does not support: base-4.16.0.0
@@ -7267,7 +7241,6 @@ packages:
         - ral < 0 # tried ral-0.2, but its *library* does not support: base-4.16.0.0
         - ral < 0 # tried ral-0.2, but its *library* does not support: hashable-1.4.0.1
         - rampart < 0 # tried rampart-1.1.0.4, but its *library* does not support: base-4.16.0.0
-        - random-fu < 0 # tried random-fu-0.2.7.7, but its *library* requires the disabled package: random-source
         - random-source < 0 # tried random-source-0.3.0.11, but its *library* requires the disabled package: th-extras
         - range-set-list < 0 # tried range-set-list-0.1.3.1, but its *library* does not support: base-4.16.0.0
         - range-set-list < 0 # tried range-set-list-0.1.3.1, but its *library* does not support: hashable-1.4.0.1
@@ -7281,10 +7254,10 @@ packages:
         - ratel-wai < 0 # tried ratel-wai-1.1.5, but its *library* does not support: bytestring-0.11.1.0
         - rattletrap < 0 # tried rattletrap-11.2.4, but its *library* does not support: base-4.16.0.0
         - rattletrap < 0 # tried rattletrap-11.2.4, but its *library* does not support: bytestring-0.11.1.0
-        - rdf < 0 # tried rdf-0.1.0.5, but its *library* does not support: attoparsec-0.14.2
+        - rdf < 0 # tried rdf-0.1.0.5, but its *library* does not support: attoparsec-0.14.3
         - readable < 0 # tried readable-0.3.1, but its *library* does not support: bytestring-0.11.1.0
         - reanimate < 0 # tried reanimate-1.1.4.0, but its *library* requires the disabled package: geojson
-        - rebase < 0 # tried rebase-1.13.2, but its *library* requires the disabled package: hashable-time
+        - rebase < 0 # tried rebase-1.14, but its *library* requires the disabled package: hashable-time
         - records-sop < 0 # tried records-sop-0.1.1.0, but its *library* does not support: ghc-prim-0.8.0
         - reddit-scrape < 0 # tried reddit-scrape-0.0.1, but its *library* requires the disabled package: http-client-tls
         - redis-io < 0 # tried redis-io-1.1.0, but its *library* requires the disabled package: operational
@@ -7303,7 +7276,7 @@ packages:
         - regex-tdfa-text < 0 # tried regex-tdfa-text-1.0.0.3, but its *library* does not support: regex-base-0.94.0.2
         - registry < 0 # tried registry-0.2.1.0, but its *library* requires the disabled package: protolude
         - rel8 < 0 # tried rel8-1.2.1.0, but its *library* does not support: base-4.16.0.0
-        - relapse < 0 # tried relapse-1.0.0.0, but its *library* does not support: attoparsec-0.14.2
+        - relapse < 0 # tried relapse-1.0.0.0, but its *library* does not support: attoparsec-0.14.3
         - relational-query < 0 # tried relational-query-0.12.3.0, but its *library* requires the disabled package: persistable-record
         - relational-query < 0 # tried relational-query-0.12.3.0, but its *library* requires the disabled package: product-isomorphic
         - relational-query-HDBC < 0 # tried relational-query-HDBC-0.7.2.0, but its *library* requires the disabled package: th-data-compat
@@ -7322,8 +7295,8 @@ packages:
         - req-url-extra < 0 # tried req-url-extra-0.1.1.0, but its *library* does not support: base-4.16.0.0
         - req-url-extra < 0 # tried req-url-extra-0.1.1.0, but its *library* does not support: req-3.9.2
         - require < 0 # tried require-0.4.11, but its *library* does not support: bytestring-0.11.1.0
-        - rerebase < 0 # tried rerebase-1.13.2, but its *library* requires the disabled package: rebase
-        - resistor-cube < 0 # tried resistor-cube-0.0.1.3, but its *executable* requires the disabled package: lapack
+        - rerebase < 0 # tried rerebase-1.14, but its *library* requires the disabled package: rebase
+        - resistor-cube < 0 # tried resistor-cube-0.0.1.4, but its *executable* requires the disabled package: lapack
         - resolv < 0 # tried resolv-0.1.2.0, but its *library* does not support: base-4.16.0.0
         - rest-client < 0 # tried rest-client-0.5.2.3, but its *library* does not support: bytestring-0.11.1.0
         - rest-client < 0 # tried rest-client-0.5.2.3, but its *library* does not support: http-client-0.7.9
@@ -7362,7 +7335,7 @@ packages:
         - rhbzquery < 0 # tried rhbzquery-0.4.4, but its *executable* requires the disabled package: email-validate
         - rhine-gloss < 0 # tried rhine-gloss-0.7.0, but its *library* requires the disabled package: rhine
         - riak < 0 # tried riak-1.2.0.0, but its *library* does not support: aeson-2.0.2.0
-        - riak < 0 # tried riak-1.2.0.0, but its *library* does not support: attoparsec-0.14.2
+        - riak < 0 # tried riak-1.2.0.0, but its *library* does not support: attoparsec-0.14.3
         - riak < 0 # tried riak-1.2.0.0, but its *library* does not support: network-3.1.2.5
         - riak < 0 # tried riak-1.2.0.0, but its *library* does not support: time-1.11.1.1
         - riak-protobuf < 0 # tried riak-protobuf-0.25.0.0, but its *library* requires the disabled package: proto-lens
@@ -7381,7 +7354,6 @@ packages:
         - safe-json < 0 # tried safe-json-1.1.2.0, but its *library* does not support: hashable-1.4.0.1
         - safe-json < 0 # tried safe-json-1.1.2.0, but its *library* does not support: time-1.11.1.1
         - safe-tensor < 0 # tried safe-tensor-0.2.1.1, but its *library* does not support: singletons-3.0.1
-        - safecopy < 0 # tried safecopy-0.10.4.2, but its *library* does not support: template-haskell-2.18.0.0
         - salak < 0 # tried salak-0.3.6, but its *library* does not support: bytestring-0.11.1.0
         - salak < 0 # tried salak-0.3.6, but its *library* does not support: time-1.11.1.1
         - salak-toml < 0 # tried salak-toml-0.3.5.3, but its *library* does not support: time-1.11.1.1
@@ -7431,7 +7403,6 @@ packages:
         - servant < 0 # tried servant-0.18.3, but its *library* does not support: base-4.16.0.0
         - servant < 0 # tried servant-0.18.3, but its *library* does not support: base-compat-0.12.1
         - servant-JuicyPixels < 0 # tried servant-JuicyPixels-0.3.1.0, but its *executable* requires the disabled package: servant-server
-        - servant-JuicyPixels < 0 # tried servant-JuicyPixels-0.3.1.0, but its *library* requires the disabled package: http-media
         - servant-JuicyPixels < 0 # tried servant-JuicyPixels-0.3.1.0, but its *library* requires the disabled package: servant
         - servant-auth < 0 # tried servant-auth-0.4.0.0, but its *library* does not support: aeson-2.0.2.0
         - servant-auth < 0 # tried servant-auth-0.4.0.0, but its *library* does not support: base-4.16.0.0
@@ -7460,14 +7431,12 @@ packages:
         - servant-auth-swagger < 0 # tried servant-auth-swagger-0.2.10.1, but its *library* does not support: lens-5.1
         - servant-auth-swagger < 0 # tried servant-auth-swagger-0.2.10.1, but its *library* does not support: swagger2-2.7
         - servant-auth-wordpress < 0 # tried servant-auth-wordpress-1.0.0.2, but its *library* requires the disabled package: servant-server
-        - servant-blaze < 0 # tried servant-blaze-0.9.1, but its *library* requires the disabled package: http-media
         - servant-blaze < 0 # tried servant-blaze-0.9.1, but its *library* requires the disabled package: servant
         - servant-cassava < 0 # tried servant-cassava-0.10.1, but its *library* does not support: base-compat-0.12.1
         - servant-checked-exceptions < 0 # tried servant-checked-exceptions-2.2.0.1, but its *library* requires the disabled package: servant
         - servant-checked-exceptions < 0 # tried servant-checked-exceptions-2.2.0.1, but its *library* requires the disabled package: servant-client
         - servant-checked-exceptions < 0 # tried servant-checked-exceptions-2.2.0.1, but its *library* requires the disabled package: servant-client-core
         - servant-checked-exceptions < 0 # tried servant-checked-exceptions-2.2.0.1, but its *library* requires the disabled package: servant-server
-        - servant-checked-exceptions-core < 0 # tried servant-checked-exceptions-core-2.2.0.1, but its *library* requires the disabled package: http-media
         - servant-checked-exceptions-core < 0 # tried servant-checked-exceptions-core-2.2.0.1, but its *library* requires the disabled package: servant
         - servant-checked-exceptions-core < 0 # tried servant-checked-exceptions-core-2.2.0.1, but its *library* requires the disabled package: servant-docs
         - servant-cli < 0 # tried servant-cli-0.1.0.2, but its *executable* requires the disabled package: servant-client
@@ -7493,7 +7462,6 @@ packages:
         - servant-elm < 0 # tried servant-elm-0.7.2, but its *library* requires the disabled package: elm-bridge
         - servant-errors < 0 # tried servant-errors-0.1.6.0, but its *library* does not support: base-4.16.0.0
         - servant-exceptions < 0 # tried servant-exceptions-0.2.1, but its *library* requires the disabled package: servant
-        - servant-exceptions-server < 0 # tried servant-exceptions-server-0.2.1, but its *library* requires the disabled package: http-media
         - servant-exceptions-server < 0 # tried servant-exceptions-server-0.2.1, but its *library* requires the disabled package: servant
         - servant-exceptions-server < 0 # tried servant-exceptions-server-0.2.1, but its *library* requires the disabled package: servant-server
         - servant-foreign < 0 # tried servant-foreign-0.15.4, but its *library* does not support: base-4.16.0.0
@@ -7546,7 +7514,6 @@ packages:
         - servant-server < 0 # tried servant-server-0.18.3, but its *executable* does not support: aeson-2.0.2.0
         - servant-server < 0 # tried servant-server-0.18.3, but its *library* does not support: base-4.16.0.0
         - servant-server < 0 # tried servant-server-0.18.3, but its *library* does not support: base-compat-0.12.1
-        - servant-static-th < 0 # tried servant-static-th-1.0.0.0, but its *library* requires the disabled package: http-media
         - servant-static-th < 0 # tried servant-static-th-1.0.0.0, but its *library* requires the disabled package: servant
         - servant-static-th < 0 # tried servant-static-th-1.0.0.0, but its *library* requires the disabled package: servant-server
         - servant-streaming < 0 # tried servant-streaming-0.3.0.0, but its *library* does not support: base-4.16.0.0
@@ -7581,7 +7548,6 @@ packages:
         - servant-tracing < 0 # tried servant-tracing-0.1.0.2, but its *library* requires the disabled package: servant
         - servant-tracing < 0 # tried servant-tracing-0.1.0.2, but its *library* requires the disabled package: servant-server
         - servant-websockets < 0 # tried servant-websockets-2.0.0, but its *library* requires the disabled package: servant-server
-        - servant-xml < 0 # tried servant-xml-1.0.1.4, but its *library* requires the disabled package: http-media
         - servant-xml < 0 # tried servant-xml-1.0.1.4, but its *library* requires the disabled package: servant
         - servant-yaml < 0 # tried servant-yaml-0.1.0.1, but its *library* does not support: base-4.16.0.0
         - servant-yaml < 0 # tried servant-yaml-0.1.0.1, but its *library* does not support: bytestring-0.11.1.0
@@ -7617,6 +7583,7 @@ packages:
         - simplest-sqlite < 0 # tried simplest-sqlite-0.1.0.2, but its *library* does not support: bytestring-0.11.1.0
         - simplest-sqlite < 0 # tried simplest-sqlite-0.1.0.2, but its *library* does not support: template-haskell-2.18.0.0
         - singleton-bool < 0 # tried singleton-bool-0.1.6, but its *library* does not support: base-4.16.0.0
+        - siphash < 0 # tried siphash-1.0.3, but its *library* does not support: bytestring-0.11.1.0
         - size-based < 0 # tried size-based-0.1.2.0, but its *library* does not support: template-haskell-2.18.0.0
         - sized < 0 # tried sized-1.0.0.0, but its *library* requires the disabled package: ghc-typelits-knownnat
         - sized < 0 # tried sized-1.0.0.0, but its *library* requires the disabled package: type-natural
@@ -7632,7 +7599,7 @@ packages:
         - slack-web < 0 # tried slack-web-0.3.0.1, but its *library* does not support: base-4.16.0.0
         - slack-web < 0 # tried slack-web-0.3.0.1, but its *library* does not support: http-client-0.7.9
         - slave-thread < 0 # tried slave-thread-1.1.0.1, but its *library* requires the disabled package: stm-containers
-        - slick < 0 # tried slick-1.1.2.2, but its *library* requires the disabled package: pandoc
+        - slick < 0 # tried slick-1.1.2.2, but its *library* requires the disabled package: mustache
         - slist < 0 # tried slist-0.2.0.0, but its *library* does not support: base-4.16.0.0
         - slynx < 0 # tried slynx-0.6.1.0, but its *library* requires the disabled package: elynx-seq
         - slynx < 0 # tried slynx-0.6.1.0, but its *library* requires the disabled package: elynx-tools
@@ -7645,7 +7612,7 @@ packages:
         - smoothie < 0 # tried smoothie-0.4.2.11, but its *library* does not support: aeson-2.0.2.0
         - smtp-mail < 0 # tried smtp-mail-0.3.0.0, but its *library* requires the disabled package: memory
         - snap < 0 # tried snap-1.1.3.1, but its *library* does not support: aeson-2.0.2.0
-        - snap < 0 # tried snap-1.1.3.1, but its *library* does not support: attoparsec-0.14.2
+        - snap < 0 # tried snap-1.1.3.1, but its *library* does not support: attoparsec-0.14.3
         - snap < 0 # tried snap-1.1.3.1, but its *library* does not support: base-4.16.0.0
         - snap < 0 # tried snap-1.1.3.1, but its *library* does not support: bytestring-0.11.1.0
         - snap < 0 # tried snap-1.1.3.1, but its *library* does not support: dlist-1.0
@@ -7656,7 +7623,7 @@ packages:
         - snap < 0 # tried snap-1.1.3.1, but its *library* requires the disabled package: pwstore-fast
         - snap < 0 # tried snap-1.1.3.1, but its *library* requires the disabled package: snap-server
         - snap-blaze < 0 # tried snap-blaze-0.2.1.5, but its *library* requires the disabled package: snap-core
-        - snap-core < 0 # tried snap-core-1.0.4.2, but its *library* does not support: attoparsec-0.14.2
+        - snap-core < 0 # tried snap-core-1.0.4.2, but its *library* does not support: attoparsec-0.14.3
         - snap-core < 0 # tried snap-core-1.0.4.2, but its *library* does not support: hashable-1.4.0.1
         - snap-core < 0 # tried snap-core-1.0.4.2, but its *library* does not support: time-1.11.1.1
         - soap < 0 # tried soap-0.2.3.6, but its *library* does not support: bytestring-0.11.1.0
@@ -7685,6 +7652,7 @@ packages:
         - stack < 0 # tried stack-2.7.3, but its *library* requires the disabled package: hackage-security
         - stack < 0 # tried stack-2.7.3, but its *library* requires the disabled package: hpack
         - stack < 0 # tried stack-2.7.3, but its *library* requires the disabled package: memory
+        - stack < 0 # tried stack-2.7.3, but its *library* requires the disabled package: mustache
         - stack < 0 # tried stack-2.7.3, but its *library* requires the disabled package: pantry
         - stack < 0 # tried stack-2.7.3, but its *library* requires the disabled package: path
         - stack < 0 # tried stack-2.7.3, but its *library* requires the disabled package: persistent
@@ -7734,12 +7702,12 @@ packages:
         - stylish-haskell < 0 # tried stylish-haskell-0.13.0.0, but its *library* does not support: bytestring-0.11.1.0
         - stylish-haskell < 0 # tried stylish-haskell-0.13.0.0, but its *library* does not support: ghc-lib-parser-9.2.1.20211101
         - superbuffer < 0 # tried superbuffer-0.3.1.1, but its *library* does not support: bytestring-0.11.1.0
-        - sv < 0 # tried sv-1.4.0.1, but its *library* does not support: attoparsec-0.14.2
+        - sv < 0 # tried sv-1.4.0.1, but its *library* does not support: attoparsec-0.14.3
         - sv < 0 # tried sv-1.4.0.1, but its *library* does not support: base-4.16.0.0
         - sv < 0 # tried sv-1.4.0.1, but its *library* does not support: bytestring-0.11.1.0
-        - sv-cassava < 0 # tried sv-cassava-0.3, but its *library* does not support: attoparsec-0.14.2
+        - sv-cassava < 0 # tried sv-cassava-0.3, but its *library* does not support: attoparsec-0.14.3
         - sv-cassava < 0 # tried sv-cassava-0.3, but its *library* does not support: bytestring-0.11.1.0
-        - sv-core < 0 # tried sv-core-0.5, but its *library* does not support: attoparsec-0.14.2
+        - sv-core < 0 # tried sv-core-0.5, but its *library* does not support: attoparsec-0.14.3
         - sv-core < 0 # tried sv-core-0.5, but its *library* does not support: base-4.16.0.0
         - sv-core < 0 # tried sv-core-0.5, but its *library* does not support: bytestring-0.11.1.0
         - sv-core < 0 # tried sv-core-0.5, but its *library* does not support: lens-5.1
@@ -7766,7 +7734,7 @@ packages:
         - sweet-egison < 0 # tried sweet-egison-0.1.1.3, but its *library* requires the disabled package: egison-pattern-src-th-mode
         - sweet-egison < 0 # tried sweet-egison-0.1.1.3, but its *library* requires the disabled package: haskell-src-meta
         - swish < 0 # tried swish-0.10.0.8, but its *library* does not support: base-4.16.0.0
-        - sydtest < 0 # tried sydtest-0.6.0.0, but its *library* requires the disabled package: path
+        - sydtest < 0 # tried sydtest-0.6.1.0, but its *library* requires the disabled package: path
         - sydtest-discover < 0 # tried sydtest-discover-0.0.0.1, but its *library* requires the disabled package: path
         - sydtest-persistent < 0 # tried sydtest-persistent-0.0.0.0, but its *library* requires the disabled package: persistent
         - sydtest-servant < 0 # tried sydtest-servant-0.2.0.0, but its *library* requires the disabled package: servant
@@ -7788,7 +7756,7 @@ packages:
         - taffybar < 0 # tried taffybar-3.3.0, but its *library* requires the disabled package: dbus
         - taffybar < 0 # tried taffybar-3.3.0, but its *library* requires the disabled package: rate-limit
         - tagchup < 0 # tried tagchup-0.4.1.1, but its *library* does not support: bytestring-0.11.1.0
-        - tasty-hedgehog < 0 # tried tasty-hedgehog-1.1.0.0, but its *library* does not support: base-4.16.0.0
+        - tasty-hedgehog < 0 # tried tasty-hedgehog-1.1.0.0, but its *library* requires the disabled package: hedgehog
         - tasty-hspec < 0 # tried tasty-hspec-1.2, but its *library* does not support: base-4.16.0.0
         - tasty-stats < 0 # tried tasty-stats-0.2.0.4, but its *library* does not support: containers-0.6.5.1
         - tasty-stats < 0 # tried tasty-stats-0.2.0.4, but its *library* does not support: tasty-1.4.2.1
@@ -7870,7 +7838,7 @@ packages:
         - tuple-sop < 0 # tried tuple-sop-0.3.1.0, but its *library* requires the disabled package: generics-sop
         - type-combinators-singletons < 0 # tried type-combinators-singletons-0.2.1.0, but its *library* requires the disabled package: type-combinators
         - type-errors-pretty < 0 # tried type-errors-pretty-0.0.1.2, but its *library* does not support: base-4.16.0.0
-        - type-natural < 0 # tried type-natural-1.1.0.0, but its *library* requires the disabled package: ghc-typelits-natnormalise
+        - type-natural < 0 # tried type-natural-1.1.0.1, but its *library* requires the disabled package: ghc-typelits-natnormalise
         - typelits-witnesses < 0 # tried typelits-witnesses-0.4.0.0, but its *library* requires the disabled package: dependent-sum
         - typerep-map < 0 # tried typerep-map-0.4.0.0, but its *library* does not support: base-4.16.0.0
         - typerep-map < 0 # tried typerep-map-0.4.0.0, but its *library* does not support: ghc-prim-0.8.0
@@ -7879,7 +7847,7 @@ packages:
         - tz < 0 # tried tz-0.1.3.5, but its *library* does not support: time-1.11.1.1
         - tzdata < 0 # tried tzdata-0.2.20201021.0, but its *library* does not support: bytestring-0.11.1.0
         - ucam-webauth < 0 # tried ucam-webauth-0.1.0.0, but its *library* does not support: aeson-2.0.2.0
-        - ucam-webauth < 0 # tried ucam-webauth-0.1.0.0, but its *library* does not support: attoparsec-0.14.2
+        - ucam-webauth < 0 # tried ucam-webauth-0.1.0.0, but its *library* does not support: attoparsec-0.14.3
         - ucam-webauth < 0 # tried ucam-webauth-0.1.0.0, but its *library* does not support: base-4.16.0.0
         - ucam-webauth < 0 # tried ucam-webauth-0.1.0.0, but its *library* does not support: bytestring-0.11.1.0
         - ucam-webauth < 0 # tried ucam-webauth-0.1.0.0, but its *library* does not support: cryptonite-0.29
@@ -7891,7 +7859,7 @@ packages:
         - ucam-webauth-types < 0 # tried ucam-webauth-types-0.1.0.0, but its *library* does not support: bytestring-0.11.1.0
         - ucam-webauth-types < 0 # tried ucam-webauth-types-0.1.0.0, but its *library* does not support: time-1.11.1.1
         - unfoldable-restricted < 0 # tried unfoldable-restricted-0.0.3, but its *library* requires the disabled package: unfoldable
-        - uniprot-kb < 0 # tried uniprot-kb-0.1.2.0, but its *library* does not support: attoparsec-0.14.2
+        - uniprot-kb < 0 # tried uniprot-kb-0.1.2.0, but its *library* does not support: attoparsec-0.14.3
         - unjson < 0 # tried unjson-0.15.3, but its *library* does not support: aeson-2.0.2.0
         - unliftio-path < 0 # tried unliftio-path-0.0.2.0, but its *library* requires the disabled package: path
         - uri-templater < 0 # tried uri-templater-0.3.1.0, but its *library* does not support: trifecta-2.1.2
@@ -7904,9 +7872,10 @@ packages:
         - utf8-conversions < 0 # tried utf8-conversions-0.1.0.4, but its *library* does not support: bytestring-0.11.1.0
         - utf8-conversions < 0 # tried utf8-conversions-0.1.0.4, but its *library* does not support: text-short-0.1.4
         - utf8-light < 0 # tried utf8-light-0.4.2, but its *library* does not support: base-4.16.0.0
-        - vado < 0 # tried vado-0.0.13, but its *library* does not support: attoparsec-0.14.2
+        - vado < 0 # tried vado-0.0.13, but its *library* does not support: attoparsec-0.14.3
         - vado < 0 # tried vado-0.0.13, but its *library* does not support: base-4.16.0.0
         - validation-selective < 0 # tried validation-selective-0.1.0.1, but its *library* does not support: base-4.16.0.0
+        - validation-selective < 0 # tried validation-selective-0.1.0.1, but its *library* does not support: selective-0.5
         - validity-path < 0 # tried validity-path-0.4.0.1, but its *library* requires the disabled package: path
         - validity-persistent < 0 # tried validity-persistent-0.0.0.0, but its *library* requires the disabled package: persistent
         - variable-media-field-dhall < 0 # tried variable-media-field-dhall-0.1.0.0, but its *library* requires the disabled package: dhall
@@ -7917,7 +7886,6 @@ packages:
         - vector-circular < 0 # tried vector-circular-0.1.3, but its *library* does not support: template-haskell-2.18.0.0
         - vector-fftw < 0 # tried vector-fftw-0.1.4.0, but its *library* does not support: base-4.16.0.0
         - verbosity < 0 # tried verbosity-0.4.0.0, but its *library* requires the disabled package: dhall
-        - versions < 0 # tried versions-5.0.0, but its *library* does not support: base-4.16.0.0
         - vformat-aeson < 0 # tried vformat-aeson-0.1.0.1, but its *library* does not support: aeson-2.0.2.0
         - viewprof < 0 # tried viewprof-0.0.0.33, but its *executable* does not support: base-4.16.0.0
         - viewprof < 0 # tried viewprof-0.0.0.33, but its *executable* does not support: brick-0.65
@@ -7955,7 +7923,7 @@ packages:
         - warp-tls < 0 # tried warp-tls-3.3.2, but its *library* requires the disabled package: tls-session-manager
         - warp-tls-uid < 0 # tried warp-tls-uid-0.2.0.6, but its *library* requires the disabled package: tls
         - warp-tls-uid < 0 # tried warp-tls-uid-0.2.0.6, but its *library* requires the disabled package: x509
-        - wavefront < 0 # tried wavefront-0.7.1.4, but its *library* does not support: attoparsec-0.14.2
+        - wavefront < 0 # tried wavefront-0.7.1.4, but its *library* does not support: attoparsec-0.14.3
         - wavefront < 0 # tried wavefront-0.7.1.4, but its *library* does not support: base-4.16.0.0
         - wavefront < 0 # tried wavefront-0.7.1.4, but its *library* does not support: dlist-1.0
         - web-routes < 0 # tried web-routes-0.27.14.3, but its *library* does not support: bytestring-0.11.1.0
@@ -7967,7 +7935,7 @@ packages:
         - web-routes-wai < 0 # tried web-routes-wai-0.24.3.1, but its *library* does not support: bytestring-0.11.1.0
         - web3 < 0 # tried web3-0.9.1.0, but its *library* does not support: OneTuple-0.3.1
         - web3 < 0 # tried web3-0.9.1.0, but its *library* does not support: aeson-2.0.2.0
-        - web3 < 0 # tried web3-0.9.1.0, but its *library* does not support: attoparsec-0.14.2
+        - web3 < 0 # tried web3-0.9.1.0, but its *library* does not support: attoparsec-0.14.3
         - web3 < 0 # tried web3-0.9.1.0, but its *library* does not support: base-4.16.0.0
         - web3 < 0 # tried web3-0.9.1.0, but its *library* does not support: bytestring-0.11.1.0
         - web3 < 0 # tried web3-0.9.1.0, but its *library* does not support: cryptonite-0.29
@@ -8000,7 +7968,6 @@ packages:
         - wl-pprint-extras < 0 # tried wl-pprint-extras-3.5.0.5, but its *library* does not support: containers-0.6.5.1
         - wl-pprint-terminfo < 0 # tried wl-pprint-terminfo-3.7.1.4, but its *library* does not support: bytestring-0.11.1.0
         - wl-pprint-terminfo < 0 # tried wl-pprint-terminfo-3.7.1.4, but its *library* does not support: containers-0.6.5.1
-        - wl-pprint-text < 0 # tried wl-pprint-text-1.2.0.1, but its *library* does not support: base-compat-0.12.1
         - wrecker < 0 # tried wrecker-1.3.2.0, but its *library* requires the disabled package: next-ref
         - wrecker < 0 # tried wrecker-1.3.2.0, but its *library* requires the disabled package: threads-extras
         - wreq < 0 # tried wreq-0.5.3.3, but its *library* requires the disabled package: memory
@@ -8025,7 +7992,7 @@ packages:
         - xml-isogen < 0 # tried xml-isogen-0.3.0, but its *library* requires the disabled package: dom-parser
         - xmlbf-xmlhtml < 0 # tried xmlbf-xmlhtml-0.2, but its *library* requires the disabled package: xmlhtml
         - xmlhtml < 0 # tried xmlhtml-0.2.5.2, but its *library* does not support: bytestring-0.11.1.0
-        - yaml-unscrambler < 0 # tried yaml-unscrambler-0.1.0.4, but its *library* does not support: bytestring-0.11.1.0
+        - yaml-unscrambler < 0 # tried yaml-unscrambler-0.1.0.5, but its *library* does not support: bytestring-0.11.1.0
         - yamlparse-applicative < 0 # tried yamlparse-applicative-0.2.0.1, but its *library* requires the disabled package: path
         - yeshql < 0 # tried yeshql-4.2.0.0, but its *library* does not support: yeshql-core-4.2.0.0
         - yeshql < 0 # tried yeshql-4.2.0.0, but its *library* requires the disabled package: yeshql-hdbc
@@ -8122,6 +8089,7 @@ packages:
       - stache >= 2.3.1
       - stripe-scotty >= 1.1.0.1
       - stripe-wreq >= 1.0.1.12
+      - kanji > 3.5
 
       # https://github.com/commercialhaskell/stackage/issues/6237
       - lucid >= 2.11
@@ -8199,7 +8167,7 @@ packages:
       - hashtables >= 1.3
 
       # https://github.com/commercialhaskell/stackage/issues/6348
-      - selective < 0.5 # OK for GHC 9.2
+      - selective >= 0.5
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
@@ -8476,11 +8444,8 @@ skipped-tests:
     - MissingH # tried MissingH-1.4.3.0, but its *test-suite* requires the disabled package: errorcall-eq-instance
     - acc # tried acc-0.2.0.1, but its *test-suite* requires the disabled package: rerebase
     - accelerate-bignum # tried accelerate-bignum-0.3.0.0, but its *test-suite* requires the disabled package: hedgehog
-    - accelerate-bignum # tried accelerate-bignum-0.3.0.0, but its *test-suite* requires the disabled package: tasty-hedgehog
     - accelerate-blas # tried accelerate-blas-0.3.0.0, but its *test-suite* requires the disabled package: hedgehog
-    - accelerate-blas # tried accelerate-blas-0.3.0.0, but its *test-suite* requires the disabled package: tasty-hedgehog
     - accelerate-fft # tried accelerate-fft-1.3.0.0, but its *test-suite* requires the disabled package: hedgehog
-    - accelerate-fft # tried accelerate-fft-1.3.0.0, but its *test-suite* requires the disabled package: tasty-hedgehog
     - aeson-commit # tried aeson-commit-1.4, but its *test-suite* requires the disabled package: aeson-qq
     - aeson-schemas # tried aeson-schemas-1.3.5, but its *test-suite* requires the disabled package: aeson-qq
     - aeson-schemas # tried aeson-schemas-1.3.5, but its *test-suite* requires the disabled package: interpolate
@@ -8507,10 +8472,8 @@ skipped-tests:
     - blaze-html # tried blaze-html-0.9.1.2, but its *test-suite* does not support: QuickCheck-2.14.2
     - bloodhound # tried bloodhound-0.18.0.0, but its *test-suite* requires the disabled package: quickcheck-properties
     - bnb-staking-csvs # tried bnb-staking-csvs-0.2.0.0, but its *test-suite* requires the disabled package: hedgehog
-    - bnb-staking-csvs # tried bnb-staking-csvs-0.2.0.0, but its *test-suite* requires the disabled package: tasty-hedgehog
     - boolean-normal-forms # tried boolean-normal-forms-0.0.1.1, but its *test-suite* does not support: QuickCheck-2.14.2
     - bsb-http-chunked # tried bsb-http-chunked-0.0.0.4, but its *test-suite* requires the disabled package: hedgehog
-    - bsb-http-chunked # tried bsb-http-chunked-0.0.0.4, but its *test-suite* requires the disabled package: tasty-hedgehog
     - bugsnag-haskell # tried bugsnag-haskell-0.0.4.2, but its *test-suite* requires the disabled package: aeson-qq
     - bugsnag-hs # tried bugsnag-hs-0.2.0.7, but its *test-suite* requires the disabled package: hedgehog
     - cacophony # tried cacophony-0.10.1, but its *test-suite* requires the disabled package: hlint
@@ -8523,12 +8486,10 @@ skipped-tests:
     - clay # tried clay-0.13.3, but its *test-suite* does not support: hspec-2.8.5
     - clay # tried clay-0.13.3, but its *test-suite* does not support: hspec-discover-2.8.5
     - cointracking-imports # tried cointracking-imports-0.1.0.1, but its *test-suite* requires the disabled package: hedgehog
-    - cointracking-imports # tried cointracking-imports-0.1.0.1, but its *test-suite* requires the disabled package: tasty-hedgehog
     - colour # tried colour-2.3.6, but its *test-suite* does not support: random-1.2.1
     - conduit-parse # tried conduit-parse-0.2.1.0, but its *test-suite* requires the disabled package: hlint
     - config-ini # tried config-ini-0.2.4.0, but its *test-suite* requires the disabled package: hedgehog
     - cron # tried cron-0.7.0, but its *test-suite* requires the disabled package: hedgehog
-    - cron # tried cron-0.7.0, but its *test-suite* requires the disabled package: tasty-hedgehog
     - csg # tried csg-0.1.0.6, but its *test-suite* does not support: doctest-0.18.2
     - csg # tried csg-0.1.0.6, but its *test-suite* does not support: tasty-1.4.2.1
     - darcs # tried darcs-2.16.4, but its *test-suite* does not support: QuickCheck-2.14.2
@@ -8542,11 +8503,12 @@ skipped-tests:
     - doldol # tried doldol-0.4.1.2, but its *test-suite* requires the disabled package: test-framework-th
     - domain-optics # tried domain-optics-0.1.0.1, but its *test-suite* requires the disabled package: domain
     - drawille # tried drawille-0.1.2.0, but its *test-suite* does not support: hspec-2.8.5
+    - dual-tree # tried dual-tree-0.2.3.0, but its *test-suite* requires the disabled package: testing-feat
     - dublincore-xml-conduit # tried dublincore-xml-conduit-0.1.0.2, but its *test-suite* requires the disabled package: hlint
     - ed25519 # tried ed25519-0.0.5.0, but its *test-suite* does not support: QuickCheck-2.14.2
     - ed25519 # tried ed25519-0.0.5.0, but its *test-suite* does not support: directory-1.3.6.2
     - ed25519 # tried ed25519-0.0.5.0, but its *test-suite* does not support: doctest-0.18.2
-    - ed25519 # tried ed25519-0.0.5.0, but its *test-suite* does not support: hlint-3.3.4
+    - ed25519 # tried ed25519-0.0.5.0, but its *test-suite* does not support: hlint-3.3.5
     - edit # tried edit-1.0.1.0, but its *test-suite* does not support: doctest-0.18.2
     - edit # tried edit-1.0.1.0, but its *test-suite* does not support: tasty-1.4.2.1
     - elm-street # tried elm-street-0.1.0.4, but its *test-suite* does not support: bytestring-0.11.1.0
@@ -8554,7 +8516,6 @@ skipped-tests:
     - elynx-markov # tried elynx-markov-0.6.1.0, but its *test-suite* requires the disabled package: elynx-tools
     - elynx-tree # tried elynx-tree-0.6.1.0, but its *test-suite* requires the disabled package: elynx-tools
     - emd # tried emd-0.2.0.0, but its *test-suite* requires the disabled package: hedgehog
-    - emd # tried emd-0.2.0.0, but its *test-suite* requires the disabled package: tasty-hedgehog
     - errors-ext # tried errors-ext-0.4.2, but its *test-suite* requires the disabled package: binary-ext
     - euler-tour-tree # tried euler-tour-tree-0.1.1.0, but its *test-suite* requires the disabled package: sequence
     - eventsource-stub-store # tried eventsource-stub-store-1.1.1, but its *test-suite* requires the disabled package: eventsource-store-specs
@@ -8562,12 +8523,11 @@ skipped-tests:
     - extensible-effects # tried extensible-effects-5.0.0.1, but its *test-suite* requires the disabled package: test-framework-th
     - filtrable # tried filtrable-0.1.6.0, but its *test-suite* does not support: tasty-1.4.2.1
     - focuslist # tried focuslist-0.1.0.2, but its *test-suite* requires the disabled package: hedgehog
-    - focuslist # tried focuslist-0.1.0.2, but its *test-suite* requires the disabled package: tasty-hedgehog
     - focuslist # tried focuslist-0.1.0.2, but its *test-suite* requires the disabled package: tasty-hspec
     - ftp-client # tried ftp-client-0.5.1.4, but its *test-suite* does not support: tasty-1.4.2.1
     - ftp-client # tried ftp-client-0.5.1.4, but its *test-suite* does not support: tasty-hspec-1.2
     - galois-field # tried galois-field-1.0.2, but its *test-suite* does not support: QuickCheck-2.14.2
-    - galois-field # tried galois-field-1.0.2, but its *test-suite* does not support: bitvec-1.1.1.0
+    - galois-field # tried galois-field-1.0.2, but its *test-suite* does not support: bitvec-1.1.2.0
     - galois-field # tried galois-field-1.0.2, but its *test-suite* does not support: groups-0.5.3
     - galois-field # tried galois-field-1.0.2, but its *test-suite* does not support: integer-gmp-1.1
     - galois-field # tried galois-field-1.0.2, but its *test-suite* does not support: semirings-0.6
@@ -8578,8 +8538,7 @@ skipped-tests:
     - genvalidity-sydtest-aeson # tried genvalidity-sydtest-aeson-1.0.0.0, but its *test-suite* requires the disabled package: sydtest-discover
     - genvalidity-sydtest-hashable # tried genvalidity-sydtest-hashable-1.0.0.0, but its *test-suite* requires the disabled package: sydtest-discover
     - genvalidity-sydtest-lens # tried genvalidity-sydtest-lens-1.0.0.0, but its *test-suite* requires the disabled package: sydtest-discover
-    - ghc-prof # tried ghc-prof-1.4.1.9, but its *test-suite* does not support: attoparsec-0.14.2
-    - github-rest # tried github-rest-1.1.1, but its *test-suite* requires the disabled package: aeson-qq
+    - ghc-prof # tried ghc-prof-1.4.1.9, but its *test-suite* does not support: attoparsec-0.14.3
     - github-types # tried github-types-0.2.1, but its *test-suite* requires the disabled package: http-conduit
     - gitlib-libgit2 # tried gitlib-libgit2-3.1.2.1, but its *test-suite* requires the disabled package: gitlib-test
     - greskell # tried greskell-1.2.0.2, but its *test-suite* does not support: bytestring-0.11.1.0
@@ -8614,7 +8573,6 @@ skipped-tests:
     - heist # tried heist-1.1.0.1, but its *test-suite* does not support: lens-5.1
     - hidden-char # tried hidden-char-0.1.0.2, but its *test-suite* does not support: hspec-2.8.5
     - hledger-stockquotes # tried hledger-stockquotes-0.1.2.0, but its *test-suite* requires the disabled package: hedgehog
-    - hledger-stockquotes # tried hledger-stockquotes-0.1.2.0, but its *test-suite* requires the disabled package: tasty-hedgehog
     - hmatrix-vector-sized # tried hmatrix-vector-sized-0.1.3.0, but its *test-suite* requires the disabled package: hedgehog
     - hnix-store-core # tried hnix-store-core-0.5.0.0, but its *test-suite* requires the disabled package: tasty-hspec
     - hpack-dhall # tried hpack-dhall-0.5.3, but its *test-suite* requires the disabled package: hlint
@@ -8622,10 +8580,10 @@ skipped-tests:
     - hspec-tables # tried hspec-tables-0.0.1, but its *test-suite* does not support: hspec-2.8.5
     - http-conduit # tried http-conduit-2.3.8, but its *test-suite* requires the disabled package: tls
     - http-media # tried http-media-0.8.0.0, but its *test-suite* does not support: QuickCheck-2.14.2
+    - http-media # tried http-media-0.8.0.0, but its *test-suite* does not support: base-4.16.0.0
     - http-reverse-proxy # tried http-reverse-proxy-0.6.0, but its *test-suite* requires the disabled package: http-conduit
     - http-reverse-proxy # tried http-reverse-proxy-0.6.0, but its *test-suite* requires the disabled package: warp
     - http-streams # tried http-streams-0.8.9.4, but its *test-suite* requires the disabled package: snap-server
-    - hvega # tried hvega-0.12.0.0, but its *test-suite* does not support: bytestring-0.11.1.0
     - hw-balancedparens # tried hw-balancedparens-0.4.1.1, but its *test-suite* requires the disabled package: hedgehog
     - hw-balancedparens # tried hw-balancedparens-0.4.1.1, but its *test-suite* requires the disabled package: hw-hspec-hedgehog
     - hw-conduit # tried hw-conduit-0.2.1.0, but its *test-suite* does not support: hspec-2.8.5
@@ -8661,17 +8619,16 @@ skipped-tests:
     - irc-dcc # tried irc-dcc-2.0.1, but its *test-suite* does not support: tasty-hspec-1.2
     - jose # tried jose-0.9, but its *test-suite* requires the disabled package: tasty-hspec
     - json-rpc-client # tried json-rpc-client-0.2.5.0, but its *test-suite* does not support: QuickCheck-2.14.2
-    - json-schema # tried json-schema-0.7.4.2, but its *test-suite* does not support: attoparsec-0.14.2
+    - json-schema # tried json-schema-0.7.4.2, but its *test-suite* does not support: attoparsec-0.14.3
     - json-schema # tried json-schema-0.7.4.2, but its *test-suite* does not support: tasty-1.4.2.1
+    - jwt # tried jwt-0.11.0, but its *test-suite* does not support: doctest-0.18.2
     - language-javascript # tried language-javascript-0.7.1.0, but its *test-suite* requires the disabled package: utf8-light
-    - lapack # tried lapack-0.4, but its *test-suite* does not support: random-1.2.1
     - libjwt-typed # tried libjwt-typed-0.2, but its *test-suite* does not support: hspec-2.8.5
     - libjwt-typed # tried libjwt-typed-0.2, but its *test-suite* does not support: hspec-core-2.8.5
     - libraft # tried libraft-0.5.0.0, but its *test-suite* requires the disabled package: quickcheck-state-machine
     - libraft # tried libraft-0.5.0.0, but its *test-suite* requires the disabled package: tree-diff
     - linear-accelerate # tried linear-accelerate-0.7.0.0, but its *test-suite* does not support: doctest-0.18.2
     - linear-base # tried linear-base-0.1.0, but its *test-suite* requires the disabled package: hedgehog
-    - linear-base # tried linear-base-0.1.0, but its *test-suite* requires the disabled package: tasty-hedgehog
     - lrucaching # tried lrucaching-0.3.3, but its *test-suite* does not support: hspec-2.8.5
     - lsp-test # tried lsp-test-0.14.0.1, but its *test-suite* does not support: base-4.16.0.0
     - lukko # tried lukko-0.1.1.3, but its *test-suite* does not support: bytestring-0.11.1.0
@@ -8690,8 +8647,8 @@ skipped-tests:
     - msgpack # tried msgpack-1.0.1.0, but its *test-suite* does not support: QuickCheck-2.14.2
     - msgpack # tried msgpack-1.0.1.0, but its *test-suite* does not support: tasty-1.4.2.1
     - multistate # tried multistate-0.8.0.3, but its *test-suite* does not support: hspec-2.8.5
-    - mustache # tried mustache-2.3.2, but its *test-suite* requires the disabled package: wreq
-    - nakadi-client # tried nakadi-client-0.7.0.0, but its *test-suite* does not support: classy-prelude-1.5.0.1
+    - murmur3 # tried murmur3-1.0.5, but its *test-suite* requires the disabled package: base16
+    - nakadi-client # tried nakadi-client-0.7.0.0, but its *test-suite* does not support: classy-prelude-1.5.0.2
     - netrc # tried netrc-0.2.0.0, but its *test-suite* does not support: tasty-1.4.2.1
     - network-messagepack-rpc-websocket # tried network-messagepack-rpc-websocket-0.1.1.1, but its *test-suite* requires the disabled package: envy
     - network-transport-inmemory # tried network-transport-inmemory-0.5.2, but its *test-suite* does not support: network-transport-tests-0.3.0
@@ -8711,8 +8668,7 @@ skipped-tests:
     - polysemy-webserver # tried polysemy-webserver-0.2.1.1, but its *test-suite* requires the disabled package: http-conduit
     - postgresql-syntax # tried postgresql-syntax-0.4, but its *test-suite* requires the disabled package: hedgehog
     - postgrest # tried postgrest-8.0.0, but its *test-suite* does not support: hspec-2.8.5
-    - proto3-wire # tried proto3-wire-1.2.2, but its *test-suite* does not support: doctest-0.18.2
-    - ptr-poker # tried ptr-poker-0.1.1.4, but its *test-suite* requires the disabled package: hedgehog
+    - ptr-poker # tried ptr-poker-0.1.2.1, but its *test-suite* requires the disabled package: hedgehog
     - qnap-decrypt # tried qnap-decrypt-0.3.5, but its *test-suite* does not support: hspec-2.8.5
     - quickcheck-state-machine # tried quickcheck-state-machine-0.7.1, but its *test-suite* requires the disabled package: hs-rqlite
     - rakuten # tried rakuten-0.1.1.5, but its *test-suite* does not support: hspec-2.8.5
@@ -8720,16 +8676,12 @@ skipped-tests:
     - rakuten # tried rakuten-0.1.1.5, but its *test-suite* does not support: warp-3.3.18
     - records-sop # tried records-sop-0.1.1.0, but its *test-suite* does not support: hspec-2.8.5
     - registry # tried registry-0.2.1.0, but its *test-suite* requires the disabled package: hedgehog
-    - registry # tried registry-0.2.1.0, but its *test-suite* requires the disabled package: tasty-hedgehog
     - req-url-extra # tried req-url-extra-0.1.1.0, but its *test-suite* does not support: hspec-2.8.5
     - rescue # tried rescue-0.4.2.1, but its *test-suite* requires the disabled package: hlint
     - rescue # tried rescue-0.4.2.1, but its *test-suite* requires the disabled package: tasty-hspec
     - retry # tried retry-0.9.0.0, but its *test-suite* requires the disabled package: hedgehog
-    - retry # tried retry-0.9.0.0, but its *test-suite* requires the disabled package: tasty-hedgehog
     - rng-utils # tried rng-utils-0.3.1, but its *test-suite* requires the disabled package: hedgehog
-    - rng-utils # tried rng-utils-0.3.1, but its *test-suite* requires the disabled package: tasty-hedgehog
     - rss-conduit # tried rss-conduit-0.6.0.1, but its *test-suite* requires the disabled package: hlint
-    - safecopy # tried safecopy-0.10.4.2, but its *test-suite* does not support: lens-5.1
     - safeio # tried safeio-0.0.5.0, but its *test-suite* requires the disabled package: test-framework-th
     - salak-toml # tried salak-toml-0.3.5.3, but its *test-suite* does not support: QuickCheck-2.14.2
     - scalendar # tried scalendar-1.2.0, but its *test-suite* requires the disabled package: SCalendar
@@ -8741,7 +8693,6 @@ skipped-tests:
     - servant-auth-server # tried servant-auth-server-0.4.6.0, but its *test-suite* does not support: hspec-discover-2.8.5
     - servant-blaze # tried servant-blaze-0.9.1, but its *test-suite* requires the disabled package: servant-server
     - servant-checked-exceptions # tried servant-checked-exceptions-2.2.0.1, but its *test-suite* requires the disabled package: tasty-hspec
-    - servant-conduit # tried servant-conduit-0.15.1, but its *test-suite* requires the disabled package: http-media
     - servant-conduit # tried servant-conduit-0.15.1, but its *test-suite* requires the disabled package: servant-client
     - servant-conduit # tried servant-conduit-0.15.1, but its *test-suite* requires the disabled package: servant-server
     - servant-docs # tried servant-docs-0.11.9, but its *test-suite* does not support: tasty-1.4.2.1
@@ -8750,11 +8701,9 @@ skipped-tests:
     - servant-kotlin # tried servant-kotlin-0.1.1.9, but its *test-suite* does not support: aeson-2.0.2.0
     - servant-kotlin # tried servant-kotlin-0.1.1.9, but its *test-suite* does not support: hspec-2.8.5
     - servant-kotlin # tried servant-kotlin-0.1.1.9, but its *test-suite* does not support: http-api-data-0.4.3
-    - servant-machines # tried servant-machines-0.15.1, but its *test-suite* requires the disabled package: http-media
     - servant-machines # tried servant-machines-0.15.1, but its *test-suite* requires the disabled package: servant-client
     - servant-machines # tried servant-machines-0.15.1, but its *test-suite* requires the disabled package: servant-server
     - servant-mock # tried servant-mock-0.8.7, but its *test-suite* does not support: hspec-wai-0.11.1
-    - servant-pipes # tried servant-pipes-0.15.3, but its *test-suite* requires the disabled package: http-media
     - servant-pipes # tried servant-pipes-0.15.3, but its *test-suite* requires the disabled package: servant-client
     - servant-pipes # tried servant-pipes-0.15.3, but its *test-suite* requires the disabled package: servant-server
     - servant-quickcheck # tried servant-quickcheck-0.0.10.0, but its *test-suite* does not support: hspec-core-2.8.5
@@ -8781,7 +8730,6 @@ skipped-tests:
     - skews # tried skews-0.1.0.3, but its *test-suite* requires the disabled package: envy
     - snap # tried snap-1.1.3.1, but its *test-suite* does not support: QuickCheck-2.14.2
     - solana-staking-csvs # tried solana-staking-csvs-0.1.1.0, but its *test-suite* requires the disabled package: hedgehog
-    - solana-staking-csvs # tried solana-staking-csvs-0.1.1.0, but its *test-suite* requires the disabled package: tasty-hedgehog
     - squeather # tried squeather-0.8.0.0, but its *test-suite* requires the disabled package: hedgehog
     - stb-image-redux # tried stb-image-redux-0.2.1.3, but its *test-suite* does not support: hspec-2.8.5
     - stm-supply # tried stm-supply-0.2.0.0, but its *test-suite* requires the disabled package: Unique
@@ -8802,11 +8750,9 @@ skipped-tests:
     - system-filepath # tried system-filepath-0.4.14, but its *test-suite* requires the disabled package: chell-quickcheck
     - tar # tried tar-0.5.1.1, but its *test-suite* requires the disabled package: bytestring-handle
     - tasty-discover # tried tasty-discover-4.2.2, but its *test-suite* requires the disabled package: hedgehog
-    - tasty-discover # tried tasty-discover-4.2.2, but its *test-suite* requires the disabled package: tasty-hedgehog
     - tasty-discover # tried tasty-discover-4.2.2, but its *test-suite* requires the disabled package: tasty-hspec
     - temporary-resourcet # tried temporary-resourcet-0.1.0.1, but its *test-suite* does not support: tasty-1.4.2.1
     - termonad # tried termonad-4.2.0.0, but its *test-suite* requires the disabled package: hedgehog
-    - termonad # tried termonad-4.2.0.0, but its *test-suite* requires the disabled package: tasty-hedgehog
     - termonad # tried termonad-4.2.0.0, but its *test-suite* requires the disabled package: tasty-hspec
     - test-framework # tried test-framework-0.8.2.0, but its *test-suite* requires the disabled package: libxml
     - th-lego # tried th-lego-0.2.3, but its *test-suite* requires the disabled package: rerebase
@@ -8819,9 +8765,7 @@ skipped-tests:
     - uniprot-kb # tried uniprot-kb-0.1.2.0, but its *test-suite* does not support: QuickCheck-2.14.2
     - uniprot-kb # tried uniprot-kb-0.1.2.0, but its *test-suite* does not support: hspec-2.8.5
     - universum # tried universum-1.7.2, but its *test-suite* requires the disabled package: hedgehog
-    - universum # tried universum-1.7.2, but its *test-suite* requires the disabled package: tasty-hedgehog
     - uri-bytestring # tried uri-bytestring-0.3.3.1, but its *test-suite* requires the disabled package: hedgehog
-    - uri-bytestring # tried uri-bytestring-0.3.3.1, but its *test-suite* requires the disabled package: tasty-hedgehog
     - validation # tried validation-1.1.2, but its *test-suite* does not support: lens-5.1
     - validation-selective # tried validation-selective-0.1.0.1, but its *test-suite* does not support: hspec-2.8.5
     - vector-builder # tried vector-builder-0.3.8.2, but its *test-suite* requires the disabled package: rerebase
@@ -8840,7 +8784,6 @@ skipped-tests:
     - websockets-simple # tried websockets-simple-0.2.0, but its *test-suite* requires the disabled package: tasty-hspec
     - wild-bind-x11 # tried wild-bind-x11-0.2.0.14, but its *test-suite* does not support: time-1.11.1.1
     - with-utf8 # tried with-utf8-1.0.2.3, but its *test-suite* requires the disabled package: hedgehog
-    - with-utf8 # tried with-utf8-1.0.2.3, but its *test-suite* requires the disabled package: tasty-hedgehog
     - wreq # tried wreq-0.5.3.3, but its *test-suite* requires the disabled package: snap-server
     - wss-client # tried wss-client-0.3.0.0, but its *test-suite* requires the disabled package: envy
     - xml-parser # tried xml-parser-0.1.0.1, but its *test-suite* requires the disabled package: rerebase
@@ -9383,8 +9326,8 @@ skipped-benchmarks:
     - acc # tried acc-0.2.0.1, but its *benchmarks* requires the disabled package: rerebase
     - accelerate-bignum # tried accelerate-bignum-0.3.0.0, but its *benchmarks* requires the disabled package: accelerate-io-vector
     - accelerate-fourier # tried accelerate-fourier-1.0.0.5, but its *benchmarks* does not support: accelerate-llvm-native-1.3.0.0
-    - accelerate-fourier # tried accelerate-fourier-1.0.0.5, but its *benchmarks* does not support: criterion-1.5.11.0
-    - binary-parsers # tried binary-parsers-0.2.4.0, but its *benchmarks* does not support: criterion-1.5.11.0
+    - accelerate-fourier # tried accelerate-fourier-1.0.0.5, but its *benchmarks* does not support: criterion-1.5.12.0
+    - binary-parsers # tried binary-parsers-0.2.4.0, but its *benchmarks* does not support: criterion-1.5.12.0
     - bitwise-enum # tried bitwise-enum-1.0.1.0, but its *benchmarks* requires the disabled package: wide-word
     - buffer-builder # tried buffer-builder-0.2.4.7, but its *benchmarks* requires the disabled package: json-builder
     - chronos # tried chronos-1.1.3, but its *benchmarks* requires the disabled package: thyme
@@ -9393,7 +9336,7 @@ skipped-benchmarks:
     - cipher-des # tried cipher-des-0.0.6, but its *benchmarks* requires the disabled package: crypto-cipher-benchmarks
     - cipher-rc4 # tried cipher-rc4-0.1.4, but its *benchmarks* requires the disabled package: crypto-cipher-benchmarks
     - distributed-process # tried distributed-process-0.7.4, but its *benchmarks* does not support: network-transport-tcp-0.8.0
-    - ed25519 # tried ed25519-0.0.5.0, but its *benchmarks* does not support: criterion-1.5.11.0
+    - ed25519 # tried ed25519-0.0.5.0, but its *benchmarks* does not support: criterion-1.5.12.0
     - elynx-tree # tried elynx-tree-0.6.1.0, but its *benchmarks* requires the disabled package: elynx-tools
     - extensible-effects # tried extensible-effects-5.0.0.1, but its *benchmarks* requires the disabled package: test-framework-th
     - fmt # tried fmt-0.6.3.0, but its *benchmarks* requires the disabled package: interpolate
@@ -9403,20 +9346,19 @@ skipped-benchmarks:
     - hip # tried hip-1.5.6.0, but its *benchmarks* requires the disabled package: repa-algorithms
     - lsp-test # tried lsp-test-0.14.0.1, but its *benchmarks* does not support: base-4.16.0.0
     - lsp-test # tried lsp-test-0.14.0.1, but its *benchmarks* requires the disabled package: lsp
-    - monoid-extras # tried monoid-extras-0.6.1, but its *benchmarks* does not support: base-4.16.0.0
     - o-clock # tried o-clock-1.2.1, but its *benchmarks* requires the disabled package: tiempo
     - polysemy # tried polysemy-1.7.1.0, but its *benchmarks* requires the disabled package: freer-simple
     - psqueues # tried psqueues-0.2.7.3, but its *benchmarks* requires the disabled package: PSQueue
     - psqueues # tried psqueues-0.2.7.3, but its *benchmarks* requires the disabled package: fingertree-psqueue
-    - ptr-poker # tried ptr-poker-0.1.1.4, but its *benchmarks* requires the disabled package: rerebase
+    - ptr-poker # tried ptr-poker-0.1.2.1, but its *benchmarks* requires the disabled package: rerebase
     - random # tried random-1.2.1, but its *benchmarks* does not support: time-1.11.1.1
     - random-bytestring # tried random-bytestring-0.1.4, but its *benchmarks* requires the disabled package: cryptonite
     - regex-applicative # tried regex-applicative-0.3.4, but its *benchmarks* requires the disabled package: parsers-megaparsec
     - rp-tree # tried rp-tree-0.7.1, but its *benchmarks* requires the disabled package: benchpress
     - serialise # tried serialise-0.2.4.0, but its *benchmarks* requires the disabled package: store
-    - servant-auth-cookie # tried servant-auth-cookie-0.6.0.3, but its *benchmarks* does not support: criterion-1.5.11.0
+    - servant-auth-cookie # tried servant-auth-cookie-0.6.0.3, but its *benchmarks* does not support: criterion-1.5.12.0
     - stm-hamt # tried stm-hamt-1.2.0.7, but its *benchmarks* requires the disabled package: rebase
-    - superbuffer # tried superbuffer-0.3.1.1, but its *benchmarks* does not support: criterion-1.5.11.0
+    - superbuffer # tried superbuffer-0.3.1.1, but its *benchmarks* does not support: criterion-1.5.12.0
     - text-builder # tried text-builder-0.6.6.3, but its *benchmarks* requires the disabled package: rerebase
     - ttrie # tried ttrie-0.1.2.2, but its *benchmarks* requires the disabled package: criterion-plus
     - ttrie # tried ttrie-0.1.2.2, but its *benchmarks* requires the disabled package: stm-stats
