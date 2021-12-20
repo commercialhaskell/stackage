@@ -939,7 +939,7 @@ packages:
         - crypto-random-api
         - foundation
         - gauge
-        - git < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - git < 0 # 0.3.0 compile fail MonadFail
         - hit
         - memory
         - language-java
@@ -950,8 +950,8 @@ packages:
         - tasty-kat
         - tls
         - tls-debug
-        - vhd < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - xenstore < 0 # sClose not in scope
+        - vhd < 0 # 0.2.2 compile fail: Missing Semigroup Checksum
+        - xenstore < 0 # 0.1.1 compile fail: sClose not in scope
 
     "Chris Done @chrisdone":
         - labels
@@ -1279,7 +1279,7 @@ packages:
 
     "Robert Klotzner <robert.klotzner@gmx.at> @eskimor":
         - purescript-bridge
-        - servant-purescript < 0 # #6091/closed
+        - servant-purescript < 0 # 0.10.0.0 compile fail #6091/closed
         - servant-subscriber
 
     "Rodrigo Setti <rodrigosetti@gmail.com> @rodrigosetti":
@@ -1472,7 +1472,7 @@ packages:
     "Paul Rouse <pgr@doynton.org> @paul-rouse":
         - mysql
         - mysql-simple
-        - sphinx < 0 # Could not find module Network
+        - sphinx < 0 # 0.6.0.2 compile fail: Could not find module Network
         - xmlhtml
         - yesod-auth-hashdb
 
@@ -1491,7 +1491,7 @@ packages:
     "Alejandro Serrano <trupill@gmail.com> @serras":
         - djinn-lib
         - djinn-ghc
-        - generics-mrsop < 0 # MonadFail
+        - generics-mrsop < 0 # 2.3.0 compile fail: TyVarBndr
         - kind-apply
         - kind-generics
         - kind-generics-th
@@ -1616,13 +1616,13 @@ packages:
         - users-postgresql-simple
         - users-test
         - validate-input
-        - ignore < 0 # compile fail https://github.com/agrafix/ignore/issues/5
+        - ignore < 0 # 0.1.1.0 compile fail https://github.com/agrafix/ignore/issues/5
         - blaze-bootstrap
         - dataurl
         - psql-helpers
         - superbuffer
         - timespan
-        - distance < 0 # compile fail (GHC 8.4)
+        - distance < 0 # 0.1.0.0 compile fail: Semigroup Distance
         - async-extra
         - format-numbers
         - highjson
@@ -1818,8 +1818,8 @@ packages:
         - bitcoin-tx
         - bitcoin-types
         - hexstring
-        - network-attoparsec < 0 # MonadFail
-        - network-anonymous-i2p < 0
+        - network-attoparsec < 0 # 0.12.2 compile fail MonadFail
+        - network-anonymous-i2p < 0 # 0.10.0 compile fail
         - network-anonymous-tor
 
     "Timothy Jones <tim@zmthy.net> @zmthy":
@@ -1850,7 +1850,7 @@ packages:
     "Abhinav Gupta <mail@abhinavg.net> @abhinav":
         - farmhash
         - pinch
-        - sandman < 0 # compilation failure (Cabal 3)
+        - sandman < 0 # 0.2.0.1 compile fail (Cabal 3)
 
     "Adam C. Foltzer <acfoltzer@galois.com> @acfoltzer":
         - gitrev
@@ -2050,7 +2050,7 @@ packages:
         # gogol-youtube-analytics
         # gogol-youtube-reporting
         - ede
-        - pagerduty < 0 # build failure with GHC 8.4 https://github.com/brendanhay/pagerduty/issues/10
+        - pagerduty < 0 # 0.0.8 compile fail with GHC 8.4 https://github.com/brendanhay/pagerduty/issues/10
         - semver
         - text-manipulate
 
@@ -2206,7 +2206,7 @@ packages:
         - every
         - extractable-singleton
         - follow-file
-        - HSet < 0 # compilation failure, duplicate Hashable instance
+        - HSet < 0 # 0.0.1 compile fail: duplicate Hashable instance
         - markup
         - monad-control-aligned
         - monadoid
@@ -2244,7 +2244,7 @@ packages:
 
     "Peter Harpending <peter@harpending.org> @pharpend":
         - editor-open
-        - exceptional < 0 # MonadFail
+        - exceptional < 0 # 0.3.0.0 MonadFail
         - pager
         - semiring-simple
 
@@ -2266,14 +2266,14 @@ packages:
         - configurator-export
         - decidable
         - emd
-        - functor-products < 0 # compilation failure https://github.com/mstksg/functor-products/issues/1
+        - functor-products < 0 # 0.1.0.0 compilation failure https://github.com/mstksg/functor-products/issues/1
         - hamilton
         - hmatrix-backprop
         - hmatrix-vector-sized
         - lens-typelevel
         - list-witnesses
         - nonempty-containers
-        - one-liner-instances < 0 # compile failure (random 1.2)
+        - one-liner-instances
         - prompt
         - servant-cli
         - tagged-binary
@@ -2338,7 +2338,7 @@ packages:
 
     "Kai Zhang <kai@kzhang.org> @kaizhang":
         - matrices
-        - haskell-igraph < 0 # compile failure ghc 8.10.1 #5440/closed
+        - haskell-igraph < 0 # 0.8.0 compile fail ghc 8.10.1 #5440/closed
 
     "Michel Boucey <michel.boucey@gmail.com> @MichelBoucey":
         - IPv6Addr
@@ -2443,7 +2443,7 @@ packages:
         # Test suite needs a running neo4j server with auth disabled
         # unfortunately the cabal package name and the github repo don't have the exact same name
         # package name is haskell-neo4j-client github name is haskell-neo4j-rest-client
-        - haskell-neo4j-client < 0 # build failure with GHC 8.4 https://github.com/asilvestre/haskell-neo4j-rest-client/issues/32
+        - haskell-neo4j-client < 0 # 0.3.2.4 compile fail with GHC 8.4 https://github.com/asilvestre/haskell-neo4j-rest-client/issues/32
 
     "Anton Kholomiov <anton.kholomiov@gmail.com>":
         - data-fix
@@ -2570,7 +2570,7 @@ packages:
         - loop
         - lz4-frame-conduit
         - netpbm
-        - network-house < 0 # compilation failure MonadFail
+        - network-house < 0 # 0.1.0.2 compile failure MonadFail
         - reinterpret-cast
         - shared-memory
         - posix-paths
@@ -2693,7 +2693,7 @@ packages:
         - nix-paths
         - parsec-class
         - prim-uniq
-        - random-fu < 0
+        - random-fu < 0 # 0.2.7.7 compile fail
         - random-source
         - rvar
         - SafeSemaphore
@@ -2865,12 +2865,12 @@ packages:
         - eventsource-stub-store
 
     "Sebastian Dröge slomo@coaxion.net @sdroege":
-        - conduit-iconv < 0 # MonadFail
+        - conduit-iconv < 0 # 0.1.3.3 compile fail MonadFail
         - conduit-connection
 
     "Andrew Rademacher <andrewrademacher@gmail.com> @AndrewRademacher":
         - aeson-casing
-        - graylog < 0 # Couldn't find module Network.BSD
+        - graylog < 0 # 0.1.0.1 compile fail Couldn't find module Network.BSD
         - parsec-numeric
         - mallard
         - gdax
@@ -2919,11 +2919,11 @@ packages:
         - file-modules
         - frontmatter
         - read-editor
-        - list-prompt < 0 # compile failure https://github.com/yamadapc/list-prompt/issues/3
-        - package-description-remote < 0 # compile failure
+        - list-prompt < 0 # 0.1.1.0 compile fail https://github.com/yamadapc/list-prompt/issues/3
+        - package-description-remote < 0 # 0.2.0.0 compile fail
         - projectroot
         - questioner
-        - language-dockerfile < 0 # compile failure https://github.com/beijaflor-io/haskell-language-dockerfile/issues/11
+        - language-dockerfile < 0 # 0.3.6.0 compile fail https://github.com/beijaflor-io/haskell-language-dockerfile/issues/11
 
     "Pascal Hartig <phartig@rdrei.net> @passy":
         - giphy-api
@@ -3042,7 +3042,7 @@ packages:
         - hs-GeoIP
         - retry
         - katip
-        - katip-elasticsearch < 0 # https://github.com/commercialhaskell/stackage/issues/6341
+        - katip-elasticsearch < 0 # 0.7.0.0 compile fail https://github.com/commercialhaskell/stackage/issues/6341
 
     "Sid Kapur sidharthkapur1@gmail.com @sid-kap":
         - tuple
@@ -3310,11 +3310,11 @@ packages:
         - microsoft-translator
 
     "Tebello Thejane <zyxoas+stackage@gmail.com> @tebello-thejane":
-        - bitx-bitcoin < 0 # compilation error
+        - bitx-bitcoin < 0 # 0.12.0.0 compile fail
 
     "Andrew Lelechenko <andrew.lelechenko@gmail.com> @Bodigrim":
         - exp-pairs
-        - fast-digits < 0 # https://github.com/commercialhaskell/stackage/issues/6167
+        - fast-digits < 0 # 0.3.1.0 Cabal 3 vs stack incompat https://github.com/commercialhaskell/stackage/issues/6167
         - chimera
         - quadratic-irrational
         - primitive-addr
@@ -3354,7 +3354,7 @@ packages:
 
     "Patrick Chilton <chpatrick@gmail.com> @chpatrick":
         - webrtc-vad
-        - clang-pure < 0 # missing system libraries #3810/closed
+        - clang-pure < 0 # 0.2.0.6 missing system libraries #3810/closed
         - codec
 
     "Michal Konecny <mikkonecny@gmail.com> @michalkonecny":
@@ -3376,7 +3376,7 @@ packages:
 
     "Dominic Orchard <dom.orchard@gmail.com> @dorchard":
         - array-memoize
-        - codo-notation < 0 # MonadFail
+        - codo-notation < 0 # 0.5.2 compile fail MonadFail
         - fortran-src
 
     "Cheng Shao <astrohavoc@gmail.com> @TerrorJack":
@@ -3409,7 +3409,7 @@ packages:
         - quickcheck-special
         - writer-cps-mtl
         - writer-cps-transformers
-        - writer-cps-morph < 0 # https://github.com/louispan/writer-cps-morph/issues/2
+        - writer-cps-morph < 0 # 0.1.0.2 compile fail https://github.com/louispan/writer-cps-morph/issues/2
         - writer-cps-lens
         - writer-cps-full
         - writer-cps-exceptions
@@ -3435,7 +3435,7 @@ packages:
         - deepseq-instances
 
     "Michael Swan <mswan@fastmail.com> @michael-swan":
-        - pcf-font < 0 # MonadFail
+        - pcf-font < 0 # 0.2.2.0 compile fail MonadFail
         - pcf-font-embed
 
     "Iago Abal <iagoabal+stack@gmail.com>":
@@ -3576,7 +3576,7 @@ packages:
 
     "Boldizsár Németh <nboldi@elte.hu> @nboldi":
         - instance-control
-        - references < 0 # compilation failure
+        - references < 0 # 0.3.3.1 compile fail
         - classyplate
         - haskell-tools-ast
         - haskell-tools-backend-ghc
@@ -3610,10 +3610,10 @@ packages:
         - alternators
         - arrow-extras
         - data-diverse
-        - data-diverse-lens < 0 # compile fail (lens)
+        - data-diverse-lens < 0 # 4.3.0.0 compile fail (lens)
         - ghcjs-base-stub
         - glaze
-        - glazier < 0 # compile fail (lens)
+        - glazier < 0 # 1.0.0.0 compile fail (lens)
         - glazier-react
         - glazier-react-widget
         - javascript-extras
@@ -3663,7 +3663,7 @@ packages:
     "Pavel Yakovlev <pavel@yakovlev.me> @zmactep":
         - hasbolt
         - uniprot-kb
-        - mmtf < 0 # MonadFail
+        - mmtf < 0 # 0.1.3.1 compile fail MonadFail
 
     "Christopher A. Gorski <cgorski@cgorski.org> @cgorski":
         - general-games
@@ -3779,7 +3779,7 @@ packages:
 
     "Luis Pedro Coelho <luis@luispedro.org> @luispedro":
         - safeio
-        - conduit-algorithms < 0 # compile fail
+        - conduit-algorithms < 0 # 0.0.11.0 compile fail
         - conduit-zstd
 
     "Alex Biehl <alexbiehl@gmail.com> @alexbiehl":
@@ -3917,7 +3917,7 @@ packages:
         - ihaskell-hvega
 
     "Adam Flott <adam@adamflott.com> @adamflott":
-        - milena < 0 # compilation failures
+        - milena
 
     "Csongor Kiss <kiss.csongor.kiss@gmail.com> @kcsongor":
         - generic-lens
@@ -4024,7 +4024,7 @@ packages:
         - quickcheck-state-machine
 
     "Sebastian Nagel <sebastian.nagel@ncoding.at> @ch1bo":
-        - hdevtools < 0 # compilation failure
+        - hdevtools < 0 # 0.1.8.0 compile fail
         - servant-exceptions
         - servant-exceptions-server
 
@@ -4061,8 +4061,8 @@ packages:
 
     "Guru Devanla <grdvnl@gmail.com> @gdevanla":
         - pptable
-        - cassava-records < 0 # compilation failure MonadFail
-        - pandoc-markdown-ghci-filter # https://github.com/gdevanla/pandoc-markdown-ghci-filter/issues/3
+        - cassava-records < 0 # 0.1.0.4 compile fail MonadFail
+        - pandoc-markdown-ghci-filter < 0 # 0.1.0.0 compile fail https://github.com/gdevanla/pandoc-markdown-ghci-filter/issues/3
 
     "Lucas David Traverso <lucas6246@gmail.com> @ludat":
         - map-syntax
@@ -4187,7 +4187,7 @@ packages:
 
     "Sergey Vinokurov <serg.foo@gmail.com> @sergv":
         - bencoding
-        - emacs-module < 0 # compilation failure ghc 8.10.1 #5436/closed
+        - emacs-module < 0 # 0.1.1 compile fail ghc 8.10.1 #5436/closed
         - tasty-ant-xml
 
     "Eugene Smolanka <esmolanka@gmail.com> @esmolanka":
@@ -4528,7 +4528,7 @@ packages:
         - multi-containers
 
     "Vaclav Svejcar <vaclav.svejcar@gmail.com> @vaclavsvejcar":
-        - headroom < 0 # https://github.com/commercialhaskell/stackage/issues/6342
+        - headroom < 0 # 0.4.2.0 compile fail https://github.com/commercialhaskell/stackage/issues/6342
         - vcs-ignore
 
     "Adrian Sieber <stackage@ad-si.com> @ad-si":
@@ -4651,7 +4651,7 @@ packages:
         - capability
 
     "Dustin Sallings <dustin@spy.net> @dustin":
-        - net-mqtt < 0 # compile fail attoparsec 0.14
+        - net-mqtt < 0 # 0.8.1.0 compile fail attoparsec 0.14
         - net-mqtt-lens
 
     "David A Roberts <d@vidr.cc> @davidar":
@@ -5015,7 +5015,7 @@ packages:
         - process-extras
         - product-isomorphic
         - project-template
-        - protobuf
+        - protobuf < 0.2.1.4 # https://github.com/alphaHeavy/protobuf/issues/39
         - pureMD5
         - quickcheck-instances
         - quickcheck-io
@@ -5363,7 +5363,6 @@ packages:
         - nvim-hs-contrib < 0 # 2.0.0.0
         - odbc < 0
         - open-witness < 0
-        - pandoc-markdown-ghci-filter < 0
         - partial-isomorphisms < 0
         - pencil < 0
         - pipes-aeson < 0
@@ -5977,8 +5976,6 @@ packages:
         - connection < 0 # tried connection-0.3.1, but its *library* requires the disabled package: tls
         - connection < 0 # tried connection-0.3.1, but its *library* requires the disabled package: x509
         - connection < 0 # tried connection-0.3.1, but its *library* requires the disabled package: x509-validation
-        - constraints-extras < 0 # tried constraints-extras-0.3.2.0, but its *library* does not support: base-4.16.0.0
-        - constraints-extras < 0 # tried constraints-extras-0.3.2.0, but its *library* does not support: template-haskell-2.18.0.0
         - construct < 0 # tried construct-0.3.0.2, but its *library* requires the disabled package: input-parsers
         - construct < 0 # tried construct-0.3.0.2, but its *library* requires the disabled package: rank2classes
         - containers-unicode-symbols < 0 # tried containers-unicode-symbols-0.3.1.3, but its *library* does not support: containers-0.6.5.1
@@ -5994,7 +5991,6 @@ packages:
         - cql-io < 0 # tried cql-io-1.1.1, but its *library* requires the disabled package: cql
         - crackNum < 0 # tried crackNum-3.2, but its *executable* requires the disabled package: sbv
         - crc32c < 0 # tried crc32c-0.0.0, but its *library* does not support: bytestring-0.11.1.0
-        - credential-store < 0 # tried credential-store-0.1.2, but its *library* requires the disabled package: dbus
         - credential-store < 0 # tried credential-store-0.1.2, but its *library* requires the disabled package: memory
         - crypto-cipher-tests < 0 # tried crypto-cipher-tests-0.0.11, but its *library* requires the disabled package: securemem
         - crypto-cipher-types < 0 # tried crypto-cipher-types-0.0.9, but its *library* requires the disabled package: securemem
@@ -6034,11 +6030,8 @@ packages:
         - datadog < 0 # tried datadog-0.2.5.0, but its *library* requires the disabled package: http-client-tls
         - datasets < 0 # tried datasets-0.4.0, but its *library* requires the disabled package: req
         - datasets < 0 # tried datasets-0.4.0, but its *library* requires the disabled package: streaming-bytestring
-        - dbus < 0 # tried dbus-1.2.22, but its *library* does not support: template-haskell-2.18.0.0
-        - dbus-hslogger < 0 # tried dbus-hslogger-0.1.0.1, but its *library* requires the disabled package: dbus
         - decidable < 0 # tried decidable-0.3.0.0, but its *library* requires the disabled package: functor-products
         - deepseq-instances < 0 # tried deepseq-instances-0.1.0.1, but its *library* does not support: base-4.16.0.0
-        - dependent-map < 0 # tried dependent-map-0.4.0.0, but its *library* requires the disabled package: constraints-extras
         - dependent-map < 0 # tried dependent-map-0.4.0.0, but its *library* requires the disabled package: dependent-sum
         - dependent-sum < 0 # tried dependent-sum-0.7.1.0, but its *library* does not support: some-1.0.3
         - dependent-sum-template < 0 # tried dependent-sum-template-0.1.1.1, but its *library* requires the disabled package: dependent-sum
@@ -6336,7 +6329,6 @@ packages:
         - groundhog-mysql < 0 # tried groundhog-mysql-0.11, but its *library* does not support: mysql-0.2.1
         - group-by-date < 0 # tried group-by-date-0.1.0.4, but its *executable* does not support: time-1.11.1.1
         - grouped-list < 0 # tried grouped-list-0.2.2.1, but its *library* does not support: base-4.16.0.0
-        - gtk-sni-tray < 0 # tried gtk-sni-tray-0.1.8.0, but its *library* requires the disabled package: dbus
         - gtk3 < 0 # tried gtk3-0.15.6, but its *library* does not support: Cabal-3.6.0.0
         - hOpenPGP < 0 # tried hOpenPGP-2.9.7, but its *library* requires the disabled package: ixset-typed
         - hOpenPGP < 0 # tried hOpenPGP-2.9.7, but its *library* requires the disabled package: memory
@@ -6444,8 +6436,7 @@ packages:
         - haxl-amazonka < 0 # tried haxl-amazonka-0.1.1, but its *library* requires the disabled package: haxl
         - haxr < 0 # tried haxr-3000.11.4.1, but its *library* does not support: base-4.16.0.0
         - hedgehog < 0 # tried hedgehog-1.0.5, but its *library* does not support: template-haskell-2.18.0.0
-        - hedgehog-classes < 0 # tried hedgehog-classes-0.2.5.2, but its *library* does not support: aeson-2.0.2.0
-        - hedgehog-classes < 0 # tried hedgehog-classes-0.2.5.2, but its *library* does not support: base-4.16.0.0
+        - hedgehog-classes < 0 # tried hedgehog-classes-0.2.5.3, but its *library* requires the disabled package: hedgehog
         - hedgehog-fakedata < 0 # tried hedgehog-fakedata-0.0.1.4, but its *library* requires the disabled package: hedgehog
         - hedgehog-fn < 0 # tried hedgehog-fn-1.0, but its *library* requires the disabled package: hedgehog
         - hedgehog-quickcheck < 0 # tried hedgehog-quickcheck-0.1.1, but its *library* requires the disabled package: hedgehog
@@ -6858,6 +6849,11 @@ packages:
         - midi-alsa < 0 # tried midi-alsa-0.2.1, but its *library* requires the disabled package: midi
         - midi-music-box < 0 # tried midi-music-box-0.0.1.2, but its *executable* requires the disabled package: diagrams-postscript
         - midi-music-box < 0 # tried midi-music-box-0.0.1.2, but its *executable* requires the disabled package: midi
+        - milena < 0 # tried milena-0.5.4.0, but its *library* does not support: bytestring-0.11.1.0
+        - milena < 0 # tried milena-0.5.4.0, but its *library* does not support: lens-5.1
+        - milena < 0 # tried milena-0.5.4.0, but its *library* does not support: network-3.1.2.5
+        - milena < 0 # tried milena-0.5.4.0, but its *library* does not support: random-1.2.1
+        - milena < 0 # tried milena-0.5.4.0, but its *library* does not support: semigroups-0.19.2
         - mime-mail-ses < 0 # tried mime-mail-ses-0.4.3, but its *library* requires the disabled package: cryptohash
         - mime-mail-ses < 0 # tried mime-mail-ses-0.4.3, but its *library* requires the disabled package: http-client-tls
         - mini-egison < 0 # tried mini-egison-1.0.0, but its *library* requires the disabled package: egison-pattern-src
@@ -7563,7 +7559,6 @@ packages:
         - stack < 0 # tried stack-2.7.3, but its *library* requires the disabled package: regex-applicative-text
         - stackcollapse-ghc < 0 # tried stackcollapse-ghc-0.0.1.4, but its *executable* does not support: base-4.16.0.0
         - state-codes < 0 # tried state-codes-0.1.3, but its *library* requires the disabled package: shakespeare
-        - status-notifier-item < 0 # tried status-notifier-item-0.3.1.0, but its *library* requires the disabled package: dbus
         - stm-containers < 0 # tried stm-containers-1.2, but its *library* requires the disabled package: stm-hamt
         - stm-hamt < 0 # tried stm-hamt-1.2.0.7, but its *library* requires the disabled package: primitive-extras
         - stm-supply < 0 # tried stm-supply-0.2.0.0, but its *library* requires the disabled package: concurrent-supply
@@ -7654,7 +7649,6 @@ packages:
         - synthesizer-midi < 0 # tried synthesizer-midi-0.6.1.1, but its *library* requires the disabled package: synthesizer-dimensional
         - taffybar < 0 # tried taffybar-3.3.0, but its *library* requires the disabled package: HStringTemplate
         - taffybar < 0 # tried taffybar-3.3.0, but its *library* requires the disabled package: broadcast-chan
-        - taffybar < 0 # tried taffybar-3.3.0, but its *library* requires the disabled package: dbus
         - taffybar < 0 # tried taffybar-3.3.0, but its *library* requires the disabled package: rate-limit
         - tagchup < 0 # tried tagchup-0.4.1.1, but its *library* does not support: bytestring-0.11.1.0
         - tasty-hedgehog < 0 # tried tasty-hedgehog-1.1.0.0, but its *library* requires the disabled package: hedgehog
@@ -8009,15 +8003,16 @@ packages:
       # Requires GHC 9.2
       # Any new package-version that must use GHC 9.2 should be added here.
       # We'll Remove this section along with the nightly upgrade to GHC 9.2.
+      - dbus >= 1.2.23
+      - eliminators >= 0.9
       - ghc-lib >= 9.2.1.20211030
       - ghc-lib-parser >= 9.2.1.20211030
       - ghc-lib-parser-ex >= 9.2.0.0
+      - ghc-syntax-highlighter >= 0.0.8 # requires ghc-lib-parser >= 9.2
+      - ormolu >= 0.4.0.0
       - singletons-base >= 3.1
       - singletons-th >= 3.1
       - th-desugar >= 1.13
-      - eliminators >= 0.9
-      - ghc-syntax-highlighter >= 0.0.8 # requires ghc-lib-parser >= 9.2
-      - ormolu >= 0.4.0.0
 
       # https://github.com/commercialhaskell/stackage/issues/6265
       - attoparsec >= 0.14.2
@@ -8390,7 +8385,6 @@ skipped-tests:
     - csg # tried csg-0.1.0.6, but its *test-suite* does not support: tasty-1.4.2.1
     - darcs # tried darcs-2.16.4, but its *test-suite* does not support: QuickCheck-2.14.2
     - deferred-folds # tried deferred-folds-0.9.17, but its *test-suite* requires the disabled package: rerebase
-    - dependent-sum-template # tried dependent-sum-template-0.1.1.1, but its *test-suite* requires the disabled package: constraints-extras
     - deque # tried deque-0.4.4, but its *test-suite* requires the disabled package: rerebase
     - detour-via-sci # tried detour-via-sci-1.0.0, but its *test-suite* requires the disabled package: hlint
     - dhall-lsp-server # tried dhall-lsp-server-1.0.17, but its *test-suite* does not support: lsp-test-0.14.0.1
@@ -8971,7 +8965,6 @@ expected-test-failures:
     - hsini
     - htoml
     - hweblib # https://github.com/aycanirican/hweblib/issues/3
-    - LambdaHack # https://github.com/commercialhaskell/stackage/issues/6276
     - leveldb-haskell
     - mono-traversable
     - multiarg
