@@ -2199,7 +2199,7 @@ packages:
         - attoparsec-base64
         - attoparsec-path
         # - attoparsec-ip # Deprecated in favor of ip
-        # - attoparsec-uri
+        - attoparsec-uri < 0 # 0.0.7 compile fail
         - chan
         - commutative
         - composition-extra
@@ -4459,6 +4459,8 @@ packages:
         - morpheus-graphql-client
         - morpheus-graphql-subscriptions
         - morpheus-graphql-app
+        - morpheus-graphql-code-gen
+        - morpheus-graphql-tests
 
     "Satoshi Egi <egi@egison.org> @egisatoshi":
         - backtracking
@@ -5296,6 +5298,7 @@ packages:
         - bins < 0 # 0.1.2.0
         - bitcoin-script < 0 # 0.11.1
         - btrfs < 0 # 0.2.0.0
+        - bv-little < 0 # 1.1.1 - can't reproduce locally: No instance for (Eq BigNat)
         - cabal-debian < 0 # 5.1
         - cabal-toolkit < 0 # 0.0.7
         - chaselev-deque < 0 # 0.5.0.5
@@ -5333,7 +5336,7 @@ packages:
         - hschema < 0 # 0.0.1.1
         - hstatsd < 0
         - inline-r < 0
-        - interpolator < 0
+        - interpolator < 0 # 1.1.0.2
         - io-choice < 0
         - katydid < 0 # 0.4.0.2 MonadFail
         - kdt < 0 # 0.2.4 https://github.com/giogadi/kdt/issues/5
@@ -5347,12 +5350,7 @@ packages:
         - mltool < 0
         - moesocks < 0
         - monad-recorder < 0
-        - monad-unlift < 0
-        - morpheus-graphql < 0
-        - morpheus-graphql-app < 0
-        - morpheus-graphql-client < 0
-        - morpheus-graphql-core < 0
-        - morpheus-graphql-subscriptions < 0
+        - monad-unlift < 0 # 0.2.0.0
         - murmur < 0
         - n2o-protocols < 0
         - nonempty-containers < 0
@@ -5361,15 +5359,15 @@ packages:
         - open-witness < 0
         - partial-isomorphisms < 0
         - pencil < 0
-        - pipes-aeson < 0
-        - pipes-binary < 0
-        - pipes-network < 0
-        - pipes-text < 0
+        - pipes-aeson < 0 # 0.4.1.8
+        - pipes-binary < 0 # 0.4.3
+        - pipes-network < 0 # 0.6.5
+        - pipes-text < 0 # 1.0.0
         - pkcs10 < 0
         - planb-token-introspection < 0
         - postgresql-transactional < 0
         - raaz < 0
-        - regex-compat-tdfa < 0
+        - regex-compat-tdfa < 0 # 0.95.1.4
         - rhine < 0
         - rose-trees < 0 # compilation seems to hang?
         - safe-money < 0
@@ -5377,34 +5375,32 @@ packages:
         - sdl2-image < 0
         - sdl2-mixer < 0
         - sequence-formats < 0
-        - sessiontypes < 0
+        - sessiontypes < 0 # 0.1.2
         - simplistic-generics < 0
         - slack-api < 0
         - squeal-postgresql < 0
-        - stm-stats < 0
+        - stm-stats < 0 # 0.2.0.0
         - strive < 0
         - sydtest-persistent-sqlite < 0
         - text-region < 0
-        - th-data-compat < 0
+        - th-data-compat < 0 # 0.1.0.0
         - throttle-io-stream < 0
-        - throwable-exceptions < 0
+        - throwable-exceptions < 0 # 0.1.0.9
         - thyme < 0
-        - time-qq < 0
+        - time-qq < 0 # 0.0.1.0
         - timemap < 0 # https://github.com/athanclark/timemap/issues/1
         - tintin < 0
-        - tracing-control < 0
-        - traverse-with-class < 0
-        - turtle-options < 0
+        - turtle-options < 0 # 0.1.0.4
         - type-assertions < 0
-        - type-map < 0
+        - type-map < 0 # 0.1.6.0
         - typecheck-plugin-nat-simple < 0
-        - ulid < 0
+        - ulid < 0 # 0.3.0.0
         - uncertain < 0
-        - unordered-intmap < 0
+        - unordered-intmap < 0 # 0.1.1
         - users-persistent < 0
         - wai-middleware-auth < 0
-        - wai-predicates < 0
-        - webdriver < 0
+        - wai-predicates < 0 # 1.0.0
+        - webdriver < 0 # 0.9.0.1
         - webex-teams-pipes < 0
         - websockets-rpc < 0
         - word24 < 0
@@ -5413,7 +5409,6 @@ packages:
         - xml-lens < 0
         - xturtle < 0
         - yeshql-hdbc < 0
-        - yesod-auth < 0 # 1.6.10.3
 
     # See "Large scale enabling/disabling of packages" in CURATORS.md for how to manage this section.
     #
