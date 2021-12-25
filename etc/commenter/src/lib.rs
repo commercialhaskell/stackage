@@ -23,29 +23,52 @@ pub fn add(lib: Vec<String>, test: Vec<String>, bench: Vec<String>) {
         });
         lines.sort();
         lines
-    })
+    });
+}
+
+enum VersionTag {
+    Manual(String),
+    Auto(String),
+}
+
+impl VersionTag {
+
+    fn tag(&self) -> &'static str {
+        match self {
+            VersionTag::Manual(_) => "manual",
+            VersionTag::Auto(_) => "auto",
+        }
+    }
+
+    fn version(&self) -> &str {
+        match self {
+            VersionTag::Manual(s) => &s,
+            VersionTag::Auto(s) => &s,
+        }
+    }
 }
 
 pub fn outdated() {
-    let mut all = vec![];
-    handle(false, |_loc, lines| {
+    let mut all: Vec<String> = vec![];
+    let disabled = handle(false, |_loc, lines| {
         all.extend(lines);
         vec![]
     });
-    let mut map = BTreeMap::new();
+    let mut map: BTreeMap<String, VersionTag> = BTreeMap::new();
+    for DisabledPackage { package, version } in disabled {
+        map.insert(package, VersionTag::Manual(version));
+    }
     let mut support: BTreeMap<(String, String), BTreeSet<(String, String)>> = BTreeMap::new();
     for v in all.into_iter() {
         let caps = regex!("tried ([^ ]+)-([^,-]+),").captures(&v).unwrap();
         let package = caps.get(1).unwrap().as_str().to_owned();
         let version = caps.get(2).unwrap().as_str().to_owned();
-        map.insert(package.clone(), version.clone());
+        map.insert(package.clone(), VersionTag::Auto(version.clone()));
 
         if let Some(caps) = regex!("does not support: ([^ ]+)-([^-]+)").captures(&v) {
             let dep_package = caps.get(1).unwrap().as_str().to_owned();
             let dep_version = caps.get(2).unwrap().as_str().to_owned();
-            let entry = support
-                .entry((dep_package, dep_version))
-                .or_default();
+            let entry = support.entry((dep_package, dep_version)).or_default();
             entry.insert((package, version));
         }
     }
@@ -59,10 +82,10 @@ pub fn outdated() {
         }
         i += 1;
         let latest = latest_version(&package);
-        if version != latest {
+        if version.version() != latest {
             println!(
-                "{} mismatch, snapshot: {}, hackage: {}",
-                package, version, latest
+                "{} mismatch, {}: {}, hackage: {}",
+                package, version.tag(), version.version(), latest
             );
         }
     }
@@ -112,16 +135,36 @@ enum State {
     Done,
 }
 
-fn handle<F>(write: bool, mut f: F)
+struct DisabledPackage {
+    package: String,
+    version: String,
+}
+
+fn parse_disabled_package(s: &str) -> Option<DisabledPackage> {
+    if let Some(caps) = regex!(r#"- *([^ ]+) < *0 *# *([\d.]+)"#).captures(s) {
+        let package = caps.get(1).unwrap().as_str().to_owned();
+        let version = caps.get(2).unwrap().as_str().to_owned();
+        Some(DisabledPackage { package, version })
+    } else {
+        None
+    }
+}
+
+fn handle<F>(write: bool, mut f: F) -> Vec<DisabledPackage>
 where
     F: FnMut(Location, Vec<String>) -> Vec<String>,
 {
     let path = "build-constraints.yaml";
     let mut new_lines: Vec<String> = vec![];
+    let mut disabled_packages: Vec<DisabledPackage> = vec![];
 
     let mut state = State::LookingForLibBounds;
     let mut buf = vec![];
     for line in read_lines(path).map(|s| s.unwrap()) {
+        if let Some(disabled_package) = parse_disabled_package(&line) {
+            disabled_packages.push(disabled_package);
+        }
+
         match state {
             State::LookingForLibBounds => {
                 if line == r#"    "Library and exe bounds failures":"# {
@@ -189,6 +232,8 @@ where
         }
         file.flush().unwrap();
     }
+
+    disabled_packages
 }
 
 enum Location {
