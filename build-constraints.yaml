@@ -702,7 +702,7 @@ packages:
         - stripe-tests
 
     "Piotr Mlodawski @pmlodawski":
-        - error-util < 0 # MonadFail
+        - error-util < 0 # 0.0.1.2 MonadFail
         - signal
 
     "Michael Snoyman michael@snoyman.com @snoyberg":
@@ -2318,7 +2318,7 @@ packages:
         - distributed-closure
         - inline-java
         - inline-r
-        - jni < 0 # compilation failure
+        - jni < 0 # compile fail
         - jvm
         - jvm-streaming
         - H
@@ -5245,30 +5245,30 @@ packages:
      # affected. Packages will be kept in this list indefinitely so
      # that new packages depending on it will be flagged as well.
     "Removed packages":
-        - PSQueue < 0 # build failure with GHC 8.4 (nowhere to report, it's ancient just let it die)
-        - Unique < 0 # GHC 8.4 via base-4.11.0.0
-        - cli < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - PSQueue < 0 # compile fail
+        - Unique < 0
+        - cli < 0 # compile fail
         - co-log-core < 0 # #5965/closed
         - co-log-polysemy < 0 # #5965/closed
-        - fingertree-psqueue < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - hastache < 0 # GHC 8.4 via base-4.11.0.0
+        - fingertree-psqueue < 0 # compile fail
+        - hastache < 0 # bounds
         - heart-core < 0 # deprecated
-        - hnix < 0 # #6271
-        - json-builder < 0 # build failure with GHC 8.4 https://github.com/lpsmith/json-builder/issues/2
-        - lens-labels < 0 # deprecated https://github.com/commercialhaskell/stackage/pull/4358
+        - hnix < 0 # #6271/closed
+        - json-builder < 0 # compile fail https://github.com/lpsmith/json-builder/issues/2
+        - lens-labels < 0 # deprecated #4358/closed
         - membrain < 0 # #5965/closed
-        - preprocessor-tools < 0 # build failure with GHC 8.4
+        - preprocessor-tools < 0 # compile fail
         - present < 0 # #6271
-        - prim-array < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - prim-array < 0 # compile fail
         - proto-lens-combinators < 0 # deprecated https://github.com/commercialhaskell/stackage/pull/4358
         - shortcut-links < 0 # #5965/closed
         - snap-server < 0 # #6271
-        - syb-with-class < 0 # GHC 8.4 via template-haskell-2.13.0.0
-        - tinytemplate < 0 # build failure with GHC 8.4
+        - syb-with-class < 0 # compile fail
+        - tinytemplate < 0 # compile fail
         - tomland < 0 # #5965/closed
-        - type-combinators < 0 # build failure with GHC 8.4 https://github.com/kylcarte/type-combinators/issues/8
-        - wai-route < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
-        - xxhash < 0 # BuildFailureException Process exited with ExitFailure 1: ./Setup build
+        - type-combinators < 0 # compile fail https://github.com/kylcarte/type-combinators/issues/8
+        - wai-route < 0 # compile fail
+        - xxhash < 0 # compile fail
         - universe-instances-base < 0 # deprecated
         - universe-instances-trans < 0 # deprecated
 
@@ -5324,7 +5324,7 @@ packages:
         - gluturtle < 0 # 0.0.58.1
         - haskell-import-graph < 0 # 1.0.4
         - haskell-spacegoo < 0 # 0.2.0.1
-        - haskoin-node < 0
+        - haskoin-node < 0 # libsecp256k1
         - haxl < 0 # 2.3.0.0
         - hbeanstalk < 0 # 0.2.4
         - heterocephalus < 0 # 1.0.5.4
@@ -5332,25 +5332,25 @@ packages:
         - hexstring < 0 # 0.11.1
         - hs-functors < 0 # 0.1.7.1
         - hschema < 0 # 0.0.1.1
-        - hstatsd < 0
+        - hstatsd < 0 # 0.1
         - interpolator < 0 # 1.1.0.2
-        - io-choice < 0
+        - io-choice < 0 # 0.0.7
         - katydid < 0 # 0.4.0.2 MonadFail
         - kdt < 0 # 0.2.4 https://github.com/giogadi/kdt/issues/5
         - lens-typelevel < 0 # 0.1.1.0
-        - llvm-hs < 0
-        - llvm-hs-pretty < 0
+        - llvm-hs < 0 # llvm-config
+        - llvm-hs-pretty < 0 # 0.9.0.0
         - machines-binary < 0 # 7.0.0.0
         - machines-io < 0 # 7.0.0.0
         - marvin-interpolate < 0 # 1.1.2
-        - mltool < 0
+        - mltool < 0 # 0.2.0.1
         - moesocks < 0 # 1.0.1.0
         - monad-recorder < 0 # 0.1.1
         - monad-unlift < 0 # 0.2.0
         - murmur < 0 # 0.0.0.2
         - n2o-protocols < 0 # 0.11.2
         - nvim-hs-contrib < 0 # 2.0.0.0
-        - odbc < 0
+        - odbc < 0 # odbc
         - open-witness < 0 # 0.5
         - pencil < 0
         - pipes-aeson < 0 # 0.4.1.8
@@ -5364,9 +5364,9 @@ packages:
         - regex-compat-tdfa < 0 # 0.95.1.4
         - rhine < 0 # 0.7.0
         - rose-trees < 0 # compilation seems to hang?
-        - sdl2-gfx < 0
-        - sdl2-image < 0
-        - sdl2-mixer < 0
+        - sdl2-gfx < 0 # SDL2_gfx
+        - sdl2-image < 0 # SDL2_image
+        - sdl2-mixer < 0 # SDL2_mixer
         - sessiontypes < 0 # 0.1.2
         - simplistic-generics < 0 # 2.0.0
         - slack-api < 0 # 0.12
@@ -5393,10 +5393,10 @@ packages:
         - webex-teams-pipes < 0 # 0.2.0.1
         - websockets-rpc < 0 # 0.7.0
         - word24 < 0 # 2.0.1
-        - xls < 0
+        - xls < 0 # 0.1.3 gcc failed
         - xml-conduit-parse < 0 # 0.3.1.2
         - xml-lens < 0 # 0.3
-        - xturtle < 0
+        - xturtle < 0 # xft
         - yeshql-hdbc < 0 # 4.2.0.0
 
 
@@ -6035,8 +6035,8 @@ packages:
         - haskell-tools-rewrite < 0 # tried haskell-tools-rewrite-1.1.1.0, but its *library* requires the disabled package: references
         - haskey < 0 # tried haskey-0.3.1.0, but its *library* does not support: stm-containers-1.2
         - haskey-mtl < 0 # tried haskey-mtl-0.3.1.0, but its *library* does not support: monad-control-1.0.3.1
-        - haskoin-store < 0 # tried haskoin-store-0.64.0, but its *library* requires the disabled package: haskoin-node
-        - haskoin-store < 0 # tried haskoin-store-0.64.0, but its *library* requires the disabled package: haskoin-store-data
+        - haskoin-store < 0 # tried haskoin-store-0.64.7, but its *library* requires the disabled package: haskoin-node
+        - haskoin-store < 0 # tried haskoin-store-0.64.7, but its *library* requires the disabled package: haskoin-store-data
         - hasmin < 0 # tried hasmin-1.0.3, but its *executable* does not support: optparse-applicative-0.16.1.0
         - hasmin < 0 # tried hasmin-1.0.3, but its *library* does not support: attoparsec-0.14.3
         - haxl-amazonka < 0 # tried haxl-amazonka-0.1.1, but its *library* requires the disabled package: haxl
@@ -6083,7 +6083,7 @@ packages:
         - hschema-quickcheck < 0 # tried hschema-quickcheck-0.0.1.1, but its *library* requires the disabled package: hschema
         - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* does not support: attoparsec-0.14.3
         - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* does not support: ghc-boot-9.0.1
-        - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* does not support: ghc-lib-parser-9.0.1.20210324
+        - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* does not support: ghc-lib-parser-9.0.2.20211226
         - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* does not support: hlint-3.3.5
         - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* does not support: http-client-0.7.9
         - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* does not support: lens-5.0.1
@@ -6428,7 +6428,6 @@ packages:
         - servant-auth-docs < 0 # tried servant-auth-docs-0.2.10.0, but its *library* does not support: base-4.15.0.0
         - servant-auth-server < 0 # tried servant-auth-server-0.4.6.0, but its *library* does not support: base64-bytestring-1.2.1.0
         - servant-auth-swagger < 0 # tried servant-auth-swagger-0.2.10.1, but its *library* does not support: swagger2-2.7
-        - servant-elm < 0 # tried servant-elm-0.7.2, but its *library* requires the disabled package: elm-bridge
         - servant-errors < 0 # tried servant-errors-0.1.6.0, but its *library* does not support: base-4.15.0.0
         - servant-js < 0 # tried servant-js-0.9.4.2, but its *executable* does not support: aeson-1.5.6.0
         - servant-kotlin < 0 # tried servant-kotlin-0.1.1.9, but its *library* does not support: containers-0.6.4.1
@@ -6511,7 +6510,7 @@ packages:
         - stripe-tests < 0 # tried stripe-tests-2.6.2, but its *library* does not support: random-1.2.1
         - structured-haskell-mode < 0 # tried structured-haskell-mode-1.1.0, but its *executable* does not support: haskell-src-exts-1.23.1
         - stylish-haskell < 0 # tried stylish-haskell-0.13.0.0, but its *library* does not support: Cabal-3.4.0.0
-        - stylish-haskell < 0 # tried stylish-haskell-0.13.0.0, but its *library* does not support: ghc-lib-parser-9.0.1.20210324
+        - stylish-haskell < 0 # tried stylish-haskell-0.13.0.0, but its *library* does not support: ghc-lib-parser-9.0.2.20211226
         - sv < 0 # tried sv-1.4.0.1, but its *library* does not support: attoparsec-0.14.3
         - sv < 0 # tried sv-1.4.0.1, but its *library* does not support: base-4.15.0.0
         - sv-cassava < 0 # tried sv-cassava-0.3, but its *library* does not support: attoparsec-0.14.3
