@@ -32,7 +32,6 @@ enum VersionTag {
 }
 
 impl VersionTag {
-
     fn tag(&self) -> &'static str {
         match self {
             VersionTag::Manual(_) => "manual",
@@ -77,6 +76,9 @@ pub fn outdated() {
     let mut i = 0;
 
     for (package, version) in map {
+        if is_boot(&package) {
+            continue;
+        }
         if i % 100 == 0 {
             println!("{:02}%", ((i as f64 / entries as f64) * 100.0).floor());
         }
@@ -85,31 +87,69 @@ pub fn outdated() {
         if version.version() != latest {
             println!(
                 "{} mismatch, {}: {}, hackage: {}",
-                package, version.tag(), version.version(), latest
+                package,
+                version.tag(),
+                version.version(),
+                latest
             );
         }
     }
 
     for ((package, version), dependents) in support {
+        if is_boot(&package) {
+            continue;
+        }
+
         if i % 100 == 0 {
             println!("{:02}%", ((i as f64 / entries as f64) * 100.0).floor());
         }
         i += 1;
         let latest = latest_version(&package);
         if version != latest {
+            let max = 3;
+            let dependents_stripped = dependents.len().checked_sub(max).unwrap_or(0);
+            let dependents = dependents
+                .into_iter()
+                .take(max)
+                .map(|(p, v)| format!("{}-{}", p, v))
+                .collect::<Vec<String>>()
+                .join(", ");
+            let dependents = if dependents_stripped > 0 {
+                format!("{} and {} more", dependents, dependents_stripped)
+            } else {
+                dependents
+            };
+
             println!(
                 "{} mismatch, snapshot: {}, hackage: {}, dependents: {}",
-                package,
-                version,
-                latest,
-                dependents
-                    .into_iter()
-                    .map(|(p, v)| format!("{}-{}", p, v))
-                    .collect::<Vec<String>>()
-                    .join(", "),
+                package, version, latest, dependents,
             );
         }
     }
+}
+
+fn is_boot(package: &str) -> bool {
+    [
+        "Cabal",
+        "base",
+        "bytestring",
+        "containers",
+        "containers",
+        "directory",
+        "filepath",
+        "deepseq",
+        "ghc",
+        "ghc-boot",
+        "ghc-boot-th",
+        "ghc-prim",
+        "integer-gmp",
+        "process",
+        "stm",
+        "template-haskell",
+        "text",
+        "time",
+    ]
+    .contains(&package)
 }
 
 fn latest_version(pkg: &str) -> String {
