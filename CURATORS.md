@@ -206,12 +206,11 @@ If a new package fails to build because of missing system libraries we often ask
 
 ### Upgrading GHC version
 The Dockerfile contains information on which GHC versions should be used. You
-can modify it and push it to Github to trigger a DockerHub build. The nightly
+can modify it and push it to Github to trigger a build. The nightly
 branch is used for nightlies. For LTSes, we use the ltsX branch, where X is the
 major version number (e.g., lts3 for lts-3.\*).
 
-Note that when starting a new LTS major release, you'll need to modify Docker
-Hub to create a new Docker tag for the relevant branch name.
+Note that when starting a new LTS major release, you'll need to modify `.github/workflows/image.yml` to add a new lts branch.
 
 Update `GHCVER` in `Dockerfile`. (This env var automatically gets passed to `debian-bootstrap.sh`.)
 
@@ -241,7 +240,7 @@ docker rm $(docker ps -a -q)
 docker rmi $(docker images -q)
 ```
 
-but `docker pull commercialhaskell/stackage:nightly` can also be run instead just to update the nightly image say.
+but `docker pull ghcr.io/commercialhaskell/stackage/build:nightly` can also be run instead just to update the nightly image say.
 
 For a new GHC version you should also delete the ~~cache~~ .stack-work snapshot install directories on the stackage-build server to
 ~~force all packages to be rebuilt~~ clear up some space. See: [issue#746](https://github.com/commercialhaskell/stackage/issues/746). Eg:
@@ -555,8 +554,7 @@ Every 3-6 months, we make a new major release of LTS. The procedure we follow fo
    relaxed upper bounds. There will likely be some hard decisions to be made
    regarding relaxing a bound versus keeping more packages. All of these changes
    occur on master and affect nightly.
-4. Once the estimated date hits, push a new `ltsXX` branch and trigger Docker
-   Hub to build a Docker image for the new release.
+4. Once the estimated date hits, push a new `ltsXX` and wait for the docker image build.
 5. Run the build procedure for the new LTS release.
 6. After the LTS build completes, more aggressively prune upper bounds from
    `build-constraints.yaml`.
