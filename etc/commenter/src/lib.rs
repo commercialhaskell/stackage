@@ -139,9 +139,11 @@ fn is_boot(package: &str) -> bool {
         "filepath",
         "deepseq",
         "ghc",
+        "ghc-bignum",
         "ghc-boot",
         "ghc-boot-th",
         "ghc-prim",
+        "ghc-lib-parser", // not a boot lib, but tied to the GHC version.
         "integer-gmp",
         "process",
         "stm",
