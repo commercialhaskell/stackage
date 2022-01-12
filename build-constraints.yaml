@@ -1441,10 +1441,11 @@ packages:
         # incompatible bounds, we would prefer they be disabled temporarily,
         # rather than disabling the latest hledger-lib and hledger.
         # (#3494/closed, #5779/closed)
-        - hledger
-        - hledger-lib
-        - hledger-ui
-        - hledger-web
+        # Temporary upper bound to avoid mistaken and deprecated 1.24.99 release:
+        - hledger     < 1.24.99
+        - hledger-lib < 1.24.99
+        - hledger-ui  < 1.24.99
+        - hledger-web < 1.24.99
 
     "Mihai Maruseac <mihai.maruseac@gmail.com> @mihaimaruseac":
         - io-manager
