@@ -22,23 +22,17 @@ enum Opt {
     Clear,
     Add,
     Outdated,
+    DiffSnapshot { a: String, b: String },
 }
 
 fn main() {
     let opt = Opt::from_args();
     match opt {
-        Opt::Clear => clear(),
+        Opt::Clear => commenter::clear(),
         Opt::Add => add(),
-        Opt::Outdated => outdated(),
+        Opt::Outdated => commenter::outdated(),
+        Opt::DiffSnapshot { a, b } => commenter::diff_snapshot(a, b),
     }
-}
-
-fn clear() {
-    commenter::clear();
-}
-
-fn outdated() {
-    commenter::outdated();
 }
 
 fn add() {
@@ -64,7 +58,7 @@ fn add() {
         } else if line == "curator: Snapshot dependency graph contains errors:" {
             process_line = true;
         } else if !process_line {
-            println!("[INFO] {}", line);
+            println!("[INFO] {line}");
         } else if let Some(cap) = package.captures(&line) {
             let root = last_header.clone().unwrap();
             let package = cap.name("package").unwrap().as_str();
@@ -100,7 +94,7 @@ fn add() {
     for (header, packages) in lib_exes {
         for (package, version, component) in packages {
             let s = printer("        ", &package, true, &version, &component, &header);
-            println!("{}", s);
+            println!("{s}");
             auto_lib_exes.push(s);
         }
     }
@@ -111,7 +105,7 @@ fn add() {
     for (header, packages) in tests {
         for (package, version, component) in packages {
             let s = printer("    ", &package, false, &version, &component, &header);
-            println!("{}", s);
+            println!("{s}");
             auto_tests.push(s);
         }
     }
@@ -122,7 +116,7 @@ fn add() {
     for (header, packages) in benches {
         for (package, version, component) in packages {
             let s = printer("    ", &package, false, &version, &component, &header);
-            println!("{}", s);
+            println!("{s}");
             auto_benches.push(s);
         }
     }
@@ -148,11 +142,6 @@ fn printer(
     let lt0 = if lt0 { " < 0" } else { "" };
     format!(
         "{indent}- {package}{lt0} # tried {package}-{version}, but its *{component}* {cause}",
-        indent = indent,
-        package = package,
-        lt0 = lt0,
-        version = version,
-        component = component,
         cause = match header {
             Header::Versioned { package, version } => format!(
                 "does not support: {package}-{version}",
