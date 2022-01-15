@@ -210,6 +210,8 @@ can modify it and push it to Github to trigger a build. The nightly
 branch is used for nightlies. For LTSes, we use the ltsX branch, where X is the
 major version number (e.g., lts3 for lts-3.\*).
 
+Update the `Win32` version in `build-constraints.yaml` under "GHC upper bounds".
+
 Note that when starting a new LTS major release, you'll need to modify `.github/workflows/image.yml` to add a new lts branch.
 
 Update `GHCVER` in `Dockerfile`. (This env var automatically gets passed to `debian-bootstrap.sh`.)
