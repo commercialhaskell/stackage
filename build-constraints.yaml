@@ -4043,7 +4043,7 @@ packages:
         - ghc-parser
 
     "Alexis Williams <alexis@typedr.at> @typedrat":
-        - stb-image-redux
+        - stb-image-redux < 0.2.1.3 || > 0.2.1.3 # deprecated version
 
     "Alexandre Peyroux <alex@px.io> @apeyroux":
         - HSlippyMap
@@ -5031,7 +5031,7 @@ packages:
         - process-extras
         - product-isomorphic
         - project-template
-        - protobuf < 0.2.1.4 # https://github.com/alphaHeavy/protobuf/issues/39
+        - protobuf < 0.2.1.4 || > 0.2.1.4 # deprecated version
         - pureMD5
         - quickcheck-instances
         - quickcheck-io
@@ -6475,8 +6475,7 @@ packages:
         - sized-grid < 0 # tried sized-grid-0.2.0.1, but its *library* does not support: lens-5.0.1
         - sized-grid < 0 # tried sized-grid-0.2.0.1, but its *library* does not support: random-1.2.1
         - skeletons < 0 # tried skeletons-0.4.0, but its *executable* requires the disabled package: tinytemplate
-        - slack-web < 0 # tried slack-web-0.3.0.1, but its *library* does not support: base-4.15.1.0
-        - slack-web < 0 # tried slack-web-0.3.0.1, but its *library* does not support: http-client-0.7.9
+        - slack-web < 0 # tried slack-web-0.4.0.0, but its *library* does not support: http-client-0.7.9
         - smallcheck-series < 0 # tried smallcheck-series-0.7.1.0, but its *library* does not support: base-4.15.1.0
         - smash-lens < 0 # tried smash-lens-0.1.0.1, but its *library* does not support: lens-5.0.1
         - snap < 0 # tried snap-1.1.3.1, but its *library* does not support: aeson-1.5.6.0
@@ -6663,6 +6662,9 @@ packages:
 
       # aeson-2
       # https://github.com/commercialhaskell/stackage/issues/6217
+      # https://github.com/commercialhaskell/stackage/issues/6402
+      # https://github.com/commercialhaskell/stackage/issues/6243
+      # https://github.com/commercialhaskell/stackage/issues/6393
       - aeson < 2.0.0.0
       - aura < 3.2.6
       - avro < 0.6.0.0
@@ -6670,6 +6672,7 @@ packages:
       - core-data < 0.3.0.0
       - eventstore < 1.4.2
       - faktory < 1.1.2.1
+      - flow < 2.0.0.0
       - forma < 1.2.0
       - geojson < 4.1.0
       - greskell < 2.0.0.0
@@ -6677,26 +6680,24 @@ packages:
       - greskell-websocket < 1.0.0.0
       - hruby < 0.4.0.0
       - hspec-expectations-json < 1.0.0.5
+      - jose < 0.9
       - jsonpath < 0.2.1.0
       - kanji < 3.5
       - microlens-aeson < 2.4
       - mmark-cli < 0.0.5.1
+      - pandoc-plot < 1.4.0
       - postgresql-binary < 0.12.4.2
       - servant-tracing < 0.2.0.0
       - shikensu < 0.4.0
       - stache < 2.3.1
       - stripe-scotty < 1.1.0.1
       - stripe-wreq < 1.0.1.12
-      - pandoc-plot < 1.4.0
+      - yaml < 0.11.7
 
       # happy-1.21.0 is deprecated an unbuildable
       # https://github.com/commercialhaskell/stackage/issues/6294
       # see also https://github.com/commercialhaskell/stackage/issues/6242
       - happy < 1.21
-
-      # https://github.com/commercialhaskell/stackage/issues/6243
-      # lift together with https://github.com/commercialhaskell/stackage/issues/6217
-      - jose < 0.9
 
       # https://github.com/commercialhaskell/stackage/issues/6264
       # Requires GHC 9.2
@@ -6758,9 +6759,6 @@ packages:
       # issue is for 5.0, but 4.0.4 is deprecated.
       - hw-kafka-client < 4.0.4
 
-      # https://github.com/commercialhaskell/stackage/issues/6393
-      - flow < 2.0.0.0 # blocked by shikensu through aeson-2.0
-
       # https://github.com/commercialhaskell/stackage/issues/6395
       - wuss < 2.0
 
@@ -6780,8 +6778,6 @@ packages:
       # https://github.com/commercialhaskell/stackage/issues/6401
       - rope-utf16-splay < 0.4
 
-      # https://github.com/commercialhaskell/stackage/issues/6402
-      - yaml < 0.11.7
 # end of packages
 
 # Package flags are applied to individual packages, and override the values of
@@ -6924,6 +6920,7 @@ skipped-builds:
 # Otherwise place them in expected-test-failures.
 skipped-tests:
     # aeson-2
+    # https://github.com/commercialhaskell/stackage/issues/6217
     - jsonifier
     - req
 
@@ -7726,6 +7723,7 @@ expected-benchmark-failures:
 # Otherwise place them in expected-benchmark-failures.
 skipped-benchmarks:
     # aeson-2
+    # https://github.com/commercialhaskell/stackage/issues/6217
     - jsonifier
 
     # Cyclic dependencies
