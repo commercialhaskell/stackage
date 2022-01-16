@@ -30,8 +30,8 @@ pub fn add(lib: Vec<String>, test: Vec<String>, bench: Vec<String>) {
 }
 
 enum VersionTag {
-    Manual(String),
-    Auto(String),
+    Manual(Version),
+    Auto(Version),
 }
 
 impl VersionTag {
@@ -42,7 +42,7 @@ impl VersionTag {
         }
     }
 
-    fn version(&self) -> &str {
+    fn version(&self) -> &Version {
         match self {
             VersionTag::Manual(s) => s,
             VersionTag::Auto(s) => s,
@@ -52,41 +52,50 @@ impl VersionTag {
 
 pub fn outdated() {
     let mut all: Vec<String> = vec![];
-    let versioned = handle(false, |_loc, lines| {
+    let (versioned, disabled) = handle(false, |_loc, lines| {
         all.extend(lines);
         vec![]
     });
-    let mut map: BTreeMap<String, VersionTag> = BTreeMap::new();
+
+    for DisabledPackage { package } in disabled {
+        println!("WARN: {package} is disabled without a noted version");
+    }
+
+    let mut map: BTreeMap<Package, VersionTag> = BTreeMap::new();
     for VersionedPackage { package, version } in versioned {
         map.insert(package, VersionTag::Manual(version));
     }
-    let mut support: BTreeMap<(String, String), BTreeSet<(String, String)>> = BTreeMap::new();
+    let mut support: BTreeMap<(Package, Version), BTreeSet<(Package, Version)>> = BTreeMap::new();
     for v in all.into_iter() {
         let caps = regex!("tried ([^ ]+)-([^,-]+),").captures(&v).unwrap();
-        let package = caps.get(1).unwrap().as_str().to_owned();
-        let version = caps.get(2).unwrap().as_str().to_owned();
+        let package = Package(caps.get(1).unwrap().as_str().to_owned());
+        let version = Version(caps.get(2).unwrap().as_str().to_owned());
         map.insert(package.clone(), VersionTag::Auto(version.clone()));
 
         if let Some(caps) = regex!("does not support: ([^ ]+)-([^-]+)").captures(&v) {
-            let dep_package = caps.get(1).unwrap().as_str().to_owned();
-            let dep_version = caps.get(2).unwrap().as_str().to_owned();
+            let dep_package = Package(caps.get(1).unwrap().as_str().to_owned());
+            let dep_version = Version(caps.get(2).unwrap().as_str().to_owned());
             let entry = support.entry((dep_package, dep_version)).or_default();
             entry.insert((package, version));
         }
     }
 
-    let entries = map.len() + support.len();
-    let mut i = 0;
+    let latest_versions = {
+        let mut packages: Vec<Package> = map.iter().map(|(package, _)| package.clone()).collect();
+        packages.append(
+            &mut support
+                .iter()
+                .map(|((package, _), _)| package.clone())
+                .collect(),
+        );
+        latest_version(packages.into_iter())
+    };
 
     for (package, version) in map {
         if is_boot(&package) {
             continue;
         }
-        if i % 100 == 0 {
-            println!("{:02}%", ((i as f64 / entries as f64) * 100.0).floor());
-        }
-        i += 1;
-        let latest = latest_version(&package);
+        let latest = latest_versions.get(&package).unwrap();
         if version.version() != latest {
             println!(
                 "{package} mismatch, {tag}: {version}, hackage: {latest}",
@@ -101,12 +110,8 @@ pub fn outdated() {
             continue;
         }
 
-        if i % 100 == 0 {
-            println!("{:02}%", ((i as f64 / entries as f64) * 100.0).floor());
-        }
-        i += 1;
-        let latest = latest_version(&package);
-        if version != latest {
+        let latest = latest_versions.get(&package).unwrap();
+        if &version != latest {
             let max = 3;
             let dependents_stripped = dependents.len().saturating_sub(max);
             let dependents = dependents
@@ -128,7 +133,7 @@ pub fn outdated() {
     }
 }
 
-fn is_boot(package: &str) -> bool {
+fn is_boot(package: &Package) -> bool {
     [
         "Cabal",
         "base",
@@ -151,13 +156,13 @@ fn is_boot(package: &str) -> bool {
         "text",
         "time",
     ]
-    .contains(&package)
+    .contains(&&*package.0)
 }
 
-fn latest_version(pkg: &str) -> String {
+fn latest_version(packages: impl Iterator<Item = Package>) -> BTreeMap<Package, Version> {
     String::from_utf8(
         Command::new("latest-version")
-            .args([pkg])
+            .args(packages.map(|p| p.0))
             .output()
             .unwrap()
             .stdout,
@@ -165,6 +170,12 @@ fn latest_version(pkg: &str) -> String {
     .unwrap()
     .trim()
     .to_owned()
+    .lines()
+    .map(|s| {
+        let VersionedPackage { package, version } = parse_versioned_package_canonical(s).unwrap();
+        (package, version)
+    })
+    .collect()
 }
 
 enum State {
@@ -178,37 +189,67 @@ enum State {
 }
 
 struct VersionedPackage {
-    package: String,
-    version: String,
+    package: Package,
+    version: Version,
 }
 
-fn parse_versioned_package(s: &str) -> Option<VersionedPackage> {
-    if let Some(caps) = regex!(r#"- *([^ ]+) < *0 *# *([\d.]+)"#).captures(s) {
-        let package = caps.get(1).unwrap().as_str().to_owned();
-        let version = caps.get(2).unwrap().as_str().to_owned();
-        Some(VersionedPackage { package, version })
-    } else if let Some(caps) = regex!(r#"- *([^ ]+) *# *([\d.]+)"#).captures(s) {
-        let package = caps.get(1).unwrap().as_str().to_owned();
-        let version = caps.get(2).unwrap().as_str().to_owned();
+fn parse_versioned_package_canonical(s: &str) -> Option<VersionedPackage> {
+    if let Some(caps) = regex!(r#"^(.+)-([\d.]+)$"#).captures(s) {
+        let package = Package(caps.get(1).unwrap().as_str().to_owned());
+        let version = Version(caps.get(2).unwrap().as_str().to_owned());
         Some(VersionedPackage { package, version })
     } else {
         None
     }
 }
 
-fn handle<F>(write: bool, mut f: F) -> Vec<VersionedPackage>
+fn parse_versioned_package_yaml(s: &str) -> Option<VersionedPackage> {
+    if let Some(caps) = regex!(r#"- *([^ ]+) < *0 *# *([\d.]+)"#).captures(s) {
+        let package = Package(caps.get(1).unwrap().as_str().to_owned());
+        let version = Version(caps.get(2).unwrap().as_str().to_owned());
+        Some(VersionedPackage { package, version })
+    } else if let Some(caps) = regex!(r#"- *([^ ]+) *# *([\d.]+)"#).captures(s) {
+        let package = Package(caps.get(1).unwrap().as_str().to_owned());
+        let version = Version(caps.get(2).unwrap().as_str().to_owned());
+        Some(VersionedPackage { package, version })
+    } else {
+        None
+    }
+}
+
+struct DisabledPackage {
+    package: String,
+}
+
+fn parse_disabled_package(s: &str) -> Option<DisabledPackage> {
+    if !regex!(r#"- *([^ ]+) < *0 *# tried"#).is_match(s) {
+        if let Some(caps) = regex!(r#"- *([^ ]+) < *0 *# *[^\d]"#).captures(s) {
+            let package = caps.get(1).unwrap().as_str().to_owned();
+            Some(DisabledPackage { package })
+        } else {
+            None
+        }
+    } else {
+        None
+    }
+}
+
+fn handle<F>(write: bool, mut f: F) -> (Vec<VersionedPackage>, Vec<DisabledPackage>)
 where
     F: FnMut(Location, Vec<String>) -> Vec<String>,
 {
     let path = "build-constraints.yaml";
     let mut new_lines: Vec<String> = vec![];
     let mut versioned_packages: Vec<VersionedPackage> = vec![];
+    let mut disabled_packages: Vec<DisabledPackage> = vec![];
 
     let mut state = State::LookingForLibBounds;
     let mut buf = vec![];
     for line in read_lines(path).map(|s| s.unwrap()) {
-        if let Some(versioned_package) = parse_versioned_package(&line) {
+        if let Some(versioned_package) = parse_versioned_package_yaml(&line) {
             versioned_packages.push(versioned_package);
+        } else if let Some(disabled_package) = parse_disabled_package(&line) {
+            disabled_packages.push(disabled_package);
         }
 
         match state {
@@ -279,7 +320,7 @@ where
         file.flush().unwrap();
     }
 
-    versioned_packages
+    (versioned_packages, disabled_packages)
 }
 
 enum Location {
@@ -298,7 +339,7 @@ where
 
 #[derive(Deserialize)]
 struct SnapshotYaml {
-    // flags: BTreeMap<PackageName, BTreeMap<PackageFlag, bool>>,
+    // flags: BTreeMap<Package, BTreeMap<PackageFlag, bool>>,
     // publish_time
     packages: Vec<SnapshotPackage>,
     // hidden
@@ -312,9 +353,9 @@ struct SnapshotPackage {
 }
 
 #[derive(PartialOrd, Ord, PartialEq, Eq, Clone)]
-struct PackageName(String);
+struct Package(String);
 
-impl fmt::Display for PackageName {
+impl fmt::Display for Package {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         self.0.fmt(f)
     }
@@ -331,7 +372,7 @@ impl fmt::Display for Version {
 
 // zstd-0.1.3.0@sha256:4c0a372251068eb6086b8c3a0a9f347488f08b570a7705844ffeb2c720c97223,3723
 struct PackageWithVersionAndSha {
-    name: PackageName,
+    name: Package,
     version: Version,
 }
 
@@ -343,7 +384,7 @@ impl<'de> serde::Deserialize<'de> for PackageWithVersionAndSha {
         let s: String = String::deserialize(deserializer)?;
         let r = regex!(r#"^(.+?)-([.\d]+)@sha256:[\da-z]+,\d+$"#);
         if let Some(caps) = r.captures(&s) {
-            let name = PackageName(caps.get(1).unwrap().as_str().to_owned());
+            let name = Package(caps.get(1).unwrap().as_str().to_owned());
             let version = Version(caps.get(2).unwrap().as_str().to_owned());
             Ok(Self { name, version })
         } else {
@@ -366,7 +407,7 @@ where
 }
 
 struct Snapshot {
-    packages: BTreeMap<PackageName, Diff<Version>>,
+    packages: BTreeMap<Package, Diff<Version>>,
 }
 
 #[derive(Clone, Copy)]
