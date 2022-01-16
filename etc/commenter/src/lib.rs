@@ -1,10 +1,13 @@
 use std::collections::{BTreeMap, BTreeSet};
+use std::error::Error;
+use std::fmt;
 use std::fs::File;
 use std::io::{BufRead, BufReader, LineWriter, Lines, Write};
 use std::path::Path;
 use std::process::Command;
 
 use lazy_regex::regex;
+use serde::{Deserialize, Deserializer};
 
 pub fn clear() {
     handle(true, |loc, _lines| match loc {
@@ -41,20 +44,20 @@ impl VersionTag {
 
     fn version(&self) -> &str {
         match self {
-            VersionTag::Manual(s) => &s,
-            VersionTag::Auto(s) => &s,
+            VersionTag::Manual(s) => s,
+            VersionTag::Auto(s) => s,
         }
     }
 }
 
 pub fn outdated() {
     let mut all: Vec<String> = vec![];
-    let disabled = handle(false, |_loc, lines| {
+    let versioned = handle(false, |_loc, lines| {
         all.extend(lines);
         vec![]
     });
     let mut map: BTreeMap<String, VersionTag> = BTreeMap::new();
-    for DisabledPackage { package, version } in disabled {
+    for VersionedPackage { package, version } in versioned {
         map.insert(package, VersionTag::Manual(version));
     }
     let mut support: BTreeMap<(String, String), BTreeSet<(String, String)>> = BTreeMap::new();
@@ -86,11 +89,9 @@ pub fn outdated() {
         let latest = latest_version(&package);
         if version.version() != latest {
             println!(
-                "{} mismatch, {}: {}, hackage: {}",
-                package,
-                version.tag(),
-                version.version(),
-                latest
+                "{package} mismatch, {tag}: {version}, hackage: {latest}",
+                tag = version.tag(),
+                version = version.version(),
             );
         }
     }
@@ -107,22 +108,21 @@ pub fn outdated() {
         let latest = latest_version(&package);
         if version != latest {
             let max = 3;
-            let dependents_stripped = dependents.len().checked_sub(max).unwrap_or(0);
+            let dependents_stripped = dependents.len().saturating_sub(max);
             let dependents = dependents
                 .into_iter()
                 .take(max)
-                .map(|(p, v)| format!("{}-{}", p, v))
+                .map(|(p, v)| format!("{p}-{v}"))
                 .collect::<Vec<String>>()
                 .join(", ");
             let dependents = if dependents_stripped > 0 {
-                format!("{} and {} more", dependents, dependents_stripped)
+                format!("{dependents} and {dependents_stripped} more")
             } else {
                 dependents
             };
 
             println!(
-                "{} mismatch, snapshot: {}, hackage: {}, dependents: {}",
-                package, version, latest, dependents,
+                "{package} mismatch, snapshot: {version}, hackage: {latest}, dependents: {dependents}"
             );
         }
     }
@@ -139,9 +139,11 @@ fn is_boot(package: &str) -> bool {
         "filepath",
         "deepseq",
         "ghc",
+        "ghc-bignum",
         "ghc-boot",
         "ghc-boot-th",
         "ghc-prim",
+        "ghc-lib-parser", // not a boot lib, but tied to the GHC version.
         "integer-gmp",
         "process",
         "stm",
@@ -175,34 +177,38 @@ enum State {
     Done,
 }
 
-struct DisabledPackage {
+struct VersionedPackage {
     package: String,
     version: String,
 }
 
-fn parse_disabled_package(s: &str) -> Option<DisabledPackage> {
+fn parse_versioned_package(s: &str) -> Option<VersionedPackage> {
     if let Some(caps) = regex!(r#"- *([^ ]+) < *0 *# *([\d.]+)"#).captures(s) {
         let package = caps.get(1).unwrap().as_str().to_owned();
         let version = caps.get(2).unwrap().as_str().to_owned();
-        Some(DisabledPackage { package, version })
+        Some(VersionedPackage { package, version })
+    } else if let Some(caps) = regex!(r#"- *([^ ]+) *# *([\d.]+)"#).captures(s) {
+        let package = caps.get(1).unwrap().as_str().to_owned();
+        let version = caps.get(2).unwrap().as_str().to_owned();
+        Some(VersionedPackage { package, version })
     } else {
         None
     }
 }
 
-fn handle<F>(write: bool, mut f: F) -> Vec<DisabledPackage>
+fn handle<F>(write: bool, mut f: F) -> Vec<VersionedPackage>
 where
     F: FnMut(Location, Vec<String>) -> Vec<String>,
 {
     let path = "build-constraints.yaml";
     let mut new_lines: Vec<String> = vec![];
-    let mut disabled_packages: Vec<DisabledPackage> = vec![];
+    let mut versioned_packages: Vec<VersionedPackage> = vec![];
 
     let mut state = State::LookingForLibBounds;
     let mut buf = vec![];
     for line in read_lines(path).map(|s| s.unwrap()) {
-        if let Some(disabled_package) = parse_disabled_package(&line) {
-            disabled_packages.push(disabled_package);
+        if let Some(versioned_package) = parse_versioned_package(&line) {
+            versioned_packages.push(versioned_package);
         }
 
         match state {
@@ -273,7 +279,7 @@ where
         file.flush().unwrap();
     }
 
-    disabled_packages
+    versioned_packages
 }
 
 enum Location {
@@ -288,4 +294,125 @@ where
 {
     let file = File::open(filename).unwrap();
     BufReader::new(file).lines()
+}
+
+#[derive(Deserialize)]
+struct SnapshotYaml {
+    // flags: BTreeMap<PackageName, BTreeMap<PackageFlag, bool>>,
+    // publish_time
+    packages: Vec<SnapshotPackage>,
+    // hidden
+    // resolver
+}
+
+#[derive(Deserialize)]
+struct SnapshotPackage {
+    hackage: PackageWithVersionAndSha,
+    // pantry-tree
+}
+
+#[derive(PartialOrd, Ord, PartialEq, Eq, Clone)]
+struct PackageName(String);
+
+impl fmt::Display for PackageName {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        self.0.fmt(f)
+    }
+}
+
+#[derive(Clone, PartialOrd, Ord, PartialEq, Eq)]
+struct Version(String);
+
+impl fmt::Display for Version {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        self.0.fmt(f)
+    }
+}
+
+// zstd-0.1.3.0@sha256:4c0a372251068eb6086b8c3a0a9f347488f08b570a7705844ffeb2c720c97223,3723
+struct PackageWithVersionAndSha {
+    name: PackageName,
+    version: Version,
+}
+
+impl<'de> serde::Deserialize<'de> for PackageWithVersionAndSha {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        let s: String = String::deserialize(deserializer)?;
+        let r = regex!(r#"^(.+?)-([.\d]+)@sha256:[\da-z]+,\d+$"#);
+        if let Some(caps) = r.captures(&s) {
+            let name = PackageName(caps.get(1).unwrap().as_str().to_owned());
+            let version = Version(caps.get(2).unwrap().as_str().to_owned());
+            Ok(Self { name, version })
+        } else {
+            Err(serde::de::Error::invalid_value(
+                serde::de::Unexpected::Other(&s),
+                &"Invalid PackageVersionWithSha",
+            ))
+        }
+    }
+}
+
+fn yaml_from_file<A, P: AsRef<Path>>(path: P) -> Result<A, Box<dyn Error>>
+where
+    A: for<'de> Deserialize<'de>,
+{
+    let file = File::open(path)?;
+    let reader = BufReader::new(file);
+    let u = serde_yaml::from_reader(reader)?;
+    Ok(u)
+}
+
+struct Snapshot {
+    packages: BTreeMap<PackageName, Diff<Version>>,
+}
+
+#[derive(Clone, Copy)]
+enum Diff<A> {
+    Left(A),
+    Right(A),
+    Both(A, A),
+}
+
+fn to_diff(a: SnapshotYaml, b: SnapshotYaml) -> Snapshot {
+    let mut packages = BTreeMap::new();
+    for s in a.packages {
+        let package = s.hackage;
+        packages.insert(package.name, Diff::Left(package.version));
+    }
+    for s in b.packages {
+        let package = s.hackage;
+        let name = package.name;
+        let version = package.version;
+        if let Some(a) = packages.remove(&name) {
+            match a {
+                Diff::Left(a) => {
+                    if a == version {
+                        packages.remove(&name);
+                    } else {
+                        packages.insert(name, Diff::Both(a, version));
+                    }
+                }
+                _ => unreachable!(),
+            }
+        } else {
+            packages.insert(name, Diff::Right(version));
+        }
+    }
+
+    Snapshot { packages }
+}
+
+pub fn diff_snapshot(a: String, b: String) {
+    let diff = to_diff(yaml_from_file(a).unwrap(), yaml_from_file(b).unwrap());
+    for (name, diff) in diff.packages {
+        let s = match diff {
+            Diff::Left(a) => format!("- {name}-{a}"),
+            Diff::Right(b) => format!("+ {name}-{b}"),
+            Diff::Both(a, b) => format!("~ {name}-{a} -> {b}"),
+        };
+        println!("{s}");
+    }
 }
