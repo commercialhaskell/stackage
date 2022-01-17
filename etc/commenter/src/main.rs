@@ -19,19 +19,21 @@ enum Header {
     about = "Automates generation of bounds in  build-constraints.yaml"
 )]
 enum Opt {
-    Clear,
     Add,
-    Outdated,
+    Clear,
     DiffSnapshot { a: String, b: String },
+    Disabled,
+    Outdated,
 }
 
 fn main() {
     let opt = Opt::from_args();
     match opt {
-        Opt::Clear => commenter::clear(),
         Opt::Add => add(),
-        Opt::Outdated => commenter::outdated(),
+        Opt::Clear => commenter::clear(),
         Opt::DiffSnapshot { a, b } => commenter::diff_snapshot(a, b),
+        Opt::Disabled => commenter::disabled(),
+        Opt::Outdated => commenter::outdated(),
     }
 }
 

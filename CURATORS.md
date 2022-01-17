@@ -533,6 +533,20 @@ TARGET=nightly-2021-01-14 \ # the date doesn't matter
   curator snapshot
 ```
 
+#### Finding disabled packages with lots of dependents
+
+`commenter disabled` prints the number of transitive dependents a disabled package has. Low hanging fruit to get a lot of packages included again.
+
+Example output:
+```
+[...]
+stringable is disabled with 10 dependents
+llvm-hs is disabled with 12 dependents
+th-data-compat is disabled with 12 dependents
+amazonka-core is disabled with 96 dependents
+gogol-core is disabled with 96 dependents
+```
+
 ## Adding new curators
 
 1. Add public ssh key to `~/.ssh/authorized_keys` on build server
