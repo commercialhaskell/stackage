@@ -164,7 +164,7 @@ fn latest_version(packages: impl Iterator<Item = Package>) -> BTreeMap<Package, 
         Command::new("latest-version")
             .args(packages.map(|p| p.0))
             .output()
-            .unwrap()
+            .expect("Could not find latest-version in PATH")
             .stdout,
     )
     .unwrap()

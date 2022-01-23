@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+if ! command -v cargo
+then
+    echo "Rust doesn't seem to be installed. https://rustup.rs/"
+    exit 1
+fi
+
+if [ "$1" = "outdated" ];
+then
+   if ! command -v latest-version &> /dev/null
+   then
+      echo "This command requires latest-version in your PATH"
+      echo "Install it with: "
+      echo "stack install --stack-yaml etc/commenter/latest-version/stack.yaml"
+      exit 1
+   fi
+fi
+
+cargo run -q --release --manifest-path etc/commenter/Cargo.toml $@
