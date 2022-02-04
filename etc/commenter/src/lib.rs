@@ -224,7 +224,7 @@ struct DisabledPackage {
 
 fn parse_disabled_package(s: &str) -> Option<DisabledPackage> {
     if !regex!(r#"- *([^ ]+) < *0 *# tried"#).is_match(s) {
-        if let Some(caps) = regex!(r#"- *([^ ]+) < *0 *# *[^\d]"#).captures(s) {
+        if let Some(caps) = regex!(r#"- *([^ ]+) < *0 *# *\d*[^\d ]"#).captures(s) {
             let package = caps.get(1).unwrap().as_str().to_owned();
             Some(DisabledPackage { package })
         } else {

@@ -37,19 +37,79 @@ fn main() {
     }
 }
 
+#[test]
+fn test_package_with_digit_after_dash() {
+    let line = "- [ ] captcha-2captcha-0.1.0.0 (==0.1.*). Edward Yang <qwbarch@gmail.com> @qwbarch. @qwbarch. Used by: library";
+    let p = parse_package_with_component(line).unwrap();
+    assert_eq!(
+        p,
+        PackageWithComponent {
+            package: "captcha-2captcha",
+            version: "0.1.0.0",
+            component: "library",
+        }
+    );
+}
+
+#[derive(Debug, PartialEq, Eq)]
+struct PackageWithComponent<'a> {
+    package: &'a str,
+    version: &'a str,
+    component: &'a str,
+}
+
+fn parse_package_with_component(s: &str) -> Option<PackageWithComponent> {
+    let package = regex!(
+        r#"^- \[ \] (?P<package>[0-9a-zA-z][a-zA-Z]([a-zA-z0-9.-]*?))-(?P<version>(\d+(\.\d+)*)) \(.+?Used by: (?P<component>.+)$"#
+    );
+    if let Some(cap) = package.captures(s) {
+        let package = cap.name("package").unwrap().as_str();
+        let version = cap.name("version").unwrap().as_str();
+        let component = cap.name("component").unwrap().as_str();
+        Some(PackageWithComponent {
+            package,
+            version,
+            component,
+        })
+    } else {
+        None
+    }
+}
+
+#[test]
+fn test_parse_header_versioned() {
+    let s = "aeson-2.0.3.0 ([changelog](http://hackage.haskell.org/package/aeson-2.0.3.0/changelog)) (Adam Bergmark <adam@bergmark.nl> @bergmark, Stackage upper bounds) is out of bounds for:";
+    let p = parse_header_versioned(s).unwrap();
+    assert_eq!(
+        p,
+        Header::Versioned {
+            package: "aeson".to_owned(),
+            version: "2.0.3.0".to_owned()
+        }
+    )
+}
+
+fn parse_header_versioned(s: &str) -> Option<Header> {
+    let header_versioned = regex!(
+        r#"^(?P<package>[\da-zA-z][a-zA-Z]([a-zA-z0-9.-]*?))-(?P<version>(\d+(\.\d+)*)).+?is out of bounds for:$"#
+    );
+    if let Some(cap) = header_versioned.captures(s) {
+        let package = cap.name("package").unwrap().as_str().to_owned();
+        let version = cap.name("version").unwrap().as_str().to_owned();
+        Some(Header::Versioned { package, version })
+    } else {
+        None
+    }
+}
+
 fn add() {
     let mut lib_exes: H = Default::default();
     let mut tests: H = Default::default();
     let mut benches: H = Default::default();
     let mut last_header: Option<Header> = None;
 
-    let header_versioned = regex!(
-        r#"^(?P<package>[a-zA-z]([a-zA-z0-9.-]*?))-(?P<version>(\d+(\.\d+)*)).+?is out of bounds for:$"#
-    );
-    let header_missing = regex!(r#"^(?P<package>[a-zA-z]([a-zA-z0-9.-]*)).+?depended on by:$"#);
-    let package = regex!(
-        r#"^- \[ \] (?P<package>[a-zA-z]([a-zA-z0-9.-]*?))-(?P<version>(\d+(\.\d+)*)).+?Used by: (?P<component>.+)$"#
-    );
+    let header_missing =
+        regex!(r#"^(?P<package>[\da-zA-z][a-zA-Z]([a-zA-z0-9.-]*)).+?depended on by:$"#);
 
     // Ignore everything until the bounds issues show up.
     let mut process_line = false;
@@ -61,11 +121,13 @@ fn add() {
             process_line = true;
         } else if !process_line {
             println!("[INFO] {line}");
-        } else if let Some(cap) = package.captures(&line) {
+        } else if let Some(PackageWithComponent {
+            package,
+            version,
+            component,
+        }) = parse_package_with_component(&line)
+        {
             let root = last_header.clone().unwrap();
-            let package = cap.name("package").unwrap().as_str();
-            let version = cap.name("version").unwrap().as_str();
-            let component = cap.name("component").unwrap().as_str();
             match component {
                 "library" | "executable" => {
                     insert(&mut lib_exes, root, package, version, component)
@@ -74,10 +136,8 @@ fn add() {
                 "test-suite" => insert(&mut tests, root, package, version, component),
                 _ => panic!("Bad component: {}", component),
             }
-        } else if let Some(cap) = header_versioned.captures(&line) {
-            let package = cap.name("package").unwrap().as_str().to_owned();
-            let version = cap.name("version").unwrap().as_str().to_owned();
-            last_header = Some(Header::Versioned { package, version });
+        } else if let Some(header_versioned) = parse_header_versioned(&line) {
+            last_header = Some(header_versioned);
         } else if let Some(cap) = header_missing.captures(&line) {
             let package = cap.name("package").unwrap().as_str().to_owned();
             last_header = Some(Header::Missing { package });
