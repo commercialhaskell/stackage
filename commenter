@@ -1,20 +1,9 @@
 #!/usr/bin/env bash
 
-if ! command -v cargo
+if ! command -v commenter &> /dev/null
 then
-    echo "Rust doesn't seem to be installed. https://rustup.rs/"
+    echo "commenter is not installed, get it from https://github.com/bergmark/commenter"
     exit 1
 fi
 
-if [ "$1" = "outdated" ];
-then
-   if ! command -v latest-version &> /dev/null
-   then
-      echo "This command requires latest-version in your PATH"
-      echo "Install it with: "
-      echo "stack install --stack-yaml etc/commenter/latest-version/stack.yaml"
-      exit 1
-   fi
-fi
-
-cargo run -q --release --manifest-path etc/commenter/Cargo.toml $@
+commenter $@
