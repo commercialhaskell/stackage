@@ -529,6 +529,36 @@ TARGET=nightly-2021-01-14 \ # the date doesn't matter
   curator snapshot
 ```
 
+#### Pinging maintainers after disabling packages
+
+After lifting a bound We often have to disable additional packages due
+to compilation failures. `affected` figures out which packages have
+been disabled and which maintainers are affected. Note that this does
+not handle disabled test suites and benchmarks as the snapshots don't
+contain this information.
+
+```
+./commenter affected <old-snapshot.yaml> <new-snapshot.yaml>
+```
+
+E.g.:
+```
+$ commenter affected ../stackage-snapshots/nightly/2022/1/2.yaml ../stackage-snapshots/nightly/2022/2/7.yaml
+```
+```
+alg-0.2.13.1: Matthew Farkas-Dyck <strake888@gmail.com> @strake
+butter-0.1.0.6: Matthew Ahrens <matt.p.ahrens@gmail.com> @mpahrens
+category-0.2.5.0: Matthew Farkas-Dyck <strake888@gmail.com> @strake
+constraint-0.1.4.0: Matthew Farkas-Dyck <strake888@gmail.com> @strake
+dl-fedora-0.9.2: Jens Petersen <juhpetersen@gmail.com> @juhp
+foldable1-0.1.0.0: Matthew Farkas-Dyck <strake888@gmail.com> @strake
+gitlab-haskell-0.3.2.0: Rob Stewart <robstewart57@gmail.com> @robstewart57
+hslua-module-doclayout-1.0.0: Albert Krewinkel <albert+stackage@zeitkraut.de> @tarleb
+util-0.1.17.1: Matthew Farkas-Dyck <strake888@gmail.com> @strake
+wai-middleware-auth-0.2.5.1: Alexey Kuleshevich <lehins@yandex.ru> @lehins
+yesod-csp-0.2.5.0: Bob Long <robertjflong@gmail.com> @bobjflong
+```
+
 #### Finding disabled packages with lots of dependents
 
 `./commenter disabled` prints the number of transitive dependents a disabled package has. Low hanging fruit to get a lot of packages included again.
