@@ -671,7 +671,7 @@ packages:
         - bench-show
         - monad-recorder
         - packcheck
-        - streamly
+        - streamly < 0.8.2
         - unicode-transforms
         - xls
 
@@ -1526,7 +1526,7 @@ packages:
         - mwc-random-monad
 
     "Flavio Corpa <flaviocorpa@gmail.com> @kutyel":
-        - language-avro
+        - language-avro < 0 # via avro
 
     "Matvey Aksenov <matvey.aksenov@gmail.com> @supki":
         - terminal-size
@@ -2704,7 +2704,7 @@ packages:
         - flexible-defaults
         - funcmp
         - hackage-db
-        - hledger-interest
+        - hledger-interest < 0      # https://github.com/commercialhaskell/stackage/issues/6473
         - hopenssl
         - hsdns
         - hsemail
@@ -3022,7 +3022,7 @@ packages:
     "Justus Adam <dev@justus.science> @JustusAdam":
         - marvin
         - marvin-interpolate
-        - mustache
+        - mustache < 0 # https://github.com/JustusAdam/mustache/issues/58
         - exit-codes >= 1.0.0
 
     "Cindy Wang <cindylinz@gmail.com> @CindyLinz":
@@ -3164,7 +3164,7 @@ packages:
         - arbor-lru-cache
         - arbor-postgres
         - asif
-        - avro
+        - avro < 0 # https://github.com/haskell-works/avro/issues/177
         - bits-extra
         - hw-balancedparens
         - hw-bits
@@ -3592,7 +3592,7 @@ packages:
         - conduit-aeson
 
     "Hans-Peter Deifel <hpd@hpdeifel.de> @hpdeifel":
-        - hledger-iadd
+        - hledger-iadd < 0          # https://github.com/commercialhaskell/stackage/issues/6473
 
     "Roy Levien <royl@aldaron.com> @orome":
         - crypto-enigma
@@ -4555,7 +4555,7 @@ packages:
         - multi-containers
 
     "Vaclav Svejcar <vaclav.svejcar@gmail.com> @vaclavsvejcar":
-        - headroom
+        - headroom < 0 # via mustache
         - vcs-ignore
 
     "Adrian Sieber <stackage@ad-si.com> @ad-si":
@@ -6855,6 +6855,7 @@ packages:
       - fourmolu < 0.5.0.0
       - cabal2spec < 2.6.3
       - filepath-bytestring < 1.4.2.1.10 # #6355/closed
+      - apply-refact < 0.10.0.0
 
       # https://github.com/commercialhaskell/stackage/issues/6268
       - hashable < 1.4.0.0
@@ -6920,6 +6921,15 @@ packages:
 
       # https://github.com/commercialhaskell/stackage/issues/6462
       - HTTP < 4000.4.0
+
+      # https://github.com/commercialhaskell/stackage/issues/6476
+      - checkers < 0.6.0
+
+      # https://github.com/commercialhaskell/stackage/issues/6477
+      - memory < 0.17
+
+      # https://github.com/commercialhaskell/stackage/issues/6478
+      - tasty-hedgehog < 1.2
 
 # end of packages
 
@@ -7412,6 +7422,10 @@ skipped-tests:
     # Failing to build aeson-2.0 bump
     - ua-parser # https://github.com/commercialhaskell/stackage/issues/6440
     - vinyl # https://github.com/commercialhaskell/stackage/issues/6444
+
+    # general failures
+    - aern2-mp            # https://github.com/michalkonecny/aern2/issues/11
+    - genvalidity-text    # https://github.com/NorfairKing/validity/issues/101
 # end of skipped-tests
 
 # Tests listed in expected-test-failures configure correctly but may fail to run
