@@ -121,7 +121,7 @@ docker run $ARGS_PREBUILD $IMAGE /bin/bash -c 'GHCVER=$(sed -n "s/^ghc-version: 
 
 case $SHORTNAME in
     lts) JOBS=1 ;;
-    nightly) JOBS=2 ;;
+    nightly) JOBS=1 ;;
 esac
 
 # Now do the actual build. We need to first set the owner of the home directory
