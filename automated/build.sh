@@ -124,6 +124,11 @@ case $SHORTNAME in
     nightly) JOBS=1 ;;
 esac
 
+if [ -e "$SHORTNAME-build.log" ]
+then
+    cp -p $SHORTNAME-build.log $SHORTNAME-build.log-previous
+fi
+
 # Now do the actual build. We need to first set the owner of the home directory
 # correctly, so we run the command as root, change owner, and then use sudo to
 # switch back to the current user
