@@ -1587,7 +1587,7 @@ packages:
         - deque
         - domain
         - domain-core
-        - domain-optics
+        - domain-optics < 0 # 0.1.0.2 compile fail (TH)
         - focus
         - hasql
         - hasql-optparse-applicative
@@ -3165,7 +3165,7 @@ packages:
         - arbor-lru-cache
         - arbor-postgres
         - asif
-        - avro < 0 # 0.6.0.1 https://github.com/haskell-works/avro/issues/177
+        - avro
         - bits-extra
         - hw-balancedparens
         - hw-bits
@@ -3625,7 +3625,7 @@ packages:
         - viewprof
 
     "Dylan Simon <dylan-stack@dylex.net> @dylex":
-        - postgresql-typed < 0 # 0.6.2.0 compile fail
+        - postgresql-typed
         - invertible
         - ztail
         - zip-stream
@@ -3804,7 +3804,7 @@ packages:
 
     "Luis Pedro Coelho <luis@luispedro.org> @luispedro":
         - safeio
-        - conduit-algorithms < 0 # 0.0.11.0 compile fail
+        - conduit-algorithms
         - conduit-zstd
 
     "Alex Biehl <alexbiehl@gmail.com> @alexbiehl":
@@ -5466,7 +5466,6 @@ packages:
         - protocol-buffers < 0 # 2.4.17
         - pushbullet-types < 0 # 0.4.1.0 compile fail aeson 2.0
         - raaz < 0 # 0.3.6 multiple libraries
-        - rawfilepath < 0 # 1.0.0
         - record-dot-preprocessor < 0 # 0.2.14
         - record-wrangler < 0 # 0.1.1.0
         - regex-compat-tdfa < 0 # 0.95.1.4
@@ -5493,7 +5492,6 @@ packages:
         - template-toolkit < 0 # 0.1.1.0 compile fail aeson 2.0
         - text-region < 0 # 0.3.1.0
         - th-data-compat < 0 # 0.1.0.0
-        - th-lego < 0 # 0.3
         - throttle-io-stream < 0 # 0.2.0.1
         - throwable-exceptions < 0 # 0.1.0.9
         - thyme < 0 # 0.3.5.5 unknown argument --cpp
@@ -5535,7 +5533,6 @@ packages:
     "Library and exe bounds failures":
         - ALUT < 0 # tried ALUT-2.4.0.3, but its *library* requires the disabled package: OpenAL
         - Agda < 0 # tried Agda-2.6.2.1, but its *library* does not support: bytestring-0.11.3.0
-        - BNFC-meta < 0 # tried BNFC-meta-0.6.1, but its *library* does not support: template-haskell-2.18.0.0
         - BiobaseENA < 0 # tried BiobaseENA-0.0.0.2, but its *library* requires the disabled package: BiobaseTypes
         - BiobaseFasta < 0 # tried BiobaseFasta-0.4.0.1, but its *library* requires the disabled package: streaming-bytestring
         - BiobaseHTTP < 0 # tried BiobaseHTTP-1.2.0, but its *library* does not support: network-3.1.2.7
@@ -5642,7 +5639,6 @@ packages:
         - airship < 0 # tried airship-0.9.4, but its *library* does not support: wai-3.2.3
         - airship < 0 # tried airship-0.9.4, but its *library* does not support: wai-extra-3.1.8
         - alarmclock < 0 # tried alarmclock-0.7.0.5, but its *library* does not support: time-1.11.1.1
-        - alex-meta < 0 # tried alex-meta-0.3.0.13, but its *library* does not support: template-haskell-2.18.0.0
         - alg < 0 # tried alg-0.2.13.1, but its *library* requires the disabled package: util
         - align-audio < 0 # tried align-audio-0.0, but its *executable* requires the disabled package: soxlib
         - alsa-seq < 0 # tried alsa-seq-0.6.0.8, but its *library* does not support: bytestring-0.11.3.0
@@ -5738,7 +5734,6 @@ packages:
         - amazonka-waf < 0 # tried amazonka-waf-1.6.1, but its *library* requires the disabled package: amazonka-core
         - amazonka-workspaces < 0 # tried amazonka-workspaces-1.6.1, but its *library* requires the disabled package: amazonka-core
         - amazonka-xray < 0 # tried amazonka-xray-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amqp-utils < 0 # tried amqp-utils-0.6.3.2, but its *executable* requires the disabled package: rawfilepath
         - ansigraph < 0 # tried ansigraph-0.3.0.5, but its *library* does not support: ansi-terminal-0.11.1
         - ansigraph < 0 # tried ansigraph-0.3.0.5, but its *library* does not support: base-4.16.1.0
         - antiope-core < 0 # tried antiope-core-7.5.3, but its *library* requires the disabled package: amazonka
@@ -5876,7 +5871,6 @@ packages:
         - bzlib < 0 # tried bzlib-0.5.1.0, but its *library* does not support: base-4.16.1.0
         - bzlib < 0 # tried bzlib-0.5.1.0, but its *library* does not support: bytestring-0.11.3.0
         - c14n < 0 # tried c14n-0.1.0.1, but its *library* does not support: bytestring-0.11.3.0
-        - cabal-appimage < 0 # tried cabal-appimage-0.3.0.3, but its *library* does not support: base-4.16.1.0
         - cabal-flatpak < 0 # tried cabal-flatpak-0.1.0.3, but its *executable* requires the disabled package: cabal-plan
         - cabal-install < 0 # tried cabal-install-3.4.1.0, but its *executable* does not support: Cabal-3.6.3.0
         - cabal-install < 0 # tried cabal-install-3.4.1.0, but its *executable* does not support: HTTP-4000.4.0
@@ -5974,6 +5968,7 @@ packages:
         - compressed < 0 # tried compressed-3.11, but its *library* does not support: containers-0.6.5.1
         - compressed < 0 # tried compressed-3.11, but its *library* does not support: hashable-1.4.0.2
         - concurrent-supply < 0 # tried concurrent-supply-0.1.8, but its *library* does not support: hashable-1.4.0.2
+        - conduit-algorithms < 0 # tried conduit-algorithms-0.0.12.0, but its *library* requires the disabled package: lzma-conduit
         - conduit-connection < 0 # tried conduit-connection-0.1.0.5, but its *library* does not support: bytestring-0.11.3.0
         - conduit-throttle < 0 # tried conduit-throttle-0.3.1.0, but its *library* requires the disabled package: throttle-io-stream
         - confcrypt < 0 # tried confcrypt-0.2.3.3, but its *library* does not support: bytestring-0.11.3.0
@@ -6092,15 +6087,12 @@ packages:
         - docopt < 0 # tried docopt-0.7.0.7, but its *library* does not support: template-haskell-2.18.0.0
         - doctest-extract < 0 # tried doctest-extract-0.1, but its *executable* does not support: optparse-applicative-0.17.0.0
         - dom-parser < 0 # tried dom-parser-3.1.0, but its *library* requires the disabled package: xml-lens
-        - domain < 0 # tried domain-0.1.1.3, but its *library* requires the disabled package: th-lego
-        - domain-core < 0 # tried domain-core-0.1.0.1, but its *library* requires the disabled package: th-lego
-        - domain-optics < 0 # tried domain-optics-0.1.0.2, but its *library* requires the disabled package: th-lego
+        - domain < 0 # tried domain-0.1.1.3, but its *library* requires the disabled package: yaml-unscrambler
         - drawille < 0 # tried drawille-0.1.2.0, but its *library* does not support: containers-0.6.5.1
         - drifter-sqlite < 0 # tried drifter-sqlite-0.1.0.0, but its *library* requires the disabled package: sqlite-simple
         - dublincore-xml-conduit < 0 # tried dublincore-xml-conduit-0.1.0.2, but its *library* requires the disabled package: timerep
         - earcut < 0 # tried earcut-0.1.0.4, but its *library* does not support: base-4.16.1.0
         - easytest < 0 # tried easytest-0.3, but its *library* does not support: hedgehog-1.1.1
-        - ede < 0 # tried ede-0.3.2.0, but its *library* does not support: aeson-2.0.3.0
         - edit < 0 # tried edit-1.0.1.0, but its *library* does not support: QuickCheck-2.14.2
         - edit < 0 # tried edit-1.0.1.0, but its *library* does not support: base-4.16.1.0
         - effect-handlers < 0 # tried effect-handlers-0.1.0.8, but its *library* does not support: free-5.1.7
@@ -6264,19 +6256,15 @@ packages:
         - glib < 0 # tried glib-0.13.8.1, but its *library* does not support: Cabal-3.6.3.0
         - glib < 0 # tried glib-0.13.8.1, but its *library* does not support: bytestring-0.11.3.0
         - glib < 0 # tried glib-0.13.8.1, but its *library* requires the disabled package: gtk2hs-buildtools
-        - gloss < 0 # tried gloss-1.13.2.1, but its *library* does not support: bytestring-0.11.3.0
+        - gloss < 0 # tried gloss-1.13.2.2, but its *library* requires the disabled package: OpenGL
         - gloss-accelerate < 0 # tried gloss-accelerate-2.1.0.0, but its *library* requires the disabled package: accelerate
-        - gloss-accelerate < 0 # tried gloss-accelerate-2.1.0.0, but its *library* requires the disabled package: gloss
-        - gloss-accelerate < 0 # tried gloss-accelerate-2.1.0.0, but its *library* requires the disabled package: gloss-rendering
         - gloss-accelerate < 0 # tried gloss-accelerate-2.1.0.0, but its *library* requires the disabled package: linear-accelerate
-        - gloss-algorithms < 0 # tried gloss-algorithms-1.13.0.2, but its *library* requires the disabled package: gloss
-        - gloss-examples < 0 # tried gloss-examples-1.13.0.3, but its *executable* does not support: bytestring-0.11.3.0
-        - gloss-examples < 0 # tried gloss-examples-1.13.0.3, but its *executable* does not support: random-1.2.1
+        - gloss-algorithms < 0 # tried gloss-algorithms-1.13.0.3, but its *library* requires the disabled package: gloss
+        - gloss-examples < 0 # tried gloss-examples-1.13.0.4, but its *executable* requires the disabled package: gloss
         - gloss-raster < 0 # tried gloss-raster-1.13.1.2, but its *library* requires the disabled package: gloss
         - gloss-raster < 0 # tried gloss-raster-1.13.1.2, but its *library* requires the disabled package: gloss-rendering
         - gloss-raster-accelerate < 0 # tried gloss-raster-accelerate-2.1.0.0, but its *library* requires the disabled package: accelerate
-        - gloss-raster-accelerate < 0 # tried gloss-raster-accelerate-2.1.0.0, but its *library* requires the disabled package: gloss
-        - gloss-rendering < 0 # tried gloss-rendering-1.13.1.1, but its *library* does not support: bytestring-0.11.3.0
+        - gloss-rendering < 0 # tried gloss-rendering-1.13.1.2, but its *library* requires the disabled package: OpenGL
         - gmail-simple < 0 # tried gmail-simple-0.1.0.4, but its *library* requires the disabled package: base64
         - gogol < 0 # tried gogol-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-adexchange-buyer < 0 # tried gogol-adexchange-buyer-0.5.0, but its *library* requires the disabled package: gogol-core
@@ -6409,10 +6397,9 @@ packages:
         - hackernews < 0 # tried hackernews-1.4.0.0, but its *library* does not support: http-client-0.7.11
         - hackernews < 0 # tried hackernews-1.4.0.0, but its *library* does not support: servant-0.19
         - hackernews < 0 # tried hackernews-1.4.0.0, but its *library* does not support: servant-client-0.19
-        - hadolint < 0 # tried hadolint-2.9.1, but its *library* does not support: deepseq-1.4.6.1
-        - hadolint < 0 # tried hadolint-2.9.1, but its *library* requires the disabled package: colourista
-        - hadolint < 0 # tried hadolint-2.9.1, but its *library* requires the disabled package: spdx
-        - hadolint < 0 # tried hadolint-2.9.1, but its *library* requires the disabled package: timerep
+        - hadolint < 0 # tried hadolint-2.9.2, but its *library* requires the disabled package: colourista
+        - hadolint < 0 # tried hadolint-2.9.2, but its *library* requires the disabled package: spdx
+        - hadolint < 0 # tried hadolint-2.9.2, but its *library* requires the disabled package: timerep
         - hadoop-streaming < 0 # tried hadoop-streaming-0.2.0.3, but its *library* does not support: bytestring-0.11.3.0
         - hakyll < 0 # tried hakyll-4.15.1.1, but its *library* does not support: template-haskell-2.18.0.0
         - hakyll-convert < 0 # tried hakyll-convert-0.3.0.4, but its *library* does not support: time-1.11.1.1
@@ -6425,7 +6412,6 @@ packages:
         - hapistrano < 0 # tried hapistrano-0.4.3.0, but its *library* does not support: time-1.11.1.1
         - happstack-hsp < 0 # tried happstack-hsp-7.3.7.5, but its *library* requires the disabled package: harp
         - happstack-jmacro < 0 # tried happstack-jmacro-7.0.12.3, but its *library* requires the disabled package: jmacro
-        - happy-meta < 0 # tried happy-meta-0.2.0.11, but its *library* does not support: template-haskell-2.18.0.0
         - hashable-time < 0 # tried hashable-time-0.3, but its *library* does not support: base-4.16.1.0
         - hashing < 0 # tried hashing-0.1.0.1, but its *library* does not support: bytestring-0.11.3.0
         - haskell-lsp < 0 # tried haskell-lsp-0.24.0.0, but its *library* does not support: aeson-2.0.3.0
@@ -6603,15 +6589,12 @@ packages:
         - hsyslog-udp < 0 # tried hsyslog-udp-0.2.5, but its *library* does not support: time-1.11.1.1
         - htoml < 0 # tried htoml-1.0.0.3, but its *library* does not support: aeson-2.0.3.0
         - hw-balancedparens < 0 # tried hw-balancedparens-0.4.1.1, but its *executable* does not support: optparse-applicative-0.17.0.0
-        - hw-bits < 0 # tried hw-bits-0.7.2.1, but its *library* does not support: bytestring-0.11.3.0
         - hw-conduit < 0 # tried hw-conduit-0.2.1.0, but its *library* does not support: bytestring-0.11.3.0
         - hw-conduit < 0 # tried hw-conduit-0.2.1.0, but its *library* does not support: time-1.11.1.1
         - hw-dsv < 0 # tried hw-dsv-0.4.1.0, but its *executable* does not support: hedgehog-1.1.1
         - hw-dsv < 0 # tried hw-dsv-0.4.1.0, but its *executable* does not support: optparse-applicative-0.17.0.0
         - hw-dsv < 0 # tried hw-dsv-0.4.1.0, but its *library* does not support: ghc-prim-0.8.0
         - hw-eliasfano < 0 # tried hw-eliasfano-0.1.2.0, but its *executable* does not support: optparse-applicative-0.17.0.0
-        - hw-excess < 0 # tried hw-excess-0.2.3.0, but its *library* requires the disabled package: hw-bits
-        - hw-ip < 0 # tried hw-ip-2.4.2.1, but its *library* requires the disabled package: hw-bits
         - hw-json < 0 # tried hw-json-1.3.2.2, but its *executable* does not support: optparse-applicative-0.17.0.0
         - hw-json < 0 # tried hw-json-1.3.2.2, but its *library* does not support: aeson-2.0.3.0
         - hw-json-simd < 0 # tried hw-json-simd-0.1.1.0, but its *executable* does not support: optparse-applicative-0.17.0.0
@@ -6619,12 +6602,9 @@ packages:
         - hw-json-standard-cursor < 0 # tried hw-json-standard-cursor-0.2.3.1, but its *executable* does not support: optparse-applicative-0.17.0.0
         - hw-packed-vector < 0 # tried hw-packed-vector-0.2.1.0, but its *executable* does not support: optparse-applicative-0.17.0.0
         - hw-rankselect < 0 # tried hw-rankselect-0.13.4.0, but its *executable* does not support: optparse-applicative-0.17.0.0
-        - hw-rankselect-base < 0 # tried hw-rankselect-base-0.3.4.1, but its *library* requires the disabled package: hw-bits
-        - hw-simd < 0 # tried hw-simd-0.1.2.0, but its *library* requires the disabled package: hw-bits
         - hw-simd < 0 # tried hw-simd-0.1.2.0, but its *library* requires the disabled package: hw-rankselect
         - hw-streams < 0 # tried hw-streams-0.0.1.0, but its *library* does not support: ghc-prim-0.8.0
         - hw-succinct < 0 # tried hw-succinct-0.1.0.1, but its *library* requires the disabled package: hw-balancedparens
-        - hw-succinct < 0 # tried hw-succinct-0.1.0.1, but its *library* requires the disabled package: hw-bits
         - hw-succinct < 0 # tried hw-succinct-0.1.0.1, but its *library* requires the disabled package: hw-rankselect
         - hw-xml < 0 # tried hw-xml-0.5.1.0, but its *executable* does not support: optparse-applicative-0.17.0.0
         - hw-xml < 0 # tried hw-xml-0.5.1.0, but its *library* does not support: ghc-prim-0.8.0
@@ -6724,7 +6704,6 @@ packages:
         - lackey < 0 # tried lackey-2.0.0.0, but its *library* requires the disabled package: servant-foreign
         - lambdabot-core < 0 # tried lambdabot-core-5.3.0.2, but its *library* does not support: random-fu-0.3.0.0
         - lambdabot-irc-plugins < 0 # tried lambdabot-irc-plugins-5.3.0.2, but its *library* requires the disabled package: lambdabot-core
-        - language-avro < 0 # tried language-avro-0.1.4.0, but its *library* requires the disabled package: avro
         - language-haskell-extract < 0 # tried language-haskell-extract-0.2.4, but its *library* does not support: template-haskell-2.18.0.0
         - language-puppet < 0 # tried language-puppet-1.4.6.5, but its *library* does not support: aeson-2.0.3.0
         - language-puppet < 0 # tried language-puppet-1.4.6.5, but its *library* does not support: base16-bytestring-1.0.2.0
@@ -6740,7 +6719,6 @@ packages:
         - lapack < 0 # tried lapack-0.5, but its *library* requires the disabled package: hyper
         - lapack-hmatrix < 0 # tried lapack-hmatrix-0.0.0.1, but its *library* requires the disabled package: lapack
         - large-hashable < 0 # tried large-hashable-0.1.0.4, but its *library* does not support: template-haskell-2.18.0.0
-        - learn-physics < 0 # tried learn-physics-0.6.5, but its *library* requires the disabled package: gloss
         - learn-physics < 0 # tried learn-physics-0.6.5, but its *library* requires the disabled package: spatial-math
         - lens-accelerate < 0 # tried lens-accelerate-0.3.0.0, but its *library* does not support: lens-5.1
         - lens-datetime < 0 # tried lens-datetime-0.3, but its *library* does not support: lens-5.1
@@ -6833,7 +6811,6 @@ packages:
         - mercury-api < 0 # tried mercury-api-0.1.0.2, but its *executable* does not support: optparse-applicative-0.17.0.0
         - mergeless < 0 # tried mergeless-0.3.0.0, but its *library* requires the disabled package: validity
         - merkle-tree < 0 # tried merkle-tree-0.1.1, but its *library* requires the disabled package: protolude
-        - messagepack < 0 # tried messagepack-0.5.4, but its *library* does not support: bytestring-0.11.3.0
         - messagepack-rpc < 0 # tried messagepack-rpc-0.5.1, but its *library* does not support: bytestring-0.11.3.0
         - messagepack-rpc < 0 # tried messagepack-rpc-0.5.1, but its *library* does not support: containers-0.6.5.1
         - microformats2-parser < 0 # tried microformats2-parser-1.0.2.0, but its *executable* requires the disabled package: aws-lambda-haskell-runtime
@@ -6944,13 +6921,11 @@ packages:
         - nri-kafka < 0 # tried nri-kafka-0.1.0.4, but its *library* requires the disabled package: nri-prelude
         - nri-observability < 0 # tried nri-observability-0.1.1.4, but its *library* requires the disabled package: nri-prelude
         - nri-postgresql < 0 # tried nri-postgresql-0.1.0.4, but its *library* requires the disabled package: nri-prelude
-        - nri-postgresql < 0 # tried nri-postgresql-0.1.0.4, but its *library* requires the disabled package: postgresql-typed
         - nri-redis < 0 # tried nri-redis-0.1.0.4, but its *library* requires the disabled package: nri-prelude
         - nri-test-encoding < 0 # tried nri-test-encoding-0.1.1.3, but its *library* does not support: servant-0.19
         - nri-test-encoding < 0 # tried nri-test-encoding-0.1.1.3, but its *library* does not support: servant-server-0.19
         - nri-test-encoding < 0 # tried nri-test-encoding-0.1.1.3, but its *library* requires the disabled package: nri-prelude
         - numhask-prelude < 0 # tried numhask-prelude-0.5.0, but its *library* does not support: numhask-0.10.0.0
-        - nvim-hs < 0 # tried nvim-hs-2.2.0.1, but its *library* requires the disabled package: messagepack
         - nvim-hs-ghcid < 0 # tried nvim-hs-ghcid-2.0.0.0, but its *library* requires the disabled package: nvim-hs-contrib
         - nvvm < 0 # tried nvvm-0.10.0.0, but its *library* requires the disabled package: cuda
         - oblivious-transfer < 0 # tried oblivious-transfer-0.1.0, but its *library* requires the disabled package: protolude
@@ -7052,7 +7027,6 @@ packages:
         - pomaps < 0 # tried pomaps-0.2.0.1, but its *library* does not support: base-4.16.1.0
         - pomaps < 0 # tried pomaps-0.2.0.1, but its *library* does not support: containers-0.6.5.1
         - pomaps < 0 # tried pomaps-0.2.0.1, but its *library* does not support: ghc-prim-0.8.0
-        - postgresql-migration < 0 # tried postgresql-migration-0.2.1.3, but its *library* does not support: time-1.11.1.1
         - postgrest < 0 # tried postgrest-8.0.0, but its *library* does not support: HTTP-4000.4.0
         - postgrest < 0 # tried postgrest-8.0.0, but its *library* does not support: aeson-2.0.3.0
         - postgrest < 0 # tried postgrest-8.0.0, but its *library* does not support: base-4.16.1.0
@@ -7154,8 +7128,6 @@ packages:
         - relude < 0 # tried relude-1.0.0.1, but its *library* does not support: base-4.16.1.0
         - relude < 0 # tried relude-1.0.0.1, but its *library* does not support: ghc-prim-0.8.0
         - relude < 0 # tried relude-1.0.0.1, but its *library* does not support: hashable-1.4.0.2
-        - repa-algorithms < 0 # tried repa-algorithms-3.4.1.4, but its *library* does not support: base-4.16.1.0
-        - repa-io < 0 # tried repa-io-3.4.1.1, but its *library* does not support: bytestring-0.11.3.0
         - req-url-extra < 0 # tried req-url-extra-0.1.1.0, but its *executable* does not support: aeson-2.0.3.0
         - req-url-extra < 0 # tried req-url-extra-0.1.1.0, but its *library* does not support: base-4.16.1.0
         - req-url-extra < 0 # tried req-url-extra-0.1.1.0, but its *library* does not support: req-3.10.0
@@ -7181,7 +7153,6 @@ packages:
         - rss-conduit < 0 # tried rss-conduit-0.6.0.1, but its *library* requires the disabled package: timerep
         - safe-coloured-text < 0 # tried safe-coloured-text-0.1.0.0, but its *library* requires the disabled package: validity
         - safe-coloured-text-terminfo < 0 # tried safe-coloured-text-terminfo-0.0.0.0, but its *library* requires the disabled package: safe-coloured-text
-        - safe-json < 0 # tried safe-json-1.1.3.0, but its *library* does not support: time-1.11.1.1
         - safe-tensor < 0 # tried safe-tensor-0.2.1.1, but its *library* does not support: singletons-3.0.1
         - salak < 0 # tried salak-0.3.6, but its *library* does not support: bytestring-0.11.3.0
         - salak < 0 # tried salak-0.3.6, but its *library* does not support: time-1.11.1.1
@@ -7395,7 +7366,7 @@ packages:
         - snap < 0 # tried snap-1.1.3.1, but its *library* requires the disabled package: snap-server
         - snap-blaze < 0 # tried snap-blaze-0.2.1.5, but its *library* requires the disabled package: snap-core
         - snap-core < 0 # tried snap-core-1.0.5.0, but its *library* does not support: hashable-1.4.0.2
-        - soap < 0 # tried soap-0.2.3.6, but its *library* does not support: bytestring-0.11.3.0
+        - soap < 0 # tried soap-0.2.3.6, but its *library* requires the disabled package: iconv
         - soap-openssl < 0 # tried soap-openssl-0.1.0.2, but its *library* requires the disabled package: soap
         - soap-tls < 0 # tried soap-tls-0.1.1.4, but its *library* requires the disabled package: soap
         - socket < 0 # tried socket-0.8.3.0, but its *library* does not support: bytestring-0.11.3.0
@@ -7706,8 +7677,6 @@ packages:
         - zm < 0 # tried zm-0.3.2, but its *library* does not support: containers-0.6.5.1
         - zm < 0 # tried zm-0.3.2, but its *library* does not support: flat-0.4.4
         - zm < 0 # tried zm-0.3.2, but its *library* does not support: model-0.5
-        - ztail < 0 # tried ztail-1.2.0.2, but its *executable* does not support: bytestring-0.11.3.0
-        - ztail < 0 # tried ztail-1.2.0.2, but its *executable* does not support: time-1.11.1.1
         - zydiskell < 0 # tried zydiskell-0.2.0.0, but its *library* does not support: base-4.16.1.0
         - zydiskell < 0 # tried zydiskell-0.2.0.0, but its *library* does not support: bytestring-0.11.3.0
         - zydiskell < 0 # tried zydiskell-0.2.0.0, but its *library* does not support: storable-record-0.0.6
@@ -8040,6 +8009,7 @@ skipped-tests:
     - distributed-process-lifted # tried distributed-process-lifted-0.3.0.1, but its *test-suite* does not support: network-transport-tcp-0.8.0
     - distributed-process-lifted # tried distributed-process-lifted-0.3.0.1, but its *test-suite* requires the disabled package: rematch
     - doldol # tried doldol-0.4.1.2, but its *test-suite* requires the disabled package: test-framework-th
+    - domain-optics # tried domain-optics-0.1.0.2, but its *test-suite* requires the disabled package: domain
     - drawille # tried drawille-0.1.2.0, but its *test-suite* does not support: hspec-2.9.4
     - dual-tree # tried dual-tree-0.2.3.0, but its *test-suite* requires the disabled package: testing-feat
     - ed25519 # tried ed25519-0.0.5.0, but its *test-suite* does not support: QuickCheck-2.14.2
@@ -8121,8 +8091,6 @@ skipped-tests:
     - http-streams # tried http-streams-0.8.9.6, but its *test-suite* requires the disabled package: snap-server
     - hw-balancedparens # tried hw-balancedparens-0.4.1.1, but its *test-suite* does not support: doctest-0.20.0
     - hw-balancedparens # tried hw-balancedparens-0.4.1.1, but its *test-suite* does not support: hedgehog-1.1.1
-    - hw-bits # tried hw-bits-0.7.2.1, but its *test-suite* does not support: doctest-0.20.0
-    - hw-bits # tried hw-bits-0.7.2.1, but its *test-suite* does not support: hedgehog-1.1.1
     - hw-conduit # tried hw-conduit-0.2.1.0, but its *test-suite* does not support: doctest-0.20.0
     - hw-conduit # tried hw-conduit-0.2.1.0, but its *test-suite* does not support: hspec-2.9.4
     - hw-diagnostics # tried hw-diagnostics-0.0.1.0, but its *test-suite* does not support: doctest-0.20.0
@@ -8912,7 +8880,6 @@ skipped-benchmarks:
     - haskell-tools-cli # tried haskell-tools-cli-1.1.1.0, but its *benchmarks* does not support: aeson-2.0.3.0
     - haskell-tools-cli # tried haskell-tools-cli-1.1.1.0, but its *benchmarks* does not support: time-1.11.1.1
     - heist # tried heist-1.1.0.1, but its *benchmarks* does not support: statistics-0.16.0.2
-    - hip # tried hip-1.5.6.0, but its *benchmarks* requires the disabled package: repa-algorithms
     - lz4 # tried lz4-0.2.3.1, but its *benchmarks* requires the disabled package: snappy
     - o-clock # tried o-clock-1.2.1.1, but its *benchmarks* requires the disabled package: tiempo
     - psqueues # tried psqueues-0.2.7.3, but its *benchmarks* requires the disabled package: PSQueue
