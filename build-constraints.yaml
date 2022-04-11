@@ -7122,6 +7122,8 @@ packages:
         - sqlite-simple < 0 # tried sqlite-simple-0.4.18.0, but its *library* does not support: semigroups-0.20
         - sqlite-simple-errors < 0 # tried sqlite-simple-errors-0.6.1.0, but its *library* does not support: text-1.2.5.0
         - srt-dhall < 0 # tried srt-dhall-0.1.0.0, but its *library* does not support: dhall-1.41.1
+        - stack < 0 # tried stack-2.7.5, but its *library* does not support: Cabal-3.6.3.0
+        - stack < 0 # tried stack-2.7.5, but its *library* does not support: aeson-2.0.3.0
         - stackcollapse-ghc < 0 # tried stackcollapse-ghc-0.0.1.4, but its *executable* does not support: base-4.16.1.0
         - stm-supply < 0 # tried stm-supply-0.2.0.0, but its *library* requires the disabled package: concurrent-supply
         - streaming-attoparsec < 0 # tried streaming-attoparsec-1.0.0.1, but its *library* requires the disabled package: streaming-bytestring
@@ -8111,6 +8113,7 @@ expected-test-failures:
     - aeson-combinators # 0.1.0.0: spec executable not found
     - algebraic-graphs # Module not visible https://github.com/commercialhaskell/stackage/issues/4670
     - base32
+    - binary-generic-combinators # 0.4.4.0 negative quickcheck resize
     - binary-parsers # runtime failure https://github.com/winterland1989/binary-parsers/issues/3
     - blaze-colonnade
     - bsb-http-chunked
@@ -8168,6 +8171,7 @@ expected-test-failures:
     - numhask-array
     - ochintin-daicho
     - openapi3
+    - opentelemetry-extra # 0.8.0 negative quickcheck resize
     - optics # 0.4.1
     - pcre-heavy
     - persistent-sqlite # https://github.com/yesodweb/persistent/issues/989
@@ -8177,6 +8181,7 @@ expected-test-failures:
     - rando # https://github.com/commercialhaskell/stackage/issues/4249
     - rank1dynamic
     - rescue
+    - roc-id # 0.1.0.0 negative quickcheck resize
     - rose-trees
     - safe-decimal
     - simple-affine-space
@@ -8699,7 +8704,6 @@ no-revisions:
 - cryptonite
 - foundation
 - gauge
-- stack
 - http-download
 - rio-prettyprint
 - hi-file-parser
