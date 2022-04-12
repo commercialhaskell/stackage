@@ -7370,7 +7370,12 @@ packages:
         - zydiskell < 0 # tried zydiskell-0.2.0.0, but its *library* does not support: storable-record-0.0.6
     # End of Library and exe bounds failures
 
-    "Stackage upper bounds": []
+    "Stackage upper bounds":
+        # https://github.com/commercialhaskell/stackage/issues/6537
+        # only compile failures in reverse dependencies
+        - persistent < 2.14
+        - persistent-qq < 2.12.0.3
+        - persistent-test < 2.13.1.3
 
 # end of packages
 
