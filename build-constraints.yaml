@@ -7908,11 +7908,6 @@ skipped-tests:
     - zm # tried zm-0.3.2, but its *test-suite* does not support: timeit-2.0
     # End of Test bounds issues
 
-    # Failing to build aeson-2.0 bump
-    - ua-parser # https://github.com/commercialhaskell/stackage/issues/6440
-    - vinyl # https://github.com/commercialhaskell/stackage/issues/6444
-    - htoml-megaparsec # https://github.com/commercialhaskell/stackage/pull/6533
-
     # general failures
     - aern2-mp            # https://github.com/michalkonecny/aern2/issues/11
     - genvalidity-text    # https://github.com/NorfairKing/validity/issues/101
@@ -8106,56 +8101,31 @@ expected-test-failures:
     # Testcase assertion failures, or other runtime failures.
     # These can be real testsuite bugs, or maybe limitations in test cases or the test setup.
     #
-    - JuicyPixels-blurhash
     - OrderedBits # 0.0.2.0
-    - aeson-casing
-    - aeson-combinators # 0.1.0.0: spec executable not found
     - algebraic-graphs # Module not visible https://github.com/commercialhaskell/stackage/issues/4670
-    - base32
     - binary-generic-combinators # 0.4.4.0 negative quickcheck resize
-    - binary-parsers # runtime failure https://github.com/winterland1989/binary-parsers/issues/3
-    - blaze-colonnade
-    - bsb-http-chunked
-    - c2hs
-    - cfenv # https://github.com/tomphp/haskell-cfenv/issues/1
+    - bsb-http-chunked # 0.0.0.4
+    - c2hs # 0.28.8
+    - cfenv # 0.1.0.0 https://github.com/tomphp/haskell-cfenv/issues/1
     - character-cases # 0.1.0.6 https://github.com/aiya000/hs-character-cases/issues/3
-    - colonnade
-    - composable-associations-aeson
-    - control-dsl
-    - crypto-enigma
+    - control-dsl # 0.2.1.3
     - cryptostore # 0.2.1.0
-    - curl-runnings
-    - dbus # https://github.com/commercialhaskell/stackage/issues/6373
-    - debian
-    - dhall-yaml # https://github.com/commercialhaskell/stackage/issues/5640
-    - dimensional
-    - download # https://github.com/fpco/stackage/issues/2811
-    - duration
-    - ede
-    - exp-pairs # https://github.com/Bodigrim/exp-pairs/issues/16
+    - curl-runnings # 0.17.0
+    - dbus # 1.2.24 https://github.com/commercialhaskell/stackage/issues/6373
+    - dimensional # 1.4
+    - download # 0.3.2.7 https://github.com/fpco/stackage/issues/2811
+    - duration # 0.2.0.0
     - extra # 1.7.10
-    - fixed-vector-hetero
+    - fixed-vector-hetero # 0.6.1.1
     - generic-data # 0.9.2.1
-    - generic-optics # optimization output https://github.com/kcsongor/generic-lens/issues/133
-    - genvalidity-persistent
-    - genvalidity-property
-    - ghc-prof
-    - gingersnap
-    - github-types
-    - haskeline # https://github.com/commercialhaskell/stackage/issues/5439
-    - haskell-src-exts # https://github.com/commercialhaskell/stackage/issues/5151
+    - generic-optics # 2.2.1.0 optimization output https://github.com/kcsongor/generic-lens/issues/133
+    - haskeline # 0.8.2 https://github.com/commercialhaskell/stackage/issues/5439
     - haskoin-core
-    - hgeometry-combinatorial
-    - hpack # https://github.com/commercialhaskell/stackage/issues/4512
-    - hpack-dhall # https://github.com/BlockScope/hpack-dhall/issues/25
+    - hgeometry-combinatorial # 0.14
     - hruby # 0.5.0.0
-    - hspec-golden-aeson
-    - jose
-    - justified-containers
-    - jwt
-    - katip
-    - language-docker # https://github.com/commercialhaskell/stackage/issues/5407
-    - lens-regex
+    - hspec-golden-aeson # 0.9.0.0
+    - justified-containers # 0.3.0.0
+    - jwt # 0.11.0
     - list-transformer
     - lz4-frame-conduit # https://github.com/nh2/lz4-frame-conduit/issues/3
     - massiv-io
@@ -8214,6 +8184,8 @@ expected-test-failures:
     - reanimate # https://github.com/commercialhaskell/stackage/issues/5626
 
     # Compilation failures
+    - ua-parser # 0.7.7.0 https://github.com/commercialhaskell/stackage/issues/6440
+    - htoml-megaparsec # 2.1.0.4 https://github.com/commercialhaskell/stackage/pull/6533
     - acid-state # 0.16.1
     - blake2 # 0.3.0
     - blas-hs # 0.1.1.0
@@ -8279,6 +8251,7 @@ expected-test-failures:
 
     # doctests can be flaky on the build server, add packages here if
     # they start causing issues.
+    - lens-regex # 0.1.3
     - bookkeeping
     - detour-via-sci # https://github.com/commercialhaskell/stackage/issues/6360
     - dhall
@@ -8305,7 +8278,6 @@ expected-test-failures:
     # Misc. Please check if there is a better section before adding more packages here.
     - ghc-exactprint # https://github.com/alanz/ghc-exactprint/issues/82
     - ghcid # Weird conflicts with sandboxingistributed/distributed-process-supervisor/issues/1
-
     - hspec-expectations-pretty-diff # https://github.com/unrelentingtech/hspec-expectations-pretty-diff/issues/7
     - hw-kafka-client # missing exe https://github.com/commercialhaskell/stackage/pull/5542
     - pandoc # https://github.com/jgm/pandoc/issues/5582
@@ -8326,7 +8298,7 @@ expected-test-failures:
     - servant-ruby # Module not visible https://github.com/commercialhaskell/stackage/issues/4650
     - skews # https://github.com/iij-ii/direct-hs/issues/100
     - stm-delay # https://github.com/joeyadams/haskell-stm-delay/issues/5
-    - tar-conduit # to get fixed in version after 0.3.2 https://github.com/snoyberg/tar-conduit/issues/28
+    - tar-conduit # 0.3.2 to get fixed in version after 0.3.2 https://github.com/snoyberg/tar-conduit/issues/28
     - tasty-discover # https://github.com/commercialhaskell/stackage/issues/4722
     - threads # https://github.com/basvandijk/threads/issues/10
     - tmp-postgres # https://github.com/jfischoff/tmp-postgres/issues/1
