@@ -1161,6 +1161,10 @@ packages:
         - yesod-page-cursor
         - yesod-routes-flow
 
+        # Transitive dependencies of country, which is a dependency of our bcp47
+        # packages. Maintaining on behalf of andrewthad.
+        - bytehash
+
     "Felipe Lessa <felipe.lessa@gmail.com> @meteficha":
         - fb
         - nonce
@@ -5783,8 +5787,6 @@ packages:
         - base32-lens < 0 # tried base32-lens-0.1.1.1, but its *library* does not support: lens-5.1
         - base64-lens < 0 # tried base64-lens-0.3.1, but its *library* does not support: bytestring-0.11.3.0
         - base64-lens < 0 # tried base64-lens-0.3.1, but its *library* does not support: lens-5.1
-        - bcp47 < 0 # tried bcp47-0.2.0.6, but its *library* requires the disabled package: country
-        - bcp47-orphans < 0 # tried bcp47-orphans-0.1.0.5, but its *library* requires the disabled package: bcp47
         - beam-mysql < 0 # tried beam-mysql-0.2.0.0, but its *library* does not support: aeson-2.0.3.0
         - beam-mysql < 0 # tried beam-mysql-0.2.0.0, but its *library* does not support: beam-core-0.9.2.1
         - beam-mysql < 0 # tried beam-mysql-0.2.0.0, but its *library* does not support: bytestring-0.11.3.0
@@ -5943,7 +5945,6 @@ packages:
         - configurator-pg < 0 # tried configurator-pg-0.2.5, but its *library* does not support: megaparsec-9.2.0
         - constraint < 0 # tried constraint-0.1.4.0, but its *library* requires the disabled package: category
         - containers-unicode-symbols < 0 # tried containers-unicode-symbols-0.3.1.3, but its *library* does not support: containers-0.6.5.1
-        - country < 0 # tried country-0.2.2, but its *library* requires the disabled package: bytehash
         - cql-io < 0 # tried cql-io-1.1.1, but its *library* requires the disabled package: cql
         - crackNum < 0 # tried crackNum-3.2, but its *executable* requires the disabled package: sbv
         - crc32c < 0 # tried crc32c-0.0.0, but its *library* does not support: bytestring-0.11.3.0
