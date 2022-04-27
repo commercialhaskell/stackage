@@ -3981,6 +3981,7 @@ packages:
         - genvalidity
         - genvalidity-aeson
         - genvalidity-bytestring
+        - genvalidity-case-insensitive
         - genvalidity-containers
         - genvalidity-criterion
         - genvalidity-hspec
@@ -4008,21 +4009,37 @@ packages:
         - genvalidity-uuid
         - genvalidity-vector
         - mergeful
+        - mergeful-persistent
         - mergeless
+        - mergeless-persistent
         - pretty-relative-time
         - safe-coloured-text
+        - safe-coloured-text-gen
+        - safe-coloured-text-layout
+        - safe-coloured-text-layout-gen
         - safe-coloured-text-terminfo
         - sydtest
+        - sydtest-aeson
+        - sydtest-amqp
         - sydtest-discover
+        - sydtest-hedgehog
+        - sydtest-hedis
+        - sydtest-hspec
+        - sydtest-mongo
         - sydtest-persistent
+        - sydtest-persistent-postgresql
         - sydtest-persistent-sqlite
+        - sydtest-process
+        - sydtest-rabbitmq
         - sydtest-servant
+        - sydtest-typed-process
         - sydtest-wai
         - sydtest-yesod
         - typed-uuid
         - validity
         - validity-aeson
         - validity-bytestring
+        - validity-case-insensitive
         - validity-containers
         - validity-path
         - validity-persistent
@@ -4033,7 +4050,16 @@ packages:
         - validity-unordered-containers
         - validity-uuid
         - validity-vector
-        - yamlparse-applicative
+
+      # webdriver has not been enabled
+      # - sydtest-webdriver
+      # - sydtest-webdriver-screenshot
+      # - sydtest-webdriver-yesod
+      #
+      # appendful hasn't been updated to newer persistent versions yet.
+      # - appendful
+      # - appendful-persistent
+      # - genvalidity-appendful
 
 
     "Henry Laxen <nadine.and.henry@pobox.com> @HenryLaxen":
@@ -5372,7 +5398,6 @@ packages:
         - aeson-lens < 0 # 0.5.0.0
         - aeson-with < 0 # 0.1.2.0 compile fail aeson 2.0
         - auto < 0 # 0.4.3.1
-        - autodocodec < 0 # 0.0.1.0 compile fail aeson 2.0
         - aws-lambda-haskell-runtime < 0 # 4.1.1 compile fail aeson 2.0
         - backprop < 0 # 0.2.6.4
         - binary-ext < 0 # 2.0.4
@@ -5447,7 +5472,6 @@ packages:
         - machines-binary < 0 # 7.0.0.0
         - machines-io < 0 # 7.0.0.0
         - marvin-interpolate < 0 # 1.1.2
-        - mergeful < 0 # 0.2.0.0 compile fail aeson 2.0
         - mltool < 0 # 0.2.0.1
         - moesocks < 0 # 1.0.1.0
         - monad-recorder < 0 # 0.1.1
@@ -5516,8 +5540,6 @@ packages:
         - universum < 0 # 1.7.3
         - unordered-intmap < 0 # 0.1.1
         - users-persistent < 0 # 0.5.0.2
-        - validity < 0 # 0.12.0.0
-        - validity-aeson < 0 # 0.2.0.4 compile fail aeson 2.0
         - wai-predicates < 0 # 1.0.0
         - webex-teams-pipes < 0 # 0.2.0.1
         - websockets-rpc < 0 # 0.7.0
@@ -5752,11 +5774,6 @@ packages:
         - audacity < 0 # tried audacity-0.0.2.1, but its *library* does not support: bytestring-0.11.3.0
         - aura < 0 # tried aura-3.2.7, but its *library* does not support: bytestring-0.11.3.0
         - aura < 0 # tried aura-3.2.7, but its *library* does not support: time-1.11.1.1
-        - autodocodec-openapi3 < 0 # tried autodocodec-openapi3-0.2.0.0, but its *library* requires the disabled package: autodocodec
-        - autodocodec-schema < 0 # tried autodocodec-schema-0.1.0.0, but its *library* requires the disabled package: autodocodec
-        - autodocodec-schema < 0 # tried autodocodec-schema-0.1.0.0, but its *library* requires the disabled package: validity
-        - autodocodec-schema < 0 # tried autodocodec-schema-0.1.0.0, but its *library* requires the disabled package: validity-aeson
-        - autodocodec-yaml < 0 # tried autodocodec-yaml-0.1.0.0, but its *library* requires the disabled package: autodocodec
         - avers < 0 # tried avers-0.0.17.1, but its *library* does not support: aeson-2.0.3.0
         - avers < 0 # tried avers-0.0.17.1, but its *library* does not support: attoparsec-0.14.4
         - avers < 0 # tried avers-0.0.17.1, but its *library* does not support: base-4.16.1.0
@@ -5958,13 +5975,6 @@ packages:
         - css-syntax < 0 # tried css-syntax-0.1.0.0, but its *library* does not support: base-4.16.1.0
         - cublas < 0 # tried cublas-0.6.0.0, but its *library* requires the disabled package: cuda
         - cufft < 0 # tried cufft-0.10.0.0, but its *library* requires the disabled package: cuda
-        - cursor < 0 # tried cursor-0.3.2.0, but its *library* requires the disabled package: validity
-        - cursor-brick < 0 # tried cursor-brick-0.1.0.1, but its *library* requires the disabled package: cursor
-        - cursor-fuzzy-time < 0 # tried cursor-fuzzy-time-0.0.0.0, but its *library* requires the disabled package: validity
-        - cursor-gen < 0 # tried cursor-gen-0.4.0.0, but its *library* requires the disabled package: cursor
-        - cursor-gen < 0 # tried cursor-gen-0.4.0.0, but its *library* requires the disabled package: genvalidity
-        - cursor-gen < 0 # tried cursor-gen-0.4.0.0, but its *library* requires the disabled package: genvalidity-containers
-        - cursor-gen < 0 # tried cursor-gen-0.4.0.0, but its *library* requires the disabled package: genvalidity-text
         - cusolver < 0 # tried cusolver-0.3.0.0, but its *library* requires the disabled package: cuda
         - cusparse < 0 # tried cusparse-0.3.0.0, but its *library* requires the disabled package: cuda
         - cutter < 0 # tried cutter-0.0, but its *executable* does not support: bytestring-0.11.3.0
@@ -6086,63 +6096,12 @@ packages:
         - friday-juicypixels < 0 # tried friday-juicypixels-0.1.2.4, but its *library* requires the disabled package: friday
         - fswatch < 0 # tried fswatch-0.1.0.6, but its *library* does not support: base-4.16.1.0
         - fswatch < 0 # tried fswatch-0.1.0.6, but its *library* does not support: haskeline-0.8.2
-        - fuzzy-time < 0 # tried fuzzy-time-0.2.0.0, but its *library* requires the disabled package: validity
         - galois-field < 0 # tried galois-field-1.0.2, but its *library* does not support: poly-0.5.0.0
         - galois-field < 0 # tried galois-field-1.0.2, but its *library* does not support: protolude-0.3.0
         - gdax < 0 # tried gdax-0.6.0.0, but its *library* requires the disabled package: regex-tdfa-text
         - generic-xmlpickler < 0 # tried generic-xmlpickler-0.1.0.6, but its *library* does not support: base-4.16.1.0
         - generic-xmlpickler < 0 # tried generic-xmlpickler-0.1.0.6, but its *library* does not support: generic-deriving-1.14.1
         - geniplate-mirror < 0 # tried geniplate-mirror-0.7.8, but its *library* does not support: template-haskell-2.18.0.0
-        - genvalidity < 0 # tried genvalidity-1.0.0.1, but its *library* requires the disabled package: validity
-        - genvalidity-aeson < 0 # tried genvalidity-aeson-1.0.0.0, but its *library* requires the disabled package: validity
-        - genvalidity-aeson < 0 # tried genvalidity-aeson-1.0.0.0, but its *library* requires the disabled package: validity-aeson
-        - genvalidity-bytestring < 0 # tried genvalidity-bytestring-1.0.0.0, but its *library* requires the disabled package: validity
-        - genvalidity-containers < 0 # tried genvalidity-containers-1.0.0.0, but its *library* requires the disabled package: validity
-        - genvalidity-criterion < 0 # tried genvalidity-criterion-1.0.0.0, but its *library* requires the disabled package: genvalidity
-        - genvalidity-hspec < 0 # tried genvalidity-hspec-1.0.0.0, but its *library* requires the disabled package: validity
-        - genvalidity-hspec-aeson < 0 # tried genvalidity-hspec-aeson-1.0.0.0, but its *library* requires the disabled package: genvalidity
-        - genvalidity-hspec-aeson < 0 # tried genvalidity-hspec-aeson-1.0.0.0, but its *library* requires the disabled package: genvalidity-hspec
-        - genvalidity-hspec-binary < 0 # tried genvalidity-hspec-binary-1.0.0.0, but its *library* requires the disabled package: genvalidity
-        - genvalidity-hspec-binary < 0 # tried genvalidity-hspec-binary-1.0.0.0, but its *library* requires the disabled package: genvalidity-hspec
-        - genvalidity-hspec-cereal < 0 # tried genvalidity-hspec-cereal-1.0.0.0, but its *library* requires the disabled package: genvalidity
-        - genvalidity-hspec-cereal < 0 # tried genvalidity-hspec-cereal-1.0.0.0, but its *library* requires the disabled package: genvalidity-hspec
-        - genvalidity-hspec-hashable < 0 # tried genvalidity-hspec-hashable-1.0.0.0, but its *library* requires the disabled package: validity
-        - genvalidity-hspec-optics < 0 # tried genvalidity-hspec-optics-1.0.0.0, but its *library* requires the disabled package: genvalidity
-        - genvalidity-hspec-optics < 0 # tried genvalidity-hspec-optics-1.0.0.0, but its *library* requires the disabled package: genvalidity-hspec
-        - genvalidity-hspec-persistent < 0 # tried genvalidity-hspec-persistent-1.0.0.0, but its *library* requires the disabled package: genvalidity
-        - genvalidity-hspec-persistent < 0 # tried genvalidity-hspec-persistent-1.0.0.0, but its *library* requires the disabled package: genvalidity-hspec
-        - genvalidity-mergeful < 0 # tried genvalidity-mergeful-0.3.0.0, but its *library* requires the disabled package: mergeful
-        - genvalidity-mergeless < 0 # tried genvalidity-mergeless-0.3.0.0, but its *library* requires the disabled package: genvalidity
-        - genvalidity-mergeless < 0 # tried genvalidity-mergeless-0.3.0.0, but its *library* requires the disabled package: genvalidity-containers
-        - genvalidity-mergeless < 0 # tried genvalidity-mergeless-0.3.0.0, but its *library* requires the disabled package: mergeless
-        - genvalidity-path < 0 # tried genvalidity-path-1.0.0.0, but its *library* requires the disabled package: genvalidity
-        - genvalidity-path < 0 # tried genvalidity-path-1.0.0.0, but its *library* requires the disabled package: validity-path
-        - genvalidity-persistent < 0 # tried genvalidity-persistent-1.0.0.0, but its *library* requires the disabled package: genvalidity
-        - genvalidity-persistent < 0 # tried genvalidity-persistent-1.0.0.0, but its *library* requires the disabled package: genvalidity-containers
-        - genvalidity-persistent < 0 # tried genvalidity-persistent-1.0.0.0, but its *library* requires the disabled package: validity-containers
-        - genvalidity-persistent < 0 # tried genvalidity-persistent-1.0.0.0, but its *library* requires the disabled package: validity-persistent
-        - genvalidity-property < 0 # tried genvalidity-property-1.0.0.0, but its *library* requires the disabled package: validity
-        - genvalidity-scientific < 0 # tried genvalidity-scientific-1.0.0.0, but its *library* requires the disabled package: validity
-        - genvalidity-sydtest < 0 # tried genvalidity-sydtest-1.0.0.0, but its *library* requires the disabled package: validity
-        - genvalidity-sydtest-aeson < 0 # tried genvalidity-sydtest-aeson-1.0.0.0, but its *library* requires the disabled package: genvalidity
-        - genvalidity-sydtest-aeson < 0 # tried genvalidity-sydtest-aeson-1.0.0.0, but its *library* requires the disabled package: genvalidity-sydtest
-        - genvalidity-sydtest-aeson < 0 # tried genvalidity-sydtest-aeson-1.0.0.0, but its *library* requires the disabled package: sydtest
-        - genvalidity-sydtest-hashable < 0 # tried genvalidity-sydtest-hashable-1.0.0.0, but its *library* requires the disabled package: validity
-        - genvalidity-sydtest-lens < 0 # tried genvalidity-sydtest-lens-1.0.0.0, but its *library* requires the disabled package: genvalidity
-        - genvalidity-sydtest-lens < 0 # tried genvalidity-sydtest-lens-1.0.0.0, but its *library* requires the disabled package: genvalidity-sydtest
-        - genvalidity-sydtest-lens < 0 # tried genvalidity-sydtest-lens-1.0.0.0, but its *library* requires the disabled package: sydtest
-        - genvalidity-sydtest-persistent < 0 # tried genvalidity-sydtest-persistent-1.0.0.0, but its *library* requires the disabled package: genvalidity
-        - genvalidity-sydtest-persistent < 0 # tried genvalidity-sydtest-persistent-1.0.0.0, but its *library* requires the disabled package: genvalidity-sydtest
-        - genvalidity-sydtest-persistent < 0 # tried genvalidity-sydtest-persistent-1.0.0.0, but its *library* requires the disabled package: sydtest
-        - genvalidity-text < 0 # tried genvalidity-text-1.0.0.1, but its *library* requires the disabled package: validity
-        - genvalidity-time < 0 # tried genvalidity-time-1.0.0.0, but its *library* requires the disabled package: genvalidity
-        - genvalidity-time < 0 # tried genvalidity-time-1.0.0.0, but its *library* requires the disabled package: validity-time
-        - genvalidity-typed-uuid < 0 # tried genvalidity-typed-uuid-0.1.0.1, but its *library* requires the disabled package: genvalidity
-        - genvalidity-typed-uuid < 0 # tried genvalidity-typed-uuid-0.1.0.1, but its *library* requires the disabled package: genvalidity-uuid
-        - genvalidity-typed-uuid < 0 # tried genvalidity-typed-uuid-0.1.0.1, but its *library* requires the disabled package: typed-uuid
-        - genvalidity-unordered-containers < 0 # tried genvalidity-unordered-containers-1.0.0.0, but its *library* requires the disabled package: validity
-        - genvalidity-uuid < 0 # tried genvalidity-uuid-1.0.0.0, but its *library* requires the disabled package: validity
-        - genvalidity-vector < 0 # tried genvalidity-vector-1.0.0.0, but its *library* requires the disabled package: validity
         - ghc-clippy-plugin < 0 # tried ghc-clippy-plugin-0.0.0.1, but its *library* does not support: dhall-1.41.1
         - ghc-clippy-plugin < 0 # tried ghc-clippy-plugin-0.0.0.1, but its *library* does not support: ghc-9.2.2
         - ghc-parser < 0 # tried ghc-parser-0.2.3.0, but its *library* does not support: ghc-9.2.2
@@ -6662,7 +6621,6 @@ packages:
         - medea < 0 # tried medea-1.2.0, but its *library* does not support: hashable-1.4.0.2
         - menshen < 0 # tried menshen-0.0.3, but its *library* does not support: regex-tdfa-1.3.1.2
         - mercury-api < 0 # tried mercury-api-0.1.0.2, but its *executable* does not support: optparse-applicative-0.17.0.0
-        - mergeless < 0 # tried mergeless-0.3.0.0, but its *library* requires the disabled package: validity
         - merkle-tree < 0 # tried merkle-tree-0.1.1, but its *library* requires the disabled package: protolude
         - messagepack-rpc < 0 # tried messagepack-rpc-0.5.1, but its *library* does not support: bytestring-0.11.3.0
         - messagepack-rpc < 0 # tried messagepack-rpc-0.5.1, but its *library* does not support: containers-0.6.5.1
@@ -6866,7 +6824,6 @@ packages:
         - pred-set < 0 # tried pred-set-0.0.1, but its *library* requires the disabled package: HSet
         - pred-trie < 0 # tried pred-trie-0.6.1, but its *library* requires the disabled package: pred-set
         - pred-trie < 0 # tried pred-trie-0.6.1, but its *library* requires the disabled package: tries
-        - pretty-relative-time < 0 # tried pretty-relative-time-0.3.0.0, but its *library* requires the disabled package: validity
         - printcess < 0 # tried printcess-0.1.0.3, but its *library* does not support: containers-0.6.5.1
         - printcess < 0 # tried printcess-0.1.0.3, but its *library* does not support: lens-5.1
         - product-isomorphic < 0 # tried product-isomorphic-0.0.3.3, but its *library* requires the disabled package: th-data-compat
@@ -6954,8 +6911,6 @@ packages:
         - rope-utf16-splay < 0 # tried rope-utf16-splay-0.4.0.0, but its *library* does not support: text-1.2.5.0
         - rpmbuild-order < 0 # tried rpmbuild-order-0.4.5, but its *library* requires the disabled package: graphviz
         - rss-conduit < 0 # tried rss-conduit-0.6.0.1, but its *library* requires the disabled package: timerep
-        - safe-coloured-text < 0 # tried safe-coloured-text-0.1.0.0, but its *library* requires the disabled package: validity
-        - safe-coloured-text-terminfo < 0 # tried safe-coloured-text-terminfo-0.0.0.0, but its *library* requires the disabled package: safe-coloured-text
         - safe-tensor < 0 # tried safe-tensor-0.2.1.1, but its *library* does not support: singletons-3.0.1
         - salak < 0 # tried salak-0.3.6, but its *library* does not support: bytestring-0.11.3.0
         - salak < 0 # tried salak-0.3.6, but its *library* does not support: time-1.11.1.1
@@ -7170,11 +7125,6 @@ packages:
         - swagger-petstore < 0 # tried swagger-petstore-0.0.2.0, but its *library* does not support: time-1.11.1.1
         - sweet-egison < 0 # tried sweet-egison-0.1.1.3, but its *library* requires the disabled package: egison-pattern-src
         - sweet-egison < 0 # tried sweet-egison-0.1.1.3, but its *library* requires the disabled package: egison-pattern-src-th-mode
-        - sydtest < 0 # tried sydtest-0.9.0.0, but its *library* requires the disabled package: autodocodec
-        - sydtest-persistent < 0 # tried sydtest-persistent-0.0.0.0, but its *library* requires the disabled package: sydtest
-        - sydtest-servant < 0 # tried sydtest-servant-0.2.0.1, but its *library* requires the disabled package: sydtest
-        - sydtest-wai < 0 # tried sydtest-wai-0.2.0.0, but its *library* requires the disabled package: sydtest
-        - sydtest-yesod < 0 # tried sydtest-yesod-0.3.0.0, but its *library* requires the disabled package: sydtest
         - synthesizer-alsa < 0 # tried synthesizer-alsa-0.5.0.6, but its *library* requires the disabled package: alsa-seq
         - synthesizer-alsa < 0 # tried synthesizer-alsa-0.5.0.6, but its *library* requires the disabled package: midi
         - synthesizer-alsa < 0 # tried synthesizer-alsa-0.5.0.6, but its *library* requires the disabled package: synthesizer-dimensional
@@ -7230,8 +7180,6 @@ packages:
         - ttl-hashtables < 0 # tried ttl-hashtables-1.4.1.0, but its *library* does not support: hashtables-1.3
         - type-combinators-singletons < 0 # tried type-combinators-singletons-0.2.1.0, but its *library* requires the disabled package: type-combinators
         - type-errors-pretty < 0 # tried type-errors-pretty-0.0.1.2, but its *library* does not support: base-4.16.1.0
-        - typed-uuid < 0 # tried typed-uuid-0.2.0.0, but its *library* requires the disabled package: autodocodec
-        - typed-uuid < 0 # tried typed-uuid-0.2.0.0, but its *library* requires the disabled package: validity
         - ucam-webauth < 0 # tried ucam-webauth-0.1.0.0, but its *library* does not support: aeson-2.0.3.0
         - ucam-webauth < 0 # tried ucam-webauth-0.1.0.0, but its *library* does not support: attoparsec-0.14.4
         - ucam-webauth < 0 # tried ucam-webauth-0.1.0.0, but its *library* does not support: base-4.16.1.0
@@ -7257,17 +7205,6 @@ packages:
         - utf8-light < 0 # tried utf8-light-0.4.2, but its *library* does not support: base-4.16.1.0
         - vado < 0 # tried vado-0.0.13, but its *library* does not support: attoparsec-0.14.4
         - vado < 0 # tried vado-0.0.13, but its *library* does not support: base-4.16.1.0
-        - validity-bytestring < 0 # tried validity-bytestring-0.4.1.1, but its *library* requires the disabled package: validity
-        - validity-containers < 0 # tried validity-containers-0.5.0.4, but its *library* requires the disabled package: validity
-        - validity-path < 0 # tried validity-path-0.4.0.1, but its *library* requires the disabled package: validity
-        - validity-persistent < 0 # tried validity-persistent-0.0.0.0, but its *library* requires the disabled package: validity
-        - validity-primitive < 0 # tried validity-primitive-0.0.0.1, but its *library* requires the disabled package: validity
-        - validity-scientific < 0 # tried validity-scientific-0.2.0.3, but its *library* requires the disabled package: validity
-        - validity-text < 0 # tried validity-text-0.3.1.2, but its *library* requires the disabled package: validity
-        - validity-time < 0 # tried validity-time-0.5.0.0, but its *library* requires the disabled package: validity
-        - validity-unordered-containers < 0 # tried validity-unordered-containers-0.2.0.3, but its *library* requires the disabled package: validity
-        - validity-uuid < 0 # tried validity-uuid-0.1.0.3, but its *library* requires the disabled package: validity
-        - validity-vector < 0 # tried validity-vector-0.2.0.3, but its *library* requires the disabled package: validity
         - vcswrapper < 0 # tried vcswrapper-0.1.6, but its *library* does not support: base-4.16.1.0
         - vcswrapper < 0 # tried vcswrapper-0.1.6, but its *library* does not support: containers-0.6.5.1
         - vector-fftw < 0 # tried vector-fftw-0.1.4.0, but its *library* does not support: base-4.16.1.0
@@ -7329,7 +7266,6 @@ packages:
         - xml-isogen < 0 # tried xml-isogen-0.3.0, but its *library* requires the disabled package: dom-parser
         - xmlbf-xmlhtml < 0 # tried xmlbf-xmlhtml-0.2, but its *library* requires the disabled package: xmlhtml
         - xmlhtml < 0 # tried xmlhtml-0.2.5.2, but its *library* does not support: bytestring-0.11.3.0
-        - yamlparse-applicative < 0 # tried yamlparse-applicative-0.2.0.1, but its *library* requires the disabled package: validity
         - yeshql < 0 # tried yeshql-4.2.0.0, but its *library* does not support: yeshql-core-4.2.0.0
         - yeshql < 0 # tried yeshql-4.2.0.0, but its *library* requires the disabled package: yeshql-hdbc
         - yesod-auth-bcryptdb < 0 # tried yesod-auth-bcryptdb-0.3.0.1, but its *library* does not support: persistent-2.13.3.5
@@ -7598,8 +7534,19 @@ skipped-tests:
     # @jsynacek
     - hpqtypes # needs a running postgres database
     - hpqtypes-extras # needs a running postgres database
+
     # norfairking
     - autodocodec # runs doctest
+    - sydtest-amqp # runs rabbitmq
+    - sydtest-rabbitmq # runs rabbitmq
+    - sydtest-hedis # runs redis
+    - sydtest-mongo # runs mongo
+    - sydtest-persistent-sqlite # runs sqlite
+    - sydtest-persistent-postgresql # runs postgres
+    - sydtest-webdriver # runs chromium
+    - sydtest-webdriver-screenshot # runs chromium
+    - sydtest-webdriver-yesod # runs chromium
+
     - captcha-core
     - captcha-2captcha
     - captcha-capmonster
@@ -7694,7 +7641,6 @@ skipped-tests:
     - conduit-parse # tried conduit-parse-0.2.1.0, but its *test-suite* requires the disabled package: hlint
     - csg # tried csg-0.1.0.6, but its *test-suite* does not support: doctest-0.20.0
     - csg # tried csg-0.1.0.6, but its *test-suite* does not support: tasty-1.4.2.1
-    - cursor-gen # tried cursor-gen-0.4.0.0, but its *test-suite* requires the disabled package: genvalidity-hspec
     - detour-via-sci # tried detour-via-sci-1.0.0, but its *test-suite* requires the disabled package: hlint
     - dialogflow-fulfillment # tried dialogflow-fulfillment-0.1.1.4, but its *test-suite* does not support: hspec-2.9.6
     - dialogflow-fulfillment # tried dialogflow-fulfillment-0.1.1.4, but its *test-suite* does not support: hspec-discover-2.9.6
@@ -7728,20 +7674,6 @@ skipped-tests:
     - galois-field # tried galois-field-1.0.2, but its *test-suite* does not support: semirings-0.6
     - galois-field # tried galois-field-1.0.2, but its *test-suite* does not support: tasty-1.4.2.1
     - generic-xmlpickler # tried generic-xmlpickler-0.1.0.6, but its *test-suite* does not support: tasty-1.4.2.1
-    - genvalidity-hspec-aeson # tried genvalidity-hspec-aeson-1.0.0.0, but its *test-suite* requires the disabled package: validity
-    - genvalidity-hspec-binary # tried genvalidity-hspec-binary-1.0.0.0, but its *test-suite* requires the disabled package: validity
-    - genvalidity-hspec-cereal # tried genvalidity-hspec-cereal-1.0.0.0, but its *test-suite* requires the disabled package: validity
-    - genvalidity-hspec-optics # tried genvalidity-hspec-optics-1.0.0.0, but its *test-suite* requires the disabled package: validity
-    - genvalidity-hspec-persistent # tried genvalidity-hspec-persistent-1.0.0.0, but its *test-suite* requires the disabled package: validity
-    - genvalidity-mergeless # tried genvalidity-mergeless-0.3.0.0, but its *test-suite* requires the disabled package: genvalidity-hspec
-    - genvalidity-mergeless # tried genvalidity-mergeless-0.3.0.0, but its *test-suite* requires the disabled package: genvalidity-uuid
-    - genvalidity-path # tried genvalidity-path-1.0.0.0, but its *test-suite* requires the disabled package: genvalidity-hspec
-    - genvalidity-persistent # tried genvalidity-persistent-1.0.0.0, but its *test-suite* requires the disabled package: genvalidity-hspec
-    - genvalidity-sydtest-aeson # tried genvalidity-sydtest-aeson-1.0.0.0, but its *test-suite* requires the disabled package: validity
-    - genvalidity-sydtest-lens # tried genvalidity-sydtest-lens-1.0.0.0, but its *test-suite* requires the disabled package: validity
-    - genvalidity-sydtest-persistent # tried genvalidity-sydtest-persistent-1.0.0.0, but its *test-suite* requires the disabled package: validity
-    - genvalidity-time # tried genvalidity-time-1.0.0.0, but its *test-suite* requires the disabled package: genvalidity-hspec
-    - genvalidity-typed-uuid # tried genvalidity-typed-uuid-0.1.0.1, but its *test-suite* requires the disabled package: genvalidity-hspec
     - ghc-prof # tried ghc-prof-1.4.1.9, but its *test-suite* does not support: attoparsec-0.14.4
     - gitlib-libgit2 # tried gitlib-libgit2-3.1.2.1, but its *test-suite* requires the disabled package: gitlib-test
     - greskell # tried greskell-2.0.0.0, but its *test-suite* does not support: bytestring-0.11.3.0
@@ -7811,7 +7743,6 @@ skipped-tests:
     - oset # tried oset-0.4.0.1, but its *test-suite* does not support: hspec-2.9.6
     - oset # tried oset-0.4.0.1, but its *test-suite* does not support: hspec-discover-2.9.6
     - password-instances # tried password-instances-3.0.0.0, but its *test-suite* requires the disabled package: password
-    - path # tried path-0.9.2, but its *test-suite* requires the disabled package: validity
     - pipes-fluid # tried pipes-fluid-0.6.0.1, but its *test-suite* requires the disabled package: pipes-misc
     - polysemy # tried polysemy-1.7.1.0, but its *test-suite* does not support: doctest-0.20.0
     - polysemy-plugin # tried polysemy-plugin-0.4.3.0, but its *test-suite* does not support: doctest-0.20.0
@@ -7916,7 +7847,6 @@ skipped-tests:
 
     # general failures
     - aern2-mp            # https://github.com/michalkonecny/aern2/issues/11
-    - genvalidity-text    # https://github.com/NorfairKing/validity/issues/101
 
     # ???
     - incremental-parser # 0.5.0.3 Main: executable not found
