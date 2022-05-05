@@ -64,7 +64,7 @@ packages:
         - cabal-clean
         - fix-whitespace
         - goldplate
-        - hackage-cli
+        - hackage-cli < 0 # via http-io-streams
         - hasktags
         - hs-tags
         - java-adt
@@ -84,10 +84,10 @@ packages:
         - tasty-silver
         - acid-state
         - rss
-        - brotli
-        - brotli-streams
+        - brotli < 0 # https://github.com/commercialhaskell/stackage/issues/6563
+        - brotli-streams < 0 # via brotli
         - xor
-        - http-io-streams
+        - http-io-streams < 0 # via brotli-streams
 
     "Diogo Biazus <diogo@biazus.ca>":
         - hasql-notifications
