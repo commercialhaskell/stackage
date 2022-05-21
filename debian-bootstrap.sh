@@ -57,6 +57,7 @@ apt-get install -y \
     libalut-dev \
     libasound2-dev \
     libblas-dev \
+    libbrotli-dev \
     libbz2-dev \
     libcairo2-dev \
     libclang-3.9-dev \
@@ -90,8 +91,8 @@ apt-get install -y \
     libicu-dev \
     libimlib2-dev \
     libjack-jackd2-dev \
-    libjavascriptcoregtk-4.0-dev \
     libjansson-dev \
+    libjavascriptcoregtk-4.0-dev \
     libjudy-dev \
     liblapack-dev \
     libleveldb-dev \
@@ -109,8 +110,8 @@ apt-get install -y \
     libmysqlclient-dev \
     libncurses5-dev \
     libnfc-dev \
-    liboath-dev \
     libnotify-dev \
+    liboath-dev \
     libopenal-dev \
     libpango1.0-dev \
     libpcap0.8-dev \
@@ -145,8 +146,8 @@ apt-get install -y \
     libxss-dev \
     libyaml-dev \
     libzip-dev \
-    libzstd-dev \
     libzmq3-dev \
+    libzstd-dev \
     llvm-7 \
     llvm-8 \
     llvm-9 \
