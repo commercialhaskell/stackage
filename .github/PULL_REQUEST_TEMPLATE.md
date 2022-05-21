@@ -1,9 +1,9 @@
 Checklist:
 - [ ] Meaningful commit message, eg `add my-cool-package` (please don't mention `build-constraints.yml`)
 - [ ] At least 30 minutes have passed since uploading to Hackage
-- [ ] (Optional, replaced by GitHub Action check) On your own machine, you have successfully run the following command (find verify-package in the root of this repo):
-
-      ./verify-package $package # or $package-$version
+- [ ] If applicable, required system libraries are added to [debian-bootstrap.sh](https://github.com/commercialhaskell/stackage/blob/master/debian-bootstrap.sh)
+- [ ] (optional) Package is compatible with the latest version of all dependencies (Run `cabal update && cabal outdated`)
+- [ ] (optional) Package have been verified to work with the latest nightly snapshot, e.g by running the [verify-package script](https://github.com/commercialhaskell/stackage/blob/master/verify-package)
 
 The script runs virtually the following commands in a clean directory:
 
@@ -11,12 +11,3 @@ The script runs virtually the following commands in a clean directory:
       cd $package-$version
       rm -f stack.yaml && stack init --resolver nightly --ignore-subdirs
       stack build --resolver nightly --haddock --test --bench --no-run-benchmarks
-
-
-### CI
-
-Our CI tries to line up build-constraints.yaml with the current state
-of Hackage. This means that failures that are unrelated to your PR may
-cause the check to fail. If you think a failure is unrelated you can
-simply ignore it and the Curators will let you know if there is
-anything you need to do.
