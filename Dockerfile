@@ -5,8 +5,8 @@ ENV LANG en_US.UTF-8
 ENV GHCVER 9.0.2
 
 # NOTE: also update debian-bootstrap.sh when cuda version changes
-ENV PATH /home/stackage/.stack/programs/x86_64-linux/ghc-$GHCVER/bin:/usr/local/cuda-10.0/bin:/usr/sbin:/usr/bin:/sbin:/bin
-ENV CUDA_PATH /usr/local/cuda-10.0
+# ENV PATH /home/stackage/.stack/programs/x86_64-linux/ghc-$GHCVER/bin:/usr/local/cuda-10.0/bin:/usr/sbin:/usr/bin:/sbin:/bin
+# ENV CUDA_PATH /usr/local/cuda-10.0
 
 ADD debian-bootstrap.sh /tmp/debian-bootstrap.sh
 RUN /tmp/debian-bootstrap.sh && rm /tmp/debian-bootstrap.sh
