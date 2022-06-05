@@ -661,7 +661,7 @@ packages:
         - stm-supply
         - filter-logger
         - tile
-        - mbtiles
+        - mbtiles < 0 # 0.6.0.0 compile fail
 
     "James M.C. Haver II <mchaver@gmail.com> @mchaver":
         - quickcheck-arbitrary-adt
@@ -1174,6 +1174,7 @@ packages:
         - hspec-junit-formatter
         - nonempty-zipper
         - sendgrid-v3
+        - scientist
         - yesod-auth-oauth2
         - yesod-page-cursor
         - yesod-routes-flow
@@ -2760,7 +2761,7 @@ packages:
         - random-tree
         - clumpiness
         - find-clumpiness
-        - blosum
+        - blosum < 0 # 0.1.1.4 compile fail
         - rank-product < 0 # 0.2.2.0 compile fail
 
     "Simon Marechal <bartavelle@gmail.com> @bartavelle":
@@ -4413,7 +4414,7 @@ packages:
         - stack-templatizer
         - immortal-queue
         - wai-middleware-clacks
-        - hledger-stockquotes < 0 # https://github.com/commercialhaskell/stackage/issues/6607
+        - hledger-stockquotes < 0 # 0.1.2.0 compile fail https://github.com/commercialhaskell/stackage/issues/6607
         - bnb-staking-csvs
         - solana-staking-csvs
         - cointracking-imports
@@ -5078,6 +5079,7 @@ packages:
         - lzma-clib
         - managed
         - math-functions
+        - memcache
         - mersenne-random
         - mersenne-random-pure64
         - mfsolve
@@ -5501,7 +5503,6 @@ packages:
         - pipes-aeson < 0 # 0.4.1.8
         - pipes-binary < 0 # 0.4.3
         - pipes-network < 0 # 0.6.5
-        - pipes-text < 0 # 1.0.0
         - pkcs10 < 0 # 0.2.0.0
         - planb-token-introspection < 0  # 0.1.4.0
         - postgresql-orm < 0 # 0.5.1
@@ -5567,7 +5568,6 @@ packages:
     # for compilation failures as we need to build those packages to
     # verify if they have been fixeq.
     "Library and exe bounds failures":
-        - ALUT < 0 # tried ALUT-2.4.0.3, but its *library* requires the disabled package: OpenAL
         - BiobaseENA < 0 # tried BiobaseENA-0.0.0.2, but its *library* requires the disabled package: BiobaseTypes
         - BiobaseFasta < 0 # tried BiobaseFasta-0.4.0.1, but its *library* requires the disabled package: BiobaseTypes
         - BiobaseHTTP < 0 # tried BiobaseHTTP-1.2.0, but its *library* requires network < =2.8.0.0 and the snapshot contains network-3.1.2.7
@@ -5580,7 +5580,6 @@ packages:
         - EntrezHTTP < 0 # tried EntrezHTTP-1.0.4, but its *library* requires the disabled package: Taxonomy
         - FPretty < 0 # tried FPretty-1.1, but its *library* requires base >=4.5 && < 4.11 and the snapshot contains base-4.16.1.0
         - Frames < 0 # tried Frames-0.7.3, but its *library* requires the disabled package: readable
-        - GLUT < 0 # tried GLUT-2.7.0.16, but its *library* requires the disabled package: OpenGL
         - GPipe < 0 # tried GPipe-2.2.5, but its *library* requires hashtables >=1.2 && < 1.3 and the snapshot contains hashtables-1.3
         - GPipe < 0 # tried GPipe-2.2.5, but its *library* requires linear >=1.18 && < 1.21 and the snapshot contains linear-1.21.9
         - Genbank < 0 # tried Genbank-1.0.3, but its *library* requires the disabled package: biocore
@@ -5598,7 +5597,7 @@ packages:
         - JuicyPixels-blp < 0 # tried JuicyPixels-blp-0.2.0.0, but its *library* requires attoparsec >=0.12 && < 0.14 and the snapshot contains attoparsec-0.14.4
         - JuicyPixels-blp < 0 # tried JuicyPixels-blp-0.2.0.0, but its *library* requires bytestring >=0.10 && < 0.11 and the snapshot contains bytestring-0.11.3.0
         - JuicyPixels-blp < 0 # tried JuicyPixels-blp-0.2.0.0, but its *library* requires hashable >=1.2 && < 1.4 and the snapshot contains hashable-1.4.0.2
-        - JuicyPixels-blp < 0 # tried JuicyPixels-blp-0.2.0.0, but its *library* requires text-show >=3.7 && < 3.9 and the snapshot contains text-show-3.9.6
+        - JuicyPixels-blp < 0 # tried JuicyPixels-blp-0.2.0.0, but its *library* requires text-show >=3.7 && < 3.9 and the snapshot contains text-show-3.9.7
         - JuicyPixels-blurhash < 0 # tried JuicyPixels-blurhash-0.1.0.3, but its *library* requires bytestring >=0.9 && < 0.11 and the snapshot contains bytestring-0.11.3.0
         - MFlow < 0 # tried MFlow-0.4.6.0, but its *library* requires the disabled package: TCache
         - MFlow < 0 # tried MFlow-0.4.6.0, but its *library* requires the disabled package: Workflow
@@ -5607,8 +5606,6 @@ packages:
         - Network-NineP < 0 # tried Network-NineP-0.4.7.1, but its *library* requires bytestring >=0.9.2.1 && < 0.11 and the snapshot contains bytestring-0.11.3.0
         - Network-NineP < 0 # tried Network-NineP-0.4.7.1, but its *library* requires the disabled package: mstate
         - NoTrace < 0 # tried NoTrace-0.3.0.4, but its *library* requires base >=4.7 && < 4.13 and the snapshot contains base-4.16.1.0
-        - OpenAL < 0 # tried OpenAL-1.7.0.5, but its *library* requires the disabled package: OpenGL
-        - OpenGL < 0 # tried OpenGL-3.0.3.0, but its *library* requires bytestring >=0.9 && < 0.11 and the snapshot contains bytestring-0.11.3.0
         - RNAlien < 0 # tried RNAlien-1.7.0, but its *library* requires BiobaseFasta ==0.3.0.* and the snapshot contains BiobaseFasta-0.4.0.1
         - RNAlien < 0 # tried RNAlien-1.7.0, but its *library* requires BiobaseHTTP ==1.1.0 and the snapshot contains BiobaseHTTP-1.2.0
         - RNAlien < 0 # tried RNAlien-1.7.0, but its *library* requires BiobaseTypes ==0.2.0.* and the snapshot contains BiobaseTypes-0.2.1.0
@@ -5761,7 +5758,6 @@ packages:
         - antiope-sqs < 0 # tried antiope-sqs-7.5.3, but its *library* requires the disabled package: amazonka
         - antiope-sqs < 0 # tried antiope-sqs-7.5.3, but its *library* requires the disabled package: amazonka-core
         - aos-signature < 0 # tried aos-signature-0.1.1, but its *library* requires the disabled package: protolude
-        - apecs-gloss < 0 # tried apecs-gloss-0.2.4, but its *library* requires the disabled package: gloss
         - arbor-postgres < 0 # tried arbor-postgres-0.0.5, but its *library* requires bytestring >=0.10 && < 0.11 and the snapshot contains bytestring-0.11.3.0
         - arbor-postgres < 0 # tried arbor-postgres-0.0.5, but its *library* requires lens >=4.16 && < 5 and the snapshot contains lens-5.1.1
         - arbor-postgres < 0 # tried arbor-postgres-0.0.5, but its *library* requires optparse-applicative >=0.14 && < 0.16 and the snapshot contains optparse-applicative-0.17.0.0
@@ -5805,17 +5801,16 @@ packages:
         - beam-mysql < 0 # tried beam-mysql-0.2.0.0, but its *library* requires hashable >=1.1 && < 1.3 and the snapshot contains hashable-1.4.0.2
         - beam-mysql < 0 # tried beam-mysql-0.2.0.0, but its *library* requires mysql >=0.1 && < 0.2 and the snapshot contains mysql-0.2.1
         - beam-mysql < 0 # tried beam-mysql-0.2.0.0, but its *library* requires time >=1.6 && < 1.10 and the snapshot contains time-1.11.1.1
-        - beam-sqlite < 0 # tried beam-sqlite-0.5.1.2, but its *library* requires the disabled package: sqlite-simple
-        - bhoogle < 0 # tried bhoogle-0.1.3.5, but its *executable* requires brick >=0.37.1 && < 0.44.0 and the snapshot contains brick-0.68.1
+        - bhoogle < 0 # tried bhoogle-0.1.3.5, but its *executable* requires brick >=0.37.1 && < 0.44.0 and the snapshot contains brick-0.69
         - bhoogle < 0 # tried bhoogle-0.1.3.5, but its *executable* requires bytestring >=0.10.8.2 && < 0.10.9.0 and the snapshot contains bytestring-0.11.3.0
         - bhoogle < 0 # tried bhoogle-0.1.3.5, but its *executable* requires directory >=1.3.0.2 && < 1.3.2.0 and the snapshot contains directory-1.3.6.2
         - bhoogle < 0 # tried bhoogle-0.1.3.5, but its *executable* requires filepath >=1.4.1.2 && < 1.4.2.0 and the snapshot contains filepath-1.4.2.2
         - bhoogle < 0 # tried bhoogle-0.1.3.5, but its *executable* requires lens >=4.16.1 && < 4.17.0 and the snapshot contains lens-5.1.1
         - bhoogle < 0 # tried bhoogle-0.1.3.5, but its *executable* requires process >=1.6.3.0 && < 1.6.4.0 and the snapshot contains process-1.6.13.2
-        - bhoogle < 0 # tried bhoogle-0.1.3.5, but its *executable* requires protolude >=0.2.2 && < 0.2.3 and the snapshot contains protolude-0.3.0
+        - bhoogle < 0 # tried bhoogle-0.1.3.5, but its *executable* requires protolude >=0.2.2 && < 0.2.3 and the snapshot contains protolude-0.3.1
         - bhoogle < 0 # tried bhoogle-0.1.3.5, but its *executable* requires text >=1.2.3.0 && < 1.2.4.0 and the snapshot contains text-1.2.5.0
         - bhoogle < 0 # tried bhoogle-0.1.3.5, but its *executable* requires time >=1.8.0.2 && < 1.8.1.0 and the snapshot contains time-1.11.1.1
-        - bhoogle < 0 # tried bhoogle-0.1.3.5, but its *executable* requires typed-process >=0.2.2.0 && < 0.2.4.0 and the snapshot contains typed-process-0.2.8.0
+        - bhoogle < 0 # tried bhoogle-0.1.3.5, but its *executable* requires typed-process >=0.2.2.0 && < 0.2.4.0 and the snapshot contains typed-process-0.2.10.1
         - bhoogle < 0 # tried bhoogle-0.1.3.5, but its *executable* requires vector >=0.12.0.1 && < 0.12.2.0 and the snapshot contains vector-0.12.3.1
         - bhoogle < 0 # tried bhoogle-0.1.3.5, but its *executable* requires vty >=5.21 && < 5.27 and the snapshot contains vty-5.35.1
         - binary-bits < 0 # tried binary-bits-0.5, but its *library* requires base >=4 && < 4.13 and the snapshot contains base-4.16.1.0
@@ -5838,7 +5833,6 @@ packages:
         - bitcoin-types < 0 # tried bitcoin-types-0.9.2, but its *library* requires the disabled package: hexstring
         - blastxml < 0 # tried blastxml-0.3.2, but its *library* requires the disabled package: biocore
         - blaze-colonnade < 0 # tried blaze-colonnade-1.2.2.1, but its *library* requires the disabled package: colonnade
-        - blosum < 0 # tried blosum-0.1.1.4, but its *executable* requires the disabled package: pipes-text
         - board-games < 0 # tried board-games-0.3, but its *library* requires the disabled package: cgi
         - boolean-normal-forms < 0 # tried boolean-normal-forms-0.0.1.1, but its *library* requires base >=4.6 && < 4.14 and the snapshot contains base-4.16.1.0
         - both < 0 # tried both-0.1.1.2, but its *library* requires the disabled package: zero
@@ -5919,21 +5913,15 @@ packages:
         - colour-accelerate < 0 # tried colour-accelerate-0.4.0.0, but its *library* requires the disabled package: accelerate
         - compact < 0 # tried compact-0.2.0.0, but its *library* requires base >=4.10 && < 4.16 and the snapshot contains base-4.16.1.0
         - compact < 0 # tried compact-0.2.0.0, but its *library* requires bytestring >=0.10 && < 0.11 and the snapshot contains bytestring-0.11.3.0
-        - composite-aeson < 0 # tried composite-aeson-0.7.5.0, but its *library* requires aeson >=1.1.2.0 && < 1.6 and the snapshot contains aeson-2.0.3.0
-        - composite-aeson < 0 # tried composite-aeson-0.7.5.0, but its *library* requires generic-deriving >=1.11.2 && < 1.14 and the snapshot contains generic-deriving-1.14.1
-        - composite-aeson < 0 # tried composite-aeson-0.7.5.0, but its *library* requires hashable >=1.2.6.1 && < 1.4 and the snapshot contains hashable-1.4.0.2
-        - composite-aeson < 0 # tried composite-aeson-0.7.5.0, but its *library* requires lens >=4.15.4 && < 5.1 and the snapshot contains lens-5.1.1
-        - composite-aeson < 0 # tried composite-aeson-0.7.5.0, but its *library* requires mmorph >=1.0.9 && < 1.2 and the snapshot contains mmorph-1.2.0
-        - composite-aeson < 0 # tried composite-aeson-0.7.5.0, but its *library* requires profunctors >=5.2.1 && < 5.6 and the snapshot contains profunctors-5.6.2
-        - composite-aeson < 0 # tried composite-aeson-0.7.5.0, but its *library* requires template-haskell >=2.11.1.0 && < 2.17 and the snapshot contains template-haskell-2.18.0.0
-        - composite-aeson < 0 # tried composite-aeson-0.7.5.0, but its *library* requires time >=1.6.0.1 && < 1.10 and the snapshot contains time-1.11.1.1
-        - composite-aeson < 0 # tried composite-aeson-0.7.5.0, but its *library* requires vinyl >=0.5.3 && < 0.14 and the snapshot contains vinyl-0.14.3
-        - composite-aeson-path < 0 # tried composite-aeson-path-0.7.5.0, but its *library* requires path >=0.6 && < 0.9 and the snapshot contains path-0.9.2
-        - composite-aeson-refined < 0 # tried composite-aeson-refined-0.7.5.0, but its *library* requires the disabled package: composite-aeson
+        - composite-aeson < 0 # tried composite-aeson-0.8.0.0, but its *library* requires hashable >=1.2.6.1 && < 1.4 and the snapshot contains hashable-1.4.0.2
+        - composite-aeson < 0 # tried composite-aeson-0.8.0.0, but its *library* requires mmorph >=1.0.9 && < 1.2 and the snapshot contains mmorph-1.2.0
+        - composite-aeson-path < 0 # tried composite-aeson-path-0.8.0.0, but its *library* requires path >=0.6 && < 0.9 and the snapshot contains path-0.9.2
+        - composite-aeson-refined < 0 # tried composite-aeson-refined-0.8.0.0, but its *library* requires the disabled package: composite-aeson
         - composite-aeson-throw < 0 # tried composite-aeson-throw-0.1.0.0, but its *library* requires the disabled package: composite-aeson
+        - composite-ekg < 0 # tried composite-ekg-0.7.5.0, but its *library* requires composite-base >=0.7 && < 0.8 and the snapshot contains composite-base-0.8.0.0
         - composite-ekg < 0 # tried composite-ekg-0.7.5.0, but its *library* requires lens >=4.15.4 && < 5.1 and the snapshot contains lens-5.1.1
         - composite-ekg < 0 # tried composite-ekg-0.7.5.0, but its *library* requires vinyl >=0.5.3 && < 0.14 and the snapshot contains vinyl-0.14.3
-        - composite-hashable < 0 # tried composite-hashable-0.7.5.0, but its *library* requires hashable >=1.1.1 && < 1.4 and the snapshot contains hashable-1.4.0.2
+        - composite-hashable < 0 # tried composite-hashable-0.8.0.0, but its *library* requires hashable >=1.1.1 && < 1.4 and the snapshot contains hashable-1.4.0.2
         - compressed < 0 # tried compressed-3.11, but its *library* requires containers >=0.3 && < 0.6 and the snapshot contains containers-0.6.5.1
         - compressed < 0 # tried compressed-3.11, but its *library* requires hashable >=1.1.2.1 && < 1.3 and the snapshot contains hashable-1.4.0.2
         - concurrent-supply < 0 # tried concurrent-supply-0.1.8, but its *library* requires hashable >=1.1 && < 1.4 and the snapshot contains hashable-1.4.0.2
@@ -5948,8 +5936,7 @@ packages:
         - conferer-snap < 0 # tried conferer-snap-1.0.0.0, but its *library* requires conferer >=1.0.0.0 && < 1.1.0.0 and the snapshot contains conferer-1.1.0.0
         - conferer-snap < 0 # tried conferer-snap-1.0.0.0, but its *library* requires the disabled package: snap-server
         - conferer-warp < 0 # tried conferer-warp-1.1.0.0, but its *library* requires the disabled package: conferer
-        - configurator-pg < 0 # tried configurator-pg-0.2.5, but its *library* requires base >=4.9 && < 4.15 and the snapshot contains base-4.16.1.0
-        - configurator-pg < 0 # tried configurator-pg-0.2.5, but its *library* requires megaparsec >=7.0.0 && < 9.1 and the snapshot contains megaparsec-9.2.1
+        - configurator-pg < 0 # tried configurator-pg-0.2.6, but its *library* requires the disabled package: protolude
         - constraint < 0 # tried constraint-0.1.4.0, but its *library* requires the disabled package: category
         - containers-unicode-symbols < 0 # tried containers-unicode-symbols-0.3.1.3, but its *library* requires containers >=0.5 && < 0.6.5 and the snapshot contains containers-0.6.5.1
         - country < 0 # tried country-0.2.2, but its *library* requires the disabled package: bytehash
@@ -6015,12 +6002,10 @@ packages:
         - distributed-process-monad-control < 0 # tried distributed-process-monad-control-0.5.1.3, but its *library* requires the disabled package: distributed-process
         - distribution < 0 # tried distribution-1.1.1.0, but its *library* requires containers ==0.5.* and the snapshot contains containers-0.6.5.1
         - distribution < 0 # tried distribution-1.1.1.0, but its *library* requires random ==1.1.* and the snapshot contains random-1.2.1.1
-        - diversity < 0 # tried diversity-0.8.1.0, but its *library* requires the disabled package: fasta
         - docker-build-cacher < 0 # tried docker-build-cacher-2.1.1, but its *library* requires language-docker >=6.0.4 && < 7.0 and the snapshot contains language-docker-11.0.0
         - docopt < 0 # tried docopt-0.7.0.7, but its *library* requires template-haskell >=2.15.0 && < 2.18 and the snapshot contains template-haskell-2.18.0.0
         - doctest-extract < 0 # tried doctest-extract-0.1, but its *executable* requires optparse-applicative >=0.11 && < 0.17 and the snapshot contains optparse-applicative-0.17.0.0
         - drawille < 0 # tried drawille-0.1.2.0, but its *library* requires containers >=0.5 && < 0.6 and the snapshot contains containers-0.6.5.1
-        - drifter-sqlite < 0 # tried drifter-sqlite-0.1.0.0, but its *library* requires the disabled package: sqlite-simple
         - dublincore-xml-conduit < 0 # tried dublincore-xml-conduit-0.1.0.2, but its *library* requires the disabled package: timerep
         - earcut < 0 # tried earcut-0.1.0.4, but its *library* requires base >=4.5 && < 4.15 and the snapshot contains base-4.16.1.0
         - easytest < 0 # tried easytest-0.3, but its *library* requires hedgehog >=0.6 && < =0.6.1 and the snapshot contains hedgehog-1.1.1
@@ -6036,9 +6021,6 @@ packages:
         - ekg < 0 # tried ekg-0.4.0.15, but its *library* requires time < 1.10 and the snapshot contains time-1.11.1.1
         - ekg-cloudwatch < 0 # tried ekg-cloudwatch-0.0.1.6, but its *library* requires the disabled package: amazonka
         - ekg-cloudwatch < 0 # tried ekg-cloudwatch-0.0.1.6, but its *library* requires the disabled package: amazonka-core
-        - ekg-cloudwatch < 0 # tried ekg-cloudwatch-0.0.1.6, but its *library* requires the disabled package: ekg-core
-        - ekg-core < 0 # tried ekg-core-0.1.1.7, but its *library* requires base >=4.6 && < 4.15 and the snapshot contains base-4.16.1.0
-        - ekg-core < 0 # tried ekg-core-0.1.1.7, but its *library* requires ghc-prim < 0.7 and the snapshot contains ghc-prim-0.8.0
         - ekg-json < 0 # tried ekg-json-0.1.0.6, but its *library* requires aeson >=0.4 && < 1.6 and the snapshot contains aeson-2.0.3.0
         - ekg-json < 0 # tried ekg-json-0.1.0.6, but its *library* requires base >=4.5 && < 4.15 and the snapshot contains base-4.16.1.0
         - ekg-statsd < 0 # tried ekg-statsd-0.2.5.0, but its *library* requires base >=4.6 && < 4.15 and the snapshot contains base-4.16.1.0
@@ -6048,7 +6030,6 @@ packages:
         - envy < 0 # tried envy-2.1.0.0, but its *library* requires bytestring ==0.10.* and the snapshot contains bytestring-0.11.3.0
         - epub-metadata < 0 # tried epub-metadata-4.5, but its *library* requires the disabled package: regex-compat-tdfa
         - equal-files < 0 # tried equal-files-0.0.5.3, but its *executable* requires bytestring >=0.9 && < 0.11 and the snapshot contains bytestring-0.11.3.0
-        - essence-of-live-coding-gloss < 0 # tried essence-of-live-coding-gloss-0.2.6, but its *library* requires the disabled package: gloss
         - euler-tour-tree < 0 # tried euler-tour-tree-0.1.1.0, but its *library* requires the disabled package: Unique
         - event < 0 # tried event-0.1.4, but its *library* requires containers >=0.5 && < 0.6 and the snapshot contains containers-0.6.5.1
         - event < 0 # tried event-0.1.4, but its *library* requires semigroups >=0.16 && < 0.19 and the snapshot contains semigroups-0.20
@@ -6066,7 +6047,6 @@ packages:
         - eventsource-geteventstore-store < 0 # tried eventsource-geteventstore-store-1.2.1, but its *library* requires the disabled package: eventsource-store-specs
         - eventsource-stub-store < 0 # tried eventsource-stub-store-1.1.1, but its *library* requires the disabled package: eventsource-api
         - fast-builder < 0 # tried fast-builder-0.1.3.0, but its *library* requires base >=4.8 && < 4.16 and the snapshot contains base-4.16.1.0
-        - fasta < 0 # tried fasta-0.10.4.2, but its *library* requires the disabled package: pipes-text
         - fastmemo < 0 # tried fastmemo-0.1.0.1, but its *library* requires base >=4.7 && < 4.16 and the snapshot contains base-4.16.1.0
         - fastmemo < 0 # tried fastmemo-0.1.0.1, but its *library* requires bytestring ==0.10.* and the snapshot contains bytestring-0.11.3.0
         - fib < 0 # tried fib-0.1.0.1, but its *library* requires the disabled package: base-noprelude
@@ -6077,14 +6057,13 @@ packages:
         - fold-debounce < 0 # tried fold-debounce-0.2.0.9, but its *library* requires time >=1.4.0 && < 1.10 and the snapshot contains time-1.11.1.1
         - fold-debounce-conduit < 0 # tried fold-debounce-conduit-0.2.0.6, but its *library* requires base >=4.9.0 && < 4.16 and the snapshot contains base-4.16.1.0
         - foldable1 < 0 # tried foldable1-0.1.0.0, but its *library* requires the disabled package: util
-        - freckle-app < 0 # tried freckle-app-1.0.2.10, but its *library* requires the disabled package: ekg-core
         - friday < 0 # tried friday-0.2.3.1, but its *library* requires containers >=0.4 && < 0.6 and the snapshot contains containers-0.6.5.1
         - friday < 0 # tried friday-0.2.3.1, but its *library* requires the disabled package: ratio-int
         - friday-juicypixels < 0 # tried friday-juicypixels-0.1.2.4, but its *library* requires the disabled package: friday
         - fswatch < 0 # tried fswatch-0.1.0.6, but its *library* requires base >=4.9 && < 4.13 and the snapshot contains base-4.16.1.0
         - fswatch < 0 # tried fswatch-0.1.0.6, but its *library* requires haskeline >=0.7 && < 0.8 and the snapshot contains haskeline-0.8.2
         - galois-field < 0 # tried galois-field-1.0.2, but its *library* requires poly >=0.3.2 && < 0.5 and the snapshot contains poly-0.5.0.0
-        - galois-field < 0 # tried galois-field-1.0.2, but its *library* requires protolude >=0.2 && < 0.3 and the snapshot contains protolude-0.3.0
+        - galois-field < 0 # tried galois-field-1.0.2, but its *library* requires protolude >=0.2 && < 0.3 and the snapshot contains protolude-0.3.1
         - gdax < 0 # tried gdax-0.6.0.0, but its *library* requires the disabled package: regex-tdfa-text
         - generic-xmlpickler < 0 # tried generic-xmlpickler-0.1.0.6, but its *library* requires base >=4.5 && < 4.14 and the snapshot contains base-4.16.1.0
         - generic-xmlpickler < 0 # tried generic-xmlpickler-0.1.0.6, but its *library* requires generic-deriving >=1.6 && < 1.14 and the snapshot contains generic-deriving-1.14.1
@@ -6099,15 +6078,15 @@ packages:
         - gi-webkit2 < 0 # tried gi-webkit2-4.0.28, but its *library* requires the disabled package: gi-soup
         - ginger < 0 # tried ginger-0.10.4.0, but its *executable* requires optparse-applicative >=0.14.3.0 && < 0.17 and the snapshot contains optparse-applicative-0.17.0.0
         - ginger < 0 # tried ginger-0.10.4.0, but its *library* requires bytestring >=0.10.8.2 && < 0.11 and the snapshot contains bytestring-0.11.3.0
-        - git-annex < 0 # tried git-annex-10.20220504, but its *executable* requires the disabled package: IfElse
-        - git-annex < 0 # tried git-annex-10.20220504, but its *executable* requires the disabled package: aws
-        - git-annex < 0 # tried git-annex-10.20220504, but its *executable* requires the disabled package: bloomfilter
-        - git-annex < 0 # tried git-annex-10.20220504, but its *executable* requires the disabled package: fdo-notify
-        - git-annex < 0 # tried git-annex-10.20220504, but its *executable* requires the disabled package: git-lfs
-        - git-annex < 0 # tried git-annex-10.20220504, but its *executable* requires the disabled package: http-client-restricted
-        - git-annex < 0 # tried git-annex-10.20220504, but its *executable* requires the disabled package: network-multicast
-        - git-annex < 0 # tried git-annex-10.20220504, but its *executable* requires the disabled package: sandi
-        - git-annex < 0 # tried git-annex-10.20220504, but its *executable* requires the disabled package: torrent
+        - git-annex < 0 # tried git-annex-10.20220525, but its *executable* requires the disabled package: IfElse
+        - git-annex < 0 # tried git-annex-10.20220525, but its *executable* requires the disabled package: aws
+        - git-annex < 0 # tried git-annex-10.20220525, but its *executable* requires the disabled package: bloomfilter
+        - git-annex < 0 # tried git-annex-10.20220525, but its *executable* requires the disabled package: fdo-notify
+        - git-annex < 0 # tried git-annex-10.20220525, but its *executable* requires the disabled package: git-lfs
+        - git-annex < 0 # tried git-annex-10.20220525, but its *executable* requires the disabled package: http-client-restricted
+        - git-annex < 0 # tried git-annex-10.20220525, but its *executable* requires the disabled package: network-multicast
+        - git-annex < 0 # tried git-annex-10.20220525, but its *executable* requires the disabled package: sandi
+        - git-annex < 0 # tried git-annex-10.20220525, but its *executable* requires the disabled package: torrent
         - github-webhook-handler < 0 # tried github-webhook-handler-0.0.8, but its *library* requires base >=4 && < 4.11 and the snapshot contains base-4.16.1.0
         - github-webhook-handler-snap < 0 # tried github-webhook-handler-snap-0.0.7, but its *library* requires base >=4 && < 4.11 and the snapshot contains base-4.16.1.0
         - gitlib-libgit2 < 0 # tried gitlib-libgit2-3.1.2.1, but its *library* requires the disabled package: gitlib
@@ -6119,15 +6098,9 @@ packages:
         - glazier-react-widget < 0 # tried glazier-react-widget-1.0.0.0, but its *library* requires the disabled package: data-diverse-lens
         - glazier-react-widget < 0 # tried glazier-react-widget-1.0.0.0, but its *library* requires the disabled package: ghcjs-base-stub
         - glazier-react-widget < 0 # tried glazier-react-widget-1.0.0.0, but its *library* requires the disabled package: glazier
-        - gloss < 0 # tried gloss-1.13.2.2, but its *library* requires the disabled package: OpenGL
         - gloss-accelerate < 0 # tried gloss-accelerate-2.1.0.0, but its *library* requires the disabled package: accelerate
         - gloss-accelerate < 0 # tried gloss-accelerate-2.1.0.0, but its *library* requires the disabled package: linear-accelerate
-        - gloss-algorithms < 0 # tried gloss-algorithms-1.13.0.3, but its *library* requires the disabled package: gloss
-        - gloss-examples < 0 # tried gloss-examples-1.13.0.4, but its *executable* requires the disabled package: gloss
-        - gloss-raster < 0 # tried gloss-raster-1.13.1.2, but its *library* requires the disabled package: gloss
-        - gloss-raster < 0 # tried gloss-raster-1.13.1.2, but its *library* requires the disabled package: gloss-rendering
         - gloss-raster-accelerate < 0 # tried gloss-raster-accelerate-2.1.0.0, but its *library* requires the disabled package: accelerate
-        - gloss-rendering < 0 # tried gloss-rendering-1.13.1.2, but its *library* requires the disabled package: OpenGL
         - gogol < 0 # tried gogol-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-adexchange-buyer < 0 # tried gogol-adexchange-buyer-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-adexchange-seller < 0 # tried gogol-adexchange-seller-0.5.0, but its *library* requires the disabled package: gogol-core
@@ -6259,10 +6232,10 @@ packages:
         - hadoop-streaming < 0 # tried hadoop-streaming-0.2.0.3, but its *library* requires bytestring >=0.10 && < 0.11 and the snapshot contains bytestring-0.11.3.0
         - hakyll < 0 # tried hakyll-4.15.1.1, but its *library* requires the disabled package: pandoc
         - hamilton < 0 # tried hamilton-0.1.0.3, but its *library* requires the disabled package: typelits-witnesses
-        - hapistrano < 0 # tried hapistrano-0.4.4.0, but its *executable* requires optparse-applicative >=0.11 && < 0.17 and the snapshot contains optparse-applicative-0.17.0.0
-        - hapistrano < 0 # tried hapistrano-0.4.4.0, but its *executable* requires path-io >=1.2 && < 1.7 and the snapshot contains path-io-1.7.0
-        - hapistrano < 0 # tried hapistrano-0.4.4.0, but its *library* requires path >=0.5 && < 0.9 and the snapshot contains path-0.9.2
-        - hapistrano < 0 # tried hapistrano-0.4.4.0, but its *library* requires time >=1.5 && < 1.11 and the snapshot contains time-1.11.1.1
+        - hapistrano < 0 # tried hapistrano-0.4.5.0, but its *executable* requires optparse-applicative >=0.11 && < 0.17 and the snapshot contains optparse-applicative-0.17.0.0
+        - hapistrano < 0 # tried hapistrano-0.4.5.0, but its *executable* requires path-io >=1.2 && < 1.7 and the snapshot contains path-io-1.7.0
+        - hapistrano < 0 # tried hapistrano-0.4.5.0, but its *library* requires path >=0.5 && < 0.9 and the snapshot contains path-0.9.2
+        - hapistrano < 0 # tried hapistrano-0.4.5.0, but its *library* requires time >=1.5 && < 1.11 and the snapshot contains time-1.11.1.1
         - happstack-hsp < 0 # tried happstack-hsp-7.3.7.6, but its *library* requires the disabled package: harp
         - hashable-time < 0 # tried hashable-time-0.3, but its *library* requires base >=4.7 && < 4.16 and the snapshot contains base-4.16.1.0
         - hashing < 0 # tried hashing-0.1.0.1, but its *library* requires bytestring >=0.10.6.0 && < 0.11 and the snapshot contains bytestring-0.11.3.0
@@ -6311,7 +6284,7 @@ packages:
         - haskell-tools-demo < 0 # tried haskell-tools-demo-1.1.1.0, but its *library* requires ghc >=8.4 && < 8.7 and the snapshot contains ghc-9.2.2
         - haskell-tools-demo < 0 # tried haskell-tools-demo-1.1.1.0, but its *library* requires the disabled package: haskell-tools-builtin-refactorings
         - haskell-tools-demo < 0 # tried haskell-tools-demo-1.1.1.0, but its *library* requires the disabled package: references
-        - haskell-tools-demo < 0 # tried haskell-tools-demo-1.1.1.0, but its *library* requires warp >=3.2 && < 3.3 and the snapshot contains warp-3.3.20
+        - haskell-tools-demo < 0 # tried haskell-tools-demo-1.1.1.0, but its *library* requires warp >=3.2 && < 3.3 and the snapshot contains warp-3.3.21
         - haskell-tools-prettyprint < 0 # tried haskell-tools-prettyprint-1.1.1.0, but its *library* requires base >=4.11 && < 4.13 and the snapshot contains base-4.16.1.0
         - haskell-tools-prettyprint < 0 # tried haskell-tools-prettyprint-1.1.1.0, but its *library* requires ghc >=8.4 && < 8.7 and the snapshot contains ghc-9.2.2
         - haskell-tools-prettyprint < 0 # tried haskell-tools-prettyprint-1.1.1.0, but its *library* requires the disabled package: references
@@ -6345,7 +6318,7 @@ packages:
         - heist < 0 # tried heist-1.1.0.1, but its *library* requires hashable >=1.1 && < 1.4 and the snapshot contains hashable-1.4.0.2
         - heist < 0 # tried heist-1.1.0.1, but its *library* requires time >=1.1 && < 1.11 and the snapshot contains time-1.11.1.1
         - herms < 0 # tried herms-1.9.0.4, but its *executable* requires ansi-terminal >=0.7.0 && < =0.8.1 and the snapshot contains ansi-terminal-0.11.3
-        - herms < 0 # tried herms-1.9.0.4, but its *executable* requires brick >=0.19 && < =0.39 and the snapshot contains brick-0.68.1
+        - herms < 0 # tried herms-1.9.0.4, but its *executable* requires brick >=0.19 && < =0.39 and the snapshot contains brick-0.69
         - herms < 0 # tried herms-1.9.0.4, but its *executable* requires optparse-applicative >=0.14 && < 0.15 and the snapshot contains optparse-applicative-0.17.0.0
         - herms < 0 # tried herms-1.9.0.4, but its *executable* requires semigroups >=0.18.3 && < 0.19 and the snapshot contains semigroups-0.20
         - herms < 0 # tried herms-1.9.0.4, but its *executable* requires vty >=5.15 && < =5.23 and the snapshot contains vty-5.35.1
@@ -6383,7 +6356,7 @@ packages:
         - hpio < 0 # tried hpio-0.9.0.7, but its *executable* requires optparse-applicative >=0.11.0 && < 0.15 and the snapshot contains optparse-applicative-0.17.0.0
         - hpio < 0 # tried hpio-0.9.0.7, but its *library* requires QuickCheck >=2.7.6 && < 2.13 and the snapshot contains QuickCheck-2.14.2
         - hpio < 0 # tried hpio-0.9.0.7, but its *library* requires bytestring >=0.10.4 && < 0.11 and the snapshot contains bytestring-0.11.3.0
-        - hpio < 0 # tried hpio-0.9.0.7, but its *library* requires protolude ==0.2.* and the snapshot contains protolude-0.3.0
+        - hpio < 0 # tried hpio-0.9.0.7, but its *library* requires protolude ==0.2.* and the snapshot contains protolude-0.3.1
         - hpqtypes-extras < 0 # tried hpqtypes-extras-1.16.0.0, but its *library* requires the disabled package: log-base
         - hprotoc < 0 # tried hprotoc-2.4.17, but its *library* requires the disabled package: protocol-buffers
         - hquantlib < 0 # tried hquantlib-0.0.5.1, but its *library* requires statistics >=0.15.0.0 && < 0.16.0.0 and the snapshot contains statistics-0.16.1.0
@@ -6400,7 +6373,7 @@ packages:
         - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* requires attoparsec >=0.13.1.0 && < 0.14 and the snapshot contains attoparsec-0.14.4
         - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* requires bytestring >=0.10.8.1 && < 0.11 and the snapshot contains bytestring-0.11.3.0
         - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* requires ghc-boot >=8.0.1 && < 8.11 and the snapshot contains ghc-boot-9.2.2
-        - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* requires ghc-lib-parser ==8.10.* and the snapshot contains ghc-lib-parser-9.2.2.20220307
+        - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* requires ghc-lib-parser ==8.10.* and the snapshot contains ghc-lib-parser-9.2.3.20220527
         - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* requires hlint >=3.0.0 && < 3.3.0 and the snapshot contains hlint-3.4
         - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* requires http-client >=0.5 && < 0.7 and the snapshot contains http-client-0.7.11
         - hsdev < 0 # tried hsdev-0.3.4.0, but its *library* requires lens >=4.14 && < 4.20 and the snapshot contains lens-5.1.1
@@ -6421,7 +6394,7 @@ packages:
         - htoml < 0 # tried htoml-1.0.0.3, but its *library* requires aeson >=0.8 && < 2 and the snapshot contains aeson-2.0.3.0
         - http-io-streams < 0 # tried http-io-streams-0.1.6.1, but its *library* requires the disabled package: brotli-streams
         - hyper < 0 # tried hyper-0.2.1.1, but its *library* requires base >=4.5 && < 4.16 and the snapshot contains base-4.16.1.0
-        - hyraxAbif < 0 # tried hyraxAbif-0.2.3.27, but its *library* requires the disabled package: protolude
+        - hyraxAbif < 0 # tried hyraxAbif-0.2.3.27, but its *library* requires protolude >=0.2.2 && < 0.3.1 and the snapshot contains protolude-0.3.1
         - iconv < 0 # tried iconv-0.4.1.3, but its *library* requires bytestring ==0.9.* || ==0.10.* and the snapshot contains bytestring-0.11.3.0
         - idris < 0 # tried idris-1.3.4, but its *library* requires Cabal >=2.4 && < =3.4 and the snapshot contains Cabal-3.6.3.0
         - idris < 0 # tried idris-1.3.4, but its *library* requires aeson >=0.6 && < 1.6 and the snapshot contains aeson-2.0.3.0
@@ -6523,7 +6496,6 @@ packages:
         - libjwt-typed < 0 # tried libjwt-typed-0.2, but its *library* requires text >=1.2.3.2 && < 1.2.5 and the snapshot contains text-1.2.5.0
         - libjwt-typed < 0 # tried libjwt-typed-0.2, but its *library* requires time >=1.9 && < 1.10 and the snapshot contains time-1.11.1.1
         - libraft < 0 # tried libraft-0.5.0.0, but its *library* requires the disabled package: ekg
-        - libraft < 0 # tried libraft-0.5.0.0, but its *library* requires the disabled package: ekg-core
         - libraft < 0 # tried libraft-0.5.0.0, but its *library* requires the disabled package: protolude
         - licensor < 0 # tried licensor-0.5.0, but its *library* requires Cabal >=3.0.1 && < 3.3 and the snapshot contains Cabal-3.6.3.0
         - licensor < 0 # tried licensor-0.5.0, but its *library* requires base >=4.13.0 && < 4.15 and the snapshot contains base-4.16.1.0
@@ -6549,7 +6521,6 @@ packages:
         - lxd-client < 0 # tried lxd-client-0.1.0.6, but its *library* requires servant >=0.11 && < 0.14 and the snapshot contains servant-0.19
         - lxd-client < 0 # tried lxd-client-0.1.0.6, but its *library* requires servant-client >=0.11 && < 0.14 and the snapshot contains servant-client-0.19
         - machines-directory < 0 # tried machines-directory-7.0.0.0, but its *library* requires the disabled package: machines-io
-        - magicbane < 0 # tried magicbane-0.5.1, but its *library* requires the disabled package: ekg-core
         - magicbane < 0 # tried magicbane-0.5.1, but its *library* requires the disabled package: ekg-wai
         - magicbane < 0 # tried magicbane-0.5.1, but its *library* requires the disabled package: envy
         - magico < 0 # tried magico-0.0.2.3, but its *executable* requires the disabled package: lapack
@@ -6564,7 +6535,6 @@ packages:
         - mbox < 0 # tried mbox-0.3.4, but its *library* requires time < 1.10 and the snapshot contains time-1.11.1.1
         - mbox-utility < 0 # tried mbox-utility-0.0.3.1, but its *executable* requires bytestring >=0.9.1 && < 0.11 and the snapshot contains bytestring-0.11.3.0
         - mbox-utility < 0 # tried mbox-utility-0.0.3.1, but its *executable* requires time >=1.5 && < 1.10 and the snapshot contains time-1.11.1.1
-        - mbtiles < 0 # tried mbtiles-0.6.0.0, but its *library* requires the disabled package: sqlite-simple
         - mbug < 0 # tried mbug-1.3.2, but its *library* requires bytestring >=0.10.8.2 && < 0.11 and the snapshot contains bytestring-0.11.3.0
         - mbug < 0 # tried mbug-1.3.2, but its *library* requires extra >=1.6.14 && < 1.7 and the snapshot contains extra-1.7.10
         - mbug < 0 # tried mbug-1.3.2, but its *library* requires formatting >=6.3.7 && < 6.4 and the snapshot contains formatting-7.1.3
@@ -6598,18 +6568,17 @@ packages:
         - milena < 0 # tried milena-0.5.4.0, but its *library* requires semigroups >=0.16.2.2 && < 0.19 and the snapshot contains semigroups-0.20
         - mini-egison < 0 # tried mini-egison-1.0.0, but its *library* requires the disabled package: egison-pattern-src
         - mini-egison < 0 # tried mini-egison-1.0.0, but its *library* requires the disabled package: egison-pattern-src-th-mode
-        - minio-hs < 0 # tried minio-hs-1.5.3, but its *library* requires the disabled package: protolude
+        - minio-hs < 0 # tried minio-hs-1.6.0, but its *library* requires the disabled package: relude
         - misfortune < 0 # tried misfortune-0.1.1.2, but its *library* requires random-fu >=0.2.2 && < 0.3 and the snapshot contains random-fu-0.3.0.0
         - misfortune < 0 # tried misfortune-0.1.1.2, but its *library* requires the disabled package: knob
         - miso < 0 # tried miso-1.8.2.0, but its *library* requires the disabled package: jsaddle
-        - modify-fasta < 0 # tried modify-fasta-0.8.3.0, but its *executable* requires the disabled package: pipes-text
+        - modify-fasta < 0 # tried modify-fasta-0.8.3.0, but its *library* requires the disabled package: regex-tdfa-text
         - mole < 0 # tried mole-0.0.7, but its *executable* requires base >=4.11 && < 4.15 and the snapshot contains base-4.16.1.0
         - mole < 0 # tried mole-0.0.7, but its *executable* requires the disabled package: snap-server
         - monad-bayes < 0 # tried monad-bayes-0.1.1.0, but its *library* requires base >=4.11 && < 4.14 and the snapshot contains base-4.16.1.0
         - monad-bayes < 0 # tried monad-bayes-0.1.1.0, but its *library* requires mwc-random >=0.13.6 && < 0.15 and the snapshot contains mwc-random-0.15.0.2
         - monad-bayes < 0 # tried monad-bayes-0.1.1.0, but its *library* requires statistics >=0.14.0 && < 0.16 and the snapshot contains statistics-0.16.1.0
         - monad-control-aligned < 0 # tried monad-control-aligned-0.0.1.1, but its *library* requires transformers-compat >=0.3 && < 0.7 and the snapshot contains transformers-compat-0.7.1
-        - monad-metrics < 0 # tried monad-metrics-0.2.2.0, but its *library* requires the disabled package: ekg-core
         - monad-mock < 0 # tried monad-mock-0.2.0.0, but its *library* requires template-haskell >=2.10.0.0 && < 2.13 and the snapshot contains template-haskell-2.18.0.0
         - monad-unlift-ref < 0 # tried monad-unlift-ref-0.2.1, but its *library* requires the disabled package: monad-unlift
         - morpheus-graphql < 0 # tried morpheus-graphql-0.20.0, but its *library* requires the disabled package: relude
@@ -6653,11 +6622,9 @@ packages:
         - net-mqtt < 0 # tried net-mqtt-0.8.2.0, but its *library* requires attoparsec >=0.13.2 && < 0.14 and the snapshot contains attoparsec-0.14.4
         - net-mqtt-lens < 0 # tried net-mqtt-lens-0.1.1.0, but its *library* requires the disabled package: net-mqtt
         - nettle < 0 # tried nettle-0.3.0, but its *library* requires bytestring >=0.10.8 && < 0.11 and the snapshot contains bytestring-0.11.3.0
-        - netwire-input-glfw < 0 # tried netwire-input-glfw-0.0.11, but its *executable* requires the disabled package: OpenGL
         - network-anonymous-tor < 0 # tried network-anonymous-tor-0.11.0, but its *library* requires the disabled package: hexstring
         - network-anonymous-tor < 0 # tried network-anonymous-tor-0.11.0, but its *library* requires the disabled package: network-attoparsec
         - network-msgpack-rpc < 0 # tried network-msgpack-rpc-0.0.6, but its *library* requires network < 3 and the snapshot contains network-3.1.2.7
-        - not-gloss < 0 # tried not-gloss-0.7.7.0, but its *library* requires the disabled package: OpenGL
         - not-gloss < 0 # tried not-gloss-0.7.7.0, but its *library* requires the disabled package: spatial-math
         - nri-env-parser < 0 # tried nri-env-parser-0.1.0.8, but its *library* requires the disabled package: nri-prelude
         - nri-http < 0 # tried nri-http-0.1.0.4, but its *library* requires the disabled package: nri-prelude
@@ -6668,7 +6635,7 @@ packages:
         - nri-test-encoding < 0 # tried nri-test-encoding-0.1.1.3, but its *library* requires servant >=0.16.2 && < 0.19 and the snapshot contains servant-0.19
         - nri-test-encoding < 0 # tried nri-test-encoding-0.1.1.3, but its *library* requires servant-server >=0.16.2 && < 0.19 and the snapshot contains servant-server-0.19.1
         - nri-test-encoding < 0 # tried nri-test-encoding-0.1.1.3, but its *library* requires the disabled package: nri-prelude
-        - numhask-prelude < 0 # tried numhask-prelude-0.5.0, but its *library* requires numhask >=0.3 && < 0.6 and the snapshot contains numhask-0.10.0.0
+        - numhask-prelude < 0 # tried numhask-prelude-0.5.0, but its *library* requires numhask >=0.3 && < 0.6 and the snapshot contains numhask-0.10.1.0
         - nvim-hs-ghcid < 0 # tried nvim-hs-ghcid-2.0.0.0, but its *library* requires the disabled package: nvim-hs-contrib
         - nvvm < 0 # tried nvvm-0.10.0.0, but its *library* requires the disabled package: cuda
         - oblivious-transfer < 0 # tried oblivious-transfer-0.1.0, but its *library* requires the disabled package: protolude
@@ -6683,7 +6650,7 @@ packages:
         - packdeps < 0 # tried packdeps-0.6.0.0, but its *library* requires Cabal >=3.2 && < 3.3 and the snapshot contains Cabal-3.6.3.0
         - pairing < 0 # tried pairing-1.1.0, but its *library* requires bytestring >=0.10.8 && < 0.11 and the snapshot contains bytestring-0.11.3.0
         - pairing < 0 # tried pairing-1.1.0, but its *library* requires groups >=0.4.1 && < 0.5 and the snapshot contains groups-0.5.3
-        - pairing < 0 # tried pairing-1.1.0, but its *library* requires protolude >=0.2 && < 0.3 and the snapshot contains protolude-0.3.0
+        - pairing < 0 # tried pairing-1.1.0, but its *library* requires protolude >=0.2 && < 0.3 and the snapshot contains protolude-0.3.1
         - pairing < 0 # tried pairing-1.1.0, but its *library* requires the disabled package: elliptic-curve
         - pandoc < 0 # tried pandoc-2.18, but its *library* requires doclayout >=0.4 && < 0.5 and the snapshot contains doclayout-0.3.1.1
         - pandoc-csv2table < 0 # tried pandoc-csv2table-1.0.9, but its *library* requires the disabled package: pandoc
@@ -6696,13 +6663,17 @@ packages:
         - paripari < 0 # tried paripari-0.7.0.0, but its *library* requires parser-combinators >=1.0 && < 1.3 and the snapshot contains parser-combinators-1.3.0
         - password < 0 # tried password-3.0.1.0, but its *library* requires bytestring >=0.10.8.1 && < 0.11 and the snapshot contains bytestring-0.11.3.0
         - pedersen-commitment < 0 # tried pedersen-commitment-0.2.0, but its *library* requires the disabled package: protolude
-        - perf < 0 # tried perf-0.9.0, but its *library* requires time ^>=1.9 and the snapshot contains time-1.11.1.1
+        - perf < 0 # tried perf-0.10.0, but its *library* requires the disabled package: box
+        - perf < 0 # tried perf-0.10.0, but its *library* requires the disabled package: box-csv
+        - perf < 0 # tried perf-0.10.0, but its *library* requires the disabled package: chart-svg
+        - perf < 0 # tried perf-0.10.0, but its *library* requires the disabled package: formatn
+        - perf < 0 # tried perf-0.10.0, but its *library* requires time ^>=1.9 and the snapshot contains time-1.11.1.1
         - perfect-vector-shuffle < 0 # tried perfect-vector-shuffle-0.1.1.1, but its *library* requires base >=4.9 && < 4.15 and the snapshot contains base-4.16.1.0
         - persistable-record < 0 # tried persistable-record-0.6.0.5, but its *library* requires the disabled package: th-data-compat
         - persistable-types-HDBC-pg < 0 # tried persistable-types-HDBC-pg-0.0.3.5, but its *library* requires the disabled package: persistable-record
         - persistable-types-HDBC-pg < 0 # tried persistable-types-HDBC-pg-0.0.3.5, but its *library* requires the disabled package: relational-query-HDBC
         - persistent-mtl < 0 # tried persistent-mtl-0.4.0.0, but its *library* requires base >=4.10 && < 4.16 and the snapshot contains base-4.16.1.0
-        - persistent-mysql-haskell < 0 # tried persistent-mysql-haskell-0.6.0, but its *library* requires tls >=1.3.5 && < 1.5 and the snapshot contains tls-1.5.7
+        - persistent-mysql-haskell < 0 # tried persistent-mysql-haskell-0.6.0, but its *library* requires tls >=1.3.5 && < 1.5 and the snapshot contains tls-1.5.8
         - pg-harness-server < 0 # tried pg-harness-server-0.6.2, but its *executable* requires random >=1.0 && < 1.2 and the snapshot contains random-1.2.1.1
         - pg-harness-server < 0 # tried pg-harness-server-0.6.2, but its *executable* requires scotty >=0.11.0 && < 0.12 and the snapshot contains scotty-0.12
         - picedit < 0 # tried picedit-0.2.3.0, but its *executable* requires the disabled package: cli
@@ -6759,7 +6730,8 @@ packages:
         - postgrest < 0 # tried postgrest-9.0.0, but its *library* requires aeson >=1.4.7 && < 1.6 and the snapshot contains aeson-2.0.3.0
         - postgrest < 0 # tried postgrest-9.0.0, but its *library* requires base >=4.9 && < 4.16 and the snapshot contains base-4.16.1.0
         - postgrest < 0 # tried postgrest-9.0.0, but its *library* requires bytestring >=0.10.8 && < 0.11 and the snapshot contains bytestring-0.11.3.0
-        - postgrest < 0 # tried postgrest-9.0.0, but its *library* requires hasql >=1.4 && < 1.5 and the snapshot contains hasql-1.5.0.2
+        - postgrest < 0 # tried postgrest-9.0.0, but its *library* requires hasql >=1.4 && < 1.5 and the snapshot contains hasql-1.5.0.3
+        - postgrest < 0 # tried postgrest-9.0.0, but its *library* requires hasql-pool >=0.5 && < 0.6 and the snapshot contains hasql-pool-0.7.1.3
         - postgrest < 0 # tried postgrest-9.0.0, but its *library* requires jose >=0.8.1 && < 0.9 and the snapshot contains jose-0.9
         - postgrest < 0 # tried postgrest-9.0.0, but its *library* requires lens >=4.14 && < 5.1 and the snapshot contains lens-5.1.1
         - postgrest < 0 # tried postgrest-9.0.0, but its *library* requires lens-aeson >=1.0.1 && < 1.2 and the snapshot contains lens-aeson-1.2.1
@@ -6777,11 +6749,7 @@ packages:
         - profiteur < 0 # tried profiteur-0.4.6.0, but its *executable* requires aeson >=0.6 && < 1.6 and the snapshot contains aeson-2.0.3.0
         - profiteur < 0 # tried profiteur-0.4.6.0, but its *executable* requires bytestring >=0.9 && < 0.11 and the snapshot contains bytestring-0.11.3.0
         - protocol-buffers-descriptor < 0 # tried protocol-buffers-descriptor-2.4.17, but its *library* requires the disabled package: protocol-buffers
-        - protolude < 0 # tried protolude-0.3.0, but its *library* requires base >=4.6 && < 4.15 and the snapshot contains base-4.16.1.0
-        - protolude < 0 # tried protolude-0.3.0, but its *library* requires bytestring >=0.10 && < 0.11 and the snapshot contains bytestring-0.11.3.0
-        - protolude < 0 # tried protolude-0.3.0, but its *library* requires ghc-prim >=0.3 && < 0.7 and the snapshot contains ghc-prim-0.8.0
-        - protolude < 0 # tried protolude-0.3.0, but its *library* requires hashable >=1.2 && < 1.4 and the snapshot contains hashable-1.4.0.2
-        - protolude < 0 # tried protolude-0.3.0, but its *library* requires transformers-compat >=0.4 && < 0.7 and the snapshot contains transformers-compat-0.7.1
+        - protolude < 0 # tried protolude-0.3.1, but its *executable* requires base >=4.6 && < 4.15 and the snapshot contains base-4.16.1.0
         - publicsuffix < 0 # tried publicsuffix-0.20200526, but its *library* requires base >=4 && < 4.15 and the snapshot contains base-4.16.1.0
         - pure-io < 0 # tried pure-io-0.2.1, but its *library* requires base >=4.5 && < 4.11 and the snapshot contains base-4.16.1.0
         - qm-interpolated-string < 0 # tried qm-interpolated-string-0.3.0.0, but its *library* requires bytestring ==0.10.* and the snapshot contains bytestring-0.11.3.0
@@ -6810,7 +6778,7 @@ packages:
         - rdf < 0 # tried rdf-0.1.0.5, but its *library* requires attoparsec >=0.13 && < 0.14.2 and the snapshot contains attoparsec-0.14.4
         - rdf < 0 # tried rdf-0.1.0.5, but its *library* requires bytestring >=0.10 && < 0.11.2 and the snapshot contains bytestring-0.11.3.0
         - readable < 0 # tried readable-0.3.1, but its *library* requires bytestring >=0.9 && < 0.11 and the snapshot contains bytestring-0.11.3.0
-        - reanimate < 0 # tried reanimate-1.1.5.0, but its *library* requires aeson >=1.3.0.0 && < 2 and the snapshot contains aeson-2.0.3.0
+        - reanimate < 0 # tried reanimate-1.1.6.0, but its *library* requires aeson >=1.3.0.0 && < 2 and the snapshot contains aeson-2.0.3.0
         - records-sop < 0 # tried records-sop-0.1.1.0, but its *library* requires ghc-prim >=0.5 && < 0.8 and the snapshot contains ghc-prim-0.8.0
         - redis-io < 0 # tried redis-io-1.1.0, but its *library* requires the disabled package: tinylog
         - regex-pcre-text < 0 # tried regex-pcre-text-0.94.0.1, but its *library* requires bytestring ==0.10.* and the snapshot contains bytestring-0.11.3.0
@@ -6847,7 +6815,7 @@ packages:
         - rollbar-hs < 0 # tried rollbar-hs-0.3.1.0, but its *library* requires network >=2.6 && < 2.8 and the snapshot contains network-3.1.2.7
         - rollbar-hs < 0 # tried rollbar-hs-0.3.1.0, but its *library* requires time >=1.6 && < 1.9 and the snapshot contains time-1.11.1.1
         - rope-utf16-splay < 0 # tried rope-utf16-splay-0.4.0.0, but its *library* requires text >=2.0 and the snapshot contains text-1.2.5.0
-        - rpmbuild-order < 0 # tried rpmbuild-order-0.4.5, but its *library* requires the disabled package: graphviz
+        - rpmbuild-order < 0 # tried rpmbuild-order-0.4.7, but its *library* requires the disabled package: graphviz
         - rss-conduit < 0 # tried rss-conduit-0.6.0.1, but its *library* requires the disabled package: timerep
         - safe-tensor < 0 # tried safe-tensor-0.2.1.1, but its *library* requires singletons >=2.5 && < 2.8 and the snapshot contains singletons-3.0.1
         - salak < 0 # tried salak-0.3.6, but its *library* requires bytestring >=0.10.8 && < 0.11 and the snapshot contains bytestring-0.11.3.0
@@ -7053,8 +7021,7 @@ packages:
         - swagger-petstore < 0 # tried swagger-petstore-0.0.2.0, but its *library* requires katip >=0.4 && < 0.6 and the snapshot contains katip-0.8.7.2
         - swagger-petstore < 0 # tried swagger-petstore-0.0.2.0, but its *library* requires network >=2.6.2 && < 2.8 and the snapshot contains network-3.1.2.7
         - swagger-petstore < 0 # tried swagger-petstore-0.0.2.0, but its *library* requires time >=1.5 && < 1.10 and the snapshot contains time-1.11.1.1
-        - sweet-egison < 0 # tried sweet-egison-0.1.1.3, but its *library* requires the disabled package: egison-pattern-src
-        - sweet-egison < 0 # tried sweet-egison-0.1.1.3, but its *library* requires the disabled package: egison-pattern-src-th-mode
+        - sweet-egison < 0 # tried sweet-egison-0.1.1.3, but its *library* requires logict ^>=0.7.0 and the snapshot contains logict-0.8.0.0
         - synthesizer-alsa < 0 # tried synthesizer-alsa-0.5.0.6, but its *library* requires the disabled package: alsa-seq
         - synthesizer-alsa < 0 # tried synthesizer-alsa-0.5.0.6, but its *library* requires the disabled package: synthesizer-dimensional
         - synthesizer-dimensional < 0 # tried synthesizer-dimensional-0.8.1, but its *library* requires bytestring >=0.9 && < 0.11 and the snapshot contains bytestring-0.11.3.0
@@ -7136,11 +7103,10 @@ packages:
         - vectortiles < 0 # tried vectortiles-1.5.1, but its *library* requires the disabled package: protocol-buffers
         - vformat-aeson < 0 # tried vformat-aeson-0.1.0.1, but its *library* requires aeson >=1.2 && < 2.0 and the snapshot contains aeson-2.0.3.0
         - viewprof < 0 # tried viewprof-0.0.0.33, but its *executable* requires base >=4.9 && < 4.15 and the snapshot contains base-4.16.1.0
-        - viewprof < 0 # tried viewprof-0.0.0.33, but its *executable* requires brick >0.26.1 && < 0.54 and the snapshot contains brick-0.68.1
+        - viewprof < 0 # tried viewprof-0.0.0.33, but its *executable* requires brick >0.26.1 && < 0.54 and the snapshot contains brick-0.69
         - viewprof < 0 # tried viewprof-0.0.0.33, but its *executable* requires lens >=4.14 && < 4.20 and the snapshot contains lens-5.1.1
         - viewprof < 0 # tried viewprof-0.0.0.33, but its *executable* requires vty >=5.13 && < 5.29 and the snapshot contains vty-5.35.1
         - wai-middleware-crowd < 0 # tried wai-middleware-crowd-0.1.4.2, but its *executable* requires optparse-applicative >=0.11 && < 0.15 and the snapshot contains optparse-applicative-0.17.0.0
-        - wai-middleware-metrics < 0 # tried wai-middleware-metrics-0.2.4, but its *library* requires the disabled package: ekg-core
         - wai-middleware-rollbar < 0 # tried wai-middleware-rollbar-0.11.0, but its *library* requires aeson >=1.0 && < 1.4 and the snapshot contains aeson-2.0.3.0
         - wai-middleware-rollbar < 0 # tried wai-middleware-rollbar-0.11.0, but its *library* requires bytestring >=0.10 && < 0.11 and the snapshot contains bytestring-0.11.3.0
         - wai-middleware-rollbar < 0 # tried wai-middleware-rollbar-0.11.0, but its *library* requires http-client >=0.5 && < 0.6 and the snapshot contains http-client-0.7.11
@@ -7238,8 +7204,8 @@ packages:
         - unix-compat < 0.6
 
         # https://github.com/commercialhaskell/stackage/issues/6605
-        - hledger-iadd < 0
-        - hledger-interest < 0
+        - hledger-iadd < 0 # 1.3.17 bounds
+        - hledger-interest < 0 # 1.6.3 bounds
 
 # end of packages
 
@@ -7553,14 +7519,14 @@ skipped-tests:
     - asif # tried asif-6.0.4, but its *test-suite* requires doctest >=0.16.2 && < 0.17 and the snapshot contains doctest-0.20.0
     - barrier # tried barrier-0.1.1, but its *test-suite* requires lens-family-core >=1.2 && < 1.3 and the snapshot contains lens-family-core-2.1.0
     - barrier # tried barrier-0.1.1, but its *test-suite* requires tasty >=0.10 && < 0.12 and the snapshot contains tasty-1.4.2.3
-    - bloodhound # tried bloodhound-0.19.1.0, but its *test-suite* requires the disabled package: quickcheck-properties
+    - bloodhound # tried bloodhound-0.20.0.2, but its *test-suite* requires the disabled package: quickcheck-properties
     - boolean-normal-forms # tried boolean-normal-forms-0.0.1.1, but its *test-suite* requires QuickCheck >=2.10 && < 2.14 and the snapshot contains QuickCheck-2.14.2
     - brittany # tried brittany-0.14.0.2, but its *test-suite* requires hspec ^>=2.8.3 and the snapshot contains hspec-2.9.7
     - buttplug-hs-core # tried buttplug-hs-core-0.1.0.1, but its *test-suite* requires hspec >=2.7.8 && < 2.9 and the snapshot contains hspec-2.9.7
     - cassava-conduit # tried cassava-conduit-0.6.0, but its *test-suite* requires QuickCheck ==2.12.* and the snapshot contains QuickCheck-2.14.2
     - chatwork # tried chatwork-0.1.3.5, but its *test-suite* requires hspec >=2.4.1 && < 2.6 and the snapshot contains hspec-2.9.7
     - chatwork # tried chatwork-0.1.3.5, but its *test-suite* requires servant-server >=0.9.1.1 && < 0.15 and the snapshot contains servant-server-0.19.1
-    - chatwork # tried chatwork-0.1.3.5, but its *test-suite* requires warp >=3.2.11 && < 3.3 and the snapshot contains warp-3.3.20
+    - chatwork # tried chatwork-0.1.3.5, but its *test-suite* requires warp >=3.2.11 && < 3.3 and the snapshot contains warp-3.3.21
     - chronos # tried chronos-1.1.4, but its *test-suite* requires aeson >=1.1 && < 1.6 and the snapshot contains aeson-2.0.3.0
     - colour # tried colour-2.3.6, but its *test-suite* requires random >=1.0 && < 1.2 and the snapshot contains random-1.2.1.1
     - csg # tried csg-0.1.0.6, but its *test-suite* requires doctest < 0.17 and the snapshot contains doctest-0.20.0
@@ -7672,7 +7638,7 @@ skipped-tests:
     - quickcheck-state-machine # tried quickcheck-state-machine-0.7.1, but its *test-suite* requires the disabled package: hs-rqlite
     - rakuten # tried rakuten-0.1.1.5, but its *test-suite* requires hspec >=2.4.1 && < 2.6 and the snapshot contains hspec-2.9.7
     - rakuten # tried rakuten-0.1.1.5, but its *test-suite* requires servant-server >=0.9.1.1 && < 0.15 and the snapshot contains servant-server-0.19.1
-    - rakuten # tried rakuten-0.1.1.5, but its *test-suite* requires warp >=3.2.11 && < 3.3 and the snapshot contains warp-3.3.20
+    - rakuten # tried rakuten-0.1.1.5, but its *test-suite* requires warp >=3.2.11 && < 3.3 and the snapshot contains warp-3.3.21
     - records-sop # tried records-sop-0.1.1.0, but its *test-suite* requires hspec >=2.2 && < 2.8 and the snapshot contains hspec-2.9.7
     - registry # tried registry-0.3.0.5, but its *test-suite* requires the disabled package: universum
     - relude # tried relude-1.0.0.1, but its *test-suite* requires hedgehog ^>=1.0 and the snapshot contains hedgehog-1.1.1
@@ -7697,7 +7663,7 @@ skipped-tests:
     - servant-streaming-client # tried servant-streaming-client-0.3.0.0, but its *test-suite* requires QuickCheck >=2.8 && < 2.12 and the snapshot contains QuickCheck-2.14.2
     - servant-streaming-server # tried servant-streaming-server-0.3.0.0, but its *test-suite* requires QuickCheck >=2.8 && < 2.12 and the snapshot contains QuickCheck-2.14.2
     - servant-streaming-server # tried servant-streaming-server-0.3.0.0, but its *test-suite* requires streaming-bytestring >=0.1 && < 0.2 and the snapshot contains streaming-bytestring-0.2.2
-    - servant-streaming-server # tried servant-streaming-server-0.3.0.0, but its *test-suite* requires warp >=3.2.4 && < 3.3 and the snapshot contains warp-3.3.20
+    - servant-streaming-server # tried servant-streaming-server-0.3.0.0, but its *test-suite* requires warp >=3.2.4 && < 3.3 and the snapshot contains warp-3.3.21
     - servant-yaml # tried servant-yaml-0.1.0.1, but its *test-suite* requires aeson >=1.4.1.0 && < 1.5 and the snapshot contains aeson-2.0.3.0
     - servant-yaml # tried servant-yaml-0.1.0.1, but its *test-suite* requires base-compat >=0.10.5 && < 0.12 and the snapshot contains base-compat-0.12.1
     - servant-yaml # tried servant-yaml-0.1.0.1, but its *test-suite* requires servant-server >=0.15 && < 0.18 and the snapshot contains servant-server-0.19.1
@@ -8030,7 +7996,6 @@ expected-test-failures:
     - reanimate # https://github.com/commercialhaskell/stackage/issues/5626
 
     # Compilation failures
-    - acid-state # 0.16.1
     - blake2 # 0.3.0
     - blas-hs # 0.1.1.0
     - butter # 0.1.0.6
@@ -8055,7 +8020,6 @@ expected-test-failures:
     - hsini # 0.5.1.2
     - htoml-megaparsec # 2.1.0.4 https://github.com/commercialhaskell/stackage/pull/6533
     - hweblib # 0.6.3 https://github.com/aycanirican/hweblib/issues/3
-    - json-stream # 0.4.3.0
     - krank # 0.2.3 compile fail against aeson 2
     - leveldb-haskell
     - lsp # 1.4.0.0 compile fail against aeson 2
