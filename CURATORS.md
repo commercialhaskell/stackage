@@ -21,10 +21,10 @@ process works:
 * [curator](https://github.com/commercialhaskell/curator) combines build-constraints.yaml with the current state of Hackage to create a build plan for a Stackage Nightly
 * `curator` can check that build plan to ensure all version bounds are consistent
     * The [Travis job](https://github.com/commercialhaskell/stackage/blob/master/.travis.yml) performs these two steps to provide immediate feedback on pull requests
-* Docker Hub [builds](https://github.com/commercialhaskell/stackage/blob/master/Dockerfile) a [Docker image](https://hub.docker.com/r/commercialhaskell/stackage/) for running builds
+* Docker builds [builds](https://github.com/commercialhaskell/stackage/actions/workflows/image.yml)
 * The stackage-build server (described below) is able to run automated builds using the [build.sh script](https://github.com/commercialhaskell/stackage/blob/master/automated/build.sh)
-* When a new Nightly build is completed, it is uploaded to [the nightly repo](https://github.com/commercialhaskell/stackage-nightly)
-* Once a week, we run an LTS minor bump. Instead of using build-constraints.yaml, that job takes the previous LTS release, turns it into constraints, and then bumps the version numbers to the latest on Hackage, in accordance with the version bounds in the build plan. This plans are uploaded to [the LTS repo](https://github.com/commercialhaskell/lts-haskell)
+* When a new (nightly or LTS) build is completed, it is uploaded to [stackage-snapshots](https://github.com/commercialhaskell/stackage-snapshots)
+* Once a week, we run an LTS minor bump. Instead of using build-constraints.yaml, that job takes the previous LTS release, turns it into `^>=` constraints, and then bumps the version numbers to the latest on Hackage, in accordance with the generated constraint.
 * Cutting a new LTS major release is essentially just a Stackage Nightly that gets rebuilt and uploaded as an LTS
 
 ## Pull requests
@@ -187,9 +187,9 @@ the maintainers of those packages.
 ## Updating the content of the Docker image used for building
 
 ### Adding Debian packages for required system tools or libraries
-Additional (non-Haskell) system libraries or tools should be added to `stackage/debian-bootstrap.sh`.
+Additional (non-Haskell) system libraries or tools should be added to `docker/02-apt-get-install.sh` or `docker/03-custom-install.sh`.
 After you've committed those changes, merging them into the `nightly` branch should
-trigger a DockerHub build. Simply run:
+trigger an image build. Simply run:
 
 ```bash
     $ git checkout nightly
@@ -197,12 +197,15 @@ trigger a DockerHub build. Simply run:
     $ git push
 ```
 
+This will [trigger a build](https://github.com/commercialhaskell/stackage/actions/workflows/image.yml).
+
 Use [Ubuntu Package content search](http://packages.ubuntu.com/) to determine which package provides particular dev files (it defaults to xenial which is the version used to build Nightly).
 
 Note that we generally don't install/run services needed for testsuites in the docker images - packages with tests requiring some system service can be added to `expected-test-failures`.
 It's good to inform the maintainer of any disabled tests (commenting in the PR is sufficient).
 
 If a new package fails to build because of missing system libraries we often ask the maintainer to help figure out what to install.
+
 
 ### Upgrading GHC version
 The Dockerfile contains information on which GHC versions should be used. You
@@ -214,14 +217,14 @@ Update the `Win32` version in `build-constraints.yaml` under "GHC upper bounds".
 
 Note that when starting a new LTS major release, you'll need to modify `.github/workflows/image.yml` to add a new lts branch.
 
-Update `GHCVER` in `Dockerfile`. (This env var automatically gets passed to `debian-bootstrap.sh`.)
+Update `GHCVER` in `Dockerfile`. (This env var automatically gets passed to the scripts in `docker/`).
 
 Ensure that the [global-hints.yaml
 file](https://github.com/fpco/stackage-content/blob/master/stack/global-hints.yaml)
 is updated with information on the latest GHC release by cloning that
 repo and running `./update-global-hints.hs ghc-X.Y.Z`.
 
-If enountering an error like the following, this means that the Stack metadata
+If enountering an error like the following, this means that the [Stack metadata](https://github.com/commercialhaskell/stackage-content)
 has not yet been updated, so wait some time until this happens:
 
 ```
