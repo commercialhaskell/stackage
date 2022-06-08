@@ -1572,7 +1572,7 @@ packages:
         - fuzzcheck
         - here
         - hlibgit2
-        - gitlib-libgit2
+        - gitlib-libgit2 < 0 # 3.1.2.1 compile fail
         - interpolatedstring-perl6
         - iproute
         - missing-foreign
@@ -1585,7 +1585,7 @@ packages:
         - optparse-simple
         - hpack
         - bindings-uname
-        - stack < 9.9.9 # see #3563/closed
+        - stack < 9.9.9 || > 9.9.9
 
     "Michael Sloan <mgsloan@gmail.com> @mgsloan":
         - store
@@ -3004,10 +3004,10 @@ packages:
         - postgresql-orm
 
     "Sergey Astanin <s.astanin@gmail.com> @astanin":
-        # Stackage server uses Ubuntu 16.04 which ships libzip-1.0.1.
+        # Stackage server uses Ubuntu 20.04 which ships libzip-?.
         # Haskell packages should match major.minor versions of the C library.
         - bindings-libzip
-        - LibZip
+        - LibZip < 0 # 1.0.1 undefined reference to 'zip_archive_set_tempdir'
 
     "Anthony Cowley <acowley@gmail.com> @acowley":
         - vinyl
@@ -5033,7 +5033,7 @@ packages:
         - ghc-paths
         - ghc-prof
         - ghcjs-dom-jsaddle
-        - gi-soup
+        - gi-soup < 0 # 2.4.25 Could not find ["/usr/local/share/gir-1.0","/usr/share/gir-1.0"].
         - git-lfs
         - gitlib
         - groom
@@ -6173,6 +6173,7 @@ packages:
         - ghcjs-dom < 0 # tried ghcjs-dom-0.9.5.0, but its *library* requires the disabled package: ghcjs-dom-jsaddle
         - ghcjs-dom-jsaddle < 0 # tried ghcjs-dom-jsaddle-0.9.5.0, but its *library* requires the disabled package: jsaddle-dom
         - gi-gsk < 0 # tried gi-gsk-4.0.4, but its *library* requires gi-gdk ==4.0.* and the snapshot contains gi-gdk-3.0.25
+        - gi-webkit2 < 0 # tried gi-webkit2-4.0.28, but its *library* requires the disabled package: gi-soup
         - ginger < 0 # tried ginger-0.10.4.0, but its *executable* requires optparse-applicative >=0.14.3.0 && < 0.17 and the snapshot contains optparse-applicative-0.17.0.0
         - ginger < 0 # tried ginger-0.10.4.0, but its *library* requires bytestring >=0.10.8.2 && < 0.11 and the snapshot contains bytestring-0.11.3.1
         - git-annex < 0 # tried git-annex-10.20220525, but its *executable* requires the disabled package: aws
@@ -7692,7 +7693,6 @@ skipped-tests:
     - galois-field # tried galois-field-1.0.2, but its *test-suite* requires semirings >=0.5 && < 0.6 and the snapshot contains semirings-0.6
     - galois-field # tried galois-field-1.0.2, but its *test-suite* requires tasty >=1.2 && < 1.3 and the snapshot contains tasty-1.4.2.3
     - generic-xmlpickler # tried generic-xmlpickler-0.1.0.6, but its *test-suite* requires tasty >=0.10 && < 1.3 and the snapshot contains tasty-1.4.2.3
-    - gitlib-libgit2 # tried gitlib-libgit2-3.1.2.1, but its *test-suite* requires the disabled package: gitlib-test
     - greskell # tried greskell-2.0.0.0, but its *test-suite* requires bytestring >=0.10.8.1 && < 0.11 and the snapshot contains bytestring-0.11.3.1
     - greskell-core # tried greskell-core-1.0.0.0, but its *test-suite* requires bytestring >=0.10.8.1 && < 0.11 and the snapshot contains bytestring-0.11.3.1
     - haddock-library # tried haddock-library-1.10.0, but its *test-suite* requires base-compat ^>=0.9.3 || ^>=0.11.0 and the snapshot contains base-compat-0.12.1
@@ -8066,7 +8066,9 @@ expected-test-failures:
     - cfenv # 0.1.0.0 https://github.com/tomphp/haskell-cfenv/issues/1
     - character-cases # 0.1.0.6 https://github.com/aiya000/hs-character-cases/issues/3
     - control-dsl # 0.2.1.3
+    - codec-beam # 0.2.0 posix_spawnp: does not exist
     - curl-runnings # 0.17.0
+    - crypt-sha512 # 0 Use -p '/crypt.$6$rounds=10$roundstoolow/' to rerun this test only.
     - dbus # 1.2.24 https://github.com/commercialhaskell/stackage/issues/6373
     - debian # 4.0.2 https://github.com/clinty/debian-haskell/issues/2
     - dimensional # 1.4
@@ -8106,6 +8108,8 @@ expected-test-failures:
     - optics # 0.4.2
     - pcre-heavy
     - persistent-sqlite # https://github.com/yesodweb/persistent/issues/989
+    - product-profunctors # 0.11.0.3 executable not found
+    - openssl-streams # 1.2.3.0 asn1 encoding wrong tag
     - posix-paths
     - posix-pty # 0.2.2
     - prettyprinter
@@ -8214,11 +8218,12 @@ expected-test-failures:
 
     # doctests can be flaky on the build server, add packages here if
     # they start causing issues.
-    - lens-regex # 0.1.3
     - bookkeeping
     - detour-via-sci # https://github.com/commercialhaskell/stackage/issues/6360
     - dhall
     - doctest-driver-gen
+    - doctest-parallel
+    - dyre # 0.9.1
     - email-validate
     - envelope # https://github.com/commercialhaskell/stackage/issues/6383
     - error
@@ -8230,6 +8235,7 @@ expected-test-failures:
     - hledger-lib
     - iproute
     - kawhi
+    - lens-regex # 0.1.3
     - makefile # Doctests require hidden Glob package
     - model # 0.5
     - multiset # Doctests require hidden Glob package
@@ -8293,6 +8299,7 @@ expected-haddock-failures:
     - hw-json # https://github.com/commercialhaskell/stackage/issues/5014
     - hw-rankselect
     - doctest-parallel # https://github.com/commercialhaskell/stackage/issues/5014
+    - d10 # 1.0.1.0
 
 # end of expected-haddock-failures
 
