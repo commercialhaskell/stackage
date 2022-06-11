@@ -1162,6 +1162,7 @@ packages:
         - yesod-paginator
 
     "Freckle Engineering <freckle-engineering@renaissance.com> @pbrisbin @mjgpy3 @stevenxl":
+        - Blammo
         - aws-xray-client
         - aws-xray-client-persistent
         - aws-xray-client-wai
@@ -1173,8 +1174,8 @@ packages:
         - hspec-expectations-json
         - hspec-junit-formatter
         - nonempty-zipper
-        - sendgrid-v3
         - scientist
+        - sendgrid-v3
         - yesod-auth-oauth2
         - yesod-page-cursor
         - yesod-routes-flow
@@ -3022,6 +3023,7 @@ packages:
         - context-http-client
         - context-resource
         - context-wai-middleware
+        - monad-logger-aeson
         - overhang
         - tao
         - tao-example
@@ -6874,7 +6876,7 @@ packages:
         - regex-pcre-text < 0 # tried regex-pcre-text-0.94.0.1, but its *library* requires regex-base ==0.93.* and the snapshot contains regex-base-0.94.0.2
         - regex-pcre-text < 0 # tried regex-pcre-text-0.94.0.1, but its *library* requires regex-pcre-builtin ==0.94.* and the snapshot contains regex-pcre-builtin-0.95.2.3.8.44
         - regex-tdfa-text < 0 # tried regex-tdfa-text-1.0.0.3, but its *library* requires regex-base < 0.94 and the snapshot contains regex-base-0.94.0.2
-        - registry < 0 # tried registry-0.3.0.6, but its *library* requires the disabled package: protolude
+        - registry < 0 # tried registry-0.3.0.7, but its *library* requires the disabled package: protolude
         - relapse < 0 # tried relapse-1.0.0.0, but its *library* requires attoparsec >=0.13.1.0 && < 0.14 and the snapshot contains attoparsec-0.14.4
         - relational-query < 0 # tried relational-query-0.12.3.0, but its *library* requires the disabled package: persistable-record
         - relational-query < 0 # tried relational-query-0.12.3.0, but its *library* requires the disabled package: product-isomorphic
@@ -7439,6 +7441,9 @@ package-flags:
     sdl2:
       recent-ish: false
 
+    protolude:
+      dev: false
+
 
 # end of package-flags
 
@@ -7762,7 +7767,7 @@ skipped-tests:
     - rakuten # tried rakuten-0.1.1.5, but its *test-suite* requires servant-server >=0.9.1.1 && < 0.15 and the snapshot contains servant-server-0.19.1
     - rakuten # tried rakuten-0.1.1.5, but its *test-suite* requires warp >=3.2.11 && < 3.3 and the snapshot contains warp-3.3.21
     - records-sop # tried records-sop-0.1.1.0, but its *test-suite* requires hspec >=2.2 && < 2.8 and the snapshot contains hspec-2.9.7
-    - registry # tried registry-0.3.0.6, but its *test-suite* requires the disabled package: universum
+    - registry # tried registry-0.3.0.7, but its *test-suite* requires the disabled package: universum
     - req-url-extra # tried req-url-extra-0.1.1.0, but its *test-suite* requires hspec >=2.2 && < 2.8 and the snapshot contains hspec-2.9.7
     - rest-rewrite # tried rest-rewrite-0.4.0, but its *test-suite* requires time >=1.9.3 && < 1.10 and the snapshot contains time-1.11.1.1
     - safeio # tried safeio-0.0.5.0, but its *test-suite* requires the disabled package: test-framework-th
