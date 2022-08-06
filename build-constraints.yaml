@@ -3065,8 +3065,8 @@ packages:
         - cmark
         - texmath
         - highlighting-kate
-        - skylighting < 0.13 # https://github.com/commercialhaskell/stackage/issues/6663
-        - skylighting-core < 0.13 # https://github.com/commercialhaskell/stackage/issues/6663
+        - skylighting
+        - skylighting-core
         - pandoc-types
         - zip-archive
         - doclayout
@@ -3079,6 +3079,9 @@ packages:
         - commonmark-pandoc
         - unicode-collation
         - ipynb
+        - skylighting-format-ansi
+        - skylighting-format-blaze-html
+        - skylighting-format-latex
 
     "Karun Ramakrishnan <karun012@gmail.com> @karun012":
         - doctest-discover
@@ -3772,6 +3775,7 @@ packages:
         - pandoc-lua-marshal
         - tasty-hslua
         - tasty-lua
+        - gridtables
 
     "Judah Jacobson <judah.jacobson@gmail.com> @judah":
         - proto-lens-protobuf-types
@@ -6310,6 +6314,7 @@ packages:
         - hackernews < 0 # tried hackernews-1.4.0.0, but its *library* requires servant-client >=0.9 && < 0.13 and the snapshot contains servant-client-0.19
         - hadolint < 0 # tried hadolint-2.11.0, but its *library* requires the disabled package: colourista
         - hadoop-streaming < 0 # tried hadoop-streaming-0.2.0.3, but its *library* requires bytestring >=0.10 && < 0.11 and the snapshot contains bytestring-0.11.3.1
+        - hakyll < 0 # tried hakyll-4.15.1.1, but its *library* requires pandoc >=2.11 && < 2.19 and the snapshot contains pandoc-2.19
         - hamilton < 0 # tried hamilton-0.1.0.3, but its *library* requires the disabled package: typelits-witnesses
         - hapistrano < 0 # tried hapistrano-0.4.6.0, but its *executable* requires optparse-applicative >=0.11 && < 0.17 and the snapshot contains optparse-applicative-0.17.0.0
         - hapistrano < 0 # tried hapistrano-0.4.6.0, but its *executable* requires path-io >=1.2 && < 1.7 and the snapshot contains path-io-1.7.0
@@ -7286,9 +7291,6 @@ packages:
 
         # https://github.com/commercialhaskell/stackage/issues/6621
         - some < 1.0.4
-
-        # https://github.com/commercialhaskell/stackage/issues/6622
-        - citeproc < 0.8
 
         # https://github.com/commercialhaskell/stackage/issues/6624
         - vector < 0.13
