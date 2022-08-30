@@ -120,8 +120,8 @@ fi
 docker run $ARGS_PREBUILD $IMAGE /bin/bash -c 'GHCVER=$(sed -n "s/^ghc-version: \(.*\)/\1/p" constraints.yaml) && stack setup ghc-$GHCVER --verbosity=error && stack exec --resolver=ghc-$GHCVER curator check-snapshot && curator unpack'
 
 case $SHORTNAME in
-    lts) JOBS=1 ;;
-    nightly) JOBS=1 ;;
+    lts) JOBS=3 ;;
+    nightly) JOBS=3 ;;
 esac
 
 if [ -e "$SHORTNAME-build.log" ]
