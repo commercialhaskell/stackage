@@ -69,7 +69,7 @@ chmod +x curator
 echo -n "curator version: "
 docker run --rm -v $(pwd)/curator:/exe $IMAGE /exe --version
 
-curl -L https://github.com/commercialhaskell/stack/releases/download/v2.7.5/stack-2.7.5-linux-x86_64-bin > stack
+curl -L https://github.com/commercialhaskell/stack/releases/download/v2.9.1/stack-2.9.1-linux-x86_64-bin > stack
 chmod +x stack
 echo -n "stack version: "
 docker run --rm -v $(pwd)/stack:/exe $IMAGE /exe --version
