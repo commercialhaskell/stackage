@@ -3,6 +3,7 @@
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
 while true; do
+    git pull
     ./build.sh nightly-$(date -u +%F)
     date
 
