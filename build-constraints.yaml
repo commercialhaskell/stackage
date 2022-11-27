@@ -7935,23 +7935,10 @@ packages:
         # https://github.com/commercialhaskell/stackage/issues/6761
         - double-conversion < 0 # https://github.com/haskell/double-conversion/issues/34
         - blaze-textual < 0
-        - formatting < 0
         - reanimate-svg < 0
         - type-of-html < 0
         - sqlite-simple < 0 # via blaze-textual
-        - async-refresh < 0 # via formatting
-        - async-refresh-tokens < 0 # via formatting
-        - elm-export < 0 # via formatting
-        - fmt < 0 # via formatting
-        - path-formatting < 0 # via formatting
-        - simple-media-timestamp-formatting < 0 # via formatting
-        - srt-formatting < 0 # via formatting
         - type-of-html-static < 0 # via type-of-html
-        - cardano-coin-selection < 0 # via fmt
-        - columnar < 0 # via fmt
-        - enum-text < 0 # via fmt
-        - optparse-enum < 0 # via fmt
-        - rg < 0 # via fmt
         - drifter-sqlite < 0 # via sqlite-simple
 
 # end of packages
@@ -8070,6 +8057,9 @@ package-flags:
 
     sdl2:
       recent-ish: false
+
+    formatting:
+      no-double-conversion: true
 
 
 # end of package-flags
@@ -9179,7 +9169,7 @@ skipped-benchmarks:
     - filepath-bytestring # tried filepath-bytestring-1.4.2.1.12, but its *benchmarks* requires filepath >=1.4.2 && < =1.4.2.1 and the snapshot contains filepath-1.4.2.2
     - fmt # tried fmt-0.6.3.0, but its *benchmarks* requires the disabled package: criterion
     - foldl # tried foldl-1.4.12, but its *benchmarks* requires the disabled package: criterion
-    - formatting # tried formatting-7.1.3, but its *benchmarks* requires the disabled package: criterion
+    - formatting # tried formatting-7.2.0, but its *benchmarks* requires the disabled package: criterion
     - galois-field # tried galois-field-1.0.2, but its *benchmarks* requires criterion >=1.5 && < 1.6 and the snapshot contains criterion-1.6.0.0
     - generic-data # tried generic-data-1.0.0.0, but its *benchmarks* requires the disabled package: criterion
     - generics-sop # tried generics-sop-0.5.1.2, but its *benchmarks* requires the disabled package: criterion
