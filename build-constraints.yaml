@@ -834,7 +834,7 @@ packages:
         - githash
 
         - time-manager
-        - pantry < 0.6.0 # OK for 9.4.2 https://github.com/commercialhaskell/stackage/issues/6742
+        - pantry
         - mega-sdist
         - http-download
         - hi-file-parser
@@ -6082,10 +6082,8 @@ packages:
         - bzlib < 0 # tried bzlib-0.5.1.0, but its *library* requires base >=4.3 && < 4.16 and the snapshot contains base-4.17.0.0
         - bzlib < 0 # tried bzlib-0.5.1.0, but its *library* requires bytestring ==0.9.* || ==0.10.* and the snapshot contains bytestring-0.11.3.1
         - ca-province-codes < 0 # tried ca-province-codes-1.0.0.0, but its *library* requires text >=1 && < 2 and the snapshot contains text-2.0.1
-        - cabal-file < 0 # tried cabal-file-0.1.1, but its *library* requires the disabled package: hackage-security
         - cabal-flatpak < 0 # tried cabal-flatpak-0.1.0.3, but its *executable* requires aeson >=2.0 && < 2.1 and the snapshot contains aeson-2.1.1.0
         - cabal-flatpak < 0 # tried cabal-flatpak-0.1.0.3, but its *executable* requires text >=1.2 && < 1.3 and the snapshot contains text-2.0.1
-        - cabal-install < 0 # tried cabal-install-3.8.1.0, but its *library* requires the disabled package: hackage-security
         - cabal-rpm < 0 # tried cabal-rpm-2.0.11.1, but its *executable* requires Cabal >1.10 && < 3.7 and the snapshot contains Cabal-3.8.1.0
         - cabal2spec < 0 # tried cabal2spec-2.6.3, but its *library* requires Cabal ==3.6.* and the snapshot contains Cabal-3.8.1.0
         - cairo < 0 # tried cairo-0.13.8.2, but its *library* requires Cabal >=2.0 && < 3.7 and the snapshot contains Cabal-3.8.1.0
@@ -6568,8 +6566,6 @@ packages:
         - hOpenPGP < 0 # tried hOpenPGP-2.9.8, but its *library* requires the disabled package: ixset-typed
         - hackage-cli < 0 # tried hackage-cli-0.0.3.6, but its *executable* requires Cabal >=3.4 && < 3.7 and the snapshot contains Cabal-3.8.1.0
         - hackage-cli < 0 # tried hackage-cli-0.0.3.6, but its *executable* requires base >=4.10.0.0 && < 4.17 and the snapshot contains base-4.17.0.0
-        - hackage-security < 0 # tried hackage-security-0.6.2.2, but its *library* requires Cabal >=1.14 && < 1.26 || >=2.0 && < 2.6 || >=3.0 && < 3.7 and the snapshot contains Cabal-3.8.1.0
-        - hackage-security < 0 # tried hackage-security-0.6.2.2, but its *library* requires Cabal-syntax < 3.7 and the snapshot contains Cabal-syntax-3.8.1.0
         - hackernews < 0 # tried hackernews-1.4.0.0, but its *library* requires http-client ==0.5.* and the snapshot contains http-client-0.7.13.1
         - hackernews < 0 # tried hackernews-1.4.0.0, but its *library* requires servant >=0.9 && < 0.13 and the snapshot contains servant-0.19.1
         - hackernews < 0 # tried hackernews-1.4.0.0, but its *library* requires servant-client >=0.9 && < 0.13 and the snapshot contains servant-client-0.19
@@ -7172,7 +7168,6 @@ packages:
         - pandoc-throw < 0 # tried pandoc-throw-0.1.0.0, but its *library* requires the disabled package: pandoc
         - pango < 0 # tried pango-0.13.8.2, but its *library* requires Cabal >=2.0 && < 3.7 and the snapshot contains Cabal-3.8.1.0
         - pango < 0 # tried pango-0.13.8.2, but its *library* requires text >=0.11.0.6 && < 1.3 and the snapshot contains text-2.0.1
-        - pantry < 0 # tried pantry-0.5.7, but its *library* requires the disabled package: hackage-security
         - papillon < 0 # tried papillon-0.1.1.1, but its *library* requires bytestring ==0.10.* and the snapshot contains bytestring-0.11.3.1
         - papillon < 0 # tried papillon-0.1.1.1, but its *library* requires template-haskell ==2.15.* and the snapshot contains template-haskell-2.19.0.0
         - paripari < 0 # tried paripari-0.7.0.0, but its *library* requires bytestring >=0.10 && < 0.11 and the snapshot contains bytestring-0.11.3.1
@@ -7909,10 +7904,6 @@ packages:
         # https://github.com/commercialhaskell/stackage/issues/6624
         - vector < 0.13 # OK for GHC 9.4.2
 
-        # https://github.com/commercialhaskell/stackage/issues/6742
-        - pantry < 0.6
-        - mega-sdist < 0.4.3.0
-
         # https://github.com/commercialhaskell/stackage/issues/6744
         - resourcet < 1.3.0
 
@@ -8059,7 +8050,8 @@ package-flags:
     formatting:
       no-double-conversion: true
 
-
+    hackage-security:
+      Cabal-syntax: true
 # end of package-flags
 
 # Special configure options for individual packages
