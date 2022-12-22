@@ -431,11 +431,6 @@ errors for builds, tests and benchmarks.
 This is currently a rust program, You can install the rust toolchain
 by using [rustup](https://rustup.rs/).
 
-For some commands you also need etc/commenter/latest-version installed.
-```
-stack install --stack-yaml etc/commenter/latest-version/stack.yaml
-```
-
 #### Example usage
 
 After disabling a few packages you get this curator output:
