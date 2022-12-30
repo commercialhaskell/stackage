@@ -23,5 +23,5 @@ unzip awscliv2.zip
 rm -rf /tmp/awscli
 
 # Get Stack and GHC
-curl -sSL https://get.haskellstack.org/ | sh -s - -d /usr/bin
-stack setup --resolver ghc-$GHCVER
+#curl -sSL https://get.haskellstack.org/ | sh -s - -d /usr/bin
+#stack setup --resolver ghc-$GHCVER

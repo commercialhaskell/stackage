@@ -119,6 +119,7 @@ apt-get install -y \
     libxrandr-dev \
     libxss-dev \
     libyaml-dev \
+    libz3-dev \
     libzip-dev \
     libzmq3-dev \
     libzstd-dev \

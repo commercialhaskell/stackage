@@ -132,23 +132,13 @@ rm -f $PROTOC_ZIP
 
 echo /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server > /etc/ld.so.conf.d/java.conf
 
-echo /usr/lib/llvm-3.7/lib > /etc/ld.so.conf.d/llvm.conf
-
-ldconfig
+#echo /usr/lib/llvm-3.7/lib > /etc/ld.so.conf.d/llvm.conf
+# ldconfig
 
 # Install librdkafka (Apache Kafka C/C++ library)
 wget -qO - https://packages.confluent.io/deb/5.2/archive.key | apt-key add -
 add-apt-repository "deb https://packages.confluent.io/deb/5.2 stable main"
 apt-get update && apt install -y librdkafka-dev
-
-Z3_VER=4.8.8
-(
-  cd /usr/local/ \
-    && wget https://github.com/Z3Prover/z3/releases/download/z3-${Z3_VER}/z3-${Z3_VER}-x64-ubuntu-16.04.zip \
-    && unzip z3-${Z3_VER}-x64-ubuntu-16.04.zip \
-    && rm z3-${Z3_VER}-x64-ubuntu-16.04.zip \
-    && ln -s /usr/local/z3-${Z3_VER}-x64-ubuntu-16.04/bin/z3 /usr/bin/z3
-)
 
 LIBJWT_VER=1.12.1
 (
