@@ -59,6 +59,7 @@ apt-get install -y \
     libgsasl7-dev \
     libgsl-dev \
     libgtk-3-dev \
+    libgtk-4-dev \
     libgtk2.0-dev \
     libgtksourceview-3.0-dev \
     libhidapi-dev \
