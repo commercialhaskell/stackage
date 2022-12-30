@@ -41,8 +41,8 @@ update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
 #update-alternatives --install "/usr/bin/opt" "opt" "/usr/bin/opt-9" 50
 
 # nodejs 10 (nodejs8 in bionic needs conflicting libssl10-dev)
-curl -sL https://deb.nodesource.com/setup_10.x | bash -
-apt-get install -y nodejs
+#curl -sL https://deb.nodesource.com/setup_10.x | bash -
+#apt-get install -y nodejs
 
 # install ocilib dependencies then build and install ocilib
 cd /tmp \

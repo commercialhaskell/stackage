@@ -133,6 +133,7 @@ apt-get install -y \
     mono-mcs \
     nettle-dev \
     ninja-build \
+    nodejs \
     openjdk-8-jdk \
     python-mpltoolkits.basemap \
     python3-matplotlib \
