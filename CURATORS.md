@@ -208,10 +208,10 @@ If a new package fails to build because of missing system libraries we often ask
 
 
 ### Upgrading GHC version
-The Dockerfile contains information on which GHC versions should be used. You
-can modify it and push it to Github to trigger a build. The nightly
-branch is used for nightlies. For LTSes, we use the ltsX branch, where X is the
-major version number (e.g., lts3 for lts-3.\*).
+(~~The Dockerfile contains information on which GHC versions should be used.~~
+You can modify it and push it to Github to trigger a build.
+The nightly branch is used for nightlies. For LTSes, we use the ltsX branch,
+where X is the major version number (e.g., lts20 for lts-20.\*).)
 
 Update the `Win32` version in `build-constraints.yaml` under "GHC upper bounds".
 
