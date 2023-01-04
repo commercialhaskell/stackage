@@ -106,6 +106,7 @@ apt-get install -y \
     libsnappy-dev \
     libsndfile1-dev \
     libsodium-dev \
+    libsoup2.4-dev \
     libsox-dev \
     libsqlite3-dev \
     libssl-dev \
