@@ -7,6 +7,8 @@
 #  ./verify-package mtl
 # or
 #  ./verify-package mtl-2.2.2
+# or
+#  ./verify-package mtl lts
 
 set -eu
 
@@ -20,6 +22,7 @@ if [[ -z $package ]]; then
     die "Package name is not given"
 fi
 
+stream="${2:-nightly}"
 
 here="$(cd "$(dirname "$0")" > /dev/null; pwd)"
 dir="$(mktemp -d tmp.XXXX)"
@@ -35,8 +38,8 @@ cd "$dir"
 stack unpack "$package"
 cd "$(ls | head -n 1)"
 rm -f stack.yaml
-stack init --resolver nightly --ignore-subdirs
-stack build --resolver nightly --haddock --test --bench --no-run-benchmarks
+stack init --resolver $stream --ignore-subdirs
+stack build --resolver $stream --haddock --test --bench --no-run-benchmarks
 
 
 cat <<EOF
