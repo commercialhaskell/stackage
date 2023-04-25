@@ -498,7 +498,7 @@ packages:
         - bibtex
         - board-games
         - buffer-pipe
-        - cabal-flatpak
+        - cabal-flatpak < 0 # Disabled because it needs disabled package cabal-plan
         - calendar-recycling
         - checksum
         - combinatorial
@@ -592,7 +592,7 @@ packages:
         - resistor-cube
         - linear-circuit
         # Not a maintainer
-        - cabal-plan
+        - cabal-plan < 0 # Missing release compatible with semialign-1.3
         - topograph
         - ix-shapable
         - hsshellscript < 0 # 3.5.0 compile fail https://github.com/commercialhaskell/stackage/issues/6762
@@ -648,7 +648,7 @@ packages:
         - test-fun
 
     "Solomon Bothwell <ssbothwell@gmail.com> @solomon-b":
-        - monoidal-functors
+        - monoidal-functors < 0 # v0.2.1.0 not compatible with semialign-1.3
 
     "Tobias Dammers <tdammers@gmail.com> @tdammers":
         - ginger
@@ -2257,7 +2257,7 @@ packages:
         - ki-unlifted
         - tasty-hspec
         - termbox
-        - termbox-banana
+        - termbox-banana < 0 # Disabled because it needs disabled package reactive-banana
         - termbox-bindings-c
         - termbox-bindings-hs
         - termbox-tea
@@ -3558,7 +3558,7 @@ packages:
         - HDBC-mysql
 
     "Tony Morris <haskell@tmorris.net> @tonymorris":
-        - validation
+        - validation < 0 # https://github.com/commercialhaskell/stackage/issues/6915
 
     "Tony Day <tonyday567@gmail.com> @tonyday567":
         - numhask
@@ -4826,7 +4826,7 @@ packages:
         - linear-generics < 0.2.2 # 0.2.2 depends on th-abstraction 5.0.0. See https://github.com/commercialhaskell/stackage/issues/6897
 
     "Ollie Charles <ollie@ocharles.org.up> @ocharles":
-        - reactive-banana
+        - reactive-banana < 0 # v1.3.2.0 not compatible with these-1.2
         - rel8
         - logging-effect
 
@@ -5368,8 +5368,8 @@ packages:
         - securemem
         - selective < 0.6.1 || > 0.6.1
         - semialign
-        - semialign-indexed
-        - semialign-optics
+        - semialign-indexed < 0 # Deprecated
+        - semialign-optics < 0 # Deprecated
         - serialise
         - servant-client-core
         - servant-multipart-client
@@ -7697,15 +7697,6 @@ packages:
         - cabal-install < 3.10.1.0
         - cabal-install-solver < 3.10.1.0
 
-        # https://github.com/commercialhaskell/stackage/issues/6915
-        - assoc < 1.1
-        - semialign < 1.3
-        - strict < 0.5
-        - strict-base-types < 0.8
-        - strict-lens < 0.4.0.3
-        - these < 1.2
-        - these-lens < 1.0.1.3
-
         # https://github.com/commercialhaskell/stackage/issues/6917
         - some < 1.0.5
 
@@ -8149,6 +8140,7 @@ skipped-tests:
     - http-media # tried http-media-0.8.0.0, but its *test-suite* requires QuickCheck >=2.8 && < 2.14 and the snapshot contains QuickCheck-2.14.2
     - http-streams # tried http-streams-0.8.9.6, but its *test-suite* requires the disabled package: snap-server
     - indexed-containers # tried indexed-containers-0.1.0.2, but its *test-suite* requires hspec >=2.4.8 && < 2.8 and the snapshot contains hspec-2.10.10
+    - inline-r # 1.0.0 https://github.com/tweag/HaskellR/issues/257 https://github.com/tweag/HaskellR/issues/371
     - irc-dcc # tried irc-dcc-2.0.1, but its *test-suite* requires tasty >=0.11.0.2 && < 1.2 and the snapshot contains tasty-1.4.3
     - irc-dcc # tried irc-dcc-2.0.1, but its *test-suite* requires tasty-hspec >=1.1.2 && < 1.2 and the snapshot contains tasty-hspec-1.2.0.3
     - json-rpc-client # tried json-rpc-client-0.2.5.0, but its *test-suite* requires QuickCheck >=2.4.2 && < 2.14 and the snapshot contains QuickCheck-2.14.2
@@ -8634,7 +8626,6 @@ expected-test-failures:
     - hsini # 0.5.1.2
     - htoml-megaparsec # 2.1.0.4 https://github.com/commercialhaskell/stackage/pull/6533
     - hweblib # 0.6.3 https://github.com/aycanirican/hweblib/issues/3
-    - inline-r # 1.0.0 https://github.com/tweag/HaskellR/issues/257 https://github.com/tweag/HaskellR/issues/371
     - leveldb-haskell
     - mergeful-persistent # https://github.com/commercialhaskell/stackage/issues/6565
     - mergeless-persistent # https://github.com/commercialhaskell/stackage/issues/6566
