@@ -5,7 +5,7 @@ set -eu +x -o pipefail
 ROOT=$(cd $(dirname $0) ; pwd)
 TARGET=$1
 
-source work/aws.sh
+#source work/aws.sh
 
 # For nightly-YYYY-MM-DD, tag should be nightly
 # For lts-X.Y, tag should be ltsX
@@ -19,8 +19,8 @@ else
     WORKDIR=$ROOT/work/$TAG
 fi
 
-#IMAGE=commercialhaskell/stackage:$TAG
-IMAGE=ghcr.io/commercialhaskell/stackage/build:$TAG
+IMAGE=commercialhaskell/stackage:$TAG
+#IMAGE=ghcr.io/commercialhaskell/stackage/build:$TAG
 
 PANTRY_DIR=$ROOT/work/stack/pantry
 STACK_DIR=$ROOT/work/stack
@@ -55,22 +55,22 @@ function require_400_file {
     chmod 400 "$1"
 }
 
-require_400_file "$SSH_DIR/id_rsa"
-require_400_file "$HACKAGE_CREDS"
+#require_400_file "$SSH_DIR/id_rsa"
+#require_400_file "$HACKAGE_CREDS"
 
 mkdir -p $ROOT/work/bin
 BINDIR=$(cd $ROOT/work/bin ; pwd)
 (
 cd $BINDIR
-rm -f curator stack *.bz2
+#rm -f curator stack *.bz2
 
-curl -L "https://github.com/commercialhaskell/curator/releases/download/commit-4ae7a59717f163e15c69ddf75d31d0f775de2561/curator.bz2" | bunzip2 > curator
-chmod +x curator
+#curl -L "https://github.com/commercialhaskell/curator/releases/download/commit-4ae7a59717f163e15c69ddf75d31d0f775de2561/curator.bz2" | bunzip2 > curator
+#chmod +x curator
 echo -n "curator version: "
 docker run --rm -v $(pwd)/curator:/exe $IMAGE /exe --version
 
-curl -L https://github.com/commercialhaskell/stack/releases/download/v2.9.3/stack-2.9.3-linux-x86_64-bin > stack
-chmod +x stack
+#curl -L https://github.com/commercialhaskell/stack/releases/download/v2.9.3/stack-2.9.3-linux-x86_64-bin > stack
+#chmod +x stack
 echo -n "stack version: "
 docker run --rm -v $(pwd)/stack:/exe $IMAGE /exe --version
 )
@@ -83,16 +83,16 @@ ARGS_PREBUILD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $DOT_STACKAGE_DIR:$HOME/
 ARGS_BUILD="$ARGS_COMMON"
 # instance-data is an undocumented feature of S3 used by amazonka,
 # see https://github.com/brendanhay/amazonka/issues/271
-ARGS_UPLOAD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:$HOME/.stackage -v $SSH_DIR:$HOME/.ssh:ro -v $GITCONFIG:$HOME/.gitconfig:ro -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -v $DOT_STACKAGE_DIR:/dot-stackage"
+ARGS_UPLOAD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:$HOME/.stackage -v $SSH_DIR:$HOME/.ssh:ro -v $GITCONFIG:$HOME/.gitconfig:ro -v $DOT_STACKAGE_DIR:/dot-stackage"
 
 # Make sure we actually need this snapshot. We only check this for LTS releases
 # since, for nightlies, we'd like to run builds even if they are unnecessary to
 # get early warning information of upcoming failures. (See the duplicate check
 # below for why this is safe.)
-if [ $SHORTNAME = "lts" ]
-then
-  docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator check-target-available --target $TARGET"
-fi
+#if [ $SHORTNAME = "lts" ]
+#then
+#  docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator check-target-available --target $TARGET"
+#fi
 
 
 # Determine the new build plan unless NOPLAN is set
@@ -139,25 +139,25 @@ docker run $ARGS_BUILD $IMAGE nice -n 15 /bin/bash -c "chown $USER $HOME && exec
 # nightly, where we don't perform this check beforehand. This is also slightly
 # safer, in case someone else already uploaded a specific snapshot while we
 # were building.
-docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator check-target-available --target $TARGET"
+#docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator check-target-available --target $TARGET"
 
 # Successful build, so we need to:
 #
 # * Upload the docs to S3
 # * Upload the new snapshot .yaml file to the appropriate Github repo, also upload its constraints
-docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "curator upload-docs --target $TARGET && curator upload-github --target $TARGET"
+#docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "curator upload-docs --target $TARGET && curator upload-github --target $TARGET"
 
 # fixed in https://github.com/commercialhaskell/curator/pull/24
-docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator hackage-distro --target $TARGET"
+#docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator hackage-distro --target $TARGET"
 
 # Build and push docker image fpco/stack-build & fpco/stack-build-small for current release
 
-if [ $SHORTNAME = "lts" ]
-then
-    $ROOT/dockerfiles/build.sh $TARGET
-    $ROOT/dockerfiles/build.sh --push $TARGET
-    $ROOT/dockerfiles/build.sh --push --small $TARGET
-fi
+#if [ $SHORTNAME = "lts" ]
+#then
+#    $ROOT/dockerfiles/build.sh $TARGET
+#    $ROOT/dockerfiles/build.sh --push $TARGET
+#    $ROOT/dockerfiles/build.sh --push --small $TARGET
+#fi
 
 echo -n "Completed at "
 date

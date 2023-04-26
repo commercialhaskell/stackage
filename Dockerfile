@@ -1,5 +1,8 @@
 FROM fpco/pid1:22.04
 
+# Add Bosch CA certificate
+COPY Bosch-CA-DE.crt /usr/local/share/ca-certificates/Bosch-CA-DE.crt
+
 ENV HOME /home/stackage
 ENV LANG en_US.UTF-8
 # ENV GHCVER 9.4.3
