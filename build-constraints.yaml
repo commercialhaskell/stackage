@@ -498,7 +498,7 @@ packages:
         - bibtex
         - board-games
         - buffer-pipe
-        - cabal-flatpak
+        - cabal-flatpak < 0 # Disabled because it needs disabled package cabal-plan
         - calendar-recycling
         - checksum
         - combinatorial
@@ -592,7 +592,7 @@ packages:
         - resistor-cube
         - linear-circuit
         # Not a maintainer
-        - cabal-plan
+        - cabal-plan < 0 # v0.7.3.0, which is the release compatible with semialign-1.3, requires base-compat-0.13 which we don't have yet, see #6906
         - topograph
         - ix-shapable
         - hsshellscript < 0 # 3.5.0 compile fail https://github.com/commercialhaskell/stackage/issues/6762
@@ -648,7 +648,7 @@ packages:
         - test-fun
 
     "Solomon Bothwell <ssbothwell@gmail.com> @solomon-b":
-        - monoidal-functors
+        - monoidal-functors < 0 # 0.2.1.0 not compatible with semialign-1.3 https://github.com/solomon-b/monoidal-functors/issues/29
 
     "Tobias Dammers <tdammers@gmail.com> @tdammers":
         - ginger
@@ -2257,7 +2257,7 @@ packages:
         - ki-unlifted
         - tasty-hspec
         - termbox
-        - termbox-banana
+        - termbox-banana < 0 # Disabled because it needs disabled package reactive-banana
         - termbox-bindings-c
         - termbox-bindings-hs
         - termbox-tea
@@ -3558,7 +3558,7 @@ packages:
         - HDBC-mysql
 
     "Tony Morris <haskell@tmorris.net> @tonymorris":
-        - validation
+        - validation < 0 # 1.1.2 https://github.com/commercialhaskell/stackage/issues/6915
 
     "Tony Day <tonyday567@gmail.com> @tonyday567":
         - numhask
@@ -4826,7 +4826,7 @@ packages:
         - linear-generics < 0.2.2 # 0.2.2 depends on th-abstraction 5.0.0. See https://github.com/commercialhaskell/stackage/issues/6897
 
     "Ollie Charles <ollie@ocharles.org.up> @ocharles":
-        - reactive-banana
+        - reactive-banana < 0 # 1.3.2.0 not compatible with these-1.2 https://github.com/HeinrichApfelmus/reactive-banana/issues/285
         - rel8
         - logging-effect
 
@@ -5368,8 +5368,6 @@ packages:
         - securemem
         - selective < 0.6.1 || > 0.6.1
         - semialign
-        - semialign-indexed
-        - semialign-optics
         - serialise
         - servant-client-core
         - servant-multipart-client
@@ -6067,6 +6065,7 @@ packages:
         - brittany < 0 # tried brittany-0.14.0.2, but its *library* requires ghc-boot-th ^>=9.0.1 and the snapshot contains ghc-boot-th-9.4.5
         - brittany < 0 # tried brittany-0.14.0.2, but its *library* requires ghc-exactprint ^>=0.6.4 and the snapshot contains ghc-exactprint-1.6.1.1
         - brittany < 0 # tried brittany-0.14.0.2, but its *library* requires semigroups ^>=0.19.2 and the snapshot contains semigroups-0.20
+        - brittany < 0 # tried brittany-0.14.0.2, but its *library* requires strict ^>=0.4.0 and the snapshot contains strict-0.5
         - brittany < 0 # tried brittany-0.14.0.2, but its *library* requires text ^>=1.2.5 and the snapshot contains text-2.0.2
         - buchhaltung < 0 # tried buchhaltung-0.0.7, but its *library* requires the disabled package: hint
         - buchhaltung < 0 # tried buchhaltung-0.0.7, but its *library* requires the disabled package: regex-tdfa-text
@@ -6193,7 +6192,7 @@ packages:
         - csg < 0 # tried csg-0.1.0.6, but its *library* requires attoparsec < 0.14 and the snapshot contains attoparsec-0.14.4
         - csg < 0 # tried csg-0.1.0.6, but its *library* requires bytestring < 0.11 and the snapshot contains bytestring-0.11.4.0
         - csg < 0 # tried csg-0.1.0.6, but its *library* requires simple-vec3 ==0.4.* and the snapshot contains simple-vec3-0.6.0.1
-        - csg < 0 # tried csg-0.1.0.6, but its *library* requires strict < 0.4 and the snapshot contains strict-0.4.0.1
+        - csg < 0 # tried csg-0.1.0.6, but its *library* requires strict < 0.4 and the snapshot contains strict-0.5
         - cublas < 0 # tried cublas-0.6.0.0, but its *library* requires the disabled package: cuda
         - cufft < 0 # tried cufft-0.10.0.0, but its *library* requires the disabled package: cuda
         - currencies < 0 # tried currencies-0.2.0.0, but its *library* requires text >=1.2 && < 2 and the snapshot contains text-2.0.2
@@ -6333,6 +6332,7 @@ packages:
         - generic-xmlpickler < 0 # tried generic-xmlpickler-0.1.0.6, but its *library* requires base >=4.5 && < 4.14 and the snapshot contains base-4.17.1.0
         - generic-xmlpickler < 0 # tried generic-xmlpickler-0.1.0.6, but its *library* requires generic-deriving >=1.6 && < 1.14 and the snapshot contains generic-deriving-1.14.3
         - geojson < 0 # tried geojson-4.1.0, but its *library* requires text >=1.2.3.0 && < 1.3 and the snapshot contains text-2.0.2
+        - geojson < 0 # tried geojson-4.1.0, but its *library* requires the disabled package: validation
         - ghc-bignum-orphans < 0 # tried ghc-bignum-orphans-0.1.1, but its *library* requires ghc-bignum >=1.0 && < 1.3 and the snapshot contains ghc-bignum-1.3
         - ghc-clippy-plugin < 0 # tried ghc-clippy-plugin-0.0.0.1, but its *library* requires dhall >=1.30.0 && < 1.34 and the snapshot contains dhall-1.41.2
         - ghc-clippy-plugin < 0 # tried ghc-clippy-plugin-0.0.0.1, but its *library* requires ghc >=8.8.2 && < 8.11 and the snapshot contains ghc-9.4.5
@@ -6544,7 +6544,7 @@ packages:
         - haskell-tools-cli < 0 # tried haskell-tools-cli-1.1.1.0, but its *executable* requires optparse-applicative >=0.14 && < 0.15 and the snapshot contains optparse-applicative-0.17.0.0
         - haskell-tools-cli < 0 # tried haskell-tools-cli-1.1.1.0, but its *library* requires base >=4.11 && < 4.13 and the snapshot contains base-4.17.1.0
         - haskell-tools-cli < 0 # tried haskell-tools-cli-1.1.1.0, but its *library* requires ghc >=8.4 && < 8.7 and the snapshot contains ghc-9.4.5
-        - haskell-tools-cli < 0 # tried haskell-tools-cli-1.1.1.0, but its *library* requires strict >=0.3 && < 0.4 and the snapshot contains strict-0.4.0.1
+        - haskell-tools-cli < 0 # tried haskell-tools-cli-1.1.1.0, but its *library* requires strict >=0.3 && < 0.4 and the snapshot contains strict-0.5
         - haskell-tools-cli < 0 # tried haskell-tools-cli-1.1.1.0, but its *library* requires the disabled package: references
         - haskell-tools-daemon < 0 # tried haskell-tools-daemon-1.1.1.0, but its *library* requires Cabal >=2.0 && < 2.5 and the snapshot contains Cabal-3.8.1.0
         - haskell-tools-daemon < 0 # tried haskell-tools-daemon-1.1.1.0, but its *library* requires Diff >=0.3 && < 0.4 and the snapshot contains Diff-0.4.1
@@ -6553,7 +6553,7 @@ packages:
         - haskell-tools-daemon < 0 # tried haskell-tools-daemon-1.1.1.0, but its *library* requires ghc >=8.4 && < 8.7 and the snapshot contains ghc-9.4.5
         - haskell-tools-daemon < 0 # tried haskell-tools-daemon-1.1.1.0, but its *library* requires network >=2.6 && < 2.9 and the snapshot contains network-3.1.2.8
         - haskell-tools-daemon < 0 # tried haskell-tools-daemon-1.1.1.0, but its *library* requires optparse-applicative >=0.14 && < 0.15 and the snapshot contains optparse-applicative-0.17.0.0
-        - haskell-tools-daemon < 0 # tried haskell-tools-daemon-1.1.1.0, but its *library* requires strict >=0.3 && < 0.4 and the snapshot contains strict-0.4.0.1
+        - haskell-tools-daemon < 0 # tried haskell-tools-daemon-1.1.1.0, but its *library* requires strict >=0.3 && < 0.4 and the snapshot contains strict-0.5
         - haskell-tools-daemon < 0 # tried haskell-tools-daemon-1.1.1.0, but its *library* requires template-haskell >=2.13 && < 2.15 and the snapshot contains template-haskell-2.19.0.0
         - haskell-tools-daemon < 0 # tried haskell-tools-daemon-1.1.1.0, but its *library* requires the disabled package: references
         - haskell-tools-debug < 0 # tried haskell-tools-debug-1.1.1.0, but its *library* requires base >=4.11 && < 4.13 and the snapshot contains base-4.17.1.0
@@ -6663,6 +6663,7 @@ packages:
         - hs-tags < 0 # tried hs-tags-0.1.5.3, but its *executable* requires Cabal >=1.24.0.0 && < 3.7 and the snapshot contains Cabal-3.8.1.0
         - hs-tags < 0 # tried hs-tags-0.1.5.3, but its *executable* requires base >=4.9.0.0 && < 4.16 and the snapshot contains base-4.17.1.0
         - hs-tags < 0 # tried hs-tags-0.1.5.3, but its *executable* requires ghc >=8.0.2 && < 9.1 and the snapshot contains ghc-9.4.5
+        - hs-tags < 0 # tried hs-tags-0.1.5.3, but its *executable* requires strict >=0.3.2 && < 0.5 and the snapshot contains strict-0.5
         - hsb2hs < 0 # tried hsb2hs-0.3.1, but its *executable* requires the disabled package: preprocessor-tools
         - hschema-aeson < 0 # tried hschema-aeson-0.0.1.1, but its *library* requires the disabled package: hschema
         - hschema-prettyprinter < 0 # tried hschema-prettyprinter-0.0.1.1, but its *library* requires the disabled package: hschema
@@ -7225,7 +7226,6 @@ packages:
         - selda-postgresql < 0 # tried selda-postgresql-0.1.8.2, but its *library* requires time >=1.5 && < 1.12 and the snapshot contains time-1.12.2
         - selda-sqlite < 0 # tried selda-sqlite-0.1.7.2, but its *library* requires text >=1.0 && < 1.3 and the snapshot contains text-2.0.2
         - selda-sqlite < 0 # tried selda-sqlite-0.1.7.2, but its *library* requires time >=1.5 && < 1.12 and the snapshot contains time-1.12.2
-        - sendgrid-v3 < 0 # tried sendgrid-v3-1.0.0.0, but its *library* requires base >=4.8 && < 4.17 and the snapshot contains base-4.17.1.0
         - sensu-run < 0 # tried sensu-run-0.7.0.5, but its *executable* requires aeson >=0.11 && < 1.5 and the snapshot contains aeson-2.1.2.1
         - sensu-run < 0 # tried sensu-run-0.7.0.5, but its *executable* requires base >=4.11 && < 4.14 and the snapshot contains base-4.17.1.0
         - sensu-run < 0 # tried sensu-run-0.7.0.5, but its *executable* requires bytestring >=0.10 && < 0.11 and the snapshot contains bytestring-0.11.4.0
@@ -7392,8 +7392,10 @@ packages:
         - sv < 0 # tried sv-1.4.0.1, but its *library* requires base >=4.9 && < 4.15 and the snapshot contains base-4.17.1.0
         - sv < 0 # tried sv-1.4.0.1, but its *library* requires bytestring >=0.9.1.10 && < 0.11 and the snapshot contains bytestring-0.11.4.0
         - sv < 0 # tried sv-1.4.0.1, but its *library* requires the disabled package: hw-dsv
+        - sv < 0 # tried sv-1.4.0.1, but its *library* requires the disabled package: validation
         - sv-cassava < 0 # tried sv-cassava-0.3, but its *library* requires attoparsec >=0.12.1.4 && < 0.14 and the snapshot contains attoparsec-0.14.4
         - sv-cassava < 0 # tried sv-cassava-0.3, but its *library* requires bytestring >=0.9.1.10 && < 0.11 and the snapshot contains bytestring-0.11.4.0
+        - sv-cassava < 0 # tried sv-cassava-0.3, but its *library* requires the disabled package: validation
         - sv-core < 0 # tried sv-core-0.5, but its *library* requires attoparsec >=0.12.1.4 && < 0.14 and the snapshot contains attoparsec-0.14.4
         - sv-core < 0 # tried sv-core-0.5, but its *library* requires base >=4.9 && < 4.15 and the snapshot contains base-4.17.1.0
         - sv-core < 0 # tried sv-core-0.5, but its *library* requires bytestring >=0.9.1.10 && < 0.11 and the snapshot contains bytestring-0.11.4.0
@@ -7401,6 +7403,7 @@ packages:
         - sv-core < 0 # tried sv-core-0.5, but its *library* requires profunctors >=5.2.1 && < 5.6 and the snapshot contains profunctors-5.6.2
         - sv-core < 0 # tried sv-core-0.5, but its *library* requires semigroups >=0.18 && < 0.20 and the snapshot contains semigroups-0.20
         - sv-core < 0 # tried sv-core-0.5, but its *library* requires text >=1.0 && < 1.3 and the snapshot contains text-2.0.2
+        - sv-core < 0 # tried sv-core-0.5, but its *library* requires the disabled package: validation
         - swagger-petstore < 0 # tried swagger-petstore-0.0.2.0, but its *library* requires aeson >=1.0 && < 2.0 and the snapshot contains aeson-2.1.2.1
         - swagger-petstore < 0 # tried swagger-petstore-0.0.2.0, but its *library* requires bytestring >=0.10.0 && < 0.11 and the snapshot contains bytestring-0.11.4.0
         - swagger-petstore < 0 # tried swagger-petstore-0.0.2.0, but its *library* requires containers >=0.5.0.0 && < 0.6 and the snapshot contains containers-0.6.7
@@ -7693,15 +7696,6 @@ packages:
         # https://github.com/commercialhaskell/stackage/issues/6913
         - cabal-install < 3.10.1.0
         - cabal-install-solver < 3.10.1.0
-
-        # https://github.com/commercialhaskell/stackage/issues/6915
-        - assoc < 1.1
-        - semialign < 1.3
-        - strict < 0.5
-        - strict-base-types < 0.8
-        - strict-lens < 0.4.0.3
-        - these < 1.2
-        - these-lens < 1.0.1.3
 
         # https://github.com/commercialhaskell/stackage/issues/6917
         - some < 1.0.5
@@ -8147,6 +8141,7 @@ skipped-tests:
     - http-media # tried http-media-0.8.0.0, but its *test-suite* requires QuickCheck >=2.8 && < 2.14 and the snapshot contains QuickCheck-2.14.2
     - http-streams # tried http-streams-0.8.9.6, but its *test-suite* requires the disabled package: snap-server
     - indexed-containers # tried indexed-containers-0.1.0.2, but its *test-suite* requires hspec >=2.4.8 && < 2.8 and the snapshot contains hspec-2.10.10
+    - inline-r # tried inline-r-1.0.0, but its *test-suite* requires strict >=0.3.2 && < 0.5 and the snapshot contains strict-0.5
     - irc-dcc # tried irc-dcc-2.0.1, but its *test-suite* requires tasty >=0.11.0.2 && < 1.2 and the snapshot contains tasty-1.4.3
     - irc-dcc # tried irc-dcc-2.0.1, but its *test-suite* requires tasty-hspec >=1.1.2 && < 1.2 and the snapshot contains tasty-hspec-1.2.0.3
     - json-rpc-client # tried json-rpc-client-0.2.5.0, but its *test-suite* requires QuickCheck >=2.4.2 && < 2.14 and the snapshot contains QuickCheck-2.14.2
@@ -8282,8 +8277,6 @@ skipped-tests:
     - ucam-webauth-types # tried ucam-webauth-types-0.1.0.0, but its *test-suite* requires hspec >=2.0.0 && < 2.8 and the snapshot contains hspec-2.10.10
     - uniprot-kb # tried uniprot-kb-0.1.2.0, but its *test-suite* requires QuickCheck >=2.9 && < 2.14 and the snapshot contains QuickCheck-2.14.2
     - uniprot-kb # tried uniprot-kb-0.1.2.0, but its *test-suite* requires hspec >=2.4.1 && < 2.8 and the snapshot contains hspec-2.10.10
-    - validation # tried validation-1.1.2, but its *test-suite* requires hedgehog >=0.5 && < 1.1 and the snapshot contains hedgehog-1.2
-    - validation # tried validation-1.1.2, but its *test-suite* requires lens >=4 && < 5 and the snapshot contains lens-5.2.2
     - wai-session-redis # tried wai-session-redis-0.1.0.5, but its *test-suite* requires hspec < 2.10 and the snapshot contains hspec-2.10.10
     - wakame # tried wakame-0.1.0.0, but its *test-suite* requires tasty-discover >=4.2 && < 5.0 and the snapshot contains tasty-discover-5.0.0
     - wakame # tried wakame-0.1.0.0, but its *test-suite* requires text >=1.2 && < 2.0 and the snapshot contains text-2.0.2
@@ -8635,7 +8628,6 @@ expected-test-failures:
     - hsini # 0.5.1.2
     - htoml-megaparsec # 2.1.0.4 https://github.com/commercialhaskell/stackage/pull/6533
     - hweblib # 0.6.3 https://github.com/aycanirican/hweblib/issues/3
-    - inline-r # 1.0.0 https://github.com/tweag/HaskellR/issues/257 https://github.com/tweag/HaskellR/issues/371
     - leveldb-haskell
     - mergeful-persistent # https://github.com/commercialhaskell/stackage/issues/6565
     - mergeless-persistent # https://github.com/commercialhaskell/stackage/issues/6566
