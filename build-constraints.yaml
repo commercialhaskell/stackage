@@ -5619,6 +5619,8 @@ packages:
     "GHC upper bounds":
         # Need to always match the version shipped with GHC
         - Win32 == 2.12.0.1
+          # Revisit flag win32-2-13-1 settings for mintty and ansi-terminal
+          # when bumping Win32!
 
     # Section for packages that have been mass-disabled due to
     # compilation failures, e.g. after we upgrade GHC. Every package
@@ -7802,6 +7804,12 @@ package-flags:
     # https://github.com/RyanGlScott/mintty/issues/4#issuecomment-968329124
     # TODO: revisit when Win32 is bumped
     mintty:
+        win32-2-13-1: false
+
+    # 2023-04-28
+    # Same as for mintty
+    # https://github.com/commercialhaskell/stack/issues/6111#issuecomment-1527055640
+    ansi-terminal:
         win32-2-13-1: false
 
     cassava:
