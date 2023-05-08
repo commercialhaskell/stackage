@@ -314,7 +314,7 @@ packages:
 
         # @ghorn
         - not-gloss
-        - spatial-math < 0.3 # Only older versions works on recent GHCs.
+        - spatial-math < 0.3 # Need older version for GHC 9.4. Looks like it can be upgraded for GHC 9.6.
 
     "Phil de Joux <phil.dejoux@blockscope.com> @philderbeast":
         - siggy-chardust
@@ -7698,9 +7698,6 @@ packages:
         # https://github.com/commercialhaskell/stackage/issues/6744
         - resourcet < 1.3.0
 
-        # https://github.com/commercialhaskell/stackage/issues/6808
-        - nvim-hs < 2.3.2.0
-
         # https://github.com/commercialhaskell/stackage/issues/6857
         - deriving-trans < 0.6
 
@@ -8584,7 +8581,7 @@ expected-test-failures:
     - hspec-golden-aeson # 0.9.0.0
     - justified-containers # 0.3.0.0
     - jwt # 0.11.0
-    - lattices # 2.0.3 quicheck flakiness
+    - lattices # quicheck flakiness
     - list-transformer
     - lz4-frame-conduit # https://github.com/nh2/lz4-frame-conduit/issues/3
     - massiv-io
