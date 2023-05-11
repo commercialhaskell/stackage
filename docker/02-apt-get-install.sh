@@ -16,6 +16,7 @@ apt-get install -y \
     apt-transport-https \
     build-essential \
     cmake \
+    coinor-libclp-dev \
     curl \
     dvipng \
     freeglut3-dev \
