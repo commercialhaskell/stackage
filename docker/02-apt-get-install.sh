@@ -52,6 +52,7 @@ apt-get install -y \
     libglew-dev \
     libglfw3-dev \
     libglib2.0-dev \
+    libglpk-dev \
     libglu1-mesa-dev \
     libgmp3-dev \
     libgnutls28-dev \
