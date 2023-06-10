@@ -3851,7 +3851,6 @@ packages:
         - tensorflow-test
         - pier-core
         - pier
-        - haskeline
         - ghc-source-gen # tests disabled due to QuickCheck < 2.14
 
     "Christof Schramm <christof.schramm@campus.lmu.de>":
@@ -5648,12 +5647,6 @@ packages:
         - validation-selective < 0 # 0.2.0.0 #5965/closed
         - wai-route < 0 # 1.0.0 compile fail
         - xxhash < 0 # 0.0.2 compile fail
-
-    "GHC upper bounds":
-        # Need to always match the version shipped with GHC
-        - Win32 == 2.12.0.1
-          # Revisit flag win32-2-13-1 settings for mintty and ansi-terminal
-          # when bumping Win32!
 
     # Section for packages that have been mass-disabled due to
     # compilation failures, e.g. after we upgrade GHC. Every package
@@ -7905,8 +7898,8 @@ package-flags:
     functor-classes-compat:
         containers: true
 
-    # 2021-11-14
-    # Since we are shipping Win32-2.10 (thus not 2.13.1), this flag needs to be set to 'false'.
+    # 2023-06
+    # Since we are shipping Win32-2.12.0.1 (thus not 2.13.1), this flag needs to be set to 'false'.
     # https://github.com/RyanGlScott/mintty/issues/4#issuecomment-968329124
     # TODO: revisit when Win32 is bumped
     mintty:
@@ -8639,7 +8632,6 @@ expected-test-failures:
     - fixed-vector-hetero # 0.6.1.1
     - generic-optics # 2.2.1.0 optimization output https://github.com/kcsongor/generic-lens/issues/133
     - github-types # https://github.com/commercialhaskell/stackage/issues/6549
-    - haskeline # 0.8.2.1 https://github.com/commercialhaskell/stackage/issues/5439
     - haskoin-core
     - haskoin-node # https://github.com/commercialhaskell/stackage/issues/6769
     - heist # https://github.com/commercialhaskell/stackage/issues/6765
