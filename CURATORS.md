@@ -337,7 +337,8 @@ build plan, you can set the environment variable `NOPLAN=1`. This is
 useful for such cases as an intermittent test failure, out of memory
 condition, or manually tweaking the plan file. (When using `NOPLAN=1`,
 if one needs to revert one package, say due to a build or test regression,
-one can edit `current-plan.yaml` and updated the SHA256 hash of the .cabal file,
+one can edit `snapshot-incomplete.yaml`
+(the SHA256 hash of the .cabal file will get updated),
 to avoid having to rebuild everything again.)
 
 Note LTS builds without NOPLAN will use the latest Hackage data.
@@ -363,7 +364,7 @@ resolve any issues before the next curator shift the coming monday.
   * If that is insufficient then remove all the old builds under the previous ghc/Cabal version:
     * `rm -r /var/stackage/stackage/automated/work/[nightly|lts-XX]/unpack-dir/unpacked/*/.stack-work/dist/x86_64-linux/Cabal-X.Y.0.0/`
 
-  optionally (not recommended?):
+  optionally:
   * `rm -r /var/stackage/stackage/automated/work/lts*/unpack-dir/unpacked/`
   * `rm -r /var/stackage/stackage/automated/work/nightly/unpack-dir/unpacked/`
 
