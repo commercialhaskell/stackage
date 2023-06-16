@@ -1,5 +1,5 @@
 #!/usr/bin/env stack
--- stack --resolver lts-18.6 script
+-- stack --resolver lts-19.33 script
 
 -- Utility to remove old libs installed under .stack-work/ to save diskspace
 
