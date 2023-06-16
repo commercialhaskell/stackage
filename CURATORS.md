@@ -208,16 +208,10 @@ If a new package fails to build because of missing system libraries we often ask
 
 
 ### Upgrading GHC version
-(~~The Dockerfile contains information on which GHC versions should be used.~~
-You can modify it and push it to Github to trigger a build.
 The nightly branch is used for nightlies. For LTSes, we use the ltsX branch,
 where X is the major version number (e.g., lts20 for lts-20.\*).)
 
-Update the `Win32` version in `build-constraints.yaml` under "GHC upper bounds".
-
 Note that when starting a new LTS major release, you'll need to modify `.github/workflows/image.yml` to add a new lts branch.
-
-Update `GHCVER` in `Dockerfile`. (This env var automatically gets passed to the scripts in `docker/`).
 
 Ensure that the [global-hints.yaml
 file](https://github.com/fpco/stackage-content/blob/master/stack/global-hints.yaml)
