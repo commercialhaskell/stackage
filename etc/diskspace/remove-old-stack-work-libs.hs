@@ -22,8 +22,9 @@ main = do
       home <- getHomeDirectory
       withCurrentDirectory (home </> "stackage/automated/work" </> stream </> "unpack-dir") $ do
         cleanStackWorkInstall
+        putStrLn ""
         cleanStackWorkPackages
-    _ -> error "arg should be 'lts' or 'nightly'"
+    _ -> error "arg should be 'lts-XX' or 'nightly'"
 
   -- navigates to: .stack-work/install/x86_64-linux*/*/*/lib/x86_64-linux-ghc-*
 cleanStackWorkInstall :: IO ()
@@ -65,7 +66,7 @@ cleanStackWorkInstall =
 
 removeOlder remover files = do
   oldfiles <- drop keepBuilds . reverse <$> sortByAge files
-  mapM_ putStrLn oldfiles
+  mapM_ remover oldfiles
   where
     sortByAge files = do
       timestamps <- mapM getModificationTime files
@@ -79,6 +80,7 @@ removeOlder remover files = do
 cleanStackWorkPackages :: IO ()
 cleanStackWorkPackages =
   withCurrentDirectory "unpacked" $ do
+  getCurrentDirectory >>= putStrLn
   pkgs <- listDirectory "."
   forM_ pkgs $ \pkg -> do
     withCurrentDirectory $ pkg </> ".stack-work/dist/x86_64-linux-tinfo6"
