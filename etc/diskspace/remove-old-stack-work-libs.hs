@@ -83,8 +83,9 @@ cleanStackWorkPackages =
   getCurrentDirectory >>= putStrLn
   pkgs <- listDirectory "."
   forM_ pkgs $ \pkg -> do
-    withCurrentDirectory $ pkg </> ".stack-work/dist/x86_64-linux-tinfo6"
-    $ withOneDirectory_ -- "Cabal-3.8.1.0"
+    withCurrentDirectory $ pkg </> ".stack-work/dist"
+    $ withOneDirectory_ -- "x86_64-linux-tinfo6*"
+    $ withOneDirectory_ -- "Cabal-*"
     $ withCurrentDirectory "build" $ do
       ls <- sort <$> listDirectory "."
       files <- filterM doesFileExist ls
