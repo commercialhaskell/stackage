@@ -92,13 +92,15 @@ cleanStackWorkPackages =
       platforms <- listDirectory "." -- "x86_64-linux-tinfo6*"
       forM platforms $ \pl ->
         withCurrentDirectory pl $
-        withOneDirectory_ -- "Cabal-*"
-        $ withCurrentDirectory "build" $ do
+        withOneDirectory -- "Cabal-*"
+        $ \cbl ->
+        withCurrentDirectory "build" $ do
         ls <- sort <$> listDirectory "."
         files <- filterM doesFileExist ls
         let (dynlibs,others) = partition (".so" `isExtensionOf`) files
             statlibs = filter (".a" `isExtensionOf`) others
-        return (dynlibs,statlibs)
+        let dir = pl </> cbl </> "build"
+        return (map (dir </>) dynlibs, map (dir </>) statlibs)
     removeOlder removeFile $ concatMap fst libs
     removeOlder removeFile $ concatMap snd libs
 
@@ -111,7 +113,7 @@ withOneDirectory_ act = do
       cwd <- getCurrentDirectory
       error $ "more than one directory found in " ++ cwd ++ ": " ++ unwords ls
 
-withOneDirectory :: (FilePath -> IO ()) -> IO ()
+withOneDirectory :: (FilePath -> IO a) -> IO a
 withOneDirectory act = do
   ls <- listDirectory "."
   case ls of
