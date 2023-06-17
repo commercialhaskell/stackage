@@ -33,6 +33,7 @@ cleanStackWorkInstall =
   $ withOneDirectory_ -- hash
   $ withOneDirectory $ \ghcver ->
   withCurrentDirectory ("lib" </> "x86_64-linux-ghc-" ++ ghcver) $ do
+  getCurrentDirectory >>= putStrLn
   files <- sort <$> listDirectory "."
   let (dynlibs,libdirs) = partition (".so" `isExtensionOf`) files
       pkglibdirs = groupBy samePkgLibDir libdirs
@@ -64,7 +65,7 @@ cleanStackWorkInstall =
 
 removeOlder remover files = do
   oldfiles <- drop keepBuilds . reverse <$> sortByAge files
-  mapM_ remover oldfiles
+  mapM_ putStrLn oldfiles
   where
     sortByAge files = do
       timestamps <- mapM getModificationTime files
@@ -80,12 +81,13 @@ cleanStackWorkPackages =
   withCurrentDirectory "unpacked" $ do
   pkgs <- listDirectory "."
   forM_ pkgs $ \pkg -> do
-    withCurrentDirectory ".stack-work/dist/x86_64-linux-tinfo6"
+    withCurrentDirectory $ pkg </> ".stack-work/dist/x86_64-linux-tinfo6"
     $ withOneDirectory_ -- "Cabal-3.8.1.0"
     $ withCurrentDirectory "build" $ do
       ls <- sort <$> listDirectory "."
       files <- filterM doesFileExist ls
-      let (dynlibs,statlibs) = partition (".so" `isExtensionOf`) files
+      let (dynlibs,others) = partition (".so" `isExtensionOf`) files
+          statlibs = filter (".a" `isExtensionOf`) others
       removeOlder removeFile dynlibs
       removeOlder removeFile statlibs
 
