@@ -51,8 +51,8 @@ cleanStackWorkInstall =
 
     extractNameInternal :: String -> String
     extractNameInternal p =
-      let (name,match,internal) = p =~ "-[0-9.]+-[0-9A-Za-z]{19,22}" :: (String, String, String)
-      in if null match || null name then error $ p ++ " not in correct name-version-hash format"
+      let (name,match',internal) = p =~ "-[0-9.]+-[0-9A-Za-z]{19,22}" :: (String, String, String)
+      in if null match' || null name then error $ p ++ " not in correct name-version-hash format"
          else name ++ internal
 
     samePkgDynLib d1 d2 = pkgDynName d1 == pkgDynName d2
@@ -64,15 +64,18 @@ cleanStackWorkInstall =
 
     removeDashSegment = dropWhileEnd (/= '-')
 
+
+removeOlder :: (FilePath -> IO ()) -> [FilePath] -> IO ()
 removeOlder remover files = do
   oldfiles <- drop keepBuilds . reverse <$> sortByAge files
   mapM_ remover oldfiles
-  where
-    sortByAge files = do
-      timestamps <- mapM getModificationTime files
-      let fileTimes = zip files timestamps
-      return $ map fst $ sortBy compareSnd fileTimes
 
+sortByAge :: [FilePath] -> IO [FilePath]
+sortByAge files = do
+  timestamps <- mapM getModificationTime files
+  let fileTimes = zip files timestamps
+  return $ map fst $ sortBy compareSnd fileTimes
+  where
     compareSnd (_,t1) (_,t2) = compare t1 t2
 
 -- navigates to:
@@ -82,18 +85,24 @@ cleanStackWorkPackages =
   withCurrentDirectory "unpacked" $ do
   getCurrentDirectory >>= putStrLn
   pkgs <- listDirectory "."
-  forM_ pkgs $ \pkg -> do
-    withCurrentDirectory $ pkg </> ".stack-work/dist"
-    $ withOneDirectory_ -- "x86_64-linux-tinfo6*"
-    $ withOneDirectory_ -- "Cabal-*"
-    $ withCurrentDirectory "build" $ do
-      ls <- sort <$> listDirectory "."
-      files <- filterM doesFileExist ls
-      let (dynlibs,others) = partition (".so" `isExtensionOf`) files
-          statlibs = filter (".a" `isExtensionOf`) others
-      removeOlder removeFile dynlibs
-      removeOlder removeFile statlibs
+  forM_ pkgs $ \pkg ->
+    withCurrentDirectory (pkg </> ".stack-work/dist") $ do
+    -- [(dyn,stat)]
+    libs <- do
+      platforms <- listDirectory "." -- "x86_64-linux-tinfo6*"
+      forM platforms $ \pl ->
+        withCurrentDirectory pl $
+        withOneDirectory_ -- "Cabal-*"
+        $ withCurrentDirectory "build" $ do
+        ls <- sort <$> listDirectory "."
+        files <- filterM doesFileExist ls
+        let (dynlibs,others) = partition (".so" `isExtensionOf`) files
+            statlibs = filter (".a" `isExtensionOf`) others
+        return (dynlibs,statlibs)
+    removeOlder removeFile $ concatMap fst libs
+    removeOlder removeFile $ concatMap snd libs
 
+withOneDirectory_ :: IO a -> IO a
 withOneDirectory_ act = do
   ls <- listDirectory "."
   case ls of
@@ -102,6 +111,7 @@ withOneDirectory_ act = do
       cwd <- getCurrentDirectory
       error $ "more than one directory found in " ++ cwd ++ ": " ++ unwords ls
 
+withOneDirectory :: (FilePath -> IO ()) -> IO ()
 withOneDirectory act = do
   ls <- listDirectory "."
   case ls of
