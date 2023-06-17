@@ -98,10 +98,14 @@ withOneDirectory_ act = do
   ls <- listDirectory "."
   case ls of
     [l] -> withCurrentDirectory l act
-    _ -> error $ "more than one directory found: " ++ unwords ls
+    _ -> do
+      cwd <- getCurrentDirectory
+      error $ "more than one directory found in " ++ cwd ++ ": " ++ unwords ls
 
 withOneDirectory act = do
   ls <- listDirectory "."
   case ls of
     [l] -> withCurrentDirectory l $ act l
-    _ -> error $ "more than one directory found: " ++ unwords ls
+    _ -> do
+      cwd <- getCurrentDirectory
+      error $ "more than one directory found in " ++ cwd ++ ": " ++ unwords ls
