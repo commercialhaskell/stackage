@@ -10,7 +10,8 @@ Packages in Stackage are not patched: all package changes occur upstream in Hack
 
 ## Adding a package
 
-Anyone can add any package to Stackage but you may only add packages under your own name. It's highly encouraged that the actual package maintainer is also the Stackage maintainer, if that is not the case you should drop the package maintainer a note first.
+Anyone can add any package to Stackage but you should talk to the upstream maintainer before putting another person's package under your own name.
+It's generally better the actual package maintainer is also the Stackage maintainer, if that is not the case you should write the package maintainer a note first, eg by opening an upstream issue or sending them an email.
 
 To add your package you can edit [`build-constraints.yaml`](https://github.com/fpco/stackage/blob/master/build-constraints.yaml) directly on github or fork the project. There's a section called `packages` where you would add yourself and your packages:
 
@@ -67,6 +68,14 @@ When a new version of a package in Stackage is uploaded to Hackage, we automatic
 If the new version doesn't compile then the package author should upload a fixed version.
 
 If a package's test suite is failing, the first job is to investigate why. If this is due to a bad interaction with versions of other packages in Stackage, then it is the responsibility of the maintainer to fix the test suite. In some situations, it is acceptable to not run the test suite.
+
+## Moving or retiring maintainership of a Stackage package
+
+If you no longer wish to be listed as maintainer of a package in Stackage,
+you can open a pull request to move it to a new maintainer or
+to either the "Grandfathered dependencies" or the "Abandoned packages" sections in `build-constraints.yaml`.
+Unless there is a compelling technical reason to remove the package,
+this is better than just dropping it from the distribution.
 
 ## Following dependency upgrades
 
