@@ -1412,7 +1412,7 @@ packages:
         - tasty
         - tasty-golden
         - tasty-hunit
-        - tasty-quickcheck
+        - tasty-quickcheck < 0
         - tasty-smallcheck
         - tasty-html
         - time-lens
@@ -7860,6 +7860,7 @@ packages:
         - rpmbuild-order < 0 # tried rpmbuild-order-0.4.10, but its *library* requires the disabled package: graphviz
         - rss-conduit < 0 # tried rss-conduit-0.6.0.1, but its *library* requires the disabled package: atom-conduit
         - safe-exceptions-checked < 0 # tried safe-exceptions-checked-0.1.0, but its *library* requires transformers >=0.2.0.0 && < 0.6 and the snapshot contains transformers-0.6.1.0
+        - safe-json < 0 # tried safe-json-1.1.3.1, but its *library* requires the disabled package: tasty-quickcheck
         - safe-tensor < 0 # tried safe-tensor-0.2.1.1, but its *library* requires mtl >=2.2 && < 2.3 and the snapshot contains mtl-2.3.1
         - safe-tensor < 0 # tried safe-tensor-0.2.1.1, but its *library* requires singletons >=2.5 && < 2.8 and the snapshot contains singletons-3.0.2
         - salak < 0 # tried salak-0.3.6, but its *library* requires bytestring >=0.10.8 && < 0.11 and the snapshot contains bytestring-0.11.4.0
@@ -8248,6 +8249,8 @@ packages:
         - sydtest-webdriver-yesod < 0 # tried sydtest-webdriver-yesod-0.0.0.1, but its *library* requires the disabled package: yesod
         - taffybar < 0 # tried taffybar-4.0.0, but its *library* requires scotty >=0.11.0 && < 0.12.0 and the snapshot contains scotty-0.12.1
         - tasty-hedgehog < 0 # tried tasty-hedgehog-1.4.0.1, but its *library* requires the disabled package: hedgehog
+        - tasty-hspec < 0 # tried tasty-hspec-1.2.0.4, but its *library* requires the disabled package: tasty-quickcheck
+        - tasty-html < 0 # tried tasty-html-0.4.2.1, but its *executable* requires the disabled package: tasty-quickcheck
         - tasty-stats < 0 # tried tasty-stats-0.2.0.4, but its *library* requires containers >=0.4 && < 0.6 and the snapshot contains containers-0.6.7
         - tasty-stats < 0 # tried tasty-stats-0.2.0.4, but its *library* requires tasty >=0.11.2 && < 1.2 and the snapshot contains tasty-1.4.3
         - tasty-stats < 0 # tried tasty-stats-0.2.0.4, but its *library* requires time >=1.5 && < 1.9 and the snapshot contains time-1.12.2
@@ -8876,20 +8879,28 @@ skipped-tests:
     - Decimal # tried Decimal-0.5.2, but its *test-suite* requires the disabled package: test-framework
     - Diff # tried Diff-0.4.1, but its *test-suite* requires the disabled package: test-framework
     - ENIG # tried ENIG-0.0.1.0, but its *test-suite* requires the disabled package: test-framework
+    - Earley # tried Earley-0.13.0.1, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - ForestStructures # tried ForestStructures-0.0.1.1, but its *test-suite* requires the disabled package: tasty-quickcheck
     - GLFW-b # tried GLFW-b-3.3.0.0, but its *test-suite* requires the disabled package: test-framework
     - Glob # tried Glob-0.10.2, but its *test-suite* requires the disabled package: test-framework
     - HTTP # tried HTTP-4000.4.1, but its *test-suite* requires the disabled package: test-framework
+    - HaTeX # tried HaTeX-3.22.3.2, but its *test-suite* requires the disabled package: tasty-quickcheck
     - IPv6Addr # tried IPv6Addr-2.0.5, but its *test-suite* requires the disabled package: test-framework
     - IPv6DB # tried IPv6DB-0.3.3, but its *test-suite* requires hspec >=2.1.10 && < 2.8 and the snapshot contains hspec-2.11.1
     - JuicyPixels-blurhash # tried JuicyPixels-blurhash-0.1.0.3, but its *test-suite* requires doctest >=0.16.2 && < 0.20 and the snapshot contains doctest-0.21.1
     - JuicyPixels-blurhash # tried JuicyPixels-blurhash-0.1.0.3, but its *test-suite* requires hedgehog >=1.0.2 && < 1.2 and the snapshot contains hedgehog-1.2
     - JuicyPixels-blurhash # tried JuicyPixels-blurhash-0.1.0.3, but its *test-suite* requires tasty-discover >=4.2.1 && < 4.3 and the snapshot contains tasty-discover-5.0.0
     - JuicyPixels-blurhash # tried JuicyPixels-blurhash-0.1.0.3, but its *test-suite* requires tasty-hedgehog >=1.0.0.2 && < 1.2 and the snapshot contains tasty-hedgehog-1.4.0.1
+    - OrderedBits # tried OrderedBits-0.0.2.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - RSA # tried RSA-2.4.1, but its *test-suite* requires the disabled package: test-framework
     - SHA # tried SHA-1.6.4.4, but its *test-suite* requires the disabled package: test-framework
+    - STMonadTrans # tried STMonadTrans-0.4.7, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - acc # tried acc-0.2.0.2, but its *test-suite* requires the disabled package: tasty-quickcheck
     - accelerate-bignum # tried accelerate-bignum-0.3.0.0, but its *test-suite* requires the disabled package: hedgehog
     - accelerate-io-vector # tried accelerate-io-vector-0.1.0.0, but its *test-suite* requires the disabled package: hedgehog
     - acid-state # tried acid-state-0.16.1.2, but its *test-suite* requires the disabled package: hedgehog
+    - aeson-casing # tried aeson-casing-0.2.0.0, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - aeson-schemas # tried aeson-schemas-1.4.1.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - airship # tried airship-0.9.5, but its *test-suite* requires bytestring >=0.9.1 && < 0.11 and the snapshot contains bytestring-0.11.4.0
     - airship # tried airship-0.9.5, but its *test-suite* requires tasty >=0.10.1 && < 1.3 and the snapshot contains tasty-1.4.3
     - airship # tried airship-0.9.5, but its *test-suite* requires text >=1.2 && < 2.0 and the snapshot contains text-2.0.2
@@ -8904,13 +8915,16 @@ skipped-tests:
     - antiope-sns # tried antiope-sns-7.5.3, but its *test-suite* requires hspec >=2.4 && < 2.8 and the snapshot contains hspec-2.11.1
     - antiope-sqs # tried antiope-sqs-7.5.3, but its *test-suite* requires hedgehog >=0.5 && < 1.1 and the snapshot contains hedgehog-1.2
     - antiope-sqs # tried antiope-sqs-7.5.3, but its *test-suite* requires hspec >=2.4 && < 2.8 and the snapshot contains hspec-2.11.1
+    - aos-signature # tried aos-signature-0.1.1, but its *test-suite* requires the disabled package: tasty-quickcheck
     - arbor-lru-cache # tried arbor-lru-cache-0.1.1.1, but its *test-suite* requires hedgehog >=0.5 && < 1.1 and the snapshot contains hedgehog-1.2
     - arbor-lru-cache # tried arbor-lru-cache-0.1.1.1, but its *test-suite* requires hspec >=2.4 && < 2.8 and the snapshot contains hspec-2.11.1
+    - arithmoi # tried arithmoi-0.12.1.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - ascii # tried ascii-1.7.0.0, but its *test-suite* requires hspec ^>=2.8.5 || ^>=2.9 || ^>=2.10 and the snapshot contains hspec-2.11.1
     - ascii-case # tried ascii-case-1.0.1.2, but its *test-suite* requires hspec ^>=2.8.5 || ^>=2.9 || ^>=2.10 and the snapshot contains hspec-2.11.1
     - ascii-caseless # tried ascii-caseless-0.0.0.0, but its *test-suite* requires hspec ^>=2.8.5 || ^>=2.9 || ^>=2.10 and the snapshot contains hspec-2.11.1
     - ascii-superset # tried ascii-superset-1.3.0.0, but its *test-suite* requires hspec ^>=2.8.5 || ^>=2.9 || ^>=2.10 and the snapshot contains hspec-2.11.1
     - ascii-th # tried ascii-th-1.2.0.0, but its *test-suite* requires hspec ^>=2.8.5 || ^>=2.9 || ^>=2.10 and the snapshot contains hspec-2.11.1
+    - asn1-encoding # tried asn1-encoding-0.9.6, but its *test-suite* requires the disabled package: tasty-quickcheck
     - astro # tried astro-0.4.3.0, but its *test-suite* requires the disabled package: test-framework
     - async # tried async-2.2.4, but its *test-suite* requires the disabled package: test-framework
     - async-refresh # tried async-refresh-0.3.0.0, but its *test-suite* requires the disabled package: test-framework
@@ -8918,25 +8932,33 @@ skipped-tests:
     - atom-conduit # tried atom-conduit-0.9.0.1, but its *test-suite* requires the disabled package: hlint
     - avro # tried avro-0.6.1.2, but its *test-suite* requires doctest >=0.16.2 && < 0.21 and the snapshot contains doctest-0.21.1
     - aws-cloudfront-signed-cookies # tried aws-cloudfront-signed-cookies-0.2.0.12, but its *test-suite* requires the disabled package: hedgehog
+    - barbies # tried barbies-2.0.4.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - barrier # tried barrier-0.1.1, but its *test-suite* requires lens-family-core >=1.2 && < 1.3 and the snapshot contains lens-family-core-2.1.2
     - barrier # tried barrier-0.1.1, but its *test-suite* requires tasty >=0.10 && < 0.12 and the snapshot contains tasty-1.4.3
     - base16-bytestring # tried base16-bytestring-1.0.2.0, but its *test-suite* requires the disabled package: test-framework
+    - base32 # tried base32-0.3.1.0, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - base58-bytestring # tried base58-bytestring-0.1.0, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - base64 # tried base64-0.4.2.4, but its *test-suite* requires the disabled package: tasty-quickcheck
     - base64-bytestring # tried base64-bytestring-1.2.1.0, but its *test-suite* requires the disabled package: test-framework
     - binance-exports # tried binance-exports-0.1.1.0, but its *test-suite* requires the disabled package: hedgehog
+    - binary-parser # tried binary-parser-0.5.7.3, but its *test-suite* requires the disabled package: tasty-quickcheck
     - binary-tagged # tried binary-tagged-0.3.1, but its *test-suite* requires the disabled package: binary-instances
     - bindings-GLFW # tried bindings-GLFW-3.3.2.0, but its *test-suite* requires the disabled package: test-framework
     - bitcoin-api-extra # tried bitcoin-api-extra-0.9.1, but its *test-suite* requires the disabled package: wreq
     - bits-extra # tried bits-extra-0.0.2.3, but its *test-suite* requires doctest >=0.16.2 && < 0.21 and the snapshot contains doctest-0.21.1
     - bits-extra # tried bits-extra-0.0.2.3, but its *test-suite* requires hspec >=2.4 && < 2.11 and the snapshot contains hspec-2.11.1
+    - bitvec # tried bitvec-1.1.4.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - bitwise-enum # tried bitwise-enum-1.0.1.0, but its *test-suite* requires the disabled package: test-framework
     - blake2 # tried blake2-0.3.0, but its *test-suite* requires the disabled package: hlint
     - blaze-builder # tried blaze-builder-0.4.2.2, but its *test-suite* requires the disabled package: test-framework
     - blaze-html # tried blaze-html-0.9.1.2, but its *test-suite* requires the disabled package: test-framework
+    - blaze-markup # tried blaze-markup-0.8.2.8, but its *test-suite* requires the disabled package: tasty-quickcheck
     - blaze-textual # tried blaze-textual-0.2.3.1, but its *test-suite* requires the disabled package: test-framework
     - bloodhound # tried bloodhound-0.21.0.0, but its *test-suite* requires the disabled package: quickcheck-properties
     - bnb-staking-csvs # tried bnb-staking-csvs-0.2.1.0, but its *test-suite* requires the disabled package: hedgehog
     - boolean-normal-forms # tried boolean-normal-forms-0.0.1.1, but its *test-suite* requires QuickCheck >=2.10 && < 2.14 and the snapshot contains QuickCheck-2.14.3
     - brittany # tried brittany-0.14.0.2, but its *test-suite* requires hspec ^>=2.8.3 and the snapshot contains hspec-2.11.1
+    - brotli # tried brotli-0.0.0.1, but its *test-suite* requires the disabled package: tasty-quickcheck
     - brotli-streams # tried brotli-streams-0.0.0.0, but its *test-suite* requires the disabled package: test-framework
     - bsb-http-chunked # tried bsb-http-chunked-0.0.0.4, but its *test-suite* requires the disabled package: hedgehog
     - bson # tried bson-0.4.0.1, but its *test-suite* requires the disabled package: test-framework
@@ -8944,17 +8966,25 @@ skipped-tests:
     - bugsnag-hs # tried bugsnag-hs-0.2.0.9, but its *test-suite* requires the disabled package: hedgehog
     - buttplug-hs-core # tried buttplug-hs-core-0.1.0.1, but its *test-suite* requires hspec >=2.7.8 && < 2.9 and the snapshot contains hspec-2.11.1
     - bytehash # tried bytehash-0.1.0.0, but its *test-suite* requires the disabled package: primitive-checked
+    - byteslice # tried byteslice-0.2.10.0, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - bytesmith # tried bytesmith-0.3.9.1, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - bytestring-lexing # tried bytestring-lexing-0.5.0.10, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - bytestring-trie # tried bytestring-trie-0.2.7.2, but its *test-suite* requires the disabled package: tasty-quickcheck
     - c2hs # tried c2hs-0.28.8, but its *test-suite* requires the disabled package: test-framework
     - cabal-install # tried cabal-install-3.10.1.0, but its *test-suite* requires the disabled package: Cabal-QuickCheck
     - cabal-install # tried cabal-install-3.10.1.0, but its *test-suite* requires the disabled package: Cabal-described
     - cabal-install # tried cabal-install-3.10.1.0, but its *test-suite* requires the disabled package: Cabal-tree-diff
+    - cabal-install-solver # tried cabal-install-solver-3.10.1.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - cacophony # tried cacophony-0.10.1, but its *test-suite* requires the disabled package: hlint
     - cassava-conduit # tried cassava-conduit-0.6.4, but its *test-suite* requires QuickCheck ==2.12.* and the snapshot contains QuickCheck-2.14.3
     - cayley-client # tried cayley-client-0.4.19.2, but its *test-suite* requires aeson >=0.8.0.2 && < 1.6 || ==2.0.* and the snapshot contains aeson-2.1.2.1
+    - cborg # tried cborg-0.2.9.0, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - cdar-mBound # tried cdar-mBound-0.1.0.4, but its *test-suite* requires the disabled package: tasty-quickcheck
     - cereal # tried cereal-0.5.8.3, but its *test-suite* requires the disabled package: test-framework
     - chatwork # tried chatwork-0.1.3.5, but its *test-suite* requires hspec >=2.4.1 && < 2.6 and the snapshot contains hspec-2.11.1
     - chatwork # tried chatwork-0.1.3.5, but its *test-suite* requires servant-server >=0.9.1.1 && < 0.15 and the snapshot contains servant-server-0.19.2
     - chatwork # tried chatwork-0.1.3.5, but its *test-suite* requires warp >=3.2.11 && < 3.3 and the snapshot contains warp-3.3.28
+    - chimera # tried chimera-0.3.3.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - cipher-aes # tried cipher-aes-0.2.11, but its *test-suite* requires the disabled package: test-framework
     - cipher-camellia # tried cipher-camellia-0.0.2, but its *test-suite* requires the disabled package: test-framework
     - cipher-rc4 # tried cipher-rc4-0.1.4, but its *test-suite* requires the disabled package: test-framework
@@ -8962,38 +8992,68 @@ skipped-tests:
     - cointracking-imports # tried cointracking-imports-0.1.0.2, but its *test-suite* requires the disabled package: hedgehog
     - colour # tried colour-2.3.6, but its *test-suite* requires random >=1.0 && < 1.2 and the snapshot contains random-1.2.1.1
     - colourista # tried colourista-0.1.0.2, but its *test-suite* requires hspec >=2.7.1 && < 2.11 and the snapshot contains hspec-2.11.1
+    - commonmark # tried commonmark-0.2.2, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - commutative # tried commutative-0.0.2, but its *test-suite* requires the disabled package: tasty-quickcheck
     - compdata # tried compdata-0.13.0, but its *test-suite* requires the disabled package: test-framework
+    - compiler-warnings # tried compiler-warnings-0.1.0, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - concise # tried concise-0.1.0.1, but its *test-suite* requires the disabled package: tasty-quickcheck
     - concurrent-extra # tried concurrent-extra-0.7.0.12, but its *test-suite* requires the disabled package: test-framework
     - conduit-parse # tried conduit-parse-0.2.1.1, but its *test-suite* requires the disabled package: hlint
+    - conduit-zstd # tried conduit-zstd-0.0.2.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - conferer # tried conferer-1.1.0.0, but its *test-suite* requires text >=1.1 && < 1.3 and the snapshot contains text-2.0.2
     - conferer-aeson # tried conferer-aeson-1.1.0.2, but its *test-suite* requires aeson >=0.10 && < 2.1 and the snapshot contains aeson-2.1.2.1
     - conferer-aeson # tried conferer-aeson-1.1.0.2, but its *test-suite* requires text >=1.1 && < 1.3 and the snapshot contains text-2.0.2
     - config-ini # tried config-ini-0.2.5.0, but its *test-suite* requires the disabled package: hedgehog
     - configurator # tried configurator-0.3.0.0, but its *test-suite* requires the disabled package: test-framework
     - construct # tried construct-0.3.1.1, but its *test-suite* requires monoid-subclasses >=1.0 && < 1.2 and the snapshot contains monoid-subclasses-1.2.3
+    - cookie # tried cookie-0.4.6, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - cql # tried cql-4.0.4, but its *test-suite* requires the disabled package: tasty-quickcheck
     - crc32c # tried crc32c-0.1.0, but its *test-suite* requires bytestring >=0.10.8.2 && < 0.11 and the snapshot contains bytestring-0.11.4.0
     - cron # tried cron-0.7.0, but its *test-suite* requires the disabled package: hedgehog
+    - cryptohash # tried cryptohash-0.11.9, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - crypton # tried crypton-0.32, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - crypton-x509 # tried crypton-x509-1.7.6, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - cryptonite # tried cryptonite-0.30, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - cryptonite-conduit # tried cryptonite-conduit-0.2.2, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - cryptonite-openssl # tried cryptonite-openssl-0.7, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - cryptostore # tried cryptostore-0.3.0.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - csg # tried csg-0.1.0.6, but its *test-suite* requires doctest < 0.17 and the snapshot contains doctest-0.21.1
     - csg # tried csg-0.1.0.6, but its *test-suite* requires tasty < 1.3 and the snapshot contains tasty-1.4.3
     - ctrie # tried ctrie-0.2, but its *test-suite* requires the disabled package: test-framework
     - cyclotomic # tried cyclotomic-1.1.2, but its *test-suite* requires the disabled package: test-framework
     - darcs # tried darcs-2.16.5, but its *test-suite* requires leancheck >=0.9 && < 0.10 and the snapshot contains leancheck-1.0.0
+    - data-array-byte # tried data-array-byte-0.1.0.1, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - data-bword # tried data-bword-0.1.0.2, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - data-dword # tried data-dword-0.3.2.1, but its *test-suite* requires the disabled package: tasty-quickcheck
     - data-hash # tried data-hash-0.2.0.1, but its *test-suite* requires the disabled package: test-framework
+    - data-interval # tried data-interval-2.1.1, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - data-serializer # tried data-serializer-0.3.5, but its *test-suite* requires the disabled package: tasty-quickcheck
     - data-sketches # tried data-sketches-0.3.1.0, but its *test-suite* requires the disabled package: statistics
     - data-textual # tried data-textual-0.3.0.3, but its *test-suite* requires the disabled package: test-framework
+    - dbus # tried dbus-1.2.29, but its *test-suite* requires the disabled package: tasty-quickcheck
     - deepseq-generics # tried deepseq-generics-0.2.0.0, but its *test-suite* requires the disabled package: test-framework
+    - deferred-folds # tried deferred-folds-0.9.18.3, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - deque # tried deque-0.4.4, but its *test-suite* requires the disabled package: tasty-quickcheck
     - detour-via-sci # tried detour-via-sci-1.0.0, but its *test-suite* requires the disabled package: hlint
+    - df1 # tried df1-0.4.1, but its *test-suite* requires the disabled package: tasty-quickcheck
     - dhall-lsp-server # tried dhall-lsp-server-1.1.3, but its *test-suite* requires hspec >=2.7 && < 2.11 and the snapshot contains hspec-2.11.1
     - dhall-lsp-server # tried dhall-lsp-server-1.1.3, but its *test-suite* requires lsp-test >=0.13.0.0 && < 0.15 and the snapshot contains lsp-test-0.15.0.0
     - dhall-lsp-server # tried dhall-lsp-server-1.1.3, but its *test-suite* requires lsp-types >=1.2.0.0 && < 1.5 and the snapshot contains lsp-types-2.0.0.1
+    - di-core # tried di-core-1.0.4, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - di-df1 # tried di-df1-1.2.1, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - diagrams-lib # tried diagrams-lib-1.4.6, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - diagrams-solve # tried diagrams-solve-0.1.3, but its *test-suite* requires the disabled package: tasty-quickcheck
     - dialogflow-fulfillment # tried dialogflow-fulfillment-0.1.1.4, but its *test-suite* requires hspec >=2.7.1 && < 2.9.0 and the snapshot contains hspec-2.11.1
     - dialogflow-fulfillment # tried dialogflow-fulfillment-0.1.1.4, but its *test-suite* requires hspec-discover >=2.7.1 && < 2.9.0 and the snapshot contains hspec-discover-2.11.1
     - discrimination # tried discrimination-0.5, but its *test-suite* requires the disabled package: criterion
     - distributed-process-lifted # tried distributed-process-lifted-0.3.0.1, but its *test-suite* requires the disabled package: network-transport-tcp
     - distributed-process-lifted # tried distributed-process-lifted-0.3.0.1, but its *test-suite* requires the disabled package: rematch
+    - doclayout # tried doclayout-0.4.0.1, but its *test-suite* requires the disabled package: tasty-quickcheck
     - doldol # tried doldol-0.4.1.2, but its *test-suite* requires the disabled package: test-framework
+    - domain # tried domain-0.1.1.4, but its *test-suite* requires the disabled package: tasty-quickcheck
     - double-conversion # tried double-conversion-2.0.4.2, but its *test-suite* requires the disabled package: test-framework
     - drawille # tried drawille-0.1.2.0, but its *test-suite* requires hspec >=1.11 && < 2.4 and the snapshot contains hspec-2.11.1
+    - drifter # tried drifter-0.3.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - dublincore-xml-conduit # tried dublincore-xml-conduit-0.1.0.2, but its *test-suite* requires the disabled package: hlint
     - ed25519 # tried ed25519-0.0.5.0, but its *test-suite* requires QuickCheck >=2.4 && < 2.9 and the snapshot contains QuickCheck-2.14.3
     - ed25519 # tried ed25519-0.0.5.0, but its *test-suite* requires directory >=1.0 && < 1.3 and the snapshot contains directory-1.3.8.1
@@ -9010,11 +9070,16 @@ skipped-tests:
     - euler-tour-tree # tried euler-tour-tree-0.1.1.0, but its *test-suite* requires the disabled package: sequence
     - eventsource-stub-store # tried eventsource-stub-store-1.1.1, but its *test-suite* requires the disabled package: eventsource-store-specs
     - evm-opcodes # tried evm-opcodes-0.1.2, but its *test-suite* requires the disabled package: hedgehog
+    - exact-pi # tried exact-pi-0.5.0.2, but its *test-suite* requires the disabled package: tasty-quickcheck
     - exception-transformers # tried exception-transformers-0.4.0.11, but its *test-suite* requires transformers >=0.2 && < 0.6 and the snapshot contains transformers-0.6.1.0
+    - exp-pairs # tried exp-pairs-0.2.1.0, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - extended-reals # tried extended-reals-0.2.4.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - extensible-effects # tried extensible-effects-5.0.0.1, but its *test-suite* requires the disabled package: test-framework
     - filtrable # tried filtrable-0.1.6.0, but its *test-suite* requires tasty >=1.3.1 && < 1.4 and the snapshot contains tasty-1.4.3
     - fingertree # tried fingertree-0.1.5.0, but its *test-suite* requires the disabled package: test-framework
     - fixed-vector-hetero # tried fixed-vector-hetero-0.6.1.1, but its *test-suite* requires doctest >=0.15 && < 0.20 and the snapshot contains doctest-0.21.1
+    - flat # tried flat-0.6, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - flay # tried flay-0.4, but its *test-suite* requires the disabled package: tasty-quickcheck
     - focuslist # tried focuslist-0.1.1.0, but its *test-suite* requires genvalidity < 1.0.0.0 and the snapshot contains genvalidity-1.1.0.0
     - focuslist # tried focuslist-0.1.1.0, but its *test-suite* requires validity < 0.12.0.0 and the snapshot contains validity-0.12.0.1
     - friday # tried friday-0.2.3.2, but its *test-suite* requires the disabled package: test-framework
@@ -9030,11 +9095,15 @@ skipped-tests:
     - galois-field # tried galois-field-1.0.2, but its *test-suite* requires semirings >=0.5 && < 0.6 and the snapshot contains semirings-0.6
     - galois-field # tried galois-field-1.0.2, but its *test-suite* requires tasty >=1.2 && < 1.3 and the snapshot contains tasty-1.4.3
     - gemini-exports # tried gemini-exports-0.1.0.0, but its *test-suite* requires the disabled package: hedgehog
+    - generic-arbitrary # tried generic-arbitrary-1.0.1, but its *test-suite* requires the disabled package: tasty-quickcheck
     - generic-data # tried generic-data-1.1.0.0, but its *test-suite* requires the disabled package: one-liner
     - generic-xmlpickler # tried generic-xmlpickler-0.1.0.6, but its *test-suite* requires tasty >=0.10 && < 1.3 and the snapshot contains tasty-1.4.3
     - geodetics # tried geodetics-0.1.2, but its *test-suite* requires the disabled package: test-framework
     - geojson # tried geojson-4.1.1, but its *test-suite* requires hspec >=2.5 && < 2.10 and the snapshot contains hspec-2.11.1
+    - ghc-typelits-knownnat # tried ghc-typelits-knownnat-0.7.8, but its *test-suite* requires the disabled package: tasty-quickcheck
     - ginger # tried ginger-0.10.4.0, but its *test-suite* requires mtl >=2.2.2 && < 2.3 and the snapshot contains mtl-2.3.1
+    - github-rest # tried github-rest-1.1.3, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - hackage-security # tried hackage-security-0.6.2.3, but its *test-suite* requires the disabled package: tasty-quickcheck
     - haddock-library # tried haddock-library-1.11.0, but its *test-suite* requires hspec >=2.4.4 && < 2.11 and the snapshot contains hspec-2.11.1
     - haddock-library # tried haddock-library-1.11.0, but its *test-suite* requires hspec-discover >=2.4.4 && < 2.10 and the snapshot contains hspec-discover-2.11.1
     - haddock-library # tried haddock-library-1.11.0, but its *test-suite* requires optparse-applicative >=0.15 && < 0.18 and the snapshot contains optparse-applicative-0.18.1.0
@@ -9063,6 +9132,7 @@ skipped-tests:
     - haskey-mtl # tried haskey-mtl-0.3.1.0, but its *test-suite* requires lens >=4.12 && < 5 and the snapshot contains lens-5.2.2
     - haskey-mtl # tried haskey-mtl-0.3.1.0, but its *test-suite* requires text >=1.2 && < 2 and the snapshot contains text-2.0.2
     - hasmin # tried hasmin-1.0.3, but its *test-suite* requires doctest >=0.11 && < 0.17 and the snapshot contains doctest-0.21.1
+    - hasql-dynamic-statements # tried hasql-dynamic-statements-0.3.1.2, but its *test-suite* requires the disabled package: tasty-quickcheck
     - hedis # tried hedis-0.15.2, but its *test-suite* requires the disabled package: test-framework
     - hedn # tried hedn-0.3.0.4, but its *test-suite* requires the disabled package: hedgehog
     - heist # tried heist-1.1.1.1, but its *test-suite* requires the disabled package: test-framework
@@ -9075,10 +9145,20 @@ skipped-tests:
     - hledger-stockquotes # tried hledger-stockquotes-0.1.2.1, but its *test-suite* requires the disabled package: hedgehog
     - hmatrix-morpheus # tried hmatrix-morpheus-0.1.1.2, but its *test-suite* requires the disabled package: test-framework
     - hmatrix-vector-sized # tried hmatrix-vector-sized-0.1.3.0, but its *test-suite* requires the disabled package: hedgehog
+    - hourglass # tried hourglass-0.2.12, but its *test-suite* requires the disabled package: tasty-quickcheck
     - hsc2hs # tried hsc2hs-0.68.9, but its *test-suite* requires the disabled package: test-framework
     - hsdev # tried hsdev-0.3.4.0, but its *test-suite* requires lens-aeson >=1.0 && < 1.2 and the snapshot contains lens-aeson-1.2.2
+    - hsini # tried hsini-0.5.1.2, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - hslua-aeson # tried hslua-aeson-2.3.0.1, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - hslua-classes # tried hslua-classes-2.3.0, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - hslua-core # tried hslua-core-2.3.1, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - hslua-marshalling # tried hslua-marshalling-2.3.0, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - hslua-objectorientation # tried hslua-objectorientation-2.3.0, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - hslua-typing # tried hslua-typing-0.1.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - hspec-need-env # tried hspec-need-env-0.1.0.10, but its *test-suite* requires transformers >=0.5.2.0 && < 0.6 and the snapshot contains transformers-0.6.1.0
     - hspec-tables # tried hspec-tables-0.0.1, but its *test-suite* requires hspec ==2.7.* and the snapshot contains hspec-2.11.1
+    - htoml-megaparsec # tried htoml-megaparsec-2.1.0.4, but its *test-suite* requires the disabled package: tasty-hspec
+    - http-api-data-qq # tried http-api-data-qq-0.1.0.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - http-io-streams # tried http-io-streams-0.1.6.2, but its *test-suite* requires the disabled package: snap-server
     - http-media # tried http-media-0.8.0.0, but its *test-suite* requires QuickCheck >=2.8 && < 2.14 and the snapshot contains QuickCheck-2.14.3
     - http-streams # tried http-streams-0.8.9.6, but its *test-suite* requires the disabled package: snap-server
@@ -9108,23 +9188,33 @@ skipped-tests:
     - hw-string-parse # tried hw-string-parse-0.0.0.5, but its *test-suite* requires doctest >=0.16.2 && < 0.21 and the snapshot contains doctest-0.21.1
     - hw-xml # tried hw-xml-0.5.1.1, but its *test-suite* requires doctest >=0.16.2 && < 0.21 and the snapshot contains doctest-0.21.1
     - indexed-containers # tried indexed-containers-0.1.0.2, but its *test-suite* requires hspec >=2.4.8 && < 2.8 and the snapshot contains hspec-2.11.1
+    - infinite-list # tried infinite-list-0.1, but its *test-suite* requires the disabled package: tasty-quickcheck
     - influxdb # tried influxdb-1.9.2.2, but its *test-suite* requires doctest >=0.11.3 && < 0.21 and the snapshot contains doctest-0.21.1
+    - insert-ordered-containers # tried insert-ordered-containers-0.2.5.2, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - integer-roots # tried integer-roots-1.0.2.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - integer-types # tried integer-types-0.1.1.0, but its *test-suite* requires hspec ^>=2.8.5 || ^>=2.9 || ^>=2.10 and the snapshot contains hspec-2.11.1
     - io-streams # tried io-streams-1.5.2.2, but its *test-suite* requires the disabled package: test-framework
     - io-streams-haproxy # tried io-streams-haproxy-1.0.1.0, but its *test-suite* requires the disabled package: test-framework
     - irc # tried irc-0.6.1.0, but its *test-suite* requires the disabled package: test-framework
     - irc-dcc # tried irc-dcc-2.0.1, but its *test-suite* requires tasty >=0.11.0.2 && < 1.2 and the snapshot contains tasty-1.4.3
     - irc-dcc # tried irc-dcc-2.0.1, but its *test-suite* requires tasty-hspec >=1.1.2 && < 1.2 and the snapshot contains tasty-hspec-1.2.0.4
+    - isomorphism-class # tried isomorphism-class-0.1.0.9, but its *test-suite* requires the disabled package: tasty-quickcheck
     - jose # tried jose-0.10, but its *test-suite* requires the disabled package: hedgehog
     - json-rpc-client # tried json-rpc-client-0.2.5.0, but its *test-suite* requires QuickCheck >=2.4.2 && < 2.14 and the snapshot contains QuickCheck-2.14.3
     - jsonifier # tried jsonifier-0.2.1.2, but its *test-suite* requires the disabled package: hedgehog
+    - jwt # tried jwt-0.11.0, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - katip # tried katip-0.8.7.4, but its *test-suite* requires the disabled package: tasty-quickcheck
     - keyed-vals-redis # tried keyed-vals-redis-0.2.0.0, but its *test-suite* requires the disabled package: hspec-tmp-proc
     - keyed-vals-redis # tried keyed-vals-redis-0.2.0.0, but its *test-suite* requires the disabled package: tmp-proc-redis
     - lackey # tried lackey-2.0.0.6, but its *test-suite* requires the disabled package: servant
     - language-c-quote # tried language-c-quote-0.13.0.1, but its *test-suite* requires the disabled package: test-framework
     - language-glsl # tried language-glsl-0.3.0, but its *test-suite* requires the disabled package: test-framework
+    - language-java # tried language-java-0.2.9, but its *test-suite* requires the disabled package: tasty-quickcheck
     - largeword # tried largeword-1.2.5, but its *test-suite* requires the disabled package: test-framework
+    - lattices # tried lattices-2.2, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - leb128-cereal # tried leb128-cereal-1.2, but its *test-suite* requires the disabled package: tasty-quickcheck
     - lens # tried lens-5.2.2, but its *test-suite* requires the disabled package: test-framework
+    - leveldb-haskell # tried leveldb-haskell-0.6.5, but its *test-suite* requires the disabled package: tasty-quickcheck
     - libjwt-typed # tried libjwt-typed-0.2, but its *test-suite* requires hspec ==2.7.* and the snapshot contains hspec-2.11.1
     - libjwt-typed # tried libjwt-typed-0.2, but its *test-suite* requires hspec-core ==2.7.* and the snapshot contains hspec-core-2.11.1
     - lifted-base # tried lifted-base-0.2.3.12, but its *test-suite* requires the disabled package: test-framework
@@ -9146,15 +9236,25 @@ skipped-tests:
     - makefile # tried makefile-1.1.0.0, but its *test-suite* requires tasty-quickcheck ==0.8.* and the snapshot contains tasty-quickcheck-0.10.2
     - map-syntax # tried map-syntax-0.3, but its *test-suite* requires hspec >=2.2.3 && < 2.11 and the snapshot contains hspec-2.11.1
     - math-extras # tried math-extras-0.1.1.0, but its *test-suite* requires the disabled package: hedgehog
+    - math-functions # tried math-functions-0.3.4.2, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - matrices # tried matrices-0.5.0, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - matrix # tried matrix-0.3.6.1, but its *test-suite* requires the disabled package: tasty-quickcheck
     - medea # tried medea-1.2.0, but its *test-suite* requires hspec >=2.7.1 && < 2.9.0 and the snapshot contains hspec-2.11.1
     - medea # tried medea-1.2.0, but its *test-suite* requires hspec-core >=2.7.1 && < 2.9.0 and the snapshot contains hspec-core-2.11.1
     - menshen # tried menshen-0.0.3, but its *test-suite* requires QuickCheck < 2.14 and the snapshot contains QuickCheck-2.14.3
+    - merkle-tree # tried merkle-tree-0.1.1, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - microaeson # tried microaeson-0.1.0.1, but its *test-suite* requires the disabled package: tasty-quickcheck
     - min-max-pqueue # tried min-max-pqueue-0.1.0.2, but its *test-suite* requires the disabled package: hedgehog
     - minimorph # tried minimorph-0.3.0.1, but its *test-suite* requires the disabled package: test-framework
     - miniutter # tried miniutter-0.5.1.2, but its *test-suite* requires the disabled package: test-framework
+    - mock-time # tried mock-time-0.1.0, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - mod # tried mod-0.2.0.1, but its *test-suite* requires the disabled package: tasty-quickcheck
     - monad-memo # tried monad-memo-0.5.4, but its *test-suite* requires the disabled package: test-framework
+    - monoid-subclasses # tried monoid-subclasses-1.2.3, but its *test-suite* requires the disabled package: tasty-quickcheck
     - msgpack # tried msgpack-1.0.1.0, but its *test-suite* requires QuickCheck ==2.12.* and the snapshot contains QuickCheck-2.14.3
     - msgpack # tried msgpack-1.0.1.0, but its *test-suite* requires tasty ==1.2.* and the snapshot contains tasty-1.4.3
+    - multiarg # tried multiarg-0.30.0.10, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - multiset # tried multiset-0.3.4.3, but its *test-suite* requires the disabled package: tasty-quickcheck
     - multistate # tried multistate-0.8.0.4, but its *test-suite* requires hspec >=2 && < 2.9 and the snapshot contains hspec-2.11.1
     - murmur3 # tried murmur3-1.0.5, but its *test-suite* requires the disabled package: base16
     - murmur3 # tried murmur3-1.0.5, but its *test-suite* requires the disabled package: test-framework
@@ -9162,51 +9262,78 @@ skipped-tests:
     - mwc-random # tried mwc-random-0.15.0.2, but its *test-suite* requires doctest >=0.15 && < 0.20 and the snapshot contains doctest-0.21.1
     - nakadi-client # tried nakadi-client-0.7.0.0, but its *test-suite* requires classy-prelude >=1.4.0 && < 1.5.0 and the snapshot contains classy-prelude-1.5.0.2
     - nanovg # tried nanovg-0.8.1.0, but its *test-suite* requires the disabled package: inline-c
+    - natural-transformation # tried natural-transformation-0.4, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - netrc # tried netrc-0.2.0.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - nettle # tried nettle-0.3.0, but its *test-suite* requires the disabled package: test-framework
+    - network-ip # tried network-ip-0.3.0.3, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - network-uri # tried network-uri-2.6.4.2, but its *test-suite* requires the disabled package: tasty-quickcheck
     - next-ref # tried next-ref-0.1.0.2, but its *test-suite* requires hspec >=2 && < 2.3 and the snapshot contains hspec-2.11.1
     - nonempty-containers # tried nonempty-containers-0.3.4.4, but its *test-suite* requires the disabled package: hedgehog
+    - nonempty-vector # tried nonempty-vector-0.2.2.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - nothunks # tried nothunks-0.1.4, but its *test-suite* requires the disabled package: hedgehog
     - nqe # tried nqe-0.6.4, but its *test-suite* requires the disabled package: stm-conduit
     - numbers # tried numbers-3000.2.0.2, but its *test-suite* requires the disabled package: test-framework
     - numhask-prelude # tried numhask-prelude-0.5.0, but its *test-suite* requires doctest >=0.13 && < 0.17 and the snapshot contains doctest-0.21.1
     - o-clock # tried o-clock-1.3.0, but its *test-suite* requires doctest >=0.16 && < 0.21 and the snapshot contains doctest-0.21.1
+    - oblivious-transfer # tried oblivious-transfer-0.1.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - oops # tried oops-0.2.0.1, but its *test-suite* requires the disabled package: hedgehog
     - opaleye # tried opaleye-0.9.7.0, but its *test-suite* requires the disabled package: dotenv
     - openssl-streams # tried openssl-streams-1.2.3.0, but its *test-suite* requires the disabled package: test-framework
+    - opentelemetry-extra # tried opentelemetry-extra-0.8.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - opml-conduit # tried opml-conduit-0.9.0.0, but its *test-suite* requires the disabled package: hlint
     - optics # tried optics-0.4.2, but its *test-suite* requires inspection-testing >=0.4.1.1 && < 0.5 and the snapshot contains inspection-testing-0.5.0.1
     - options # tried options-1.2.1.1, but its *test-suite* requires the disabled package: chell
     - options # tried options-1.2.1.1, but its *test-suite* requires the disabled package: chell-quickcheck
     - oset # tried oset-0.4.0.1, but its *test-suite* requires hspec >=2.2 && < 2.8 and the snapshot contains hspec-2.11.1
     - oset # tried oset-0.4.0.1, but its *test-suite* requires hspec-discover >=2.2 && < 2.8 and the snapshot contains hspec-discover-2.11.1
+    - pandoc-lua-marshal # tried pandoc-lua-marshal-0.2.2, but its *test-suite* requires the disabled package: tasty-quickcheck
     - pandoc-types # tried pandoc-types-1.23, but its *test-suite* requires the disabled package: test-framework
     - pantry # tried pantry-0.8.2.2, but its *test-suite* requires the disabled package: hedgehog
+    - parsec-numeric # tried parsec-numeric-0.1.0.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - partial-order # tried partial-order-0.2.0.0, but its *test-suite* requires the disabled package: test-framework
+    - password # tried password-3.0.2.1, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - password-types # tried password-types-1.0.0.0, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - path-extra # tried path-extra-0.2.0, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - pedersen-commitment # tried pedersen-commitment-0.2.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - pem # tried pem-0.2.4, but its *test-suite* requires the disabled package: test-framework
     - peregrin # tried peregrin-0.3.3, but its *test-suite* requires resource-pool >=0.2.1 && < 0.4 and the snapshot contains resource-pool-0.4.0.0
     - peregrin # tried peregrin-0.3.3, but its *test-suite* requires transformers >=0.5.2 && < 0.6 and the snapshot contains transformers-0.6.1.0
     - perfect-hash-generator # tried perfect-hash-generator-1.0.0, but its *test-suite* requires the disabled package: test-framework
     - persistent-mtl # tried persistent-mtl-0.5.0.1, but its *test-suite* requires the disabled package: explainable-predicates
+    - pgp-wordlist # tried pgp-wordlist-0.1.0.3, but its *test-suite* requires the disabled package: tasty-quickcheck
     - pipes # tried pipes-4.3.16, but its *test-suite* requires the disabled package: test-framework
     - pipes-category # tried pipes-category-0.3.0.0, but its *test-suite* requires transformers >=0.4 && < 0.6 and the snapshot contains transformers-0.6.1.0
     - pipes-csv # tried pipes-csv-1.4.3, but its *test-suite* requires the disabled package: test-framework
     - pipes-extras # tried pipes-extras-1.0.15, but its *test-suite* requires transformers >=0.2.0.0 && < 0.6 and the snapshot contains transformers-0.6.1.0
     - pipes-fluid # tried pipes-fluid-0.6.0.1, but its *test-suite* requires the disabled package: pipes-misc
+    - pontarius-xmpp # tried pontarius-xmpp-0.5.6.6, but its *test-suite* requires the disabled package: tasty-quickcheck
     - postgresql-syntax # tried postgresql-syntax-0.4.1, but its *test-suite* requires the disabled package: hedgehog
     - postgrest # tried postgrest-9.0.1, but its *test-suite* requires hspec >=2.3 && < 2.9 and the snapshot contains hspec-2.11.1
+    - pptable # tried pptable-0.3.0.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - prefix-units # tried prefix-units-0.3.0.1, but its *test-suite* requires the disabled package: test-framework
+    - prettyprinter # tried prettyprinter-1.7.1, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - primitive-extras # tried primitive-extras-0.10.1.6, but its *test-suite* requires the disabled package: tasty-quickcheck
     - printcess # tried printcess-0.1.0.3, but its *test-suite* requires HUnit >=1.3 && < 1.6 and the snapshot contains HUnit-1.6.2.0
     - printcess # tried printcess-0.1.0.3, but its *test-suite* requires QuickCheck >=2.8 && < 2.10 and the snapshot contains QuickCheck-2.14.3
+    - proto-lens # tried proto-lens-0.7.1.3, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - protobuf # tried protobuf-0.2.1.3, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - psqueues # tried psqueues-0.2.7.3, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - ptr # tried ptr-0.16.8.4, but its *test-suite* requires the disabled package: tasty-quickcheck
     - ptr-poker # tried ptr-poker-0.1.2.13, but its *test-suite* requires the disabled package: hedgehog
     - pureMD5 # tried pureMD5-2.1.4, but its *test-suite* requires the disabled package: test-framework
     - qnap-decrypt # tried qnap-decrypt-0.3.5, but its *test-suite* requires hspec >=2.4.8 && < 2.8 and the snapshot contains hspec-2.11.1
+    - quadratic-irrational # tried quadratic-irrational-0.1.1, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - quickcheck-classes # tried quickcheck-classes-0.6.5.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - quickcheck-groups # tried quickcheck-groups-0.0.0.0, but its *test-suite* requires hspec >=2.10.7 && < 2.11 and the snapshot contains hspec-2.11.1
+    - quickcheck-higherorder # tried quickcheck-higherorder-0.1.0.1, but its *test-suite* requires the disabled package: tasty-quickcheck
     - quickcheck-monoid-subclasses # tried quickcheck-monoid-subclasses-0.1.0.0, but its *test-suite* requires hspec >=2.10.7 && < 2.11 and the snapshot contains hspec-2.11.1
     - quickcheck-state-machine # tried quickcheck-state-machine-0.7.3, but its *test-suite* requires persistent >=2.10.4 && < 2.11 and the snapshot contains persistent-2.14.5.0
     - quickcheck-state-machine # tried quickcheck-state-machine-0.7.3, but its *test-suite* requires persistent-sqlite < 2.11 and the snapshot contains persistent-sqlite-2.13.1.1
     - quickcheck-state-machine # tried quickcheck-state-machine-0.7.3, but its *test-suite* requires persistent-template < 2.11 and the snapshot contains persistent-template-2.12.0.0
     - quickcheck-state-machine # tried quickcheck-state-machine-0.7.3, but its *test-suite* requires the disabled package: hs-rqlite
     - quicklz # tried quicklz-1.5.0.11, but its *test-suite* requires the disabled package: test-framework
+    - quote-quot # tried quote-quot-0.2.1.0, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - rainbox # tried rainbox-0.26.0.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - rakuten # tried rakuten-0.1.1.5, but its *test-suite* requires hspec >=2.4.1 && < 2.6 and the snapshot contains hspec-2.11.1
     - rakuten # tried rakuten-0.1.1.5, but its *test-suite* requires servant-server >=0.9.1.1 && < 0.15 and the snapshot contains servant-server-0.19.2
     - rakuten # tried rakuten-0.1.1.5, but its *test-suite* requires warp >=3.2.11 && < 3.3 and the snapshot contains warp-3.3.28
@@ -9217,14 +9344,19 @@ skipped-tests:
     - registry # tried registry-0.6.0.0, but its *test-suite* requires MonadRandom < 0.6 and the snapshot contains MonadRandom-0.6
     - registry # tried registry-0.6.0.0, but its *test-suite* requires tasty-discover < 4.3 and the snapshot contains tasty-discover-5.0.0
     - rel8 # tried rel8-1.4.1.0, but its *test-suite* requires hedgehog ^>=1.0 || ^>=1.1 and the snapshot contains hedgehog-1.2
+    - relapse # tried relapse-1.0.0.1, but its *test-suite* requires the disabled package: tasty-hspec
     - req-url-extra # tried req-url-extra-0.1.1.0, but its *test-suite* requires hspec >=2.2 && < 2.8 and the snapshot contains hspec-2.11.1
     - retry # tried retry-0.9.3.1, but its *test-suite* requires the disabled package: hedgehog
     - rng-utils # tried rng-utils-0.3.1, but its *test-suite* requires the disabled package: hedgehog
     - roc-id # tried roc-id-0.2.0.0, but its *test-suite* requires hspec >=2.5.5 && < 2.11 and the snapshot contains hspec-2.11.1
+    - rope-utf16-splay # tried rope-utf16-splay-0.4.0.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - rss-conduit # tried rss-conduit-0.6.0.1, but its *test-suite* requires the disabled package: hlint
+    - safe-money # tried safe-money-0.9.1, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - safecopy # tried safecopy-0.10.4.2, but its *test-suite* requires the disabled package: tasty-quickcheck
     - safeio # tried safeio-0.0.5.0, but its *test-suite* requires the disabled package: test-framework
     - salak-toml # tried salak-toml-0.3.5.3, but its *test-suite* requires QuickCheck < 2.14 and the snapshot contains QuickCheck-2.14.3
     - saltine # tried saltine-0.2.1.0, but its *test-suite* requires the disabled package: test-framework
+    - sandi # tried sandi-0.5, but its *test-suite* requires the disabled package: tasty-quickcheck
     - scale # tried scale-1.0.0.0, but its *test-suite* requires hspec >=2.4.4 && < 2.8 and the snapshot contains hspec-2.11.1
     - scale # tried scale-1.0.0.0, but its *test-suite* requires hspec-discover >=2.4.4 && < 2.8 and the snapshot contains hspec-discover-2.11.1
     - scalendar # tried scalendar-1.2.0, but its *test-suite* requires the disabled package: SCalendar
@@ -9284,14 +9416,18 @@ skipped-tests:
     - servant-yaml # tried servant-yaml-0.1.0.1, but its *test-suite* requires servant-server >=0.15 && < 0.18 and the snapshot contains servant-server-0.19.2
     - sessiontypes-distributed # tried sessiontypes-distributed-0.1.1, but its *test-suite* requires hspec >=2.4.4 && < 2.5 and the snapshot contains hspec-2.11.1
     - sessiontypes-distributed # tried sessiontypes-distributed-0.1.1, but its *test-suite* requires the disabled package: network-transport-tcp
+    - sexp-grammar # tried sexp-grammar-2.3.4.1, but its *test-suite* requires the disabled package: tasty-quickcheck
     - sexpr-parser # tried sexpr-parser-0.2.2.0, but its *test-suite* requires hspec >=2.5 && < 2.10 and the snapshot contains hspec-2.11.1
     - siggy-chardust # tried siggy-chardust-1.0.0, but its *test-suite* requires the disabled package: hlint
     - simple-affine-space # tried simple-affine-space-0.2.1, but its *test-suite* requires the disabled package: hlint
     - simple-log # tried simple-log-0.9.12, but its *test-suite* requires hspec >=2.3 && < 2.8 and the snapshot contains hspec-2.11.1
+    - simple-vec3 # tried simple-vec3-0.6.0.1, but its *test-suite* requires the disabled package: tasty-quickcheck
     - singletons-base # tried singletons-base-3.2, but its *test-suite* requires the disabled package: turtle
     - sized-grid # tried sized-grid-0.2.0.1, but its *test-suite* requires ansi-terminal >=0.8.0.2 && < 0.10 and the snapshot contains ansi-terminal-1.0
+    - skylighting-core # tried skylighting-core-0.13.3, but its *test-suite* requires the disabled package: tasty-quickcheck
     - slack-web # tried slack-web-1.6.1.0, but its *test-suite* requires hspec-discover >=2.6.0 && < 2.11 and the snapshot contains hspec-discover-2.11.1
     - snap-core # tried snap-core-1.0.5.1, but its *test-suite* requires the disabled package: test-framework
+    - socket # tried socket-0.8.3.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - solana-staking-csvs # tried solana-staking-csvs-0.1.2.0, but its *test-suite* requires the disabled package: hedgehog
     - spacecookie # tried spacecookie-1.0.0.2, but its *test-suite* requires the disabled package: download-curl
     - spatial-math # tried spatial-math-0.5.0.1, but its *test-suite* requires the disabled package: test-framework
@@ -9300,16 +9436,23 @@ skipped-tests:
     - squeal-postgresql # tried squeal-postgresql-0.9.1.0, but its *test-suite* requires the disabled package: hedgehog
     - squeather # tried squeather-0.8.0.0, but its *test-suite* requires the disabled package: hedgehog
     - stb-image-redux # tried stb-image-redux-0.2.1.2, but its *test-suite* requires hspec >=2.1.5 && < 2.5 and the snapshot contains hspec-2.11.1
+    - stm-hamt # tried stm-hamt-1.2.0.11, but its *test-suite* requires the disabled package: tasty-quickcheck
     - stm-supply # tried stm-supply-0.2.0.0, but its *test-suite* requires the disabled package: Unique
     - streaming-cassava # tried streaming-cassava-0.2.0.0, but its *test-suite* requires hspec >=2.4 && < 2.8 and the snapshot contains hspec-2.11.1
     - streaming-cassava # tried streaming-cassava-0.2.0.0, but its *test-suite* requires mtl >=2.2.1 && < 2.3 and the snapshot contains mtl-2.3.1
+    - strict-list # tried strict-list-0.1.7.1, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - string-conv # tried string-conv-0.2.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - string-qq # tried string-qq-0.0.4, but its *test-suite* requires text >=1.2 && < 1.3 and the snapshot contains text-2.0.2
+    - string-random # tried string-random-0.1.4.3, but its *test-suite* requires the disabled package: tasty-quickcheck
     - string-variants # tried string-variants-0.2.2.0, but its *test-suite* requires the disabled package: hedgehog
+    - stringprep # tried stringprep-1.0.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - stripe-http-client # tried stripe-http-client-2.6.2, but its *test-suite* requires hspec >=2.1.0 && < 2.8 and the snapshot contains hspec-2.11.1
     - strong-path # tried strong-path-1.1.4.0, but its *test-suite* requires hspec >=2.7 && < 2.10 and the snapshot contains hspec-2.11.1
     - strong-path # tried strong-path-1.1.4.0, but its *test-suite* requires tasty-discover ==4.2.* and the snapshot contains tasty-discover-5.0.0
     - strongweak # tried strongweak-0.6.0, but its *test-suite* requires hspec >=2.7 && < 2.11 and the snapshot contains hspec-2.11.1
     - strongweak # tried strongweak-0.6.0, but its *test-suite* requires hspec-discover >=2.7 && < 2.10 and the snapshot contains hspec-discover-2.11.1
+    - structs # tried structs-0.1.8, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - subcategories # tried subcategories-0.2.0.1, but its *test-suite* requires the disabled package: tasty-quickcheck
     - sv # tried sv-1.4.0.1, but its *test-suite* requires hedgehog >=0.5 && < 1.1 and the snapshot contains hedgehog-1.2
     - sv # tried sv-1.4.0.1, but its *test-suite* requires lens >=4 && < 4.20 and the snapshot contains lens-5.2.2
     - sv # tried sv-1.4.0.1, but its *test-suite* requires semigroups >=0.18 && < 0.20 and the snapshot contains semigroups-0.20
@@ -9331,31 +9474,55 @@ skipped-tests:
     - tasty-autocollect # tried tasty-autocollect-0.4.1, but its *test-suite* requires the disabled package: explainable-predicates
     - tasty-discover # tried tasty-discover-5.0.0, but its *test-suite* requires hspec >=2.7 && < 2.11 and the snapshot contains hspec-2.11.1
     - tasty-discover # tried tasty-discover-5.0.0, but its *test-suite* requires hspec-core >=2.7.10 && < 2.11 and the snapshot contains hspec-core-2.11.1
+    - tasty-kat # tried tasty-kat-0.0.3, but its *test-suite* requires the disabled package: tasty-quickcheck
     - tcp-streams # tried tcp-streams-1.0.1.1, but its *test-suite* requires the disabled package: test-framework
+    - tdigest # tried tdigest-0.3, but its *test-suite* requires the disabled package: tasty-quickcheck
     - temporary-resourcet # tried temporary-resourcet-0.1.0.1, but its *test-suite* requires tasty >=1.0 && < 1.2 and the snapshot contains tasty-1.4.3
     - terminal-progress-bar # tried terminal-progress-bar-0.4.2, but its *test-suite* requires the disabled package: test-framework
     - termonad # tried termonad-4.5.0.0, but its *test-suite* requires the disabled package: hedgehog
     - test-framework # tried test-framework-0.8.2.0, but its *test-suite* requires the disabled package: libxml
+    - text-builder-dev # tried text-builder-dev-0.3.3.2, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - text-builder-linear # tried text-builder-linear-0.1.1, but its *test-suite* requires the disabled package: tasty-quickcheck
     - text-icu # tried text-icu-0.8.0.2, but its *test-suite* requires the disabled package: test-framework
     - text-printer # tried text-printer-0.5.0.2, but its *test-suite* requires the disabled package: test-framework
+    - text-rope # tried text-rope-0.2, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - text-short # tried text-short-0.1.5, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - th-lego # tried th-lego-0.3.0.2, but its *test-suite* requires the disabled package: tasty-quickcheck
     - threads # tried threads-0.5.1.7, but its *test-suite* requires the disabled package: test-framework
+    - time-compat # tried time-compat-1.9.6.1, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - timerep # tried timerep-2.1.0.0, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - titlecase # tried titlecase-1.0.1, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - tls # tried tls-1.7.0, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - tmapmvar # tried tmapmvar-0.0.4, but its *test-suite* requires the disabled package: tasty-quickcheck
     - transient # tried transient-0.7.0.0, but its *test-suite* requires random ==1.1 and the snapshot contains random-1.2.1.1
+    - tree-diff # tried tree-diff-0.3.0.1, but its *test-suite* requires the disabled package: tasty-quickcheck
     - ttrie # tried ttrie-0.1.2.2, but its *test-suite* requires the disabled package: test-framework
+    - tuples # tried tuples-0.1.0.0, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - twitter-types # tried twitter-types-0.11.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - type-errors-pretty # tried type-errors-pretty-0.0.1.2, but its *test-suite* requires doctest >=0.16 && < 0.19 and the snapshot contains doctest-0.21.1
     - type-map # tried type-map-0.1.7.0, but its *test-suite* requires the disabled package: test-framework
+    - type-natural # tried type-natural-1.3.0.0, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - ua-parser # tried ua-parser-0.7.7.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - ucam-webauth # tried ucam-webauth-0.1.0.0, but its *test-suite* requires QuickCheck >=2.11.3 && < 2.14 and the snapshot contains QuickCheck-2.14.3
     - ucam-webauth # tried ucam-webauth-0.1.0.0, but its *test-suite* requires generic-random >=1.2.0.0 && < 1.3 and the snapshot contains generic-random-1.5.0.1
     - ucam-webauth # tried ucam-webauth-0.1.0.0, but its *test-suite* requires hspec >=2.0.0 && < 2.8 and the snapshot contains hspec-2.11.1
     - ucam-webauth # tried ucam-webauth-0.1.0.0, but its *test-suite* requires the disabled package: time-qq
     - ucam-webauth-types # tried ucam-webauth-types-0.1.0.0, but its *test-suite* requires hspec >=2.0.0 && < 2.8 and the snapshot contains hspec-2.11.1
     - unexceptionalio # tried unexceptionalio-0.5.1, but its *test-suite* requires the disabled package: test-framework
+    - unicode-collation # tried unicode-collation-0.1.3.4, but its *test-suite* requires the disabled package: tasty-quickcheck
     - unicode-data # tried unicode-data-0.4.0.1, but its *test-suite* requires hspec >=2.0 && < 2.11 and the snapshot contains hspec-2.11.1
     - uniprot-kb # tried uniprot-kb-0.1.2.0, but its *test-suite* requires QuickCheck >=2.9 && < 2.14 and the snapshot contains QuickCheck-2.14.3
     - uniprot-kb # tried uniprot-kb-0.1.2.0, but its *test-suite* requires hspec >=2.4.1 && < 2.8 and the snapshot contains hspec-2.11.1
     - uri-bytestring # tried uri-bytestring-0.3.3.1, but its *test-suite* requires the disabled package: hedgehog
     - utf8-light # tried utf8-light-0.4.4.0, but its *test-suite* requires hspec >=2.3 && < 2.11 and the snapshot contains hspec-2.11.1
+    - valida # tried valida-1.1.0, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - valida-base # tried valida-base-0.2.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - validation # tried validation-1.1.2, but its *test-suite* requires hedgehog >=0.5 && < 1.1 and the snapshot contains hedgehog-1.2
     - validation # tried validation-1.1.2, but its *test-suite* requires lens >=4 && < 5 and the snapshot contains lens-5.2.2
+    - vector-builder # tried vector-builder-0.3.8.4, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - vector-bytes-instances # tried vector-bytes-instances-0.1.1, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - vector-rotcev # tried vector-rotcev-0.1.0.2, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - vector-split # tried vector-split-1.0.0.3, but its *test-suite* requires the disabled package: tasty-quickcheck
     - wai-middleware-delegate # tried wai-middleware-delegate-0.1.3.1, but its *test-suite* requires the disabled package: connection
     - wai-rate-limit-redis # tried wai-rate-limit-redis-0.2.0.1, but its *test-suite* requires the disabled package: tasty-hedgehog
     - wai-session-redis # tried wai-session-redis-0.1.0.5, but its *test-suite* requires hspec < 2.10 and the snapshot contains hspec-2.11.1
@@ -9373,18 +9540,28 @@ skipped-tests:
     - web3-solidity # tried web3-solidity-1.0.0.0, but its *test-suite* requires hspec >=2.4.4 && < 2.8 and the snapshot contains hspec-2.11.1
     - web3-solidity # tried web3-solidity-1.0.0.0, but its *test-suite* requires hspec-discover >=2.4.4 && < 2.8 and the snapshot contains hspec-discover-2.11.1
     - websockets # tried websockets-0.12.7.3, but its *test-suite* requires the disabled package: test-framework
+    - welford-online-mean-variance # tried welford-online-mean-variance-0.2.0.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - wide-word # tried wide-word-0.1.5.0, but its *test-suite* requires the disabled package: hedgehog
     - wild-bind-x11 # tried wild-bind-x11-0.2.0.15, but its *test-suite* requires time >=1.5.0 && < 1.12 and the snapshot contains time-1.12.2
     - with-utf8 # tried with-utf8-1.0.2.4, but its *test-suite* requires the disabled package: hedgehog
+    - witherable # tried witherable-0.4.2, but its *test-suite* requires the disabled package: tasty-quickcheck
     - wreq # tried wreq-0.5.4.0, but its *test-suite* requires the disabled package: snap-server
+    - x509 # tried x509-1.7.7, but its *test-suite* requires the disabled package: tasty-quickcheck
     - xlsx # tried xlsx-1.1.0.1, but its *test-suite* requires lens >=3.8 && < 5.2 and the snapshot contains lens-5.2.2
+    - xml-picklers # tried xml-picklers-0.3.6, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - xmlbf # tried xmlbf-0.7, but its *test-suite* requires the disabled package: tasty-quickcheck
     - xmlhtml # tried xmlhtml-0.2.5.4, but its *test-suite* requires hspec >=2.4 && < 2.11 and the snapshot contains hspec-2.11.1
+    - xor # tried xor-0.0.1.1, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - yarn-lock # tried yarn-lock-0.6.5, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - yeshql-core # tried yeshql-core-4.2.0.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - yesod-middleware-csp # tried yesod-middleware-csp-1.2.0, but its *test-suite* requires the disabled package: classy-prelude-yesod
     - yesod-page-cursor # tried yesod-page-cursor-2.0.1.0, but its *test-suite* requires the disabled package: persistent
     - yesod-static-angular # tried yesod-static-angular-0.1.8, but its *test-suite* requires yesod-test >=1.2 && < 1.6 and the snapshot contains yesod-test-1.6.15
     - yesod-test # tried yesod-test-1.6.15, but its *test-suite* requires the disabled package: yesod-form
     - zenacy-html # tried zenacy-html-2.1.0, but its *test-suite* requires the disabled package: test-framework
     - zenacy-unicode # tried zenacy-unicode-1.0.2, but its *test-suite* requires the disabled package: test-framework
+    - zeromq4-haskell # tried zeromq4-haskell-0.8.0, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - zlib # tried zlib-0.6.3.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - zm # tried zm-0.3.2, but its *test-suite* requires doctest >=0.11.1 && < 0.14 and the snapshot contains doctest-0.21.1
     - zm # tried zm-0.3.2, but its *test-suite* requires tasty >=0.11 && < 0.13 and the snapshot contains tasty-1.4.3
     - zm # tried zm-0.3.2, but its *test-suite* requires tasty-quickcheck >=0.8.1 && < 0.9.2 and the snapshot contains tasty-quickcheck-0.10.2
@@ -10171,6 +10348,7 @@ skipped-benchmarks:
     - text-show # tried text-show-3.10.3, but its *benchmarks* requires the disabled package: criterion
     - thread-local-storage # tried thread-local-storage-0.2, but its *benchmarks* requires the disabled package: criterion
     - tidal # tried tidal-1.9.4, but its *benchmarks* requires the disabled package: weigh
+    - tls # tried tls-1.7.0, but its *benchmarks* requires the disabled package: tasty-quickcheck
     - tmp-postgres # tried tmp-postgres-1.34.1.0, but its *benchmarks* requires the disabled package: criterion
     - ttrie # tried ttrie-0.1.2.2, but its *benchmarks* requires the disabled package: criterion-plus
     - ttrie # tried ttrie-0.1.2.2, but its *benchmarks* requires the disabled package: stm-stats
