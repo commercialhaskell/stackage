@@ -389,7 +389,7 @@ packages:
     "Tom McLaughlin <tom@codedown.io> @thomasjm":
         - aeson-typescript
         - fsnotify
-        - sandwich
+        - sandwich < 0 # 0.1.4.0 # fails to compile (#7017)
         - sandwich-hedgehog
         - sandwich-quickcheck
         - sandwich-slack
@@ -881,7 +881,7 @@ packages:
 
     "Brandon Barker <brandon.barnnker@gmail.com> @bbarker":
         - unexceptionalio
-        - unexceptionalio-trans
+        - unexceptionalio-trans < 0 # 0.5.1 # fails to compile (#7017)
         - zio
 
     "Omari Norman <omari@smileystation.com> @massysett":
@@ -1059,7 +1059,7 @@ packages:
         - TCache < 0 # 0.13.3 compile fail
         - Workflow
         - MFlow
-        - transient
+        - transient < 0 # 0.7.0.0 # fails to compile (#7017)
         - transient-universe
         - axiom
 
@@ -1287,7 +1287,7 @@ packages:
         - numbers
         - rev-state
         - runmemo
-        - tardis
+        - tardis < 0 # 0.4.4.0 # fails to compile (#7017)
         - yesod-gitrev
         # @mr's packages
         - ftp-client
@@ -1355,7 +1355,7 @@ packages:
         # Not my packages
         - HStringTemplate
         - spoon
-        - tagshare
+        - tagshare < 0 # 0.0 # fails to compile (#7017)
 
     "Benedict Aas <x@shou.io> @Shou":
         - boolean-like
@@ -2188,7 +2188,7 @@ packages:
         - hmatrix-gsl-stats
         - hsignal
         - hstatistics
-        - plot
+        - plot < 0 # 0.2.3.11 # fails to compile (#7017)
         - vector-buffer
         - hmatrix-repa
 
@@ -2244,10 +2244,10 @@ packages:
         - linux-namespaces
 
     "Will Coster <willcoster@gmail.com> @fimad":
-        - prometheus-client
+        - prometheus-client < 0 # 1.1.0 # fails to compile (#7017)
         - prometheus-metrics-ghc
         - scalpel
-        - scalpel-core
+        - scalpel-core < 0 # 0.6.2.1 # fails to compile (#7017)
         - wai-middleware-prometheus
 
     "William Casarin <bill@casarin.me> @jb55":
@@ -2388,7 +2388,7 @@ packages:
         - list-witnesses
         - nonempty-containers
         - one-liner-instances
-        - prompt
+        - prompt < 0 # 0.1.1.2 # fails to compile (#7017)
         - servant-cli
         - tagged-binary
         - type-combinators-singletons
@@ -2520,7 +2520,7 @@ packages:
     "Sven Heyll <svh@posteo.de> @sheyll":
         - b9
         - type-spec
-        - pretty-types
+        - pretty-types < 0 # 0.4.0.0 # fails to compile (#7017)
         - function-builder
         - bytestring-to-vector
 
@@ -2552,7 +2552,7 @@ packages:
         - monad-peel
         - NineP
         - Network-NineP
-        - pontarius-xmpp
+        - pontarius-xmpp < 0 # 0.5.6.6 # fails to compile (#7017)
         - stringprep
         - ranges
 
@@ -2842,7 +2842,7 @@ packages:
         - withdependencies
         - hruby
         - language-puppet
-        - tar-conduit
+        - tar-conduit < 0 # 0.3.2 # fails to compile (#7017)
 
     "Mark Karpov <markkarpov92@gmail.com> @mrkkrp":
         - JuicyPixels-extra
@@ -2871,7 +2871,7 @@ packages:
         - req
         - req-conduit
         - stache
-        - tagged-identity
+        - tagged-identity < 0 # 0.1.3 # fails to compile (#7017)
         - text-metrics
         - wave
         - zip
@@ -2991,7 +2991,7 @@ packages:
         - pkcs10
 
     "David Luposchainsky <dluposchainsky (λ) googles email service> @quchen":
-        - pgp-wordlist
+        - pgp-wordlist < 0 # 0.1.0.3 # fails to compile (#7017)
         - show-prettyprint
 
     "Jeremy Shaw <jeremy@n-heptane.com> @stepcut":
@@ -5361,7 +5361,7 @@ packages:
         - postgresql-simple-url
         - pretty-hex
         - pretty-show
-        - prettyprinter-convert-ansi-wl-pprint
+        - prettyprinter-convert-ansi-wl-pprint < 0 # 1.1.2 # fails to compile (#7017)
         - primes
         - primitive
         - primitive-unaligned
@@ -5386,7 +5386,7 @@ packages:
         - readable
         - readline < 0 # 1.0.3.0 setup fail
         - recv
-        - refinery
+        - refinery < 0 # 0.4.0.0 # fails to compile (#7017)
         - regex-applicative-text
         - regex-pcre-builtin
         - regex-tdfa-text
@@ -5877,6 +5877,10 @@ packages:
         - ShellCheck < 0 # tried ShellCheck-0.9.0, but its *library* requires transformers >=0.4.2 && < 0.6 and the snapshot contains transformers-0.6.1.0
         - Spintax < 0 # tried Spintax-0.3.6, but its *library* requires mtl >=2.2.1 && < 2.3 and the snapshot contains mtl-2.3.1
         - Spintax < 0 # tried Spintax-0.3.6, but its *library* requires text >=1.2.2 && < 1.3 and the snapshot contains text-2.0.2
+        - Spock < 0 # tried Spock-0.14.0.0, but its *library* requires the disabled package: Spock-core
+        - Spock-api-server < 0 # tried Spock-api-server-0.14.0.0, but its *library* requires the disabled package: Spock-core
+        - Spock-lucid < 0 # tried Spock-lucid-0.4.0.1, but its *library* requires the disabled package: Spock
+        - Spock-worker < 0 # tried Spock-worker-0.3.1.0, but its *library* requires the disabled package: Spock
         - Strafunski-StrategyLib < 0 # tried Strafunski-StrategyLib-5.0.1.0, but its *library* requires base >4.4 && < 4.14 and the snapshot contains base-4.18.0.0
         - TotalMap < 0 # tried TotalMap-0.1.1.1, but its *library* requires base >=4.9 && < 4.13 and the snapshot contains base-4.18.0.0
         - TotalMap < 0 # tried TotalMap-0.1.1.1, but its *library* requires lens >=4.16 && < 4.20 and the snapshot contains lens-5.2.2
@@ -6109,7 +6113,7 @@ packages:
         - aws-xray-client-persistent < 0 # tried aws-xray-client-persistent-0.1.0.5, but its *library* requires the disabled package: persistent
         - axel < 0 # tried axel-0.0.12, but its *library* requires base >=4.12 && < 4.13 and the snapshot contains base-4.18.0.0
         - axel < 0 # tried axel-0.0.12, but its *library* requires the disabled package: tasty
-        - axiom < 0 # tried axiom-0.4.7, but its *library* requires the disabled package: transient-universe
+        - axiom < 0 # tried axiom-0.4.7, but its *library* requires the disabled package: transient
         - b9 < 0 # tried b9-3.2.3, but its *library* requires aeson ==1.4.* and the snapshot contains aeson-2.1.2.1
         - b9 < 0 # tried b9-3.2.3, but its *library* requires hspec ==2.7.* and the snapshot contains hspec-2.11.1
         - b9 < 0 # tried b9-3.2.3, but its *library* requires lens ==4.* and the snapshot contains lens-5.2.2
@@ -6260,7 +6264,6 @@ packages:
         - captcha-core < 0 # tried captcha-core-0.1.0.1, but its *library* requires text >=1.2.4.1 && < 1.3 and the snapshot contains text-2.0.2
         - casa-client < 0 # tried casa-client-0.0.1, but its *library* requires the disabled package: casa-types
         - casa-types < 0 # tried casa-types-0.0.2, but its *library* requires the disabled package: persistent
-        - cassava-conduit < 0 # tried cassava-conduit-0.6.4, but its *library* requires containers >=0.5.10 && < 0.6 and the snapshot contains containers-0.6.7
         - caster < 0 # tried caster-0.0.3.0, but its *library* requires the disabled package: fast-builder
         - category < 0 # tried category-0.2.5.0, but its *library* requires base >=4.10 && < 4.15 and the snapshot contains base-4.18.0.0
         - category < 0 # tried category-0.2.5.0, but its *library* requires the disabled package: dual
@@ -7034,7 +7037,7 @@ packages:
         - holy-project < 0 # tried holy-project-0.2.0.1, but its *executable* requires the disabled package: tasty-quickcheck
         - holy-project < 0 # tried holy-project-0.2.0.1, but its *library* requires the disabled package: hastache
         - hoogle < 0 # tried hoogle-5.0.18.3, but its *library* requires the disabled package: connection
-        - hopenpgp-tools < 0 # tried hopenpgp-tools-0.23.7, but its *executable* requires the disabled package: ixset-typed
+        - hopenpgp-tools < 0 # tried hopenpgp-tools-0.23.7, but its *executable* requires the disabled package: prettyprinter-convert-ansi-wl-pprint
         - horizontal-rule < 0 # tried horizontal-rule-0.6.0.0, but its *executable* requires optparse-applicative >=0.13 && < 0.18 and the snapshot contains optparse-applicative-0.18.1.0
         - hpack-dhall < 0 # tried hpack-dhall-0.5.7, but its *library* requires the disabled package: dhall
         - hpack-dhall < 0 # tried hpack-dhall-0.5.7, but its *library* requires the disabled package: dhall-json
@@ -7407,8 +7410,8 @@ packages:
         - mbug < 0 # tried mbug-1.3.2, but its *library* requires http-client >=0.5.14 && < 0.6 and the snapshot contains http-client-0.7.13.1
         - mbug < 0 # tried mbug-1.3.2, but its *library* requires mtl >=2.2.2 && < 2.3 and the snapshot contains mtl-2.3.1
         - mbug < 0 # tried mbug-1.3.2, but its *library* requires optparse-applicative >=0.14.3.0 && < 0.15 and the snapshot contains optparse-applicative-0.18.1.0
-        - mbug < 0 # tried mbug-1.3.2, but its *library* requires scalpel-core >=0.5.1 && < 0.6 and the snapshot contains scalpel-core-0.6.2.1
         - mbug < 0 # tried mbug-1.3.2, but its *library* requires text >=1.2.3.1 && < 1.3 and the snapshot contains text-2.0.2
+        - mbug < 0 # tried mbug-1.3.2, but its *library* requires the disabled package: scalpel-core
         - mbug < 0 # tried mbug-1.3.2, but its *library* requires time >=1.8.0.2 && < 1.9 and the snapshot contains time-1.12.2
         - mcmc < 0 # tried mcmc-0.8.2.0, but its *library* requires the disabled package: statistics
         - medea < 0 # tried medea-1.2.0, but its *library* requires aeson >=1.4.6.0 && < 2.0.0.0 and the snapshot contains aeson-2.1.2.1
@@ -7615,7 +7618,7 @@ packages:
         - pandoc-symreg < 0 # tried pandoc-symreg-0.2.0.0, but its *library* requires mtl ==2.2.* and the snapshot contains mtl-2.3.1
         - pandoc-symreg < 0 # tried pandoc-symreg-0.2.0.0, but its *library* requires optparse-applicative ==0.17.* and the snapshot contains optparse-applicative-0.18.1.0
         - pandoc-throw < 0 # tried pandoc-throw-0.1.0.0, but its *library* requires the disabled package: pandoc
-        - pantry < 0 # tried pantry-0.8.2.2, but its *library* requires the disabled package: persistent
+        - pantry < 0 # tried pantry-0.8.2.2, but its *library* requires the disabled package: tar-conduit
         - papillon < 0 # tried papillon-0.1.1.1, but its *library* requires bytestring ==0.10.* and the snapshot contains bytestring-0.11.4.0
         - papillon < 0 # tried papillon-0.1.1.1, but its *library* requires template-haskell ==2.15.* and the snapshot contains template-haskell-2.20.0.0
         - papillon < 0 # tried papillon-0.1.1.1, but its *library* requires transformers ==0.5.* and the snapshot contains transformers-0.6.1.0
@@ -7758,6 +7761,7 @@ packages:
         - profiteur < 0 # tried profiteur-0.4.6.1, but its *executable* requires vector >=0.10 && < 0.13 and the snapshot contains vector-0.13.0.0
         - prometheus < 0 # tried prometheus-2.2.3, but its *library* requires text >=1.2 && < 1.3 and the snapshot contains text-2.0.2
         - prometheus < 0 # tried prometheus-2.2.3, but its *library* requires transformers >=0.4 && < 0.6 and the snapshot contains transformers-0.6.1.0
+        - prometheus-metrics-ghc < 0 # tried prometheus-metrics-ghc-1.0.1.2, but its *library* requires the disabled package: prometheus-client
         - prometheus-wai-middleware < 0 # tried prometheus-wai-middleware-1.0.1.0, but its *library* requires text ^>=1.2 and the snapshot contains text-2.0.2
         - proto-lens-arbitrary < 0 # tried proto-lens-arbitrary-0.1.2.11, but its *library* requires base >=4.10 && < 4.17 and the snapshot contains base-4.18.0.0
         - proto-lens-optparse < 0 # tried proto-lens-optparse-0.1.1.10, but its *library* requires optparse-applicative >=0.13 && < 0.18 and the snapshot contains optparse-applicative-0.18.1.0
@@ -7813,6 +7817,7 @@ packages:
         - record-dot-preprocessor < 0 # tried record-dot-preprocessor-0.2.16, but its *library* requires ghc >=8.6 && < 9.5 and the snapshot contains ghc-9.6.2
         - records-sop < 0 # tried records-sop-0.1.1.0, but its *library* requires ghc-prim >=0.5 && < 0.8 and the snapshot contains ghc-prim-0.10.0
         - redact < 0 # tried redact-0.5.0.0, but its *executable* requires optparse-applicative >=0.13 && < 0.18 and the snapshot contains optparse-applicative-0.18.1.0
+        - reddit-scrape < 0 # tried reddit-scrape-0.0.1, but its *library* requires the disabled package: scalpel
         - redis-io < 0 # tried redis-io-1.1.0, but its *library* requires the disabled package: tinylog
         - redis-resp < 0 # tried redis-resp-1.0.0, but its *library* requires the disabled package: bytestring-conversion
         - reform < 0 # tried reform-0.2.7.5, but its *library* requires mtl >=2.0 && < 2.3 and the snapshot contains mtl-2.3.1
@@ -7864,7 +7869,9 @@ packages:
         - rhbzquery < 0 # tried rhbzquery-0.4.4, but its *executable* requires the disabled package: email-validate
         - rhine < 0 # tried rhine-0.8.1.1, but its *library* requires base >=4.14 && < 4.18 and the snapshot contains base-4.18.0.0
         - rhine < 0 # tried rhine-0.8.1.1, but its *library* requires simple-affine-space ==0.1.1 and the snapshot contains simple-affine-space-0.2.1
+        - rhine < 0 # tried rhine-0.8.1.1, but its *library* requires the disabled package: dunai
         - rhine-gloss < 0 # tried rhine-gloss-0.8.1.1, but its *library* requires base >=4.14 && < 4.18 and the snapshot contains base-4.18.0.0
+        - rhine-gloss < 0 # tried rhine-gloss-0.8.1.1, but its *library* requires the disabled package: dunai
         - riak < 0 # tried riak-1.2.0.0, but its *library* requires aeson >=0.8 && < 1.5.7 and the snapshot contains aeson-2.1.2.1
         - riak < 0 # tried riak-1.2.0.0, but its *library* requires attoparsec >=0.12.1.6 && < 0.14 and the snapshot contains attoparsec-0.14.4
         - riak < 0 # tried riak-1.2.0.0, but its *library* requires network >=3.0 && < 3.1 and the snapshot contains network-3.1.4.0
@@ -7894,8 +7901,10 @@ packages:
         - salak-toml < 0 # tried salak-toml-0.3.5.3, but its *library* requires the disabled package: tomland
         - salak-toml < 0 # tried salak-toml-0.3.5.3, but its *library* requires time >=1.8.0 && < 1.10 and the snapshot contains time-1.12.2
         - salak-yaml < 0 # tried salak-yaml-0.3.5.3, but its *library* requires text >=1.2.3 && < 1.3 and the snapshot contains text-2.0.2
-        - sandwich-hedgehog < 0 # tried sandwich-hedgehog-0.1.3.0, but its *library* requires the disabled package: hedgehog
-        - sandwich-slack < 0 # tried sandwich-slack-0.1.1.0, but its *library* requires the disabled package: wreq
+        - sandwich-hedgehog < 0 # tried sandwich-hedgehog-0.1.3.0, but its *library* requires the disabled package: sandwich
+        - sandwich-quickcheck < 0 # tried sandwich-quickcheck-0.1.0.7, but its *library* requires the disabled package: sandwich
+        - sandwich-slack < 0 # tried sandwich-slack-0.1.1.0, but its *library* requires the disabled package: sandwich
+        - sandwich-webdriver < 0 # tried sandwich-webdriver-0.2.1.0, but its *library* requires the disabled package: sandwich
         - scale < 0 # tried scale-1.0.0.0, but its *library* requires base >4.11 && < 4.15 and the snapshot contains base-4.18.0.0
         - scale < 0 # tried scale-1.0.0.0, but its *library* requires bytestring >0.10 && < 0.11 and the snapshot contains bytestring-0.11.4.0
         - scale < 0 # tried scale-1.0.0.0, but its *library* requires memory >0.14 && < 0.16 and the snapshot contains memory-0.18.0
@@ -7904,6 +7913,7 @@ packages:
         - scale < 0 # tried scale-1.0.0.0, but its *library* requires vector >0.12 && < 0.13 and the snapshot contains vector-0.13.0.0
         - scalendar < 0 # tried scalendar-1.2.0, but its *library* requires containers >=0.5.7.1 && < 0.6 and the snapshot contains containers-0.6.7
         - scalendar < 0 # tried scalendar-1.2.0, but its *library* requires text >=1.2.0.0 && < 2 and the snapshot contains text-2.0.2
+        - scalpel < 0 # tried scalpel-0.6.2.1, but its *library* requires the disabled package: scalpel-core
         - schematic < 0 # tried schematic-0.5.1.0, but its *library* requires aeson >=1 && < 1.4.3.0 and the snapshot contains aeson-2.1.2.1
         - schematic < 0 # tried schematic-0.5.1.0, but its *library* requires the disabled package: validationt
         - secp256k1-haskell < 0 # tried secp256k1-haskell-0.6.1, but its *library* requires the disabled package: base16
@@ -8200,6 +8210,7 @@ packages:
         - streamt < 0 # tried streamt-0.5.0.1, but its *library* requires mtl >=2.0 && < 2.3 and the snapshot contains mtl-2.3.1
         - strict-tuple-lens < 0 # tried strict-tuple-lens-0.2, but its *library* requires lens ^>=5 and the snapshot contains lens-5.2.2
         - string-class < 0 # tried string-class-0.1.7.0, but its *library* requires text >=0.11.0.1 && < 1.3 and the snapshot contains text-2.0.2
+        - string-variants < 0 # tried string-variants-0.2.2.0, but its *library* requires the disabled package: refinery
         - stripe-concepts < 0 # tried stripe-concepts-1.0.3.2, but its *library* requires base ^>=4.14 || ^>=4.15 || ^>=4.16 || ^>=4.17 and the snapshot contains base-4.18.0.0
         - stripe-core < 0 # tried stripe-core-2.6.2, but its *library* requires aeson >=0.8 && < 0.10 || >=0.11 && < 1.6 and the snapshot contains aeson-2.1.2.1
         - stripe-core < 0 # tried stripe-core-2.6.2, but its *library* requires bytestring >=0.10 && < 0.11 and the snapshot contains bytestring-0.11.4.0
@@ -8376,6 +8387,7 @@ packages:
         - transformers-lift < 0 # tried transformers-lift-0.2.0.2, but its *library* requires writer-cps-transformers ==0.1.1.4 and the snapshot contains writer-cps-transformers-0.5.6.1
         - transient-universe < 0 # tried transient-universe-0.6.0.1, but its *library* requires network >=2.8.0.0 && < 3.0.0.0 and the snapshot contains network-3.1.4.0
         - transient-universe < 0 # tried transient-universe-0.6.0.1, but its *library* requires the disabled package: TCache
+        - transient-universe < 0 # tried transient-universe-0.6.0.1, but its *library* requires the disabled package: transient
         - tries < 0 # tried tries-0.0.6.1, but its *library* requires the disabled package: rose-trees
         - triplesec < 0 # tried triplesec-0.2.2.1, but its *library* requires mtl < 2.3 and the snapshot contains mtl-2.3.1
         - true-name < 0 # tried true-name-0.1.0.3, but its *library* requires template-haskell >=2.7 && < 2.15 and the snapshot contains template-haskell-2.20.0.0
@@ -8466,6 +8478,7 @@ packages:
         - wai-cli < 0 # tried wai-cli-0.2.3, but its *library* requires the disabled package: monads-tf
         - wai-middleware-crowd < 0 # tried wai-middleware-crowd-0.1.4.2, but its *executable* requires optparse-applicative >=0.11 && < 0.15 and the snapshot contains optparse-applicative-0.18.1.0
         - wai-middleware-metrics < 0 # tried wai-middleware-metrics-0.2.4, but its *library* requires the disabled package: ekg-core
+        - wai-middleware-prometheus < 0 # tried wai-middleware-prometheus-1.0.0.1, but its *library* requires the disabled package: prometheus-client
         - wai-middleware-rollbar < 0 # tried wai-middleware-rollbar-0.11.0, but its *library* requires aeson >=1.0 && < 1.4 and the snapshot contains aeson-2.1.2.1
         - wai-middleware-rollbar < 0 # tried wai-middleware-rollbar-0.11.0, but its *library* requires bytestring >=0.10 && < 0.11 and the snapshot contains bytestring-0.11.4.0
         - wai-middleware-rollbar < 0 # tried wai-middleware-rollbar-0.11.0, but its *library* requires http-client >=0.5 && < 0.6 and the snapshot contains http-client-0.7.13.1
@@ -8539,6 +8552,7 @@ packages:
         - websockets-snap < 0 # tried websockets-snap-0.10.3.1, but its *library* requires the disabled package: snap-server
         - weigh < 0 # tried weigh-0.0.16, but its *library* requires mtl < 2.3 and the snapshot contains mtl-2.3.1
         - wikicfp-scraper < 0 # tried wikicfp-scraper-0.1.0.13, but its *library* requires text >=0.11.3.1 && < 1.3 and the snapshot contains text-2.0.2
+        - wikicfp-scraper < 0 # tried wikicfp-scraper-0.1.0.13, but its *library* requires the disabled package: scalpel-core
         - wikicfp-scraper < 0 # tried wikicfp-scraper-0.1.0.13, but its *library* requires time >=1.4.0 && < 1.12 and the snapshot contains time-1.12.2
         - wild-bind < 0 # tried wild-bind-0.1.2.9, but its *library* requires base >=4.6 && < 4.17 and the snapshot contains base-4.18.0.0
         - wild-bind < 0 # tried wild-bind-0.1.2.9, but its *library* requires text >=1.2.0 && < 1.3 and the snapshot contains text-2.0.2
@@ -8630,6 +8644,7 @@ packages:
         - zero < 0 # tried zero-0.1.5, but its *library* requires semigroups >=0.16 && < 0.20 and the snapshot contains semigroups-0.20
         - zigzag < 0 # tried zigzag-0.0.1.0, but its *library* requires base >=4.11.1 && < 4.18 and the snapshot contains base-4.18.0.0
         - zio < 0 # tried zio-0.1.0.2, but its *library* requires mtl >=2.2.2 && < 2.3 and the snapshot contains mtl-2.3.1
+        - zio < 0 # tried zio-0.1.0.2, but its *library* requires the disabled package: unexceptionalio-trans
         - zio < 0 # tried zio-0.1.0.2, but its *library* requires transformers >=0.5.6 && < 0.6 and the snapshot contains transformers-0.6.1.0
         - zipper-extra < 0 # tried zipper-extra-0.1.3.2, but its *library* requires the disabled package: comonad-extras
         - ziptastic-client < 0 # tried ziptastic-client-0.3.0.3, but its *library* requires base-compat ==0.9.* and the snapshot contains base-compat-0.13.0
@@ -9223,7 +9238,7 @@ skipped-tests:
     - cabal2spec # tried cabal2spec-2.7.0, but its *test-suite* requires the disabled package: tasty
     - cacophony # tried cacophony-0.10.1, but its *test-suite* requires the disabled package: hlint
     - casing # tried casing-0.1.4.1, but its *test-suite* requires the disabled package: tasty
-    - cassava-conduit # tried cassava-conduit-0.6.4, but its *test-suite* requires QuickCheck ==2.12.* and the snapshot contains QuickCheck-2.14.3
+    - cassava-conduit # tried cassava-conduit-0.6.5, but its *test-suite* requires QuickCheck ==2.12.* and the snapshot contains QuickCheck-2.14.3
     - caster # tried caster-0.0.3.0, but its *test-suite* requires the disabled package: tasty
     - caster # tried caster-0.0.3.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - cayley-client # tried cayley-client-0.4.19.2, but its *test-suite* requires aeson >=0.8.0.2 && < 1.6 || ==2.0.* and the snapshot contains aeson-2.1.2.1
@@ -9381,7 +9396,6 @@ skipped-tests:
     - drifter-sqlite # tried drifter-sqlite-0.1.0.0, but its *test-suite* requires the disabled package: tasty
     - dublincore-xml-conduit # tried dublincore-xml-conduit-0.1.0.2, but its *test-suite* requires the disabled package: tasty
     - dublincore-xml-conduit # tried dublincore-xml-conduit-0.1.0.2, but its *test-suite* requires the disabled package: tasty-quickcheck
-    - dunai # tried dunai-0.11.0, but its *test-suite* requires the disabled package: tasty
     - easy-file # tried easy-file-0.2.5, but its *test-suite* requires the disabled package: tasty
     - ed25519 # tried ed25519-0.0.5.0, but its *test-suite* requires QuickCheck >=2.4 && < 2.9 and the snapshot contains QuickCheck-2.14.3
     - ed25519 # tried ed25519-0.0.5.0, but its *test-suite* requires directory >=1.0 && < 1.3 and the snapshot contains directory-1.3.8.1
@@ -9432,6 +9446,7 @@ skipped-tests:
     - freer-simple # tried freer-simple-1.2.1.2, but its *test-suite* requires the disabled package: tasty
     - freer-simple # tried freer-simple-1.2.1.2, but its *test-suite* requires the disabled package: tasty-quickcheck
     - friday # tried friday-0.2.3.2, but its *test-suite* requires the disabled package: test-framework
+    - fsnotify # tried fsnotify-0.4.1.0, but its *test-suite* requires the disabled package: sandwich
     - ftp-client # tried ftp-client-0.5.1.4, but its *test-suite* requires tasty-hspec >=1.1.5.1 && < 1.2 and the snapshot contains tasty-hspec-1.2.0.4
     - ftp-client # tried ftp-client-0.5.1.4, but its *test-suite* requires the disabled package: tasty
     - functor-combinators # tried functor-combinators-0.4.1.2, but its *test-suite* requires the disabled package: tasty
@@ -9807,7 +9822,6 @@ skipped-tests:
     - pandoc-lua-marshal # tried pandoc-lua-marshal-0.2.2, but its *test-suite* requires the disabled package: tasty-quickcheck
     - pandoc-plot # tried pandoc-plot-1.7.0, but its *test-suite* requires the disabled package: tasty
     - pandoc-types # tried pandoc-types-1.23, but its *test-suite* requires the disabled package: test-framework
-    - pantry # tried pantry-0.8.2.2, but its *test-suite* requires the disabled package: hedgehog
     - paripari # tried paripari-0.7.0.0, but its *test-suite* requires the disabled package: tasty
     - parsec-numeric # tried parsec-numeric-0.1.0.0, but its *test-suite* requires the disabled package: tasty
     - parsec-numeric # tried parsec-numeric-0.1.0.0, but its *test-suite* requires the disabled package: tasty-quickcheck
@@ -9831,8 +9845,6 @@ skipped-tests:
     - perfect-vector-shuffle # tried perfect-vector-shuffle-0.1.1.1, but its *test-suite* requires the disabled package: tasty
     - perfect-vector-shuffle # tried perfect-vector-shuffle-0.1.1.1, but its *test-suite* requires the disabled package: tasty-quickcheck
     - persistent-mtl # tried persistent-mtl-0.5.0.1, but its *test-suite* requires the disabled package: tasty
-    - pgp-wordlist # tried pgp-wordlist-0.1.0.3, but its *test-suite* requires the disabled package: tasty
-    - pgp-wordlist # tried pgp-wordlist-0.1.0.3, but its *test-suite* requires the disabled package: tasty-quickcheck
     - phatsort # tried phatsort-0.6.0.0, but its *test-suite* requires the disabled package: tasty
     - pipes # tried pipes-4.3.16, but its *test-suite* requires the disabled package: test-framework
     - pipes-attoparsec # tried pipes-attoparsec-0.6.0, but its *test-suite* requires the disabled package: tasty
@@ -9844,8 +9856,6 @@ skipped-tests:
     - poly # tried poly-0.5.1.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - pomaps # tried pomaps-0.2.0.1, but its *test-suite* requires the disabled package: tasty
     - pomaps # tried pomaps-0.2.0.1, but its *test-suite* requires the disabled package: tasty-quickcheck
-    - pontarius-xmpp # tried pontarius-xmpp-0.5.6.6, but its *test-suite* requires the disabled package: tasty
-    - pontarius-xmpp # tried pontarius-xmpp-0.5.6.6, but its *test-suite* requires the disabled package: tasty-quickcheck
     - postgresql-query # tried postgresql-query-3.10.0, but its *test-suite* requires the disabled package: tasty
     - postgresql-query # tried postgresql-query-3.10.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - postgresql-simple # tried postgresql-simple-0.6.5, but its *test-suite* requires the disabled package: tasty
@@ -9860,6 +9870,7 @@ skipped-tests:
     - pred-trie # tried pred-trie-0.6.1, but its *test-suite* requires the disabled package: tasty-quickcheck
     - prefix-units # tried prefix-units-0.3.0.1, but its *test-suite* requires the disabled package: test-framework
     - pretty-diff # tried pretty-diff-0.4.0.3, but its *test-suite* requires the disabled package: tasty
+    - prettyprinter # tried prettyprinter-1.7.1, but its *test-suite* requires the disabled package: pgp-wordlist
     - prettyprinter # tried prettyprinter-1.7.1, but its *test-suite* requires the disabled package: tasty
     - prettyprinter # tried prettyprinter-1.7.1, but its *test-suite* requires the disabled package: tasty-quickcheck
     - primitive-extras # tried primitive-extras-0.10.1.6, but its *test-suite* requires the disabled package: tasty
@@ -10070,7 +10081,6 @@ skipped-tests:
     - string-random # tried string-random-0.1.4.3, but its *test-suite* requires the disabled package: tasty
     - string-random # tried string-random-0.1.4.3, but its *test-suite* requires the disabled package: tasty-quickcheck
     - string-transform # tried string-transform-1.1.1, but its *test-suite* requires the disabled package: tasty
-    - string-variants # tried string-variants-0.2.2.0, but its *test-suite* requires the disabled package: hedgehog
     - stringprep # tried stringprep-1.0.0, but its *test-suite* requires the disabled package: tasty
     - stringprep # tried stringprep-1.0.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - stripe-http-client # tried stripe-http-client-2.6.2, but its *test-suite* requires hspec >=2.1.0 && < 2.8 and the snapshot contains hspec-2.11.1
@@ -10106,7 +10116,6 @@ skipped-tests:
     - tar # tried tar-0.5.1.1, but its *test-suite* requires the disabled package: bytestring-handle
     - tar # tried tar-0.5.1.1, but its *test-suite* requires the disabled package: tasty
     - tar # tried tar-0.5.1.1, but its *test-suite* requires the disabled package: tasty-quickcheck
-    - tar-conduit # tried tar-conduit-0.3.2, but its *test-suite* requires the disabled package: weigh
     - tasty-autocollect # tried tasty-autocollect-0.4.1, but its *test-suite* requires the disabled package: tasty-quickcheck
     - tasty-discover # tried tasty-discover-5.0.0, but its *test-suite* requires hspec >=2.7 && < 2.11 and the snapshot contains hspec-2.11.1
     - tasty-discover # tried tasty-discover-5.0.0, but its *test-suite* requires hspec-core >=2.7.10 && < 2.11 and the snapshot contains hspec-core-2.11.1
@@ -10153,7 +10162,6 @@ skipped-tests:
     - tmapmvar # tried tmapmvar-0.0.4, but its *test-suite* requires the disabled package: tasty-quickcheck
     - toml-reader # tried toml-reader-0.2.1.0, but its *test-suite* requires the disabled package: tasty
     - toml-reader-parse # tried toml-reader-parse-0.1.1.1, but its *test-suite* requires the disabled package: tasty
-    - transient # tried transient-0.7.0.0, but its *test-suite* requires random ==1.1 and the snapshot contains random-1.2.1.1
     - traverse-with-class # tried traverse-with-class-1.0.1.1, but its *test-suite* requires the disabled package: tasty
     - tree-diff # tried tree-diff-0.3.0.1, but its *test-suite* requires the disabled package: tasty
     - tree-diff # tried tree-diff-0.3.0.1, but its *test-suite* requires the disabled package: tasty-quickcheck
@@ -10325,6 +10333,7 @@ expected-test-failures:
     - ap-normalize # 0.1.0.1 ghc-9.6
     - astro # 0.4.3.0 https://github.com/aligusnet/astro/issues/8
     - generics-eot # 0.4.0.1 ghc-9.6
+    - pvar # 1.0.0.0 ghc-9.6
 
     # Intermittent failures or unreliable. These tests may pass when
     # re-enabled, but will eventually fail again.
@@ -10907,6 +10916,7 @@ skipped-benchmarks:
     - bytestring-trie # tried bytestring-trie-0.2.7.2, but its *benchmarks* requires the disabled package: criterion
     - bz2 # tried bz2-1.0.1.0, but its *benchmarks* requires the disabled package: criterion
     - cacophony # tried cacophony-0.10.1, but its *benchmarks* requires the disabled package: criterion
+    - cassava-conduit # tried cassava-conduit-0.6.5, but its *benchmarks* requires the disabled package: criterion
     - cborg-json # tried cborg-json-0.2.5.0, but its *benchmarks* requires criterion >=1.0 && < 1.6 and the snapshot contains criterion-1.6.1.0
     - cdar-mBound # tried cdar-mBound-0.1.0.4, but its *benchmarks* requires the disabled package: criterion
     - chimera # tried chimera-0.3.3.0, but its *benchmarks* requires the disabled package: tasty-bench
@@ -11039,7 +11049,6 @@ skipped-benchmarks:
     - pg-transact # tried pg-transact-0.3.2.0, but its *benchmarks* requires the disabled package: criterion
     - pipes # tried pipes-4.3.16, but its *benchmarks* requires optparse-applicative >=0.12 && < 0.18 and the snapshot contains optparse-applicative-0.18.1.0
     - poly # tried poly-0.5.1.0, but its *benchmarks* requires the disabled package: tasty-bench
-    - pontarius-xmpp # tried pontarius-xmpp-0.5.6.6, but its *benchmarks* requires the disabled package: criterion
     - posix-paths # tried posix-paths-0.3.0.0, but its *benchmarks* requires the disabled package: criterion
     - postgresql-typed # tried postgresql-typed-0.6.2.2, but its *benchmarks* requires the disabled package: criterion
     - pqueue # tried pqueue-1.4.3.0, but its *benchmarks* requires the disabled package: tasty-bench
@@ -11047,7 +11056,6 @@ skipped-benchmarks:
     - pretty-simple # tried pretty-simple-4.1.2.0, but its *benchmarks* requires the disabled package: criterion
     - primitive # tried primitive-0.8.0.0, but its *benchmarks* requires the disabled package: tasty-bench
     - product-profunctors # tried product-profunctors-0.11.1.1, but its *benchmarks* requires the disabled package: criterion
-    - prometheus-client # tried prometheus-client-1.1.0, but its *benchmarks* requires the disabled package: criterion
     - psqueues # tried psqueues-0.2.7.3, but its *benchmarks* requires the disabled package: fingertree-psqueue
     - ptr-poker # tried ptr-poker-0.1.2.13, but its *benchmarks* requires the disabled package: criterion
     - quote-quot # tried quote-quot-0.2.1.0, but its *benchmarks* requires the disabled package: tasty-bench
@@ -11070,7 +11078,6 @@ skipped-benchmarks:
     - sandi # tried sandi-0.5, but its *benchmarks* requires the disabled package: criterion
     - sbv # tried sbv-10.2, but its *benchmarks* requires the disabled package: tasty
     - sbv # tried sbv-10.2, but its *benchmarks* requires the disabled package: tasty-bench
-    - scalpel-core # tried scalpel-core-0.6.2.1, but its *benchmarks* requires the disabled package: criterion
     - scanner # tried scanner-0.3.1, but its *benchmarks* requires the disabled package: criterion
     - scotty # tried scotty-0.12.1, but its *benchmarks* requires the disabled package: weigh
     - search-algorithms # tried search-algorithms-0.3.2, but its *benchmarks* requires the disabled package: criterion
@@ -11094,7 +11101,6 @@ skipped-benchmarks:
     - superbuffer # tried superbuffer-0.3.1.2, but its *benchmarks* requires criterion < 1.3 and the snapshot contains criterion-1.6.1.0
     - sv # tried sv-1.4.0.1, but its *benchmarks* requires criterion >=1.3 && < 1.6 and the snapshot contains criterion-1.6.1.0
     - tar # tried tar-0.5.1.1, but its *benchmarks* requires the disabled package: criterion
-    - tar-conduit # tried tar-conduit-0.3.2, but its *benchmarks* requires the disabled package: criterion
     - tensors # tried tensors-0.1.5, but its *benchmarks* requires the disabled package: criterion
     - terminal-progress-bar # tried terminal-progress-bar-0.4.2, but its *benchmarks* requires the disabled package: criterion
     - text-builder # tried text-builder-0.6.7, but its *benchmarks* requires the disabled package: criterion
