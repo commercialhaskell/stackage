@@ -4111,7 +4111,7 @@ packages:
         - safe-coloured-text-layout
         - safe-coloured-text-layout-gen
         - safe-coloured-text-terminfo
-        - sydtest
+        - sydtest < 0 # https://github.com/NorfairKing/sydtest/issues/71
         - sydtest-aeson
         - sydtest-amqp
         - sydtest-autodocodec
@@ -6659,6 +6659,10 @@ packages:
         - genvalidity-hspec-optics < 0 # tried genvalidity-hspec-optics-1.0.0.0, but its *library* requires the disabled package: genvalidity-hspec
         - genvalidity-hspec-persistent < 0 # tried genvalidity-hspec-persistent-1.0.0.0, but its *library* requires the disabled package: persistent
         - genvalidity-persistent < 0 # tried genvalidity-persistent-1.0.0.1, but its *library* requires the disabled package: persistent
+        - genvalidity-sydtest < 0 # tried genvalidity-sydtest-1.0.0.0, but its *library* requires the disabled package: sydtest
+        - genvalidity-sydtest-aeson < 0 # tried genvalidity-sydtest-aeson-1.0.0.0, but its *library* requires the disabled package: sydtest
+        - genvalidity-sydtest-hashable < 0 # tried genvalidity-sydtest-hashable-1.0.0.0, but its *library* requires the disabled package: sydtest
+        - genvalidity-sydtest-lens < 0 # tried genvalidity-sydtest-lens-1.0.0.0, but its *library* requires the disabled package: sydtest
         - genvalidity-sydtest-persistent < 0 # tried genvalidity-sydtest-persistent-1.0.0.0, but its *library* requires the disabled package: persistent
         - geojson < 0 # tried geojson-4.1.1, but its *library* requires the disabled package: validation
         - ghc-bignum-orphans < 0 # tried ghc-bignum-orphans-0.1.1, but its *library* requires ghc-bignum >=1.0 && < 1.3 and the snapshot contains ghc-bignum-1.3
@@ -8291,14 +8295,23 @@ packages:
         - swagger-petstore < 0 # tried swagger-petstore-0.0.2.0, but its *library* requires vector >=0.10.9 && < 0.13 and the snapshot contains vector-0.13.0.0
         - sweet-egison < 0 # tried sweet-egison-0.1.1.3, but its *library* requires logict ^>=0.7.0 and the snapshot contains logict-0.8.1.0
         - syb-with-class < 0 # tried syb-with-class-0.6.1.14, but its *library* requires template-haskell >=2.4 && < 2.19 and the snapshot contains template-haskell-2.20.0.0
+        - sydtest-aeson < 0 # tried sydtest-aeson-0.1.0.0, but its *library* requires the disabled package: sydtest
         - sydtest-amqp < 0 # tried sydtest-amqp-0.1.0.0, but its *library* requires the disabled package: amqp
+        - sydtest-autodocodec < 0 # tried sydtest-autodocodec-0.0.0.0, but its *library* requires the disabled package: sydtest
         - sydtest-hedgehog < 0 # tried sydtest-hedgehog-0.4.0.0, but its *library* requires the disabled package: hedgehog
+        - sydtest-hedis < 0 # tried sydtest-hedis-0.0.0.0, but its *library* requires the disabled package: sydtest
+        - sydtest-mongo < 0 # tried sydtest-mongo-0.0.0.0, but its *library* requires the disabled package: sydtest
         - sydtest-persistent < 0 # tried sydtest-persistent-0.0.0.1, but its *library* requires the disabled package: persistent
         - sydtest-persistent-postgresql < 0 # tried sydtest-persistent-postgresql-0.2.0.2, but its *library* requires the disabled package: persistent
         - sydtest-persistent-sqlite < 0 # tried sydtest-persistent-sqlite-0.2.0.2, but its *library* requires the disabled package: persistent
+        - sydtest-process < 0 # tried sydtest-process-0.0.0.0, but its *library* requires the disabled package: sydtest
         - sydtest-rabbitmq < 0 # tried sydtest-rabbitmq-0.1.0.0, but its *library* requires the disabled package: amqp
         - sydtest-servant < 0 # tried sydtest-servant-0.2.0.2, but its *library* requires the disabled package: servant-client
         - sydtest-servant < 0 # tried sydtest-servant-0.2.0.2, but its *library* requires the disabled package: servant-server
+        - sydtest-typed-process < 0 # tried sydtest-typed-process-0.0.0.0, but its *library* requires the disabled package: sydtest
+        - sydtest-wai < 0 # tried sydtest-wai-0.2.0.0, but its *library* requires the disabled package: sydtest
+        - sydtest-webdriver < 0 # tried sydtest-webdriver-0.0.0.1, but its *library* requires the disabled package: sydtest
+        - sydtest-webdriver-screenshot < 0 # tried sydtest-webdriver-screenshot-0.0.0.1, but its *library* requires the disabled package: sydtest
         - sydtest-webdriver-yesod < 0 # tried sydtest-webdriver-yesod-0.0.0.1, but its *library* requires the disabled package: sydtest-yesod
         - sydtest-webdriver-yesod < 0 # tried sydtest-webdriver-yesod-0.0.0.1, but its *library* requires the disabled package: yesod
         - sydtest-yesod < 0 # tried sydtest-yesod-0.3.0.1, but its *library* requires the disabled package: yesod-core
@@ -9486,6 +9499,7 @@ skipped-tests:
     - generic-data-surgery # tried generic-data-surgery-0.3.0.0, but its *test-suite* requires the disabled package: tasty
     - generic-xmlpickler # tried generic-xmlpickler-0.1.0.6, but its *test-suite* requires the disabled package: tasty
     - genvalidity-aeson # tried genvalidity-aeson-1.0.0.1, but its *test-suite* requires the disabled package: genvalidity-hspec
+    - genvalidity-appendful # tried genvalidity-appendful-0.1.0.0, but its *test-suite* requires the disabled package: sydtest
     - genvalidity-bytestring # tried genvalidity-bytestring-1.0.0.1, but its *test-suite* requires the disabled package: genvalidity-hspec
     - genvalidity-case-insensitive # tried genvalidity-case-insensitive-0.0.0.1, but its *test-suite* requires the disabled package: genvalidity-hspec
     - genvalidity-containers # tried genvalidity-containers-1.0.0.1, but its *test-suite* requires the disabled package: genvalidity-hspec
@@ -9984,6 +9998,9 @@ skipped-tests:
     - rope-utf16-splay # tried rope-utf16-splay-0.4.0.0, but its *test-suite* requires the disabled package: tasty-quickcheck
     - rss-conduit # tried rss-conduit-0.6.0.1, but its *test-suite* requires the disabled package: tasty
     - rss-conduit # tried rss-conduit-0.6.0.1, but its *test-suite* requires the disabled package: tasty-quickcheck
+    - safe-coloured-text-gen # tried safe-coloured-text-gen-0.0.0.1, but its *test-suite* requires the disabled package: sydtest
+    - safe-coloured-text-layout # tried safe-coloured-text-layout-0.0.0.0, but its *test-suite* requires the disabled package: sydtest
+    - safe-coloured-text-layout-gen # tried safe-coloured-text-layout-gen-0.0.0.0, but its *test-suite* requires the disabled package: sydtest
     - safe-money # tried safe-money-0.9.1, but its *test-suite* requires the disabled package: tasty
     - safe-money # tried safe-money-0.9.1, but its *test-suite* requires the disabled package: tasty-quickcheck
     - safecopy # tried safecopy-0.10.4.2, but its *test-suite* requires the disabled package: tasty
