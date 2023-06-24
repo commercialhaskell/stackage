@@ -1,0 +1,174 @@
+Name:          postgresql-typed
+Version:       0.6.2.3
+Cabal-Version: >= 1.10
+License:       BSD3
+License-File:  COPYING
+Copyright:     2010-2013 Chris Forno, 2014-2019 Dylan Simon
+Author:        Dylan Simon
+Maintainer:    Dylan Simon <dylan-pgtyped@dylex.net>
+Stability:     provisional
+Bug-Reports:   https://github.com/dylex/postgresql-typed/issues
+Homepage:      https://github.com/dylex/postgresql-typed
+Category:      Database
+Synopsis:      PostgreSQL interface with compile-time SQL type checking, optional HDBC backend
+Description:   Automatically type-check SQL statements at compile time.
+               Uses Template Haskell and the raw PostgreSQL protocol to describe SQL statements at compile time and provide appropriate type marshalling for both parameters and results.
+               Allows not only syntax verification of your SQL but also full type safety between your SQL and Haskell.
+               Supports many built-in PostgreSQL types already, including arrays and ranges, and can be easily extended in user code to support any other types.
+               .
+               Also includes an optional HDBC backend that, since it uses the raw PostgreSQL protocol, may be more efficient than the normal libpq backend in some cases (though provides no more type safety than HDBC-postgresql when used without templates).
+               .
+               Originally based on Chris Forno's templatepg library.
+Tested-With:   GHC == 7.10.3, GHC == 8.0.1
+Build-Type:    Simple
+extra-source-files: README.md
+
+source-repository head
+  type:     git
+  location: git://github.com/dylex/postgresql-typed
+
+Flag md5
+  Description: Enable md5 password authentication method.
+  Default: True
+
+Flag binary
+  Description: Use binary protocol encoding via postgresql-binary. This may put additional restrictions on supported PostgreSQL server versions.
+  Default: True
+
+Flag text
+  Description: Support Text string values via text (implied by binary).
+  Default: True
+
+Flag uuid
+  Description: Support the UUID type via uuid (implied by binary).
+  Default: True
+
+Flag scientific
+  Description: Support decoding numeric via scientific (implied by binary).
+  Default: True
+
+Flag aeson
+  Description: Support decoding json via aeson.
+  Default: True
+
+Flag HDBC
+  Description: Provide an HDBC driver backend using the raw PostgreSQL protocol.
+
+Flag tls
+  Description: Enable TLS (SSL) support in PostgreSQL server connections.
+  Default: True
+
+Flag crypton
+  Description: Use crypton rather than cryptonite.
+  Default: True
+
+Library
+  default-language:    Haskell2010
+  Build-Depends:
+    base >= 4.8 && < 5,
+    array,
+    binary,
+    containers,
+    old-locale,
+    time,
+    bytestring >= 0.10.2,
+    template-haskell,
+    haskell-src-meta,
+    network,
+    attoparsec >= 0.12 && < 0.15,
+    utf8-string
+  Exposed-Modules:
+    Database.PostgreSQL.Typed
+    Database.PostgreSQL.Typed.Protocol
+    Database.PostgreSQL.Typed.Types
+    Database.PostgreSQL.Typed.TH
+    Database.PostgreSQL.Typed.Query
+    Database.PostgreSQL.Typed.Enum
+    Database.PostgreSQL.Typed.Array
+    Database.PostgreSQL.Typed.Range
+    Database.PostgreSQL.Typed.Inet
+    Database.PostgreSQL.Typed.Dynamic
+    Database.PostgreSQL.Typed.TemplatePG
+    Database.PostgreSQL.Typed.SQLToken
+    Database.PostgreSQL.Typed.ErrCodes
+    Database.PostgreSQL.Typed.Relation
+  Other-Modules:
+    Paths_postgresql_typed
+    Database.PostgreSQL.Typed.TypeCache
+  GHC-Options: -Wall
+  if flag(md5)
+    Build-Depends: memory >= 0.5
+    if flag(crypton)
+      Build-Depends: crypton
+    else
+      Build-Depends: cryptonite >= 0.5
+  if flag(binary)
+    Build-Depends: postgresql-binary >= 0.8, text >= 1, uuid >= 1.3, scientific >= 0.3
+  else
+    if flag(text)
+      Build-Depends: text >= 1
+    if flag(uuid)
+      Build-Depends: uuid >= 1.3
+    if flag(scientific)
+      Build-Depends: scientific >= 0.3
+  if flag(aeson)
+    Build-Depends: aeson >= 0.7
+  if flag(HDBC)
+    Build-Depends: HDBC >= 2.2
+    Exposed-Modules:
+      Database.PostgreSQL.Typed.HDBC
+  if flag(tls)
+    Build-Depends: data-default
+    if flag(crypton)
+      Build-Depends: tls >= 1.7, crypton-x509, crypton-x509-store, crypton-x509-validation
+    else
+      Build-Depends: tls < 1.7, x509, x509-store, x509-validation
+
+test-suite test
+  default-language:    Haskell2010
+  type: exitcode-stdio-1.0
+  hs-source-dirs: test
+  main-is: Main.hs
+  Other-Modules: Connect
+  default-Extensions: TemplateHaskell, QuasiQuotes
+  build-depends: base, network, time, bytestring, postgresql-typed, QuickCheck
+  GHC-Options: -Wall
+  if flag(tls)
+    Build-Depends: tls
+
+test-suite hdbc
+  default-language:    Haskell2010
+  type: exitcode-stdio-1.0
+  hs-source-dirs: test/hdbc, test
+  main-is: runtests.hs
+  other-modules:
+    Connect
+    SpecificDB
+    TestMisc
+    TestSbasics
+    TestTime
+    TestUtils
+    Testbasics
+    Tests
+  if flag(HDBC)
+    build-depends: base, bytestring, network, time, containers, convertible, postgresql-typed, HDBC, HUnit
+  else
+    buildable: False
+  if flag(tls)
+    Build-Depends: tls
+
+benchmark bench
+  default-language:    Haskell2010
+  type: exitcode-stdio-1.0
+  hs-source-dirs: test
+  main-is: Bench.hs
+  other-modules: Connect
+  build-depends:
+    base,
+    bytestring,
+    time,
+    network,
+    criterion,
+    postgresql-typed
+  if flag(tls)
+    Build-Depends: tls
