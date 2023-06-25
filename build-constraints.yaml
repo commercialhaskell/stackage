@@ -4967,8 +4967,9 @@ packages:
         - matchable # dep of trie-simple
 
     "Fabricio Olivetti de Franca <fabricio.olivetti@gmail.com> @folivetti":
-        - srtree
+        - hegg < 0.4 # dep of pandoc-symreg (https://github.com/commercialhaskell/stackage/issues/6983).
         - pandoc-symreg
+        - srtree
 
     "Eugen Wissner <belka@caraus.de> @belka-ew":
         - graphql
@@ -5920,8 +5921,6 @@ packages:
         - accelerate-llvm-ptx < 0 # tried accelerate-llvm-ptx-1.3.0.0, but its *library* requires the disabled package: cuda
         - accelerate-llvm-ptx < 0 # tried accelerate-llvm-ptx-1.3.0.0, but its *library* requires the disabled package: llvm-hs
         - accelerate-utility < 0 # tried accelerate-utility-1.0.0.1, but its *library* requires accelerate >=1.0 && < 1.2 and the snapshot contains accelerate-1.3.0.0
-        - advent-of-code-api < 0 # tried advent-of-code-api-0.2.8.4, but its *library* requires the disabled package: servant
-        - advent-of-code-api < 0 # tried advent-of-code-api-0.2.8.4, but its *library* requires the disabled package: servant-client
         - advent-of-code-api < 0 # tried advent-of-code-api-0.2.8.4, but its *library* requires the disabled package: servant-client-core
         - aern2-mp < 0 # tried aern2-mp-0.2.15.0, but its *library* requires the disabled package: mixed-types-num
         - aern2-real < 0 # tried aern2-real-0.2.15, but its *library* requires the disabled package: mixed-types-num
@@ -5932,6 +5931,7 @@ packages:
         - aeson-injector < 0 # tried aeson-injector-1.2.0.0, but its *library* requires aeson >=0.11 && < 1.6 and the snapshot contains aeson-2.1.2.1
         - aeson-injector < 0 # tried aeson-injector-1.2.0.0, but its *library* requires base >=4.7 && < 4.17 and the snapshot contains base-4.18.0.0
         - aeson-injector < 0 # tried aeson-injector-1.2.0.0, but its *library* requires lens >=4.13 && < 5.2 and the snapshot contains lens-5.2.2
+        - aeson-injector < 0 # tried aeson-injector-1.2.0.0, but its *library* requires servant-docs >=0.7 && < 0.13 and the snapshot contains servant-docs-0.13
         - airship < 0 # tried airship-0.9.5, but its *library* requires mime-types >=0.1.0 && < 0.1.1 and the snapshot contains mime-types-0.1.1.0
         - airship < 0 # tried airship-0.9.5, but its *library* requires unix >=2.7 && < 2.8 and the snapshot contains unix-2.8.1.0
         - al < 0 # tried al-0.1.4.2, but its *library* requires mtl >=2.1 && < 2.3 and the snapshot contains mtl-2.3.1
@@ -6095,11 +6095,8 @@ packages:
         - avers < 0 # tried avers-0.0.17.1, but its *library* requires time >=1.6.0.1 && < 1.10 and the snapshot contains time-1.12.2
         - avers < 0 # tried avers-0.0.17.1, but its *library* requires vector >=0.11.0.0 && < 0.13 and the snapshot contains vector-0.13.0.0
         - avers-api < 0 # tried avers-api-0.1.0, but its *library* requires the disabled package: avers
-        - avers-api < 0 # tried avers-api-0.1.0, but its *library* requires the disabled package: servant
         - avers-server < 0 # tried avers-server-0.1.0.1, but its *library* requires the disabled package: avers
         - avers-server < 0 # tried avers-server-0.1.0.1, but its *library* requires the disabled package: bytestring-conversion
-        - avers-server < 0 # tried avers-server-0.1.0.1, but its *library* requires the disabled package: servant
-        - avers-server < 0 # tried avers-server-0.1.0.1, but its *library* requires the disabled package: servant-server
         - avwx < 0 # tried avwx-0.3.0.3, but its *library* requires lens >=4.1 && < 5 and the snapshot contains lens-5.2.2
         - avwx < 0 # tried avwx-0.3.0.3, but its *library* requires text >=1.2.2.1 && < 1.3 and the snapshot contains text-2.0.2
         - aws-lambda-haskell-runtime < 0 # tried aws-lambda-haskell-runtime-4.1.2, but its *library* requires the disabled package: safe-exceptions-checked
@@ -6805,8 +6802,8 @@ packages:
         - hOpenPGP < 0 # tried hOpenPGP-2.9.8, but its *library* requires the disabled package: incremental-parser
         - hOpenPGP < 0 # tried hOpenPGP-2.9.8, but its *library* requires the disabled package: ixset-typed
         - hackernews < 0 # tried hackernews-1.4.0.0, but its *library* requires http-client ==0.5.* and the snapshot contains http-client-0.7.13.1
-        - hackernews < 0 # tried hackernews-1.4.0.0, but its *library* requires servant >=0.9 && < 0.13 and the snapshot contains servant-0.19.1
-        - hackernews < 0 # tried hackernews-1.4.0.0, but its *library* requires servant-client >=0.9 && < 0.13 and the snapshot contains servant-client-0.19
+        - hackernews < 0 # tried hackernews-1.4.0.0, but its *library* requires servant >=0.9 && < 0.13 and the snapshot contains servant-0.20
+        - hackernews < 0 # tried hackernews-1.4.0.0, but its *library* requires servant-client >=0.9 && < 0.13 and the snapshot contains servant-client-0.20
         - hackernews < 0 # tried hackernews-1.4.0.0, but its *library* requires text ==1.2.* and the snapshot contains text-2.0.2
         - hadolint < 0 # tried hadolint-2.12.0, but its *library* requires language-docker >=11.0.0 && < 12 and the snapshot contains language-docker-12.1.0
         - hadoop-streaming < 0 # tried hadoop-streaming-0.2.0.3, but its *library* requires bytestring >=0.10 && < 0.11 and the snapshot contains bytestring-0.11.4.0
@@ -7257,7 +7254,7 @@ packages:
         - kubernetes-webhook-haskell < 0 # tried kubernetes-webhook-haskell-0.2.0.3, but its *library* requires bytestring >=0.10.8 && < 0.11 and the snapshot contains bytestring-0.11.4.0
         - kubernetes-webhook-haskell < 0 # tried kubernetes-webhook-haskell-0.2.0.3, but its *library* requires text >=1.2.3 && < 1.3 and the snapshot contains text-2.0.2
         - l10n < 0 # tried l10n-0.1.0.1, but its *library* requires text >=1 && < 2 and the snapshot contains text-2.0.2
-        - lackey < 0 # tried lackey-2.0.0.6, but its *library* requires the disabled package: servant-foreign
+        - lackey < 0 # tried lackey-2.0.0.6, but its *library* requires servant-foreign >=0.15.4 && < 0.16 and the snapshot contains servant-foreign-0.16
         - lambdabot-core < 0 # tried lambdabot-core-5.3.1, but its *library* requires the disabled package: dependent-sum-template
         - lambdabot-irc-plugins < 0 # tried lambdabot-irc-plugins-5.3.1, but its *library* requires the disabled package: lambdabot-core
         - language-bash < 0 # tried language-bash-0.9.2, but its *library* requires transformers >=0.2 && < 0.6 and the snapshot contains transformers-0.6.1.0
@@ -7273,8 +7270,8 @@ packages:
         - language-puppet < 0 # tried language-puppet-1.4.6.5, but its *library* requires megaparsec >=7 && < 9 and the snapshot contains megaparsec-9.3.1
         - language-puppet < 0 # tried language-puppet-1.4.6.5, but its *library* requires memory >=0.14 && < 0.16 and the snapshot contains memory-0.18.0
         - language-puppet < 0 # tried language-puppet-1.4.6.5, but its *library* requires mtl >=2.2.1 && < 2.3 and the snapshot contains mtl-2.3.1
-        - language-puppet < 0 # tried language-puppet-1.4.6.5, but its *library* requires servant >=0.9 && < 0.18 and the snapshot contains servant-0.19.1
-        - language-puppet < 0 # tried language-puppet-1.4.6.5, but its *library* requires servant-client >=0.9 && < 0.18 and the snapshot contains servant-client-0.19
+        - language-puppet < 0 # tried language-puppet-1.4.6.5, but its *library* requires servant >=0.9 && < 0.18 and the snapshot contains servant-0.20
+        - language-puppet < 0 # tried language-puppet-1.4.6.5, but its *library* requires servant-client >=0.9 && < 0.18 and the snapshot contains servant-client-0.20
         - language-puppet < 0 # tried language-puppet-1.4.6.5, but its *library* requires text >=0.11 && < 1.3 and the snapshot contains text-2.0.2
         - language-puppet < 0 # tried language-puppet-1.4.6.5, but its *library* requires transformers >=0.4 && < 0.6 and the snapshot contains transformers-0.6.1.0
         - language-puppet < 0 # tried language-puppet-1.4.6.5, but its *library* requires unix >=2.7 && < 2.8 and the snapshot contains unix-2.8.1.0
@@ -7337,8 +7334,8 @@ packages:
         - lrucaching < 0 # tried lrucaching-0.3.3, but its *library* requires vector >=0.11 && < 0.13 and the snapshot contains vector-0.13.0.0
         - lxd-client < 0 # tried lxd-client-0.1.0.6, but its *library* requires aeson >=1.0.2.1 && < 2 and the snapshot contains aeson-2.1.2.1
         - lxd-client < 0 # tried lxd-client-0.1.0.6, but its *library* requires network >=2.6.3.2 && < 3 and the snapshot contains network-3.1.4.0
-        - lxd-client < 0 # tried lxd-client-0.1.0.6, but its *library* requires servant >=0.11 && < 0.14 and the snapshot contains servant-0.19.1
-        - lxd-client < 0 # tried lxd-client-0.1.0.6, but its *library* requires servant-client >=0.11 && < 0.14 and the snapshot contains servant-client-0.19
+        - lxd-client < 0 # tried lxd-client-0.1.0.6, but its *library* requires servant >=0.11 && < 0.14 and the snapshot contains servant-0.20
+        - lxd-client < 0 # tried lxd-client-0.1.0.6, but its *library* requires servant-client >=0.11 && < 0.14 and the snapshot contains servant-client-0.20
         - lxd-client < 0 # tried lxd-client-0.1.0.6, but its *library* requires text >=1.2.2.2 && < 2 and the snapshot contains text-2.0.2
         - lxd-client-config < 0 # tried lxd-client-config-0.1.0.1, but its *library* requires text >=1.2 && < 2 and the snapshot contains text-2.0.2
         - lz4-frame-conduit < 0 # tried lz4-frame-conduit-0.1.0.1, but its *library* requires the disabled package: inline-c
@@ -7349,7 +7346,6 @@ packages:
         - magicbane < 0 # tried magicbane-0.5.1, but its *library* requires the disabled package: ekg-core
         - magicbane < 0 # tried magicbane-0.5.1, but its *library* requires the disabled package: ekg-wai
         - magicbane < 0 # tried magicbane-0.5.1, but its *library* requires the disabled package: monad-metrics
-        - magicbane < 0 # tried magicbane-0.5.1, but its *library* requires the disabled package: servant-server
         - mail-pool < 0 # tried mail-pool-2.2.3, but its *library* requires the disabled package: HaskellNet-SSL
         - makefile < 0 # tried makefile-1.1.0.0, but its *library* requires attoparsec >=0.12 && < 0.14 and the snapshot contains attoparsec-0.14.4
         - makefile < 0 # tried makefile-1.1.0.0, but its *library* requires text >=1.1 && < 1.3 and the snapshot contains text-2.0.2
@@ -7401,8 +7397,8 @@ packages:
         - microsoft-translator < 0 # tried microsoft-translator-0.1.2, but its *library* requires http-client >=0.5 && < 0.6 and the snapshot contains http-client-0.7.13.1
         - microsoft-translator < 0 # tried microsoft-translator-0.1.2, but its *library* requires http-media >=0.6 && < 0.8 and the snapshot contains http-media-0.8.0.0
         - microsoft-translator < 0 # tried microsoft-translator-0.1.2, but its *library* requires mtl >=2.2 && < 2.3 and the snapshot contains mtl-2.3.1
-        - microsoft-translator < 0 # tried microsoft-translator-0.1.2, but its *library* requires servant >=0.13 && < 0.16 and the snapshot contains servant-0.19.1
-        - microsoft-translator < 0 # tried microsoft-translator-0.1.2, but its *library* requires servant-client >=0.13 && < 0.16 and the snapshot contains servant-client-0.19
+        - microsoft-translator < 0 # tried microsoft-translator-0.1.2, but its *library* requires servant >=0.13 && < 0.16 and the snapshot contains servant-0.20
+        - microsoft-translator < 0 # tried microsoft-translator-0.1.2, but its *library* requires servant-client >=0.13 && < 0.16 and the snapshot contains servant-client-0.20
         - microsoft-translator < 0 # tried microsoft-translator-0.1.2, but its *library* requires text >=1.2 && < 1.3 and the snapshot contains text-2.0.2
         - microsoft-translator < 0 # tried microsoft-translator-0.1.2, but its *library* requires time >=1.6 && < 1.9 and the snapshot contains time-1.12.2
         - milena < 0 # tried milena-0.5.4.0, but its *library* requires bytestring >=0.10 && < 0.11 and the snapshot contains bytestring-0.11.4.0
@@ -7418,7 +7414,7 @@ packages:
         - minio-hs < 0 # tried minio-hs-1.7.0, but its *library* requires the disabled package: connection
         - minio-hs < 0 # tried minio-hs-1.7.0, but its *library* requires the disabled package: relude
         - miso < 0 # tried miso-1.8.3.0, but its *library* requires the disabled package: jsaddle
-        - miso < 0 # tried miso-1.8.3.0, but its *library* requires the disabled package: servant
+        - miso < 0 # tried miso-1.8.3.0, but its *library* requires the disabled package: servant-lucid
         - mmark < 0 # tried mmark-0.0.7.6, but its *library* requires the disabled package: email-validate
         - mmark-cli < 0 # tried mmark-cli-0.0.5.1, but its *executable* requires the disabled package: mmark
         - mmark-ext < 0 # tried mmark-ext-0.2.1.5, but its *library* requires the disabled package: mmark
@@ -7536,8 +7532,8 @@ packages:
         - nri-redis < 0 # tried nri-redis-0.1.0.4, but its *library* requires the disabled package: nri-prelude
         - nri-test-encoding < 0 # tried nri-test-encoding-0.1.1.3, but its *library* requires aeson >=1.4.6.0 && < 2.1 and the snapshot contains aeson-2.1.2.1
         - nri-test-encoding < 0 # tried nri-test-encoding-0.1.1.3, but its *library* requires base >=4.12.0.0 && < 4.17 and the snapshot contains base-4.18.0.0
-        - nri-test-encoding < 0 # tried nri-test-encoding-0.1.1.3, but its *library* requires servant >=0.16.2 && < 0.19 and the snapshot contains servant-0.19.1
-        - nri-test-encoding < 0 # tried nri-test-encoding-0.1.1.3, but its *library* requires servant-server >=0.16.2 && < 0.19 and the snapshot contains servant-server-0.19.2
+        - nri-test-encoding < 0 # tried nri-test-encoding-0.1.1.3, but its *library* requires servant >=0.16.2 && < 0.19 and the snapshot contains servant-0.20
+        - nri-test-encoding < 0 # tried nri-test-encoding-0.1.1.3, but its *library* requires servant-server >=0.16.2 && < 0.19 and the snapshot contains servant-server-0.20
         - nri-test-encoding < 0 # tried nri-test-encoding-0.1.1.3, but its *library* requires the disabled package: nri-prelude
         - numhask-prelude < 0 # tried numhask-prelude-0.5.0, but its *library* requires numhask >=0.3 && < 0.6 and the snapshot contains numhask-0.10.1.1
         - numhask-space < 0 # tried numhask-space-0.10.0.1, but its *library* requires semigroupoids >=5 && < 5.4 and the snapshot contains semigroupoids-6.0.0.1
@@ -7566,9 +7562,6 @@ packages:
         - palette < 0 # tried palette-0.3.0.2, but its *library* requires base >=4.2 && < 4.18 and the snapshot contains base-4.18.0.0
         - pandoc-csv2table < 0 # tried pandoc-csv2table-1.0.9, but its *library* requires text >=0.11 && < 1.3 and the snapshot contains text-2.0.2
         - pandoc-dhall-decoder < 0 # tried pandoc-dhall-decoder-0.1.0.1, but its *library* requires the disabled package: dhall
-        - pandoc-symreg < 0 # tried pandoc-symreg-0.2.0.0, but its *library* requires base >=4.16 && < 4.18 and the snapshot contains base-4.18.0.0
-        - pandoc-symreg < 0 # tried pandoc-symreg-0.2.0.0, but its *library* requires mtl ==2.2.* and the snapshot contains mtl-2.3.1
-        - pandoc-symreg < 0 # tried pandoc-symreg-0.2.0.0, but its *library* requires optparse-applicative ==0.17.* and the snapshot contains optparse-applicative-0.18.1.0
         - pantry < 0 # tried pantry-0.8.2.2, but its *library* requires the disabled package: persistent
         - papillon < 0 # tried papillon-0.1.1.1, but its *library* requires bytestring ==0.10.* and the snapshot contains bytestring-0.11.4.0
         - papillon < 0 # tried papillon-0.1.1.1, but its *library* requires template-haskell ==2.15.* and the snapshot contains template-haskell-2.20.0.0
@@ -7888,141 +7881,91 @@ packages:
         - seqid-streams < 0 # tried seqid-streams-0.7.2, but its *library* requires the disabled package: seqid
         - seqloc < 0 # tried seqloc-0.6.1.1, but its *library* requires the disabled package: biocore
         - serf < 0 # tried serf-0.1.1.0, but its *library* requires text ==1.* and the snapshot contains text-2.0.2
-        - servant < 0 # tried servant-0.19.1, but its *library* requires base >=4.9 && < 4.18 and the snapshot contains base-4.18.0.0
-        - servant < 0 # tried servant-0.19.1, but its *library* requires bifunctors >=5.5.3 && < 5.6 and the snapshot contains bifunctors-5.6.1
-        - servant < 0 # tried servant-0.19.1, but its *library* requires http-api-data >=0.4.1 && < 0.5.1 and the snapshot contains http-api-data-0.5.1
-        - servant < 0 # tried servant-0.19.1, but its *library* requires mtl >=2.2.2 && < 2.3 and the snapshot contains mtl-2.3.1
-        - servant < 0 # tried servant-0.19.1, but its *library* requires singleton-bool >=0.1.4 && < 0.1.7 and the snapshot contains singleton-bool-0.1.7
-        - servant < 0 # tried servant-0.19.1, but its *library* requires transformers >=0.5.2.0 && < 0.6 and the snapshot contains transformers-0.6.1.0
-        - servant-auth < 0 # tried servant-auth-0.4.1.0, but its *library* requires the disabled package: servant
-        - servant-auth-client < 0 # tried servant-auth-client-0.4.1.0, but its *library* requires the disabled package: servant
-        - servant-auth-client < 0 # tried servant-auth-client-0.4.1.0, but its *library* requires the disabled package: servant-client-core
+        - servant-auth-client < 0 # tried servant-auth-client-0.4.1.1, but its *library* requires the disabled package: servant-client-core
         - servant-auth-cookie < 0 # tried servant-auth-cookie-0.6.0.3, but its *library* requires blaze-builder >=0.4 && < 0.4.1 and the snapshot contains blaze-builder-0.4.2.2
         - servant-auth-cookie < 0 # tried servant-auth-cookie-0.6.0.3, but its *library* requires cryptonite >=0.14 && < 0.25 and the snapshot contains cryptonite-0.30
         - servant-auth-cookie < 0 # tried servant-auth-cookie-0.6.0.3, but its *library* requires exceptions >=0.8 && < 0.9 and the snapshot contains exceptions-0.10.7
         - servant-auth-cookie < 0 # tried servant-auth-cookie-0.6.0.3, but its *library* requires http-api-data ==0.3.* and the snapshot contains http-api-data-0.5.1
         - servant-auth-cookie < 0 # tried servant-auth-cookie-0.6.0.3, but its *library* requires http-types >=0.9 && < 0.12 and the snapshot contains http-types-0.12.3
         - servant-auth-cookie < 0 # tried servant-auth-cookie-0.6.0.3, but its *library* requires memory >=0.11 && < 0.15 and the snapshot contains memory-0.18.0
-        - servant-auth-cookie < 0 # tried servant-auth-cookie-0.6.0.3, but its *library* requires servant >=0.5 && < 0.13 and the snapshot contains servant-0.19.1
-        - servant-auth-cookie < 0 # tried servant-auth-cookie-0.6.0.3, but its *library* requires servant-server >=0.5 && < 0.13 and the snapshot contains servant-server-0.19.2
+        - servant-auth-cookie < 0 # tried servant-auth-cookie-0.6.0.3, but its *library* requires servant >=0.5 && < 0.13 and the snapshot contains servant-0.20
+        - servant-auth-cookie < 0 # tried servant-auth-cookie-0.6.0.3, but its *library* requires servant-server >=0.5 && < 0.13 and the snapshot contains servant-server-0.20
         - servant-auth-cookie < 0 # tried servant-auth-cookie-0.6.0.3, but its *library* requires time >=1.6 && < 1.8.1 and the snapshot contains time-1.12.2
         - servant-auth-cookie < 0 # tried servant-auth-cookie-0.6.0.3, but its *library* requires transformers >=0.4 && < 0.6 and the snapshot contains transformers-0.6.1.0
-        - servant-auth-docs < 0 # tried servant-auth-docs-0.2.10.0, but its *library* requires the disabled package: servant
-        - servant-auth-server < 0 # tried servant-auth-server-0.4.7.0, but its *library* requires jose >=0.7.0.0 && < 0.10 and the snapshot contains jose-0.10
-        - servant-auth-server < 0 # tried servant-auth-server-0.4.7.0, but its *library* requires monad-time >=0.3.1.0 && < 0.4 and the snapshot contains monad-time-0.4.0.0
-        - servant-auth-server < 0 # tried servant-auth-server-0.4.7.0, but its *library* requires mtl >=2.2.2 && < 2.3 and the snapshot contains mtl-2.3.1
-        - servant-auth-swagger < 0 # tried servant-auth-swagger-0.2.10.1, but its *library* requires lens >=4.16.1 && < 5.2 and the snapshot contains lens-5.2.2
+        - servant-auth-server < 0 # tried servant-auth-server-0.4.8.0, but its *library* requires monad-time >=0.3.1.0 && < 0.4 and the snapshot contains monad-time-0.4.0.0
+        - servant-auth-wordpress < 0 # tried servant-auth-wordpress-1.0.0.2, but its *library* requires servant-server >=0.14 && < 0.20 and the snapshot contains servant-server-0.20
         - servant-auth-wordpress < 0 # tried servant-auth-wordpress-1.0.0.2, but its *library* requires the disabled package: wordpress-auth
-        - servant-blaze < 0 # tried servant-blaze-0.9.1, but its *library* requires the disabled package: servant
         - servant-cassava < 0 # tried servant-cassava-0.10.2, but its *library* requires base-compat >=0.9.1 && < 0.13 and the snapshot contains base-compat-0.13.0
-        - servant-checked-exceptions < 0 # tried servant-checked-exceptions-2.2.0.1, but its *library* requires the disabled package: servant
-        - servant-checked-exceptions < 0 # tried servant-checked-exceptions-2.2.0.1, but its *library* requires the disabled package: servant-client
+        - servant-cassava < 0 # tried servant-cassava-0.10.2, but its *library* requires servant >=0.7 && < 0.20 and the snapshot contains servant-0.20
         - servant-checked-exceptions < 0 # tried servant-checked-exceptions-2.2.0.1, but its *library* requires the disabled package: servant-client-core
-        - servant-checked-exceptions < 0 # tried servant-checked-exceptions-2.2.0.1, but its *library* requires the disabled package: servant-server
-        - servant-checked-exceptions-core < 0 # tried servant-checked-exceptions-core-2.2.0.1, but its *library* requires the disabled package: servant
-        - servant-client < 0 # tried servant-client-0.19, but its *library* requires mtl >=2.2.2 && < 2.3 and the snapshot contains mtl-2.3.1
-        - servant-client < 0 # tried servant-client-0.19, but its *library* requires semigroupoids >=5.3.1 && < 5.4 and the snapshot contains semigroupoids-6.0.0.1
-        - servant-client < 0 # tried servant-client-0.19, but its *library* requires transformers >=0.5.2.0 && < 0.6 and the snapshot contains transformers-0.6.1.0
-        - servant-client-core < 0 # tried servant-client-core-0.19, but its *library* requires base >=4.9 && < 4.18 and the snapshot contains base-4.18.0.0
-        - servant-client-core < 0 # tried servant-client-core-0.19, but its *library* requires free >=5.1 && < 5.2 and the snapshot contains free-5.2
-        - servant-client-core < 0 # tried servant-client-core-0.19, but its *library* requires template-haskell >=2.11.1.0 && < 2.20 and the snapshot contains template-haskell-2.20.0.0
-        - servant-client-core < 0 # tried servant-client-core-0.19, but its *library* requires transformers >=0.5.2.0 && < 0.6 and the snapshot contains transformers-0.6.1.0
-        - servant-conduit < 0 # tried servant-conduit-0.15.1, but its *library* requires mtl >=2.2.2 && < 2.3 and the snapshot contains mtl-2.3.1
-        - servant-conduit < 0 # tried servant-conduit-0.15.1, but its *library* requires resourcet >=1.2.2 && < 1.3 and the snapshot contains resourcet-1.3.0
-        - servant-docs < 0 # tried servant-docs-0.12, but its *library* requires the disabled package: servant
+        - servant-client < 0 # tried servant-client-0.20, but its *library* requires the disabled package: servant-client-core
+        - servant-client-core < 0 # tried servant-client-core-0.20, but its *library* requires free >=5.1 && < 5.2 and the snapshot contains free-5.2
         - servant-docs-simple < 0 # tried servant-docs-simple-0.4.0.0, but its *library* requires aeson >=1.4.2 && < 1.6 and the snapshot contains aeson-2.1.2.1
-        - servant-docs-simple < 0 # tried servant-docs-simple-0.4.0.0, but its *library* requires servant >=0.15 && < 0.19 and the snapshot contains servant-0.19.1
+        - servant-docs-simple < 0 # tried servant-docs-simple-0.4.0.0, but its *library* requires servant >=0.15 && < 0.19 and the snapshot contains servant-0.20
         - servant-docs-simple < 0 # tried servant-docs-simple-0.4.0.0, but its *library* requires text >=1.2.3.1 && < 1.3 and the snapshot contains text-2.0.2
-        - servant-elm < 0 # tried servant-elm-0.7.3, but its *library* requires the disabled package: servant
         - servant-elm < 0 # tried servant-elm-0.7.3, but its *library* requires the disabled package: wl-pprint-text
         - servant-errors < 0 # tried servant-errors-0.1.7.0, but its *library* requires aeson >=1.3 && < 1.6 and the snapshot contains aeson-2.1.2.1
         - servant-errors < 0 # tried servant-errors-0.1.7.0, but its *library* requires base >=4.10.0.0 && < 4.15 and the snapshot contains base-4.18.0.0
-        - servant-exceptions < 0 # tried servant-exceptions-0.2.1, but its *library* requires the disabled package: servant
-        - servant-exceptions-server < 0 # tried servant-exceptions-server-0.2.1, but its *library* requires the disabled package: servant
-        - servant-exceptions-server < 0 # tried servant-exceptions-server-0.2.1, but its *library* requires the disabled package: servant-server
-        - servant-foreign < 0 # tried servant-foreign-0.15.4, but its *library* requires the disabled package: servant
-        - servant-http-streams < 0 # tried servant-http-streams-0.18.4, but its *library* requires mtl >=2.2.2 && < 2.3 and the snapshot contains mtl-2.3.1
-        - servant-http-streams < 0 # tried servant-http-streams-0.18.4, but its *library* requires semigroupoids >=5.3.1 && < 5.4 and the snapshot contains semigroupoids-6.0.0.1
-        - servant-http-streams < 0 # tried servant-http-streams-0.18.4, but its *library* requires transformers >=0.5.2.0 && < 0.6 and the snapshot contains transformers-0.6.1.0
+        - servant-http-streams < 0 # tried servant-http-streams-0.20, but its *library* requires the disabled package: servant-client-core
         - servant-js < 0 # tried servant-js-0.9.4.2, but its *executable* requires aeson >=1.4.1.0 && < 1.5 and the snapshot contains aeson-2.1.2.1
         - servant-js < 0 # tried servant-js-0.9.4.2, but its *library* requires base >=4.9 && < 4.18 and the snapshot contains base-4.18.0.0
+        - servant-js < 0 # tried servant-js-0.9.4.2, but its *library* requires servant >=0.15 && < 0.20 and the snapshot contains servant-0.20
+        - servant-js < 0 # tried servant-js-0.9.4.2, but its *library* requires servant-foreign >=0.15 && < 0.16 and the snapshot contains servant-foreign-0.16
         - servant-kotlin < 0 # tried servant-kotlin-0.1.1.9, but its *library* requires containers >=0.5.7 && < 0.6.1 and the snapshot contains containers-0.6.7
         - servant-kotlin < 0 # tried servant-kotlin-0.1.1.9, but its *library* requires formatting >=6.2 && < 6.4 and the snapshot contains formatting-7.2.0
         - servant-kotlin < 0 # tried servant-kotlin-0.1.1.9, but its *library* requires lens >=4.15 && < 4.18 and the snapshot contains lens-5.2.2
-        - servant-kotlin < 0 # tried servant-kotlin-0.1.1.9, but its *library* requires servant >=0.9 && < 0.17 and the snapshot contains servant-0.19.1
+        - servant-kotlin < 0 # tried servant-kotlin-0.1.1.9, but its *library* requires servant >=0.9 && < 0.17 and the snapshot contains servant-0.20
+        - servant-kotlin < 0 # tried servant-kotlin-0.1.1.9, but its *library* requires servant-foreign >=0.9 && < 0.16 and the snapshot contains servant-foreign-0.16
         - servant-kotlin < 0 # tried servant-kotlin-0.1.1.9, but its *library* requires text >=1.2 && < 1.3 and the snapshot contains text-2.0.2
         - servant-kotlin < 0 # tried servant-kotlin-0.1.1.9, but its *library* requires time >=1.6 && < 1.9 and the snapshot contains time-1.12.2
-        - servant-lucid < 0 # tried servant-lucid-0.9.0.6, but its *library* requires the disabled package: servant
-        - servant-machines < 0 # tried servant-machines-0.15.1, but its *library* requires mtl >=2.2.2 && < 2.3 and the snapshot contains mtl-2.3.1
+        - servant-lucid < 0 # tried servant-lucid-0.9.0.6, but its *library* requires servant >=0.17 && < 0.20 and the snapshot contains servant-0.20
         - servant-mock < 0 # tried servant-mock-0.8.7, but its *library* requires QuickCheck >=2.12.6.1 && < 2.14 and the snapshot contains QuickCheck-2.14.3
         - servant-mock < 0 # tried servant-mock-0.8.7, but its *library* requires base >=4.9 && < 4.14 and the snapshot contains base-4.18.0.0
         - servant-mock < 0 # tried servant-mock-0.8.7, but its *library* requires base-compat >=0.10.5 && < 0.12 and the snapshot contains base-compat-0.13.0
         - servant-mock < 0 # tried servant-mock-0.8.7, but its *library* requires bytestring >=0.10.8.1 && < 0.11 and the snapshot contains bytestring-0.11.4.0
-        - servant-mock < 0 # tried servant-mock-0.8.7, but its *library* requires servant >=0.17 && < 0.19 and the snapshot contains servant-0.19.1
-        - servant-mock < 0 # tried servant-mock-0.8.7, but its *library* requires servant-server >=0.17 && < 0.19 and the snapshot contains servant-server-0.19.2
+        - servant-mock < 0 # tried servant-mock-0.8.7, but its *library* requires servant >=0.17 && < 0.19 and the snapshot contains servant-0.20
+        - servant-mock < 0 # tried servant-mock-0.8.7, but its *library* requires servant-server >=0.17 && < 0.19 and the snapshot contains servant-server-0.20
         - servant-mock < 0 # tried servant-mock-0.8.7, but its *library* requires transformers >=0.5.2.0 && < 0.6 and the snapshot contains transformers-0.6.1.0
         - servant-multipart < 0 # tried servant-multipart-0.12.1, but its *library* requires resourcet >=1.2.2 && < 1.3 and the snapshot contains resourcet-1.3.0
-        - servant-multipart-api < 0 # tried servant-multipart-api-0.12.1, but its *library* requires the disabled package: servant
-        - servant-multipart-client < 0 # tried servant-multipart-client-0.12.1, but its *executable* requires the disabled package: servant-client
-        - servant-multipart-client < 0 # tried servant-multipart-client-0.12.1, but its *executable* requires the disabled package: servant-multipart
-        - servant-multipart-client < 0 # tried servant-multipart-client-0.12.1, but its *executable* requires the disabled package: servant-server
-        - servant-multipart-client < 0 # tried servant-multipart-client-0.12.1, but its *library* requires the disabled package: servant
-        - servant-multipart-client < 0 # tried servant-multipart-client-0.12.1, but its *library* requires the disabled package: servant-client-core
-        - servant-openapi3 < 0 # tried servant-openapi3-2.0.1.6, but its *library* requires base >=4.9 && < 4.18 and the snapshot contains base-4.18.0.0
+        - servant-multipart < 0 # tried servant-multipart-0.12.1, but its *library* requires servant >=0.16 && < 0.20 and the snapshot contains servant-0.20
+        - servant-multipart < 0 # tried servant-multipart-0.12.1, but its *library* requires servant-server >=0.16 && < 0.20 and the snapshot contains servant-server-0.20
+        - servant-multipart-api < 0 # tried servant-multipart-api-0.12.1, but its *library* requires servant >=0.16 && < 0.20 and the snapshot contains servant-0.20
+        - servant-multipart-client < 0 # tried servant-multipart-client-0.12.1, but its *library* requires servant >=0.16 && < 0.20 and the snapshot contains servant-0.20
+        - servant-multipart-client < 0 # tried servant-multipart-client-0.12.1, but its *library* requires servant-client-core >=0.16 && < 0.20 and the snapshot contains servant-client-core-0.20
         - servant-pandoc < 0 # tried servant-pandoc-0.5.0.0, but its *library* requires bytestring >=0.10 && < 0.11 and the snapshot contains bytestring-0.11.4.0
         - servant-pandoc < 0 # tried servant-pandoc-0.5.0.0, but its *library* requires http-media >=0.6 && < 0.8 and the snapshot contains http-media-0.8.0.0
         - servant-pandoc < 0 # tried servant-pandoc-0.5.0.0, but its *library* requires lens >=4.9 && < 5 and the snapshot contains lens-5.2.2
         - servant-pandoc < 0 # tried servant-pandoc-0.5.0.0, but its *library* requires pandoc-types >=1.12 && < 1.18 and the snapshot contains pandoc-types-1.23
-        - servant-pandoc < 0 # tried servant-pandoc-0.5.0.0, but its *library* requires servant-docs >=0.11.1 && < 0.12 and the snapshot contains servant-docs-0.12
+        - servant-pandoc < 0 # tried servant-pandoc-0.5.0.0, but its *library* requires servant-docs >=0.11.1 && < 0.12 and the snapshot contains servant-docs-0.13
         - servant-pandoc < 0 # tried servant-pandoc-0.5.0.0, but its *library* requires text >=1.2 && < 1.3 and the snapshot contains text-2.0.2
-        - servant-pipes < 0 # tried servant-pipes-0.15.3, but its *library* requires mtl >=2.2.2 && < 2.3 and the snapshot contains mtl-2.3.1
         - servant-quickcheck < 0 # tried servant-quickcheck-0.0.10.0, but its *library* requires aeson >=0.8 && < 2 and the snapshot contains aeson-2.1.2.1
         - servant-quickcheck < 0 # tried servant-quickcheck-0.0.10.0, but its *library* requires base >=4.9 && < 4.15 and the snapshot contains base-4.18.0.0
         - servant-quickcheck < 0 # tried servant-quickcheck-0.0.10.0, but its *library* requires base-compat-batteries >=0.10.1 && < 0.12 and the snapshot contains base-compat-batteries-0.13.0
         - servant-quickcheck < 0 # tried servant-quickcheck-0.0.10.0, but its *library* requires bytestring >=0.10 && < 0.11 and the snapshot contains bytestring-0.11.4.0
         - servant-quickcheck < 0 # tried servant-quickcheck-0.0.10.0, but its *library* requires hspec >=2.5.6 && < 2.8 and the snapshot contains hspec-2.11.1
         - servant-quickcheck < 0 # tried servant-quickcheck-0.0.10.0, but its *library* requires mtl >=2.1 && < 2.3 and the snapshot contains mtl-2.3.1
-        - servant-quickcheck < 0 # tried servant-quickcheck-0.0.10.0, but its *library* requires servant >=0.17 && < 0.19 and the snapshot contains servant-0.19.1
-        - servant-quickcheck < 0 # tried servant-quickcheck-0.0.10.0, but its *library* requires servant-client >=0.17 && < 0.19 and the snapshot contains servant-client-0.19
-        - servant-quickcheck < 0 # tried servant-quickcheck-0.0.10.0, but its *library* requires servant-server >=0.17 && < 0.19 and the snapshot contains servant-server-0.19.2
+        - servant-quickcheck < 0 # tried servant-quickcheck-0.0.10.0, but its *library* requires servant >=0.17 && < 0.19 and the snapshot contains servant-0.20
+        - servant-quickcheck < 0 # tried servant-quickcheck-0.0.10.0, but its *library* requires servant-client >=0.17 && < 0.19 and the snapshot contains servant-client-0.20
+        - servant-quickcheck < 0 # tried servant-quickcheck-0.0.10.0, but its *library* requires servant-server >=0.17 && < 0.19 and the snapshot contains servant-server-0.20
         - servant-quickcheck < 0 # tried servant-quickcheck-0.0.10.0, but its *library* requires text >=1 && < 2 and the snapshot contains text-2.0.2
         - servant-quickcheck < 0 # tried servant-quickcheck-0.0.10.0, but its *library* requires time >=1.5 && < 1.11 and the snapshot contains time-1.12.2
-        - servant-rate-limit < 0 # tried servant-rate-limit-0.2.0.0, but its *library* requires the disabled package: servant
         - servant-rate-limit < 0 # tried servant-rate-limit-0.2.0.0, but its *library* requires the disabled package: servant-client
-        - servant-rate-limit < 0 # tried servant-rate-limit-0.2.0.0, but its *library* requires the disabled package: servant-server
-        - servant-rawm < 0 # tried servant-rawm-1.0.0.0, but its *library* requires the disabled package: servant
+        - servant-ruby < 0 # tried servant-ruby-0.9.0.0, but its *library* requires servant-foreign >=0.9 && < 0.16 and the snapshot contains servant-foreign-0.16
         - servant-ruby < 0 # tried servant-ruby-0.9.0.0, but its *library* requires text >=1.2 && < 1.3 and the snapshot contains text-2.0.2
-        - servant-server < 0 # tried servant-server-0.19.2, but its *library* requires base >=4.9 && < 4.18 and the snapshot contains base-4.18.0.0
-        - servant-server < 0 # tried servant-server-0.19.2, but its *library* requires http-api-data >=0.4.1 && < 0.5.1 and the snapshot contains http-api-data-0.5.1
-        - servant-server < 0 # tried servant-server-0.19.2, but its *library* requires mtl >=2.2.2 && < 2.3 and the snapshot contains mtl-2.3.1
-        - servant-server < 0 # tried servant-server-0.19.2, but its *library* requires resourcet >=1.2.2 && < 1.3 and the snapshot contains resourcet-1.3.0
-        - servant-server < 0 # tried servant-server-0.19.2, but its *library* requires transformers >=0.5.2.0 && < 0.6 and the snapshot contains transformers-0.6.1.0
-        - servant-static-th < 0 # tried servant-static-th-1.0.0.0, but its *library* requires the disabled package: servant
-        - servant-static-th < 0 # tried servant-static-th-1.0.0.0, but its *library* requires the disabled package: servant-server
         - servant-streaming < 0 # tried servant-streaming-0.3.0.0, but its *library* requires base >=4.7 && < 4.13 and the snapshot contains base-4.18.0.0
-        - servant-streaming < 0 # tried servant-streaming-0.3.0.0, but its *library* requires servant >=0.13 && < 0.16 and the snapshot contains servant-0.19.1
+        - servant-streaming < 0 # tried servant-streaming-0.3.0.0, but its *library* requires servant >=0.13 && < 0.16 and the snapshot contains servant-0.20
         - servant-streaming-client < 0 # tried servant-streaming-client-0.3.0.0, but its *library* requires base >=4.7 && < 4.13 and the snapshot contains base-4.18.0.0
         - servant-streaming-client < 0 # tried servant-streaming-client-0.3.0.0, but its *library* requires http-media >=0.6 && < 0.8 and the snapshot contains http-media-0.8.0.0
         - servant-streaming-client < 0 # tried servant-streaming-client-0.3.0.0, but its *library* requires resourcet >=1.1 && < 1.3 and the snapshot contains resourcet-1.3.0
-        - servant-streaming-client < 0 # tried servant-streaming-client-0.3.0.0, but its *library* requires servant >=0.14 && < 0.15 and the snapshot contains servant-0.19.1
-        - servant-streaming-client < 0 # tried servant-streaming-client-0.3.0.0, but its *library* requires servant-client-core >=0.14 && < 0.15 and the snapshot contains servant-client-core-0.19
+        - servant-streaming-client < 0 # tried servant-streaming-client-0.3.0.0, but its *library* requires servant >=0.14 && < 0.15 and the snapshot contains servant-0.20
+        - servant-streaming-client < 0 # tried servant-streaming-client-0.3.0.0, but its *library* requires servant-client-core >=0.14 && < 0.15 and the snapshot contains servant-client-core-0.20
         - servant-streaming-server < 0 # tried servant-streaming-server-0.3.0.0, but its *library* requires base >=4.7 && < 4.13 and the snapshot contains base-4.18.0.0
         - servant-streaming-server < 0 # tried servant-streaming-server-0.3.0.0, but its *library* requires http-media >=0.6 && < 0.8 and the snapshot contains http-media-0.8.0.0
         - servant-streaming-server < 0 # tried servant-streaming-server-0.3.0.0, but its *library* requires resourcet >=1.1 && < 1.3 and the snapshot contains resourcet-1.3.0
-        - servant-streaming-server < 0 # tried servant-streaming-server-0.3.0.0, but its *library* requires servant-server >=0.13 && < 0.15 and the snapshot contains servant-server-0.19.2
-        - servant-subscriber < 0 # tried servant-subscriber-0.7.0.0, but its *library* requires the disabled package: servant
-        - servant-subscriber < 0 # tried servant-subscriber-0.7.0.0, but its *library* requires the disabled package: servant-server
-        - servant-swagger < 0 # tried servant-swagger-1.1.11, but its *library* requires the disabled package: servant
-        - servant-swagger-ui < 0 # tried servant-swagger-ui-0.3.5.5.0.0, but its *library* requires base >=4.7 && < 4.18 and the snapshot contains base-4.18.0.0
-        - servant-swagger-ui-core < 0 # tried servant-swagger-ui-core-0.3.5, but its *library* requires the disabled package: servant
-        - servant-swagger-ui-core < 0 # tried servant-swagger-ui-core-0.3.5, but its *library* requires the disabled package: servant-server
-        - servant-swagger-ui-redoc < 0 # tried servant-swagger-ui-redoc-0.3.4.1.22.3, but its *library* requires aeson >=0.8.0.2 && < 2.1.0 and the snapshot contains aeson-2.1.2.1
-        - servant-swagger-ui-redoc < 0 # tried servant-swagger-ui-redoc-0.3.4.1.22.3, but its *library* requires base >=4.7 && < 4.17 and the snapshot contains base-4.18.0.0
-        - servant-websockets < 0 # tried servant-websockets-2.0.0, but its *library* requires the disabled package: servant-server
-        - servant-xml < 0 # tried servant-xml-1.0.2, but its *library* requires the disabled package: servant
+        - servant-streaming-server < 0 # tried servant-streaming-server-0.3.0.0, but its *library* requires servant-server >=0.13 && < 0.15 and the snapshot contains servant-server-0.20
         - servant-yaml < 0 # tried servant-yaml-0.1.0.1, but its *library* requires base >=4.9 && < 4.14 and the snapshot contains base-4.18.0.0
         - servant-yaml < 0 # tried servant-yaml-0.1.0.1, but its *library* requires bytestring >=0.10.8.1 && < 0.11 and the snapshot contains bytestring-0.11.4.0
-        - servant-yaml < 0 # tried servant-yaml-0.1.0.1, but its *library* requires servant >=0.15 && < 0.18 and the snapshot contains servant-0.19.1
+        - servant-yaml < 0 # tried servant-yaml-0.1.0.1, but its *library* requires servant >=0.15 && < 0.18 and the snapshot contains servant-0.20
         - serverless-haskell < 0 # tried serverless-haskell-0.12.6, but its *library* requires the disabled package: amazonka-core
         - serversession < 0 # tried serversession-1.0.3, but its *library* requires the disabled package: persistent-test
         - serversession-backend-persistent < 0 # tried serversession-backend-persistent-2.0.1, but its *library* requires persistent ==2.13.* and the snapshot contains persistent-2.14.5.0
@@ -8063,6 +8006,9 @@ packages:
         - skeletons < 0 # tried skeletons-0.4.0, but its *executable* requires the disabled package: tinytemplate
         - slack-progressbar < 0 # tried slack-progressbar-0.1.0.1, but its *library* requires the disabled package: wreq
         - slack-web < 0 # tried slack-web-1.6.1.0, but its *library* requires base >=4.11 && < 4.18 and the snapshot contains base-4.18.0.0
+        - slack-web < 0 # tried slack-web-1.6.1.0, but its *library* requires servant >=0.16 && < 0.20 and the snapshot contains servant-0.20
+        - slack-web < 0 # tried slack-web-1.6.1.0, but its *library* requires servant-client >=0.16 && < 0.20 and the snapshot contains servant-client-0.20
+        - slack-web < 0 # tried slack-web-1.6.1.0, but its *library* requires servant-client-core >=0.16 && < 0.20 and the snapshot contains servant-client-core-0.20
         - slist < 0 # tried slist-0.2.1.0, but its *library* requires base >=4.10.1.0 && < 4.18 and the snapshot contains base-4.18.0.0
         - smallcheck-series < 0 # tried smallcheck-series-0.7.1.0, but its *library* requires base >=4.6 && < 4.15 and the snapshot contains base-4.18.0.0
         - smash < 0 # tried smash-0.1.3, but its *library* requires base >=4.12 && < 4.17 and the snapshot contains base-4.18.0.0
@@ -8111,8 +8057,6 @@ packages:
         - srt-dhall < 0 # tried srt-dhall-0.1.0.0, but its *library* requires formatting >=7.0.0 && < 7.2 and the snapshot contains formatting-7.2.0
         - srt-dhall < 0 # tried srt-dhall-0.1.0.0, but its *library* requires text >=1.0 && < 1.3 and the snapshot contains text-2.0.2
         - srt-formatting < 0 # tried srt-formatting-0.1.0.0, but its *library* requires formatting >=7.0.0 && < 7.2 and the snapshot contains formatting-7.2.0
-        - srtree < 0 # tried srtree-1.0.0.4, but its *library* requires base >=4.16 && < 4.18 and the snapshot contains base-4.18.0.0
-        - srtree < 0 # tried srtree-1.0.0.4, but its *library* requires mtl ==2.2.* and the snapshot contains mtl-2.3.1
         - stack < 0 # tried stack-2.11.1, but its *library* requires Cabal >=3.8.1.0 && < 3.10 and the snapshot contains Cabal-3.10.1.0
         - stackcollapse-ghc < 0 # tried stackcollapse-ghc-0.0.1.4, but its *executable* requires base >=4.12.0.0 && < 4.16 and the snapshot contains base-4.18.0.0
         - stackcollapse-ghc < 0 # tried stackcollapse-ghc-0.0.1.4, but its *executable* requires transformers ==0.5.6.* and the snapshot contains transformers-0.6.1.0
@@ -8284,8 +8228,8 @@ packages:
         - tonatona-persistent-sqlite < 0 # tried tonatona-persistent-sqlite-0.1.0.2, but its *library* requires persistent-sqlite >=2.8 && < 2.11 and the snapshot contains persistent-sqlite-2.13.1.1
         - tonatona-persistent-sqlite < 0 # tried tonatona-persistent-sqlite-0.1.0.2, but its *library* requires resource-pool >=0.2 && < 0.3 and the snapshot contains resource-pool-0.4.0.0
         - tonatona-servant < 0 # tried tonatona-servant-0.1.0.4, but its *library* requires base >=4.7 && < 4.15 and the snapshot contains base-4.18.0.0
-        - tonatona-servant < 0 # tried tonatona-servant-0.1.0.4, but its *library* requires servant >=0.13 && < 0.17 and the snapshot contains servant-0.19.1
-        - tonatona-servant < 0 # tried tonatona-servant-0.1.0.4, but its *library* requires servant-server >=0.13 && < 0.17 and the snapshot contains servant-server-0.19.2
+        - tonatona-servant < 0 # tried tonatona-servant-0.1.0.4, but its *library* requires servant >=0.13 && < 0.17 and the snapshot contains servant-0.20
+        - tonatona-servant < 0 # tried tonatona-servant-0.1.0.4, but its *library* requires servant-server >=0.13 && < 0.17 and the snapshot contains servant-server-0.20
         - tonatona-servant < 0 # tried tonatona-servant-0.1.0.4, but its *library* requires wai-extra >=3.0.27 && < 3.1 and the snapshot contains wai-extra-3.1.13.0
         - tracing-control < 0 # tried tracing-control-0.0.7.3, but its *library* requires the disabled package: stm-lifted
         - transformers-bifunctors < 0 # tried transformers-bifunctors-0.1, but its *library* requires mmorph >=1.0 && < 1.2 and the snapshot contains mmorph-1.2.0
@@ -8554,13 +8498,13 @@ packages:
         - zio < 0 # tried zio-0.1.0.2, but its *library* requires transformers >=0.5.6 && < 0.6 and the snapshot contains transformers-0.6.1.0
         - zipper-extra < 0 # tried zipper-extra-0.1.3.2, but its *library* requires the disabled package: comonad-extras
         - ziptastic-client < 0 # tried ziptastic-client-0.3.0.3, but its *library* requires base-compat ==0.9.* and the snapshot contains base-compat-0.13.0
-        - ziptastic-client < 0 # tried ziptastic-client-0.3.0.3, but its *library* requires servant >=0.9 && < 0.12 and the snapshot contains servant-0.19.1
-        - ziptastic-client < 0 # tried ziptastic-client-0.3.0.3, but its *library* requires servant-client >=0.9 && < 0.12 and the snapshot contains servant-client-0.19
+        - ziptastic-client < 0 # tried ziptastic-client-0.3.0.3, but its *library* requires servant >=0.9 && < 0.12 and the snapshot contains servant-0.20
+        - ziptastic-client < 0 # tried ziptastic-client-0.3.0.3, but its *library* requires servant-client >=0.9 && < 0.12 and the snapshot contains servant-client-0.20
         - ziptastic-core < 0 # tried ziptastic-core-0.2.0.3, but its *library* requires aeson >=0.7 && < 1.3 and the snapshot contains aeson-2.1.2.1
         - ziptastic-core < 0 # tried ziptastic-core-0.2.0.3, but its *library* requires base-compat ==0.9.* and the snapshot contains base-compat-0.13.0
         - ziptastic-core < 0 # tried ziptastic-core-0.2.0.3, but its *library* requires bytestring ==0.10.* and the snapshot contains bytestring-0.11.4.0
         - ziptastic-core < 0 # tried ziptastic-core-0.2.0.3, but its *library* requires http-api-data ==0.3.* and the snapshot contains http-api-data-0.5.1
-        - ziptastic-core < 0 # tried ziptastic-core-0.2.0.3, but its *library* requires servant >=0.9 && < 0.12 and the snapshot contains servant-0.19.1
+        - ziptastic-core < 0 # tried ziptastic-core-0.2.0.3, but its *library* requires servant >=0.9 && < 0.12 and the snapshot contains servant-0.20
         - zlib-lens < 0 # tried zlib-lens-0.1.2.1, but its *library* requires bytestring >=0.9.1.10 && < 0.11 and the snapshot contains bytestring-0.11.4.0
         - zm < 0 # tried zm-0.3.2, but its *library* requires bytestring >=0.10.6.0 && < 0.11 and the snapshot contains bytestring-0.11.4.0
         - zm < 0 # tried zm-0.3.2, but its *library* requires containers ==0.5.* and the snapshot contains containers-0.6.7
@@ -8576,9 +8520,6 @@ packages:
     # End of Library and exe bounds failures
 
     "Stackage upper bounds":
-        # https://github.com/commercialhaskell/stackage/issues/6983
-        - pandoc-symreg < 0.2.1
-
         # https://github.com/commercialhaskell/stackage/issues/7003
         - megaparsec < 9.4
         - megaparsec-tests < 9.4
@@ -8944,7 +8885,7 @@ skipped-tests:
     - cayley-client # tried cayley-client-0.4.19.2, but its *test-suite* requires aeson >=0.8.0.2 && < 1.6 || ==2.0.* and the snapshot contains aeson-2.1.2.1
     - cereal # tried cereal-0.5.8.3, but its *test-suite* requires the disabled package: test-framework
     - chatwork # tried chatwork-0.1.3.5, but its *test-suite* requires hspec >=2.4.1 && < 2.6 and the snapshot contains hspec-2.11.1
-    - chatwork # tried chatwork-0.1.3.5, but its *test-suite* requires servant-server >=0.9.1.1 && < 0.15 and the snapshot contains servant-server-0.19.2
+    - chatwork # tried chatwork-0.1.3.5, but its *test-suite* requires servant-server >=0.9.1.1 && < 0.15 and the snapshot contains servant-server-0.20
     - chatwork # tried chatwork-0.1.3.5, but its *test-suite* requires warp >=3.2.11 && < 3.3 and the snapshot contains warp-3.3.28
     - cipher-aes # tried cipher-aes-0.2.11, but its *test-suite* requires the disabled package: test-framework
     - cipher-camellia # tried cipher-camellia-0.0.2, but its *test-suite* requires the disabled package: test-framework
@@ -9134,7 +9075,7 @@ skipped-tests:
     - json-rpc-client # tried json-rpc-client-0.2.5.0, but its *test-suite* requires QuickCheck >=2.4.2 && < 2.14 and the snapshot contains QuickCheck-2.14.3
     - keyed-vals-redis # tried keyed-vals-redis-0.2.0.0, but its *test-suite* requires the disabled package: hspec-tmp-proc
     - keyed-vals-redis # tried keyed-vals-redis-0.2.0.0, but its *test-suite* requires the disabled package: tmp-proc-redis
-    - lackey # tried lackey-2.0.0.6, but its *test-suite* requires the disabled package: servant
+    - lackey # tried lackey-2.0.0.6, but its *test-suite* requires servant >=0.19.1 && < 0.20 and the snapshot contains servant-0.20
     - language-c-quote # tried language-c-quote-0.13.0.1, but its *test-suite* requires the disabled package: test-framework
     - language-glsl # tried language-glsl-0.3.0, but its *test-suite* requires the disabled package: test-framework
     - largeword # tried largeword-1.2.5, but its *test-suite* requires the disabled package: test-framework
@@ -9223,7 +9164,7 @@ skipped-tests:
     - quickcheck-state-machine # tried quickcheck-state-machine-0.7.3, but its *test-suite* requires the disabled package: hs-rqlite
     - quicklz # tried quicklz-1.5.0.11, but its *test-suite* requires the disabled package: test-framework
     - rakuten # tried rakuten-0.1.1.5, but its *test-suite* requires hspec >=2.4.1 && < 2.6 and the snapshot contains hspec-2.11.1
-    - rakuten # tried rakuten-0.1.1.5, but its *test-suite* requires servant-server >=0.9.1.1 && < 0.15 and the snapshot contains servant-server-0.19.2
+    - rakuten # tried rakuten-0.1.1.5, but its *test-suite* requires servant-server >=0.9.1.1 && < 0.15 and the snapshot contains servant-server-0.20
     - rakuten # tried rakuten-0.1.1.5, but its *test-suite* requires warp >=3.2.11 && < 3.3 and the snapshot contains warp-3.3.28
     - range # tried range-0.3.0.2, but its *test-suite* requires the disabled package: test-framework
     - rank1dynamic # tried rank1dynamic-0.4.1, but its *test-suite* requires the disabled package: test-framework
@@ -9248,52 +9189,51 @@ skipped-tests:
     - schematic # tried schematic-0.5.1.0, but its *test-suite* requires base >=4.11 && < 4.13 and the snapshot contains base-4.18.0.0
     - scrypt # tried scrypt-0.5.0, but its *test-suite* requires the disabled package: test-framework
     - serialise # tried serialise-0.2.6.0, but its *test-suite* requires base >=4.11 && < 4.18 and the snapshot contains base-4.18.0.0
-    - servant # tried servant-0.19.1, but its *test-suite* requires hspec >=2.6.0 && < 2.10 and the snapshot contains hspec-2.11.1
-    - servant # tried servant-0.19.1, but its *test-suite* requires hspec-discover >=2.6.0 && < 2.10 and the snapshot contains hspec-discover-2.11.1
-    - servant-auth-client # tried servant-auth-client-0.4.1.0, but its *test-suite* requires hspec >=2.5.5 && < 2.10 and the snapshot contains hspec-2.11.1
-    - servant-auth-client # tried servant-auth-client-0.4.1.0, but its *test-suite* requires hspec-discover >=2.5.5 && < 2.10 and the snapshot contains hspec-discover-2.11.1
-    - servant-auth-client # tried servant-auth-client-0.4.1.0, but its *test-suite* requires jose >=0.7.0.0 && < 0.10 and the snapshot contains jose-0.10
-    - servant-auth-server # tried servant-auth-server-0.4.7.0, but its *test-suite* requires hspec >=2.5.5 && < 2.10 and the snapshot contains hspec-2.11.1
-    - servant-auth-server # tried servant-auth-server-0.4.7.0, but its *test-suite* requires hspec-discover >=2.5.5 && < 2.10 and the snapshot contains hspec-discover-2.11.1
-    - servant-auth-server # tried servant-auth-server-0.4.7.0, but its *test-suite* requires lens-aeson >=1.0.2 && < 1.2 and the snapshot contains lens-aeson-1.2.2
-    - servant-auth-swagger # tried servant-auth-swagger-0.2.10.1, but its *test-suite* requires hspec >=2.5.5 && < 2.10 and the snapshot contains hspec-2.11.1
-    - servant-auth-swagger # tried servant-auth-swagger-0.2.10.1, but its *test-suite* requires hspec-discover >=2.5.5 && < 2.10 and the snapshot contains hspec-discover-2.11.1
-    - servant-blaze # tried servant-blaze-0.9.1, but its *test-suite* requires the disabled package: servant-server
-    - servant-client # tried servant-client-0.19, but its *test-suite* requires hspec >=2.6.0 && < 2.10 and the snapshot contains hspec-2.11.1
-    - servant-client # tried servant-client-0.19, but its *test-suite* requires hspec-discover >=2.6.0 && < 2.10 and the snapshot contains hspec-discover-2.11.1
-    - servant-client # tried servant-client-0.19, but its *test-suite* requires tdigest >=0.2 && < 0.3 and the snapshot contains tdigest-0.3
-    - servant-client-core # tried servant-client-core-0.19, but its *test-suite* requires hspec >=2.6.0 && < 2.10 and the snapshot contains hspec-2.11.1
-    - servant-client-core # tried servant-client-core-0.19, but its *test-suite* requires hspec-discover >=2.6.0 && < 2.10 and the snapshot contains hspec-discover-2.11.1
+    - servant # tried servant-0.20, but its *test-suite* requires hspec >=2.6.0 && < 2.11 and the snapshot contains hspec-2.11.1
+    - servant # tried servant-0.20, but its *test-suite* requires hspec-discover >=2.6.0 && < 2.11 and the snapshot contains hspec-discover-2.11.1
+    - servant-auth-client # tried servant-auth-client-0.4.1.1, but its *test-suite* requires hspec >=2.5.5 && < 2.11 and the snapshot contains hspec-2.11.1
+    - servant-auth-client # tried servant-auth-client-0.4.1.1, but its *test-suite* requires hspec-discover >=2.5.5 && < 2.11 and the snapshot contains hspec-discover-2.11.1
+    - servant-auth-docs # tried servant-auth-docs-0.2.10.1, but its *test-suite* requires hspec >=2.5.5 && < 2.11 and the snapshot contains hspec-2.11.1
+    - servant-auth-docs # tried servant-auth-docs-0.2.10.1, but its *test-suite* requires hspec-discover >=2.5.5 && < 2.11 and the snapshot contains hspec-discover-2.11.1
+    - servant-auth-server # tried servant-auth-server-0.4.8.0, but its *test-suite* requires hspec >=2.5.5 && < 2.11 and the snapshot contains hspec-2.11.1
+    - servant-auth-server # tried servant-auth-server-0.4.8.0, but its *test-suite* requires hspec-discover >=2.5.5 && < 2.11 and the snapshot contains hspec-discover-2.11.1
+    - servant-auth-swagger # tried servant-auth-swagger-0.2.10.2, but its *test-suite* requires hspec >=2.5.5 && < 2.11 and the snapshot contains hspec-2.11.1
+    - servant-auth-swagger # tried servant-auth-swagger-0.2.10.2, but its *test-suite* requires hspec-discover >=2.5.5 && < 2.11 and the snapshot contains hspec-discover-2.11.1
+    - servant-cassava # tried servant-cassava-0.10.2, but its *test-suite* requires servant-server >=0.4.4.5 && < 0.20 and the snapshot contains servant-server-0.20
+    - servant-client # tried servant-client-0.20, but its *test-suite* requires hspec >=2.6.0 && < 2.11 and the snapshot contains hspec-2.11.1
+    - servant-client # tried servant-client-0.20, but its *test-suite* requires hspec-discover >=2.6.0 && < 2.11 and the snapshot contains hspec-discover-2.11.1
+    - servant-client-core # tried servant-client-core-0.20, but its *test-suite* requires hspec >=2.6.0 && < 2.11 and the snapshot contains hspec-2.11.1
+    - servant-client-core # tried servant-client-core-0.20, but its *test-suite* requires hspec-discover >=2.6.0 && < 2.11 and the snapshot contains hspec-discover-2.11.1
+    - servant-conduit # tried servant-conduit-0.16, but its *test-suite* requires the disabled package: servant-client
     - servant-docs-simple # tried servant-docs-simple-0.4.0.0, but its *test-suite* requires hspec >=2.7.1 && < 2.9 and the snapshot contains hspec-2.11.1
     - servant-docs-simple # tried servant-docs-simple-0.4.0.0, but its *test-suite* requires hspec-core >=2.7.1 && < 2.9 and the snapshot contains hspec-core-2.11.1
-    - servant-elm # tried servant-elm-0.7.3, but its *test-suite* requires the disabled package: servant-client
-    - servant-foreign # tried servant-foreign-0.15.4, but its *test-suite* requires hspec >=2.6.0 && < 2.10 and the snapshot contains hspec-2.11.1
-    - servant-foreign # tried servant-foreign-0.15.4, but its *test-suite* requires hspec-discover >=2.6.0 && < 2.10 and the snapshot contains hspec-discover-2.11.1
-    - servant-http-streams # tried servant-http-streams-0.18.4, but its *test-suite* requires hspec >=2.6.0 && < 2.10 and the snapshot contains hspec-2.11.1
-    - servant-http-streams # tried servant-http-streams-0.18.4, but its *test-suite* requires hspec-discover >=2.6.0 && < 2.10 and the snapshot contains hspec-discover-2.11.1
-    - servant-http-streams # tried servant-http-streams-0.18.4, but its *test-suite* requires tdigest >=0.2 && < 0.3 and the snapshot contains tdigest-0.3
+    - servant-foreign # tried servant-foreign-0.16, but its *test-suite* requires hspec >=2.6.0 && < 2.11 and the snapshot contains hspec-2.11.1
+    - servant-foreign # tried servant-foreign-0.16, but its *test-suite* requires hspec-discover >=2.6.0 && < 2.11 and the snapshot contains hspec-discover-2.11.1
+    - servant-http-streams # tried servant-http-streams-0.20, but its *test-suite* requires hspec >=2.6.0 && < 2.11 and the snapshot contains hspec-2.11.1
+    - servant-http-streams # tried servant-http-streams-0.20, but its *test-suite* requires hspec-discover >=2.6.0 && < 2.11 and the snapshot contains hspec-discover-2.11.1
     - servant-js # tried servant-js-0.9.4.2, but its *test-suite* requires hspec >=2.6.0 && < 2.11 and the snapshot contains hspec-2.11.1
     - servant-js # tried servant-js-0.9.4.2, but its *test-suite* requires hspec-discover >=2.6.0 && < 2.11 and the snapshot contains hspec-discover-2.11.1
     - servant-js # tried servant-js-0.9.4.2, but its *test-suite* requires the disabled package: language-ecmascript
     - servant-kotlin # tried servant-kotlin-0.1.1.9, but its *test-suite* requires aeson >=1.0 && < 1.5 and the snapshot contains aeson-2.1.2.1
     - servant-kotlin # tried servant-kotlin-0.1.1.9, but its *test-suite* requires hspec >=2.4.1 && < 2.8 and the snapshot contains hspec-2.11.1
     - servant-kotlin # tried servant-kotlin-0.1.1.9, but its *test-suite* requires http-api-data >=0.3.7 && < 0.4.2 and the snapshot contains http-api-data-0.5.1
-    - servant-lucid # tried servant-lucid-0.9.0.6, but its *test-suite* requires the disabled package: servant-server
+    - servant-lucid # tried servant-lucid-0.9.0.6, but its *test-suite* requires servant-server >=0.14 && < 0.20 and the snapshot contains servant-server-0.20
+    - servant-machines # tried servant-machines-0.16, but its *test-suite* requires the disabled package: servant-client
     - servant-mock # tried servant-mock-0.8.7, but its *test-suite* requires hspec-wai >=0.9.0 && < 0.11 and the snapshot contains hspec-wai-0.11.1
+    - servant-pipes # tried servant-pipes-0.16, but its *test-suite* requires the disabled package: servant-client
     - servant-quickcheck # tried servant-quickcheck-0.0.10.0, but its *test-suite* requires hspec-core >=2.5.5 && < 2.8 and the snapshot contains hspec-core-2.11.1
-    - servant-server # tried servant-server-0.19.2, but its *test-suite* requires hspec >=2.6.0 && < 2.10 and the snapshot contains hspec-2.11.1
-    - servant-server # tried servant-server-0.19.2, but its *test-suite* requires hspec-discover >=2.6.0 && < 2.10 and the snapshot contains hspec-discover-2.11.1
+    - servant-server # tried servant-server-0.20, but its *test-suite* requires hspec >=2.6.0 && < 2.11 and the snapshot contains hspec-2.11.1
+    - servant-server # tried servant-server-0.20, but its *test-suite* requires hspec-discover >=2.6.0 && < 2.11 and the snapshot contains hspec-discover-2.11.1
     - servant-streaming # tried servant-streaming-0.3.0.0, but its *test-suite* requires QuickCheck >=2.8 && < 2.13 and the snapshot contains QuickCheck-2.14.3
     - servant-streaming-client # tried servant-streaming-client-0.3.0.0, but its *test-suite* requires QuickCheck >=2.8 && < 2.12 and the snapshot contains QuickCheck-2.14.3
     - servant-streaming-server # tried servant-streaming-server-0.3.0.0, but its *test-suite* requires QuickCheck >=2.8 && < 2.12 and the snapshot contains QuickCheck-2.14.3
     - servant-streaming-server # tried servant-streaming-server-0.3.0.0, but its *test-suite* requires streaming-bytestring >=0.1 && < 0.2 and the snapshot contains streaming-bytestring-0.3.0
     - servant-streaming-server # tried servant-streaming-server-0.3.0.0, but its *test-suite* requires warp >=3.2.4 && < 3.3 and the snapshot contains warp-3.3.28
-    - servant-swagger # tried servant-swagger-1.1.11, but its *test-suite* requires doctest >=0.17 && < 0.21 and the snapshot contains doctest-0.21.1
-    - servant-swagger # tried servant-swagger-1.1.11, but its *test-suite* requires hspec >=2.6.0 && < 2.10 and the snapshot contains hspec-2.11.1
-    - servant-swagger # tried servant-swagger-1.1.11, but its *test-suite* requires hspec-discover >=2.6.0 && < 2.10 and the snapshot contains hspec-discover-2.11.1
+    - servant-swagger # tried servant-swagger-1.2, but its *test-suite* requires hspec >=2.6.0 && < 2.11 and the snapshot contains hspec-2.11.1
+    - servant-swagger # tried servant-swagger-1.2, but its *test-suite* requires hspec-discover >=2.6.0 && < 2.11 and the snapshot contains hspec-discover-2.11.1
     - servant-yaml # tried servant-yaml-0.1.0.1, but its *test-suite* requires aeson >=1.4.1.0 && < 1.5 and the snapshot contains aeson-2.1.2.1
     - servant-yaml # tried servant-yaml-0.1.0.1, but its *test-suite* requires base-compat >=0.10.5 && < 0.12 and the snapshot contains base-compat-0.13.0
-    - servant-yaml # tried servant-yaml-0.1.0.1, but its *test-suite* requires servant-server >=0.15 && < 0.18 and the snapshot contains servant-server-0.19.2
+    - servant-yaml # tried servant-yaml-0.1.0.1, but its *test-suite* requires servant-server >=0.15 && < 0.18 and the snapshot contains servant-server-0.20
     - sessiontypes-distributed # tried sessiontypes-distributed-0.1.1, but its *test-suite* requires hspec >=2.4.4 && < 2.5 and the snapshot contains hspec-2.11.1
     - sessiontypes-distributed # tried sessiontypes-distributed-0.1.1, but its *test-suite* requires the disabled package: network-transport-tcp
     - sexpr-parser # tried sexpr-parser-0.2.2.0, but its *test-suite* requires hspec >=2.5 && < 2.10 and the snapshot contains hspec-2.11.1
@@ -9748,7 +9688,6 @@ expected-test-failures:
     - servant-static-th # 1.0.0.0 Tasty issue: https://github.com/commercialhaskell/stackage/issues/6090
     - snappy # Could not find module ‘Functions’
     - store # 0.7.16
-    - srtree # https://github.com/commercialhaskell/stackage/issues/6984
     - text-show # https://github.com/commercialhaskell/stackage/issues/6995
     - thread-supervisor # 0.2.0.0
     - twitter-types # 0.11.0 compile fail against aeson 2
