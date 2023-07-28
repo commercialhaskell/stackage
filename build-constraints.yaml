@@ -1968,7 +1968,7 @@ packages:
     "Brendan Hay <brendan.g.hay@gmail.com> @brendanhay":
         - amazonka
         - amazonka-core
-        - amazonka-test
+        - amazonka-test < 0 # Only used before amazonka-2.0
         - amazonka-apigateway
         - amazonka-application-autoscaling
         - amazonka-appstream
@@ -2001,7 +2001,7 @@ packages:
         - amazonka-ds
         - amazonka-dynamodb
         - amazonka-dynamodb-streams
-        - amazonka-ec2 < 0 # 1.6.1 takes too much memory to build https://github.com/brendanhay/amazonka/issues/549
+        - amazonka-ec2
         - amazonka-ecr
         - amazonka-ecs
         - amazonka-efs
@@ -2049,6 +2049,7 @@ packages:
         - amazonka-sns
         - amazonka-sqs
         - amazonka-ssm
+        - amazonka-sso
         - amazonka-stepfunctions
         - amazonka-storagegateway
         - amazonka-sts
@@ -5955,98 +5956,6 @@ packages:
         - algebra < 0 # tried algebra-4.3.1, but its *library* requires mtl >=2.0.1 && < 2.3 and the snapshot contains mtl-2.3.1
         - algebra < 0 # tried algebra-4.3.1, but its *library* requires semigroupoids >=4 && < 6 and the snapshot contains semigroupoids-6.0.0.1
         - algebra < 0 # tried algebra-4.3.1, but its *library* requires transformers >=0.2 && < 0.6 and the snapshot contains transformers-0.6.1.0
-        - amazonka < 0 # tried amazonka-1.6.1, but its *library* requires http-client >=0.4 && < 0.7 and the snapshot contains http-client-0.7.13.1
-        - amazonka < 0 # tried amazonka-1.6.1, but its *library* requires unliftio-core >=0.1 && < 0.2 and the snapshot contains unliftio-core-0.2.1.0
-        - amazonka-apigateway < 0 # tried amazonka-apigateway-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-application-autoscaling < 0 # tried amazonka-application-autoscaling-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-appstream < 0 # tried amazonka-appstream-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-athena < 0 # tried amazonka-athena-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-autoscaling < 0 # tried amazonka-autoscaling-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-budgets < 0 # tried amazonka-budgets-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-certificatemanager < 0 # tried amazonka-certificatemanager-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-cloudformation < 0 # tried amazonka-cloudformation-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-cloudfront < 0 # tried amazonka-cloudfront-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-cloudhsm < 0 # tried amazonka-cloudhsm-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-cloudsearch < 0 # tried amazonka-cloudsearch-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-cloudsearch-domains < 0 # tried amazonka-cloudsearch-domains-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-cloudtrail < 0 # tried amazonka-cloudtrail-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-cloudwatch < 0 # tried amazonka-cloudwatch-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-cloudwatch-events < 0 # tried amazonka-cloudwatch-events-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-cloudwatch-logs < 0 # tried amazonka-cloudwatch-logs-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-codebuild < 0 # tried amazonka-codebuild-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-codecommit < 0 # tried amazonka-codecommit-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-codedeploy < 0 # tried amazonka-codedeploy-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-codepipeline < 0 # tried amazonka-codepipeline-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-cognito-identity < 0 # tried amazonka-cognito-identity-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-cognito-idp < 0 # tried amazonka-cognito-idp-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-cognito-sync < 0 # tried amazonka-cognito-sync-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-config < 0 # tried amazonka-config-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-core < 0 # tried amazonka-core-1.6.1, but its *library* requires aeson >=0.8 && < 1.6 and the snapshot contains aeson-2.1.2.1
-        - amazonka-core < 0 # tried amazonka-core-1.6.1, but its *library* requires http-client >=0.4 && < 0.7 and the snapshot contains http-client-0.7.13.1
-        - amazonka-datapipeline < 0 # tried amazonka-datapipeline-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-devicefarm < 0 # tried amazonka-devicefarm-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-directconnect < 0 # tried amazonka-directconnect-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-discovery < 0 # tried amazonka-discovery-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-dms < 0 # tried amazonka-dms-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-ds < 0 # tried amazonka-ds-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-dynamodb < 0 # tried amazonka-dynamodb-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-dynamodb-streams < 0 # tried amazonka-dynamodb-streams-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-ecr < 0 # tried amazonka-ecr-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-ecs < 0 # tried amazonka-ecs-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-efs < 0 # tried amazonka-efs-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-elasticache < 0 # tried amazonka-elasticache-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-elasticbeanstalk < 0 # tried amazonka-elasticbeanstalk-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-elasticsearch < 0 # tried amazonka-elasticsearch-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-elastictranscoder < 0 # tried amazonka-elastictranscoder-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-elb < 0 # tried amazonka-elb-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-elbv2 < 0 # tried amazonka-elbv2-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-emr < 0 # tried amazonka-emr-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-gamelift < 0 # tried amazonka-gamelift-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-glacier < 0 # tried amazonka-glacier-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-glue < 0 # tried amazonka-glue-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-health < 0 # tried amazonka-health-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-iam < 0 # tried amazonka-iam-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-importexport < 0 # tried amazonka-importexport-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-inspector < 0 # tried amazonka-inspector-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-iot < 0 # tried amazonka-iot-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-iot-dataplane < 0 # tried amazonka-iot-dataplane-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-kinesis < 0 # tried amazonka-kinesis-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-kinesis-analytics < 0 # tried amazonka-kinesis-analytics-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-kinesis-firehose < 0 # tried amazonka-kinesis-firehose-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-kms < 0 # tried amazonka-kms-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-lambda < 0 # tried amazonka-lambda-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-lightsail < 0 # tried amazonka-lightsail-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-marketplace-analytics < 0 # tried amazonka-marketplace-analytics-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-marketplace-metering < 0 # tried amazonka-marketplace-metering-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-ml < 0 # tried amazonka-ml-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-opsworks < 0 # tried amazonka-opsworks-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-opsworks-cm < 0 # tried amazonka-opsworks-cm-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-pinpoint < 0 # tried amazonka-pinpoint-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-polly < 0 # tried amazonka-polly-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-rds < 0 # tried amazonka-rds-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-redshift < 0 # tried amazonka-redshift-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-rekognition < 0 # tried amazonka-rekognition-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-route53 < 0 # tried amazonka-route53-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-route53-domains < 0 # tried amazonka-route53-domains-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-s3 < 0 # tried amazonka-s3-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-sdb < 0 # tried amazonka-sdb-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-servicecatalog < 0 # tried amazonka-servicecatalog-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-ses < 0 # tried amazonka-ses-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-shield < 0 # tried amazonka-shield-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-sms < 0 # tried amazonka-sms-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-snowball < 0 # tried amazonka-snowball-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-sns < 0 # tried amazonka-sns-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-sqs < 0 # tried amazonka-sqs-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-ssm < 0 # tried amazonka-ssm-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-stepfunctions < 0 # tried amazonka-stepfunctions-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-storagegateway < 0 # tried amazonka-storagegateway-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-sts < 0 # tried amazonka-sts-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-support < 0 # tried amazonka-support-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-swf < 0 # tried amazonka-swf-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-test < 0 # tried amazonka-test-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-waf < 0 # tried amazonka-waf-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-workspaces < 0 # tried amazonka-workspaces-1.6.1, but its *library* requires the disabled package: amazonka-core
-        - amazonka-xray < 0 # tried amazonka-xray-1.6.1, but its *library* requires the disabled package: amazonka-core
         - amqp < 0 # tried amqp-0.22.1, but its *library* requires the disabled package: connection
         - amqp-utils < 0 # tried amqp-utils-0.6.3.2, but its *executable* requires the disabled package: rawfilepath
         - animalcase < 0 # tried animalcase-0.1.0.2, but its *library* requires bytestring >=0.9 && < 0.11 and the snapshot contains bytestring-0.11.4.0
@@ -8690,6 +8599,95 @@ skipped-tests:
     - airship # tried airship-0.9.5, but its *test-suite* requires bytestring >=0.9.1 && < 0.11 and the snapshot contains bytestring-0.11.4.0
     - airship # tried airship-0.9.5, but its *test-suite* requires tasty >=0.10.1 && < 1.3 and the snapshot contains tasty-1.4.3
     - airship # tried airship-0.9.5, but its *test-suite* requires text >=1.2 && < 2.0 and the snapshot contains text-2.0.2
+    - amazonka-apigateway # tried amazonka-apigateway-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-application-autoscaling # tried amazonka-application-autoscaling-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-appstream # tried amazonka-appstream-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-athena # tried amazonka-athena-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-autoscaling # tried amazonka-autoscaling-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-budgets # tried amazonka-budgets-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-certificatemanager # tried amazonka-certificatemanager-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-cloudformation # tried amazonka-cloudformation-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-cloudfront # tried amazonka-cloudfront-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-cloudhsm # tried amazonka-cloudhsm-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-cloudsearch # tried amazonka-cloudsearch-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-cloudsearch-domains # tried amazonka-cloudsearch-domains-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-cloudtrail # tried amazonka-cloudtrail-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-cloudwatch # tried amazonka-cloudwatch-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-cloudwatch-events # tried amazonka-cloudwatch-events-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-cloudwatch-logs # tried amazonka-cloudwatch-logs-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-codebuild # tried amazonka-codebuild-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-codecommit # tried amazonka-codecommit-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-codedeploy # tried amazonka-codedeploy-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-codepipeline # tried amazonka-codepipeline-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-cognito-identity # tried amazonka-cognito-identity-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-cognito-idp # tried amazonka-cognito-idp-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-cognito-sync # tried amazonka-cognito-sync-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-config # tried amazonka-config-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-datapipeline # tried amazonka-datapipeline-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-devicefarm # tried amazonka-devicefarm-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-directconnect # tried amazonka-directconnect-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-discovery # tried amazonka-discovery-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-dms # tried amazonka-dms-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-ds # tried amazonka-ds-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-dynamodb # tried amazonka-dynamodb-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-dynamodb-streams # tried amazonka-dynamodb-streams-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-ec2 # tried amazonka-ec2-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-ecr # tried amazonka-ecr-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-ecs # tried amazonka-ecs-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-efs # tried amazonka-efs-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-elasticache # tried amazonka-elasticache-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-elasticbeanstalk # tried amazonka-elasticbeanstalk-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-elasticsearch # tried amazonka-elasticsearch-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-elastictranscoder # tried amazonka-elastictranscoder-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-elb # tried amazonka-elb-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-elbv2 # tried amazonka-elbv2-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-emr # tried amazonka-emr-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-gamelift # tried amazonka-gamelift-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-glacier # tried amazonka-glacier-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-glue # tried amazonka-glue-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-health # tried amazonka-health-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-iam # tried amazonka-iam-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-importexport # tried amazonka-importexport-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-inspector # tried amazonka-inspector-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-iot # tried amazonka-iot-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-iot-dataplane # tried amazonka-iot-dataplane-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-kinesis # tried amazonka-kinesis-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-kinesis-analytics # tried amazonka-kinesis-analytics-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-kinesis-firehose # tried amazonka-kinesis-firehose-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-kms # tried amazonka-kms-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-lambda # tried amazonka-lambda-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-lightsail # tried amazonka-lightsail-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-marketplace-analytics # tried amazonka-marketplace-analytics-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-marketplace-metering # tried amazonka-marketplace-metering-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-ml # tried amazonka-ml-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-opsworks # tried amazonka-opsworks-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-opsworks-cm # tried amazonka-opsworks-cm-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-pinpoint # tried amazonka-pinpoint-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-polly # tried amazonka-polly-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-rds # tried amazonka-rds-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-redshift # tried amazonka-redshift-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-rekognition # tried amazonka-rekognition-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-route53 # tried amazonka-route53-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-route53-domains # tried amazonka-route53-domains-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-s3 # tried amazonka-s3-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-sdb # tried amazonka-sdb-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-servicecatalog # tried amazonka-servicecatalog-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-ses # tried amazonka-ses-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-shield # tried amazonka-shield-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-sms # tried amazonka-sms-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-snowball # tried amazonka-snowball-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-sns # tried amazonka-sns-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-sqs # tried amazonka-sqs-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-ssm # tried amazonka-ssm-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-sso # tried amazonka-sso-2.0, but its *test-suite* requires the disabled package: amazonka-test
+    - amazonka-stepfunctions # tried amazonka-stepfunctions-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-storagegateway # tried amazonka-storagegateway-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-sts # tried amazonka-sts-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-support # tried amazonka-support-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-swf # tried amazonka-swf-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-waf # tried amazonka-waf-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-workspaces # tried amazonka-workspaces-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
+    - amazonka-xray # tried amazonka-xray-2.0, but its *test-suite* requires amazonka-test >=2.0 && < 2.1 and the snapshot contains amazonka-test-1.6.1
     - antiope-core # tried antiope-core-7.5.3, but its *test-suite* requires hedgehog >=0.5 && < 1.1 and the snapshot contains hedgehog-1.3
     - antiope-core # tried antiope-core-7.5.3, but its *test-suite* requires hspec >=2.4 && < 2.8 and the snapshot contains hspec-2.11.2
     - antiope-core # tried antiope-core-7.5.3, but its *test-suite* requires the disabled package: aeson-lens
@@ -9920,6 +9918,5 @@ non-parallel-builds:
 - gogol-dfareporting
 - gogol-compute
 - idris
-- amazonka-ec2
 - massiv-persist
 - massiv-serialise
