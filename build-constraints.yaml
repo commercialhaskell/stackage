@@ -9504,7 +9504,7 @@ expected-haddock-failures:
 
 # For packages with haddock issues
 skipped-haddocks:
-- amazonka-ec2 # Large memory consumption - https://github.com/brendanhay/amazonka/issues/549
+- amazonka-ec2 # Around 7 GB memory consumption - so do not build haddock to optimize overall performance. For more details see: https://gitlab.haskell.org/ghc/ghc/-/issues/19203, https://github.com/brendanhay/amazonka/issues/549 and related issues.
 - modular # Module uses compiler plugins https://github.com/haskell/haddock/issues/900
 # end of skipped-haddocks
 
@@ -9877,7 +9877,7 @@ no-revisions:
 # Do not build these packages in parallel with others. Useful for high memory
 # usage.
 non-parallel-builds:
-- amazonka-ec2 # Large memory consumption - https://github.com/brendanhay/amazonka/issues/549
+- amazonka-ec2 # Around 6 GB memory consumption - so do not build in parallel to optimize overall performance. For more details see: https://gitlab.haskell.org/ghc/ghc/-/issues/19203, https://github.com/brendanhay/amazonka/issues/549 and related issues.
 - pandoc
 - gogol-dfareporting
 - gogol-compute
