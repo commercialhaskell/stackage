@@ -36,15 +36,15 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 #
-# Use Stackage's debian-bootstrap.sh script to install system libraries and
+# Use Stackage's docker/*.sh scripts to install system libraries and
 # tools required to build any Stackage package.
-# Re-installs 'stack' *after* running debian-bootstrap.sh since that may have
+# Re-installs 'stack' *after* running docker/*.sh since that may have
 # installed a different version.
 # In the case of 'small' image, just install Stack and GHC.
 #
 
 RUN if [ "$VARIANT" != "small" ]; then \
-        wget -qO- https://raw.githubusercontent.com/fpco/stackage/$BOOTSTRAP_COMMIT/debian-bootstrap.sh | sed "s/^GHCVER=9.0.1$/GHCVER=$GHC_VERSION/" | GHCVER=$GHC_VERSION bash; \
+        wget -qO- https://raw.githubusercontent.com/commercialhaskell/stackage/$BOOTSTRAP_COMMIT/docker/01-build-server.sh https://raw.githubusercontent.com/commercialhaskell/stackage/$BOOTSTRAP_COMMIT/docker/02-apt-get-install.sh https://raw.githubusercontent.com/commercialhaskell/stackage/$BOOTSTRAP_COMMIT/docker/03-custom-install.sh https://raw.githubusercontent.com/commercialhaskell/stackage/$BOOTSTRAP_COMMIT/docker/04-cleanup.sh | sed "s/^GHCVER=9.0.1$/GHCVER=$GHC_VERSION/" | GHCVER=$GHC_VERSION bash; \
     fi && \
     wget -qO- https://github.com/commercialhaskell/stack/releases/download/v$STACK_VERSION/stack-$STACK_VERSION-linux-x86_64.tar.gz | tar xz --wildcards --strip-components=1 -C /usr/bin '*/stack' && \
     if [ "$VARIANT" = "small" ]; then \
