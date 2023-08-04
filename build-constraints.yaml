@@ -112,6 +112,8 @@ packages:
         - microaeson
         - cassava
         - ini
+        - cryptohash-md5
+        - cryptohash-sha1
         - cryptohash-sha256
         - cryptohash-sha512
         - newtype
@@ -1862,9 +1864,6 @@ packages:
         - ShellCheck
         - binary-shared
         - xdg-userdirs
-        # please take these
-        - cryptohash-md5
-        - cryptohash-sha1
 
     "Renzo Carbonara <renzocarbonara@gmail.com> @k0001":
         - df1
@@ -6436,12 +6435,10 @@ packages:
         - construct < 0 # tried construct-0.3.1.1, but its *library* requires rank2classes >=1 && < 1.5 and the snapshot contains rank2classes-1.5.2
         - containers-unicode-symbols < 0 # tried containers-unicode-symbols-0.3.1.3, but its *library* requires containers >=0.5 && < 0.6.5 and the snapshot contains containers-0.6.7
         - cprng-aes < 0 # tried cprng-aes-0.6.1, but its *library* requires the disabled package: crypto-random
-        - crypt-sha512 < 0 # tried crypt-sha512-0, but its *library* requires the disabled package: cryptohash-sha512
         - crypto-pubkey < 0 # tried crypto-pubkey-0.2.8, but its *library* requires the disabled package: crypto-numbers
         - crypto-pubkey < 0 # tried crypto-pubkey-0.2.8, but its *library* requires the disabled package: crypto-random
         - cryptocipher < 0 # tried cryptocipher-0.6.2, but its *library* requires the disabled package: cipher-blowfish
         - cryptocipher < 0 # tried cryptocipher-0.6.2, but its *library* requires the disabled package: cipher-des
-        - cryptohash-sha512 < 0 # tried cryptohash-sha512-0.11.102.0, but its *library* requires base >=4.5 && < 4.18 and the snapshot contains base-4.18.0.0
         - csg < 0 # tried csg-0.1.0.6, but its *executable* requires turtle < 1.6 and the snapshot contains turtle-1.6.1
         - csg < 0 # tried csg-0.1.0.6, but its *library* requires QuickCheck < 2.13 and the snapshot contains QuickCheck-2.14.3
         - csg < 0 # tried csg-0.1.0.6, but its *library* requires attoparsec < 0.14 and the snapshot contains attoparsec-0.14.4
@@ -8535,14 +8532,7 @@ skipped-tests:
     # run the tests.
     # Only re-enable if requested.
     ## @hvr https://github.com/fpco/stackage/issues/2538#issuecomment-304458844
-    - cassava
-    - cryptohash-md5
-    - cryptohash-sha1
-    - cryptohash-sha256
-    - cryptohash-sha512
-    - HsYAML
     - lzma
-    - resolv
     - token-bucket
     - uuid
     - uuid-types
@@ -9560,10 +9550,6 @@ skipped-benchmarks:
     # Maintainers who don't want to update benchmarks
     # Only re-enable if requested.
     ## @hvr https://github.com/fpco/stackage/issues/2538#issuecomment-304458844
-    - cassava
-    - cryptohash-md5
-    - cryptohash-sha1
-    - cryptohash-sha256
     - uuid
     - uuid-types
     # @nikita-volkov https://github.com/fpco/stackage/issues/2538#issuecomment-305129396
