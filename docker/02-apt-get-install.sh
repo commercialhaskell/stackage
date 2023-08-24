@@ -95,6 +95,7 @@ apt-get install -y \
     libpcap0.8-dev \
     libpcre2-dev \
     libpq-dev \
+    libprimecount-dev \
     libprotobuf-dev \
     libre2-dev \
     librocksdb-dev \
