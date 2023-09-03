@@ -376,7 +376,7 @@ packages:
         - git-vogue < 0 # 0.3.0.2 compile fail
 
     "Manuel Bärenz <programming@manuelbaerenz.de> @turion":
-        - dunai < 0 # 0.11.1 9.6 compile fail https://github.com/ivanperez-keera/dunai/issues/371
+        - dunai < 0 # 0.11.2 9.6 compile fail https://github.com/ivanperez-keera/dunai/discussions/368
         - essence-of-live-coding < 0 # 0.2.7 compile fail https://github.com/turion/essence-of-live-coding/issues/107
         - essence-of-live-coding-gloss
         - essence-of-live-coding-pulse
@@ -2753,7 +2753,7 @@ packages:
         - monad-peel
         - NineP
         - Network-NineP
-        - pontarius-xmpp < 0 # 0.5.6.6 compile fail (#7017)
+        - pontarius-xmpp
         - stringprep
         - ranges
 
@@ -3686,7 +3686,7 @@ packages:
     "Michal Konecny <mikkonecny@gmail.com> @michalkonecny":
         - hmpfr
         - collect-errors
-        - mixed-types-num < 0 # 0.5.11 compile fail https://github.com/michalkonecny/mixed-types-num/issues/5
+        - mixed-types-num
         - cdar-mBound
         - aern2-mp
         - aern2-real
@@ -4112,7 +4112,7 @@ packages:
         - selda-json
 
     "Luis Pedro Coelho <luis@luispedro.org> @luispedro":
-        - safeio < 0 # 0.0.5.0 compile fail
+        - safeio
         - conduit-algorithms
         - conduit-zstd
 
@@ -4181,7 +4181,7 @@ packages:
 
     "Eitan Chatav <eitan@gmail.com> @echatav":
         - free-categories
-        - squeal-postgresql < 0 # 0.9.1.0 fails to compile
+        - squeal-postgresql
 
     "Sam Quinn <lazersmoke@gmail.com> @Lazersmoke":
         - ghost-buster
@@ -4968,7 +4968,7 @@ packages:
         - time-units-types
         - wai-rate-limit
         - wai-rate-limit-redis
-        - wai-saml2 < 0 # 0.4 # fails to compile (#7017)
+        - wai-saml2
 
     "Jun Narumi <narumij@gmail.com> @narumij":
         - matrix-as-xyz
@@ -5911,7 +5911,6 @@ packages:
         - bins < 0 # 0.1.2.0
         - bitcoin-script < 0 # 0.11.1
         - boolean-like < 0 # 0.1.1.0
-        - bv-little < 0 # 1.1.1 - can't reproduce locally: No instance for (Eq BigNat)
         - cabal-toolkit < 0 # 0.0.7
         - capataz < 0 # 0.2.1.0
         - chaselev-deque < 0 # 0.5.0.5
@@ -5921,7 +5920,6 @@ packages:
         - courier < 0 # 0.1.1.5
         - crypto-numbers < 0 # 0.2.7
         - cuckoo-filter < 0 # 0.2.0.2 benchmarks are an exe
-        - cuda < 0 # 0.11.0.0
         - data-default-instances-new-base < 0 # 0.0.2
         - descriptive < 0 # 0.9.5 compile fail aeson 2.0
         - distributed-closure < 0 # 0.4.2.0
@@ -5933,7 +5931,6 @@ packages:
         - eve < 0 # 0.1.9.0
         - eventsource-api < 0 # 1.5.1 compile fail aeson 2.0
         - eventsource-store-specs < 0 # 1.2.1
-        - exception-via < 0 # 0.1.0.0
         - farmhash < 0 # 0.1.0.5
         - ftp-client-conduit < 0 # 0.5.0.5
         - ghcjs-base-stub < 0 # 0.3.0.2 compile fail aeson 2.0
@@ -6102,8 +6099,11 @@ packages:
         - accelerate-bignum < 0 # tried accelerate-bignum-0.3.0.0, but its *library* requires the disabled package: accelerate-llvm-native
         - accelerate-bignum < 0 # tried accelerate-bignum-0.3.0.0, but its *library* requires the disabled package: accelerate-llvm-ptx
         - accelerate-bignum < 0 # tried accelerate-bignum-0.3.0.0, but its *library* requires the disabled package: llvm-hs-pure
-        - accelerate-blas < 0 # tried accelerate-blas-0.3.0.0, but its *library* requires the disabled package: cuda
-        - accelerate-examples < 0 # tried accelerate-examples-1.3.0.0, but its *executable* requires the disabled package: accelerate-fft
+        - accelerate-blas < 0 # tried accelerate-blas-0.3.0.0, but its *library* requires the disabled package: accelerate
+        - accelerate-blas < 0 # tried accelerate-blas-0.3.0.0, but its *library* requires the disabled package: accelerate-llvm
+        - accelerate-blas < 0 # tried accelerate-blas-0.3.0.0, but its *library* requires the disabled package: accelerate-llvm-native
+        - accelerate-blas < 0 # tried accelerate-blas-0.3.0.0, but its *library* requires the disabled package: accelerate-llvm-ptx
+        - accelerate-blas < 0 # tried accelerate-blas-0.3.0.0, but its *library* requires the disabled package: llvm-hs-pure
         - accelerate-examples < 0 # tried accelerate-examples-1.3.0.0, but its *executable* requires the disabled package: lens-accelerate
         - accelerate-examples < 0 # tried accelerate-examples-1.3.0.0, but its *executable* requires the disabled package: linear-accelerate
         - accelerate-examples < 0 # tried accelerate-examples-1.3.0.0, but its *executable* requires the disabled package: repa
@@ -6112,7 +6112,11 @@ packages:
         - accelerate-examples < 0 # tried accelerate-examples-1.3.0.0, but its *library* requires the disabled package: accelerate-llvm-native
         - accelerate-examples < 0 # tried accelerate-examples-1.3.0.0, but its *library* requires the disabled package: accelerate-llvm-ptx
         - accelerate-examples < 0 # tried accelerate-examples-1.3.0.0, but its *library* requires the disabled package: fclabels
-        - accelerate-fft < 0 # tried accelerate-fft-1.3.0.0, but its *library* requires the disabled package: cuda
+        - accelerate-fft < 0 # tried accelerate-fft-1.3.0.0, but its *library* requires the disabled package: accelerate
+        - accelerate-fft < 0 # tried accelerate-fft-1.3.0.0, but its *library* requires the disabled package: accelerate-llvm
+        - accelerate-fft < 0 # tried accelerate-fft-1.3.0.0, but its *library* requires the disabled package: accelerate-llvm-native
+        - accelerate-fft < 0 # tried accelerate-fft-1.3.0.0, but its *library* requires the disabled package: accelerate-llvm-ptx
+        - accelerate-fft < 0 # tried accelerate-fft-1.3.0.0, but its *library* requires the disabled package: lens-accelerate
         - accelerate-fftw < 0 # tried accelerate-fftw-1.0.0.1, but its *library* requires accelerate >=1.0 && < 1.2 and the snapshot contains accelerate-1.3.0.0
         - accelerate-fftw < 0 # tried accelerate-fftw-1.0.0.1, but its *library* requires accelerate-io >=1.0 && < 1.1 and the snapshot contains accelerate-io-1.3.0.0
         - accelerate-fourier < 0 # tried accelerate-fourier-1.0.0.5, but its *library* requires accelerate >=1.0 && < 1.2 and the snapshot contains accelerate-1.3.0.0
@@ -6127,11 +6131,8 @@ packages:
         - accelerate-llvm < 0 # tried accelerate-llvm-1.3.0.0, but its *library* requires the disabled package: llvm-hs
         - accelerate-llvm-native < 0 # tried accelerate-llvm-native-1.3.0.0, but its *library* requires libffi >=0.1 && < 0.2 and the snapshot contains libffi-0.2.1
         - accelerate-llvm-native < 0 # tried accelerate-llvm-native-1.3.0.0, but its *library* requires the disabled package: llvm-hs
-        - accelerate-llvm-ptx < 0 # tried accelerate-llvm-ptx-1.3.0.0, but its *library* requires the disabled package: cuda
         - accelerate-llvm-ptx < 0 # tried accelerate-llvm-ptx-1.3.0.0, but its *library* requires the disabled package: llvm-hs
         - accelerate-utility < 0 # tried accelerate-utility-1.0.0.1, but its *library* requires accelerate >=1.0 && < 1.2 and the snapshot contains accelerate-1.3.0.0
-        - aern2-mp < 0 # tried aern2-mp-0.2.15.1, but its *library* requires the disabled package: mixed-types-num
-        - aern2-real < 0 # tried aern2-real-0.2.15, but its *library* requires the disabled package: mixed-types-num
         - aeson-better-errors < 0 # tried aeson-better-errors-0.9.1.1, but its *library* requires aeson >=0.7 && < 1.6 || >=2.0 && < 2.1 and the snapshot contains aeson-2.1.2.1
         - aeson-better-errors < 0 # tried aeson-better-errors-0.9.1.1, but its *library* requires mtl < 2.3 and the snapshot contains mtl-2.3.1
         - aeson-commit < 0 # tried aeson-commit-1.6.0, but its *library* requires text >=1.2 && < 2 and the snapshot contains text-2.0.2
@@ -6420,15 +6421,11 @@ packages:
         - csg < 0 # tried csg-0.1.0.6, but its *library* requires strict < 0.4 and the snapshot contains strict-0.5
         - csg < 0 # tried csg-0.1.0.6, but its *library* requires transformers < 0.6 and the snapshot contains transformers-0.6.1.0
         - csv-conduit < 0 # tried csv-conduit-0.7.3.0, but its *library* requires mtl < 2.3 and the snapshot contains mtl-2.3.1
-        - cublas < 0 # tried cublas-0.6.0.0, but its *library* requires the disabled package: cuda
-        - cufft < 0 # tried cufft-0.10.0.0, but its *library* requires the disabled package: cuda
         - curl-runnings < 0 # tried curl-runnings-0.17.0, but its *library* requires the disabled package: connection
         - curl-runnings < 0 # tried curl-runnings-0.17.0, but its *library* requires the disabled package: dhall
         - curl-runnings < 0 # tried curl-runnings-0.17.0, but its *library* requires the disabled package: dhall-json
         - currencies < 0 # tried currencies-0.2.0.0, but its *library* requires text >=1.2 && < 2 and the snapshot contains text-2.0.2
         - currycarbon < 0 # tried currycarbon-0.2.1.1, but its *executable* requires optparse-applicative >=0.16 && < 0.18 and the snapshot contains optparse-applicative-0.18.1.0
-        - cusolver < 0 # tried cusolver-0.3.0.0, but its *library* requires the disabled package: cuda
-        - cusparse < 0 # tried cusparse-0.3.0.0, but its *library* requires the disabled package: cuda
         - czipwith < 0 # tried czipwith-1.0.1.4, but its *library* requires base >=4.11 && < 4.17 and the snapshot contains base-4.18.0.0
         - czipwith < 0 # tried czipwith-1.0.1.4, but its *library* requires template-haskell >=2.9 && < 2.19 and the snapshot contains template-haskell-2.20.0.0
         - darcs < 0 # tried darcs-2.16.5, but its *library* requires Cabal >=2.4 && < 3.7 and the snapshot contains Cabal-3.10.1.0
@@ -7407,7 +7404,6 @@ packages:
         - nvim-hs < 0 # tried nvim-hs-2.3.2.3, but its *library* requires the disabled package: cereal-conduit
         - nvim-hs-contrib < 0 # tried nvim-hs-contrib-2.0.0.2, but its *library* requires the disabled package: nvim-hs
         - nvim-hs-ghcid < 0 # tried nvim-hs-ghcid-2.0.1.0, but its *library* requires the disabled package: nvim-hs
-        - nvvm < 0 # tried nvvm-0.10.0.1, but its *library* requires the disabled package: cuda
         - ochintin-daicho < 0 # tried ochintin-daicho-0.3.4.2, but its *library* requires text >=1.2 && < 1.3 and the snapshot contains text-2.0.2
         - oeis < 0 # tried oeis-0.3.10, but its *library* requires HTTP >=4000.2 && < 4000.4 and the snapshot contains HTTP-4000.4.1
         - om-elm < 0 # tried om-elm-2.0.0.2, but its *library* requires Cabal >=3.2.1.0 && < 3.3 and the snapshot contains Cabal-3.10.1.0
@@ -8942,7 +8938,7 @@ expected-test-failures:
     - generics-eot # 0.4.0.1 ghc-9.6
     - LambdaHack # 0.11.0.0
     - pvar # 1.0.0.0 ghc-9.6
-    - tar-conduit # 0.3.2.1 https://github.com/snoyberg/tar-conduit/issues/33
+    - tar-conduit # https://github.com/snoyberg/tar-conduit/issues/33
     - hsexif # 0.6.1.10 Missing test file
 
     # Intermittent failures or unreliable. These tests may pass when
@@ -8975,9 +8971,9 @@ expected-test-failures:
     - network # Unfortunately network failures seem to happen haphazardly
     - nsis # Intermittent on non-Windows systems
     - tdigest # 0.3 https://github.com/phadej/tdigest/issues/46
-    - texmath # 0.12.8 https://github.com/jgm/texmath/issues/224
+    - texmath # https://github.com/jgm/texmath/issues/224
     - tree-diff # 0.3.0.1 https://github.com/haskellari/tree-diff/issues/79
-    - typst # 0.3.1.0 https://github.com/jgm/typst-hs/issues/11
+    - typst # https://github.com/jgm/typst-hs/issues/11
 
     # Requires running servers, accounts, or a specific environment.
     #
@@ -9134,7 +9130,7 @@ expected-test-failures:
     - hspec-junit-formatter # https://github.com/freckle/hspec-junit-formatter/issues/14
     - persistent # https://github.com/commercialhaskell/stackage/issues/6037
     - reanimate-svg # https://github.com/commercialhaskell/stackage/issues/5688
-    - wai-saml2 # 0.4 https://github.com/mbg/wai-saml2/issues/44
+    - wai-saml2 # https://github.com/mbg/wai-saml2/issues/44
 
     # Testcase failures, or other runtime failures.
     # These can be real testsuite bugs, or maybe limitations in test cases or the test setup.
