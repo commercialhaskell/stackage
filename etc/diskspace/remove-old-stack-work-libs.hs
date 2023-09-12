@@ -111,7 +111,7 @@ withOneDirectory_ act = do
     [l] -> withCurrentDirectory l act
     _ -> do
       cwd <- getCurrentDirectory
-      error $ "more than one directory found in " ++ cwd ++ ": " ++ unwords ls
+      error $ show (length ls) ++ "directories found in " ++ cwd ++ ": " ++ unwords ls
 
 withOneDirectory :: (FilePath -> IO a) -> IO a
 withOneDirectory act = do
@@ -120,4 +120,4 @@ withOneDirectory act = do
     [l] -> withCurrentDirectory l $ act l
     _ -> do
       cwd <- getCurrentDirectory
-      error $ "more than one directory found in " ++ cwd ++ ": " ++ unwords ls
+      error $ show (length ls) ++ "directories found in " ++ cwd ++ ": " ++ unwords ls
