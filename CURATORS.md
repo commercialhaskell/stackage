@@ -354,7 +354,7 @@ resolve any issues before the next curator shift the coming monday.
 
 * You can detect the problem by running `df`. If you see that `/` is out of space, we have a problem.
 * If you see that `/var/stackage/` is out of space, you can:
-  * run `./etc/diskspace/clean-old-stack-libs.hs [nightly|lts-XX]`
+  * run `./etc/diskspace/remove-old-stack-work-libs.hs [nightly|lts-XX]`
   * If that is insufficient then remove all the old builds under the previous ghc/Cabal version:
     * `rm -r /var/stackage/stackage/automated/work/[nightly|lts-XX]/unpack-dir/unpacked/*/.stack-work/dist/x86_64-linux/Cabal-X.Y.0.0/`
 
