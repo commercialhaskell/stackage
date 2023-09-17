@@ -69,8 +69,14 @@ chmod +x curator
 echo -n "curator version: "
 docker run --rm -v $(pwd)/curator:/exe $IMAGE /exe --version
 
-STACK_VERSION=2.11.1
-curl -L https://github.com/commercialhaskell/stack/releases/download/v${STACK_VERSION}/stack-${STACK_VERSION}-linux-x86_64-bin > stack
+if [ $SHORTNAME = "lts" ]
+then
+   STACK_VERSION=2.11.1
+   curl -L https://github.com/commercialhaskell/stack/releases/download/v${STACK_VERSION}/stack-${STACK_VERSION}-linux-x86_64-bin > stack
+else
+   STACK_VERSION=2.13.0.1
+   curl -L https://github.com/commercialhaskell/stack/releases/download/rc%2Fv${STACK_VERSION}/stack-${STACK_VERSION}-linux-x86_64-bin > stack
+fi
 chmod +x stack
 echo -n "stack version: "
 docker run --rm -v $(pwd)/stack:/exe $IMAGE /exe --version
