@@ -121,6 +121,7 @@ packages:
         - newtype
         - resolv
         - blaze-builder
+        - netrc
 
         # Some "grandfathered dependencies" I took over because I contributed to them at some time.
         # Feel free to snatch them from me!
@@ -352,10 +353,10 @@ packages:
     "Scott N. Walck <walck@lvc.edu> @walck":
         - cyclotomic
         - learn-physics
-
-        # @ghorn
-        - not-gloss
-        - spatial-math
+        - SpatialMath
+        - Vis
+        - LPFP
+        - LPFP-core
 
     "Phil de Joux <phil.dejoux@blockscope.com> @philderbeast":
         - siggy-chardust
@@ -568,6 +569,7 @@ packages:
         - explicit-exception
         - fixed-length
         - fftw-ffi
+        - ghostscript-parallel
         - gnuplot
         - group-by-date
         - guarded-allocation
@@ -588,6 +590,7 @@ packages:
         - non-negative
         - numeric-prelude
         - numeric-quest
+        - ods2csv
         - pathtype
         - pooled-io
         - probability
@@ -1326,8 +1329,8 @@ packages:
         - liquid-fixpoint
 
     "Daniel Casanueva <daniel.casanueva@proton.me> @Daniel-Diaz":
-        - bimap-server
         - binary-list
+        - bounded-qsem
         - byteset
         - Clipboard
         - gmail-simple
@@ -1837,6 +1840,7 @@ packages:
         - http-query
         - hwk
         - koji
+        - koji-tool
         - pagure
         - pagure-cli
         - pdc
@@ -4510,7 +4514,6 @@ packages:
     "Domen Kozar <domen@enlambda.com> @domenkozar":
         - elm2nix < 0 # 0.3.0 compile fail
         - mixpanel-client < 0 # 0.3.0 aeson 2, https://github.com/commercialhaskell/stackage/issues/6443
-        - netrc
         - pretty-sop
         - servant-auth
         - servant-auth-server
@@ -4898,6 +4901,7 @@ packages:
 
     "8c6794b6 <8c6794b6@gmail.com> @8c6794b6":
         - hpc-codecov
+        - miniterion
 
     "Hiromi Ishii <konn.jinro@gmail.com> @konn":
         - equational-reasoning
@@ -5240,6 +5244,7 @@ packages:
         - toml-parser
 
     "Andreas Ländle @alaendle":
+        - co-log
         - co-log-core
         - co-log-polysemy
 
@@ -8277,6 +8282,13 @@ packages:
         # https://github.com/commercialhaskell/stackage/issues/7106
         - tls < 1.9
 
+        # https://github.com/commercialhaskell/stackage/issues/7111
+        - tasty < 1.5
+        - tasty-quickcheck < 0.10.3
+
+        # https://github.com/commercialhaskell/stackage/issues/7124
+        - mpi-hs < 0.7.3
+
     # end of Stackage upper bounds
 # end of packages
 
@@ -8970,6 +8982,7 @@ expected-test-failures:
     - distributed-process
     - distributed-process-execution # https://github.com/haskell-distributed/distributed-process-execution/issues/2
     - distributed-process-task
+    - dl-fedora # status 404 on http download
     - fft # test-fft:  exited with: ExitFailure (-11)
     - foldl-statistics # https://github.com/data61/foldl-statistics/issues/2
     - friday # https://github.com/RaphaelJ/friday/issues/37
@@ -9018,7 +9031,6 @@ expected-test-failures:
     - dbcleaner # Requires running PostgreSQL server
     - dbmigrations # PostgreSQL
     - dbus # #6373/closed
-    - dl-fedora # status 404 on http download
     - dns # https://github.com/commercialhaskell/stackage/issues/6374
     - drifter-postgresql # PostgreSQL
     - egison # executable not found https://github.com/egison/egison/issues/250
@@ -9160,6 +9172,7 @@ expected-test-failures:
     - character-cases # 0.1.0.6 https://github.com/aiya000/hs-character-cases/issues/3
     - codec-beam # 0.2.0 posix_spawnp: does not exist
     - colonnade # 1.2.0.2 https://github.com/andrewthad/colonnade/issues/31
+    - context-wai-middleware # 0.2.0.1 https://github.com/jship/context/issues/3
     - control-dsl # 0.2.1.3
     - crypt-sha512 # 0 Use -p '/crypt.$6$rounds=10$roundstoolow/' to rerun this test only.
     - curl-runnings # 0.17.0
@@ -9169,6 +9182,7 @@ expected-test-failures:
     - fixed-vector-hetero # 0.6.1.1
     - generic-optics # 2.2.1.0 optimization output https://github.com/kcsongor/generic-lens/issues/133
     - github-types # https://github.com/commercialhaskell/stackage/issues/6549
+    - hakyll # https://github.com/commercialhaskell/stackage/issues/7110
     - haskoin-node # https://github.com/commercialhaskell/stackage/issues/6769
     - heist # https://github.com/commercialhaskell/stackage/issues/6765
     - hgeometry-combinatorial # 0.14
