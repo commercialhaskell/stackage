@@ -20,6 +20,8 @@ To add your package you can edit [`build-constraints.yaml`](https://github.com/f
         - package2
         - package3
 
+(If you are adding yourself for the first time, you can yourself anywhere under the `packages:` section, it does not have to be at the end: this actually helps to avoid merge conflicts between new contributions.)
+
 Any dependencies of your packages that are not already part of
 stackage also need to be added explicitly (When this happens you will
 see `not present` errors in the CI log). As mentioned above: If you
