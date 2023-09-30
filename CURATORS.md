@@ -476,7 +476,7 @@ We can periodically remove all packages under the bounds sections and then re-ru
 ./check 2>&1 >/dev/null | ./commenter add
 ```
 
-Repeat the second command until no updates are made to build-constraints.yaml.
+Repeat the second command until no updates are made to build-constraints.yaml (or use `commenter add-loop` instead).
 
 #### Checking for new releases
 
