@@ -8964,6 +8964,52 @@ skipped-tests:
 # PR to re-enable them.
 expected-test-failures:
 
+    # Compilation failures
+    - Spock # 0.14.0.0
+    - blake2 # 0.3.0
+    - blas-hs # 0.1.1.0
+    - butter # 0.1.0.6
+    - cabal-file-th # 0.2.7
+    - cacophony # 0.10.1 https://github.com/centromere/cacophony/issues/15
+    - conduit-aeson # https://github.com/commercialhaskell/stackage/issues/6469
+    - conduit-connection # 0.1.0.5
+    - cryptohash # 0.11.9 Stack builds test and benchmarks in one pass so benchmark could prevent tests from getting built
+    - crypton-x509 # 1.7.6 https://github.com/kazu-yamamoto/crypton-certificate/issues/1
+    - deriveJsonNoPrefix # 0.1.0.1 compile fail against aeson 2
+    - do-notation # 0.1.0.2
+    - flay # 0.4
+    - generic-lens # https://github.com/commercialhaskell/stackage/issues/6377
+    - geojson # 4.1.0
+    - ghc-prof # Regression tests: /usr/bin/ld.gold: error: cannot find -lHStemporary-1.3-51ST9z47bmaL2YkhqqBGqn_p ...
+    - heap # 1.0.4 https://github.com/pruvisto/heap/issues/11
+    - hourglass # 0.2.12
+    - htoml-megaparsec # 2.1.0.4 https://github.com/commercialhaskell/stackage/pull/6533
+    - hweblib # 0.6.3 https://github.com/aycanirican/hweblib/issues/3
+    - inline-r # 1.0.1 https://github.com/tweag/HaskellR/issues/371
+    - leveldb-haskell
+    - lifted-base # 0.2.3.12 compile fail
+    - mergeful-persistent # https://github.com/commercialhaskell/stackage/issues/6565
+    - mergeless-persistent # https://github.com/commercialhaskell/stackage/issues/6566
+    - mfsolve # https://github.com/commercialhaskell/stackage/issues/6379
+    - multiarg # 0.30.0.10
+    - parameterized # 0.5.0.0 https://github.com/commercialhaskell/stackage/issues/5746
+    - persistent-qq # 2.12.0.5 https://github.com/yesodweb/persistent/issues/1506
+    - protobuf # 0.2.1.4
+    - record-wrangler # 0.1.1.0
+    - secp256k1-haskell # #5948/closed
+    - servant-static-th # 1.0.0.0 Tasty issue: https://github.com/commercialhaskell/stackage/issues/6090
+    - snappy # Could not find module ‘Functions’
+    - store # 0.7.16
+    - thread-supervisor # 0.2.0.0
+    - twitter-types # 0.11.0 compile fail against aeson 2
+    - type-of-html-static # 0.1.0.2 https://github.com/commercialhaskell/stackage/issues/5728
+    - ua-parser # 0.7.7.0 compile fail against aeson 2
+    - ua-parser # 0.7.7.0 https://github.com/commercialhaskell/stackage/issues/6440
+    - vformat # 0.14.1.0
+    - vivid-supercollider # 0.4.1.2 https://github.com/commercialhaskell/stackage/issues/4250
+    - xml-html-qq # 0.1.0.1
+    - xmlgen # 0.6.2.2 https://github.com/skogsbaer/xmlgen/issues/6
+
     # Consistent test failures
     - Allure # 0.11.0.0
     - ap-normalize # 0.1.0.1 ghc-9.6
@@ -9265,52 +9311,6 @@ expected-test-failures:
     # Assertion failures due to module name ambiguity.
     # These _should_ be fixed by using the `hide` section of this file
     - reanimate # https://github.com/commercialhaskell/stackage/issues/5626
-
-    # Compilation failures
-    - Spock # 0.14.0.0
-    - blake2 # 0.3.0
-    - blas-hs # 0.1.1.0
-    - butter # 0.1.0.6
-    - cabal-file-th # 0.2.7
-    - cacophony # 0.10.1 https://github.com/centromere/cacophony/issues/15
-    - conduit-aeson # https://github.com/commercialhaskell/stackage/issues/6469
-    - conduit-connection # 0.1.0.5
-    - cryptohash # 0.11.9 Stack builds test and benchmarks in one pass so benchmark could prevent tests from getting built
-    - crypton-x509 # 1.7.6 https://github.com/kazu-yamamoto/crypton-certificate/issues/1
-    - deriveJsonNoPrefix # 0.1.0.1 compile fail against aeson 2
-    - do-notation # 0.1.0.2
-    - flay # 0.4
-    - generic-lens # https://github.com/commercialhaskell/stackage/issues/6377
-    - geojson # 4.1.0
-    - ghc-prof # Regression tests: /usr/bin/ld.gold: error: cannot find -lHStemporary-1.3-51ST9z47bmaL2YkhqqBGqn_p ...
-    - heap # 1.0.4 https://github.com/pruvisto/heap/issues/11
-    - hourglass # 0.2.12
-    - htoml-megaparsec # 2.1.0.4 https://github.com/commercialhaskell/stackage/pull/6533
-    - hweblib # 0.6.3 https://github.com/aycanirican/hweblib/issues/3
-    - inline-r # 1.0.1 https://github.com/tweag/HaskellR/issues/371
-    - leveldb-haskell
-    - lifted-base # 0.2.3.12 compile fail
-    - mergeful-persistent # https://github.com/commercialhaskell/stackage/issues/6565
-    - mergeless-persistent # https://github.com/commercialhaskell/stackage/issues/6566
-    - mfsolve # https://github.com/commercialhaskell/stackage/issues/6379
-    - multiarg # 0.30.0.10
-    - parameterized # 0.5.0.0 https://github.com/commercialhaskell/stackage/issues/5746
-    - persistent-qq # 2.12.0.5 https://github.com/yesodweb/persistent/issues/1506
-    - protobuf # 0.2.1.4
-    - record-wrangler # 0.1.1.0
-    - secp256k1-haskell # #5948/closed
-    - servant-static-th # 1.0.0.0 Tasty issue: https://github.com/commercialhaskell/stackage/issues/6090
-    - snappy # Could not find module ‘Functions’
-    - store # 0.7.16
-    - thread-supervisor # 0.2.0.0
-    - twitter-types # 0.11.0 compile fail against aeson 2
-    - type-of-html-static # 0.1.0.2 https://github.com/commercialhaskell/stackage/issues/5728
-    - ua-parser # 0.7.7.0 compile fail against aeson 2
-    - ua-parser # 0.7.7.0 https://github.com/commercialhaskell/stackage/issues/6440
-    - vformat # 0.14.1.0
-    - vivid-supercollider # 0.4.1.2 https://github.com/commercialhaskell/stackage/issues/4250
-    - xml-html-qq # 0.1.0.1
-    - xmlgen # 0.6.2.2 https://github.com/skogsbaer/xmlgen/issues/6
 
     # Recursive deps https://github.com/fpco/stackage/issues/1818
     - options
