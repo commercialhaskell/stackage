@@ -3820,7 +3820,7 @@ packages:
 
     "Jonathan Fischoff <jonathangfischoff@gmail.com> @jfischoff":
         - clock-extras
-        - postgres-options < 0 # 0.2.0.0 compile fail https://github.com/jfischoff/postgres-options/issues/6
+        - postgres-options
         - tmp-postgres
         - pg-transact
         - port-utils
@@ -4299,7 +4299,7 @@ packages:
 
     "Tom Sydney Kerckhove <syd.kerckhove@gmail.com> @NorfairKing":
         - appendful
-        - appendful-persistent < 0
+        - appendful-persistent
         - autodocodec
         - autodocodec-openapi3
         - autodocodec-schema
@@ -4308,6 +4308,7 @@ packages:
         - cursor-brick
         - cursor-fuzzy-time
         - cursor-gen
+        - fast-myers-diff
         - fuzzy-time
         - genvalidity
         - genvalidity-aeson
@@ -4316,7 +4317,7 @@ packages:
         - genvalidity-case-insensitive
         - genvalidity-containers
         - genvalidity-criterion
-        - genvalidity-hspec < 0 # 1.0.0.2 compile fail https://github.com/NorfairKing/validity/issues/114
+        - genvalidity-hspec
         - genvalidity-hspec-aeson
         - genvalidity-hspec-binary
         - genvalidity-hspec-cereal
@@ -4325,6 +4326,7 @@ packages:
         - genvalidity-hspec-persistent
         - genvalidity-mergeful
         - genvalidity-mergeless
+        - genvalidity-network-uri
         - genvalidity-path
         - genvalidity-persistent
         - genvalidity-property
@@ -4341,23 +4343,23 @@ packages:
         - genvalidity-uuid
         - genvalidity-vector
         - mergeful
-        - mergeful-persistent < 0 # 0.1.0.0 compile fail https://github.com/NorfairKing/mergeful/issues/4
+        - mergeful-persistent
         - mergeless
-        - mergeless-persistent < 0 # 0.1.0.0 compile fail https://github.com/NorfairKing/mergeless/issues/3
+        - mergeless-persistent
         - pretty-relative-time
         - safe-coloured-text
         - safe-coloured-text-gen
         - safe-coloured-text-layout
         - safe-coloured-text-layout-gen
         - safe-coloured-text-terminfo
-        - sydtest < 0 # 0.15.1.0 https://github.com/NorfairKing/sydtest/issues/71
+        - sydtest
         - sydtest-aeson
         - sydtest-amqp
         - sydtest-autodocodec
         - sydtest-discover
         - sydtest-hedgehog
         - sydtest-hedis
-        - sydtest-hspec < 0 # 0.4.0.0 compile fail https://github.com/commercialhaskell/stackage/issues/6772
+        - sydtest-hspec
         - sydtest-mongo
         - sydtest-persistent
         - sydtest-persistent-postgresql
@@ -4377,6 +4379,7 @@ packages:
         - validity-bytestring
         - validity-case-insensitive
         - validity-containers
+        - validity-network-uri
         - validity-path
         - validity-persistent
         - validity-primitive
@@ -6590,17 +6593,6 @@ packages:
         - generic-xmlpickler < 0 # tried generic-xmlpickler-0.1.0.6, but its *library* requires base >=4.5 && < 4.14 and the snapshot contains base-4.18.1.0
         - generic-xmlpickler < 0 # tried generic-xmlpickler-0.1.0.6, but its *library* requires generic-deriving >=1.6 && < 1.14 and the snapshot contains generic-deriving-1.14.5
         - geniplate-mirror < 0 # tried geniplate-mirror-0.7.9, but its *library* requires template-haskell < 2.20 and the snapshot contains template-haskell-2.20.0.0
-        - genvalidity-hspec-aeson < 0 # tried genvalidity-hspec-aeson-1.0.0.0, but its *library* requires the disabled package: genvalidity-hspec
-        - genvalidity-hspec-binary < 0 # tried genvalidity-hspec-binary-1.0.0.0, but its *library* requires the disabled package: genvalidity-hspec
-        - genvalidity-hspec-cereal < 0 # tried genvalidity-hspec-cereal-1.0.0.0, but its *library* requires the disabled package: genvalidity-hspec
-        - genvalidity-hspec-hashable < 0 # tried genvalidity-hspec-hashable-1.0.0.0, but its *library* requires the disabled package: genvalidity-hspec
-        - genvalidity-hspec-optics < 0 # tried genvalidity-hspec-optics-1.0.0.0, but its *library* requires the disabled package: genvalidity-hspec
-        - genvalidity-hspec-persistent < 0 # tried genvalidity-hspec-persistent-1.0.0.0, but its *library* requires the disabled package: genvalidity-hspec
-        - genvalidity-sydtest < 0 # tried genvalidity-sydtest-1.0.0.0, but its *library* requires the disabled package: sydtest
-        - genvalidity-sydtest-aeson < 0 # tried genvalidity-sydtest-aeson-1.0.0.0, but its *library* requires the disabled package: sydtest
-        - genvalidity-sydtest-hashable < 0 # tried genvalidity-sydtest-hashable-1.0.0.0, but its *library* requires the disabled package: sydtest
-        - genvalidity-sydtest-lens < 0 # tried genvalidity-sydtest-lens-1.0.0.0, but its *library* requires the disabled package: sydtest
-        - genvalidity-sydtest-persistent < 0 # tried genvalidity-sydtest-persistent-1.0.0.0, but its *library* requires the disabled package: sydtest
         - ghc-clippy-plugin < 0 # tried ghc-clippy-plugin-0.0.0.1, but its *library* requires dhall >=1.30.0 && < 1.34 and the snapshot contains dhall-1.42.0
         - ghc-clippy-plugin < 0 # tried ghc-clippy-plugin-0.0.0.1, but its *library* requires ghc >=8.8.2 && < 8.11 and the snapshot contains ghc-9.6.3
         - ghc-clippy-plugin < 0 # tried ghc-clippy-plugin-0.0.0.1, but its *library* requires text >=1.2.3.2 && < 1.3 and the snapshot contains text-2.0.2
@@ -7872,24 +7864,7 @@ packages:
         - swagger-petstore < 0 # tried swagger-petstore-0.0.2.0, but its *library* requires vector >=0.10.9 && < 0.13 and the snapshot contains vector-0.13.0.0
         - sweet-egison < 0 # tried sweet-egison-0.1.1.3, but its *library* requires logict ^>=0.7.0 and the snapshot contains logict-0.8.1.0
         - syb-with-class < 0 # tried syb-with-class-0.6.1.14, but its *library* requires template-haskell >=2.4 && < 2.19 and the snapshot contains template-haskell-2.20.0.0
-        - sydtest-aeson < 0 # tried sydtest-aeson-0.1.0.0, but its *library* requires the disabled package: sydtest
-        - sydtest-amqp < 0 # tried sydtest-amqp-0.1.0.0, but its *library* requires the disabled package: sydtest
-        - sydtest-autodocodec < 0 # tried sydtest-autodocodec-0.0.0.0, but its *library* requires the disabled package: sydtest
-        - sydtest-hedgehog < 0 # tried sydtest-hedgehog-0.4.0.0, but its *library* requires the disabled package: sydtest
-        - sydtest-hedis < 0 # tried sydtest-hedis-0.0.0.0, but its *library* requires the disabled package: sydtest
-        - sydtest-mongo < 0 # tried sydtest-mongo-0.0.0.0, but its *library* requires the disabled package: sydtest
-        - sydtest-persistent < 0 # tried sydtest-persistent-0.0.0.1, but its *library* requires the disabled package: sydtest
-        - sydtest-persistent-postgresql < 0 # tried sydtest-persistent-postgresql-0.2.0.2, but its *library* requires the disabled package: sydtest
-        - sydtest-persistent-sqlite < 0 # tried sydtest-persistent-sqlite-0.2.0.2, but its *library* requires the disabled package: sydtest
-        - sydtest-process < 0 # tried sydtest-process-0.0.0.0, but its *library* requires the disabled package: sydtest
-        - sydtest-rabbitmq < 0 # tried sydtest-rabbitmq-0.1.0.0, but its *library* requires the disabled package: sydtest
-        - sydtest-servant < 0 # tried sydtest-servant-0.2.0.2, but its *library* requires the disabled package: sydtest
-        - sydtest-typed-process < 0 # tried sydtest-typed-process-0.0.0.0, but its *library* requires the disabled package: sydtest
-        - sydtest-wai < 0 # tried sydtest-wai-0.2.0.0, but its *library* requires the disabled package: sydtest
-        - sydtest-webdriver < 0 # tried sydtest-webdriver-0.0.0.1, but its *library* requires the disabled package: sydtest
-        - sydtest-webdriver-screenshot < 0 # tried sydtest-webdriver-screenshot-0.0.0.1, but its *library* requires the disabled package: sydtest
-        - sydtest-webdriver-yesod < 0 # tried sydtest-webdriver-yesod-0.0.0.1, but its *library* requires the disabled package: sydtest
-        - sydtest-yesod < 0 # tried sydtest-yesod-0.3.0.1, but its *library* requires the disabled package: sydtest
+
         - taffybar < 0 # tried taffybar-4.0.1, but its *library* requires the disabled package: ConfigFile
         - taffybar < 0 # tried taffybar-4.0.1, but its *library* requires the disabled package: gi-cairo-connector
         - tasty-stats < 0 # tried tasty-stats-0.2.0.4, but its *library* requires containers >=0.4 && < 0.6 and the snapshot contains containers-0.6.7
@@ -7915,7 +7890,6 @@ packages:
         - thumbnail-plus < 0 # tried thumbnail-plus-1.0.5, but its *library* requires either < 5 and the snapshot contains either-5.0.2
         - thyme < 0 # tried thyme-0.4, but its *library* requires template-haskell >=2.7 && < 2.20 and the snapshot contains template-haskell-2.20.0.0
         - tls-debug < 0 # tried tls-debug-0.4.8, but its *executable* requires tls >=1.3 && < 1.6 and the snapshot contains tls-1.8.0
-        - tmp-postgres < 0 # tried tmp-postgres-1.34.1.0, but its *library* requires the disabled package: postgres-options
         - tonalude < 0 # tried tonalude-0.2.0.0, but its *library* requires base >=4.14 && < 4.18 and the snapshot contains base-4.18.1.0
         - tonaparser < 0 # tried tonaparser-0.2.0.0, but its *library* requires base >=4.14 && < 4.18 and the snapshot contains base-4.18.1.0
         - tonatona < 0 # tried tonatona-0.2.0.0, but its *library* requires base >=4.14 && < 4.18 and the snapshot contains base-4.18.1.0
@@ -8538,7 +8512,6 @@ skipped-tests:
     - crc32c # tried crc32c-0.1.0, but its *test-suite* requires bytestring >=0.10.8.2 && < 0.11 and the snapshot contains bytestring-0.11.5.2
     - csg # tried csg-0.1.0.6, but its *test-suite* requires doctest < 0.17 and the snapshot contains doctest-0.21.1
     - csg # tried csg-0.1.0.6, but its *test-suite* requires tasty < 1.3 and the snapshot contains tasty-1.4.3
-    - cursor-gen # tried cursor-gen-0.4.0.0, but its *test-suite* requires the disabled package: genvalidity-hspec
     - darcs # tried darcs-2.16.5, but its *test-suite* requires leancheck >=0.9 && < 0.10 and the snapshot contains leancheck-1.0.0
     - dhall-lsp-server # tried dhall-lsp-server-1.1.3, but its *test-suite* requires hspec >=2.7 && < 2.11 and the snapshot contains hspec-2.11.5
     - dhall-lsp-server # tried dhall-lsp-server-1.1.3, but its *test-suite* requires lsp-test >=0.13.0.0 && < 0.15 and the snapshot contains lsp-test-0.16.0.0
@@ -8566,7 +8539,6 @@ skipped-tests:
     - filtrable # tried filtrable-0.1.6.0, but its *test-suite* requires tasty >=1.3.1 && < 1.4 and the snapshot contains tasty-1.4.3
     - fixed-vector-hetero # tried fixed-vector-hetero-0.6.1.1, but its *test-suite* requires doctest >=0.15 && < 0.20 and the snapshot contains doctest-0.21.1
     - focuslist # tried focuslist-0.1.1.0, but its *test-suite* requires genvalidity < 1.0.0.0 and the snapshot contains genvalidity-1.1.0.0
-    - focuslist # tried focuslist-0.1.1.0, but its *test-suite* requires the disabled package: genvalidity-hspec
     - focuslist # tried focuslist-0.1.1.0, but its *test-suite* requires validity < 0.12.0.0 and the snapshot contains validity-0.12.0.1
     - ftp-client # tried ftp-client-0.5.1.4, but its *test-suite* requires tasty >=1.2.3 && < 1.3 and the snapshot contains tasty-1.4.3
     - ftp-client # tried ftp-client-0.5.1.4, but its *test-suite* requires tasty-hspec >=1.1.5.1 && < 1.2 and the snapshot contains tasty-hspec-1.2.0.4
@@ -8579,22 +8551,6 @@ skipped-tests:
     - galois-field # tried galois-field-1.0.2, but its *test-suite* requires semirings >=0.5 && < 0.6 and the snapshot contains semirings-0.6
     - galois-field # tried galois-field-1.0.2, but its *test-suite* requires tasty >=1.2 && < 1.3 and the snapshot contains tasty-1.4.3
     - generic-xmlpickler # tried generic-xmlpickler-0.1.0.6, but its *test-suite* requires tasty >=0.10 && < 1.3 and the snapshot contains tasty-1.4.3
-    - genvalidity-aeson # tried genvalidity-aeson-1.0.0.1, but its *test-suite* requires the disabled package: genvalidity-hspec
-    - genvalidity-appendful # tried genvalidity-appendful-0.1.0.0, but its *test-suite* requires the disabled package: sydtest
-    - genvalidity-bytestring # tried genvalidity-bytestring-1.0.0.1, but its *test-suite* requires the disabled package: genvalidity-hspec
-    - genvalidity-case-insensitive # tried genvalidity-case-insensitive-0.0.0.1, but its *test-suite* requires the disabled package: genvalidity-hspec
-    - genvalidity-containers # tried genvalidity-containers-1.0.0.1, but its *test-suite* requires the disabled package: genvalidity-hspec
-    - genvalidity-mergeful # tried genvalidity-mergeful-0.3.0.0, but its *test-suite* requires the disabled package: genvalidity-hspec
-    - genvalidity-mergeless # tried genvalidity-mergeless-0.3.0.0, but its *test-suite* requires the disabled package: genvalidity-hspec
-    - genvalidity-path # tried genvalidity-path-1.0.0.1, but its *test-suite* requires the disabled package: genvalidity-hspec
-    - genvalidity-persistent # tried genvalidity-persistent-1.0.0.1, but its *test-suite* requires the disabled package: genvalidity-hspec
-    - genvalidity-scientific # tried genvalidity-scientific-1.0.0.0, but its *test-suite* requires the disabled package: genvalidity-hspec
-    - genvalidity-text # tried genvalidity-text-1.0.0.1, but its *test-suite* requires the disabled package: genvalidity-hspec
-    - genvalidity-time # tried genvalidity-time-1.0.0.1, but its *test-suite* requires the disabled package: genvalidity-hspec
-    - genvalidity-typed-uuid # tried genvalidity-typed-uuid-0.1.0.1, but its *test-suite* requires the disabled package: genvalidity-hspec
-    - genvalidity-unordered-containers # tried genvalidity-unordered-containers-1.0.0.0, but its *test-suite* requires the disabled package: genvalidity-hspec
-    - genvalidity-uuid # tried genvalidity-uuid-1.0.0.1, but its *test-suite* requires the disabled package: genvalidity-hspec
-    - genvalidity-vector # tried genvalidity-vector-1.0.0.0, but its *test-suite* requires the disabled package: genvalidity-hspec
     - geojson # tried geojson-4.1.1, but its *test-suite* requires hspec >=2.5 && < 2.10 and the snapshot contains hspec-2.11.5
     - haddock-library # tried haddock-library-1.11.0, but its *test-suite* requires hspec >=2.4.4 && < 2.11 and the snapshot contains hspec-2.11.5
     - haddock-library # tried haddock-library-1.11.0, but its *test-suite* requires hspec-discover >=2.4.4 && < 2.10 and the snapshot contains hspec-discover-2.11.5
@@ -8696,7 +8652,6 @@ skipped-tests:
     - makefile # tried makefile-1.1.0.0, but its *test-suite* requires tasty ==0.11.* and the snapshot contains tasty-1.4.3
     - makefile # tried makefile-1.1.0.0, but its *test-suite* requires tasty-hunit ==0.9.* and the snapshot contains tasty-hunit-0.10.1
     - makefile # tried makefile-1.1.0.0, but its *test-suite* requires tasty-quickcheck ==0.8.* and the snapshot contains tasty-quickcheck-0.10.2
-    - massiv-test # tried massiv-test-1.0.0.0, but its *test-suite* requires the disabled package: genvalidity-hspec
     - medea # tried medea-1.2.0, but its *test-suite* requires hspec >=2.7.1 && < 2.9.0 and the snapshot contains hspec-2.11.5
     - medea # tried medea-1.2.0, but its *test-suite* requires hspec-core >=2.7.1 && < 2.9.0 and the snapshot contains hspec-core-2.11.5
     - menshen # tried menshen-0.0.3, but its *test-suite* requires QuickCheck < 2.14 and the snapshot contains QuickCheck-2.14.3
@@ -8715,15 +8670,12 @@ skipped-tests:
     - oset # tried oset-0.4.0.1, but its *test-suite* requires hspec >=2.2 && < 2.8 and the snapshot contains hspec-2.11.5
     - oset # tried oset-0.4.0.1, but its *test-suite* requires hspec-discover >=2.2 && < 2.8 and the snapshot contains hspec-discover-2.11.5
     - partial-semigroup # tried partial-semigroup-0.6.0.2, but its *test-suite* requires hedgehog ^>=1.1.2 || ^>=1.2 and the snapshot contains hedgehog-1.4
-    - path # tried path-0.9.2, but its *test-suite* requires the disabled package: genvalidity-hspec
     - peregrin # tried peregrin-0.4.2, but its *test-suite* requires transformers >=0.5.2 && < 0.6 and the snapshot contains transformers-0.6.1.0
     - pg-transact # tried pg-transact-0.3.2.0, but its *test-suite* requires the disabled package: tmp-postgres
     - pipes-category # tried pipes-category-0.3.0.0, but its *test-suite* requires transformers >=0.4 && < 0.6 and the snapshot contains transformers-0.6.1.0
     - pipes-extras # tried pipes-extras-1.0.15, but its *test-suite* requires transformers >=0.2.0.0 && < 0.6 and the snapshot contains transformers-0.6.1.0
     - pipes-fluid # tried pipes-fluid-0.6.0.1, but its *test-suite* requires the disabled package: pipes-misc
-    - postgresql-libpq-notify # tried postgresql-libpq-notify-0.2.0.0, but its *test-suite* requires the disabled package: postgres-options
     - postgrest # tried postgrest-9.0.1, but its *test-suite* requires hspec >=2.3 && < 2.9 and the snapshot contains hspec-2.11.5
-    - pretty-relative-time # tried pretty-relative-time-0.3.0.0, but its *test-suite* requires the disabled package: genvalidity-hspec
     - prettyprinter # tried prettyprinter-1.7.1, but its *test-suite* requires the disabled package: pgp-wordlist
     - printcess # tried printcess-0.1.0.3, but its *test-suite* requires HUnit >=1.3 && < 1.6 and the snapshot contains HUnit-1.6.2.0
     - printcess # tried printcess-0.1.0.3, but its *test-suite* requires QuickCheck >=2.8 && < 2.10 and the snapshot contains QuickCheck-2.14.3
@@ -8744,14 +8696,10 @@ skipped-tests:
     - relude # tried relude-1.2.0.0, but its *test-suite* requires hedgehog >=1.0 && < 1.4 and the snapshot contains hedgehog-1.4
     - req-url-extra # tried req-url-extra-0.1.1.0, but its *test-suite* requires hspec >=2.2 && < 2.8 and the snapshot contains hspec-2.11.5
     - roc-id # tried roc-id-0.2.0.0, but its *test-suite* requires hspec >=2.5.5 && < 2.11 and the snapshot contains hspec-2.11.5
-    - safe-coloured-text-gen # tried safe-coloured-text-gen-0.0.0.1, but its *test-suite* requires the disabled package: sydtest
-    - safe-coloured-text-layout # tried safe-coloured-text-layout-0.0.0.0, but its *test-suite* requires the disabled package: sydtest
-    - safe-coloured-text-layout-gen # tried safe-coloured-text-layout-gen-0.0.0.0, but its *test-suite* requires the disabled package: sydtest
     - salak-toml # tried salak-toml-0.3.5.3, but its *test-suite* requires QuickCheck < 2.14 and the snapshot contains QuickCheck-2.14.3
     - scale # tried scale-1.0.0.0, but its *test-suite* requires hspec >=2.4.4 && < 2.8 and the snapshot contains hspec-2.11.5
     - scale # tried scale-1.0.0.0, but its *test-suite* requires hspec-discover >=2.4.4 && < 2.8 and the snapshot contains hspec-discover-2.11.5
     - scalendar # tried scalendar-1.2.0, but its *test-suite* requires the disabled package: SCalendar
-    - scheduler # tried scheduler-2.0.0.1, but its *test-suite* requires the disabled package: genvalidity-hspec
     - schematic # tried schematic-0.5.1.0, but its *test-suite* requires base >=4.11 && < 4.13 and the snapshot contains base-4.18.1.0
     - serialise # tried serialise-0.2.6.0, but its *test-suite* requires base >=4.11 && < 4.18 and the snapshot contains base-4.18.1.0
     - servant-cassava # tried servant-cassava-0.10.2, but its *test-suite* requires servant-server >=0.4.4.5 && < 0.20 and the snapshot contains servant-server-0.20
@@ -8811,7 +8759,6 @@ skipped-tests:
     - tasty-discover # tried tasty-discover-5.0.0, but its *test-suite* requires hspec >=2.7 && < 2.11 and the snapshot contains hspec-2.11.5
     - tasty-discover # tried tasty-discover-5.0.0, but its *test-suite* requires hspec-core >=2.7.10 && < 2.11 and the snapshot contains hspec-core-2.11.5
     - temporary-resourcet # tried temporary-resourcet-0.1.0.1, but its *test-suite* requires tasty >=1.0 && < 1.2 and the snapshot contains tasty-1.4.3
-    - termonad # tried termonad-4.5.0.0, but its *test-suite* requires the disabled package: genvalidity-hspec
     - test-framework # tried test-framework-0.8.2.0, but its *test-suite* requires the disabled package: libxml
     - type-errors-pretty # tried type-errors-pretty-0.0.1.2, but its *test-suite* requires doctest >=0.16 && < 0.19 and the snapshot contains doctest-0.21.1
     - ucam-webauth # tried ucam-webauth-0.1.0.0, but its *test-suite* requires QuickCheck >=2.11.3 && < 2.14 and the snapshot contains QuickCheck-2.14.3
@@ -8823,8 +8770,6 @@ skipped-tests:
     - uniprot-kb # tried uniprot-kb-0.1.2.0, but its *test-suite* requires QuickCheck >=2.9 && < 2.14 and the snapshot contains QuickCheck-2.14.3
     - uniprot-kb # tried uniprot-kb-0.1.2.0, but its *test-suite* requires hspec >=2.4.1 && < 2.8 and the snapshot contains hspec-2.11.5
     - utf8-light # tried utf8-light-0.4.4.0, but its *test-suite* requires hspec >=2.3 && < 2.11 and the snapshot contains hspec-2.11.5
-    - validity-case-insensitive # tried validity-case-insensitive-0.0.0.0, but its *test-suite* requires the disabled package: genvalidity-hspec
-    - validity-path # tried validity-path-0.4.0.1, but its *test-suite* requires the disabled package: genvalidity-hspec
     - wai-session-redis # tried wai-session-redis-0.1.0.5, but its *test-suite* requires hspec < 2.10 and the snapshot contains hspec-2.11.5
     - wakame # tried wakame-0.1.0.0, but its *test-suite* requires tasty-discover >=4.2 && < 5.0 and the snapshot contains tasty-discover-5.0.0
     - wakame # tried wakame-0.1.0.0, but its *test-suite* requires text >=1.2 && < 2.0 and the snapshot contains text-2.0.2
