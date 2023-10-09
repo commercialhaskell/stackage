@@ -4299,7 +4299,7 @@ packages:
 
     "Tom Sydney Kerckhove <syd.kerckhove@gmail.com> @NorfairKing":
         - appendful
-        - appendful-persistent
+        - appendful-persistent < 0 # compile failure https://github.com/commercialhaskell/stackage/issues/7139
         - autodocodec
         - autodocodec-openapi3
         - autodocodec-schema
@@ -4324,9 +4324,9 @@ packages:
         - genvalidity-hspec-hashable
         - genvalidity-hspec-optics
         - genvalidity-hspec-persistent
-        - genvalidity-mergeful
+        - genvalidity-mergeful < 0 # compile failure https://github.com/commercialhaskell/stackage/issues/7139
         - genvalidity-mergeless
-        - genvalidity-network-uri
+        - genvalidity-network-uri < 0 # via validity-network-uri https://github.com/commercialhaskell/stackage/issues/7139
         - genvalidity-path
         - genvalidity-persistent
         - genvalidity-property
@@ -4343,9 +4343,9 @@ packages:
         - genvalidity-uuid
         - genvalidity-vector
         - mergeful
-        - mergeful-persistent
+        - mergeful-persistent < 0 # via genvalidity-mergeful https://github.com/commercialhaskell/stackage/issues/7139
         - mergeless
-        - mergeless-persistent
+        - mergeless-persistent < 0 # compile failure https://github.com/commercialhaskell/stackage/issues/7139
         - pretty-relative-time
         - safe-coloured-text
         - safe-coloured-text-gen
@@ -4359,27 +4359,27 @@ packages:
         - sydtest-discover
         - sydtest-hedgehog
         - sydtest-hedis
-        - sydtest-hspec
+        - sydtest-hspec < 0 # compile failure https://github.com/commercialhaskell/stackage/issues/7139
         - sydtest-mongo
-        - sydtest-persistent
-        - sydtest-persistent-postgresql
-        - sydtest-persistent-sqlite
+        - sydtest-persistent < 0 # compile-failure https://github.com/commercialhaskell/stackage/issues/7139
+        - sydtest-persistent-postgresql < 0 # via tmp-postgres https://github.com/commercialhaskell/stackage/issues/7140
+        - sydtest-persistent-sqlite < 0 # via sydtest-persistent https://github.com/commercialhaskell/stackage/issues/7139
         - sydtest-process
         - sydtest-rabbitmq
-        - sydtest-servant
+        - sydtest-servant < 0 # via sydtest-wai https://github.com/commercialhaskell/stackage/pull/7137/files
         - sydtest-typed-process
-        - sydtest-wai
-        - sydtest-webdriver
-        - sydtest-webdriver-screenshot
-        - sydtest-webdriver-yesod
-        - sydtest-yesod
+        - sydtest-wai < 0 # compile failure https://github.com/commercialhaskell/stackage/pull/7137/files
+        - sydtest-webdriver < 0 # via sydtest-wai https://github.com/commercialhaskell/stackage/pull/7137/files
+        - sydtest-webdriver-screenshot < 0 # via sydtest-wai https://github.com/commercialhaskell/stackage/pull/7137/files
+        - sydtest-webdriver-yesod < 0 # via sydtest-wai https://github.com/commercialhaskell/stackage/pull/7137/files
+        - sydtest-yesod < 0 # via sydtest-wai https://github.com/commercialhaskell/stackage/pull/7137/files
         - typed-uuid
         - validity
         - validity-aeson
         - validity-bytestring
         - validity-case-insensitive
         - validity-containers
-        - validity-network-uri
+        - validity-network-uri < 0 # compile failure https://github.com/commercialhaskell/stackage/issues/7139
         - validity-path
         - validity-persistent
         - validity-primitive
@@ -8841,8 +8841,6 @@ expected-test-failures:
     - inline-r # 1.0.1 https://github.com/tweag/HaskellR/issues/371
     - leveldb-haskell
     - lifted-base # 0.2.3.12 compile fail
-    - mergeful-persistent # https://github.com/commercialhaskell/stackage/issues/6565
-    - mergeless-persistent # https://github.com/commercialhaskell/stackage/issues/6566
     - mfsolve # https://github.com/commercialhaskell/stackage/issues/6379
     - multiarg # 0.30.0.10
     - parameterized # 0.5.0.0 https://github.com/commercialhaskell/stackage/issues/5746
