@@ -281,7 +281,7 @@ You'll need to get your SSH public key added to the machine. ~/.ssh/config info:
 ```
 Host stackage-build
     User curators
-    Hostname build.stackage.org
+    Hostname stackage-builder.haskell.org
 ```
 
 ### Running the build script
