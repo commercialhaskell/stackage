@@ -571,7 +571,7 @@ gogol-core is disabled with 96 dependents
 1. Add public ssh key to `~/.ssh/authorized_keys` on build server
 2. Add to commercialhaskell/stackage project.
 
-## Dealing with a new GHC release
+## Dealing with a new GHC major release
 
 As mentioned in the [GHC upgrade note], the major impact of a new GHC release
 is on the packages that are causing upper bounds to be put in place. In order
