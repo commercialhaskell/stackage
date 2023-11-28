@@ -1,0 +1,26 @@
+name: image
+
+on:
+  push:
+    branches:
+      - nightly
+      - lts21
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Log into Github registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+
+      - name: Build image
+        run: |
+          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/build:${GITHUB_REF#refs/heads/}
+          #IMAGE_ID=${{ github.repository }}:${GITHUB_REF#refs/heads/}
+          docker build . -f Dockerfile --tag $IMAGE_ID
+          docker push $IMAGE_ID
+          echo Pushed new build image $IMAGE_ID

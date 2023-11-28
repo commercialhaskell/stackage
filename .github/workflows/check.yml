@@ -1,0 +1,24 @@
+name: check
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    name: Stackage check
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.stack
+            ~/.stackage/curator/cache
+          key: ${{ runner.os }}-stackage-nightly-${{ hashFiles('**/build-constraints.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-
+      - run: etc/check.sh

@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+# Script to verify a package to build successfully
+# Provide package name by the first argument
+#
+# Example:
+#  ./verify-package mtl
+# or
+#  ./verify-package mtl-2.2.2
+# or
+#  ./verify-package mtl lts
+
+set -eu
+
+die() {
+    >&2 echo "$1"
+    exit 1
+}
+
+package="${1:-}"
+if [[ -z $package ]]; then
+    die "Package name is not given"
+fi
+
+resolver="${2:-nightly}"
+
+here="$(cd "$(dirname "$0")" > /dev/null; pwd)"
+dir="$(mktemp -d tmp.XXXX)"
+
+exit() {
+    cd "$here"
+    rm -rf "$dir"
+}
+trap exit EXIT
+
+# When updating these commands, make sure to update .github/PULL_REQUEST_TEMPLATE.md as well.
+cd "$dir"
+stack unpack "$package"
+cd "$(ls | head -n 1)"
+rm -f stack.yaml
+stack init --resolver $resolver --ignore-subdirs
+stack build --resolver $resolver --haddock --test --bench --no-run-benchmarks
+
+cat <<EOF
+
+
+ 🎉 It looks good!
+
+EOF
