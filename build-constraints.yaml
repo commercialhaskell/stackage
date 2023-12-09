@@ -1303,9 +1303,9 @@ packages:
         - lens-accelerate
         - mwc-random-accelerate
         - cuda
-        - cufft
-        - cublas
-        - cusparse
+        - cufft < 0 # 0.10.0.0 compile fail (#7198)
+        - cublas < 0 # 0.6.0.0 compile fail (#7198)
+        - cusparse < 0 # 0.3.0.0 compile fail (#7198)
         - cusolver
         - nvvm
         - wide-word # @erikd
@@ -6139,11 +6139,8 @@ packages:
         - accelerate-bignum < 0 # tried accelerate-bignum-0.3.0.0, but its *library* requires the disabled package: accelerate-llvm-native
         - accelerate-bignum < 0 # tried accelerate-bignum-0.3.0.0, but its *library* requires the disabled package: accelerate-llvm-ptx
         - accelerate-bignum < 0 # tried accelerate-bignum-0.3.0.0, but its *library* requires the disabled package: llvm-hs-pure
-        - accelerate-blas < 0 # tried accelerate-blas-0.3.0.0, but its *library* requires the disabled package: accelerate
-        - accelerate-blas < 0 # tried accelerate-blas-0.3.0.0, but its *library* requires the disabled package: accelerate-llvm
-        - accelerate-blas < 0 # tried accelerate-blas-0.3.0.0, but its *library* requires the disabled package: accelerate-llvm-native
-        - accelerate-blas < 0 # tried accelerate-blas-0.3.0.0, but its *library* requires the disabled package: accelerate-llvm-ptx
-        - accelerate-blas < 0 # tried accelerate-blas-0.3.0.0, but its *library* requires the disabled package: llvm-hs-pure
+        - accelerate-blas < 0 # tried accelerate-blas-0.3.0.0, but its *library* requires the disabled package: cublas
+        - accelerate-examples < 0 # tried accelerate-examples-1.3.0.0, but its *executable* requires the disabled package: accelerate-fft
         - accelerate-examples < 0 # tried accelerate-examples-1.3.0.0, but its *executable* requires the disabled package: lens-accelerate
         - accelerate-examples < 0 # tried accelerate-examples-1.3.0.0, but its *executable* requires the disabled package: linear-accelerate
         - accelerate-examples < 0 # tried accelerate-examples-1.3.0.0, but its *executable* requires the disabled package: repa
@@ -6151,11 +6148,7 @@ packages:
         - accelerate-examples < 0 # tried accelerate-examples-1.3.0.0, but its *library* requires the disabled package: accelerate
         - accelerate-examples < 0 # tried accelerate-examples-1.3.0.0, but its *library* requires the disabled package: accelerate-llvm-native
         - accelerate-examples < 0 # tried accelerate-examples-1.3.0.0, but its *library* requires the disabled package: accelerate-llvm-ptx
-        - accelerate-fft < 0 # tried accelerate-fft-1.3.0.0, but its *library* requires the disabled package: accelerate
-        - accelerate-fft < 0 # tried accelerate-fft-1.3.0.0, but its *library* requires the disabled package: accelerate-llvm
-        - accelerate-fft < 0 # tried accelerate-fft-1.3.0.0, but its *library* requires the disabled package: accelerate-llvm-native
-        - accelerate-fft < 0 # tried accelerate-fft-1.3.0.0, but its *library* requires the disabled package: accelerate-llvm-ptx
-        - accelerate-fft < 0 # tried accelerate-fft-1.3.0.0, but its *library* requires the disabled package: lens-accelerate
+        - accelerate-fft < 0 # tried accelerate-fft-1.3.0.0, but its *library* requires the disabled package: cufft
         - accelerate-fftw < 0 # tried accelerate-fftw-1.0.0.1, but its *library* requires accelerate >=1.0 && < 1.2 and the snapshot contains accelerate-1.3.0.0
         - accelerate-fftw < 0 # tried accelerate-fftw-1.0.0.1, but its *library* requires accelerate-io >=1.0 && < 1.1 and the snapshot contains accelerate-io-1.3.0.0
         - accelerate-fourier < 0 # tried accelerate-fourier-1.0.0.5, but its *library* requires accelerate >=1.0 && < 1.2 and the snapshot contains accelerate-1.3.0.0
@@ -6430,6 +6423,8 @@ packages:
         - curl-runnings < 0 # tried curl-runnings-0.17.0, but its *library* requires the disabled package: connection
         - curl-runnings < 0 # tried curl-runnings-0.17.0, but its *library* requires the disabled package: dhall-json
         - currencies < 0 # tried currencies-0.2.0.0, but its *library* requires text >=1.2 && < 2 and the snapshot contains text-2.0.2
+        - cusolver < 0 # tried cusolver-0.3.0.0, but its *library* requires the disabled package: cublas
+        - cusolver < 0 # tried cusolver-0.3.0.0, but its *library* requires the disabled package: cusparse
         - czipwith < 0 # tried czipwith-1.0.1.4, but its *library* requires base >=4.11 && < 4.17 and the snapshot contains base-4.18.1.0
         - czipwith < 0 # tried czipwith-1.0.1.4, but its *library* requires template-haskell >=2.9 && < 2.19 and the snapshot contains template-haskell-2.20.0.0
         - darcs < 0 # tried darcs-2.16.5, but its *library* requires Cabal >=2.4 && < 3.7 and the snapshot contains Cabal-3.10.1.0
