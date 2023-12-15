@@ -28,11 +28,14 @@ github.
 We also have a curator slack channel where we help each other out.
 
 The current curator team consists of:
-* Adam Bergmark
-* Dan Burton
-* Jens Petersen
-* Luke Murphy
-* Michael Snoyman
+* Adam Bergmark (@bergmark)
+* Alexey Zabelin (@alexeyzab)
+* Andreas Ländle (@alaendle)
+* Chris Dornan (@cdornan)
+* Dan Burton (@danburton)
+* Jens Petersen (@juhp)
+* Joe Kachmar (@jkachmar)
+* Mihai Maruseac (@mihaimaruseac)
 
 We onboarded Luke as the newest member a few months ago and this
 helped us iron out and document the process further.
