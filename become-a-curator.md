@@ -37,9 +37,6 @@ The current curator team consists of:
 * Joe Kachmar (@jkachmar)
 * Mihai Maruseac (@mihaimaruseac)
 
-We onboarded Luke as the newest member a few months ago and this
-helped us iron out and document the process further.
-
 You can read the curator documentation here: https://github.com/commercialhaskell/stackage/blob/master/CURATORS.md
 
 To apply, please fill in this form: [REDACTED]
