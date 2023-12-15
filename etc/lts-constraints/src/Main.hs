@@ -29,7 +29,7 @@ data State
 
 main :: IO ()
 main = do
-  map <- snapshotMap <$> loadSnapshot "../../nightly-2012-12-11.yaml"
+  map <- snapshotMap <$> loadSnapshot "../../../stackage-snapshots/nightly/2023/12/15.yaml"
   output <- openFile target WriteMode
   let putLine = liftIO . T.hPutStrLn output
   lines <- T.lines <$> T.readFile src
