@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Convenience script for checking constraints locally
+
+cd `dirname $0`
+
+export GHCVER=$(sed -n "s/^ghc-version: \"\(.*\)\"/\1/p" "lts-build-constraints.yaml")
+
+LTS="lts-$@"
+curator update &&
+  curator constraints --target=$LTS &&
+  curator snapshot-incomplete --target=$LTS &&
+  curator snapshot &&
+  stack --resolver ghc-$GHCVER exec curator check-snapshot
