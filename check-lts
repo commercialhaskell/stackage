@@ -2,11 +2,18 @@
 
 # Convenience script for checking constraints locally
 
+set -euxo pipefail
+
 cd `dirname $0`
 
-export GHCVER=$(sed -n "s/^ghc-version: \"\(.*\)\"/\1/p" "lts-build-constraints.yaml")
+MAJOR=$1
+MINOR=$2
+LTS="lts-$MAJOR.$MINOR"
 
-LTS="lts-$@"
+echo "$MAJOR $MINOR $LTS"
+
+export GHCVER=$(sed -n "s/^ghc-version: \"\(.*\)\"/\1/p" "lts-$MAJOR-build-constraints.yaml")
+
 curator update &&
   curator constraints --target=$LTS &&
   curator snapshot-incomplete --target=$LTS &&
