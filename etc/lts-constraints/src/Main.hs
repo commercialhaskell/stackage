@@ -1,4 +1,7 @@
 {-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE ImportQualifiedPost #-}
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# OPTIONS -Wno-name-shadowing #-}
@@ -8,12 +11,12 @@ import Control.Monad
 import Control.Monad.IO.Class (MonadIO (..))
 import Control.Monad.State (MonadState (..), runStateT)
 import Data.Text (Text)
+import Options.Generic (getRecord, ParseRecord)
+import Data.Text qualified as T
+import Data.Text.IO qualified as T
+import GHC.Generics (Generic)
 import RIO.Map (Map)
 import System.IO (openFile, IOMode (..), hFlush, hClose)
-import qualified Data.Text as T
-import qualified Data.Text.IO as T
-import Safe (at)
-import System.Environment (getArgs)
 
 import BuildConstraints (parsePackageDecl, handlePackage)
 import Snapshot (snapshotMap, loadSnapshot)
@@ -23,7 +26,14 @@ src :: String
 src = "../../build-constraints.yaml"
 
 target :: Int -> String
-target major = "../../lts-" <> show major <> "-build-constraints.yaml"
+target major = "lts-" <> show major <> "-build-constraints.yaml"
+
+data Args = Args
+  { major :: Int
+  , baseSnapshotPath :: FilePath
+  } deriving Generic
+
+instance ParseRecord Args
 
 data State
   = LookingForLibBounds
@@ -32,10 +42,8 @@ data State
 
 main :: IO ()
 main = do
-  args :: [String] <- getArgs
-  print args
-  let major :: Int = read . (`at` 0) $ args
-  map <- snapshotMap <$> loadSnapshot ("../../../stackage-snapshots/lts/" <> show major <> "/0.yaml")
+  Args { major, baseSnapshotPath } <- getRecord "lts-constraints"
+  map <- snapshotMap <$> loadSnapshot baseSnapshotPath
   output <- openFile (target major) WriteMode
   let putLine = liftIO . T.hPutStrLn output
   lines <- T.lines <$> T.readFile src
@@ -43,7 +51,7 @@ main = do
     forM_ lines $ putLine <=< processLine map
   hFlush output
   hClose output
-  putStrLn $ "Done. Wrote to " <> (target major)
+  putStrLn $ "Done. Wrote to " <> target major
 
 processLine :: MonadState State m => Map PackageName Version -> Text -> m Text
 processLine map line = do
