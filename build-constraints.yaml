@@ -49,8 +49,8 @@ packages:
         - gopher-proxy
         - filepath-bytestring
         - download-curl
-        - cabal2nix
-        - distribution-nixpkgs
+        - cabal2nix < 0 # via language-nix
+        - distribution-nixpkgs < 0 # via language-nix
         - hackage-db
         - language-nix
         - jailbreak-cabal
@@ -322,9 +322,9 @@ packages:
         - PyF
 
     "Erik Schnetter <schnetter@gmail.com> @eschnett":
-        - mpi-hs
-        - mpi-hs-binary
-        - mpi-hs-cereal
+        - mpi-hs < 0 # Compilation failure with GHC 9.8.1, Error: Cabal-simple_6HauvNHV_3.10.2.0_ghc-9.8.1: The pkg-config package 'ompi' is required but it could not be found.
+        - mpi-hs-binary < 0 # via mpi-hs
+        - mpi-hs-cereal < 0 # via mpi-hs
 
     "Yang Bo <pop.atry@gmail.com> @Atry":
         - control-dsl
@@ -442,8 +442,8 @@ packages:
         - safe-foldable
 
     "Florian Knupfer <fknupfer@gmail.com> @knupfer":
-        - type-of-html
-        - type-of-html-static
+        - type-of-html < 0 # via double-conversion
+        - type-of-html-static < 0 # via type-of-html
         - chronos-bench
 
     "Mikolaj Konarski <mikolaj.konarski@funktory.com> @Mikolaj":
@@ -687,7 +687,7 @@ packages:
         - boltzmann-samplers
         - diff-loc
         - first-class-families
-        - fcf-family
+        - fcf-family < 0 # https://github.com/commercialhaskell/stackage/issues/7236
         - generic-data
         - generic-data-surgery
         - generic-functor
@@ -798,7 +798,7 @@ packages:
         - mbug
 
     "David Johnson <djohnson.m@gmail.com> @dmjio":
-        - miso
+        - miso < 0 # via jsaddle
         - envy
         - s3-signer
         - google-translate
@@ -986,7 +986,7 @@ packages:
         - textlocal
         - shell-conduit
         - tldr
-        - fb
+        - fb < 0 # https://github.com/commercialhaskell/stackage/issues/7244
         - yesod-fb
         - yesod-auth-fb < 0 # 1.1.0.1 compile fail
         - hourglass-orphans
@@ -1243,7 +1243,7 @@ packages:
         - aws-xray-client-wai
         - bcp47
         - bcp47-orphans
-        - faktory
+        - faktory < 0 # https://github.com/commercialhaskell/stackage/issues/7250
         - graphula
         - hspec-expectations-json
         - hspec-junit-formatter
@@ -1413,7 +1413,7 @@ packages:
         - groundhog-th
 
     "Janne Hellsten <jjhellst@gmail.com> @nurpax":
-        - sqlite-simple
+        - sqlite-simple < 0 # via blaze-textual
 
     "Michal J. Gajda <maintainer@migamake.com> @mgajda":
         - iterable
@@ -1444,7 +1444,7 @@ packages:
         - tasty-hunit
         - tasty-quickcheck
         - tasty-smallcheck
-        - tasty-html
+        - tasty-html < 0 # https://github.com/commercialhaskell/stackage/issues/7242
         - time-lens
         - timezone-olson
         - timezone-series
@@ -1503,7 +1503,7 @@ packages:
         - language-bash
         - microlens-aeson
         - pipes-random
-        - servant-xml
+        - servant-xml < 0 # via xmlbf-xeno
         - streaming-attoparsec
         - versions
         - vectortiles
@@ -1600,10 +1600,10 @@ packages:
         - yesod-auth-hashdb
 
     "Toralf Wittner <tw@dtex.org> @twittner":
-        - bytestring-conversion
+        - bytestring-conversion < 0 # via double-conversion
         - cql
         - cql-io
-        - redis-resp
+        - redis-resp < 0 # via double-conversion
         - redis-io
         - swagger
         - tinylog
@@ -1644,7 +1644,7 @@ packages:
         - netwire
         - netwire-input
         - netwire-input-glfw < 0 # 0.0.11 compile fail https://github.com/Mokosha/netwire-input-glfw/issues/5
-        - yoga
+        - yoga < 0 # Compilation failure with GHC 9.8.1, /usr/bin/ar: .stack-work/dist/x86_64-linux-tinfo6/ghc-9.8.1/build/yoga/YGNodePrint.o: No such file or directory
         - freetype2
         - HCodecs
         - netcode-io
@@ -1667,7 +1667,7 @@ packages:
         - base-prelude
         - bytestring-strict-builder
         - bytestring-tree-builder
-        - cases
+        - cases < 0 # Compilation failure with GHC 9.8.1, https://github.com/commercialhaskell/stackage/issues/7232
         - cereal-unordered-containers
         - deferred-folds
         - deque
@@ -1678,7 +1678,7 @@ packages:
         - domain-optics
         - focus
         - hasql
-        - hasql-optparse-applicative
+        - hasql-optparse-applicative < 0 # Compilation failure with GHC 9.8.1, https://github.com/commercialhaskell/stackage/issues/7237
         - hasql-pool
         - hasql-th
         - hasql-transaction
@@ -1865,7 +1865,7 @@ packages:
         - gtk3
         - ghcjs-codemirror
         - ghcjs-dom
-        - jsaddle
+        - jsaddle < 0 # https://github.com/commercialhaskell/stackage/issues/7249
         - vado
         - vcswrapper
         - ShellCheck
@@ -1890,8 +1890,8 @@ packages:
         - pipes-network-tls
         - safe-money
         - vector-bytes-instances
-        - xmlbf-xeno
-        - xmlbf-xmlhtml
+        - xmlbf-xeno < 0 # via html-entities
+        - xmlbf-xmlhtml < 0 # via html-entities
         - xmlbf
 
     "Tomas Carnecky @wereHamster":
@@ -2620,7 +2620,7 @@ packages:
         - tasty-fail-fast
         - drifter
         - drifter-postgresql
-        - drifter-sqlite
+        - drifter-sqlite < 0 # via sqlite-simple
 
     "Lars Kuhtz <lakuhtz@gmail.com> @larskuhtz":
         - wai-cors
@@ -2628,12 +2628,12 @@ packages:
         - random-bytestring
 
     "Sam Rijs <srijs@airpost.net> @srijs":
-        - ndjson-conduit
+        - ndjson-conduit < 0 # https://github.com/commercialhaskell/stackage/issues/7245
         - operational-class < 0 # 0.3.0.0 compile fail https://github.com/srijs/haskell-operational-class/issues/1
         - result
 
     "Daniel Patterson <dbp@dbpmail.net> @dbp":
-        - hworker
+        - hworker < 0 # https://github.com/commercialhaskell/stackage/issues/7234
         - fn
 
     "Mathieu Boespflug <mboes@tweag.net> @mboes":
@@ -2889,7 +2889,7 @@ packages:
         - hidapi
         - iso8601-time
         - loop
-        - lz4-frame-conduit
+        - lz4-frame-conduit < 0 # https://github.com/commercialhaskell/stackage/issues/7241
         - netpbm
         - network-house < 0 # 0.1.0.2 compile failure MonadFail
         - reinterpret-cast
@@ -2996,7 +2996,7 @@ packages:
         - cabal2spec
         - cgi
         - distribution-nixpkgs
-        - distribution-opensuse
+        - distribution-opensuse < 0 # via parsec-class
         - flexible-defaults
         - funcmp
         - hackage-db
@@ -3008,11 +3008,11 @@ packages:
         - jailbreak-cabal
         - lambdabot-core
         - lambdabot-irc-plugins
-        - language-nix
+        - language-nix < 0 # via parsec-class
         - logging-facade-syslog
         - MonadPrompt
         - nix-paths
-        - parsec-class
+        - parsec-class < 0 # https://github.com/commercialhaskell/stackage/issues/7238
         - prim-uniq
         - random-fu
         - random-source
@@ -3113,7 +3113,7 @@ packages:
 
     "Takahiro Himura <himuratk421@gmail.com> @himura":
         - lens-regex
-        - twitter-conduit
+        - twitter-conduit < 0 # https://github.com/commercialhaskell/stackage/issues/7239
         - twitter-types
         - twitter-types-lens
 
@@ -3132,7 +3132,7 @@ packages:
         - scanner
 
     "Stanislav Chernichkin <schernichkin@gmail.com> @schernichkin":
-        - partial-isomorphisms
+        - partial-isomorphisms < 0 # https://github.com/commercialhaskell/stackage/issues/7248
 
     "Christoph Breitkopf <chbreitkopf@gmail.com> @bokesan":
         - IntervalMap
@@ -3387,16 +3387,16 @@ packages:
         - hosc
 
     "Kei Hibino <ex8k.hibino@gmail.com> @khibino":
-        - th-data-compat
+        - th-data-compat < 0 # https://github.com/commercialhaskell/stackage/issues/7246
         - th-reify-compat
         - th-bang-compat
         - th-constraint-compat
-        - product-isomorphic
-        - persistable-record
-        - relational-query
-        - relational-query-HDBC
-        - persistable-types-HDBC-pg
-        - relational-record
+        - product-isomorphic < 0 # via th-data-compat
+        - persistable-record < 0 # via th-data-compat
+        - relational-query < 0 # via th-data-compat
+        - relational-query-HDBC < 0 # via th-data-compat
+        - persistable-types-HDBC-pg < 0 # via persistable-record
+        - relational-record < 0 # via persistable-record
         - text-ldap
         - debian-build
         - aeson-generic-compat
@@ -3785,7 +3785,7 @@ packages:
         - deepseq-instances
 
     "Michael Swan <mswan@fastmail.com> @michael-swan":
-        - pcf-font
+        - pcf-font < 0 # https://github.com/commercialhaskell/stackage/issues/7247
         - pcf-font-embed < 0 # 0.1.2.0 compile fail
 
     "Iago Abal <iagoabal+stack@gmail.com>":
@@ -3893,7 +3893,7 @@ packages:
         - salak-toml
         - tensors
         - menshen
-        - crc32c
+        - crc32c < 0 # Compiltaion failure with GHC 9.8.1,  /usr/bin/ar: .stack-work/dist/x86_64-linux-tinfo6/ghc-9.8.1/build/include/crc32c.o: No such file or directory
         - boots
 
     "Tom Nielsen <tanielsen@gmail.com> @glutamate":
@@ -3918,7 +3918,7 @@ packages:
         - safe-decimal
         - flush-queue
         - pvar
-        - conduit-aeson
+        - conduit-aeson < 0 # https://github.com/commercialhaskell/stackage/issues/7231
         - vector-stream
         - FailT
 
@@ -3956,7 +3956,7 @@ packages:
 
     "Dylan Simon <dylan-stack@dylex.net> @dylex":
         - postgresql-typed
-        - invertible
+        - invertible < 0 # via partial-isomorphisms
         - ztail
         - zip-stream
 
@@ -4440,7 +4440,7 @@ packages:
     "Andrey Sverdlichenko <blaze@ruddy.ru> @rblaze":
         - credential-store
         - dbus
-        - re2
+        - re2 < 0 # Compilation failure with GHC 9.8.1, /usr/bin/ar: .stack-work/dist/x86_64-linux-tinfo6/ghc-9.8.1/build/cbits/haskell-re2.o: No such file or directory
 
     "Bardur Arantsson <stackage@scientician.net> @BardurArantsson":
         - peregrin
@@ -4544,7 +4544,7 @@ packages:
         - servant-auth-client
         - servant-auth-swagger
         - servant-auth-docs
-        - servant-elm
+        - servant-elm < 0 # via elm-bridge
         - systemd
 
     "Andre Van Der Merwe <stackage@andrevdm.com> @andrevdm":
@@ -4564,7 +4564,7 @@ packages:
 
     "Dan Fithian <daniel.m.fithian@gmail.com> @dfithian":
         - oauthenticated < 0 # 0.3.0.0 compile fail https://github.com/tel/oauthenticated/issues/33
-        - datadog
+        - datadog < 0 # via buffer-builder
         - interpolator
         - file-path-th
 
@@ -4653,7 +4653,7 @@ packages:
     "Georg Rudoy <0xd34df00d@gmail.com> @0xd34df00d":
         - binary-generic-combinators
         - can-i-haz
-        - enum-subset-generate
+        - enum-subset-generate < 0 # https://github.com/commercialhaskell/stackage/issues/7235
 
     "Trevis Elser <trevis@silencedpoet.com> @telser":
         - sendfile
@@ -4698,7 +4698,7 @@ packages:
         - matrix-static
 
     "Jean-Pierre Rupp <xenog@protonmail.com> @xenog":
-        - json-rpc
+        - json-rpc < 0 # https://github.com/commercialhaskell/stackage/issues/7243
         - rfc1751
         - murmur3
         - nqe
@@ -5251,7 +5251,7 @@ packages:
         - incipit-base
         - incipit-core
         - polysemy
-        - polysemy-plugin
+        - polysemy-plugin < 0 # https://github.com/commercialhaskell/stackage/issues/7240
         - polysemy-zoo
 
     "Michael Dressel <michael.dressel@kloenplatz.de> @mdrslmr":
@@ -5354,14 +5354,14 @@ packages:
         - bitarray
         - blank-canvas
         - blaze-svg
-        - blaze-textual
+        - blaze-textual < 0 # via double-conversion
         - bloomfilter
         - boring
         - box
         - box-csv
         - brick
         - broadcast-chan
-        - buffer-builder
+        - buffer-builder < 0 # https://github.com/commercialhaskell/stackage/issues/7230
         - byte-order
         - byteable
         - bytehash
@@ -5442,14 +5442,14 @@ packages:
         - dlist
         - dlist-instances
         - dlist-nonempty
-        - double-conversion
+        - double-conversion < 0 # /usr/bin/ar: .stack-work/dist/x86_64-linux-tinfo6/ghc-9.8.1/build/cbits/hs-double-conversion-embed.o: No such file or directory
         - dual-tree
         - easy-file
         - easytest
         - ed25519
         - edit-distance
         - elliptic-curve
-        - elm-bridge
+        - elm-bridge < 0 # https://github.com/commercialhaskell/stackage/issues/7233
         - enclosed-exceptions
         - entropy
         - erf
@@ -5499,7 +5499,7 @@ packages:
         - haskell-tools-builtin-refactorings
         - haskoin-store-data
         - hasql-dynamic-statements
-        - hasql-implicits
+        - hasql-implicits < 0 # https://github.com/commercialhaskell/stackage/issues/7251
         - haxl
         - heap
         - here
@@ -5524,7 +5524,7 @@ packages:
         - hspec-meta
         - hspec-smallcheck
         - html
-        - html-entities
+        - html-entities < 0 # 1.1.4.6 GHC-9.8.1
         - http-client-restricted
         - http-client-tls
         - http-date
@@ -5673,7 +5673,7 @@ packages:
         - regex-applicative-text
         - regex-tdfa-text
         - relapse
-        - relational-schemas
+        - relational-schemas < 0 # via relational-query
         - resource-pool
         - resourcet
         - rest-rewrite
@@ -5861,7 +5861,7 @@ packages:
         - cmark-lucid
         - cmark-highlight
         - Spock-lucid
-        - charsetdetect-ae
+        - charsetdetect-ae < 0 # /usr/bin/ar: .stack-work/dist/x86_64-linux-tinfo6/ghc-9.8.1/build/libcharsetdetect/charsetdetect.o: No such file or directory
         - text-all
         - Earley
         - bower-json
