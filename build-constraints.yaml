@@ -2010,7 +2010,7 @@ packages:
         - amazonka-chime-sdk-meetings < 0 # Compilation failure with GHC-9.8.1
         - amazonka-chime-sdk-messaging < 0 # Compilation failure with GHC-9.8.1
         - amazonka-chime-sdk-voice < 0 # Compilation failure with GHC-9.8.1
-        - amazonka-cloudcontrol
+        - amazonka-cloudcontrol # Compilation failure with GHC-9.8.1
         - amazonka-cloudformation < 0 # Compilation failure with GHC-9.8.1
         - amazonka-cloudfront < 0 # Compilation failure with GHC-9.8.1
         - amazonka-cloudhsm
@@ -4195,7 +4195,7 @@ packages:
 
     "José Lorenzo Rodríguez <jose.zap@gmail.com> @lorenzo":
         - wrecker
-        - language-docker
+        - language-docker < 0 # Compilation failure with GHC 9.8.1
         - docker-build-cacher
         - mysql-haskell-nem
         - hadolint
@@ -9891,6 +9891,7 @@ expected-test-failures:
     - ghc-byteorder # 4.11.0.0.10 https://github.com/haskell-hvr/ghc-byteorder/issues/1
     - ghc-prof # Regression tests: /usr/bin/ld.gold: error: cannot find -lHStemporary-1.3-51ST9z47bmaL2YkhqqBGqn_p ...
     - heap # 1.0.4 https://github.com/pruvisto/heap/issues/11
+    - heist # GHC 9.8.1
     - hourglass # 0.2.12
     - hweblib # 0.6.3 https://github.com/aycanirican/hweblib/issues/3
     - inline-r # 1.0.1 https://github.com/tweag/HaskellR/issues/371
@@ -9920,11 +9921,13 @@ expected-test-failures:
     - Allure # 0.11.0.0
     - ap-normalize # 0.1.0.1 ghc-9.6
     - astro # 0.4.3.0 https://github.com/aligusnet/astro/issues/8
+    - express # 1.0.12
     - generics-eot # 0.4.0.1 ghc-9.6
     - hsexif # 0.6.1.10 Missing test file
     - pvar # 1.0.0.0 ghc-9.6
     - tar-conduit # https://github.com/snoyberg/tar-conduit/issues/33
     - markov-chain-usage-model # https://github.com/advancedtelematic/markov-chain-usage-model/issues/44
+    - unicode-data # 0.4.0.1
 
     # Intermittent failures or unreliable. These tests may pass when
     # re-enabled, but will eventually fail again.
