@@ -49,8 +49,8 @@ packages:
         - gopher-proxy
         - filepath-bytestring
         - download-curl
-        - cabal2nix
-        - distribution-nixpkgs
+        - cabal2nix < 0 # via language-nix
+        - distribution-nixpkgs < 0 # via language-nix
         - hackage-db
         - language-nix
         - jailbreak-cabal
@@ -322,9 +322,9 @@ packages:
         - PyF
 
     "Erik Schnetter <schnetter@gmail.com> @eschnett":
-        - mpi-hs
-        - mpi-hs-binary
-        - mpi-hs-cereal
+        - mpi-hs < 0 # Compilation failure with GHC 9.8.1, Error: Cabal-simple_6HauvNHV_3.10.2.0_ghc-9.8.1: The pkg-config package 'ompi' is required but it could not be found.
+        - mpi-hs-binary < 0 # via mpi-hs
+        - mpi-hs-cereal < 0 # via mpi-hs
 
     "Yang Bo <pop.atry@gmail.com> @Atry":
         - control-dsl
@@ -442,8 +442,8 @@ packages:
         - safe-foldable
 
     "Florian Knupfer <fknupfer@gmail.com> @knupfer":
-        - type-of-html
-        - type-of-html-static
+        - type-of-html < 0 # via double-conversion
+        - type-of-html-static < 0 # via type-of-html
         - chronos-bench
 
     "Mikolaj Konarski <mikolaj.konarski@funktory.com> @Mikolaj":
@@ -687,7 +687,7 @@ packages:
         - boltzmann-samplers
         - diff-loc
         - first-class-families
-        - fcf-family
+        - fcf-family < 0 # https://github.com/commercialhaskell/stackage/issues/7236
         - generic-data
         - generic-data-surgery
         - generic-functor
@@ -718,6 +718,7 @@ packages:
         - matrix-market-attoparsec
         - splitmix-distributions
         - rp-tree
+        - scotty
         - xeno
         - bytestring-mmap < 0 # 0.2.2 required by xeno # not ghc 9.6 ready
         - datasets
@@ -798,7 +799,7 @@ packages:
         - mbug
 
     "David Johnson <djohnson.m@gmail.com> @dmjio":
-        - miso
+        - miso < 0 # via jsaddle
         - envy
         - s3-signer
         - google-translate
@@ -986,7 +987,7 @@ packages:
         - textlocal
         - shell-conduit
         - tldr
-        - fb
+        - fb < 0 # https://github.com/commercialhaskell/stackage/issues/7244
         - yesod-fb
         - yesod-auth-fb < 0 # 1.1.0.1 compile fail
         - hourglass-orphans
@@ -1225,7 +1226,7 @@ packages:
         - asciidiagram
 
     "Patrick Brisbin @pbrisbin":
-        - bugsnag-haskell
+        - bugsnag-haskell < 0 # https://github.com/commercialhaskell/stackage/issues/7255
         - bugsnag
         - bugsnag-wai
         - bugsnag-yesod
@@ -1243,7 +1244,7 @@ packages:
         - aws-xray-client-wai
         - bcp47
         - bcp47-orphans
-        - faktory
+        - faktory < 0 # https://github.com/commercialhaskell/stackage/issues/7250
         - graphula
         - hspec-expectations-json
         - hspec-junit-formatter
@@ -1413,7 +1414,7 @@ packages:
         - groundhog-th
 
     "Janne Hellsten <jjhellst@gmail.com> @nurpax":
-        - sqlite-simple
+        - sqlite-simple < 0 # via blaze-textual
 
     "Michal J. Gajda <maintainer@migamake.com> @mgajda":
         - iterable
@@ -1444,7 +1445,7 @@ packages:
         - tasty-hunit
         - tasty-quickcheck
         - tasty-smallcheck
-        - tasty-html
+        - tasty-html < 0 # https://github.com/commercialhaskell/stackage/issues/7242
         - time-lens
         - timezone-olson
         - timezone-series
@@ -1503,7 +1504,7 @@ packages:
         - language-bash
         - microlens-aeson
         - pipes-random
-        - servant-xml
+        - servant-xml < 0 # via xmlbf-xeno
         - streaming-attoparsec
         - versions
         - vectortiles
@@ -1600,10 +1601,10 @@ packages:
         - yesod-auth-hashdb
 
     "Toralf Wittner <tw@dtex.org> @twittner":
-        - bytestring-conversion
+        - bytestring-conversion < 0 # via double-conversion
         - cql
         - cql-io
-        - redis-resp
+        - redis-resp < 0 # via double-conversion
         - redis-io
         - swagger
         - tinylog
@@ -1644,7 +1645,7 @@ packages:
         - netwire
         - netwire-input
         - netwire-input-glfw < 0 # 0.0.11 compile fail https://github.com/Mokosha/netwire-input-glfw/issues/5
-        - yoga
+        - yoga < 0 # Compilation failure with GHC 9.8.1, /usr/bin/ar: .stack-work/dist/x86_64-linux-tinfo6/ghc-9.8.1/build/yoga/YGNodePrint.o: No such file or directory
         - freetype2
         - HCodecs
         - netcode-io
@@ -1865,7 +1866,7 @@ packages:
         - gtk3
         - ghcjs-codemirror
         - ghcjs-dom
-        - jsaddle
+        - jsaddle < 0 # https://github.com/commercialhaskell/stackage/issues/7249
         - vado
         - vcswrapper
         - ShellCheck
@@ -1890,8 +1891,8 @@ packages:
         - pipes-network-tls
         - safe-money
         - vector-bytes-instances
-        - xmlbf-xeno
-        - xmlbf-xmlhtml
+        - xmlbf-xeno < 0 # via html-entities
+        - xmlbf-xmlhtml < 0 # via html-entities
         - xmlbf
 
     "Tomas Carnecky @wereHamster":
@@ -1971,294 +1972,294 @@ packages:
         - jose-jwt
 
     "Brendan Hay <brendan.g.hay@gmail.com> @brendanhay":
-        - amazonka
+        - amazonka < 0 # via amazonka-sso, amazonka-sts
         - amazonka-core
         - amazonka-test
-        - amazonka-accessanalyzer
-        - amazonka-account
-        - amazonka-amp
-        - amazonka-amplify
-        - amazonka-amplifybackend
-        - amazonka-amplifyuibuilder
-        - amazonka-apigateway
+        - amazonka-accessanalyzer < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-account < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-amp < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-amplify < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-amplifybackend < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-amplifyuibuilder < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-apigateway < 0 # Compilation failure with GHC-9.8.1
         - amazonka-apigatewaymanagementapi
-        - amazonka-apigatewayv2
-        - amazonka-appconfig
+        - amazonka-apigatewayv2 < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-appconfig < 0 # Compilation failure with GHC-9.8.1
         - amazonka-appconfigdata
-        - amazonka-appflow
-        - amazonka-appintegrations
-        - amazonka-application-autoscaling
-        - amazonka-application-insights
-        - amazonka-applicationcostprofiler
-        - amazonka-appmesh
-        - amazonka-apprunner
-        - amazonka-appstream
-        - amazonka-arc-zonal-shift
-        - amazonka-athena
-        - amazonka-auditmanager
-        - amazonka-autoscaling
-        - amazonka-backup
-        - amazonka-backup-gateway
+        - amazonka-appflow < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-appintegrations < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-application-autoscaling < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-application-insights < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-applicationcostprofiler < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-appmesh < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-apprunner < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-appstream < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-arc-zonal-shift < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-athena < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-auditmanager < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-autoscaling < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-backup < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-backup-gateway < 0 # Compilation failure with GHC-9.8.1
         - amazonka-backupstorage
-        - amazonka-billingconductor
-        - amazonka-braket
-        - amazonka-budgets
-        - amazonka-certificatemanager
-        - amazonka-chime
-        - amazonka-chime-sdk-identity
-        - amazonka-chime-sdk-media-pipelines
-        - amazonka-chime-sdk-meetings
-        - amazonka-chime-sdk-messaging
-        - amazonka-chime-sdk-voice
-        - amazonka-cloudcontrol
-        - amazonka-cloudformation
-        - amazonka-cloudfront
+        - amazonka-billingconductor < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-braket < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-budgets < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-certificatemanager < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-chime < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-chime-sdk-identity < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-chime-sdk-media-pipelines < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-chime-sdk-meetings < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-chime-sdk-messaging < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-chime-sdk-voice < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-cloudcontrol < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-cloudformation < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-cloudfront < 0 # Compilation failure with GHC-9.8.1
         - amazonka-cloudhsm
-        - amazonka-cloudsearch
-        - amazonka-cloudsearch-domains
-        - amazonka-cloudtrail
-        - amazonka-cloudwatch
-        - amazonka-cloudwatch-events
-        - amazonka-cloudwatch-logs
-        - amazonka-codeartifact
-        - amazonka-codebuild
-        - amazonka-codecommit
-        - amazonka-codedeploy
-        - amazonka-codeguru-reviewer
-        - amazonka-codeguruprofiler
-        - amazonka-codepipeline
-        - amazonka-codestar-connections
-        - amazonka-codestar-notifications
-        - amazonka-cognito-identity
-        - amazonka-cognito-idp
-        - amazonka-cognito-sync
-        - amazonka-comprehendmedical
-        - amazonka-compute-optimizer
-        - amazonka-config
-        - amazonka-connect-contact-lens
-        - amazonka-connectcampaigns
-        - amazonka-connectcases
-        - amazonka-connectparticipant
+        - amazonka-cloudsearch < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-cloudsearch-domains < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-cloudtrail < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-cloudwatch < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-cloudwatch-events < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-cloudwatch-logs < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-codeartifact < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-codebuild < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-codecommit < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-codedeploy < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-codeguru-reviewer < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-codeguruprofiler < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-codepipeline < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-codestar-connections < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-codestar-notifications < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-cognito-identity < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-cognito-idp < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-cognito-sync < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-comprehendmedical < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-compute-optimizer < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-config < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-connect-contact-lens < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-connectcampaigns < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-connectcases < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-connectparticipant < 0 # Compilation failure with GHC-9.8.1
         - amazonka-controltower
-        - amazonka-customer-profiles
-        - amazonka-databrew
-        - amazonka-dataexchange
-        - amazonka-datapipeline
-        - amazonka-datasync
-        - amazonka-detective
-        - amazonka-devicefarm
-        - amazonka-devops-guru
-        - amazonka-directconnect
-        - amazonka-discovery
-        - amazonka-dlm
-        - amazonka-dms
-        - amazonka-docdb
-        - amazonka-docdb-elastic
-        - amazonka-drs
-        - amazonka-ds
-        - amazonka-dynamodb
-        - amazonka-dynamodb-streams
-        - amazonka-ebs
-        - amazonka-ec2
+        - amazonka-customer-profiles < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-databrew < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-dataexchange < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-datapipeline < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-datasync < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-detective < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-devicefarm < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-devops-guru < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-directconnect < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-discovery < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-dlm < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-dms < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-docdb < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-docdb-elastic < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-drs < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-ds < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-dynamodb < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-dynamodb-streams < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-ebs < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-ec2 < 0 # Compilation failure with GHC-9.8.1
         - amazonka-ec2-instance-connect
-        - amazonka-ecr
-        - amazonka-ecr-public
-        - amazonka-ecs
-        - amazonka-efs
-        - amazonka-eks
-        - amazonka-elastic-inference
-        - amazonka-elasticache
-        - amazonka-elasticbeanstalk
-        - amazonka-elasticsearch
-        - amazonka-elastictranscoder
-        - amazonka-elb
-        - amazonka-elbv2
-        - amazonka-emr
-        - amazonka-emr-containers
-        - amazonka-emr-serverless
-        - amazonka-evidently
+        - amazonka-ecr < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-ecr-public < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-ecs < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-efs < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-eks < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-elastic-inference < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-elasticache < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-elasticbeanstalk < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-elasticsearch < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-elastictranscoder < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-elb < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-elbv2 < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-emr < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-emr-containers < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-emr-serverless < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-evidently < 0 # Compilation failure with GHC-9.8.1
         - amazonka-finspace
-        - amazonka-finspace-data
-        - amazonka-fis
-        - amazonka-forecast
+        - amazonka-finspace-data < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-fis < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-forecast < 0 # Compilation failure with GHC-9.8.1
         - amazonka-forecastquery
-        - amazonka-frauddetector
-        - amazonka-fsx
-        - amazonka-gamelift
-        - amazonka-gamesparks
-        - amazonka-glacier
-        - amazonka-globalaccelerator
-        - amazonka-glue
-        - amazonka-grafana
-        - amazonka-greengrassv2
-        - amazonka-groundstation
-        - amazonka-health
-        - amazonka-healthlake
-        - amazonka-honeycode
-        - amazonka-iam
-        - amazonka-identitystore
-        - amazonka-imagebuilder
+        - amazonka-frauddetector < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-fsx < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-gamelift < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-gamesparks < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-glacier < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-globalaccelerator < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-glue < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-grafana < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-greengrassv2 < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-groundstation < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-health < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-healthlake < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-honeycode < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-iam < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-identitystore < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-imagebuilder < 0 # Compilation failure with GHC-9.8.1
         - amazonka-importexport
-        - amazonka-inspector
-        - amazonka-inspector2
-        - amazonka-iot
+        - amazonka-inspector < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-inspector2 < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-iot < 0 # Compilation failure with GHC-9.8.1
         - amazonka-iot-dataplane
-        - amazonka-iot-roborunner
-        - amazonka-iot1click-devices
-        - amazonka-iot1click-projects
-        - amazonka-iotdeviceadvisor
-        - amazonka-iotevents
-        - amazonka-iotevents-data
+        - amazonka-iot-roborunner < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-iot1click-devices < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-iot1click-projects < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-iotdeviceadvisor < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-iotevents < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-iotevents-data < 0 # Compilation failure with GHC-9.8.1
         - amazonka-iotfleethub
-        - amazonka-iotfleetwise
-        - amazonka-iotsecuretunneling
-        - amazonka-iotsitewise
+        - amazonka-iotfleetwise < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-iotsecuretunneling < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-iotsitewise < 0 # Compilation failure with GHC-9.8.1
         - amazonka-iotthingsgraph
-        - amazonka-iottwinmaker
-        - amazonka-iotwireless
-        - amazonka-ivs
-        - amazonka-ivschat
-        - amazonka-kafka
-        - amazonka-kafkaconnect
-        - amazonka-kendra
-        - amazonka-keyspaces
-        - amazonka-kinesis
-        - amazonka-kinesis-analytics
-        - amazonka-kinesis-firehose
+        - amazonka-iottwinmaker < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-iotwireless < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-ivs < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-ivschat < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-kafka < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-kafkaconnect < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-kendra < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-keyspaces < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-kinesis < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-kinesis-analytics < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-kinesis-firehose < 0 # Compilation failure with GHC-9.8.1
         - amazonka-kinesis-video-signaling
         - amazonka-kinesis-video-webrtc-storage
-        - amazonka-kinesisanalyticsv2
-        - amazonka-kms
-        - amazonka-lakeformation
-        - amazonka-lambda
-        - amazonka-lexv2-models
-        - amazonka-license-manager
-        - amazonka-license-manager-linux-subscriptions
-        - amazonka-license-manager-user-subscriptions
-        - amazonka-lightsail
-        - amazonka-location
-        - amazonka-lookoutequipment
-        - amazonka-lookoutmetrics
-        - amazonka-lookoutvision
-        - amazonka-m2
-        - amazonka-macie
-        - amazonka-maciev2
-        - amazonka-managedblockchain
+        - amazonka-kinesisanalyticsv2 < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-kms < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-lakeformation < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-lambda < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-lexv2-models < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-license-manager < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-license-manager-linux-subscriptions < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-license-manager-user-subscriptions < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-lightsail < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-location < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-lookoutequipment < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-lookoutmetrics < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-lookoutvision < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-m2 < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-macie < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-maciev2 < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-managedblockchain < 0 # Compilation failure with GHC-9.8.1
         - amazonka-marketplace-analytics
-        - amazonka-marketplace-catalog
+        - amazonka-marketplace-catalog < 0 # Compilation failure with GHC-9.8.1
         - amazonka-marketplace-metering
-        - amazonka-mediaconnect
-        - amazonka-mediapackage-vod
-        - amazonka-mediatailor
-        - amazonka-memorydb
-        - amazonka-mgn
-        - amazonka-migration-hub-refactor-spaces
+        - amazonka-mediaconnect < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-mediapackage-vod < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-mediatailor < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-memorydb < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-mgn < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-migration-hub-refactor-spaces < 0 # Compilation failure with GHC-9.8.1
         - amazonka-migrationhub-config
-        - amazonka-migrationhuborchestrator
-        - amazonka-migrationhubstrategy
-        - amazonka-ml
-        - amazonka-mwaa
-        - amazonka-neptune
-        - amazonka-network-firewall
-        - amazonka-networkmanager
-        - amazonka-nimble
-        - amazonka-oam
-        - amazonka-omics
-        - amazonka-opensearch
-        - amazonka-opensearchserverless
-        - amazonka-opsworks
-        - amazonka-opsworks-cm
-        - amazonka-outposts
-        - amazonka-panorama
-        - amazonka-personalize
-        - amazonka-personalize-events
+        - amazonka-migrationhuborchestrator < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-migrationhubstrategy < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-ml < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-mwaa < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-neptune < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-network-firewall < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-networkmanager < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-nimble < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-oam < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-omics < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-opensearch < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-opensearchserverless < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-opsworks < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-opsworks-cm < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-outposts < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-panorama < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-personalize < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-personalize-events < 0 # Compilation failure with GHC-9.8.1
         - amazonka-personalize-runtime
-        - amazonka-pi
-        - amazonka-pinpoint
-        - amazonka-pinpoint-email
-        - amazonka-pinpoint-sms-voice
-        - amazonka-pinpoint-sms-voice-v2
-        - amazonka-pipes
-        - amazonka-polly
-        - amazonka-privatenetworks
-        - amazonka-proton
-        - amazonka-qldb
-        - amazonka-qldb-session
-        - amazonka-quicksight
-        - amazonka-ram
+        - amazonka-pi < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-pinpoint < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-pinpoint-email < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-pinpoint-sms-voice < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-pinpoint-sms-voice-v2 < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-pipes < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-polly < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-privatenetworks < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-proton < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-qldb < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-qldb-session < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-quicksight < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-ram < 0 # Compilation failure with GHC-9.8.1
         - amazonka-rbin
-        - amazonka-rds
-        - amazonka-rds-data
-        - amazonka-redshift
-        - amazonka-redshift-data
-        - amazonka-redshift-serverless
-        - amazonka-rekognition
-        - amazonka-resiliencehub
-        - amazonka-resource-explorer-v2
-        - amazonka-robomaker
-        - amazonka-rolesanywhere
-        - amazonka-route53
-        - amazonka-route53-domains
-        - amazonka-route53-recovery-cluster
-        - amazonka-route53-recovery-control-config
-        - amazonka-route53-recovery-readiness
-        - amazonka-route53resolver
-        - amazonka-rum
-        - amazonka-s3
+        - amazonka-rds < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-rds-data < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-redshift < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-redshift-data < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-redshift-serverless < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-rekognition < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-resiliencehub < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-resource-explorer-v2 < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-robomaker < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-rolesanywhere < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-route53 < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-route53-domains < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-route53-recovery-cluster < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-route53-recovery-control-config < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-route53-recovery-readiness < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-route53resolver < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-rum < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-s3 < 0 # Compilation failure with GHC-9.8.1
         - amazonka-s3outposts
         - amazonka-sagemaker-a2i-runtime
-        - amazonka-sagemaker-edge
-        - amazonka-sagemaker-featurestore-runtime
-        - amazonka-sagemaker-geospatial
+        - amazonka-sagemaker-edge < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-sagemaker-featurestore-runtime < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-sagemaker-geospatial < 0 # Compilation failure with GHC-9.8.1
         - amazonka-sagemaker-metrics
-        - amazonka-savingsplans
-        - amazonka-scheduler
-        - amazonka-schemas
-        - amazonka-sdb
-        - amazonka-securityhub
-        - amazonka-securitylake
-        - amazonka-service-quotas
-        - amazonka-servicecatalog
-        - amazonka-servicecatalog-appregistry
-        - amazonka-ses
-        - amazonka-sesv2
-        - amazonka-shield
-        - amazonka-signer
-        - amazonka-simspaceweaver
-        - amazonka-sms
-        - amazonka-sms-voice
-        - amazonka-snow-device-management
-        - amazonka-snowball
-        - amazonka-sns
-        - amazonka-sqs
-        - amazonka-ssm
-        - amazonka-ssm-contacts
-        - amazonka-ssm-incidents
-        - amazonka-ssm-sap
-        - amazonka-sso
-        - amazonka-sso-admin
+        - amazonka-savingsplans < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-scheduler < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-schemas < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-sdb < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-securityhub < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-securitylake < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-service-quotas < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-servicecatalog < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-servicecatalog-appregistry < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-ses < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-sesv2 < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-shield < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-signer < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-simspaceweaver < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-sms < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-sms-voice < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-snow-device-management < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-snowball < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-sns < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-sqs < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-ssm < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-ssm-contacts < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-ssm-incidents < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-ssm-sap < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-sso < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-sso-admin < 0 # Compilation failure with GHC-9.8.1
         - amazonka-sso-oidc
-        - amazonka-stepfunctions
-        - amazonka-storagegateway
-        - amazonka-sts
-        - amazonka-support
-        - amazonka-support-app
-        - amazonka-swf
-        - amazonka-synthetics
-        - amazonka-textract
-        - amazonka-timestream-query
-        - amazonka-timestream-write
-        - amazonka-transfer
-        - amazonka-voice-id
-        - amazonka-waf
-        - amazonka-wafv2
-        - amazonka-wellarchitected
-        - amazonka-wisdom
+        - amazonka-stepfunctions < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-storagegateway < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-sts < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-support < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-support-app < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-swf < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-synthetics < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-textract < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-timestream-query < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-timestream-write < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-transfer < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-voice-id < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-waf < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-wafv2 < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-wellarchitected < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-wisdom < 0 # Compilation failure with GHC-9.8.1
         - amazonka-worklink
         - amazonka-workmailmessageflow
-        - amazonka-workspaces
-        - amazonka-workspaces-web
-        - amazonka-xray
+        - amazonka-workspaces < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-workspaces-web < 0 # Compilation failure with GHC-9.8.1
+        - amazonka-xray < 0 # Compilation failure with GHC-9.8.1
         # gogol-* disabled due to `gogol-core` due to `servant`: #6089/closed
         - gogol
         - gogol-core < 0 # 0.5.0 compile fail
@@ -2385,7 +2386,7 @@ packages:
         - soap-openssl
 
     "Andres Löh <andres@well-typed.com> @kosmikus":
-        - generics-sop < 0.5.1.4 # https://github.com/commercialhaskell/stackage/issues/7155
+        - generics-sop
         - records-sop
         - sop-core
 
@@ -2620,7 +2621,7 @@ packages:
         - tasty-fail-fast
         - drifter
         - drifter-postgresql
-        - drifter-sqlite
+        - drifter-sqlite < 0 # via sqlite-simple
 
     "Lars Kuhtz <lakuhtz@gmail.com> @larskuhtz":
         - wai-cors
@@ -2628,12 +2629,12 @@ packages:
         - random-bytestring
 
     "Sam Rijs <srijs@airpost.net> @srijs":
-        - ndjson-conduit
+        - ndjson-conduit < 0 # https://github.com/commercialhaskell/stackage/issues/7245
         - operational-class < 0 # 0.3.0.0 compile fail https://github.com/srijs/haskell-operational-class/issues/1
         - result
 
     "Daniel Patterson <dbp@dbpmail.net> @dbp":
-        - hworker
+        - hworker < 0 # https://github.com/commercialhaskell/stackage/issues/7234
         - fn
 
     "Mathieu Boespflug <mboes@tweag.net> @mboes":
@@ -2889,7 +2890,7 @@ packages:
         - hidapi
         - iso8601-time
         - loop
-        - lz4-frame-conduit
+        - lz4-frame-conduit < 0 # https://github.com/commercialhaskell/stackage/issues/7241
         - netpbm
         - network-house < 0 # 0.1.0.2 compile failure MonadFail
         - reinterpret-cast
@@ -2996,7 +2997,7 @@ packages:
         - cabal2spec
         - cgi
         - distribution-nixpkgs
-        - distribution-opensuse
+        - distribution-opensuse < 0 # via parsec-class
         - flexible-defaults
         - funcmp
         - hackage-db
@@ -3008,11 +3009,11 @@ packages:
         - jailbreak-cabal
         - lambdabot-core
         - lambdabot-irc-plugins
-        - language-nix
+        - language-nix < 0 # via parsec-class
         - logging-facade-syslog
         - MonadPrompt
         - nix-paths
-        - parsec-class
+        - parsec-class < 0 # https://github.com/commercialhaskell/stackage/issues/7238
         - prim-uniq
         - random-fu
         - random-source
@@ -3113,7 +3114,7 @@ packages:
 
     "Takahiro Himura <himuratk421@gmail.com> @himura":
         - lens-regex
-        - twitter-conduit
+        - twitter-conduit < 0 # https://github.com/commercialhaskell/stackage/issues/7239
         - twitter-types
         - twitter-types-lens
 
@@ -3132,7 +3133,7 @@ packages:
         - scanner
 
     "Stanislav Chernichkin <schernichkin@gmail.com> @schernichkin":
-        - partial-isomorphisms
+        - partial-isomorphisms < 0 # https://github.com/commercialhaskell/stackage/issues/7248
 
     "Christoph Breitkopf <chbreitkopf@gmail.com> @bokesan":
         - IntervalMap
@@ -3628,7 +3629,7 @@ packages:
     "Pavel Ryzhov <paul@paulrz.cz> @paulrzcz":
         - hquantlib
         - hquantlib-time
-        - HSvm
+        - HSvm < 0 # Compilation failure with GHC-9.8.1, https://github.com/commercialhaskell/stackage/issues/7227
 
     "Henri Verroken <henriverroken@gmail.com> @hverr":
         - bordacount
@@ -3785,7 +3786,7 @@ packages:
         - deepseq-instances
 
     "Michael Swan <mswan@fastmail.com> @michael-swan":
-        - pcf-font
+        - pcf-font < 0 # https://github.com/commercialhaskell/stackage/issues/7247
         - pcf-font-embed < 0 # 0.1.2.0 compile fail
 
     "Iago Abal <iagoabal+stack@gmail.com>":
@@ -3893,7 +3894,7 @@ packages:
         - salak-toml
         - tensors
         - menshen
-        - crc32c
+        - crc32c < 0 # Compiltaion failure with GHC 9.8.1,  /usr/bin/ar: .stack-work/dist/x86_64-linux-tinfo6/ghc-9.8.1/build/include/crc32c.o: No such file or directory
         - boots
 
     "Tom Nielsen <tanielsen@gmail.com> @glutamate":
@@ -3918,7 +3919,7 @@ packages:
         - safe-decimal
         - flush-queue
         - pvar
-        - conduit-aeson
+        - conduit-aeson < 0 # https://github.com/commercialhaskell/stackage/issues/7231
         - vector-stream
         - FailT
 
@@ -3956,7 +3957,7 @@ packages:
 
     "Dylan Simon <dylan-stack@dylex.net> @dylex":
         - postgresql-typed
-        - invertible
+        - invertible < 0 # via partial-isomorphisms
         - ztail
         - zip-stream
 
@@ -4195,7 +4196,7 @@ packages:
 
     "José Lorenzo Rodríguez <jose.zap@gmail.com> @lorenzo":
         - wrecker
-        - language-docker
+        - language-docker < 0 # Compilation failure with GHC 9.8.1
         - docker-build-cacher
         - mysql-haskell-nem
         - hadolint
@@ -4440,7 +4441,7 @@ packages:
     "Andrey Sverdlichenko <blaze@ruddy.ru> @rblaze":
         - credential-store
         - dbus
-        - re2
+        - re2 < 0 # Compilation failure with GHC 9.8.1, /usr/bin/ar: .stack-work/dist/x86_64-linux-tinfo6/ghc-9.8.1/build/cbits/haskell-re2.o: No such file or directory
 
     "Bardur Arantsson <stackage@scientician.net> @BardurArantsson":
         - peregrin
@@ -4544,7 +4545,7 @@ packages:
         - servant-auth-client
         - servant-auth-swagger
         - servant-auth-docs
-        - servant-elm
+        - servant-elm < 0 # via elm-bridge
         - systemd
 
     "Andre Van Der Merwe <stackage@andrevdm.com> @andrevdm":
@@ -4564,7 +4565,7 @@ packages:
 
     "Dan Fithian <daniel.m.fithian@gmail.com> @dfithian":
         - oauthenticated < 0 # 0.3.0.0 compile fail https://github.com/tel/oauthenticated/issues/33
-        - datadog
+        - datadog < 0 # via buffer-builder
         - interpolator
         - file-path-th
 
@@ -4599,8 +4600,8 @@ packages:
         - invertible-grammar
 
     "Maximilian Tagher <feedback.tagher@gmail.com> @MaxGabriel":
-        - aeson-iproute
-        - persistent-iproute
+        - aeson-iproute < 0 # Compilation failure, https://github.com/commercialhaskell/stackage/issues/7229
+        - persistent-iproute < 0 # via aeson-iproute
 
     "Damian Nadales <damian.nadales@gmail.com> @capitanbatata":
         - hierarchy
@@ -4653,7 +4654,7 @@ packages:
     "Georg Rudoy <0xd34df00d@gmail.com> @0xd34df00d":
         - binary-generic-combinators
         - can-i-haz
-        - enum-subset-generate
+        - enum-subset-generate < 0 # https://github.com/commercialhaskell/stackage/issues/7235
 
     "Trevis Elser <trevis@silencedpoet.com> @telser":
         - sendfile
@@ -4896,18 +4897,6 @@ packages:
         - wai-feature-flags
         - tasty-test-reporter
         - pretty-diff
-
-    "Eric Conlon <ejconlon@gmail.com> @ejconlon":
-        - blanks
-        - climb
-        - linenoise
-        - little-rio
-        - little-logger
-        # Maintainership with @23Skidoo
-        - ekg
-        - ekg-core
-        - ekg-json
-        - ekg-statsd
 
     "Jorah Gao <jorah@version.cloud> @gqk007":
         - aeson-default
@@ -5354,14 +5343,14 @@ packages:
         - bitarray
         - blank-canvas
         - blaze-svg
-        - blaze-textual
+        - blaze-textual < 0 # via double-conversion
         - bloomfilter
         - boring
         - box
         - box-csv
         - brick
         - broadcast-chan
-        - buffer-builder
+        - buffer-builder < 0 # https://github.com/commercialhaskell/stackage/issues/7230
         - byte-order
         - byteable
         - bytehash
@@ -5442,14 +5431,14 @@ packages:
         - dlist
         - dlist-instances
         - dlist-nonempty
-        - double-conversion
+        - double-conversion < 0 # /usr/bin/ar: .stack-work/dist/x86_64-linux-tinfo6/ghc-9.8.1/build/cbits/hs-double-conversion-embed.o: No such file or directory
         - dual-tree
         - easy-file
         - easytest
         - ed25519
         - edit-distance
         - elliptic-curve
-        - elm-bridge
+        - elm-bridge < 0 # https://github.com/commercialhaskell/stackage/issues/7233
         - enclosed-exceptions
         - entropy
         - erf
@@ -5499,7 +5488,7 @@ packages:
         - haskell-tools-builtin-refactorings
         - haskoin-store-data
         - hasql-dynamic-statements
-        - hasql-implicits
+        - hasql-implicits < 0 # https://github.com/commercialhaskell/stackage/issues/7251
         - haxl
         - heap
         - here
@@ -5524,7 +5513,7 @@ packages:
         - hspec-meta
         - hspec-smallcheck
         - html
-        - html-entities
+        - html-entities < 0 # 1.1.4.6 GHC-9.8.1
         - http-client-restricted
         - http-client-tls
         - http-date
@@ -5673,7 +5662,7 @@ packages:
         - regex-applicative-text
         - regex-tdfa-text
         - relapse
-        - relational-schemas
+        - relational-schemas < 0 # via relational-query
         - resource-pool
         - resourcet
         - rest-rewrite
@@ -5861,7 +5850,7 @@ packages:
         - cmark-lucid
         - cmark-highlight
         - Spock-lucid
-        - charsetdetect-ae
+        - charsetdetect-ae < 0 # /usr/bin/ar: .stack-work/dist/x86_64-linux-tinfo6/ghc-9.8.1/build/libcharsetdetect/charsetdetect.o: No such file or directory
         - text-all
         - Earley
         - bower-json
@@ -5872,6 +5861,10 @@ packages:
         - curl
         - docopt # #6326/closed
         - dynamic-state # #6326/closed
+        - ekg
+        - ekg-core
+        - ekg-json
+        - ekg-statsd
         - first-class-patterns # #5965/closed
         - ghc-trace-events # #6326/closed
         - hashing # #6271
@@ -6436,9 +6429,6 @@ packages:
         - buchhaltung < 0 # tried buchhaltung-0.0.7, but its *library* requires the disabled package: hledger
         - buchhaltung < 0 # tried buchhaltung-0.0.7, but its *library* requires the disabled package: hledger-lib
         - buchhaltung < 0 # tried buchhaltung-0.0.7, but its *library* requires the disabled package: regex-tdfa-text
-        - bugsnag-haskell < 0 # tried bugsnag-haskell-0.0.4.4, but its *executable* requires the disabled package: warp
-        - bugsnag-wai < 0 # tried bugsnag-wai-1.0.0.1, but its *library* requires the disabled package: warp
-        - bugsnag-yesod < 0 # tried bugsnag-yesod-1.0.1.0, but its *executable* requires the disabled package: warp
         - bulletproofs < 0 # tried bulletproofs-1.1.0, but its *library* requires the disabled package: elliptic-curve
         - bulletproofs < 0 # tried bulletproofs-1.1.0, but its *library* requires the disabled package: galois-field
         - burrito < 0 # tried burrito-2.0.1.7, but its *library* requires bytestring >=0.11.3 && < 0.12 and the snapshot contains bytestring-0.12.0.2
@@ -6834,7 +6824,6 @@ packages:
         - flac-picture < 0 # tried flac-picture-0.1.2, but its *library* requires bytestring >=0.2 && < 0.12 and the snapshot contains bytestring-0.12.0.2
         - flat-mcmc < 0 # tried flat-mcmc-1.5.2, but its *library* requires text >=1.2 && < 2 and the snapshot contains text-2.1
         - flat-mcmc < 0 # tried flat-mcmc-1.5.2, but its *library* requires transformers >=0.2 && < 0.6 and the snapshot contains transformers-0.6.1.0
-        - fn < 0 # tried fn-0.3.0.2, but its *library* requires the disabled package: wai-extra
         - fold-debounce-conduit < 0 # tried fold-debounce-conduit-0.2.0.7, but its *library* requires base >=4.9.0 && < 4.17 and the snapshot contains base-4.19.0.0
         - fold-debounce-conduit < 0 # tried fold-debounce-conduit-0.2.0.7, but its *library* requires transformers >=0.5.2 && < 0.6 and the snapshot contains transformers-0.6.1.0
         - foldable1 < 0 # tried foldable1-0.1.0.0, but its *library* requires the disabled package: util
@@ -6871,11 +6860,6 @@ packages:
         - generic-aeson < 0 # tried generic-aeson-0.2.0.14, but its *library* requires vector >=0.10 && < 0.13 and the snapshot contains vector-0.13.1.0
         - generic-xmlpickler < 0 # tried generic-xmlpickler-0.1.0.6, but its *library* requires base >=4.5 && < 4.14 and the snapshot contains base-4.19.0.0
         - generic-xmlpickler < 0 # tried generic-xmlpickler-0.1.0.6, but its *library* requires generic-deriving >=1.6 && < 1.14 and the snapshot contains generic-deriving-1.14.5
-        - generics-sop < 0 # tried generics-sop-0.5.1.3, but its *library* requires base >=4.9 && < 4.19 and the snapshot contains base-4.19.0.0
-        - generics-sop < 0 # tried generics-sop-0.5.1.3, but its *library* requires ghc-prim >=0.3 && < 0.11 and the snapshot contains ghc-prim-0.11.0
-        - generics-sop < 0 # tried generics-sop-0.5.1.3, but its *library* requires template-haskell >=2.8 && < 2.21 and the snapshot contains template-haskell-2.21.0.0
-        - generics-sop < 0 # tried generics-sop-0.5.1.3, but its *library* requires th-abstraction >=0.4 && < 0.6 and the snapshot contains th-abstraction-0.6.0.0
-        - generics-sop-lens < 0 # tried generics-sop-lens-0.2.0.1, but its *library* requires the disabled package: generics-sop
         - geniplate-mirror < 0 # tried geniplate-mirror-0.7.9, but its *library* requires template-haskell < 2.20 and the snapshot contains template-haskell-2.21.0.0
         - genvalidity-sydtest < 0 # tried genvalidity-sydtest-1.0.0.0, but its *library* requires the disabled package: sydtest
         - genvalidity-sydtest-aeson < 0 # tried genvalidity-sydtest-aeson-1.0.0.0, but its *library* requires the disabled package: sydtest
@@ -6884,7 +6868,6 @@ packages:
         - genvalidity-sydtest-persistent < 0 # tried genvalidity-sydtest-persistent-1.0.0.0, but its *library* requires the disabled package: sydtest
         - geojson < 0 # tried geojson-4.1.1, but its *library* requires deepseq >=1.4.2.0 && < 1.5 and the snapshot contains deepseq-1.5.0.0
         - geojson < 0 # tried geojson-4.1.1, but its *library* requires text >=1.2.3.0 && < 2.1 and the snapshot contains text-2.1
-        - getopt-generics < 0 # tried getopt-generics-0.13.1.0, but its *library* requires the disabled package: generics-sop
         - ghc-clippy-plugin < 0 # tried ghc-clippy-plugin-0.0.0.1, but its *library* requires dhall >=1.30.0 && < 1.34 and the snapshot contains dhall-1.42.1
         - ghc-clippy-plugin < 0 # tried ghc-clippy-plugin-0.0.0.1, but its *library* requires ghc >=8.8.2 && < 8.11 and the snapshot contains ghc-9.8.1
         - ghc-clippy-plugin < 0 # tried ghc-clippy-plugin-0.0.0.1, but its *library* requires text >=1.2.3.2 && < 1.3 and the snapshot contains text-2.1
@@ -6902,7 +6885,6 @@ packages:
         - ghc-trace-events < 0 # tried ghc-trace-events-0.1.2.7, but its *library* requires base >=4.8 && < 4.19 and the snapshot contains base-4.19.0.0
         - ghc-trace-events < 0 # tried ghc-trace-events-0.1.2.7, but its *library* requires bytestring >=0.9.2 && < 0.12 and the snapshot contains bytestring-0.12.0.2
         - ghc-trace-events < 0 # tried ghc-trace-events-0.1.2.7, but its *library* requires text >=1.0.0 && < 1.3 || >=2.0 && < 2.1 and the snapshot contains text-2.1
-        - ghc-typelits-presburger < 0 # tried ghc-typelits-presburger-0.7.2.0, but its *library* requires ghc < 9.7 and the snapshot contains ghc-9.8.1
         - ghcjs-dom < 0 # tried ghcjs-dom-0.9.5.0, but its *library* requires text >=0.11.0.6 && < 1.3 and the snapshot contains text-2.1
         - ghcjs-dom < 0 # tried ghcjs-dom-0.9.5.0, but its *library* requires transformers >=0.2 && < 0.6 and the snapshot contains transformers-0.6.1.0
         - ghcjs-dom-jsaddle < 0 # tried ghcjs-dom-jsaddle-0.9.5.0, but its *library* requires the disabled package: jsaddle-dom
@@ -7054,7 +7036,6 @@ packages:
         - google-translate < 0 # tried google-translate-0.5, but its *library* requires http-client >=0.4 && < 0.6 and the snapshot contains http-client-0.7.15
         - google-translate < 0 # tried google-translate-0.5, but its *library* requires text >=1.2 && < 1.3 and the snapshot contains text-2.1
         - google-translate < 0 # tried google-translate-0.5, but its *library* requires transformers >=0.4 && < 0.6 and the snapshot contains transformers-0.6.1.0
-        - gopher-proxy < 0 # tried gopher-proxy-0.1.1.3, but its *executable* requires the disabled package: warp
         - gothic < 0 # tried gothic-0.1.8.1, but its *library* requires aeson >=2.0 && < 2.2 and the snapshot contains aeson-2.2.1.0
         - gothic < 0 # tried gothic-0.1.8.1, but its *library* requires bytestring >=0.10.8.2 && < 0.12 and the snapshot contains bytestring-0.12.0.2
         - gothic < 0 # tried gothic-0.1.8.1, but its *library* requires text >=1.2.3.0 && < 1.3 || >=2.0 && < 2.1 and the snapshot contains text-2.1
@@ -7102,7 +7083,6 @@ packages:
         - hadolint < 0 # tried hadolint-2.12.0, but its *library* requires language-docker >=11.0.0 && < 12 and the snapshot contains language-docker-12.1.0
         - hadoop-streaming < 0 # tried hadoop-streaming-0.2.0.3, but its *library* requires bytestring >=0.10 && < 0.11 and the snapshot contains bytestring-0.12.0.2
         - hadoop-streaming < 0 # tried hadoop-streaming-0.2.0.3, but its *library* requires text >=1.2.2.0 && < 1.3 and the snapshot contains text-2.1
-        - hakyll < 0 # tried hakyll-4.16.2.0, but its *library* requires the disabled package: warp
         - hakyll-convert < 0 # tried hakyll-convert-0.3.0.4, but its *library* requires text >=1.2 && < 1.3 || >=2.0 && < 2.1 and the snapshot contains text-2.1
         - hakyllbars < 0 # tried hakyllbars-1.0.1.0, but its *library* requires bytestring >=0.11.3 && < 0.12 and the snapshot contains bytestring-0.12.0.2
         - hakyllbars < 0 # tried hakyllbars-1.0.1.0, but its *library* requires text >=2.0.2 && < 2.1 and the snapshot contains text-2.1
@@ -7392,8 +7372,6 @@ packages:
         - hspec-tables < 0 # tried hspec-tables-0.0.1, but its *library* requires base >=4.13.0.0 && < 4.15 and the snapshot contains base-4.19.0.0
         - hspec-tables < 0 # tried hspec-tables-0.0.1, but its *library* requires hspec-core >=2.7 && < 2.8 and the snapshot contains hspec-core-2.11.7
         - hspec-tmp-proc < 0 # tried hspec-tmp-proc-0.5.2.0, but its *library* requires the disabled package: tmp-proc
-        - hspec-wai < 0 # tried hspec-wai-0.11.1, but its *library* requires the disabled package: wai-extra
-        - hspec-wai-json < 0 # tried hspec-wai-json-0.11.0, but its *library* requires the disabled package: hspec-wai
         - hsx-jmacro < 0 # tried hsx-jmacro-7.3.8.2, but its *library* requires mtl >=2.0 && < 2.3 and the snapshot contains mtl-2.3.1
         - hsx-jmacro < 0 # tried hsx-jmacro-7.3.8.2, but its *library* requires text >=0.11 && < 2.1 and the snapshot contains text-2.1
         - hsx-jmacro < 0 # tried hsx-jmacro-7.3.8.2, but its *library* requires the disabled package: hsp
@@ -7407,7 +7385,6 @@ packages:
         - htoml < 0 # tried htoml-1.0.0.3, but its *library* requires text >=1.0 && < 2 and the snapshot contains text-2.1
         - http-api-data-qq < 0 # tried http-api-data-qq-0.1.0.0, but its *library* requires template-haskell >=2.14 && < 2.21 and the snapshot contains template-haskell-2.21.0.0
         - http-api-data-qq < 0 # tried http-api-data-qq-0.1.0.0, but its *library* requires text >=1.2.3.1 && < 2.1 and the snapshot contains text-2.1
-        - http2 < 0 # tried http2-5.0.0, but its *library* requires bytestring >=0.10 && < 0.12 and the snapshot contains bytestring-0.12.0.2
         - hw-balancedparens < 0 # tried hw-balancedparens-0.4.1.3, but its *executable* requires bytestring >=0.9 && < 0.12 and the snapshot contains bytestring-0.12.0.2
         - hw-balancedparens < 0 # tried hw-balancedparens-0.4.1.3, but its *executable* requires optparse-applicative >=0.14 && < 0.18 and the snapshot contains optparse-applicative-0.18.1.0
         - hw-balancedparens < 0 # tried hw-balancedparens-0.4.1.3, but its *library* requires deepseq >=1.4.2.0 && < 1.5 and the snapshot contains deepseq-1.5.0.0
@@ -7605,7 +7582,6 @@ packages:
         - katip-scalyr-scribe < 0 # tried katip-scalyr-scribe-0.1.0.1, but its *library* requires text >=1.2 && < 1.3 and the snapshot contains text-2.1
         - katip-wai < 0 # tried katip-wai-0.1.2.2, but its *library* requires bytestring >=0.9 && < 0.12 and the snapshot contains bytestring-0.12.0.2
         - katip-wai < 0 # tried katip-wai-0.1.2.2, but its *library* requires text >=0.11 && < 2.1 and the snapshot contains text-2.1
-        - keter < 0 # tried keter-2.1.2, but its *library* requires the disabled package: warp
         - keyed-vals < 0 # tried keyed-vals-0.2.2.0, but its *library* requires the disabled package: redis-glob
         - keyed-vals-hspec-tests < 0 # tried keyed-vals-hspec-tests-0.2.2.0, but its *library* requires the disabled package: keyed-vals
         - keyed-vals-mem < 0 # tried keyed-vals-mem-0.2.2.0, but its *library* requires the disabled package: keyed-vals
@@ -7933,7 +7909,6 @@ packages:
         - one-liner < 0 # tried one-liner-2.1, but its *library* requires the disabled package: linear-base
         - one-liner-instances < 0 # tried one-liner-instances-0.1.3.0, but its *library* requires the disabled package: one-liner
         - opaleye < 0 # tried opaleye-0.10.2.0, but its *library* requires bytestring >=0.10 && < 0.12 and the snapshot contains bytestring-0.12.0.2
-        - openapi3 < 0 # tried openapi3-3.2.4, but its *library* requires the disabled package: generics-sop
         - opentelemetry < 0 # tried opentelemetry-0.8.0, but its *library* requires the disabled package: ghc-trace-events
         - opentelemetry-extra < 0 # tried opentelemetry-extra-0.8.0, but its *library* requires the disabled package: ghc-events
         - opentelemetry-lightstep < 0 # tried opentelemetry-lightstep-0.8.0, but its *executable* requires the disabled package: ghc-events
@@ -7959,7 +7934,6 @@ packages:
         - pandoc-lua-marshal < 0 # tried pandoc-lua-marshal-0.2.2, but its *library* requires aeson >=1.5 && < 2.2 and the snapshot contains aeson-2.2.1.0
         - pandoc-lua-marshal < 0 # tried pandoc-lua-marshal-0.2.2, but its *library* requires bytestring >=0.10 && < 0.12 and the snapshot contains bytestring-0.12.0.2
         - pandoc-lua-marshal < 0 # tried pandoc-lua-marshal-0.2.2, but its *library* requires text >=1.1.1.0 && < 1.3 || >=2.0 && < 2.1 and the snapshot contains text-2.1
-        - pandoc-server < 0 # tried pandoc-server-0.1.0.4, but its *library* requires the disabled package: servant-server
         - pandoc-symreg < 0 # tried pandoc-symreg-0.2.1.3, but its *library* requires bytestring >=0.11 && < 0.12 and the snapshot contains bytestring-0.12.0.2
         - pandoc-symreg < 0 # tried pandoc-symreg-0.2.1.3, but its *library* requires hegg >=0.3.0 && < 0.4 and the snapshot contains hegg-0.5.0.0
         - pango < 0 # tried pango-0.13.10.0, but its *library* requires text >=0.11.0.6 && < 2.1 and the snapshot contains text-2.1
@@ -8101,7 +8075,6 @@ packages:
         - pred-trie < 0 # tried pred-trie-0.6.1, but its *library* requires the disabled package: tries
         - pretty-diff < 0 # tried pretty-diff-0.4.0.3, but its *library* requires Diff >=0.3 && < 0.5 and the snapshot contains Diff-0.5
         - pretty-diff < 0 # tried pretty-diff-0.4.0.3, but its *library* requires text >=1.2 && < 1.3 and the snapshot contains text-2.1
-        - pretty-sop < 0 # tried pretty-sop-0.2.0.3, but its *library* requires the disabled package: generics-sop
         - prettyprinter-interp < 0 # tried prettyprinter-interp-0.2.0.0, but its *library* requires the disabled package: string-interpolate
         - primitive-extras < 0 # tried primitive-extras-0.10.1.10, but its *library* requires the disabled package: primitive-unlifted
         - primitive-unlifted < 0 # tried primitive-unlifted-2.1.0.0, but its *library* requires bytestring >=0.10.8.2 && < 0.12 and the snapshot contains bytestring-0.12.0.2
@@ -8340,7 +8313,6 @@ packages:
         - sensu-run < 0 # tried sensu-run-0.7.0.5, but its *executable* requires vector >=0.11 && < 0.13 and the snapshot contains vector-0.13.1.0
         - seqloc < 0 # tried seqloc-0.6.1.1, but its *library* requires the disabled package: biocore
         - serf < 0 # tried serf-0.1.1.0, but its *library* requires text >=1 && < 2 and the snapshot contains text-2.1
-        - servant-JuicyPixels < 0 # tried servant-JuicyPixels-0.3.1.1, but its *executable* requires the disabled package: warp
         - servant-auth-cookie < 0 # tried servant-auth-cookie-0.6.0.3, but its *library* requires blaze-builder >=0.4 && < 0.4.1 and the snapshot contains blaze-builder-0.4.2.3
         - servant-auth-cookie < 0 # tried servant-auth-cookie-0.6.0.3, but its *library* requires cryptonite >=0.14 && < 0.25 and the snapshot contains cryptonite-0.30
         - servant-auth-cookie < 0 # tried servant-auth-cookie-0.6.0.3, but its *library* requires exceptions >=0.8 && < 0.9 and the snapshot contains exceptions-0.10.7
@@ -8351,20 +8323,17 @@ packages:
         - servant-auth-cookie < 0 # tried servant-auth-cookie-0.6.0.3, but its *library* requires servant-server >=0.5 && < 0.13 and the snapshot contains servant-server-0.20
         - servant-auth-cookie < 0 # tried servant-auth-cookie-0.6.0.3, but its *library* requires time >=1.6 && < 1.8.1 and the snapshot contains time-1.12.2
         - servant-auth-cookie < 0 # tried servant-auth-cookie-0.6.0.3, but its *library* requires transformers >=0.4 && < 0.6 and the snapshot contains transformers-0.6.1.0
-        - servant-auth-server < 0 # tried servant-auth-server-0.4.8.0, but its *library* requires the disabled package: servant-server
         - servant-auth-swagger < 0 # tried servant-auth-swagger-0.2.10.2, but its *library* requires the disabled package: swagger2
         - servant-auth-wordpress < 0 # tried servant-auth-wordpress-1.0.0.2, but its *library* requires servant-server >=0.14 && < 0.20 and the snapshot contains servant-server-0.20
         - servant-auth-wordpress < 0 # tried servant-auth-wordpress-1.0.0.2, but its *library* requires the disabled package: wordpress-auth
         - servant-cassava < 0 # tried servant-cassava-0.10.2, but its *library* requires base-compat >=0.9.1 && < 0.13 and the snapshot contains base-compat-0.13.1
         - servant-cassava < 0 # tried servant-cassava-0.10.2, but its *library* requires servant >=0.7 && < 0.20 and the snapshot contains servant-0.20.1
-        - servant-checked-exceptions < 0 # tried servant-checked-exceptions-2.2.0.1, but its *executable* requires the disabled package: warp
         - servant-docs-simple < 0 # tried servant-docs-simple-0.4.0.0, but its *library* requires aeson >=1.4.2 && < 1.6 and the snapshot contains aeson-2.2.1.0
         - servant-docs-simple < 0 # tried servant-docs-simple-0.4.0.0, but its *library* requires bytestring >=0.10.8.2 && < 0.12 and the snapshot contains bytestring-0.12.0.2
         - servant-docs-simple < 0 # tried servant-docs-simple-0.4.0.0, but its *library* requires servant >=0.15 && < 0.19 and the snapshot contains servant-0.20.1
         - servant-docs-simple < 0 # tried servant-docs-simple-0.4.0.0, but its *library* requires text >=1.2.3.1 && < 1.3 and the snapshot contains text-2.1
         - servant-errors < 0 # tried servant-errors-0.1.7.0, but its *library* requires aeson >=1.3 && < 1.6 and the snapshot contains aeson-2.2.1.0
         - servant-errors < 0 # tried servant-errors-0.1.7.0, but its *library* requires base >=4.10.0.0 && < 4.15 and the snapshot contains base-4.19.0.0
-        - servant-exceptions-server < 0 # tried servant-exceptions-server-0.2.1, but its *library* requires the disabled package: servant-server
         - servant-js < 0 # tried servant-js-0.9.4.2, but its *executable* requires aeson >=1.4.1.0 && < 1.5 and the snapshot contains aeson-2.2.1.0
         - servant-kotlin < 0 # tried servant-kotlin-0.1.1.9, but its *library* requires containers >=0.5.7 && < 0.6.1 and the snapshot contains containers-0.6.8
         - servant-kotlin < 0 # tried servant-kotlin-0.1.1.9, but its *library* requires formatting >=6.2 && < 6.4 and the snapshot contains formatting-7.2.0
@@ -8380,12 +8349,6 @@ packages:
         - servant-mock < 0 # tried servant-mock-0.8.7, but its *library* requires servant >=0.17 && < 0.19 and the snapshot contains servant-0.20.1
         - servant-mock < 0 # tried servant-mock-0.8.7, but its *library* requires servant-server >=0.17 && < 0.19 and the snapshot contains servant-server-0.20
         - servant-mock < 0 # tried servant-mock-0.8.7, but its *library* requires transformers >=0.5.2.0 && < 0.6 and the snapshot contains transformers-0.6.1.0
-        - servant-multipart < 0 # tried servant-multipart-0.12.1, but its *library* requires bytestring >=0.10.8.1 && < 0.12 and the snapshot contains bytestring-0.12.0.2
-        - servant-multipart < 0 # tried servant-multipart-0.12.1, but its *library* requires text >=1.2.3.0 && < 2.1 and the snapshot contains text-2.1
-        - servant-multipart-api < 0 # tried servant-multipart-api-0.12.1, but its *library* requires bytestring >=0.10.8.1 && < 0.12 and the snapshot contains bytestring-0.12.0.2
-        - servant-multipart-api < 0 # tried servant-multipart-api-0.12.1, but its *library* requires text >=1.2.3.0 && < 2.1 and the snapshot contains text-2.1
-        - servant-multipart-client < 0 # tried servant-multipart-client-0.12.2, but its *library* requires bytestring >=0.10.8.1 && < 0.12 and the snapshot contains bytestring-0.12.0.2
-        - servant-multipart-client < 0 # tried servant-multipart-client-0.12.2, but its *library* requires text >=1.2.3.0 && < 2.1 and the snapshot contains text-2.1
         - servant-openapi3 < 0 # tried servant-openapi3-2.0.1.6, but its *library* requires the disabled package: openapi3
         - servant-pandoc < 0 # tried servant-pandoc-0.5.0.0, but its *library* requires bytestring >=0.10 && < 0.11 and the snapshot contains bytestring-0.12.0.2
         - servant-pandoc < 0 # tried servant-pandoc-0.5.0.0, but its *library* requires http-media >=0.6 && < 0.8 and the snapshot contains http-media-0.8.1.1
@@ -8404,11 +8367,8 @@ packages:
         - servant-quickcheck < 0 # tried servant-quickcheck-0.0.10.0, but its *library* requires servant-server >=0.17 && < 0.19 and the snapshot contains servant-server-0.20
         - servant-quickcheck < 0 # tried servant-quickcheck-0.0.10.0, but its *library* requires text >=1 && < 2 and the snapshot contains text-2.1
         - servant-quickcheck < 0 # tried servant-quickcheck-0.0.10.0, but its *library* requires time >=1.5 && < 1.11 and the snapshot contains time-1.12.2
-        - servant-rate-limit < 0 # tried servant-rate-limit-0.2.0.0, but its *library* requires the disabled package: servant-server
         - servant-ruby < 0 # tried servant-ruby-0.9.0.0, but its *library* requires servant-foreign >=0.9 && < 0.16 and the snapshot contains servant-foreign-0.16
         - servant-ruby < 0 # tried servant-ruby-0.9.0.0, but its *library* requires text >=1.2 && < 1.3 and the snapshot contains text-2.1
-        - servant-server < 0 # tried servant-server-0.20, but its *executable* requires the disabled package: warp
-        - servant-static-th < 0 # tried servant-static-th-1.0.0.0, but its *executable* requires the disabled package: warp
         - servant-streaming < 0 # tried servant-streaming-0.3.0.0, but its *library* requires base >=4.7 && < 4.13 and the snapshot contains base-4.19.0.0
         - servant-streaming < 0 # tried servant-streaming-0.3.0.0, but its *library* requires servant >=0.13 && < 0.16 and the snapshot contains servant-0.20.1
         - servant-streaming-client < 0 # tried servant-streaming-client-0.3.0.0, but its *library* requires base >=4.7 && < 4.13 and the snapshot contains base-4.19.0.0
@@ -8436,8 +8396,6 @@ packages:
         - servant-yaml < 0 # tried servant-yaml-0.1.0.1, but its *library* requires bytestring >=0.10.8.1 && < 0.11 and the snapshot contains bytestring-0.12.0.2
         - servant-yaml < 0 # tried servant-yaml-0.1.0.1, but its *library* requires servant >=0.15 && < 0.18 and the snapshot contains servant-0.20.1
         - serversession-backend-persistent < 0 # tried serversession-backend-persistent-2.0.1, but its *library* requires persistent >=2.13 && < 2.14 and the snapshot contains persistent-2.14.6.0
-        - serversession-frontend-yesod < 0 # tried serversession-frontend-yesod-1.0.1, but its *library* requires the disabled package: yesod-core
-        - servius < 0 # tried servius-1.2.3.0, but its *executable* requires the disabled package: wai-app-static
         - sessiontypes-distributed < 0 # tried sessiontypes-distributed-0.1.1, but its *library* requires bytestring >=0.10.8.1 && < 0.11 and the snapshot contains bytestring-0.12.0.2
         - sessiontypes-distributed < 0 # tried sessiontypes-distributed-0.1.1, but its *library* requires exceptions >=0.8.3 && < 0.10.0 and the snapshot contains exceptions-0.10.7
         - sessiontypes-distributed < 0 # tried sessiontypes-distributed-0.1.1, but its *library* requires the disabled package: sessiontypes
@@ -8463,13 +8421,10 @@ packages:
         - simple-log < 0 # tried simple-log-0.9.12, but its *library* requires transformers >=0.4 && < 0.6 and the snapshot contains transformers-0.6.1.0
         - simple-media-timestamp-formatting < 0 # tried simple-media-timestamp-formatting-0.1.1.0, but its *library* requires formatting >=7.0.0 && < 7.2 and the snapshot contains formatting-7.2.0
         - simple-pango < 0 # tried simple-pango-0.1.0.1, but its *library* requires the disabled package: simple-cairo
-        - simple-session < 0 # tried simple-session-2.0.0, but its *library* requires the disabled package: wai-extra
         - simplest-sqlite < 0 # tried simplest-sqlite-0.1.0.2, but its *library* requires bytestring >=0.10 && < 0.11 and the snapshot contains bytestring-0.12.0.2
         - simplest-sqlite < 0 # tried simplest-sqlite-0.1.0.2, but its *library* requires template-haskell >=2.12 && < 2.16 and the snapshot contains template-haskell-2.21.0.0
         - simplest-sqlite < 0 # tried simplest-sqlite-0.1.0.2, but its *library* requires text >=1.1 && < 1.3 and the snapshot contains text-2.1
-        - singletons-presburger < 0 # tried singletons-presburger-0.7.2.0, but its *library* requires the disabled package: ghc-typelits-presburger
         - siphash < 0 # tried siphash-1.0.3, but its *library* requires bytestring < 0.11 and the snapshot contains bytestring-0.12.0.2
-        - sized < 0 # tried sized-1.1.0.0, but its *library* requires the disabled package: ghc-typelits-presburger
         - sized-grid < 0 # tried sized-grid-0.2.0.1, but its *library* requires aeson >=1.2 && < 1.5 and the snapshot contains aeson-2.2.1.0
         - sized-grid < 0 # tried sized-grid-0.2.0.1, but its *library* requires base >=4.9 && < 4.13 and the snapshot contains base-4.19.0.0
         - sized-grid < 0 # tried sized-grid-0.2.0.1, but its *library* requires constraints >=0.9 && < 0.11 and the snapshot contains constraints-0.14
@@ -8535,7 +8490,6 @@ packages:
         - sqlcli < 0 # tried sqlcli-0.2.2.0, but its *library* requires transformers >=0.5 && < 0.6 and the snapshot contains transformers-0.6.1.0
         - sqlcli-odbc < 0 # tried sqlcli-odbc-0.2.0.1, but its *library* requires the disabled package: sqlcli
         - sqlite-simple-errors < 0 # tried sqlite-simple-errors-0.6.1.0, but its *library* requires text >=1.2 && < 1.2.4 and the snapshot contains text-2.1
-        - squeal-postgresql < 0 # tried squeal-postgresql-0.9.1.3, but its *library* requires the disabled package: generics-sop
         - squeal-postgresql < 0 # tried squeal-postgresql-0.9.1.3, but its *library* requires the disabled package: records-sop
         - srt < 0 # tried srt-0.1.2.0, but its *library* requires text >=1.0 && < 2.1 and the snapshot contains text-2.1
         - srt-attoparsec < 0 # tried srt-attoparsec-0.1.0.0, but its *library* requires mtl >=1.0 && < =2.3 and the snapshot contains mtl-2.3.1
@@ -8683,7 +8637,6 @@ packages:
         - sydtest-servant < 0 # tried sydtest-servant-0.2.0.2, but its *library* requires the disabled package: sydtest
         - sydtest-typed-process < 0 # tried sydtest-typed-process-0.0.0.0, but its *library* requires the disabled package: sydtest
         - sydtest-wai < 0 # tried sydtest-wai-0.2.0.1, but its *library* requires the disabled package: sydtest
-        - sydtest-wai < 0 # tried sydtest-wai-0.2.0.1, but its *library* requires the disabled package: warp
         - sydtest-webdriver < 0 # tried sydtest-webdriver-0.0.0.1, but its *library* requires the disabled package: sydtest
         - sydtest-webdriver-screenshot < 0 # tried sydtest-webdriver-screenshot-0.0.0.2, but its *library* requires the disabled package: sydtest
         - sydtest-webdriver-yesod < 0 # tried sydtest-webdriver-yesod-0.0.0.1, but its *library* requires the disabled package: sydtest
@@ -8706,7 +8659,6 @@ packages:
         - tasty-test-reporter < 0 # tried tasty-test-reporter-0.1.1.4, but its *library* requires mtl >=2.2 && < 2.3 and the snapshot contains mtl-2.3.1
         - tasty-test-reporter < 0 # tried tasty-test-reporter-0.1.1.4, but its *library* requires tasty >=0.1 && < 1.5 and the snapshot contains tasty-1.5
         - tasty-test-reporter < 0 # tried tasty-test-reporter-0.1.1.4, but its *library* requires text >=1.2 && < 1.3 and the snapshot contains text-2.1
-        - tasty-wai < 0 # tried tasty-wai-0.1.2.0, but its *library* requires the disabled package: wai-extra
         - tcp-streams-openssl < 0 # tried tcp-streams-openssl-1.0.1.0, but its *library* requires network >=2.3 && < 3.0 and the snapshot contains network-3.1.4.0
         - tcp-streams-openssl < 0 # tried tcp-streams-openssl-1.0.1.0, but its *library* requires the disabled package: tcp-streams
         - telegram-bot-api < 0 # tried telegram-bot-api-6.7.1, but its *library* requires the disabled package: cron
@@ -8733,7 +8685,6 @@ packages:
         - time-parsers < 0 # tried time-parsers-0.2, but its *library* requires template-haskell >=2.8.0.0 && < 2.21 and the snapshot contains template-haskell-2.21.0.0
         - tldr < 0 # tried tldr-0.9.2, but its *library* requires the disabled package: cmark
         - tls-debug < 0 # tried tls-debug-0.4.8, but its *executable* requires tls >=1.3 && < 1.6 and the snapshot contains tls-1.9.0
-        - tmp-proc < 0 # tried tmp-proc-0.5.3.0, but its *library* requires the disabled package: warp
         - tmp-proc-postgres < 0 # tried tmp-proc-postgres-0.5.3.1, but its *library* requires text >=1.2.3.0 && < 1.3 || >=2.0 && < 2.1 and the snapshot contains text-2.1
         - tmp-proc-rabbitmq < 0 # tried tmp-proc-rabbitmq-0.5.3.1, but its *library* requires the disabled package: tmp-proc
         - tmp-proc-redis < 0 # tried tmp-proc-redis-0.5.3.1, but its *library* requires the disabled package: tmp-proc
@@ -8766,10 +8717,8 @@ packages:
         - ttl-hashtables < 0 # tried ttl-hashtables-1.4.1.0, but its *library* requires hashtables >=1.2 && < 1.3 and the snapshot contains hashtables-1.3.1
         - ttl-hashtables < 0 # tried ttl-hashtables-1.4.1.0, but its *library* requires mtl >=2.2 && < 2.3 and the snapshot contains mtl-2.3.1
         - ttl-hashtables < 0 # tried ttl-hashtables-1.4.1.0, but its *library* requires transformers >=0.4 && < 0.6 and the snapshot contains transformers-0.6.1.0
-        - tuple-sop < 0 # tried tuple-sop-0.3.1.0, but its *library* requires the disabled package: generics-sop
         - type-combinators-singletons < 0 # tried type-combinators-singletons-0.2.1.0, but its *library* requires the disabled package: type-combinators
         - type-errors-pretty < 0 # tried type-errors-pretty-0.0.1.2, but its *library* requires base >=4.10.1.0 && < 4.16 and the snapshot contains base-4.19.0.0
-        - type-natural < 0 # tried type-natural-1.3.0.0, but its *library* requires the disabled package: ghc-typelits-presburger
         - type-operators < 0 # tried type-operators-0.2.0.0, but its *library* requires base >=4.7 && < 4.17 and the snapshot contains base-4.19.0.0
         - ucam-webauth < 0 # tried ucam-webauth-0.1.0.0, but its *library* requires aeson >=1.2 && < 1.5 and the snapshot contains aeson-2.2.1.0
         - ucam-webauth < 0 # tried ucam-webauth-0.1.0.0, but its *library* requires attoparsec >=0.13.2.2 && < 0.14 and the snapshot contains attoparsec-0.14.4
@@ -8853,14 +8802,9 @@ packages:
         - viewprof < 0 # tried viewprof-0.0.0.33, but its *executable* requires vector >=0.10.12.3 && < 0.13 and the snapshot contains vector-0.13.1.0
         - viewprof < 0 # tried viewprof-0.0.0.33, but its *executable* requires vector-algorithms >=0.6.0.4 && < 0.9 and the snapshot contains vector-algorithms-0.9.0.1
         - viewprof < 0 # tried viewprof-0.0.0.33, but its *executable* requires vty >=5.13 && < 5.29 and the snapshot contains vty-6.1
-        - wai-app-static < 0 # tried wai-app-static-3.1.8, but its *library* requires the disabled package: warp
         - wai-cli < 0 # tried wai-cli-0.2.3, but its *library* requires the disabled package: monads-tf
         - wai-cli < 0 # tried wai-cli-0.2.3, but its *library* requires the disabled package: options
         - wai-control < 0 # tried wai-control-0.2.0.0, but its *library* requires the disabled package: websockets
-        - wai-enforce-https < 0 # tried wai-enforce-https-1.0.0.0, but its *executable* requires the disabled package: warp
-        - wai-extra < 0 # tried wai-extra-3.1.13.0, but its *library* requires the disabled package: warp
-        - wai-feature-flags < 0 # tried wai-feature-flags-0.1.0.7, but its *executable* requires the disabled package: warp
-        - wai-handler-launch < 0 # tried wai-handler-launch-3.0.3.1, but its *library* requires the disabled package: warp
         - wai-middleware-crowd < 0 # tried wai-middleware-crowd-0.1.4.2, but its *executable* requires optparse-applicative >=0.11 && < 0.15 and the snapshot contains optparse-applicative-0.18.1.0
         - wai-middleware-metrics < 0 # tried wai-middleware-metrics-0.2.4, but its *library* requires the disabled package: ekg-core
         - wai-middleware-rollbar < 0 # tried wai-middleware-rollbar-0.11.0, but its *library* requires aeson >=1.0 && < 1.4 and the snapshot contains aeson-2.2.1.0
@@ -8876,8 +8820,6 @@ packages:
         - wai-session-redis < 0 # tried wai-session-redis-0.1.0.5, but its *library* requires bytestring >=0.10 && < 0.12 and the snapshot contains bytestring-0.12.0.2
         - wai-transformers < 0 # tried wai-transformers-0.1.0, but its *library* requires the disabled package: websockets
         - wai-websockets < 0 # tried wai-websockets-3.0.1.2, but its *library* requires the disabled package: websockets
-        - warp < 0 # tried warp-3.3.31, but its *library* requires the disabled package: http2
-        - warp-tls < 0 # tried warp-tls-3.4.3, but its *library* requires the disabled package: warp
         - wavefront < 0 # tried wavefront-0.7.1.5, but its *library* requires base >=4.8 && < 4.18 and the snapshot contains base-4.19.0.0
         - wavefront < 0 # tried wavefront-0.7.1.5, but its *library* requires text >=1.2 && < 2.1 and the snapshot contains text-2.1
         - web-plugins < 0 # tried web-plugins-0.4.1, but its *library* requires bytestring < 0.12 and the snapshot contains bytestring-0.12.0.2
@@ -9010,7 +8952,6 @@ packages:
         - xmonad-extras < 0 # tried xmonad-extras-0.17.0, but its *library* requires bytestring >=0.9 && < 0.12 and the snapshot contains bytestring-0.12.0.2
         - yeshql < 0 # tried yeshql-4.2.0.0, but its *library* requires the disabled package: yeshql-hdbc
         - yeshql < 0 # tried yeshql-4.2.0.0, but its *library* requires yeshql-core ==4.1.1.2 and the snapshot contains yeshql-core-4.2.0.0
-        - yesod < 0 # tried yesod-1.6.2.1, but its *library* requires the disabled package: warp
         - yesod < 0 # tried yesod-1.6.2.1, but its *library* requires the disabled package: yesod-form
         - yesod-alerts < 0 # tried yesod-alerts-0.1.3.0, but its *library* requires text >=0.11 && < 2.0 and the snapshot contains text-2.1
         - yesod-auth < 0 # tried yesod-auth-1.6.11.2, but its *library* requires the disabled package: email-validate
@@ -9022,33 +8963,19 @@ packages:
         - yesod-auth-hashdb < 0 # tried yesod-auth-hashdb-1.7.1.7, but its *library* requires the disabled package: yesod-auth
         - yesod-auth-hashdb < 0 # tried yesod-auth-hashdb-1.7.1.7, but its *library* requires the disabled package: yesod-form
         - yesod-auth-oauth2 < 0 # tried yesod-auth-oauth2-0.7.1.3, but its *library* requires the disabled package: hoauth2
-        - yesod-core < 0 # tried yesod-core-1.6.25.1, but its *library* requires the disabled package: warp
-        - yesod-eventsource < 0 # tried yesod-eventsource-1.6.0.1, but its *library* requires the disabled package: wai-extra
-        - yesod-eventsource < 0 # tried yesod-eventsource-1.6.0.1, but its *library* requires the disabled package: yesod-core
-        - yesod-fb < 0 # tried yesod-fb-0.6.1, but its *library* requires the disabled package: yesod-core
+        - yesod-fb < 0 # tried yesod-fb-0.6.1, but its *library* requires the disabled package: fb
         - yesod-form < 0 # tried yesod-form-1.7.6, but its *library* requires the disabled package: email-validate
         - yesod-form-bootstrap4 < 0 # tried yesod-form-bootstrap4-3.0.1.1, but its *library* requires the disabled package: yesod-form
         - yesod-form-richtext < 0 # tried yesod-form-richtext-0.1.0.2, but its *library* requires yesod-core >=1.4 && < 1.5 and the snapshot contains yesod-core-1.6.25.1
         - yesod-form-richtext < 0 # tried yesod-form-richtext-0.1.0.2, but its *library* requires yesod-form >=1.4.4.1 && < 1.5 and the snapshot contains yesod-form-1.7.6
-        - yesod-gitrepo < 0 # tried yesod-gitrepo-0.3.0, but its *library* requires the disabled package: yesod-core
-        - yesod-gitrev < 0 # tried yesod-gitrev-0.2.2, but its *library* requires the disabled package: yesod-core
         - yesod-markdown < 0 # tried yesod-markdown-0.12.6.13, but its *library* requires the disabled package: yesod-form
         - yesod-middleware-csp < 0 # tried yesod-middleware-csp-1.2.0, but its *library* requires bytestring >=0.9 && < 0.12 and the snapshot contains bytestring-0.12.0.2
-        - yesod-newsfeed < 0 # tried yesod-newsfeed-1.7.0.0, but its *library* requires the disabled package: yesod-core
-        - yesod-page-cursor < 0 # tried yesod-page-cursor-2.0.1.0, but its *library* requires the disabled package: yesod-core
-        - yesod-paginator < 0 # tried yesod-paginator-1.1.2.2, but its *executable* requires the disabled package: warp
-        - yesod-persistent < 0 # tried yesod-persistent-1.6.0.8, but its *library* requires the disabled package: yesod-core
+        - yesod-paginator < 0 # tried yesod-paginator-1.1.2.2, but its *executable* requires the disabled package: yesod
         - yesod-recaptcha2 < 0 # tried yesod-recaptcha2-1.0.2.1, but its *library* requires the disabled package: yesod-form
-        - yesod-routes-flow < 0 # tried yesod-routes-flow-3.0.0.2, but its *library* requires the disabled package: yesod-core
-        - yesod-sitemap < 0 # tried yesod-sitemap-1.6.0, but its *library* requires the disabled package: yesod-core
-        - yesod-static < 0 # tried yesod-static-1.6.1.0, but its *library* requires the disabled package: wai-app-static
-        - yesod-static < 0 # tried yesod-static-1.6.1.0, but its *library* requires the disabled package: yesod-core
         - yesod-static-angular < 0 # tried yesod-static-angular-0.1.8, but its *executable* requires yesod >=1.2 && < 1.5 and the snapshot contains yesod-1.6.2.1
         - yesod-static-angular < 0 # tried yesod-static-angular-0.1.8, but its *library* requires language-javascript >=0.6 && < 0.7 and the snapshot contains language-javascript-0.7.1.0
         - yesod-static-angular < 0 # tried yesod-static-angular-0.1.8, but its *library* requires yesod-core >=1.2 && < 1.5 and the snapshot contains yesod-core-1.6.25.1
         - yesod-static-angular < 0 # tried yesod-static-angular-0.1.8, but its *library* requires yesod-static >=1.2.1 && < 1.6 and the snapshot contains yesod-static-1.6.1.0
-        - yesod-test < 0 # tried yesod-test-1.6.16, but its *library* requires the disabled package: wai-extra
-        - yesod-test < 0 # tried yesod-test-1.6.16, but its *library* requires the disabled package: yesod-core
         - yesod-text-markdown < 0 # tried yesod-text-markdown-0.1.10, but its *library* requires aeson >=0.7 && < 2.0 and the snapshot contains aeson-2.2.1.0
         - yesod-text-markdown < 0 # tried yesod-text-markdown-0.1.10, but its *library* requires text >=0.11 && < 2.0 and the snapshot contains text-2.1
         - yesod-websockets < 0 # tried yesod-websockets-0.3.0.3, but its *library* requires the disabled package: websockets
@@ -9407,7 +9334,6 @@ skipped-tests:
     - aura # tried aura-3.2.9, but its *test-suite* requires tasty >=0.11 && < 1.5 and the snapshot contains tasty-1.5
     - avro # tried avro-0.6.1.2, but its *test-suite* requires doctest >=0.16.2 && < 0.21 and the snapshot contains doctest-0.22.2
     - aws-cloudfront-signed-cookies # tried aws-cloudfront-signed-cookies-0.2.0.12, but its *test-suite* requires hedgehog ^>=1.0.5 || ^>=1.1 || ^>=1.2 and the snapshot contains hedgehog-1.4
-    - aws-sns-verify # tried aws-sns-verify-0.0.0.3, but its *test-suite* requires the disabled package: warp
     - barrier # tried barrier-0.1.1, but its *test-suite* requires tasty >=0.10 && < 1.5 and the snapshot contains tasty-1.5
     - beam-postgres # tried beam-postgres-0.5.3.1, but its *test-suite* requires the disabled package: tmp-postgres
     - bench-show # tried bench-show-0.3.2, but its *test-suite* requires text >=1.1.1 && < 2.1 and the snapshot contains text-2.1
@@ -9448,8 +9374,6 @@ skipped-tests:
     - config-ini # tried config-ini-0.2.7.0, but its *test-suite* requires the disabled package: hedgehog
     - configurator-pg # tried configurator-pg-0.2.9, but its *test-suite* requires bytestring >=0.10.6 && < 0.12 and the snapshot contains bytestring-0.12.0.2
     - construct # tried construct-0.3.1.2, but its *test-suite* requires markdown-unlit >=0.5 && < 0.6 and the snapshot contains markdown-unlit-0.6.0
-    - context-http-client # tried context-http-client-0.2.0.2, but its *test-suite* requires the disabled package: warp
-    - context-wai-middleware # tried context-wai-middleware-0.2.0.2, but its *test-suite* requires the disabled package: warp
     - crc32c # tried crc32c-0.1.0, but its *test-suite* requires bytestring >=0.10.8.2 && < 0.11 and the snapshot contains bytestring-0.12.0.2
     - csg # tried csg-0.1.0.6, but its *test-suite* requires doctest < 0.17 and the snapshot contains doctest-0.22.2
     - csg # tried csg-0.1.0.6, but its *test-suite* requires tasty < 1.3 and the snapshot contains tasty-1.5
@@ -9555,9 +9479,7 @@ skipped-tests:
     - hslua-list # tried hslua-list-1.1.1, but its *test-suite* requires the disabled package: tasty-lua
     - hspec-need-env # tried hspec-need-env-0.1.0.10, but its *test-suite* requires transformers >=0.5.2.0 && < 0.6 and the snapshot contains transformers-0.6.1.0
     - hspec-tables # tried hspec-tables-0.0.1, but its *test-suite* requires hspec >=2.7 && < 2.8 and the snapshot contains hspec-2.11.7
-    - http-conduit # tried http-conduit-2.3.8.3, but its *test-suite* requires the disabled package: warp
     - http-io-streams # tried http-io-streams-0.1.6.3, but its *test-suite* requires the disabled package: snap-core
-    - http-reverse-proxy # tried http-reverse-proxy-0.6.0.2, but its *test-suite* requires the disabled package: warp
     - hw-balancedparens # tried hw-balancedparens-0.4.1.3, but its *test-suite* requires doctest >=0.16.2 && < 0.21 and the snapshot contains doctest-0.22.2
     - hw-balancedparens # tried hw-balancedparens-0.4.1.3, but its *test-suite* requires hedgehog >=1.0 && < 1.3 and the snapshot contains hedgehog-1.4
     - hw-bits # tried hw-bits-0.7.2.2, but its *test-suite* requires doctest >=0.16.2 && < 0.21 and the snapshot contains doctest-0.22.2
@@ -9708,27 +9630,21 @@ skipped-tests:
     - scale # tried scale-1.0.0.0, but its *test-suite* requires hspec-discover >=2.4.4 && < 2.8 and the snapshot contains hspec-discover-2.11.7
     - scalendar # tried scalendar-1.2.0, but its *test-suite* requires the disabled package: SCalendar
     - schematic # tried schematic-0.5.1.0, but its *test-suite* requires base >=4.11 && < 4.13 and the snapshot contains base-4.19.0.0
-    - servant-auth-client # tried servant-auth-client-0.4.1.1, but its *test-suite* requires the disabled package: warp
     - servant-auth-cookie # tried servant-auth-cookie-0.6.0.3, but its *test-suite* requires deepseq >=1.3 && < 1.5 and the snapshot contains deepseq-1.5.0.0
-    - servant-auth-server # tried servant-auth-server-0.4.8.0, but its *test-suite* requires the disabled package: warp
-    - servant-blaze # tried servant-blaze-0.9.1, but its *test-suite* requires the disabled package: warp
     - servant-cassava # tried servant-cassava-0.10.2, but its *test-suite* requires servant-server >=0.4.4.5 && < 0.20 and the snapshot contains servant-server-0.20
-    - servant-client # tried servant-client-0.20, but its *test-suite* requires the disabled package: warp
-    - servant-conduit # tried servant-conduit-0.16, but its *test-suite* requires the disabled package: warp
+    - servant-checked-exceptions # tried servant-checked-exceptions-2.2.0.1, but its *test-suite* requires the disabled package: hspec-wai
     - servant-docs # tried servant-docs-0.13, but its *test-suite* requires tasty >=1.1.0.4 && < 1.5 and the snapshot contains tasty-1.5
     - servant-docs-simple # tried servant-docs-simple-0.4.0.0, but its *test-suite* requires hspec >=2.7.1 && < 2.9 and the snapshot contains hspec-2.11.7
     - servant-docs-simple # tried servant-docs-simple-0.4.0.0, but its *test-suite* requires hspec-core >=2.7.1 && < 2.9 and the snapshot contains hspec-core-2.11.7
-    - servant-http-streams # tried servant-http-streams-0.20, but its *test-suite* requires the disabled package: warp
     - servant-js # tried servant-js-0.9.4.2, but its *test-suite* requires the disabled package: language-ecmascript
     - servant-kotlin # tried servant-kotlin-0.1.1.9, but its *test-suite* requires aeson >=1.0 && < 1.5 and the snapshot contains aeson-2.2.1.0
     - servant-kotlin # tried servant-kotlin-0.1.1.9, but its *test-suite* requires hspec >=2.4.1 && < 2.8 and the snapshot contains hspec-2.11.7
     - servant-kotlin # tried servant-kotlin-0.1.1.9, but its *test-suite* requires http-api-data >=0.3.7 && < 0.4.2 and the snapshot contains http-api-data-0.6
-    - servant-lucid # tried servant-lucid-0.9.0.6, but its *test-suite* requires the disabled package: warp
-    - servant-machines # tried servant-machines-0.16, but its *test-suite* requires the disabled package: warp
     - servant-mock # tried servant-mock-0.8.7, but its *test-suite* requires hspec-wai >=0.9.0 && < 0.11 and the snapshot contains hspec-wai-0.11.1
-    - servant-pipes # tried servant-pipes-0.16, but its *test-suite* requires the disabled package: warp
     - servant-quickcheck # tried servant-quickcheck-0.0.10.0, but its *test-suite* requires hspec-core >=2.5.5 && < 2.8 and the snapshot contains hspec-core-2.11.7
     - servant-rate-limit # tried servant-rate-limit-0.2.0.0, but its *test-suite* requires the disabled package: wai-rate-limit-redis
+    - servant-server # tried servant-server-0.20, but its *test-suite* requires the disabled package: hspec-wai
+    - servant-static-th # tried servant-static-th-1.0.0.0, but its *test-suite* requires the disabled package: hspec-wai
     - servant-streaming # tried servant-streaming-0.3.0.0, but its *test-suite* requires QuickCheck >=2.8 && < 2.13 and the snapshot contains QuickCheck-2.14.3
     - servant-streaming-client # tried servant-streaming-client-0.3.0.0, but its *test-suite* requires QuickCheck >=2.8 && < 2.12 and the snapshot contains QuickCheck-2.14.3
     - servant-streaming-server # tried servant-streaming-server-0.3.0.0, but its *test-suite* requires QuickCheck >=2.8 && < 2.12 and the snapshot contains QuickCheck-2.14.3
@@ -9806,11 +9722,9 @@ skipped-tests:
     - utf8-light # tried utf8-light-0.4.4.0, but its *test-suite* requires hspec >=2.3 && < 2.11 and the snapshot contains hspec-2.11.7
     - wai-cors # tried wai-cors-0.2.7, but its *test-suite* requires the disabled package: websockets
     - wai-middleware-bearer # tried wai-middleware-bearer-1.0.3, but its *test-suite* requires the disabled package: hspec-wai
-    - wai-middleware-clacks # tried wai-middleware-clacks-0.1.0.1, but its *test-suite* requires the disabled package: tasty-wai
-    - wai-middleware-delegate # tried wai-middleware-delegate-0.1.4.0, but its *test-suite* requires the disabled package: warp
+    - wai-middleware-delegate # tried wai-middleware-delegate-0.1.4.0, but its *test-suite* requires the disabled package: hspec-tmp-proc
     - wai-middleware-metrics # tried wai-middleware-metrics-0.2.4, but its *test-suite* requires the disabled package: scotty
     - wai-middleware-static # tried wai-middleware-static-0.9.2, but its *test-suite* requires the disabled package: scotty
-    - wai-middleware-throttle # tried wai-middleware-throttle-0.3.0.1, but its *test-suite* requires the disabled package: wai-extra
     - wai-session-redis # tried wai-session-redis-0.1.0.5, but its *test-suite* requires hspec < 2.10 and the snapshot contains hspec-2.11.7
     - wakame # tried wakame-0.1.0.0, but its *test-suite* requires tasty-discover >=4.2 && < 5.0 and the snapshot contains tasty-discover-5.0.0
     - wakame # tried wakame-0.1.0.0, but its *test-suite* requires text >=1.2 && < 2.0 and the snapshot contains text-2.1
@@ -9826,17 +9740,12 @@ skipped-tests:
     - web3-polkadot # tried web3-polkadot-1.0.0.0, but its *test-suite* requires hspec-discover >=2.4.4 && < 2.8 and the snapshot contains hspec-discover-2.11.7
     - web3-solidity # tried web3-solidity-1.0.0.0, but its *test-suite* requires hspec >=2.4.4 && < 2.8 and the snapshot contains hspec-2.11.7
     - web3-solidity # tried web3-solidity-1.0.0.0, but its *test-suite* requires hspec-discover >=2.4.4 && < 2.8 and the snapshot contains hspec-discover-2.11.7
-    - webex-teams-api # tried webex-teams-api-0.2.0.1, but its *test-suite* requires the disabled package: warp
-    - webex-teams-conduit # tried webex-teams-conduit-0.2.0.1, but its *test-suite* requires the disabled package: warp
     - webgear-server # tried webgear-server-1.0.5, but its *test-suite* requires tasty >=1.2 && < 1.5 and the snapshot contains tasty-1.5
     - wide-word # tried wide-word-0.1.6.0, but its *test-suite* requires the disabled package: hedgehog
     - wild-bind-x11 # tried wild-bind-x11-0.2.0.15, but its *test-suite* requires time >=1.5.0 && < 1.12 and the snapshot contains time-1.12.2
     - wreq # tried wreq-0.5.4.2, but its *test-suite* requires the disabled package: snap-core
     - wss-client # tried wss-client-0.3.0.0, but its *test-suite* requires the disabled package: envy
-    - yesod-page-cursor # tried yesod-page-cursor-2.0.1.0, but its *test-suite* requires the disabled package: wai-extra
     - yesod-page-cursor # tried yesod-page-cursor-2.0.1.0, but its *test-suite* requires the disabled package: yesod
-    - yesod-persistent # tried yesod-persistent-1.6.0.8, but its *test-suite* requires the disabled package: wai-extra
-    - yesod-static # tried yesod-static-1.6.1.0, but its *test-suite* requires the disabled package: wai-extra
     - yesod-static-angular # tried yesod-static-angular-0.1.8, but its *test-suite* requires yesod-test >=1.2 && < 1.6 and the snapshot contains yesod-test-1.6.16
     - yesod-test # tried yesod-test-1.6.16, but its *test-suite* requires the disabled package: yesod-form
     - zm # tried zm-0.3.2, but its *test-suite* requires doctest >=0.11.1 && < 0.14 and the snapshot contains doctest-0.22.2
@@ -9887,6 +9796,7 @@ expected-test-failures:
     - ghc-byteorder # 4.11.0.0.10 https://github.com/haskell-hvr/ghc-byteorder/issues/1
     - ghc-prof # Regression tests: /usr/bin/ld.gold: error: cannot find -lHStemporary-1.3-51ST9z47bmaL2YkhqqBGqn_p ...
     - heap # 1.0.4 https://github.com/pruvisto/heap/issues/11
+    - heist # GHC 9.8.1
     - hourglass # 0.2.12
     - hweblib # 0.6.3 https://github.com/aycanirican/hweblib/issues/3
     - inline-r # 1.0.1 https://github.com/tweag/HaskellR/issues/371
@@ -9916,11 +9826,13 @@ expected-test-failures:
     - Allure # 0.11.0.0
     - ap-normalize # 0.1.0.1 ghc-9.6
     - astro # 0.4.3.0 https://github.com/aligusnet/astro/issues/8
+    - express # 1.0.12
     - generics-eot # 0.4.0.1 ghc-9.6
     - hsexif # 0.6.1.10 Missing test file
     - pvar # 1.0.0.0 ghc-9.6
     - tar-conduit # https://github.com/snoyberg/tar-conduit/issues/33
     - markov-chain-usage-model # https://github.com/advancedtelematic/markov-chain-usage-model/issues/44
+    - unicode-data # 0.4.0.1
 
     # Intermittent failures or unreliable. These tests may pass when
     # re-enabled, but will eventually fail again.
@@ -10183,7 +10095,6 @@ expected-test-failures:
     - spatial-math
     - sqids
     - stateWriter # 0.4.0 https://github.com/bartavelle/stateWriter/issues/6
-    - subcategories
     - sydtest-yesod # https://github.com/commercialhaskell/stackage/issues/6798
     - tasty-fail-fast
     - tasty-html # https://github.com/commercialhaskell/stackage/issues/6966
