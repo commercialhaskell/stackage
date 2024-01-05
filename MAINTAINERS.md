@@ -218,9 +218,8 @@ If you would like to get your package added to the current LTS Haskell
 major release, please do the following in addition to the steps for Nightly described earlier:
 
 * Check that your package can be built with the current LTS version (e.g. `stack build --test --bench --haddock --resolver lts`)
-* Open up a new issue on the [lts-haskell repo](https://github.com/fpco/lts-haskell/issues/new)
-  * Provide a list of packages you would like added
-    * If relevant, mention any upper bounds that are needed on those packages
+* Fork [lts-haskell repo](https://github.com/commercialhaskell/lts-haskell/) if you haven't already
+* Open up a pull request on the [lts-haskell repo](https://github.com/commercialhaskell/lts-haskell/compare) for the appropriate `build-constraints/lts-*-build-constraints.yaml`
 * Be patient! The LTS releases are less frequent than Nightly. The
   Stackage curators will try to get to your issue as soon as possible,
   but it may take some time.
