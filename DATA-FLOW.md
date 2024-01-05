@@ -20,7 +20,7 @@ There are three inputs into the data flow:
   packages to the Stackage package set. This also defines upper bounds, skipped
   tests, and a few other pieces of metadata.
 
-* [stackage-content](https://github.com/fpco/stackage-content) is a Github
+* [stackage-content](https://github.com/commercialhaskell/stackage-content) is a Github
   repository containing static file content served from stackage.org
 
 ## Travis
@@ -57,10 +57,10 @@ each of the above builds every 30 minutes.
 ## stackage-curator
 
 The heart of running Stackage builds is the
-[stackage-curator](https://github.com/fpco/stackage-curator) tool. We run this
+[stackage-curator](https://github.com/commercialhaskell/curator) tool. We run this
 on a daily basis on the Stackage build server for Stackage Nightly, and on a
-weekly basis for LTS Haskell. The build process is [highly
-automated](https://github.com/commercialhaskell/stackage/blob/master/automated/build.sh) and
+weekly basis for LTS Haskell. The build process is
+[automated](https://github.com/commercialhaskell/stackage/blob/master/automated/build.sh) and
 leverages Docker quite a bit.
 
 stackage-curator needs to know about the most recent versions of all packages,
@@ -88,9 +88,8 @@ Once a valid build plan is found, stackage-curator will build all packages,
 build docs, and run test suites. Assuming that all succeeds, it generates some
 artifacts:
 
-* Uploads the build plan as a YAML file to either
-  [stackage-nightly](https://github.com/fpco/stackage-nightly) or
-  [lts-haskell](https://github.com/fpco/lts-haskell)
+* Uploads the build plan as a YAML file to
+  [stackage-snapshots](https://github.com/commercialhaskell/stackage-snapshots)
 * Uploads the generated Haddock docs and a package index (containing all used
   .cabal files) to haddock.stackage.org.
 

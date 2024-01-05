@@ -13,7 +13,7 @@ Packages in Stackage are not patched: all package changes occur upstream in Hack
 Anyone can add any package to Stackage but you should talk to the upstream maintainer before putting another person's package under your own name.
 It's generally better the actual package maintainer is also the Stackage maintainer, if that is not the case you should write the package maintainer a note first, eg by opening an upstream issue or sending them an email.
 
-To add your package you can edit [`build-constraints.yaml`](https://github.com/fpco/stackage/blob/master/build-constraints.yaml) directly on github or fork the project. There's a section called `packages` where you would add yourself and your packages:
+To add your package you can edit [`build-constraints.yaml`](https://github.com/commercialhaskell/stackage/blob/master/build-constraints.yaml) directly on github or fork the project. There's a section called `packages` where you would add yourself and your packages:
 
     "My Name <myemail@example.com> @mygithubuser":
         - package1
@@ -247,7 +247,7 @@ purely on Stackage Curator discretion. The most common examples are:
     would not be a breaking change, and curators may elect to include
     it. Note though that curators and their tooling will not know your
     package is following SemVer, so in this case you would have to open
-    an issue on the [lts-haskell repo](https://github.com/fpco/lts-haskell/issues/new).
+    an issue on the [lts-haskell repo](https://github.com/commercialhaskell/lts-haskell/issues/new).
 
 *   If a package has overly restrictive version bounds on a
     dependency, in particular constraining a minor version
