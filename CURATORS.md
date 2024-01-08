@@ -214,7 +214,7 @@ where X is the major version number (e.g., lts20 for lts-20.\*).)
 Note that when starting a new LTS major release, you'll need to modify `.github/workflows/image.yml` to add a new lts branch.
 
 Ensure that the [global-hints.yaml
-file](https://github.com/fpco/stackage-content/blob/master/stack/global-hints.yaml)
+file](https://github.com/commercialhaskell/stackage-content/blob/master/stack/global-hints.yaml)
 is updated with information on the latest GHC release by cloning that
 repo and running `./update-global-hints.hs ghc-X.Y.Z`.
 
