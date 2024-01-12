@@ -75,6 +75,16 @@ wget -qO - https://packages.confluent.io/deb/5.2/archive.key | apt-key add -
 add-apt-repository "deb https://packages.confluent.io/deb/5.2 stable main"
 apt-get update && apt install -y librdkafka-dev
 
+# Install z3, for grisette test suite
+Z3_VER=4.12.4
+(
+  cd /usr/local \
+    && wget https://github.com/Z3Prover/z3/releases/download/z3-${Z3_VER}/z3-${Z3_VER}-x64-glibc-2.35.zip \
+    && unzip z3-${Z3_VER}-x64-glibc-2.35.zip \
+    && rm z3-${Z3_VER}-x64-glibc-2.35.zip \
+    && ln -s /usr/local/z3-${Z3_VER}-x64-glibc-2.35/bin/z3 /usr/bin/z3
+)
+
 LIBJWT_VER=1.12.1
 (
 pushd /tmp \
