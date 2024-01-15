@@ -10,14 +10,17 @@ Packages in Stackage are not patched: all package changes occur upstream in Hack
 
 ## Adding a package
 
-Anyone can add any package to Stackage but you may only add packages under your own name. It's highly encouraged that the actual package maintainer is also the Stackage maintainer, if that is not the case you should drop the package maintainer a note first.
+Anyone can add any package to Stackage but you should talk to the upstream maintainer before putting another person's package under your own name.
+It's generally better the actual package maintainer is also the Stackage maintainer, if that is not the case you should write the package maintainer a note first, eg by opening an upstream issue or sending them an email.
 
-To add your package you can edit [`build-constraints.yaml`](https://github.com/fpco/stackage/blob/master/build-constraints.yaml) directly on github or fork the project. There's a section called `packages` where you would add yourself and your packages:
+To add your package you can edit [`build-constraints.yaml`](https://github.com/commercialhaskell/stackage/blob/master/build-constraints.yaml) directly on github or fork the project. There's a section called `packages` where you would add yourself and your packages:
 
     "My Name <myemail@example.com> @mygithubuser":
         - package1
         - package2
         - package3
+
+(If you are adding yourself for the first time, you can add yourself anywhere under the `packages:` section, it does not have to be at the end: this actually helps to avoid merge conflicts between new contributions.)
 
 Any dependencies of your packages that are not already part of
 stackage also need to be added explicitly (When this happens you will
@@ -26,23 +29,15 @@ don't maintain this package yourself it is preferable that the actual
 maintainer is also the stackage maintainer, but you are allowed to add
 it under your own name.
 
-If your library depends on a C library, please add it to the `debian-bootstrap.sh` script.
+If your package depends on a C library, please add it to `docker/02-apt-get-install.sh` or `docker/03-custom-install.sh`.
 
-After doing that commit with a message like "add foo-bar" and send a pull request.
+After doing that, commit with a message like "add foo-bar" and send a pull request.
 
 The continuous integration job will do some checks to see if your package's dependencies are up-to-date.
 
 The CI job notably doesn't compile packages, run tests, build documentation, or find missing C libraries.
-If you want to be proactive or if CI fails, you can make sure that your package builds against the latest nightly:
-
-```
-# Build from the tarball on Hackage to check for missing files
-$ stack unpack yourpackage && cd yourpackage-*
-# Generate a pristine stack.yaml, adding any missing extra-deps
-$ rm -f stack.yaml && stack init --resolver nightly
-# Build, generate docs, test, and build benchmarks
-$ stack build --resolver nightly --haddock --test --bench --no-run-benchmarks
-```
+If you want to be proactive or if CI fails, you can make sure that your package builds against the latest nightly.
+See the [verify-package](https://github.com/commercialhaskell/stackage/blob/master/verify-package) script in this repository.
 
 This approach works well, but has two limitations you should be aware
 of:
@@ -50,25 +45,10 @@ of:
 * It won't notify you of restrictive upper bounds in your package if
   Stackage has the same upper bounds. For that reason, we recommend
   using [Packdeps](http://packdeps.haskellers.com/) (see "Following
-  dependency upgrades" below).
+  dependency upgrades" below). You can also run `cabal outdated`.
 * If the latest Stackage Nightly is missing some of the latest
   packages, your build above may succeed whereas the Travis job may
   fail. Again: Packdeps will help you detect this situation.
-
-Alternatively, you can build with `cabal`. Note that this may end up
-using older dependency versions:
-
-```
-$ ghc --version # Should be the same as the latest nightly, it's in the title of https://www.stackage.org/nightly
-$ cabal update
-$ cabal get PACKAGE
-$ cd PACKAGE-*
-$ cabal sandbox init # Should give "Creating a new sandbox" and not "Using an existing sandbox".
-$ cabal install --enable-tests --enable-benchmarks --dry-run | grep latest # Should give no results
-$ cabal install --enable-tests --enable-benchmarks --allow-newer
-$ cabal test
-$ cabal haddock
-```
 
 ## Github and Notifications
 
@@ -90,6 +70,14 @@ When a new version of a package in Stackage is uploaded to Hackage, we automatic
 If the new version doesn't compile then the package author should upload a fixed version.
 
 If a package's test suite is failing, the first job is to investigate why. If this is due to a bad interaction with versions of other packages in Stackage, then it is the responsibility of the maintainer to fix the test suite. In some situations, it is acceptable to not run the test suite.
+
+## Moving or retiring maintainership of a Stackage package
+
+If you no longer wish to be listed as maintainer of a package in Stackage,
+you can open a pull request to move it to a new maintainer or
+to either the "Grandfathered dependencies" or the "Abandoned packages" sections in `build-constraints.yaml`.
+Unless there is a compelling technical reason to remove the package,
+this is better than just dropping it from the distribution.
 
 ## Following dependency upgrades
 
@@ -127,6 +115,59 @@ is decided on a case-by-case basis.
 remove that: Anyone is free to add a package to Stackage regardless of
 responsiveness guarantees. However, as stated above, we may elect to
 temporarily remove a package if it is not updated in a timely manner.
+
+## Understanding stackage issues
+
+### Bounds issues
+
+These are the most common.
+
+Using https://github.com/commercialhaskell/stackage/issues/6217 as an example.
+
+Our convention is to title a PR after the package that is being held
+back from the nightly snapshot (here: aeson).
+
+The issue body is templated and looks like this:
+
+```
+aeson-2.0.0.0 ([changelog](http://hackage.haskell.org/package/aeson-2.0.0.0/changelog)) (MAINTAINER) is out of bounds for:
+- [ ] Agda-2.6.2 (>=1.1.2.0 && < 1.6). MAINTAINER. Used by: library
+- [ ] HsYAML-aeson-0.2.0.0 (>=1.4.0.0 && < 1.6). MAINTAINER. Used by: library
+- [ ] IPv6Addr-2.0.2 (>=0.8.0.2 && < 1.6). MAINTAINER. Used by: library
+[...]
+```
+
+This (usually - see "Other issues") means that there was a new release of the package in the
+header (aeson). This is expected and the aeson maintainer is
+not expected to act. They are pinged to notify them that the
+latest version of their package will not be part of the nightly
+snapshots until the issue closed.
+
+The list of packages with checkboxes denote the packages that prevent
+us from using the latest version of aeson, the first version number is
+the current version of that package in nightly (e.g. Agda 2.6.2). The
+constraint in parenthesis `(>=1.1.2.0 && < 1.6)` is Agda's current
+bound on `aeson`. To check this box we expect there to be an update
+of Agda to support aeson 2.0.0.0.
+
+Once all boxes are checked we should be able to close the issue and
+upgrade aeson.
+
+### Other issues
+
+Other common types of issues are
+* Packages with failing tests, haddocks, or benchmarks (note that we only *compile* benchmarks)
+  + Maintainers may choose to update these parts of their package, or
+    to exclude them from the stackage build (e.g. adding a package to
+    `skipped-tests`)
+* New releases of packages that depend on packages that are not a part
+  of stackage. This is denoted as `not present`
+  + Maintainers are encouraged to ask the maintainer of these packages
+    to join stackage, or to be the stackage contact person themselves.
+* A new release of a package with stricter upper bounds than its previous version
+  + This will look like a normal bounds issue, and should be treated
+    the same way by maintainers. Curators usually resolve this by
+    adding an upper bound to that package instead of its dependency.
 
 ## Delays
 
@@ -173,13 +214,12 @@ ending in `.0`), the package set is taken from Stackage Nightly. Therefore, by
 following the above steps, you can get your package into the next major LTS
 Haskell release.
 
-If you would like to get your package added to the current LTS Haskell 
+If you would like to get your package added to the current LTS Haskell
 major release, please do the following in addition to the steps for Nightly described earlier:
 
 * Check that your package can be built with the current LTS version (e.g. `stack build --test --bench --haddock --resolver lts`)
-* Open up a new issue on the [lts-haskell repo](https://github.com/fpco/lts-haskell/issues/new)
-  * Provide a list of packages you would like added
-    * If relevant, mention any upper bounds that are needed on those packages
+* Fork [lts-haskell repo](https://github.com/commercialhaskell/lts-haskell/) if you haven't already
+* Open up a pull request on the [lts-haskell repo](https://github.com/commercialhaskell/lts-haskell/compare) for the appropriate `build-constraints/lts-*-build-constraints.yaml`
 * Be patient! The LTS releases are less frequent than Nightly. The
   Stackage curators will try to get to your issue as soon as possible,
   but it may take some time.
@@ -206,7 +246,7 @@ purely on Stackage Curator discretion. The most common examples are:
     would not be a breaking change, and curators may elect to include
     it. Note though that curators and their tooling will not know your
     package is following SemVer, so in this case you would have to open
-    an issue on the [lts-haskell repo](https://github.com/fpco/lts-haskell/issues/new).
+    an issue on the [lts-haskell repo](https://github.com/commercialhaskell/lts-haskell/issues/new).
 
 *   If a package has overly restrictive version bounds on a
     dependency, in particular constraining a minor version

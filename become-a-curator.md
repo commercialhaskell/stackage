@@ -28,14 +28,14 @@ github.
 We also have a curator slack channel where we help each other out.
 
 The current curator team consists of:
-* Adam Bergmark
-* Dan Burton
-* Jens Petersen
-* Luke Murphy
-* Michael Snoyman
-
-We onboarded Luke as the newest member a few months ago and this
-helped us iron out and document the process further.
+* Adam Bergmark (@bergmark)
+* Alexey Zabelin (@alexeyzab)
+* Andreas Ländle (@alaendle)
+* Chris Dornan (@cdornan)
+* Dan Burton (@danburton)
+* Jens Petersen (@juhp)
+* Joe Kachmar (@jkachmar)
+* Mihai Maruseac (@mihaimaruseac)
 
 You can read the curator documentation here: https://github.com/commercialhaskell/stackage/blob/master/CURATORS.md
 

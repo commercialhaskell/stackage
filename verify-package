@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
 # Script to verify a package to build successfully
-# Provide pacakge name by the first argument
+# Provide package name by the first argument
 #
 # Example:
 #  ./verify-package mtl
 # or
 #  ./verify-package mtl-2.2.2
+# or
+#  ./verify-package mtl lts
 
 set -eu
 
@@ -20,6 +22,7 @@ if [[ -z $package ]]; then
     die "Package name is not given"
 fi
 
+resolver="${2:-nightly}"
 
 here="$(cd "$(dirname "$0")" > /dev/null; pwd)"
 dir="$(mktemp -d tmp.XXXX)"
@@ -30,13 +33,13 @@ exit() {
 }
 trap exit EXIT
 
+# When updating these commands, make sure to update .github/PULL_REQUEST_TEMPLATE.md as well.
 cd "$dir"
 stack unpack "$package"
 cd "$(ls | head -n 1)"
 rm -f stack.yaml
-stack init --resolver nightly
-stack build --resolver nightly --haddock --test --bench --no-run-benchmarks
-
+stack init --resolver $resolver --ignore-subdirs
+stack build --resolver $resolver --haddock --test --bench --no-run-benchmarks
 
 cat <<EOF
 

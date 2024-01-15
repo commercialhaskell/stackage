@@ -19,7 +19,8 @@ else
     WORKDIR=$ROOT/work/$TAG
 fi
 
-IMAGE=commercialhaskell/stackage:$TAG
+#IMAGE=commercialhaskell/stackage:$TAG
+IMAGE=ghcr.io/commercialhaskell/stackage/build:$TAG
 
 PANTRY_DIR=$ROOT/work/stack/pantry
 STACK_DIR=$ROOT/work/stack
@@ -63,13 +64,15 @@ BINDIR=$(cd $ROOT/work/bin ; pwd)
 cd $BINDIR
 rm -f curator stack *.bz2
 
-curl -L "https://download.fpcomplete.com/stackage-curator-2/curator-7c719d6d48839c94a79dc2ad2ace89074e3dd997.bz2" | bunzip2 > curator
+curl -L "https://github.com/commercialhaskell/curator/releases/download/commit-558215d639561301a0069dc749896ad3e71b5c24/curator.bz2" | bunzip2 > curator
 chmod +x curator
 echo -n "curator version: "
 docker run --rm -v $(pwd)/curator:/exe $IMAGE /exe --version
 
-curl -L https://github.com/commercialhaskell/stack/releases/download/v2.3.3/stack-2.3.3-linux-x86_64-bin > stack
-#curl -L "https://download.fpcomplete.com/stackage-curator-2/stack-fffc0a40e2253788f6b9cb7471c03fd571d69bde.bz2" | bunzip2 > stack
+STACK_VERSION=2.13.1
+# rc url
+#curl -L https://github.com/commercialhaskell/stack/releases/download/rc%2Fv${STACK_VERSION}/stack-${STACK_VERSION}-linux-x86_64-bin > stack
+curl -L https://github.com/commercialhaskell/stack/releases/download/v${STACK_VERSION}/stack-${STACK_VERSION}-linux-x86_64-bin > stack
 chmod +x stack
 echo -n "stack version: "
 docker run --rm -v $(pwd)/stack:/exe $IMAGE /exe --version
@@ -99,16 +102,17 @@ fi
 #
 # * Update the package index (unless LTS)
 # * Create a new plan
-if [ "${NOPLAN:-}x" = "x" ]
+if [ "${NOPLAN:-}x" = "1x" ]
 then
-    if [ $SHORTNAME = "lts" ]
-    then
-        docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator constraints --target $TARGET && curator snapshot-incomplete --target $TARGET && curator snapshot"
-    else
-        docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator update && curator constraints --target $TARGET && curator snapshot-incomplete --target $TARGET && curator snapshot"
-    fi
-else
     docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator snapshot-incomplete --target $TARGET && curator snapshot"
+elif [ "${NOPLAN:-}x" = "2x" ]
+then
+    docker run $ARGS_PREBUILD $IMAGE curator snapshot
+elif [ $SHORTNAME = "lts" ]
+then
+    docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator constraints --target $TARGET && curator snapshot-incomplete --target $TARGET && curator snapshot"
+else
+    docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator update && curator constraints --target $TARGET && curator snapshot-incomplete --target $TARGET && curator snapshot"
 fi
 
 
@@ -119,9 +123,14 @@ fi
 docker run $ARGS_PREBUILD $IMAGE /bin/bash -c 'GHCVER=$(sed -n "s/^ghc-version: \(.*\)/\1/p" constraints.yaml) && stack setup ghc-$GHCVER --verbosity=error && stack exec --resolver=ghc-$GHCVER curator check-snapshot && curator unpack'
 
 case $SHORTNAME in
-    lts) JOBS=1 ;;
-    nightly) JOBS=2 ;;
+    lts) JOBS=16 ;;
+    nightly) JOBS=16 ;;
 esac
+
+if [ -e "$SHORTNAME-build.log" ]
+then
+    cp -p $SHORTNAME-build.log $SHORTNAME-build.log-previous
+fi
 
 # Now do the actual build. We need to first set the owner of the home directory
 # correctly, so we run the command as root, change owner, and then use sudo to
@@ -141,8 +150,8 @@ docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator check-target-available
 # * Upload the new snapshot .yaml file to the appropriate Github repo, also upload its constraints
 docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "curator upload-docs --target $TARGET && curator upload-github --target $TARGET"
 
-# For some reason, registering on Hackage fails with inscrutable error messages. Disabling.
-# docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator hackage-distro --target $TARGET"
+# fixed in https://github.com/commercialhaskell/curator/pull/24
+docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator hackage-distro --target $TARGET"
 
 # Build and push docker image fpco/stack-build & fpco/stack-build-small for current release
 

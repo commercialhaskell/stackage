@@ -5,11 +5,11 @@ The following is the current list of curators, in alphabetical order:
 
 * Adam Bergmark (@bergmark)
 * Alexey Zabelin (@alexeyzab)
+* Andreas Ländle (@alaendle)
 * Chris Dornan (@cdornan)
 * Dan Burton (@danburton)
 * Jens Petersen (@juhp)
 * Joe Kachmar (@jkachmar)
-* Michael Snoyman (@snoyberg)
 * Mihai Maruseac (@mihaimaruseac)
 
 ## Workflow overview
@@ -21,10 +21,10 @@ process works:
 * [curator](https://github.com/commercialhaskell/curator) combines build-constraints.yaml with the current state of Hackage to create a build plan for a Stackage Nightly
 * `curator` can check that build plan to ensure all version bounds are consistent
     * The [Travis job](https://github.com/commercialhaskell/stackage/blob/master/.travis.yml) performs these two steps to provide immediate feedback on pull requests
-* Docker Hub [builds](https://github.com/commercialhaskell/stackage/blob/master/Dockerfile) a [Docker image](https://hub.docker.com/r/commercialhaskell/stackage/) for running builds
+* Docker builds [builds](https://github.com/commercialhaskell/stackage/actions/workflows/image.yml)
 * The stackage-build server (described below) is able to run automated builds using the [build.sh script](https://github.com/commercialhaskell/stackage/blob/master/automated/build.sh)
-* When a new Nightly build is completed, it is uploaded to [the nightly repo](https://github.com/commercialhaskell/stackage-nightly)
-* Once a week, we run an LTS minor bump. Instead of using build-constraints.yaml, that job takes the previous LTS release, turns it into constraints, and then bumps the version numbers to the latest on Hackage, in accordance with the version bounds in the build plan. This plans are uploaded to [the LTS repo](https://github.com/commercialhaskell/lts-haskell)
+* When a new (nightly or LTS) build is completed, it is uploaded to [stackage-snapshots](https://github.com/commercialhaskell/stackage-snapshots)
+* Once a week, we run an LTS minor bump. Instead of using build-constraints.yaml, that job takes the previous LTS release, turns it into `^>=` constraints, and then bumps the version numbers to the latest on Hackage, in accordance with the generated constraint.
 * Cutting a new LTS major release is essentially just a Stackage Nightly that gets rebuilt and uploaded as an LTS
 
 ## Pull requests
@@ -173,12 +173,12 @@ This typically happens when we move to a new major GHC release or when
 there are only a few packages waiting for updates on an upper bounds
 issue.
 
-Comment out the offending packages from the "packages" section and add
-a comment saying why it was disabled:
+If a package needs to be disabled due to build failures: Add a `< 0`
+bound to the package to exclude it, and add a comment stating why it
+was disabled: `- swagger < 0 # compile failure againts aeson 1.0`
 
-```
-        # - swagger # bounds: aeson 1.0
-```
+If a package needs to be disabled due to bounds issues, see the "Large
+scale enabling/disabling of packages" section below.
 
 If this causes reverse dependencies to be disabled we should notify
 the maintainers of those packages.
@@ -187,15 +187,17 @@ the maintainers of those packages.
 ## Updating the content of the Docker image used for building
 
 ### Adding Debian packages for required system tools or libraries
-Additional (non-Haskell) system libraries or tools should be added to `stackage/debian-bootstrap.sh`.
+Additional (non-Haskell) system libraries or tools should be added to `docker/02-apt-get-install.sh` or `docker/03-custom-install.sh`.
 After you've committed those changes, merging them into the `nightly` branch should
-trigger a DockerHub build. Simply run:
+trigger an image build. Simply run:
 
 ```bash
     $ git checkout nightly
     $ git merge master
     $ git push
 ```
+
+This will [trigger a build](https://github.com/commercialhaskell/stackage/actions/workflows/image.yml).
 
 Use [Ubuntu Package content search](http://packages.ubuntu.com/) to determine which package provides particular dev files (it defaults to xenial which is the version used to build Nightly).
 
@@ -204,23 +206,28 @@ It's good to inform the maintainer of any disabled tests (commenting in the PR i
 
 If a new package fails to build because of missing system libraries we often ask the maintainer to help figure out what to install.
 
+
 ### Upgrading GHC version
-The Dockerfile contains information on which GHC versions should be used. You
-can modify it and push it to Github to trigger a DockerHub build. The nightly
-branch is used for nightlies. For LTSes, we use the ltsX branch, where X is the
-major version number (e.g., lts3 for lts-3.\*).
+The nightly branch is used for nightlies. For LTSes, we use the ltsX branch,
+where X is the major version number (e.g., lts20 for lts-20.\*).)
 
-Note that when starting a new LTS major release, you'll need to modify Docker
-Hub to create a new Docker tag for the relevant branch name.
-
-Update `GHCVER` in `Dockerfile`. (This env var automatically gets passed to `debian-bootstrap.sh`.)
+Note that when starting a new LTS major release, you'll need to modify `.github/workflows/image.yml` to add a new lts branch.
 
 Ensure that the [global-hints.yaml
-file](https://github.com/fpco/stackage-content/blob/master/stack/global-hints.yaml)
+file](https://github.com/commercialhaskell/stackage-content/blob/master/stack/global-hints.yaml)
 is updated with information on the latest GHC release by cloning that
-repo and running `./update-global-hints.yaml ghc-X.Y.Z`.
+repo and running `./update-global-hints.hs ghc-X.Y.Z`.
 
-Also required to build an LTS minor bump with a ghc version change: On the build server, modify `/var/stackage/stackage/automated/wrk/lts-$THIS_LTS_MAJOR_VER/constraints.yaml` and update the ghc-version. Then run `NOPLAN=1 /var/stackage/stackage/automated/build lts-$THIS_LTS_MINOR_BUMP` to build the LTS.
+If enountering an error like the following, this means that the [Stack metadata](https://github.com/commercialhaskell/stackage-content)
+has not yet been updated, so wait some time until this happens:
+
+```
+This probably means a GHC bindist has not yet been added for OS key 'linux64', 'linux64-ncurses6', 'linux64-tinfo6'.
+Supported versions: ...
+update-global-hints.hs: Received ExitFailure 1 when running
+```
+
+Also required to build an LTS minor bump with a ghc version change: On the build server, modify `/var/stackage/stackage/automated/work/lts-$THIS_LTS_MAJOR_VER/constraints.yaml` and update the ghc-version. (You may need to update sibling files as well.) Then run `NOPLAN=1 /var/stackage/stackage/automated/build.sh lts-$THIS_LTS_MINOR_BUMP` to build the LTS.
 
 ### Getting the new image to the build server
 Once a new Docker image is available, you'll need to pull it onto the stackage-build server (see
@@ -232,14 +239,14 @@ docker rm $(docker ps -a -q)
 docker rmi $(docker images -q)
 ```
 
-but `docker pull commercialhaskell/stackage:nightly` can also be run instead just to update the nightly image say.
+but `docker pull ghcr.io/commercialhaskell/stackage/build:nightly` can also be run instead just to update the nightly image say.
 
 For a new GHC version you should also delete the ~~cache~~ .stack-work snapshot install directories on the stackage-build server to
 ~~force all packages to be rebuilt~~ clear up some space. See: [issue#746](https://github.com/commercialhaskell/stackage/issues/746). Eg:
 
 ```
 # for example
-SNAP_SERIES=nightly # or lts16 
+SNAP_SERIES=nightly # or lts16
 OLD_GHCVER=8.10.1
 rm -r work/$SNAP_SERIES/unpack-dir/.stack-work/install/x86_64-linux/*/$OLD_GHCVER/
 ```
@@ -274,7 +281,7 @@ You'll need to get your SSH public key added to the machine. ~/.ssh/config info:
 ```
 Host stackage-build
     User curators
-    Hostname build.stackage.org
+    Hostname stackage-builder.haskell.org
 ```
 
 ### Running the build script
@@ -301,19 +308,17 @@ info above).
 ### Building LTS minor releases
 Before running the build, please make sure that the Dockerfile in `automated/dockerfiles/lts-X.Y` is up to date, where X is the major version that you're building and Y is the latest minor version of X for which a Dockerfile exists.
   * If any changes need to be made, (eg, new GHC version), copy `automated/lts-X.Y/Dockerfile` to `automated/lts-X.Z/Dockerfile`, where Z is the minor version you're building, and include the new changes.
-  * If you are building the first release of a new LTS major version, create a new `lts-X.Z/Dockerfile` based on the previous LTS's, and adjust the variables at the top to match the requirements of the snapshot.  Ensure that `STACK_VERSION` is the latest release of Stack, and `BOOTSTRAP_COMMIT` is the commit ID of this repo containing the version of the `bootstrap-commit.sh` used to build the snapshot.  Also ensure the FROM image's Ubuntu version matches that used in the [root Dockerfile](Dockerfile) used to build this snapshot.
+  * If you are building the first release of a new LTS major version, create a new `lts-X.0/Dockerfile` based on the previous LTS's, and adjust the variables at the top to match the requirements of the snapshot.  Ensure that `STACK_VERSION` is the latest release of Stack, and `BOOTSTRAP_COMMIT` is the commit ID of this repo containing the version of the `bootstrap-commit.sh` used to build the snapshot.  Also ensure the FROM image's Ubuntu version matches that used in the [root Dockerfile](Dockerfile) used to build this snapshot.
 
 First run `build.sh` to regenerate updated `ltsXX/work/constraints.yaml` and `ltsXX/work/snapshot-incomplete.yaml` files.
 
 For an LTS minor bump, you'll typically want to:
 
-* Add constraints to package `range:` fields _under_ the `source:` field in that `constraints.yaml`.
+* Add constraints to package `range:` fields _under_ the `source:` field in that `constraints.yaml` (should not be necessary normally to edit `snapshot-incomplete.yaml` to change the version used for that package).
 * Add new packages to the `constraints.yaml` file
 * Test, benchmark, haddock failures can also be added to package fields in the `constraints.yaml` if necessary, though it should be avoided if possible for LTS.
 
 Then run `NOPLAN=1 build.sh` to build the generate an updated snapshot.
-
-This replaces `CONSTRAINTS=...' /var/stackage/stackage/automated/build.sh lts-x.y` for the old curator-1.
 
 If a build fails for bounds reasons, see all of the advice above. If the code
 itself doesn't build, or tests fail, open up an issue and then either put in a
@@ -326,10 +331,13 @@ build plan, you can set the environment variable `NOPLAN=1`. This is
 useful for such cases as an intermittent test failure, out of memory
 condition, or manually tweaking the plan file. (When using `NOPLAN=1`,
 if one needs to revert one package, say due to a build or test regression,
-one can edit `current-plan.yaml` and updated the SHA256 hash of the .cabal file,
+one can edit `snapshot-incomplete.yaml`
+(the SHA256 hash of the .cabal file will get updated),
 to avoid having to rebuild everything again.)
 
-_Sadly no longer true currently_: ~~Note LTS builds inherit the current Hackage data (stack updated for Nightly) to avoid excess extra rebuilding.~~
+Note LTS builds without NOPLAN will use the latest Hackage data.
+
+If you need to make further modifications beyond what `constraints.yaml` allows, you can directly edit the `snapshot-incomplete.yaml` file. Then, instead of `NOPLAN=1 build.sh`, you need to use `NOPLAN=2 build.sh`. Note that from this point on, further changes to `constraints.yaml` will not impact the build plan.
 
 ### Timing
 
@@ -338,15 +346,19 @@ with `sleep 30m` interleaved. It only publishes the nightly once per
 day. This way new package versions or build failures can be caught
 early and hopefully the nightlies will be timely.
 
-LTS minor bumps typically are run on Sundays.
+LTS minor bumps are typically run on weekends. It can be a good idea
+to start the build on friday or saturday to have enough time to
+resolve any issues before the next curator shift the coming monday.
 
 ### Diskspace errors (and website sync debugging)
 
 * You can detect the problem by running `df`. If you see that `/` is out of space, we have a problem.
 * If you see that `/var/stackage/` is out of space, you can:
-  * run `./etc/diskspace/clean-old-stack-libs.sh [nightly|lts-XX]` (hopefully sufficient)
+  * run `./etc/diskspace/remove-old-stack-work-libs.hs [nightly|lts-XX]`
+  * If that is insufficient then remove all the old builds under the previous ghc/Cabal version:
+    * `rm -r /var/stackage/stackage/automated/work/[nightly|lts-XX]/unpack-dir/unpacked/*/.stack-work/dist/x86_64-linux/Cabal-X.Y.0.0/`
 
-  optionally (not recommended?):
+  optionally:
   * `rm -r /var/stackage/stackage/automated/work/lts*/unpack-dir/unpacked/`
   * `rm -r /var/stackage/stackage/automated/work/nightly/unpack-dir/unpacked/`
 
@@ -406,12 +418,160 @@ errors for builds, tests and benchmarks.
 
 [tell-me-when-its-released]: https://github.com/commercialhaskell/stackage/blob/master/CURATORS.md#waiting-for-new-releases
 
+### Large scale enabling/disabling of packages
+
+`etc/commenter` is a binary that automates `build-constraints.yaml` workflows.
+
+#### Setup
+This is currently a rust program, You can install the rust toolchain
+by using [rustup](https://rustup.rs/).
+
+#### Example usage
+
+After disabling a few packages you get this curator output:
+
+```
+ConfigFile (GHC 9 bounds issues, @maintainer) (not present) depended on by:
+- [ ] xdg-desktop-entry-0.1.1.1 (-any). @maintainer. Used by: library
+
+
+pipes-misc (GHC 9 bounds issues, @maintainer) (not present) depended on by:
+- [ ] pipes-fluid-0.6.0.1 (>=0.5). @handles. Used by: test-suite
+
+
+testing-feat (GHC 9 bounds issues, Grandfathered dependencies) (not present) depended on by:
+- [ ] dual-tree-0.2.3.0 (-any). Grandfathered dependencies. @handles. Used by: test-suite
+```
+
+Now run:
+```
+./check 2>&1 >/dev/null | ./commenter add
+```
+
+You will get this output:
+```
+[INFO] ...
+LIBS + EXES
+
+        - xdg-desktop-entry < 0 # tried xdg-desktop-entry-0.1.1.1, but its *library* requires the disabled package: ConfigFile
+
+TESTS
+
+    - dual-tree # tried dual-tree-0.2.3.0, but its *test-suite* requires the disabled package: testing-feat
+    - pipes-fluid # tried pipes-fluid-0.6.0.1, but its *test-suite* requires the disabled package: pipes-misc
+
+Adding 1 libs, 2 tests, 0 benches to build-constraints.yaml
+```
+
+These bounds are added to build-constraints.yaml automatically.
+
+Re-run this command until no more packages are disabled.
+
+#### Re-enabling
+
+We can periodically remove all packages under the bounds sections and then re-run the disabling flow above until we get a clean plan. This will automatically pick up packages that have been fixed.
+
+```
+./commenter clear
+./check 2>&1 >/dev/null | ./commenter add
+```
+
+Repeat the second command until no updates are made to build-constraints.yaml (or use `commenter add-loop` instead).
+
+#### Checking for new releases
+
+Run `stack update` before doing this.
+
+`./commenter outdated` looks through all bounds issues and library
+compilation failures and compares the marked version with the latest hackage release. Example output is
+
+```
+Fin mismatch, manual: 0.2.8.0, hackage: 0.2.9.0
+aeson mismatch, auto: 1.5.6.0, hackage: 2.0.2.0
+```
+
+where "manual" means the bound was added manually by a curator,
+perhaps due to a compilation failure so we could try re-enabling the
+package. "auto" means it's part of the sections generated by
+`./commenter`, to update that run the `Re-enabling` step as documented
+above.
+
+`outdated` only finds packages that are in the auto generated
+sections, or that are of the form `- package < 0 # $version`.
+
+#### Notes
+
+* Please make sure to separate bounds issues from compilation failures/test run failures, as we cannot verify that a package builds or that tests pass without running the build!
+
+#### Diffing snapshots / Inspecting changes
+
+To diff existing snapshots, or to evaluate changes before they end up
+in a snapshot you can run:
+
+```
+./commenter diff-snapshot <old-snapshot.yaml> <new-snapshot.yaml>
+```
+
+Existing snapshots can be retrieved from https://github.com/commercialhaskell/stackage-snapshots. Preliminary snapshots can be generated by running relevant parts of `automated/build.sh`, at the time of writing:
+
+```
+TARGET=nightly-2021-01-14 \ # the date doesn't matter
+  curator update && \
+  curator constraints --target $TARGET && \
+  curator snapshot-incomplete --target $TARGET && \
+  curator snapshot
+```
+
+#### Pinging maintainers after disabling packages
+
+After lifting a bound We often have to disable additional packages due
+to compilation failures. `affected` figures out which packages have
+been disabled and which maintainers are affected. Note that this does
+not handle disabled test suites and benchmarks as the snapshots don't
+contain this information.
+
+```
+./commenter affected <old-snapshot.yaml> <new-snapshot.yaml>
+```
+
+E.g.:
+```
+$ commenter affected ../stackage-snapshots/nightly/2022/1/2.yaml ../stackage-snapshots/nightly/2022/2/7.yaml
+```
+```
+alg-0.2.13.1: Matthew Farkas-Dyck <strake888@gmail.com> @strake
+butter-0.1.0.6: Matthew Ahrens <matt.p.ahrens@gmail.com> @mpahrens
+category-0.2.5.0: Matthew Farkas-Dyck <strake888@gmail.com> @strake
+constraint-0.1.4.0: Matthew Farkas-Dyck <strake888@gmail.com> @strake
+dl-fedora-0.9.2: Jens Petersen <juhpetersen@gmail.com> @juhp
+foldable1-0.1.0.0: Matthew Farkas-Dyck <strake888@gmail.com> @strake
+gitlab-haskell-0.3.2.0: Rob Stewart <robstewart57@gmail.com> @robstewart57
+hslua-module-doclayout-1.0.0: Albert Krewinkel <albert+stackage@zeitkraut.de> @tarleb
+util-0.1.17.1: Matthew Farkas-Dyck <strake888@gmail.com> @strake
+wai-middleware-auth-0.2.5.1: Alexey Kuleshevich <lehins@yandex.ru> @lehins
+yesod-csp-0.2.5.0: Bob Long <robertjflong@gmail.com> @bobjflong
+```
+
+#### Finding disabled packages with lots of dependents
+
+`./commenter disabled` prints the number of transitive dependents a disabled package has. Low hanging fruit to get a lot of packages included again.
+
+Example output:
+```
+[...]
+stringable is disabled with 10 dependents
+llvm-hs is disabled with 12 dependents
+th-data-compat is disabled with 12 dependents
+amazonka-core is disabled with 96 dependents
+gogol-core is disabled with 96 dependents
+```
+
 ## Adding new curators
 
 1. Add public ssh key to `~/.ssh/authorized_keys` on build server
 2. Add to commercialhaskell/stackage project.
 
-## Dealing with a new GHC release
+## Dealing with a new GHC major release
 
 As mentioned in the [GHC upgrade note], the major impact of a new GHC release
 is on the packages that are causing upper bounds to be put in place. In order
@@ -425,9 +585,6 @@ will upgrade their packages to allow for the new GHC release.
 
 We prefer to prune packages causing upper bounds constraints **after** the LTS
 release to allow the maximum amount of packages to get into the newest LTS.
-
-You will almost always need to update the Win32 package version listed in the
-build-constraints.yaml file.
 
 After the first LTS release, the package pruning process may begin in the
 nightly build in order to move forward with getting the latest versions of
@@ -447,8 +604,7 @@ Every 3-6 months, we make a new major release of LTS. The procedure we follow fo
    relaxed upper bounds. There will likely be some hard decisions to be made
    regarding relaxing a bound versus keeping more packages. All of these changes
    occur on master and affect nightly.
-4. Once the estimated date hits, push a new `lts-XX` branch and trigger Docker
-   Hub to build a Docker image for the new release.
+4. Once the estimated date hits, push a new `ltsXX` and wait for the docker image build.
 5. Run the build procedure for the new LTS release.
 6. After the LTS build completes, more aggressively prune upper bounds from
    `build-constraints.yaml`.
