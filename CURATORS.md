@@ -310,15 +310,13 @@ Before running the build, please make sure that the Dockerfile in `automated/doc
   * If any changes need to be made, (eg, new GHC version), copy `automated/lts-X.Y/Dockerfile` to `automated/lts-X.Z/Dockerfile`, where Z is the minor version you're building, and include the new changes.
   * If you are building the first release of a new LTS major version, create a new `lts-X.0/Dockerfile` based on the previous LTS's, and adjust the variables at the top to match the requirements of the snapshot.  Ensure that `STACK_VERSION` is the latest release of Stack, and `BOOTSTRAP_COMMIT` is the commit ID of this repo containing the version of the `docker/*.sh` used to build the snapshot.  Also ensure the FROM image's Ubuntu version matches that used in the [root Dockerfile](Dockerfile) used to build this snapshot.
 
-First run `build.sh` to regenerate updated `ltsXX/work/constraints.yaml` and `ltsXX/work/snapshot-incomplete.yaml` files.
+For an LTS minor bump, you'll typically want to update <https://github.com/commercialhaskell/lts-haskell/tree/master/build-constraints> as needed:
 
-For an LTS minor bump, you'll typically want to:
+* constraint a package by appending an upperbound
+* add new packages
+* enable/disable test, benchmark, haddock when needed
 
-* Add constraints to package `range:` fields _under_ the `source:` field in that `constraints.yaml` (should not be necessary normally to edit `snapshot-incomplete.yaml` to change the version used for that package).
-* Add new packages to the `constraints.yaml` file
-* Test, benchmark, haddock failures can also be added to package fields in the `constraints.yaml` if necessary, though it should be avoided if possible for LTS.
-
-Then run `NOPLAN=1 build.sh` to build the generate an updated snapshot.
+Then run `./build.sh lts-X.Z` to generate an updated snapshot.
 
 If a build fails for bounds reasons, see all of the advice above. If the code
 itself doesn't build, or tests fail, open up an issue and then either put in a
@@ -335,9 +333,10 @@ one can edit `snapshot-incomplete.yaml`
 (the SHA256 hash of the .cabal file will get updated),
 to avoid having to rebuild everything again.)
 
-Note LTS builds without NOPLAN will use the latest Hackage data.
+Note LTS builds without NOPLAN will use the last Hackage data.
+You may need to `run-nightly.sh` to get a newer package, but this should be less common for lts.
 
-If you need to make further modifications beyond what `constraints.yaml` allows, you can directly edit the `snapshot-incomplete.yaml` file. Then, instead of `NOPLAN=1 build.sh`, you need to use `NOPLAN=2 build.sh`. Note that from this point on, further changes to `constraints.yaml` will not impact the build plan.
+~~If you need to make further modifications beyond what `constraints.yaml` allows, you can directly edit the `snapshot-incomplete.yaml` file. Then, instead of `NOPLAN=1 build.sh`, you need to use `NOPLAN=2 build.sh`. Note that from this point on, further changes to `constraints.yaml` will not impact the build plan.~~
 
 ### Timing
 
