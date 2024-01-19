@@ -227,7 +227,7 @@ Supported versions: ...
 update-global-hints.hs: Received ExitFailure 1 when running
 ```
 
-Also required to build an LTS minor bump with a ghc version change: On the build server, modify `/var/stackage/stackage/automated/work/lts-$THIS_LTS_MAJOR_VER/constraints.yaml` and update the ghc-version. (You may need to update sibling files as well.) Then run `NOPLAN=1 /var/stackage/stackage/automated/build.sh lts-$THIS_LTS_MINOR_BUMP` to build the LTS.
+Also required to build an LTS minor bump with a ghc version change: modify <https://github.com/commercialhaskell/lts-haskell/tree/master/build-constraints> and update the ghc-version.  Then run `automated/build.sh lts-$THIS_LTS_MINOR_BUMP` to build the LTS.
 
 ### Getting the new image to the build server
 Once a new Docker image is available, you'll need to pull it onto the stackage-build server (see
@@ -335,8 +335,6 @@ to avoid having to rebuild everything again.)
 
 Note LTS builds without NOPLAN will use the last Hackage data.
 You may need to `run-nightly.sh` to get a newer package, but this should be less common for lts.
-
-~~If you need to make further modifications beyond what `constraints.yaml` allows, you can directly edit the `snapshot-incomplete.yaml` file. Then, instead of `NOPLAN=1 build.sh`, you need to use `NOPLAN=2 build.sh`. Note that from this point on, further changes to `constraints.yaml` will not impact the build plan.~~
 
 ### Timing
 
