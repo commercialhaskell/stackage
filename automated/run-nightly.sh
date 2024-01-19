@@ -7,6 +7,6 @@ while true; do
     ./build.sh nightly-$(date -u +%F)
     date
 
-    sleep 30m
+    sleep 49m
     echo
 done
