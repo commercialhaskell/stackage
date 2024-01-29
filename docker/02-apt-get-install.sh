@@ -91,6 +91,7 @@ apt-get install -y \
     libnotify-dev \
     liboath-dev \
     libopenal-dev \
+    libopenmpi-dev \
     libpango1.0-dev \
     libpcap0.8-dev \
     libpcre2-dev \
