@@ -5,6 +5,12 @@ set -eu +x -o pipefail
 ROOT=$(cd $(dirname $0) ; pwd)
 TARGET=$1
 
+# Home on the container
+: ${C_HOME:=$HOME}
+
+# User to run as on the container
+: ${USERID:=$(id -u)}
+
 source work/aws.sh
 
 # For nightly-YYYY-MM-DD, tag should be nightly
@@ -31,7 +37,6 @@ STACK_DIR=$ROOT/work/stack
 DOT_STACKAGE_DIR=$ROOT/work/dot-stackage
 # ssh key is used for committing snapshots (and their constraints) to Github
 SSH_DIR=$ROOT/work/ssh
-USERID=$(id -u)
 
 mkdir -p \
 	"$PANTRY_DIR" \
@@ -85,12 +90,12 @@ docker run --rm -v $(pwd)/stack:/exe $IMAGE /exe --version
 # We share pantry directory between snapshots while the other content in .stack
 # is stored separately (because e.g. Ubuntu releases between LTS and nightly
 # could differ). Also the order of binds is important.
-ARGS_COMMON="--rm -v $WORKDIR:$HOME/work -w $HOME/work -v $BINDIR/curator:/usr/bin/curator:ro -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v $BINDIR/stack:/usr/bin/stack:ro -v $STACK_DIR:$HOME/.stack -v $PANTRY_DIR:$HOME/.stack/pantry"
-ARGS_PREBUILD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $DOT_STACKAGE_DIR:$HOME/.stackage"
+ARGS_COMMON="--rm -v $WORKDIR:$C_HOME/work -w $C_HOME/work -v $BINDIR/curator:/usr/bin/curator:ro -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v $BINDIR/stack:/usr/bin/stack:ro -v $STACK_DIR:$C_HOME/.stack -v $PANTRY_DIR:$C_HOME/.stack/pantry"
+ARGS_PREBUILD="$ARGS_COMMON -u $USERID -e HOME=$C_HOME -v $DOT_STACKAGE_DIR:$C_HOME/.stackage"
 ARGS_BUILD="$ARGS_COMMON"
 # instance-data is an undocumented feature of S3 used by amazonka,
 # see https://github.com/brendanhay/amazonka/issues/271
-ARGS_UPLOAD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:$HOME/.stackage -v $SSH_DIR:$HOME/.ssh:ro -v $GITCONFIG:$HOME/.gitconfig:ro -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -v $DOT_STACKAGE_DIR:/dot-stackage"
+ARGS_UPLOAD="$ARGS_COMMON -u $USERID -e HOME=$C_HOME -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:$C_HOME/.stackage -v $SSH_DIR:$C_HOME/.ssh:ro -v $GITCONFIG:$C_HOME/.gitconfig:ro -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -v $DOT_STACKAGE_DIR:/dot-stackage"
 
 # Make sure we actually need this snapshot. We only check this for LTS releases
 # since, for nightlies, we'd like to run builds even if they are unnecessary to
