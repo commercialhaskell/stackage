@@ -16,6 +16,7 @@ then
     WORKDIR=$ROOT/work/$(echo $TARGET | sed 's@^lts-\([0-9]*\)\.[0-9]*@lts-\1@')
     if [ -n "$NOPLAN" ]; then
         echo '* DO NOT EDIT work/ files: commit to lts-haskell/build-constraints! *'
+        exit 1
     fi
 else
     TAG=$SHORTNAME
@@ -101,17 +102,11 @@ then
 fi
 
 
-# Determine the new build plan unless NOPLAN is set
+# Determine the new build plan
 #
 # * Update the package index (unless LTS)
 # * Create a new plan
-if [ "${NOPLAN:-}x" = "1x" ]
-then
-    docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator snapshot-incomplete --target $TARGET && curator snapshot"
-elif [ "${NOPLAN:-}x" = "2x" ]
-then
-    docker run $ARGS_PREBUILD $IMAGE curator snapshot
-elif [ $SHORTNAME = "lts" ]
+if [ $SHORTNAME = "lts" ]
 then
     docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator constraints --target $TARGET && curator snapshot-incomplete --target $TARGET && curator snapshot"
 else

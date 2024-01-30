@@ -324,16 +324,7 @@ version bound to avoid that version or something else. It's difficult to give
 universal advice on how to solve things, since each situation is unique. Let's
 develop this advice over time. For now: if you're not sure, ask for guidance.
 
-__`NOPLAN=1`__ If you wish to rerun a build without recalculating a
-build plan, you can set the environment variable `NOPLAN=1`. This is
-useful for such cases as an intermittent test failure, out of memory
-condition, or manually tweaking the plan file. (When using `NOPLAN=1`,
-if one needs to revert one package, say due to a build or test regression,
-one can edit `snapshot-incomplete.yaml`
-(the SHA256 hash of the .cabal file will get updated),
-to avoid having to rebuild everything again.)
-
-Note LTS builds without NOPLAN will use the last Hackage data.
+Note LTS builds will use the last Hackage data.
 You may need to `run-nightly.sh` to get a newer package, but this should be less common for lts.
 
 ### Timing
