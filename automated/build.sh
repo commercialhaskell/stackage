@@ -20,7 +20,7 @@ if [ $SHORTNAME = "lts" ]
 then
     TAG=$(echo $TARGET | sed 's@^lts-\([0-9]*\)\.[0-9]*@lts\1@')
     WORKDIR=$ROOT/work/$(echo $TARGET | sed 's@^lts-\([0-9]*\)\.[0-9]*@lts-\1@')
-    if [ -n "$NOPLAN" ]; then
+    if [ -n "${NOPLAN:-}" ]; then
         echo '* DO NOT EDIT work/ files: commit to lts-haskell/build-constraints! *'
         exit 1
     fi
