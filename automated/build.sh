@@ -5,6 +5,12 @@ set -eu +x -o pipefail
 ROOT=$(cd $(dirname $0) ; pwd)
 TARGET=$1
 
+# Home on the container
+: ${C_HOME:=$HOME}
+
+# User to run as on the container
+: ${USERID:=$(id -u)}
+
 source work/aws.sh
 
 # For nightly-YYYY-MM-DD, tag should be nightly
@@ -14,7 +20,7 @@ if [ $SHORTNAME = "lts" ]
 then
     TAG=$(echo $TARGET | sed 's@^lts-\([0-9]*\)\.[0-9]*@lts\1@')
     WORKDIR=$ROOT/work/$(echo $TARGET | sed 's@^lts-\([0-9]*\)\.[0-9]*@lts-\1@')
-    if [ -n "$NOPLAN" ]; then
+    if [ -n "${NOPLAN:-}" ]; then
         echo '* DO NOT EDIT work/ files: commit to lts-haskell/build-constraints! *'
         exit 1
     fi
@@ -31,7 +37,6 @@ STACK_DIR=$ROOT/work/stack
 DOT_STACKAGE_DIR=$ROOT/work/dot-stackage
 # ssh key is used for committing snapshots (and their constraints) to Github
 SSH_DIR=$ROOT/work/ssh
-USERID=$(id -u)
 
 mkdir -p \
 	"$PANTRY_DIR" \
@@ -68,7 +73,7 @@ BINDIR=$(cd $ROOT/work/bin ; pwd)
 cd $BINDIR
 rm -f curator stack *.bz2
 
-curl -L "https://github.com/commercialhaskell/curator/releases/download/commit-b1528dc5eefd100bc9f98dee108f8ad8c8cb4006/curator.bz2" | bunzip2 > curator
+curl -L "https://github.com/commercialhaskell/curator/releases/download/commit-dc6e10c5f2144b36794917b512cff13ac5979ff3/curator.bz2" | bunzip2 > curator
 chmod +x curator
 echo -n "curator version: "
 docker run --rm -v $(pwd)/curator:/exe $IMAGE /exe --version
@@ -85,12 +90,12 @@ docker run --rm -v $(pwd)/stack:/exe $IMAGE /exe --version
 # We share pantry directory between snapshots while the other content in .stack
 # is stored separately (because e.g. Ubuntu releases between LTS and nightly
 # could differ). Also the order of binds is important.
-ARGS_COMMON="--rm -v $WORKDIR:$HOME/work -w $HOME/work -v $BINDIR/curator:/usr/bin/curator:ro -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v $BINDIR/stack:/usr/bin/stack:ro -v $STACK_DIR:$HOME/.stack -v $PANTRY_DIR:$HOME/.stack/pantry"
-ARGS_PREBUILD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $DOT_STACKAGE_DIR:$HOME/.stackage"
+ARGS_COMMON="--rm -v $WORKDIR:$C_HOME/work -w $C_HOME/work -v $BINDIR/curator:/usr/bin/curator:ro -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v $BINDIR/stack:/usr/bin/stack:ro -v $STACK_DIR:$C_HOME/.stack -v $PANTRY_DIR:$C_HOME/.stack/pantry"
+ARGS_PREBUILD="$ARGS_COMMON -u $USERID -e HOME=$C_HOME -v $DOT_STACKAGE_DIR:$C_HOME/.stackage"
 ARGS_BUILD="$ARGS_COMMON"
 # instance-data is an undocumented feature of S3 used by amazonka,
 # see https://github.com/brendanhay/amazonka/issues/271
-ARGS_UPLOAD="$ARGS_COMMON -u $USERID -e HOME=$HOME -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:$HOME/.stackage -v $SSH_DIR:$HOME/.ssh:ro -v $GITCONFIG:$HOME/.gitconfig:ro -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -v $DOT_STACKAGE_DIR:/dot-stackage"
+ARGS_UPLOAD="$ARGS_COMMON -u $USERID -e HOME=$C_HOME -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:$C_HOME/.stackage -v $SSH_DIR:$C_HOME/.ssh:ro -v $GITCONFIG:$C_HOME/.gitconfig:ro -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY ${AWS_ENDPOINT_URL:+-e AWS_ENDPOINT_URL=$AWS_ENDPOINT_URL} -v $DOT_STACKAGE_DIR:/dot-stackage"
 
 # Make sure we actually need this snapshot. We only check this for LTS releases
 # since, for nightlies, we'd like to run builds even if they are unnecessary to
@@ -146,7 +151,7 @@ docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator check-target-available
 #
 # * Upload the docs to S3
 # * Upload the new snapshot .yaml file to the appropriate Github repo, also upload its constraints
-docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "curator upload-docs --target $TARGET && curator upload-github --target $TARGET"
+docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "curator upload-docs --target $TARGET ${DOCS_BUCKET:+--bucket $DOCS_BUCKET} && curator upload-github --target $TARGET"
 
 # fixed in https://github.com/commercialhaskell/curator/pull/24
 docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator hackage-distro --target $TARGET"
