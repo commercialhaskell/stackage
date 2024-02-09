@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# shellcheck disable=SC2086,SC1091
+# SC2086: We actually want some word splitting to happen
+# SC1091: Secrets are sourced from a file that doesn't exist in the tree.
+
 set -eu +x -o pipefail
 
 ROOT=$(cd $(dirname $0) ; pwd)
@@ -159,7 +163,7 @@ docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "curator upload-docs --target $TARGE
     source work/aws-hf.sh
     # Regenerate docs-specific upload args
     ARGS_UPLOAD_DOCS="$ARGS_COMMON -u $USERID -e HOME=$C_HOME -v $DOT_STACKAGE_DIR:$C_HOME/.stackage -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY ${AWS_ENDPOINT_URL:+-e AWS_ENDPOINT_URL=$AWS_ENDPOINT_URL} -v $DOT_STACKAGE_DIR:/dot-stackage"
-    docker run "$ARGS_UPLOAD_DOCS" "$IMAGE" /bin/bash -c "curator upload-docs --target $TARGET ${DOCS_BUCKET:+--bucket $DOCS_BUCKET}"
+    docker run $ARGS_UPLOAD_DOCS "$IMAGE" /bin/bash -c "curator upload-docs --target $TARGET ${DOCS_BUCKET:+--bucket $DOCS_BUCKET}"
 )
 
 # fixed in https://github.com/commercialhaskell/curator/pull/24
