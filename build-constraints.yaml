@@ -2839,7 +2839,7 @@ packages:
         - smtp-mail
         - liboath-hs
         - servant-quickcheck
-        - esqueleto < 0 # 3.5.11.1 failing for ghc-9.8
+        - esqueleto
         - hedgehog-fakedata
         - persistent-discover
         - persistent-documentation < 0 # 0.1.0.4 https://github.com/lumihq/persistent-documentation/issues/11
@@ -6291,7 +6291,7 @@ packages:
         - base64-lens < 0 # tried base64-lens-0.3.1, but its *library* requires lens >=4.0 && < 5.1 and the snapshot contains lens-5.2.3
         - base64-lens < 0 # tried base64-lens-0.3.1, but its *library* requires text ^>=1.2 and the snapshot contains text-2.1
         - bcp47 < 0 # tried bcp47-0.2.0.6, but its *library* requires the disabled package: country
-        - bcp47-orphans < 0 # tried bcp47-orphans-0.1.0.6, but its *library* requires the disabled package: esqueleto
+        - bcp47-orphans < 0 # tried bcp47-orphans-0.1.0.6, but its *library* requires the disabled package: bcp47
         - beam-core < 0 # tried beam-core-0.10.1.0, but its *library* requires aeson >=0.11 && < 2.2 and the snapshot contains aeson-2.2.1.0
         - beam-core < 0 # tried beam-core-0.10.1.0, but its *library* requires bytestring >=0.10 && < 0.12 and the snapshot contains bytestring-0.12.0.2
         - beam-core < 0 # tried beam-core-0.10.1.0, but its *library* requires ghc-prim >=0.5 && < 0.11 and the snapshot contains ghc-prim-0.11.0
@@ -7653,7 +7653,6 @@ packages:
         - persist < 0 # tried persist-0.1.1.5, but its *library* requires text >=1.2 && < 1.3 and the snapshot contains text-2.1
         - persistent-mysql-haskell < 0 # tried persistent-mysql-haskell-0.6.0, but its *library* requires mysql-haskell >=0.8.0.0 && < 1.0 and the snapshot contains mysql-haskell-1.1.3
         - persistent-mysql-haskell < 0 # tried persistent-mysql-haskell-0.6.0, but its *library* requires tls >=1.3.5 && < 1.5 and the snapshot contains tls-1.9.0
-        - persistent-pagination < 0 # tried persistent-pagination-0.1.1.2, but its *library* requires the disabled package: esqueleto
         - persistent-redis < 0 # tried persistent-redis-2.13.0.1, but its *library* requires bytestring >=0.10.8 && < 0.12 and the snapshot contains bytestring-0.12.0.2
         - pg-harness-server < 0 # tried pg-harness-server-0.6.2, but its *executable* requires postgresql-simple >=0.6 && < 0.7 and the snapshot contains postgresql-simple-0.7.0.0
         - pg-harness-server < 0 # tried pg-harness-server-0.6.2, but its *executable* requires random >=1.0 && < 1.2 and the snapshot contains random-1.2.1.2
@@ -9043,8 +9042,6 @@ skipped-tests:
     - partial-semigroup # tried partial-semigroup-0.6.0.2, but its *test-suite* requires hedgehog ^>=1.1.2 || ^>=1.2 and the snapshot contains hedgehog-1.4
     - pasta-curves # tried pasta-curves-0.0.1.0, but its *test-suite* requires tasty >=1.4 && < 1.5 and the snapshot contains tasty-1.5
     - peregrin # tried peregrin-0.4.2, but its *test-suite* requires transformers >=0.5.2 && < 0.6 and the snapshot contains transformers-0.6.1.0
-    - persistent-mtl # tried persistent-mtl-0.5.1, but its *test-suite* requires the disabled package: esqueleto
-    - persistent-typed-db # tried persistent-typed-db-0.1.0.7, but its *test-suite* requires the disabled package: esqueleto
     - pg-transact # tried pg-transact-0.3.2.0, but its *test-suite* requires the disabled package: tmp-postgres
     - pipes-category # tried pipes-category-0.3.0.0, but its *test-suite* requires transformers >=0.4 && < 0.6 and the snapshot contains transformers-0.6.1.0
     - pipes-extras # tried pipes-extras-1.0.15, but its *test-suite* requires transformers >=0.2.0.0 && < 0.6 and the snapshot contains transformers-0.6.1.0
