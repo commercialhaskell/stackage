@@ -5430,6 +5430,7 @@ packages:
         - discount
         - distributed-process
         - distributed-static
+        - djot
         - dlist
         - dlist-instances
         - dlist-nonempty
@@ -8543,6 +8544,15 @@ packages:
 
         # https://github.com/commercialhaskell/stackage/issues/7312
         - numhask < 0.12
+
+        # https://github.com/commercialhaskell/stackage/issues/7316
+        - tls < 2
+        - tls-session-manager < 0.0.5
+
+        # https://github.com/commercialhaskell/stackage/issues/7317
+        - sbv < 10.4
+        - crackNum < 3.7
+
     # end of Stackage upper bounds
 # end of packages
 
@@ -8659,6 +8669,9 @@ package-flags:
       optparse-applicative_ge_0_18: true
     redact:
       optparse-applicative_ge_0_18: true
+
+    directory-ospath-streaming:
+      os-string: false
 # end of package-flags
 
 # Special configure options for individual packages
