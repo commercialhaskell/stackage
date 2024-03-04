@@ -5141,17 +5141,17 @@ packages:
     "Tim Emiola <tim.emiola@gmail.com> @adetokunbo":
         - benri-hspec
         - attoparsec-framer
-        - hspec-tmp-proc
+        - hspec-tmp-proc < 0 # tls-2 via tmp-proc
         - keyed-vals
         - keyed-vals-hspec-tests
         - keyed-vals-mem
         - keyed-vals-redis
         - mem-info
         - redis-glob
-        - tmp-proc
-        - tmp-proc-postgres
-        - tmp-proc-redis
-        - tmp-proc-rabbitmq
+        - tmp-proc < 0 # tls-2
+        - tmp-proc-postgres < 0 # tls-2 via tmp-proc
+        - tmp-proc-redis < 0 # tls-2 via tmp-proc
+        - tmp-proc-rabbitmq < 0 # tls-2 via tmp-proc
         - wai-middleware-delegate
 
     "Francisco Vallarino <fjvallarino@gmail.com> @fjvallarino":
@@ -8838,6 +8838,10 @@ skipped-tests:
 
     # Revision to package caused it to require bounds and break
     - htoml  # https://github.com/commercialhaskell/stackage/issues/6239
+
+    # version bounds: tls-2 via tmp-proc
+    - keyed-vals-redis
+    - wai-middleware-delegate
 
     # See "Large scale enabling/disabling of packages" in CURATORS.md for how to manage this section.
     #
