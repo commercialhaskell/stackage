@@ -5401,6 +5401,7 @@ packages:
         - crypto-pubkey
         - crypto-pubkey-openssh < 0 # 0.2.7 compile fail
         - crypto-random < 0 # 0.0.9 compile fail https://github.com/vincenthz/hs-crypto-random/issues/15
+        - crypto-token # required by tls-session-manager >= 0.0.5
         - cryptohash-cryptoapi
         - cryptostore
         - css-text
@@ -8538,10 +8539,6 @@ packages:
         # https://github.com/commercialhaskell/stackage/issues/7312
         - numhask < 0.12
 
-        # https://github.com/commercialhaskell/stackage/issues/7316
-        - tls < 2
-        - tls-session-manager < 0.0.5
-
         # https://github.com/commercialhaskell/stackage/issues/7321
         - HPDF < 1.7
         - boomwhacker < 0.0.2
@@ -9990,7 +9987,6 @@ hide:
 #
 # This only supports pinning to the initial release (revision 0), not to an arbitrary revision.
 no-revisions:
-- tls
 - mime-mail
 - basement
 - cryptonite
