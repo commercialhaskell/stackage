@@ -248,7 +248,7 @@ For a new GHC version you should also delete the ~~cache~~ .stack-work snapshot 
 # for example
 SNAP_SERIES=nightly # or lts16
 OLD_GHCVER=8.10.1
-rm -r work/$SNAP_SERIES/unpack-dir/.stack-work/install/x86_64-linux/*/$OLD_GHCVER/
+rm -r work/$SNAP_SERIES/unpack-dir/.stack-work/install/x86_64-linux-tinfo6/*/$OLD_GHCVER/
 ```
 This should also be done when moving the Nightly docker image to a new version of Ubuntu.
 
