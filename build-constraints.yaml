@@ -1,4 +1,5 @@
 ghc-major-version: "9.8"
+
 # new curator is supposed to use exact GHC version
 ghc-version: "9.8.2"
 
@@ -5147,17 +5148,17 @@ packages:
     "Tim Emiola <tim.emiola@gmail.com> @adetokunbo":
         - benri-hspec
         - attoparsec-framer
-        - hspec-tmp-proc < 0 # tls-2 via tmp-proc
+        - hspec-tmp-proc
         - keyed-vals
         - keyed-vals-hspec-tests
         - keyed-vals-mem
         - keyed-vals-redis
         - mem-info
         - redis-glob
-        - tmp-proc < 0 # tls-2
-        - tmp-proc-postgres < 0 # tls-2 via tmp-proc
-        - tmp-proc-redis < 0 # tls-2 via tmp-proc
-        - tmp-proc-rabbitmq < 0 # tls-2 via tmp-proc
+        - tmp-proc
+        - tmp-proc-postgres
+        - tmp-proc-redis
+        - tmp-proc-rabbitmq
         - wai-middleware-delegate
 
     "Francisco Vallarino <fjvallarino@gmail.com> @fjvallarino":
@@ -6228,7 +6229,6 @@ packages:
         - asciidiagram < 0 # tried asciidiagram-1.3.3.3, but its *library* requires text >=1.2 && < 1.3 and the snapshot contains text-2.1.1
         - async-timer < 0 # tried async-timer-0.2.0.0, but its *library* requires unliftio-core >=0.1.1.0 && < 0.2 and the snapshot contains unliftio-core-0.2.1.0
         - atom-conduit < 0 # tried atom-conduit-0.9.0.1, but its *library* requires the disabled package: refined
-        - attoparsec-framer < 0 # tried attoparsec-framer-0.1.0.2, but its *executable* requires bytestring >=0.10.8.2 && < 0.12.1.0 and the snapshot contains bytestring-0.12.1.0
         - attoparsec-run < 0 # tried attoparsec-run-0.0.2.0, but its *library* requires base ^>=4.14 || ^>=4.15 || ^>=4.16 || ^>=4.17 || ^>=4.18 and the snapshot contains base-4.19.1.0
         - attoparsec-run < 0 # tried attoparsec-run-0.0.2.0, but its *library* requires bytestring ^>=0.10.12 || ^>=0.11 and the snapshot contains bytestring-0.12.1.0
         - attoparsec-run < 0 # tried attoparsec-run-0.0.2.0, but its *library* requires text ^>=1.2.4 || ^>=2.0 and the snapshot contains text-2.1.1
@@ -7386,7 +7386,6 @@ packages:
         - medea < 0 # tried medea-1.2.0, but its *library* requires mtl ^>=2.2.2 and the snapshot contains mtl-2.3.1
         - medea < 0 # tried medea-1.2.0, but its *library* requires text ^>=1.2.3.1 and the snapshot contains text-2.1.1
         - medea < 0 # tried medea-1.2.0, but its *library* requires vector ^>=0.12.0.3 and the snapshot contains vector-0.13.1.0
-        - mem-info < 0 # tried mem-info-0.2.0.0, but its *library* requires bytestring >=0.10.8.2 && < 0.11 || >=0.11.3.1 && < 0.12.1 and the snapshot contains bytestring-0.12.1.0
         - memfd < 0 # tried memfd-1.0.1.3, but its *library* requires base ^>=4.14 || ^>=4.15 || ^>=4.16 || ^>=4.17 || ^>=4.18 and the snapshot contains base-4.19.1.0
         - memory-hexstring < 0 # tried memory-hexstring-1.0.0.0, but its *library* requires aeson >1.2 && < 1.6 and the snapshot contains aeson-2.2.1.0
         - memory-hexstring < 0 # tried memory-hexstring-1.0.0.0, but its *library* requires base >4.11 && < 4.15 and the snapshot contains base-4.19.1.0
@@ -8276,7 +8275,6 @@ packages:
         - wai-cli < 0 # tried wai-cli-0.2.3, but its *library* requires the disabled package: options
         - wai-control < 0 # tried wai-control-0.2.0.0, but its *library* requires websockets >=0.12.5.3 && < 0.13 and the snapshot contains websockets-0.13.0.0
         - wai-middleware-crowd < 0 # tried wai-middleware-crowd-0.1.4.2, but its *executable* requires optparse-applicative >=0.11 && < 0.15 and the snapshot contains optparse-applicative-0.18.1.0
-        - wai-middleware-delegate < 0 # tried wai-middleware-delegate-0.1.4.0, but its *library* requires bytestring >=0.10.8.2 && < 0.11 || >=0.11.3.1 && < 0.12.1 and the snapshot contains bytestring-0.12.1.0
         - wai-middleware-rollbar < 0 # tried wai-middleware-rollbar-0.11.0, but its *library* requires aeson >=1.0 && < 1.4 and the snapshot contains aeson-2.2.1.0
         - wai-middleware-rollbar < 0 # tried wai-middleware-rollbar-0.11.0, but its *library* requires bytestring >=0.10 && < 0.11 and the snapshot contains bytestring-0.12.1.0
         - wai-middleware-rollbar < 0 # tried wai-middleware-rollbar-0.11.0, but its *library* requires http-client >=0.5 && < 0.6 and the snapshot contains http-client-0.7.16
@@ -8750,10 +8748,6 @@ skipped-tests:
 
     # Revision to package caused it to require bounds and break
     - htoml  # https://github.com/commercialhaskell/stackage/issues/6239
-
-    # version bounds: tls-2 via tmp-proc
-    - keyed-vals-redis
-    - wai-middleware-delegate
 
     # See "Large scale enabling/disabling of packages" in CURATORS.md for how to manage this section.
     #
