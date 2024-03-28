@@ -10,6 +10,15 @@ cabal-format-version: "3.0"
 
 # Constraints for brand new builds
 packages:
+    "David Simmons-Duffin <dsd@caltech.edu> @davidsd":
+        - rank1dynamic
+        - distributed-static
+        - network-transport
+        - network-transport-tests
+        - network-transport-tcp
+        - network-transport-inmemory
+        - distributed-process
+
     "Julian Ospald <hasufell@posteo.de> @hasufell":
         - os-string >= 2.0.2
         - file-io >= 0.1.1
@@ -5448,8 +5457,6 @@ packages:
         - dictionary-sharing
         - direct-sqlite
         - discount
-        - distributed-process
-        - distributed-static
         - djot
         - dlist
         - dlist-instances
@@ -5628,7 +5635,6 @@ packages:
         - network-ip
         - network-multicast
         - network-run
-        - network-transport
         - network-uri < 2.7.0.0 || > 2.7.0.0 # 2.7.0.0 was deprecated, don't remove bound until >2.7.0.0 is released.
         - next-ref
         - nicify-lib
@@ -5675,7 +5681,6 @@ packages:
         - random
         - random-shuffle
         - range-set-list
-        - rank1dynamic
         - ratio-int
         - raw-strings-qq
         - readable
@@ -6584,17 +6589,10 @@ packages:
         - dictionaries < 0 # tried dictionaries-0.2.0.4, but its *library* requires transformers >=0.4.2.0 && < 0.6 and the snapshot contains transformers-0.6.1.0
         - direct-rocksdb < 0 # tried direct-rocksdb-0.0.3, but its *library* requires Cabal >=2.0 && < 2.2 and the snapshot contains Cabal-3.10.2.0
         - direct-rocksdb < 0 # tried direct-rocksdb-0.0.3, but its *library* requires the disabled package: cabal-toolkit
-        - distributed-process < 0 # tried distributed-process-0.7.4, but its *library* requires bytestring >=0.9 && < 0.11 and the snapshot contains bytestring-0.12.1.0
-        - distributed-process < 0 # tried distributed-process-0.7.4, but its *library* requires containers >=0.5 && < 0.6 and the snapshot contains containers-0.6.8
-        - distributed-process < 0 # tried distributed-process-0.7.4, but its *library* requires hashable >=1.2.0.5 && < 1.3 and the snapshot contains hashable-1.4.3.0
-        - distributed-process < 0 # tried distributed-process-0.7.4, but its *library* requires random >=1.0 && < 1.2 and the snapshot contains random-1.2.1.2
-        - distributed-process < 0 # tried distributed-process-0.7.4, but its *library* requires stm >=2.4 && < 2.5 and the snapshot contains stm-2.5.2.1
-        - distributed-process < 0 # tried distributed-process-0.7.4, but its *library* requires transformers >=0.2 && < 0.6 and the snapshot contains transformers-0.6.1.0
         - distributed-process-lifted < 0 # tried distributed-process-lifted-0.3.0.1, but its *library* requires deepseq >=1.2 && < 1.5 and the snapshot contains deepseq-1.5.0.0
         - distributed-process-lifted < 0 # tried distributed-process-lifted-0.3.0.1, but its *library* requires mtl >=2.0 && < 2.3 and the snapshot contains mtl-2.3.1
         - distributed-process-lifted < 0 # tried distributed-process-lifted-0.3.0.1, but its *library* requires transformers >=0.4 && < 0.6 and the snapshot contains transformers-0.6.1.0
-        - distributed-process-monad-control < 0 # tried distributed-process-monad-control-0.5.1.3, but its *library* requires the disabled package: distributed-process
-        - distributed-static < 0 # tried distributed-static-0.3.9, but its *library* requires bytestring >=0.10 && < 0.12 and the snapshot contains bytestring-0.12.1.0
+        - distributed-process-monad-control < 0 # tried distributed-process-monad-control-0.5.1.3, but its *library* requires the disabled package: distributed-process # revisit, now that distributed-process has been re-enabled
         - distribution < 0 # tried distribution-1.1.1.0, but its *library* requires containers >=0.5 && < 0.6 and the snapshot contains containers-0.6.8
         - distribution < 0 # tried distribution-1.1.1.0, but its *library* requires random >=1.1 && < 1.2 and the snapshot contains random-1.2.1.2
         - diversity < 0 # tried diversity-0.8.1.0, but its *library* requires the disabled package: fasta
@@ -8811,7 +8809,7 @@ skipped-tests:
     - dhall-yaml # tried dhall-yaml-1.2.12, but its *test-suite* requires tasty < 1.5 and the snapshot contains tasty-1.5
     - dialogflow-fulfillment # tried dialogflow-fulfillment-0.1.1.4, but its *test-suite* requires hspec >=2.7.1 && < 2.9.0 and the snapshot contains hspec-2.11.7
     - dialogflow-fulfillment # tried dialogflow-fulfillment-0.1.1.4, but its *test-suite* requires hspec-discover >=2.7.1 && < 2.9.0 and the snapshot contains hspec-discover-2.11.7
-    - distributed-process-lifted # tried distributed-process-lifted-0.3.0.1, but its *test-suite* requires the disabled package: network-transport-tcp
+    - distributed-process-lifted # tried distributed-process-lifted-0.3.0.1, but its *test-suite* requires the disabled package: network-transport-tcp # revisit, now that network-transport-tcp has been re-enabled
     - distributed-process-lifted # tried distributed-process-lifted-0.3.0.1, but its *test-suite* requires the disabled package: rematch
     - doldol # tried doldol-0.4.1.2, but its *test-suite* requires the disabled package: test-framework-th
     - drawille # tried drawille-0.1.3.0, but its *test-suite* requires containers >=0.5 && < 0.6 and the snapshot contains containers-0.6.8
@@ -8989,7 +8987,7 @@ skipped-tests:
     - servant-yaml # tried servant-yaml-0.1.0.1, but its *test-suite* requires base-compat >=0.10.5 && < 0.12 and the snapshot contains base-compat-0.13.1
     - servant-yaml # tried servant-yaml-0.1.0.1, but its *test-suite* requires servant-server >=0.15 && < 0.18 and the snapshot contains servant-server-0.20
     - sessiontypes-distributed # tried sessiontypes-distributed-0.1.1, but its *test-suite* requires hspec >=2.4.4 && < 2.5 and the snapshot contains hspec-2.11.7
-    - sessiontypes-distributed # tried sessiontypes-distributed-0.1.1, but its *test-suite* requires the disabled package: network-transport-tcp
+    - sessiontypes-distributed # tried sessiontypes-distributed-0.1.1, but its *test-suite* requires the disabled package: network-transport-tcp # revisit, now that network-transport-tcp has been re-enabled
     - sexpr-parser # tried sexpr-parser-0.2.2.0, but its *test-suite* requires hspec >=2.5 && < 2.10 and the snapshot contains hspec-2.11.7
     - simple-log # tried simple-log-0.9.12, but its *test-suite* requires hspec >=2.3 && < 2.8 and the snapshot contains hspec-2.11.7
     - sized-grid # tried sized-grid-0.2.0.1, but its *test-suite* requires ansi-terminal >=0.8.0.2 && < 0.10 and the snapshot contains ansi-terminal-1.0.2
@@ -9159,7 +9157,6 @@ expected-test-failures:
     - concurrent-extra # https://github.com/basvandijk/concurrent-extra/issues/12
     - crypto-numbers
     - css-text # https://github.com/yesodweb/css-text/issues/10
-    - distributed-process
     - distributed-process-execution # https://github.com/haskell-distributed/distributed-process-execution/issues/2
     - distributed-process-task
     - dl-fedora # status 404 on http download
@@ -9651,7 +9648,6 @@ skipped-benchmarks:
     - cmark-gfm # tried cmark-gfm-0.2.6, but its *benchmarks* requires the disabled package: cheapskate
     - csg # tried csg-0.1.0.6, but its *benchmarks* requires criterion < 1.6 and the snapshot contains criterion-1.6.3.0
     - csg # tried csg-0.1.0.6, but its *benchmarks* requires vector < 0.13 and the snapshot contains vector-0.13.1.0
-    - distributed-process # tried distributed-process-0.7.4, but its *benchmarks* requires the disabled package: network-transport-tcp
     - ed25519 # tried ed25519-0.0.5.0, but its *benchmarks* requires criterion >=0.8 && < 1.2 and the snapshot contains criterion-1.6.3.0
     - ed25519 # tried ed25519-0.0.5.0, but its *benchmarks* requires deepseq >=1.3 && < 1.5 and the snapshot contains deepseq-1.5.0.0
     - extensible-effects # tried extensible-effects-5.0.0.1, but its *benchmarks* requires the disabled package: test-framework-th
