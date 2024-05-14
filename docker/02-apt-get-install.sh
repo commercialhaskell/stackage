@@ -86,7 +86,7 @@ apt-get install -y \
     libmpfr-dev \
     libmpich-dev \
     libmysqlclient-dev \
-    libncurses5-dev \
+    libncurses-dev \
     libnfc-dev \
     libnotify-dev \
     liboath-dev \
