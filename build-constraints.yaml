@@ -1903,6 +1903,36 @@ packages:
         - binary-shared
         - xdg-userdirs
 
+        # copilot
+        - bitwise
+        - bv-sized
+        - config-value
+        - copilot
+        - copilot-c99
+        - copilot-core
+        - copilot-interpreter
+        - copilot-language
+        - copilot-libraries
+        - copilot-prettyprinter
+        - copilot-theorem
+        - language-c99
+        - language-c99-simple
+        - language-c99-util
+        - panic
+        - parameterized-utils
+        - s-cargot
+        - what4
+        - zenc
+        # copilot tests:
+        - hedgehog-classes
+        - html-parse
+        - kvitable
+        - lumberjack
+        - tasty-checklist
+        - tasty-sugar
+        - units
+        - units-defs
+
     "Renzo Carbonara <renzocarbonara@gmail.com> @k0001":
         - df1
         - di
@@ -6547,6 +6577,10 @@ packages:
         - console-style < 0 # tried console-style-0.0.2.1, but its *library* requires transformers >=0.4 && < 0.6 and the snapshot contains transformers-0.6.1.0
         - constraint < 0 # tried constraint-0.1.4.0, but its *library* requires the disabled package: category
         - containers-unicode-symbols < 0 # tried containers-unicode-symbols-0.3.1.3, but its *library* requires containers >=0.5 && < 0.6.5 and the snapshot contains containers-0.6.8
+        - copilot < 0 # tried copilot-3.19.1, but its *library* requires the disabled package: copilot-theorem
+        - copilot-language < 0 # tried copilot-language-3.19.1, but its *library* requires the disabled package: copilot-theorem
+        - copilot-libraries < 0 # tried copilot-libraries-3.19.1, but its *library* requires the disabled package: copilot-language
+        - copilot-theorem < 0 # tried copilot-theorem-3.19.1, but its *library* requires the disabled package: what4
         - country < 0 # tried country-0.2.4.1, but its *library* requires bytestring >=0.10 && < 0.12 and the snapshot contains bytestring-0.12.1.0
         - country < 0 # tried country-0.2.4.1, but its *library* requires deepseq >=1.3.0.2 && < 1.5 and the snapshot contains deepseq-1.5.0.0
         - cprng-aes < 0 # tried cprng-aes-0.6.1, but its *library* requires bytestring < 0.12 and the snapshot contains bytestring-0.12.1.0
@@ -8316,6 +8350,7 @@ packages:
         - webby < 0 # tried webby-1.1.1, but its *library* requires text >=1.2 && < 2.1 and the snapshot contains text-2.1.1
         - webdriver-angular < 0 # tried webdriver-angular-0.1.11, but its *library* requires language-javascript >=0.6 && < 0.7 and the snapshot contains language-javascript-0.7.1.0
         - webdriver-angular < 0 # tried webdriver-angular-0.1.11, but its *library* requires webdriver >=0.6 && < 0.9 and the snapshot contains webdriver-0.12.0.0
+        - what4 < 0 # tried what4-1.5.1, but its *library* requires text >=1.2.4.0 && < 2.1 and the snapshot contains text-2.1.1
         - wikicfp-scraper < 0 # tried wikicfp-scraper-0.1.0.13, but its *library* requires bytestring >=0.10.0 && < 0.12 and the snapshot contains bytestring-0.12.1.0
         - wikicfp-scraper < 0 # tried wikicfp-scraper-0.1.0.13, but its *library* requires text >=0.11.3.1 && < 1.3 and the snapshot contains text-2.1.1
         - wikicfp-scraper < 0 # tried wikicfp-scraper-0.1.0.13, but its *library* requires time >=1.4.0 && < 1.12 and the snapshot contains time-1.12.2
@@ -8809,6 +8844,7 @@ skipped-tests:
     - cleff # tried cleff-0.3.3.0, but its *test-suite* requires template-haskell >=2.14 && < 2.19 and the snapshot contains template-haskell-2.21.0.0
     - colour # tried colour-2.3.6, but its *test-suite* requires random >=1.0 && < 1.2 and the snapshot contains random-1.2.1.2
     - construct # tried construct-0.3.1.2, but its *test-suite* requires markdown-unlit >=0.5 && < 0.6 and the snapshot contains markdown-unlit-0.6.0
+    - copilot-libraries # tried copilot-libraries-3.19.1, but its *test-suite* requires the disabled package: copilot-theorem
     - crypton-x509 # tried crypton-x509-1.7.6, but its *test-suite* requires x509 < 0 and the snapshot contains x509-1.7.7
     - csg # tried csg-0.1.0.6, but its *test-suite* requires doctest < 0.17 and the snapshot contains doctest-0.22.2
     - csg # tried csg-0.1.0.6, but its *test-suite* requires tasty < 1.3 and the snapshot contains tasty-1.5
@@ -8941,6 +8977,7 @@ skipped-tests:
     - options # tried options-1.2.1.2, but its *test-suite* requires the disabled package: patience
     - oset # tried oset-0.4.0.1, but its *test-suite* requires hspec >=2.2 && < 2.8 and the snapshot contains hspec-2.11.8
     - oset # tried oset-0.4.0.1, but its *test-suite* requires hspec-discover >=2.2 && < 2.8 and the snapshot contains hspec-discover-2.11.8
+    - parameterized-utils # tried parameterized-utils-2.1.8.0, but its *test-suite* requires the disabled package: hedgehog-classes
     - partial-semigroup # tried partial-semigroup-0.6.0.2, but its *test-suite* requires hedgehog ^>=1.1.2 || ^>=1.2 and the snapshot contains hedgehog-1.4
     - pasta-curves # tried pasta-curves-0.0.1.0, but its *test-suite* requires tasty >=1.4 && < 1.5 and the snapshot contains tasty-1.5
     - peregrin # tried peregrin-0.4.2, but its *test-suite* requires transformers >=0.5.2 && < 0.6 and the snapshot contains transformers-0.6.1.0
@@ -9025,8 +9062,10 @@ skipped-tests:
     - system-fileio # tried system-fileio-0.3.16.4, but its *test-suite* requires the disabled package: chell
     - system-filepath # tried system-filepath-0.4.14, but its *test-suite* requires the disabled package: chell
     - system-filepath # tried system-filepath-0.4.14, but its *test-suite* requires the disabled package: chell-quickcheck
+    - tasty-checklist # tried tasty-checklist-1.0.6.0, but its *test-suite* requires doctest >=0.10 && < 0.22 and the snapshot contains doctest-0.22.2
     - tasty-discover # tried tasty-discover-5.0.0, but its *test-suite* requires hspec >=2.7 && < 2.11 and the snapshot contains hspec-2.11.8
     - tasty-discover # tried tasty-discover-5.0.0, but its *test-suite* requires hspec-core >=2.7.10 && < 2.11 and the snapshot contains hspec-core-2.11.8
+    - tasty-sugar # tried tasty-sugar-2.2.1.0, but its *test-suite* requires hedgehog >=1.1 && < 1.4 and the snapshot contains hedgehog-1.4
     - tdigest # tried tdigest-0.3, but its *test-suite* requires tasty >=0.11.0.4 && < 1.5 and the snapshot contains tasty-1.5
     - temporary-resourcet # tried temporary-resourcet-0.1.0.1, but its *test-suite* requires tasty >=1.0 && < 1.2 and the snapshot contains tasty-1.5
     - test-framework # tried test-framework-0.8.2.0, but its *test-suite* requires the disabled package: libxml
@@ -9060,6 +9099,9 @@ skipped-tests:
     - web3-solidity # tried web3-solidity-1.0.0.0, but its *test-suite* requires hspec-discover >=2.4.4 && < 2.8 and the snapshot contains hspec-discover-2.11.8
     - wild-bind-x11 # tried wild-bind-x11-0.2.0.15, but its *test-suite* requires time >=1.5.0 && < 1.12 and the snapshot contains time-1.12.2
     - yesod-static-angular # tried yesod-static-angular-0.1.8, but its *test-suite* requires yesod-test >=1.2 && < 1.6 and the snapshot contains yesod-test-1.6.16
+    - zenc # tried zenc-0.1.2, but its *test-suite* requires hedgehog >=1.0 && < 1.1 and the snapshot contains hedgehog-1.4
+    - zenc # tried zenc-0.1.2, but its *test-suite* requires hspec >=2.8 && < 2.9 and the snapshot contains hspec-2.11.8
+    - zenc # tried zenc-0.1.2, but its *test-suite* requires hspec-hedgehog >=0.0 && < 0.1 and the snapshot contains hspec-hedgehog-0.1.1.0
     - zm # tried zm-0.3.2, but its *test-suite* requires doctest >=0.11.1 && < 0.14 and the snapshot contains doctest-0.22.2
     - zm # tried zm-0.3.2, but its *test-suite* requires tasty >=0.11 && < 0.13 and the snapshot contains tasty-1.5
     - zm # tried zm-0.3.2, but its *test-suite* requires tasty-quickcheck >=0.8.1 && < 0.9.2 and the snapshot contains tasty-quickcheck-0.10.3
