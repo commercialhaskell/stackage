@@ -18,7 +18,6 @@ apt-get install -y \
     cmake \
     coinor-libclp-dev \
     curl \
-    cvc5 \
     dvipng \
     freeglut3-dev \
     freetds-dev \
