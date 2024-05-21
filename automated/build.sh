@@ -77,7 +77,7 @@ BINDIR=$(cd $ROOT/work/bin ; pwd)
 cd $BINDIR
 rm -f curator stack *.bz2
 
-curl -L "https://github.com/commercialhaskell/curator/releases/download/commit-dc6e10c5f2144b36794917b512cff13ac5979ff3/curator.bz2" | bunzip2 > curator
+curl -L "https://github.com/commercialhaskell/curator/releases/download/commit-54cc5a95a7e29550e0fd7a48b24ddad105d223b2/curator.bz2" | bunzip2 > curator
 chmod +x curator
 echo -n "curator version: "
 docker run --rm -v $(pwd)/curator:/exe $IMAGE /exe --version
@@ -156,7 +156,7 @@ docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator check-target-available
 # * Upload the docs to S3
 # * Upload the new snapshot .yaml file to the appropriate Github repo, also upload its constraints
 date
-time docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "curator upload-docs --target $TARGET ${DOCS_BUCKET:+--bucket $DOCS_BUCKET} && curator upload-github --target $TARGET"
+docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "curator upload-docs --target $TARGET ${DOCS_BUCKET:+--bucket $DOCS_BUCKET} && curator upload-github --target $TARGET"
 date
 
 # fixed in https://github.com/commercialhaskell/curator/pull/24
