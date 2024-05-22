@@ -138,6 +138,7 @@ apt-get install -y \
     minisat \
     mono-mcs \
     nettle-dev \
+    ncurses-term \
     ninja-build \
     nodejs \
     nvidia-cuda-toolkit \
