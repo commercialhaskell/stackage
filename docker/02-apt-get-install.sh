@@ -154,6 +154,7 @@ apt-get install -y \
     software-properties-common \
     sudo \
     texlive \
+    time \
     unixodbc-dev \
     unzip \
     wget \
