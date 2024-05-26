@@ -363,7 +363,7 @@ You can force a single package to rebuild by deleting its "previous result"
 file, e.g.:
 
 ```
-$ rm /var/stackage/stackage/automated/nightly/work/builds/nightly/prevres/Build/cryptohash-0.11.9
+$ rm work/nightly/unpack-dir/unpacked/sydtest-yesod-0.3.0.2-a30dd34cab0bc0a9dffa2d6cd93c8c665f5db29b578792a835668f9a733c51d6/
 ```
 
 ### Restarting docker
