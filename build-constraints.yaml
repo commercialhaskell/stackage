@@ -489,7 +489,9 @@ packages:
 # https://github.com/commercialhaskell/stackage/issues/7357 and
 # https://github.com/commercialhaskell/stackage/issues/7458.
 #       - Cabal < 3.12.0.0 # https://github.com/commercialhaskell/stackage/issues/7399
-        - cabal-install < 3.10.3.0 # cabal-install-3.10.3.0 requires Cabal >= 3.10.3
+# See https://github.com/commercialhaskell/stackage/pull/7471#issuecomment-2201380545
+# cabal-install < 3.10.3.0 blocks tar >= 0.6.
+        - cabal-install < 0 # cabal-install-3.10.3.0 requires Cabal >= 3.10.3
         - sdl2-ttf
         - enummapset
         - assert-failure
