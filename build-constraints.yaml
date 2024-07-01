@@ -482,8 +482,14 @@ packages:
         - type-of-html-static
 
     "Mikolaj Konarski <mikolaj.konarski@funktory.com> @Mikolaj":
-        - Cabal < 3.12.0.0 # https://github.com/commercialhaskell/stackage/issues/7399
-        - cabal-install
+# Cabal is a GHC boot package and, consequently, like all other boot packages,
+# should not be included directly in a Stackage snapshot. The package version is
+# specified by the specified GHC version. To do otherwise affects adversely
+# Stack's ability to override the specified compiler easily. See:
+# https://github.com/commercialhaskell/stackage/issues/7357 and
+# https://github.com/commercialhaskell/stackage/issues/7458.
+#       - Cabal < 3.12.0.0 # https://github.com/commercialhaskell/stackage/issues/7399
+        - cabal-install < 3.10.3.0 # cabal-install-3.10.3.0 requires Cabal >= 3.10.3
         - sdl2-ttf
         - enummapset
         - assert-failure
