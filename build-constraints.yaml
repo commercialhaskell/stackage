@@ -5703,7 +5703,7 @@ packages:
         - network-info
         - network-ip
         - network-multicast
-        - network-run < 0.3.0 # https://github.com/commercialhaskell/stackage/issues/7444
+        - network-run
         - network-uri < 2.7.0.0 || > 2.7.0.0 # 2.7.0.0 was deprecated, don't remove bound until >2.7.0.0 is released.
         - next-ref
         - nicify-lib
@@ -8457,13 +8457,6 @@ packages:
         - emacs-module < 0.2.1.1
         - json-spec-elm-servant < 0.4.1.0
 
-        # https://github.com/commercialhaskell/stackage/issues/7447
-        - attoparsec-framer < 0.1.0.5
-
-        # https://github.com/commercialhaskell/stackage/issues/7448
-        - http2 < 5.2.3
-        - http-semantics < 0.1
-
         # https://github.com/commercialhaskell/stackage/issues/7449
         - fourmolu < 0.16
 
@@ -8990,6 +8983,7 @@ skipped-tests:
     - pasta-curves # tried pasta-curves-0.0.1.0, but its *test-suite* requires tasty >=1.4 && < 1.5 and the snapshot contains tasty-1.5
     - peregrin # tried peregrin-0.4.2, but its *test-suite* requires transformers >=0.5.2 && < 0.6 and the snapshot contains transformers-0.6.1.0
     - pg-transact # tried pg-transact-0.3.2.0, but its *test-suite* requires the disabled package: tmp-postgres
+    - pinch # tried pinch-0.5.1.0, but its *test-suite* requires network-run >=0.2.4 && < 0.3 and the snapshot contains network-run-0.3.0
     - pipes-category # tried pipes-category-0.3.0.0, but its *test-suite* requires transformers >=0.4 && < 0.6 and the snapshot contains transformers-0.6.1.0
     - pipes-extras # tried pipes-extras-1.0.15, but its *test-suite* requires transformers >=0.2.0.0 && < 0.6 and the snapshot contains transformers-0.6.1.0
     - pipes-fluid # tried pipes-fluid-0.6.0.1, but its *test-suite* requires the disabled package: pipes-misc
