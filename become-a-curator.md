@@ -1,4 +1,4 @@
-## We are no longer accepting applications, please wait until next time
+## We are not currently actively seeking applications
 
 We are looking to expand the stackage curator team!
 
