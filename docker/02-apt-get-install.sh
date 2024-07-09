@@ -14,6 +14,7 @@ apt-get update
 
 apt-get install -y \
     apt-transport-https \
+    aswcli \
     build-essential \
     cmake \
     coinor-libclp-dev \
@@ -150,6 +151,7 @@ apt-get install -y \
     python3-scipy \
     r-base \
     r-base-dev \
+    rclone \
     rpm \
     ruby-dev \
     software-properties-common \
