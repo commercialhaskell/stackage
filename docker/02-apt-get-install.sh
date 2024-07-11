@@ -14,7 +14,6 @@ apt-get update
 
 apt-get install -y \
     apt-transport-https \
-    awscli \
     build-essential \
     cmake \
     coinor-libclp-dev \
