@@ -36,6 +36,8 @@ fi
 #IMAGE=commercialhaskell/stackage:$TAG
 IMAGE=ghcr.io/commercialhaskell/stackage/build:$TAG
 
+docker pull $IMAGE
+
 PANTRY_DIR=$ROOT/work/stack/pantry
 STACK_DIR=$ROOT/work/stack
 DOT_STACKAGE_DIR=$ROOT/work/dot-stackage
