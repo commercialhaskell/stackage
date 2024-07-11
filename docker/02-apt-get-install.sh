@@ -93,6 +93,7 @@ apt-get install -y \
     libopenal-dev \
     libopenmpi-dev \
     libpango1.0-dev \
+    libpapi-dev \
     libpcap0.8-dev \
     libpcre2-dev \
     libpq-dev \
