@@ -8016,6 +8016,7 @@ packages:
         - streamly-bytestring < 0 # tried streamly-bytestring-0.2.1, but its *library* requires streamly-core >=0.1.0 && < 0.2.2 and the snapshot contains streamly-core-0.2.2
         - streamly-examples < 0 # tried streamly-examples-0.2.0, but its *executable* requires streamly ==0.10.0 and the snapshot contains streamly-0.10.1
         - streamly-examples < 0 # tried streamly-examples-0.2.0, but its *executable* requires streamly-core ==0.2.0 and the snapshot contains streamly-core-0.2.2
+        - streamly-examples < 0 # tried streamly-examples-0.2.0, but its *executable* requires tasty-bench >=0.3 && < 0.4 and the snapshot contains tasty-bench-0.4
         - streamproc < 0 # tried streamproc-1.6.2, but its *library* requires base >=3 && < 4.13 and the snapshot contains base-4.19.1.0
         - streamt < 0 # tried streamt-0.5.0.1, but its *library* requires mtl >=2.0 && < 2.3 and the snapshot contains mtl-2.3.1
         - strict-tuple-lens < 0 # tried strict-tuple-lens-0.2, but its *library* requires lens ^>=5 and the snapshot contains lens-5.2.3
@@ -8095,7 +8096,6 @@ packages:
         - systemd-socket-activation < 0 # tried systemd-socket-activation-1.1.0.1, but its *library* requires base ^>=4.16 || ^>=4.17 || ^>=4.18 and the snapshot contains base-4.19.1.0
         - systemd-socket-activation < 0 # tried systemd-socket-activation-1.1.0.1, but its *library* requires text ^>=1.2.4 || ^>=2.0 and the snapshot contains text-2.1.1
         - taffybar < 0 # tried taffybar-4.0.2, but its *library* requires scotty >=0.11 && < 0.22 and the snapshot contains scotty-0.22
-        - tasty-bench-fit < 0 # tried tasty-bench-fit-0.1.1, but its *library* requires tasty-bench >=0.4 && < 0.5 and the snapshot contains tasty-bench-0.3.5
         - tasty-hunit-compat < 0 # tried tasty-hunit-compat-0.2.0.1, but its *library* requires tasty < 1.5 and the snapshot contains tasty-1.5
         - tasty-stats < 0 # tried tasty-stats-0.2.0.4, but its *library* requires containers >=0.4 && < 0.6 and the snapshot contains containers-0.6.8
         - tasty-stats < 0 # tried tasty-stats-0.2.0.4, but its *library* requires tasty >=0.11.2 && < 1.2 and the snapshot contains tasty-1.5
@@ -8451,10 +8451,6 @@ packages:
 
         # https://github.com/commercialhaskell/stackage/issues/7479
         - brick < 2.4
-
-        # https://github.com/commercialhaskell/stackage/issues/7480
-        - tasty-bench < 0.4
-        - text-builder-linear < 0.1.3
 
         # https://github.com/commercialhaskell/stackage/issues/7481
         - network-run < 0.4
@@ -9097,7 +9093,6 @@ skipped-tests:
     - temporary-resourcet # tried temporary-resourcet-0.1.0.1, but its *test-suite* requires tasty >=1.0 && < 1.2 and the snapshot contains tasty-1.5
     - test-framework # tried test-framework-0.8.2.0, but its *test-suite* requires the disabled package: libxml
     - text-builder-dev # tried text-builder-dev-0.3.4.2, but its *test-suite* requires tasty-quickcheck >=0.10.1 && < 0.11 and the snapshot contains tasty-quickcheck-0.11
-    - text-builder-linear # tried text-builder-linear-0.1.2, but its *test-suite* requires tasty-quickcheck >=0.10 && < 0.11 and the snapshot contains tasty-quickcheck-0.11
     - text-iso8601 # tried text-iso8601-0.1.1, but its *test-suite* requires tasty-quickcheck >=0.10.2 && < 0.11 and the snapshot contains tasty-quickcheck-0.11
     - tree-diff # tried tree-diff-0.3.1, but its *test-suite* requires tasty-quickcheck ^>=0.10.3 and the snapshot contains tasty-quickcheck-0.11
     - type-errors # tried type-errors-0.2.0.2, but its *test-suite* requires doctest >=0.16.0.1 && < 0.22 and the snapshot contains doctest-0.22.5
@@ -9720,10 +9715,14 @@ skipped-benchmarks:
     - IntervalMap # tried IntervalMap-0.6.2.1, but its *benchmarks* requires the disabled package: SegmentTree
     - accelerate-fourier # tried accelerate-fourier-1.0.0.5, but its *benchmarks* requires accelerate-llvm-native >=1.1 && < 1.2 and the snapshot contains accelerate-llvm-native-1.3.0.0
     - accelerate-fourier # tried accelerate-fourier-1.0.0.5, but its *benchmarks* requires criterion >=1.0 && < 1.5 and the snapshot contains criterion-1.6.3.0
+    - apply-merge # tried apply-merge-0.1.1.0, but its *benchmarks* requires tasty-bench >=0.3 && < 0.4 and the snapshot contains tasty-bench-0.4
+    - arithmoi # tried arithmoi-0.13.0.0, but its *benchmarks* requires tasty-bench < 0.4 and the snapshot contains tasty-bench-0.4
     - avers # tried avers-0.0.17.1, but its *benchmarks* requires criterion >=1.1.4.0 && < 1.6 and the snapshot contains criterion-1.6.3.0
     - base32 # tried base32-0.4, but its *benchmarks* requires bytestring ^>=0.11 and the snapshot contains bytestring-0.12.1.0
     - binary-parsers # tried binary-parsers-0.2.4.0, but its *benchmarks* requires criterion >=1.1 && < 1.2 and the snapshot contains criterion-1.6.3.0
+    - bitvec # tried bitvec-1.1.5.0, but its *benchmarks* requires tasty-bench >=0.3.2 && < 0.4 and the snapshot contains tasty-bench-0.4
     - broadcast-chan # tried broadcast-chan-0.2.1.2, but its *benchmarks* requires deepseq >=1.1 && < 1.5 and the snapshot contains deepseq-1.5.0.0
+    - chimera # tried chimera-0.4.1.0, but its *benchmarks* requires tasty-bench >=0.3.2 && < 0.4 and the snapshot contains tasty-bench-0.4
     - chronos # tried chronos-1.1.6.1, but its *benchmarks* requires the disabled package: thyme
     - cipher-aes # tried cipher-aes-0.2.11, but its *benchmarks* requires the disabled package: crypto-cipher-benchmarks
     - cipher-camellia # tried cipher-camellia-0.0.2, but its *benchmarks* requires the disabled package: crypto-cipher-benchmarks
@@ -9734,31 +9733,44 @@ skipped-benchmarks:
     - ed25519 # tried ed25519-0.0.5.0, but its *benchmarks* requires criterion >=0.8 && < 1.2 and the snapshot contains criterion-1.6.3.0
     - ed25519 # tried ed25519-0.0.5.0, but its *benchmarks* requires deepseq >=1.3 && < 1.5 and the snapshot contains deepseq-1.5.0.0
     - extensible-effects # tried extensible-effects-5.0.0.1, but its *benchmarks* requires the disabled package: test-framework-th
+    - fast-digits # tried fast-digits-0.3.2.0, but its *benchmarks* requires tasty-bench >=0.2.4 && < 0.4 and the snapshot contains tasty-bench-0.4
+    - fused-effects # tried fused-effects-1.1.2.2, but its *benchmarks* requires tasty-bench >=0.3 && < 0.4 and the snapshot contains tasty-bench-0.4
     - galois-field # tried galois-field-1.0.2, but its *benchmarks* requires criterion >=1.5 && < 1.6 and the snapshot contains criterion-1.6.3.0
+    - ghc-trace-events # tried ghc-trace-events-0.1.2.9, but its *benchmarks* requires tasty-bench < 0.4 and the snapshot contains tasty-bench-0.4
     - haskell-tools-cli # tried haskell-tools-cli-1.1.1.0, but its *benchmarks* requires aeson >=1.0 && < 1.5 and the snapshot contains aeson-2.2.3.0
     - haskell-tools-cli # tried haskell-tools-cli-1.1.1.0, but its *benchmarks* requires criterion >=1.1 && < 1.6 and the snapshot contains criterion-1.6.3.0
     - haskell-tools-cli # tried haskell-tools-cli-1.1.1.0, but its *benchmarks* requires time >=1.6 && < 1.9 and the snapshot contains time-1.12.2
     - hasmin # tried hasmin-1.0.3, but its *benchmarks* requires criterion >=0.11 && < 1.6 and the snapshot contains criterion-1.6.3.0
+    - hegg # tried hegg-0.5.0.0, but its *benchmarks* requires tasty-bench >=0.2 && < 0.4 and the snapshot contains tasty-bench-0.4
     - hip # tried hip-1.5.6.0, but its *benchmarks* requires the disabled package: repa-algorithms
+    - integer-conversion # tried integer-conversion-0.1.1, but its *benchmarks* requires tasty-bench ^>=0.3.4 and the snapshot contains tasty-bench-0.4
+    - lifted-async # tried lifted-async-0.10.2.5, but its *benchmarks* requires tasty-bench < 0.4 and the snapshot contains tasty-bench-0.4
     - lz4 # tried lz4-0.2.3.1, but its *benchmarks* requires the disabled package: snappy
     - min-max-pqueue # tried min-max-pqueue-0.1.0.2, but its *benchmarks* requires criterion >=1.4.1 && < 1.6 and the snapshot contains criterion-1.6.3.0
     - minisat-solver # tried minisat-solver-0.1, but its *benchmarks* requires the disabled package: easyrender
+    - monoidmap # tried monoidmap-0.0.1.4, but its *benchmarks* requires tasty-bench >=0.3.2 && < 0.4 and the snapshot contains tasty-bench-0.4
     - normalization-insensitive # tried normalization-insensitive-2.0.2, but its *benchmarks* requires criterion >=0.6.1 && < 1.6 and the snapshot contains criterion-1.6.3.0
     - o-clock # tried o-clock-1.4.0, but its *benchmarks* requires the disabled package: tiempo
     - pasta-curves # tried pasta-curves-0.0.1.0, but its *benchmarks* requires criterion >=1.5 && < 1.6 and the snapshot contains criterion-1.6.3.0
     - pg-transact # tried pg-transact-0.3.2.0, but its *benchmarks* requires the disabled package: tmp-postgres
     - pipes # tried pipes-4.3.16, but its *benchmarks* requires optparse-applicative >=0.12 && < 0.18 and the snapshot contains optparse-applicative-0.18.1.0
+    - pqueue # tried pqueue-1.5.0.0, but its *benchmarks* requires tasty-bench >=0.3 && < 0.4 and the snapshot contains tasty-bench-0.4
     - pred-trie # tried pred-trie-0.6.1, but its *benchmarks* requires the disabled package: sets
+    - primecount # tried primecount-0.1.0.1, but its *benchmarks* requires tasty-bench >=0.3 && < 0.4 and the snapshot contains tasty-bench-0.4
     - regex-applicative # tried regex-applicative-0.3.4, but its *benchmarks* requires the disabled package: parsers-megaparsec
     - servant-auth-cookie # tried servant-auth-cookie-0.6.0.3, but its *benchmarks* requires criterion >=0.6.2.1 && < 1.4 and the snapshot contains criterion-1.6.3.0
     - servant-kotlin # tried servant-kotlin-0.1.1.9, but its *benchmarks* requires shelly >=1.6.8 && < 1.10 and the snapshot contains shelly-1.12.1
+    - streamly-process # tried streamly-process-0.3.1, but its *benchmarks* requires tasty-bench >=0.2.5 && < 0.4 and the snapshot contains tasty-bench-0.4
     - superbuffer # tried superbuffer-0.3.1.2, but its *benchmarks* requires criterion < 1.3 and the snapshot contains criterion-1.6.3.0
     - superbuffer # tried superbuffer-0.3.1.2, but its *benchmarks* requires the disabled package: buffer-builder
     - sv # tried sv-1.4.0.1, but its *benchmarks* requires criterion >=1.3 && < 1.6 and the snapshot contains criterion-1.6.3.0
     - sv # tried sv-1.4.0.1, but its *benchmarks* requires deepseq >=1.1 && < 1.5 and the snapshot contains deepseq-1.5.0.0
+    - tar # tried tar-0.6.3.0, but its *benchmarks* requires tasty-bench < 0.4 and the snapshot contains tasty-bench-0.4
+    - text-iso8601 # tried text-iso8601-0.1.1, but its *benchmarks* requires tasty-bench >=0.3.4 && < 0.4 and the snapshot contains tasty-bench-0.4
     - ttrie # tried ttrie-0.1.2.2, but its *benchmarks* requires the disabled package: criterion-plus
     - ttrie # tried ttrie-0.1.2.2, but its *benchmarks* requires the disabled package: stm-stats
     - tz # tried tz-0.1.3.6, but its *benchmarks* requires the disabled package: thyme
+    - unicode-transforms # tried unicode-transforms-0.4.0.1, but its *benchmarks* requires tasty-bench >=0.2.5 && < 0.4 and the snapshot contains tasty-bench-0.4
     - vectortiles # tried vectortiles-1.5.1, but its *benchmarks* requires criterion >=1.1 && < 1.6 and the snapshot contains criterion-1.6.3.0
     - xeno # tried xeno-0.6, but its *benchmarks* requires the disabled package: bytestring-mmap
     # End of Benchmark bounds issues
