@@ -4396,8 +4396,10 @@ packages:
         - appendful
         - appendful-persistent
         - autodocodec
-        - autodocodec-openapi3 < 0 # 0.2.1.1 compilation failure https://github.com/NorfairKing/autodocodec/issues/49
-        - autodocodec-schema < 0 # 0.1.0.4 compilation failure https://github.com/NorfairKing/autodocodec/issues/49
+        - autodocodec-openapi3
+        - autodocodec-schema
+        - autodocodec-servant-multipart
+        - autodocodec-swagger2 
         - autodocodec-yaml
         - cursor
         - cursor-brick
@@ -6349,7 +6351,6 @@ packages:
         - aura < 0 # tried aura-3.2.10, but its *library* requires text >=1.2 && < 1.3 || ^>=2.0 and the snapshot contains text-2.1.1
         - aura < 0 # tried aura-3.2.10, but its *library* requires transformers ^>=0.5 and the snapshot contains transformers-0.6.1.0
         - aura < 0 # tried aura-3.2.10, but its *library* requires unix ^>=2.7.2.2 and the snapshot contains unix-2.8.4.0
-        - autodocodec-yaml < 0 # tried autodocodec-yaml-0.3.0.0, but its *library* requires the disabled package: autodocodec-schema
         - avers < 0 # tried avers-0.0.17.1, but its *library* requires MonadRandom >=0.4.2.3 && < 0.6 and the snapshot contains MonadRandom-0.6
         - avers < 0 # tried avers-0.0.17.1, but its *library* requires aeson >=1.1.2.1 && < 1.6 and the snapshot contains aeson-2.2.3.0
         - avers < 0 # tried avers-0.0.17.1, but its *library* requires attoparsec >=0.13.1.0 && < 0.14 and the snapshot contains attoparsec-0.14.4
@@ -6767,11 +6768,6 @@ packages:
         - generic-aeson < 0 # tried generic-aeson-0.2.0.14, but its *library* requires vector >=0.10 && < 0.13 and the snapshot contains vector-0.13.1.0
         - generic-xmlpickler < 0 # tried generic-xmlpickler-0.1.0.6, but its *library* requires base >=4.5 && < 4.14 and the snapshot contains base-4.19.1.0
         - generic-xmlpickler < 0 # tried generic-xmlpickler-0.1.0.6, but its *library* requires generic-deriving >=1.6 && < 1.14 and the snapshot contains generic-deriving-1.14.5
-        - genvalidity-sydtest < 0 # tried genvalidity-sydtest-1.0.0.0, but its *library* requires the disabled package: sydtest
-        - genvalidity-sydtest-aeson < 0 # tried genvalidity-sydtest-aeson-1.0.0.0, but its *library* requires the disabled package: sydtest
-        - genvalidity-sydtest-hashable < 0 # tried genvalidity-sydtest-hashable-1.0.0.1, but its *library* requires the disabled package: sydtest
-        - genvalidity-sydtest-lens < 0 # tried genvalidity-sydtest-lens-1.0.0.0, but its *library* requires the disabled package: sydtest
-        - genvalidity-sydtest-persistent < 0 # tried genvalidity-sydtest-persistent-1.0.0.0, but its *library* requires the disabled package: sydtest
         - geojson < 0 # tried geojson-4.1.1, but its *library* requires deepseq >=1.4.2.0 && < 1.5 and the snapshot contains deepseq-1.5.0.0
         - geojson < 0 # tried geojson-4.1.1, but its *library* requires text >=1.2.3.0 && < 2.1 and the snapshot contains text-2.1.1
         - ghc-clippy-plugin < 0 # tried ghc-clippy-plugin-0.0.0.1, but its *library* requires dhall >=1.30.0 && < 1.34 and the snapshot contains dhall-1.42.1
@@ -8123,26 +8119,7 @@ packages:
         - swagger-petstore < 0 # tried swagger-petstore-0.0.2.0, but its *library* requires vector >=0.10.9 && < 0.13 and the snapshot contains vector-0.13.1.0
         - sweet-egison < 0 # tried sweet-egison-0.1.1.3, but its *library* requires logict ^>=0.7.0 and the snapshot contains logict-0.8.1.0
         - syb-with-class < 0 # tried syb-with-class-0.6.1.14, but its *library* requires template-haskell >=2.4 && < 2.19 and the snapshot contains template-haskell-2.21.0.0
-        - sydtest < 0 # tried sydtest-0.15.1.3, but its *library* requires the disabled package: autodocodec-yaml
-        - sydtest-aeson < 0 # tried sydtest-aeson-0.1.0.0, but its *library* requires the disabled package: sydtest
-        - sydtest-amqp < 0 # tried sydtest-amqp-0.1.0.0, but its *library* requires the disabled package: sydtest
-        - sydtest-autodocodec < 0 # tried sydtest-autodocodec-0.0.0.0, but its *library* requires the disabled package: autodocodec-yaml
-        - sydtest-hedgehog < 0 # tried sydtest-hedgehog-0.4.0.0, but its *library* requires the disabled package: sydtest
-        - sydtest-hedis < 0 # tried sydtest-hedis-0.0.0.0, but its *library* requires the disabled package: sydtest
-        - sydtest-hspec < 0 # tried sydtest-hspec-0.4.0.2, but its *library* requires the disabled package: sydtest
-        - sydtest-mongo < 0 # tried sydtest-mongo-0.0.0.0, but its *library* requires the disabled package: sydtest
-        - sydtest-persistent < 0 # tried sydtest-persistent-0.0.0.2, but its *library* requires the disabled package: sydtest
         - sydtest-persistent-postgresql < 0 # tried sydtest-persistent-postgresql-0.2.0.3, but its *library* requires the disabled package: tmp-postgres
-        - sydtest-persistent-sqlite < 0 # tried sydtest-persistent-sqlite-0.2.0.3, but its *library* requires the disabled package: sydtest
-        - sydtest-process < 0 # tried sydtest-process-0.0.0.0, but its *library* requires the disabled package: sydtest
-        - sydtest-rabbitmq < 0 # tried sydtest-rabbitmq-0.1.0.0, but its *library* requires the disabled package: sydtest
-        - sydtest-servant < 0 # tried sydtest-servant-0.2.0.2, but its *library* requires the disabled package: sydtest
-        - sydtest-typed-process < 0 # tried sydtest-typed-process-0.0.0.0, but its *library* requires the disabled package: sydtest
-        - sydtest-wai < 0 # tried sydtest-wai-0.2.0.1, but its *library* requires the disabled package: sydtest
-        - sydtest-webdriver < 0 # tried sydtest-webdriver-0.0.0.1, but its *library* requires the disabled package: sydtest
-        - sydtest-webdriver-screenshot < 0 # tried sydtest-webdriver-screenshot-0.0.0.2, but its *library* requires the disabled package: sydtest
-        - sydtest-webdriver-yesod < 0 # tried sydtest-webdriver-yesod-0.0.0.1, but its *library* requires the disabled package: sydtest
-        - sydtest-yesod < 0 # tried sydtest-yesod-0.3.0.2, but its *library* requires the disabled package: sydtest
         - systemd-socket-activation < 0 # tried systemd-socket-activation-1.1.0.1, but its *library* requires base ^>=4.16 || ^>=4.17 || ^>=4.18 and the snapshot contains base-4.19.1.0
         - systemd-socket-activation < 0 # tried systemd-socket-activation-1.1.0.1, but its *library* requires network ^>=3.1.2 and the snapshot contains network-3.2.1.0
         - systemd-socket-activation < 0 # tried systemd-socket-activation-1.1.0.1, but its *library* requires text ^>=1.2.4 || ^>=2.0 and the snapshot contains text-2.1.1
@@ -8806,7 +8783,6 @@ skipped-tests:
     - airship # tried airship-0.9.5, but its *test-suite* requires text >=1.2 && < 2.0 and the snapshot contains text-2.1.1
     - antiope-s3 # tried antiope-s3-7.5.3, but its *test-suite* requires hedgehog >=0.5 && < 1.1 and the snapshot contains hedgehog-1.4
     - antiope-s3 # tried antiope-s3-7.5.3, but its *test-suite* requires hspec >=2.4 && < 2.8 and the snapshot contains hspec-2.11.9
-    - appendful-persistent # tried appendful-persistent-0.1.0.1, but its *test-suite* requires the disabled package: sydtest
     - arbor-lru-cache # tried arbor-lru-cache-0.1.1.1, but its *test-suite* requires hedgehog >=0.5 && < 1.1 and the snapshot contains hedgehog-1.4
     - arbor-lru-cache # tried arbor-lru-cache-0.1.1.1, but its *test-suite* requires hspec >=2.4 && < 2.8 and the snapshot contains hspec-2.11.9
     - arithmoi # tried arithmoi-0.13.0.0, but its *test-suite* requires tasty >=0.10 && < 1.5 and the snapshot contains tasty-1.5
@@ -8915,9 +8891,6 @@ skipped-tests:
     - galois-field # tried galois-field-1.0.2, but its *test-suite* requires tasty >=1.2 && < 1.3 and the snapshot contains tasty-1.5
     - galois-field # tried galois-field-1.0.2, but its *test-suite* requires tasty-quickcheck >=0.10 && < 0.11 and the snapshot contains tasty-quickcheck-0.11
     - generic-xmlpickler # tried generic-xmlpickler-0.1.0.6, but its *test-suite* requires tasty >=0.10 && < 1.3 and the snapshot contains tasty-1.5
-    - genvalidity-appendful # tried genvalidity-appendful-0.1.0.0, but its *test-suite* requires the disabled package: autodocodec-yaml
-    - genvalidity-mergeful # tried genvalidity-mergeful-0.3.0.1, but its *test-suite* requires the disabled package: autodocodec-yaml
-    - genvalidity-network-uri # tried genvalidity-network-uri-0.0.0.0, but its *test-suite* requires the disabled package: sydtest
     - geojson # tried geojson-4.1.1, but its *test-suite* requires bytestring >=0.10.8.1 && < 0.12 and the snapshot contains bytestring-0.12.1.0
     - geojson # tried geojson-4.1.1, but its *test-suite* requires hspec >=2.5 && < 2.10 and the snapshot contains hspec-2.11.9
     - geojson # tried geojson-4.1.1, but its *test-suite* requires tasty >=0.8 && < 0.13 || >=1.0 && < 1.5 and the snapshot contains tasty-1.5
@@ -9007,8 +8980,6 @@ skipped-tests:
     - medea # tried medea-1.2.0, but its *test-suite* requires hspec >=2.7.1 && < 2.9.0 and the snapshot contains hspec-2.11.9
     - medea # tried medea-1.2.0, but its *test-suite* requires hspec-core >=2.7.1 && < 2.9.0 and the snapshot contains hspec-core-2.11.9
     - menshen # tried menshen-0.0.3, but its *test-suite* requires QuickCheck < 2.14 and the snapshot contains QuickCheck-2.14.3
-    - mergeful-persistent # tried mergeful-persistent-0.3.0.1, but its *test-suite* requires the disabled package: sydtest
-    - mergeless-persistent # tried mergeless-persistent-0.1.0.1, but its *test-suite* requires the disabled package: sydtest
     - mod # tried mod-0.2.0.1, but its *test-suite* requires tasty-quickcheck >=0.9 && < 0.11 and the snapshot contains tasty-quickcheck-0.11
     - monad-par # tried monad-par-0.3.6, but its *test-suite* requires the disabled package: test-framework-th
     - monad-peel # tried monad-peel-0.3, but its *test-suite* requires transformers >=0.2 && < 0.6 and the snapshot contains transformers-0.6.1.0
@@ -9063,9 +9034,6 @@ skipped-tests:
     - rel8 # tried rel8-1.5.0.0, but its *test-suite* requires the disabled package: tmp-postgres
     - req-url-extra # tried req-url-extra-0.1.1.0, but its *test-suite* requires hspec >=2.2 && < 2.8 and the snapshot contains hspec-2.11.9
     - rhine # tried rhine-1.4.0.1, but its *test-suite* requires tasty-quickcheck ^>=0.10 and the snapshot contains tasty-quickcheck-0.11
-    - safe-coloured-text-gen # tried safe-coloured-text-gen-0.0.0.3, but its *test-suite* requires the disabled package: sydtest
-    - safe-coloured-text-layout # tried safe-coloured-text-layout-0.2.0.0, but its *test-suite* requires the disabled package: sydtest
-    - safe-coloured-text-layout-gen # tried safe-coloured-text-layout-gen-0.0.0.0, but its *test-suite* requires the disabled package: sydtest
     - salak-toml # tried salak-toml-0.3.5.3, but its *test-suite* requires QuickCheck < 2.14 and the snapshot contains QuickCheck-2.14.3
     - scale # tried scale-1.0.0.0, but its *test-suite* requires hspec >=2.4.4 && < 2.8 and the snapshot contains hspec-2.11.9
     - scale # tried scale-1.0.0.0, but its *test-suite* requires hspec-discover >=2.4.4 && < 2.8 and the snapshot contains hspec-discover-2.11.9
