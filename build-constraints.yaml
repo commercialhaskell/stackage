@@ -3768,6 +3768,8 @@ packages:
         - alex-tools
         - language-lua
         - snap-server
+        - cabal-add
+        - cabal-install-parsers
 
     "Ashley Yakeley <ashley@semantic.org> @AshleyYakeley":
         - countable
@@ -8478,6 +8480,7 @@ packages:
 
         # https://github.com/commercialhaskell/stackage/issues/7467
         - cabal-install < 3.12
+        - cabal-install-parsers < 0.6.2
 
         # https://github.com/commercialhaskell/stackage/issues/7476
         - hashable < 1.5
@@ -8597,6 +8600,9 @@ package-flags:
 
     hackage-security:
       Cabal-syntax: true
+
+    cabal-add:
+      cabal-syntax: true
 
     aws-sns-verify:
       development: true
@@ -8857,6 +8863,7 @@ skipped-tests:
     - cabal-install # tried cabal-install-3.10.3.0, but its *test-suite* requires the disabled package: Cabal-QuickCheck
     - cabal-install # tried cabal-install-3.10.3.0, but its *test-suite* requires the disabled package: Cabal-described
     - cabal-install # tried cabal-install-3.10.3.0, but its *test-suite* requires the disabled package: Cabal-tree-diff
+    - cabal-install-parsers # tried cabal-install-parsers-0.6.1.1, but its *test-suite* requires ansi-terminal < 1.1 and the snapshot contains ansi-terminal-1.1.1
     - cacophony # tried cacophony-0.10.1, but its *test-suite* requires base16-bytestring < 1 and the snapshot contains base16-bytestring-1.0.2.0
     - cassava-conduit # tried cassava-conduit-0.6.6, but its *test-suite* requires QuickCheck >=2.12 && < 2.13 and the snapshot contains QuickCheck-2.14.3
     - cassava-conduit # tried cassava-conduit-0.6.6, but its *test-suite* requires bytestring >=0.11 && < 0.12 and the snapshot contains bytestring-0.12.1.0
