@@ -2249,9 +2249,8 @@ packages:
         - amazonka-workspaces
         - amazonka-workspaces-web
         - amazonka-xray
-        # gogol-* disabled due to `gogol-core` due to `servant`: #6089/closed
         - gogol
-        - gogol-core < 0 # 0.5.0 compile fail
+        - gogol-core
         - gogol-adexchange-buyer
         - gogol-adexchange-seller
         - gogol-admin-datatransfer
@@ -6730,18 +6729,17 @@ packages:
         - gloss-examples < 0 # tried gloss-examples-1.13.0.4, but its *executable* requires bytestring >=0.10 && < 0.12 and the snapshot contains bytestring-0.12.1.0
         - gloss-examples < 0 # tried gloss-examples-1.13.0.4, but its *executable* requires vector >=0.11 && < 0.13 and the snapshot contains vector-0.13.1.0
         - gloss-raster < 0 # tried gloss-raster-1.13.1.2, but its *library* requires the disabled package: repa
-        - gogol < 0 # tried gogol-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol < 0 # tried gogol-0.5.0, but its *library* requires the disabled package: x509
         - gogol < 0 # tried gogol-0.5.0, but its *library* requires the disabled package: x509-store
         - gogol-adexchange-buyer < 0 # tried gogol-adexchange-buyer-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-adexchange-seller < 0 # tried gogol-adexchange-seller-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-admin-datatransfer < 0 # tried gogol-admin-datatransfer-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-admin-directory < 0 # tried gogol-admin-directory-0.5.0, but its *library* requires the disabled package: gogol-core
-        - gogol-admin-emailmigration < 0 # tried gogol-admin-emailmigration-0.3.0, but its *library* requires the disabled package: gogol-core
+        - gogol-admin-emailmigration < 0 # tried gogol-admin-emailmigration-0.3.0, but its *library* requires gogol-core >=0.3.0 && < 0.3.1 and the snapshot contains gogol-core-0.5.0
         - gogol-admin-reports < 0 # tried gogol-admin-reports-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-adsense < 0 # tried gogol-adsense-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-adsense-host < 0 # tried gogol-adsense-host-0.5.0, but its *library* requires the disabled package: gogol-core
-        - gogol-affiliates < 0 # tried gogol-affiliates-0.3.0, but its *library* requires the disabled package: gogol-core
+        - gogol-affiliates < 0 # tried gogol-affiliates-0.3.0, but its *library* requires gogol-core >=0.3.0 && < 0.3.1 and the snapshot contains gogol-core-0.5.0
         - gogol-analytics < 0 # tried gogol-analytics-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-android-enterprise < 0 # tried gogol-android-enterprise-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-android-publisher < 0 # tried gogol-android-publisher-0.5.0, but its *library* requires the disabled package: gogol-core
@@ -6752,17 +6750,18 @@ packages:
         - gogol-apps-reseller < 0 # tried gogol-apps-reseller-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-apps-tasks < 0 # tried gogol-apps-tasks-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-appstate < 0 # tried gogol-appstate-0.5.0, but its *library* requires the disabled package: gogol-core
-        - gogol-autoscaler < 0 # tried gogol-autoscaler-0.3.0, but its *library* requires the disabled package: gogol-core
+        - gogol-autoscaler < 0 # tried gogol-autoscaler-0.3.0, but its *library* requires gogol-core >=0.3.0 && < 0.3.1 and the snapshot contains gogol-core-0.5.0
         - gogol-bigquery < 0 # tried gogol-bigquery-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-billing < 0 # tried gogol-billing-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-blogger < 0 # tried gogol-blogger-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-books < 0 # tried gogol-books-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-civicinfo < 0 # tried gogol-civicinfo-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-classroom < 0 # tried gogol-classroom-0.5.0, but its *library* requires the disabled package: gogol-core
-        - gogol-cloudmonitoring < 0 # tried gogol-cloudmonitoring-0.3.0, but its *library* requires the disabled package: gogol-core
+        - gogol-cloudmonitoring < 0 # tried gogol-cloudmonitoring-0.3.0, but its *library* requires gogol-core >=0.3.0 && < 0.3.1 and the snapshot contains gogol-core-0.5.0
         - gogol-cloudtrace < 0 # tried gogol-cloudtrace-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-compute < 0 # tried gogol-compute-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-container < 0 # tried gogol-container-0.5.0, but its *library* requires the disabled package: gogol-core
+        - gogol-core < 0 # tried gogol-core-0.5.0, but its *library* requires aeson >=0.8 && < 1.6 and the snapshot contains aeson-2.2.3.0
         - gogol-customsearch < 0 # tried gogol-customsearch-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-dataflow < 0 # tried gogol-dataflow-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-dataproc < 0 # tried gogol-dataproc-0.5.0, but its *library* requires the disabled package: gogol-core
@@ -6778,7 +6777,7 @@ packages:
         - gogol-firebase-rules < 0 # tried gogol-firebase-rules-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-fitness < 0 # tried gogol-fitness-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-fonts < 0 # tried gogol-fonts-0.5.0, but its *library* requires the disabled package: gogol-core
-        - gogol-freebasesearch < 0 # tried gogol-freebasesearch-0.3.0, but its *library* requires the disabled package: gogol-core
+        - gogol-freebasesearch < 0 # tried gogol-freebasesearch-0.3.0, but its *library* requires gogol-core >=0.3.0 && < 0.3.1 and the snapshot contains gogol-core-0.5.0
         - gogol-fusiontables < 0 # tried gogol-fusiontables-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-games < 0 # tried gogol-games-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-games-configuration < 0 # tried gogol-games-configuration-0.5.0, but its *library* requires the disabled package: gogol-core
@@ -6789,10 +6788,10 @@ packages:
         - gogol-groups-settings < 0 # tried gogol-groups-settings-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-identity-toolkit < 0 # tried gogol-identity-toolkit-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-kgsearch < 0 # tried gogol-kgsearch-0.5.0, but its *library* requires the disabled package: gogol-core
-        - gogol-latencytest < 0 # tried gogol-latencytest-0.3.0, but its *library* requires the disabled package: gogol-core
+        - gogol-latencytest < 0 # tried gogol-latencytest-0.3.0, but its *library* requires gogol-core >=0.3.0 && < 0.3.1 and the snapshot contains gogol-core-0.5.0
         - gogol-logging < 0 # tried gogol-logging-0.5.0, but its *library* requires the disabled package: gogol-core
-        - gogol-maps-coordinate < 0 # tried gogol-maps-coordinate-0.3.0, but its *library* requires the disabled package: gogol-core
-        - gogol-maps-engine < 0 # tried gogol-maps-engine-0.3.0, but its *library* requires the disabled package: gogol-core
+        - gogol-maps-coordinate < 0 # tried gogol-maps-coordinate-0.3.0, but its *library* requires gogol-core >=0.3.0 && < 0.3.1 and the snapshot contains gogol-core-0.5.0
+        - gogol-maps-engine < 0 # tried gogol-maps-engine-0.3.0, but its *library* requires gogol-core >=0.3.0 && < 0.3.1 and the snapshot contains gogol-core-0.5.0
         - gogol-mirror < 0 # tried gogol-mirror-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-monitoring < 0 # tried gogol-monitoring-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-oauth2 < 0 # tried gogol-oauth2-0.5.0, but its *library* requires the disabled package: gogol-core
@@ -6809,7 +6808,7 @@ packages:
         - gogol-replicapool < 0 # tried gogol-replicapool-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-replicapool-updater < 0 # tried gogol-replicapool-updater-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-resourcemanager < 0 # tried gogol-resourcemanager-0.5.0, but its *library* requires the disabled package: gogol-core
-        - gogol-resourceviews < 0 # tried gogol-resourceviews-0.3.0, but its *library* requires the disabled package: gogol-core
+        - gogol-resourceviews < 0 # tried gogol-resourceviews-0.3.0, but its *library* requires gogol-core >=0.3.0 && < 0.3.1 and the snapshot contains gogol-core-0.5.0
         - gogol-script < 0 # tried gogol-script-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-sheets < 0 # tried gogol-sheets-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-shopping-content < 0 # tried gogol-shopping-content-0.5.0, but its *library* requires the disabled package: gogol-core
@@ -6819,10 +6818,10 @@ packages:
         - gogol-storage < 0 # tried gogol-storage-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-storage-transfer < 0 # tried gogol-storage-transfer-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-tagmanager < 0 # tried gogol-tagmanager-0.5.0, but its *library* requires the disabled package: gogol-core
-        - gogol-taskqueue < 0 # tried gogol-taskqueue-0.3.0, but its *library* requires the disabled package: gogol-core
+        - gogol-taskqueue < 0 # tried gogol-taskqueue-0.3.0, but its *library* requires gogol-core >=0.3.0 && < 0.3.1 and the snapshot contains gogol-core-0.5.0
         - gogol-translate < 0 # tried gogol-translate-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-urlshortener < 0 # tried gogol-urlshortener-0.5.0, but its *library* requires the disabled package: gogol-core
-        - gogol-useraccounts < 0 # tried gogol-useraccounts-0.3.0, but its *library* requires the disabled package: gogol-core
+        - gogol-useraccounts < 0 # tried gogol-useraccounts-0.3.0, but its *library* requires gogol-core >=0.3.0 && < 0.3.1 and the snapshot contains gogol-core-0.5.0
         - gogol-vision < 0 # tried gogol-vision-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-webmaster-tools < 0 # tried gogol-webmaster-tools-0.5.0, but its *library* requires the disabled package: gogol-core
         - gogol-youtube < 0 # tried gogol-youtube-0.5.0, but its *library* requires the disabled package: gogol-core
