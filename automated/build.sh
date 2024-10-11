@@ -103,6 +103,13 @@ ARGS_BUILD="$ARGS_COMMON"
 # see https://github.com/brendanhay/amazonka/issues/271
 ARGS_UPLOAD="$ARGS_COMMON -u $USERID -e HOME=$C_HOME -v $HACKAGE_CREDS:/hackage-creds:ro -v $DOT_STACKAGE_DIR:$C_HOME/.stackage -v $SSH_DIR:$C_HOME/.ssh:ro -v $GITCONFIG:$C_HOME/.gitconfig:ro -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY ${AWS_ENDPOINT_URL:+-e AWS_ENDPOINT_URL=$AWS_ENDPOINT_URL} -v $DOT_STACKAGE_DIR:/dot-stackage"
 
+# for debugging etc
+if [ -n = "$2" ]
+then
+  docker run -it $ARGS_UPLOAD $IMAGE $2
+  exit 0
+fi
+
 # Make sure we actually need this snapshot. We only check this for LTS releases
 # since, for nightlies, we'd like to run builds even if they are unnecessary to
 # get early warning information of upcoming failures. (See the duplicate check
