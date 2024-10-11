@@ -165,7 +165,7 @@ docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator check-target-available
 # * Upload the docs to S3
 # * Upload the new snapshot .yaml file to the appropriate Github repo, also upload its constraints
 date
-docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "curator upload-docs --target $TARGET ${DOCS_BUCKET:+--bucket $DOCS_BUCKET} && curator upload-github --target $TARGET"
+docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "ulimit -n hard && aws configure set default.s3.max_concurrent_requests 20 && curator upload-docs --target $TARGET ${DOCS_BUCKET:+--bucket $DOCS_BUCKET} && curator upload-github --target $TARGET"
 date
 
 # fixed in https://github.com/commercialhaskell/curator/pull/24
