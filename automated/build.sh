@@ -24,7 +24,8 @@ if [ $SHORTNAME = "lts" ]
 then
     TAG=$(echo $TARGET | sed 's@^lts-\([0-9]*\)\.[0-9]*@lts\1@')
     WORKDIR=$ROOT/work/$(echo $TARGET | sed 's@^lts-\([0-9]*\)\.[0-9]*@lts-\1@')
-    if [ -n "${NOPLAN:-}" ]; then
+    if [ -n "${NOPLAN:-}" ]
+    then
         echo '* DO NOT EDIT work/ files: commit to lts-haskell/build-constraints! *'
         exit 1
     fi
@@ -81,16 +82,19 @@ rm -f curator stack *.bz2
 
 curl -L "https://github.com/commercialhaskell/curator/releases/download/commit-54cc5a95a7e29550e0fd7a48b24ddad105d223b2/curator.bz2" | bunzip2 > curator
 chmod +x curator
-echo -n "curator version: "
-docker run --rm -v $(pwd)/curator:/exe $IMAGE /exe --version
 
 STACK_VERSION=2.15.7
 # rc url
 #curl -L https://github.com/commercialhaskell/stack/releases/download/rc%2Fv${STACK_VERSION}/stack-${STACK_VERSION}-linux-x86_64-bin > stack
 curl -L https://github.com/commercialhaskell/stack/releases/download/v${STACK_VERSION}/stack-${STACK_VERSION}-linux-x86_64-bin > stack
 chmod +x stack
-echo -n "stack version: "
-docker run --rm -v $(pwd)/stack:/exe $IMAGE /exe --version
+
+docker run --rm -v $(pwd)/curator:/curator -v $(pwd)/stack:/stack $IMAGE /bin/bash -c "
+    echo -n 'curator version: '
+    /curator --version
+    echo -n 'stack version: '
+    /stack --version
+    "
 )
 
 # We share pantry directory between snapshots while the other content in .stack
@@ -106,8 +110,8 @@ ARGS_UPLOAD="$ARGS_COMMON -u $USERID -e HOME=$C_HOME -v $HACKAGE_CREDS:/hackage-
 # for debugging etc
 if [ -n "${2:-}" ]
 then
-  docker run -it $ARGS_UPLOAD $IMAGE $2
-  exit 0
+    docker run -it $ARGS_UPLOAD $IMAGE $2
+    exit 0
 fi
 
 # Make sure we actually need this snapshot. We only check this for LTS releases
@@ -116,7 +120,7 @@ fi
 # below for why this is safe.)
 if [ $SHORTNAME = "lts" ]
 then
-  docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator check-target-available --target $TARGET"
+    docker run $ARGS_UPLOAD $IMAGE curator check-target-available --target $TARGET
 fi
 
 
@@ -124,19 +128,23 @@ fi
 #
 # * Update the package index (unless LTS)
 # * Create a new plan
-if [ $SHORTNAME = "lts" ]
-then
-    docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator constraints --target $TARGET && curator snapshot-incomplete --target $TARGET && curator snapshot"
-else
-    docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "curator update && curator constraints --target $TARGET && curator snapshot-incomplete --target $TARGET && curator snapshot"
-fi
-
-
+docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "
+    set -e
+    if [ $SHORTNAME = 'nightly' ]; then
+        curator update
+    fi
+    curator constraints --target $TARGET
+    curator snapshot-incomplete --target $TARGET
+    curator snapshot
 # Do the rest of the pre-build actions:
 #
 # * Check that the snapshot is valid
 # * Fetch and unpack all needed tarballs (the build step does not have write access to the tarball directory)
-docker run $ARGS_PREBUILD $IMAGE /bin/bash -c 'GHCVER=$(sed -n "s/^ghc-version: \(.*\)/\1/p" constraints.yaml) && stack setup ghc-$GHCVER --verbosity=error && stack exec --resolver=ghc-$GHCVER curator check-snapshot && curator unpack'
+    GHCVER=$(sed -n 's/^ghc-version: \(.*\)/\1/p' constraints.yaml)
+    stack setup ghc-$GHCVER --verbosity=error
+    stack exec --resolver=ghc-$GHCVER curator check-snapshot
+    curator unpack
+    "
 
 case $SHORTNAME in
     lts) JOBS=16 ;;
@@ -151,25 +159,34 @@ fi
 # Now do the actual build. We need to first set the owner of the home directory
 # correctly, so we run the command as root, change owner, and then use sudo to
 # switch back to the current user
-docker run $ARGS_BUILD $IMAGE nice -n 15 /bin/bash -c "chown $USER $HOME && exec sudo -E -u $USER env \"HOME=$HOME\" \"PATH=\$PATH\" curator build --jobs $JOBS" 2>&1 | tee "$SHORTNAME-build.log"
+docker run $ARGS_BUILD $IMAGE nice -n 15 /bin/bash -c "
+    chown $USER $HOME
+    exec sudo -E -u $USER env \"HOME=$HOME\" \"PATH=\$PATH\" curator build --jobs $JOBS" 2>&1 | tee "$SHORTNAME-build.log
+    "
 
 # Make sure we actually need this snapshot. We used to perform this check
 # exclusively before building. Now we perform it after as well for the case of
 # nightly, where we don't perform this check beforehand. This is also slightly
 # safer, in case someone else already uploaded a specific snapshot while we
 # were building.
-docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator check-target-available --target $TARGET"
+docker run $ARGS_UPLOAD $IMAGE curator check-target-available --target $TARGET
 
 # Successful build, so we need to:
 #
 # * Upload the docs to S3
 # * Upload the new snapshot .yaml file to the appropriate Github repo, also upload its constraints
 date
-docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "ulimit -n hard && aws configure set default.s3.max_concurrent_requests 20 && curator upload-docs --target $TARGET ${DOCS_BUCKET:+--bucket $DOCS_BUCKET} && curator upload-github --target $TARGET"
+docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "
+    set -e
+    ulimit -n hard
+    aws configure set default.s3.max_concurrent_requests 20
+    curator upload-docs --target $TARGET ${DOCS_BUCKET:+--bucket $DOCS_BUCKET}
+    curator upload-github --target $TARGET
+    "
 date
 
-# fixed in https://github.com/commercialhaskell/curator/pull/24
-docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "exec curator hackage-distro --target $TARGET"
+# was fixed in https://github.com/commercialhaskell/curator/pull/24
+docker run $ARGS_UPLOAD $IMAGE curator hackage-distro --target $TARGET
 
 # Build and push docker image fpco/stack-build & fpco/stack-build-small for current release
 
