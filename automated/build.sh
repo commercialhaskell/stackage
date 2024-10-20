@@ -23,7 +23,6 @@ SHORTNAME=$(echo $TARGET | cut -d- -f 1)
 if [ $SHORTNAME = "lts" ]
 then
     TAG=$(echo $TARGET | sed 's@^lts-\([0-9]*\)\.[0-9]*@lts\1@')
-    WORKDIR=$ROOT/work/$(echo $TARGET | sed 's@^lts-\([0-9]*\)\.[0-9]*@lts-\1@')
     if [ -n "${NOPLAN:-}" ]
     then
         echo '* DO NOT EDIT work/ files: commit to lts-haskell/build-constraints! *'
@@ -31,10 +30,9 @@ then
     fi
 else
     TAG=$SHORTNAME
-    WORKDIR=$ROOT/work/$TAG
 fi
+WORKDIR=$ROOT/work/$TAG
 
-#IMAGE=commercialhaskell/stackage:$TAG
 IMAGE=ghcr.io/commercialhaskell/stackage/build:$TAG
 
 docker pull $IMAGE
