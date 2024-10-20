@@ -138,11 +138,12 @@ docker run $ARGS_PREBUILD $IMAGE /bin/bash -c "
 #
 # * Check that the snapshot is valid
 # * Fetch and unpack all needed tarballs (the build step does not have write access to the tarball directory)
-    GHCVER=$(sed -n 's/^ghc-version: \(.*\)/\1/p' constraints.yaml)
+    "'
+    GHCVER=$(sed -n "s/^ghc-version: \(.*\)/\1/p" constraints.yaml)
     stack setup ghc-$GHCVER --verbosity=error
     stack exec --resolver=ghc-$GHCVER curator check-snapshot
     curator unpack
-    "
+    '
 
 case $SHORTNAME in
     lts) JOBS=16 ;;
