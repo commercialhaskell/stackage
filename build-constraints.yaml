@@ -871,7 +871,7 @@ packages:
         - yesod-newsfeed
         - yesod-sitemap
         - yesod-static
-        - yesod-test
+        - yesod-test < 1.6.19 # https://github.com/yesodweb/yesod/issues/1848
         - yesod-websockets
         - cereal-conduit
         - binary-conduit
@@ -3773,13 +3773,22 @@ packages:
         - validation
 
     "Tony Day <tonyday567@gmail.com> @tonyday567":
-        - chart-svg < 0.7 # https://github.com/commercialhaskell/stackage/issues/7535
-        # - harpie # required by chart-svg
+        - box
+        - box-socket
+        - cabal-fix
+        - chart-svg
+        - dotparse
+        - formatn
+        - harpie
+        - harpie-numhask
         - markup-parse
+        - mealy
         - numhask
         - numhask-array
         - numhask-space
         - perf
+        - prettychart
+        - web-rep
 
     "Iphigenia Df <iphydf@gmail.com> @iphydf":
         - data-msgpack
@@ -4325,7 +4334,7 @@ packages:
         - sydtest-hedgehog
         - sydtest-hedis
         - sydtest-hspec
-        - sydtest-mongo
+        - sydtest-mongo < 0 # https://github.com/NorfairKing/sydtest/issues/99
         - sydtest-persistent
         - sydtest-persistent-postgresql
         - sydtest-persistent-sqlite
@@ -5082,7 +5091,7 @@ packages:
         - tmp-proc
         - tmp-proc-postgres
         - tmp-proc-redis
-        - tmp-proc-rabbitmq
+        - tmp-proc-rabbitmq < 0 # https://github.com/adetokunbo/tmp-proc/issues/114
         - wai-middleware-delegate
 
     "Francisco Vallarino <fjvallarino@gmail.com> @fjvallarino":
@@ -5137,7 +5146,7 @@ packages:
     "Clemens Schmid <clemens@nevrome.de> @nevrome":
         - currycarbon
 
-    "Benjamin Orchard <thefirstmuffinman@gmail.com> @raehik":
+    "Ben Orchard <thefirstmuffinman@gmail.com> @raehik":
         - mt19937
         - defun-core # https://github.com/phadej/defun/issues/4
         - symparsec
@@ -5245,8 +5254,8 @@ packages:
         - lsql-csv
 
     "Sebastian Graf <sgraf1337@gmail.com> @sgraf812":
-        - happy-lib
-        - happy
+        - happy-lib < 2.1 # latest 2.1 is marked deprecated
+        - happy < 2.1 # latest 2.1 is marked deprecated
 
     "Max Ulidtko <ulidtko@gmail.com> @ulidtko":
         - cabal-doctest
@@ -5447,7 +5456,6 @@ packages:
         - fin
         - fingertree
         - fmlist
-        - formatn
         - friendly-time
         - functor-classes-compat
         - functor-combinators
@@ -5527,7 +5535,6 @@ packages:
         - io-streams-haproxy
         - iproute
         - ixset-typed
-        - jacinda
         - jsaddle-dom
         - json
         - json-alt
@@ -6420,7 +6427,7 @@ packages:
         - bcp47 < 0 # tried bcp47-0.2.0.6, but its *library* requires the disabled package: country
         - bcp47-orphans < 0 # tried bcp47-orphans-0.1.0.6, but its *library* requires the disabled package: bcp47
         - beam-mysql < 0 # tried beam-mysql-0.2.0.0, but its *library* requires aeson >=0.11 && < 1.5 and the snapshot contains aeson-2.2.3.0
-        - beam-mysql < 0 # tried beam-mysql-0.2.0.0, but its *library* requires beam-core >=0.8 && < 0.9 and the snapshot contains beam-core-0.10.2.0
+        - beam-mysql < 0 # tried beam-mysql-0.2.0.0, but its *library* requires beam-core >=0.8 && < 0.9 and the snapshot contains beam-core-0.10.3.0
         - beam-mysql < 0 # tried beam-mysql-0.2.0.0, but its *library* requires bytestring >=0.10 && < 0.11 and the snapshot contains bytestring-0.12.1.0
         - beam-mysql < 0 # tried beam-mysql-0.2.0.0, but its *library* requires free >=4.12 && < 5.2 and the snapshot contains free-5.2
         - beam-mysql < 0 # tried beam-mysql-0.2.0.0, but its *library* requires hashable >=1.1 && < 1.3 and the snapshot contains hashable-1.4.7.0
@@ -6605,7 +6612,7 @@ packages:
         - data-accessor-template < 0 # tried data-accessor-template-0.2.1.16, but its *library* requires template-haskell >=2.11 && < 2.17 and the snapshot contains template-haskell-2.21.0.0
         - data-compat < 0 # tried data-compat-0.1.0.4, but its *library* requires base >=4.12.0.0 && < 4.18 and the snapshot contains base-4.19.1.0
         - data-compat < 0 # tried data-compat-0.1.0.4, but its *library* requires constraints >=0.10 && < 0.14 and the snapshot contains constraints-0.14.2
-        - data-default-extra < 0 # tried data-default-extra-0.1.0, but its *library* requires data-default-instances-containers >=0.0 && < 0.1 and the snapshot contains data-default-instances-containers-0.1.0.2
+        - data-default-extra < 0 # tried data-default-extra-0.1.0, but its *library* requires data-default-instances-containers >=0.0 && < 0.1 and the snapshot contains data-default-instances-containers-0.1.0.3
         - data-default-extra < 0 # tried data-default-extra-0.1.0, but its *library* requires the disabled package: data-default-instances-new-base
         - data-default-instances-text < 0 # tried data-default-instances-text-0.0.1, but its *library* requires text >=0.2 && < 2 and the snapshot contains text-2.1.1
         - data-forest < 0 # tried data-forest-0.1.0.12, but its *library* requires base ^>=4.16 || ^>=4.17 || ^>=4.18 and the snapshot contains base-4.19.1.0
@@ -6630,7 +6637,6 @@ packages:
         - dhall-yaml < 0 # tried dhall-yaml-1.2.12, but its *library* requires aeson >=1.0.0.0 && < 2.2 and the snapshot contains aeson-2.2.3.0
         - dhall-yaml < 0 # tried dhall-yaml-1.2.12, but its *library* requires bytestring < 0.12 and the snapshot contains bytestring-0.12.1.0
         - dhall-yaml < 0 # tried dhall-yaml-1.2.12, but its *library* requires text >=0.11.1.0 && < 2.1 and the snapshot contains text-2.1.1
-        - diagrams-builder < 0 # tried diagrams-builder-0.8.0.6, but its *library* requires lens >=4.0 && < 5.3 and the snapshot contains lens-5.3.2
         - diagrams-gtk < 0 # tried diagrams-gtk-1.4, but its *library* requires base >=4.2 && < 4.19 and the snapshot contains base-4.19.1.0
         - diagrams-html5 < 0 # tried diagrams-html5-1.4.2, but its *library* requires base >=4.7 && < 4.19 and the snapshot contains base-4.19.1.0
         - diagrams-html5 < 0 # tried diagrams-html5-1.4.2, but its *library* requires lens >=4.0 && < 5.3 and the snapshot contains lens-5.3.2
@@ -6689,7 +6695,7 @@ packages:
         - exception-via < 0 # tried exception-via-0.2.0.0, but its *library* requires template-haskell >=2.9.0.0 && < 2.21 and the snapshot contains template-haskell-2.21.0.0
         - failable < 0 # tried failable-1.2.4.0, but its *library* requires mtl >=2.2 && < 2.3 and the snapshot contains mtl-2.3.1
         - failable < 0 # tried failable-1.2.4.0, but its *library* requires transformers >=0.4.2 && < 0.6 and the snapshot contains transformers-0.6.1.0
-        - fakedata < 0 # tried fakedata-1.0.3, but its *library* requires the disabled package: string-random
+        - fakedata < 0 # tried fakedata-1.0.5, but its *library* requires the disabled package: string-random
         - fakedata-quickcheck < 0 # tried fakedata-quickcheck-0.2.0, but its *library* requires the disabled package: fakedata
         - fasta < 0 # tried fasta-0.10.4.2, but its *library* requires the disabled package: pipes-text
         - fastmemo < 0 # tried fastmemo-0.1.1, but its *library* requires base >=4.7 && < 4.18 and the snapshot contains base-4.19.1.0
@@ -7191,7 +7197,7 @@ packages:
         - log-warper < 0 # tried log-warper-1.9.0, but its *library* requires o-clock ^>=1.1 and the snapshot contains o-clock-1.4.0
         - log-warper < 0 # tried log-warper-1.9.0, but its *library* requires text ^>=1.2.2.0 and the snapshot contains text-2.1.1
         - log-warper < 0 # tried log-warper-1.9.0, but its *library* requires transformers ^>=0.5.2 and the snapshot contains transformers-0.6.1.0
-        - log-warper < 0 # tried log-warper-1.9.0, but its *library* requires universum ^>=1.6.0 and the snapshot contains universum-1.8.2.1
+        - log-warper < 0 # tried log-warper-1.9.0, but its *library* requires universum ^>=1.6.0 and the snapshot contains universum-1.8.2.2
         - log-warper < 0 # tried log-warper-1.9.0, but its *library* requires vector ^>=0.12 and the snapshot contains vector-0.13.1.0
         - loopbreaker < 0 # tried loopbreaker-0.1.1.1, but its *library* requires ghc >=8.6 && < 8.9 and the snapshot contains ghc-9.8.2
         - lxd-client < 0 # tried lxd-client-0.1.0.6, but its *library* requires aeson >=1.0.2.1 && < 2 and the snapshot contains aeson-2.2.3.0
@@ -7746,7 +7752,7 @@ packages:
         - systemd-socket-activation < 0 # tried systemd-socket-activation-1.1.0.1, but its *library* requires base ^>=4.16 || ^>=4.17 || ^>=4.18 and the snapshot contains base-4.19.1.0
         - systemd-socket-activation < 0 # tried systemd-socket-activation-1.1.0.1, but its *library* requires network ^>=3.1.2 and the snapshot contains network-3.2.4.0
         - systemd-socket-activation < 0 # tried systemd-socket-activation-1.1.0.1, but its *library* requires text ^>=1.2.4 || ^>=2.0 and the snapshot contains text-2.1.1
-        - taffybar < 0 # tried taffybar-4.0.2, but its *library* requires scotty >=0.11 && < 0.22 and the snapshot contains scotty-0.22
+        - taffybar < 0 # tried taffybar-4.0.3, but its *library* requires the disabled package: broadcast-chan
         - tasty-hunit-compat < 0 # tried tasty-hunit-compat-0.2.0.1, but its *library* requires tasty < 1.5 and the snapshot contains tasty-1.5
         - tasty-stats < 0 # tried tasty-stats-0.2.0.4, but its *library* requires containers >=0.4 && < 0.6 and the snapshot contains containers-0.6.8
         - tasty-stats < 0 # tried tasty-stats-0.2.0.4, but its *library* requires tasty >=0.11.2 && < 1.2 and the snapshot contains tasty-1.5
@@ -8007,6 +8013,8 @@ packages:
         # https://github.com/commercialhaskell/stackage/issues/7534
         - wai-logger < 2.5
 
+        # https://github.com/commercialhaskell/stackage/issues/7539
+        - extra < 1.8
     # end of Stackage upper bounds
 # end of packages
 
@@ -8337,7 +8345,7 @@ skipped-tests:
     - aws-cloudfront-signed-cookies # tried aws-cloudfront-signed-cookies-0.2.0.12, but its *test-suite* requires hedgehog ^>=1.0.5 || ^>=1.1 || ^>=1.2 and the snapshot contains hedgehog-1.5
     - barrier # tried barrier-0.1.1, but its *test-suite* requires tasty >=0.10 && < 1.5 and the snapshot contains tasty-1.5
     - base32 # tried base32-0.4, but its *test-suite* requires bytestring ^>=0.11 and the snapshot contains bytestring-0.12.1.0
-    - beam-postgres # tried beam-postgres-0.5.4.0, but its *test-suite* requires the disabled package: testcontainers
+    - beam-postgres # tried beam-postgres-0.5.4.1, but its *test-suite* requires the disabled package: testcontainers
     - binary-parser # tried binary-parser-0.5.7.6, but its *test-suite* requires tasty-quickcheck ^>=0.10 and the snapshot contains tasty-quickcheck-0.11
     - bits-extra # tried bits-extra-0.0.2.3, but its *test-suite* requires hedgehog >=0.5.3 && < 1.5 and the snapshot contains hedgehog-1.5
     - bitvec # tried bitvec-1.1.5.0, but its *test-suite* requires primitive >=0.5 && < 0.9 and the snapshot contains primitive-0.9.0.0
@@ -8603,7 +8611,7 @@ skipped-tests:
     - wave # tried wave-0.2.1, but its *test-suite* requires bytestring >=0.2 && < 0.12 and the snapshot contains bytestring-0.12.1.0
     - xml-parser # tried xml-parser-0.1.1.1, but its *test-suite* requires tasty-quickcheck >=0.9 && < 0.11 and the snapshot contains tasty-quickcheck-0.11
     - yesod-core # tried yesod-core-1.6.26.0, but its *test-suite* requires cookie >=0.4.1 && < 0.5 and the snapshot contains cookie-0.5.0
-    - yesod-static-angular # tried yesod-static-angular-0.1.8, but its *test-suite* requires yesod-test >=1.2 && < 1.6 and the snapshot contains yesod-test-1.6.16
+    - yesod-static-angular # tried yesod-static-angular-0.1.8, but its *test-suite* requires yesod-test >=1.2 && < 1.6 and the snapshot contains yesod-test-1.6.19
     - zenc # tried zenc-0.1.2, but its *test-suite* requires hedgehog >=1.0 && < 1.1 and the snapshot contains hedgehog-1.5
     - zenc # tried zenc-0.1.2, but its *test-suite* requires hspec >=2.8 && < 2.9 and the snapshot contains hspec-2.11.9
     - zenc # tried zenc-0.1.2, but its *test-suite* requires hspec-hedgehog >=0.0 && < 0.1 and the snapshot contains hspec-hedgehog-0.3.0.0
@@ -8648,6 +8656,7 @@ expected-test-failures:
     - cryptohash # 0.11.9 Stack builds test and benchmarks in one pass so benchmark could prevent tests from getting built
     - do-notation # 0.1.0.2
     - fields-and-cases # 0.2.0.0 https://github.com/m-bock/fields-and-cases/issues/1
+    - fortran-src # 0.16.3 https://github.com/camfort/fortran-src/issues/293
     - generic-lens # https://github.com/commercialhaskell/stackage/issues/6377
     - ghc-byteorder # 4.11.0.0.10 https://github.com/haskell-hvr/ghc-byteorder/issues/1
     - ghc-prof # Regression tests: /usr/bin/ld.gold: error: cannot find -lHStemporary-1.3-51ST9z47bmaL2YkhqqBGqn_p ...
