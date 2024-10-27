@@ -160,7 +160,7 @@ fi
 # switch back to the current user
 docker run $ARGS_BUILD $IMAGE nice -n 15 /bin/bash -c "
     chown $USER $HOME
-    exec sudo -E -u $USER env \"HOME=$HOME\" \"PATH=\$PATH\" curator build --jobs $JOBS" 2>&1 | tee "$SHORTNAME-build.log
+    exec sudo -E -u $USER env \"HOME=$HOME\" \"PATH=\$PATH\" curator build --jobs $JOBS 2>&1 | tee $SHORTNAME-build.log
     "
 
 # Make sure we actually need this snapshot. We used to perform this check
