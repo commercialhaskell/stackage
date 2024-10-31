@@ -8,6 +8,6 @@ while true; do
     ${1:+exit 0}
     date
 
-    sleep 49m
+    sleep 60m
     echo
 done
