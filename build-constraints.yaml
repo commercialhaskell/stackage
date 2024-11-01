@@ -856,7 +856,7 @@ packages:
         - persistent-sqlite
         - persistent-template
         - persistent-test
-        - store
+        - store < 0 # 0.7.18 https://github.com/mgsloan/store/issues/179
         - wai-extra
         - wai-websockets
         - warp-tls
@@ -6732,7 +6732,7 @@ packages:
         - ginger < 0 # tried ginger-0.10.5.2, but its *library* requires bytestring >=0.10.8.2 && < 0.12 and the snapshot contains bytestring-0.12.1.0
         - ginger < 0 # tried ginger-0.10.5.2, but its *library* requires text >=1.2.3.1 && < 2.1 and the snapshot contains text-2.1.1
         - git < 0 # tried git-0.3.0, but its *library* requires bytestring >=0.9 && < 0.11 and the snapshot contains bytestring-0.12.1.0
-        - git-annex < 0 # tried git-annex-10.20240927, but its *executable* requires the disabled package: filepath-bytestring
+        - git-annex < 0 # tried git-annex-10.20241031, but its *executable* requires the disabled package: filepath-bytestring
         - glaze < 0 # tried glaze-0.3.0.1, but its *library* requires lens >=4 && < 5 and the snapshot contains lens-5.3.2
         - glazier-react < 0 # tried glazier-react-1.0.0.0, but its *library* requires the disabled package: data-diverse-lens
         - glazier-react < 0 # tried glazier-react-1.0.0.0, but its *library* requires the disabled package: ghcjs-base-stub
@@ -7168,6 +7168,7 @@ packages:
         - libgraph < 0 # tried libgraph-1.14, but its *library* requires the disabled package: union-find
         - liquid-fixpoint < 0 # tried liquid-fixpoint-8.10.7, but its *library* requires megaparsec >=7.0.0 && < 9 and the snapshot contains megaparsec-9.6.1
         - liquid-fixpoint < 0 # tried liquid-fixpoint-8.10.7, but its *library* requires rest-rewrite >=0.1.1 && < 0.2 and the snapshot contains rest-rewrite-0.4.4
+        - liquid-fixpoint < 0 # tried liquid-fixpoint-8.10.7, but its *library* requires the disabled package: store
         - liquidhaskell < 0 # tried liquidhaskell-0.9.8.2, but its *library* requires the disabled package: liquidhaskell-boot
         - liquidhaskell-boot < 0 # tried liquidhaskell-boot-0.9.8.2, but its *library* requires liquid-fixpoint ==0.9.6.3.1 and the snapshot contains liquid-fixpoint-8.10.7
         - llvm-hs-pure < 0 # tried llvm-hs-pure-9.0.0, but its *library* requires bytestring >=0.10 && < 0.11.3 and the snapshot contains bytestring-0.12.1.0
@@ -7675,6 +7676,7 @@ packages:
         - stb-image-redux < 0 # tried stb-image-redux-0.2.1.2, but its *library* requires vector >=0.10.12.3 && < 0.13 and the snapshot contains vector-0.13.2.0
         - stm-lifted < 0 # tried stm-lifted-2.5.0.0, but its *library* requires transformers >=0.2 && < 0.6 and the snapshot contains transformers-0.6.1.0
         - stopwatch < 0 # tried stopwatch-0.1.0.6, but its *library* requires transformers >=0.3.0 && < 0.6 and the snapshot contains transformers-0.6.1.0
+        - store-streaming < 0 # tried store-streaming-0.2.0.5, but its *library* requires the disabled package: store
         - streaming-cassava < 0 # tried streaming-cassava-0.2.0.0, but its *library* requires streaming-bytestring >=0.2 && < 0.3 and the snapshot contains streaming-bytestring-0.3.3
         - streamly-bytestring < 0 # tried streamly-bytestring-0.2.2, but its *library* requires bytestring >=0.10.12 && < 0.10.13 || >=0.11.0 && < 0.11.1 || >=0.11.1 && < 0.11.2 || >=0.11.2 && < 0.11.3 || >=0.11.3.1 && < 0.11.4 || >=0.11.4 && < 0.11.5 || >=0.11.5 && < 0.11.6 || >=0.12.0 && < 0.12.1 and the snapshot contains bytestring-0.12.1.0
         - streamly-examples < 0 # tried streamly-examples-0.2.0, but its *executable* requires streamly ==0.10.0 and the snapshot contains streamly-0.10.1
@@ -9230,6 +9232,7 @@ skipped-benchmarks:
     - pred-trie # tried pred-trie-0.6.1, but its *benchmarks* requires the disabled package: sets
     - primecount # tried primecount-0.1.0.1, but its *benchmarks* requires tasty-bench >=0.3 && < 0.4 and the snapshot contains tasty-bench-0.4
     - regex-applicative # tried regex-applicative-0.3.4, but its *benchmarks* requires the disabled package: parsers-megaparsec
+    - serialise # tried serialise-0.2.6.1, but its *benchmarks* requires the disabled package: store
     - servant-kotlin # tried servant-kotlin-0.1.1.9, but its *benchmarks* requires shelly >=1.6.8 && < 1.10 and the snapshot contains shelly-1.12.1
     - spdx # tried spdx-1.1, but its *benchmarks* requires QuickCheck ^>=2.15.0.1 and the snapshot contains QuickCheck-2.14.3
     - streamly-process # tried streamly-process-0.3.1, but its *benchmarks* requires tasty-bench >=0.2.5 && < 0.4 and the snapshot contains tasty-bench-0.4
