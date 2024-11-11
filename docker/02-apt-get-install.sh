@@ -88,6 +88,7 @@ apt-get install -y \
     libmysqlclient-dev \
     libncurses-dev \
     libnfc-dev \
+    libnlopt-cxx-dev \
     libnotify-dev \
     liboath-dev \
     libopenal-dev \
