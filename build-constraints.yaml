@@ -153,6 +153,7 @@ packages:
         - hackage-security-HTTP
         - hslogger
         - union-find-array
+        - murmur-hash
 
         # Some "grandfathered dependencies" I took over because I contributed to them at some time.
         # Feel free to snatch them from me!
@@ -170,7 +171,12 @@ packages:
         - heist
         - snap
         - unix-compat
-
+        - chell
+        - chell-hunit
+        - chell-quickcheck
+        - patience
+        - system-fileio
+        - system-filepath
 
     "Diogo Biazus <diogo@biazus.ca>":
         - hasql-notifications
@@ -2707,7 +2713,6 @@ packages:
         - iso3166-country-codes
         - iso639
         - monoidal-containers
-        - murmur-hash
         - protocol-buffers
         - protocol-buffers-descriptor
         - regex-pcre
@@ -5726,8 +5731,6 @@ packages:
         - structured
         - sundown
         - syb
-        - system-fileio
-        - system-filepath
         - tabular
         - tar
         - tasty-th
@@ -8277,6 +8280,9 @@ skipped-tests:
     - glpk-headers
     - utility-ht
 
+    # @andreasabel
+    - system-fileio # tests malfunction
+
     # Uses Cabal's "library internal" stanza feature
     - s3-signer
 
@@ -8534,7 +8540,6 @@ skipped-tests:
     - o-clock # tried o-clock-1.4.0, but its *test-suite* requires hedgehog >=0.6 && < 1.5 and the snapshot contains hedgehog-1.5
     - oops # tried oops-0.2.0.1, but its *test-suite* requires doctest >=0.16.2 && < 0.22 and the snapshot contains doctest-0.22.6
     - optics-operators # tried optics-operators-0.1.0.1, but its *test-suite* requires tasty-quickcheck >=0.10.2 && < 0.11 and the snapshot contains tasty-quickcheck-0.11
-    - options # tried options-1.2.1.2, but its *test-suite* requires the disabled package: patience
     - partial-semigroup # tried partial-semigroup-0.6.0.2, but its *test-suite* requires hedgehog ^>=1.1.2 || ^>=1.2 and the snapshot contains hedgehog-1.5
     - pasta-curves # tried pasta-curves-0.0.1.0, but its *test-suite* requires tasty >=1.4 && < 1.5 and the snapshot contains tasty-1.5.2
     - pasta-curves # tried pasta-curves-0.0.1.0, but its *test-suite* requires tasty-quickcheck >=0.10 && < 0.11 and the snapshot contains tasty-quickcheck-0.11
@@ -8597,9 +8602,6 @@ skipped-tests:
     - strong-path # tried strong-path-1.1.4.0, but its *test-suite* requires tasty-discover >=4.2 && < 4.3 and the snapshot contains tasty-discover-5.0.0
     - strong-path # tried strong-path-1.1.4.0, but its *test-suite* requires tasty-quickcheck >=0.10 && < 0.11 and the snapshot contains tasty-quickcheck-0.11
     - swagger2 # tried swagger2-2.8.9, but its *test-suite* requires hspec-discover >=2.5.5 && < 2.9 and the snapshot contains hspec-discover-2.11.9
-    - system-fileio # tried system-fileio-0.3.16.4, but its *test-suite* requires the disabled package: chell
-    - system-filepath # tried system-filepath-0.4.14, but its *test-suite* requires the disabled package: chell
-    - system-filepath # tried system-filepath-0.4.14, but its *test-suite* requires the disabled package: chell-quickcheck
     - tasty-checklist # tried tasty-checklist-1.0.6.0, but its *test-suite* requires doctest >=0.10 && < 0.22 and the snapshot contains doctest-0.22.6
     - tasty-discover # tried tasty-discover-5.0.0, but its *test-suite* requires hspec >=2.7 && < 2.11 and the snapshot contains hspec-2.11.9
     - tasty-discover # tried tasty-discover-5.0.0, but its *test-suite* requires hspec-core >=2.7.10 && < 2.11 and the snapshot contains hspec-core-2.11.9
