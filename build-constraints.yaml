@@ -2508,7 +2508,7 @@ packages:
         - ghc-typelits-knownnat
         - ghc-typelits-natnormalise
         - clash-prelude
-        - clash-lib
+        - clash-lib < 0 # ghc-9.8.4 https://github.com/clash-lang/clash-compiler/issues/2852
         - clash-ghc
         - clash-prelude-hedgehog
 
@@ -6537,6 +6537,7 @@ packages:
         - cheapskate-highlight < 0 # tried cheapskate-highlight-0.1.0.0, but its *library* requires the disabled package: highlighting-kate
         - cheapskate-lucid < 0 # tried cheapskate-lucid-0.1.0.0, but its *library* requires the disabled package: cheapskate
         - chiphunk < 0 # tried chiphunk-0.1.4.0, but its *library* requires hashable >=1.2.6.0 && < 1.4 and the snapshot contains hashable-1.4.7.0
+        - clash-ghc < 0 # tried clash-ghc-1.8.1, but its *library* requires the disabled package: clash-lib
         - clash-prelude-hedgehog < 0 # tried clash-prelude-hedgehog-1.8.1, but its *library* requires hedgehog >=1.0.3 && < 1.5 and the snapshot contains hedgehog-1.5
         - cleff < 0 # tried cleff-0.3.3.0, but its *library* requires primitive >=0.6.4 && < 0.9 and the snapshot contains primitive-0.9.0.0
         - cleff < 0 # tried cleff-0.3.3.0, but its *library* requires th-abstraction >=0.2 && < 0.6 and the snapshot contains th-abstraction-0.7.0.0
