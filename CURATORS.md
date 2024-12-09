@@ -6,7 +6,6 @@ The following is the current list of curators, in alphabetical order:
 * Adam Bergmark (@bergmark)
 * Alexey Zabelin (@alexeyzab)
 * Andreas Ländle (@alaendle)
-* Chris Dornan (@cdornan)
 * Dan Burton (@danburton)
 * Jens Petersen (@juhp)
 * Joe Kachmar (@jkachmar)
