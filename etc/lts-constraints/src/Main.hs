@@ -23,7 +23,7 @@ import Snapshot (snapshotMap, loadSnapshot)
 import Types (PackageName, Version)
 
 src :: String
-src = "../../build-constraints.yaml"
+src = "build-constraints.yaml"
 
 target :: Int -> String
 target major = "lts-" <> show major <> "-build-constraints.yaml"
