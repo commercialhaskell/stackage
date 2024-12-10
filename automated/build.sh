@@ -78,7 +78,13 @@ BINDIR=$(cd $ROOT/work/bin ; pwd)
 cd $BINDIR
 rm -f curator stack *.bz2
 
-curl -L "https://github.com/commercialhaskell/curator/releases/download/commit-54cc5a95a7e29550e0fd7a48b24ddad105d223b2/curator.bz2" | bunzip2 > curator
+if [ $SHORTNAME = "lts" ]; then
+    # drop for lts24 at least if not before
+    curl -L "https://github.com/commercialhaskell/curator/releases/download/commit-54cc5a95a7e29550e0fd7a48b24ddad105d223b2/curator.bz2" | bunzip2 > curator
+else
+    # needed for ghc-9.10
+    curl -L "https://github.com/commercialhaskell/curator/releases/download/commit-6689440033b12182c0853bdd23880a84849eb6b2/curator.bz2" | bunzip2 > curator
+fi
 chmod +x curator
 
 STACK_VERSION=3.1.1
