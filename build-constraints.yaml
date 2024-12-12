@@ -1216,7 +1216,7 @@ packages:
         - hspec-wai-json
         - aeson-qq
         - interpolate
-        - doctest
+        - doctest < 0.22.7  # build cycle with 0.22.7: should be fixed in random > 1.2.1.2 https://github.com/commercialhaskell/stackage/issues/7493
         - base-compat
 
     "Mario Blazevic <blamario@protonmail.com> @blamario":
@@ -8738,10 +8738,9 @@ skipped-builds:
 # or if Setup fails because of missing foreign libraries.
 # Otherwise place them in expected-test-failures.
 skipped-tests:
-    # Missing/broken dependencies?
-    - hasql-interpolate # https://github.com/commercialhaskell/stackage/issues/6841
-    - random # broken with newer doctest https://github.com/haskell/random/pull/165
+    # Missing foreign libraries
     - symengine
+    - hasql-interpolate # https://github.com/commercialhaskell/stackage/issues/6841
 
     # Timeouts
     # These tests sometimes take too long and hit the stackage build
@@ -8914,7 +8913,6 @@ skipped-tests:
     - aura # tried aura-3.2.10, but its *test-suite* requires tasty >=0.11 && < 1.5 and the snapshot contains tasty-1.5.2
     - avro # tried avro-0.6.2.1, but its *test-suite* requires the disabled package: hw-hspec-hedgehog
     - aws-cloudfront-signed-cookies # tried aws-cloudfront-signed-cookies-0.2.0.12, but its *test-suite* requires hedgehog ^>=1.0.5 || ^>=1.1 || ^>=1.2 and the snapshot contains hedgehog-1.5
-    - bank-holiday-germany # tried bank-holiday-germany-1.3.0.0, but its *test-suite* requires doctest >=0.22.2 && < 0.23 and the snapshot contains doctest-0.23.0
     - barrier # tried barrier-0.1.1, but its *test-suite* requires tasty >=0.10 && < 1.5 and the snapshot contains tasty-1.5.2
     - base32 # tried base32-0.4, but its *test-suite* requires bytestring ^>=0.11 and the snapshot contains bytestring-0.12.1.0
     - beam-postgres # tried beam-postgres-0.5.4.1, but its *test-suite* requires the disabled package: testcontainers
@@ -8953,7 +8951,6 @@ skipped-tests:
     - chimera # tried chimera-0.4.1.0, but its *test-suite* requires tasty-quickcheck < 0.11 and the snapshot contains tasty-quickcheck-0.11
     - clash-prelude # tried clash-prelude-1.8.1, but its *test-suite* requires hedgehog >=1.0.3 && < 1.5 and the snapshot contains hedgehog-1.5
     - co-log # tried co-log-0.6.1.0, but its *test-suite* requires hedgehog >=1.0 && < 1.5 and the snapshot contains hedgehog-1.5
-    - co-log-core # tried co-log-core-0.3.2.2, but its *test-suite* requires doctest >=0.16.0 && < 0.23 and the snapshot contains doctest-0.23.0
     - colour # tried colour-2.3.6, but its *test-suite* requires QuickCheck >=2.5 && < 2.15 and the snapshot contains QuickCheck-2.15.0.1
     - colour # tried colour-2.3.6, but its *test-suite* requires random >=1.0 && < 1.2 and the snapshot contains random-1.2.1.2
     - conduit-parse # tried conduit-parse-0.2.1.1, but its *test-suite* requires the disabled package: hlint
@@ -9031,7 +9028,6 @@ skipped-tests:
     - ghc-prof # tried ghc-prof-1.4.1.12, but its *test-suite* requires tasty < 1.5 and the snapshot contains tasty-1.5.2
     - ghc-source-gen # tried ghc-source-gen-0.4.6.0, but its *test-suite* requires QuickCheck >=2.10 && < 2.15 and the snapshot contains QuickCheck-2.15.0.1
     - ghc-source-gen # tried ghc-source-gen-0.4.6.0, but its *test-suite* requires tasty-quickcheck >=0.9 && < 0.11 and the snapshot contains tasty-quickcheck-0.11
-    - grisette # tried grisette-0.10.0.0, but its *test-suite* requires doctest >=0.18.2 && < 0.23 and the snapshot contains doctest-0.23.0
     - haddock-library # tried haddock-library-1.11.0, but its *test-suite* requires base-compat ^>=0.12.0 || ^>=0.13.0 and the snapshot contains base-compat-0.14.1
     - haddock-library # tried haddock-library-1.11.0, but its *test-suite* requires filepath ^>=1.4.1.2 and the snapshot contains filepath-1.5.2.0
     - hal # tried hal-1.1, but its *test-suite* requires hedgehog >=1.0.3 && < 1.5 and the snapshot contains hedgehog-1.5
@@ -9070,10 +9066,8 @@ skipped-tests:
     - hw-fingertree-strict # tried hw-fingertree-strict-0.1.2.1, but its *test-suite* requires QuickCheck >=2.10 && < 2.15 and the snapshot contains QuickCheck-2.15.0.1
     - hw-fingertree-strict # tried hw-fingertree-strict-0.1.2.1, but its *test-suite* requires doctest >=0.16.2 && < 0.21 and the snapshot contains doctest-0.22.6
     - hw-fingertree-strict # tried hw-fingertree-strict-0.1.2.1, but its *test-suite* requires hedgehog >=0.6 && < 1.3 and the snapshot contains hedgehog-1.5
-    - hw-hedgehog # tried hw-hedgehog-0.1.1.1, but its *test-suite* requires doctest >=0.16.2 && < 0.23 and the snapshot contains doctest-0.23.0
     - hw-int # tried hw-int-0.0.2.0, but its *test-suite* requires hedgehog >=0.6 && < 1.5 and the snapshot contains hedgehog-1.5
     - hw-json # tried hw-json-1.3.3.0, but its *test-suite* requires hedgehog >=0.6 && < 1.5 and the snapshot contains hedgehog-1.5
-    - hw-json-simd # tried hw-json-simd-0.1.1.2, but its *test-suite* requires doctest >=0.16.2 && < 0.23 and the snapshot contains doctest-0.23.0
     - hw-json-simple-cursor # tried hw-json-simple-cursor-0.1.1.1, but its *test-suite* requires hedgehog >=0.6 && < 1.5 and the snapshot contains hedgehog-1.5
     - hw-json-standard-cursor # tried hw-json-standard-cursor-0.2.3.2, but its *test-suite* requires hedgehog >=0.6 && < 1.5 and the snapshot contains hedgehog-1.5
     - hw-mquery # tried hw-mquery-0.2.1.2, but its *test-suite* requires the disabled package: hw-hspec-hedgehog
@@ -9088,11 +9082,9 @@ skipped-tests:
     - hw-rankselect-base # tried hw-rankselect-base-0.3.4.1, but its *test-suite* requires hedgehog >=0.6 && < 1.5 and the snapshot contains hedgehog-1.5
     - hw-simd # tried hw-simd-0.1.2.2, but its *test-suite* requires hedgehog >=0.5 && < 1.5 and the snapshot contains hedgehog-1.5
     - hw-streams # tried hw-streams-0.0.1.1, but its *test-suite* requires QuickCheck >=2.10 && < 2.15 and the snapshot contains QuickCheck-2.15.0.1
-    - hw-string-parse # tried hw-string-parse-0.0.0.5, but its *test-suite* requires doctest >=0.16.2 && < 0.23 and the snapshot contains doctest-0.23.0
     - hw-xml # tried hw-xml-0.5.1.2, but its *test-suite* requires hedgehog >=1.0 && < 1.5 and the snapshot contains hedgehog-1.5
     - indexed-containers # tried indexed-containers-0.1.0.2, but its *test-suite* requires hspec >=2.4.8 && < 2.8 and the snapshot contains hspec-2.11.10
     - inflections # tried inflections-0.4.0.7, but its *test-suite* requires containers >=0.5 && < 0.7 and the snapshot contains containers-0.7
-    - influxdb # tried influxdb-1.9.3.2, but its *test-suite* requires doctest >=0.11.3 && < 0.23 and the snapshot contains doctest-0.23.0
     - inline-r # tried inline-r-1.0.1, but its *test-suite* requires filepath >=1.3 && < 1.5 and the snapshot contains filepath-1.5.2.0
     - inline-r # tried inline-r-1.0.1, but its *test-suite* requires tasty >=0.11 && < 1.5 and the snapshot contains tasty-1.5.2
     - inline-r # tried inline-r-1.0.1, but its *test-suite* requires tasty-quickcheck >=0.4.1 && < 0.11 and the snapshot contains tasty-quickcheck-0.11
@@ -9138,7 +9130,6 @@ skipped-tests:
     - morpheus-graphql-server # tried morpheus-graphql-server-0.28.1, but its *test-suite* requires tasty >=0.1.0 && < =1.5 and the snapshot contains tasty-1.5.2
     - msgpack # tried msgpack-1.0.1.0, but its *test-suite* requires QuickCheck >=2.12 && < 2.15 and the snapshot contains QuickCheck-2.15.0.1
     - msgpack # tried msgpack-1.0.1.0, but its *test-suite* requires tasty-quickcheck >=0.10 && < 0.11 and the snapshot contains tasty-quickcheck-0.11
-    - mwc-random # tried mwc-random-0.15.1.0, but its *test-suite* requires doctest >=0.15 && < 0.23 and the snapshot contains doctest-0.23.0
     - nakadi-client # tried nakadi-client-0.7.0.0, but its *test-suite* requires classy-prelude >=1.4.0 && < 1.5.0 and the snapshot contains classy-prelude-1.5.0.3
     - natural-transformation # tried natural-transformation-0.4.1, but its *test-suite* requires tasty-quickcheck >=0.8 && < 0.11 and the snapshot contains tasty-quickcheck-0.11
     - next-ref # tried next-ref-0.1.0.2, but its *test-suite* requires hspec >=2 && < 2.3 and the snapshot contains hspec-2.11.10
@@ -9163,8 +9154,6 @@ skipped-tests:
     - pinch # tried pinch-0.5.2.0, but its *test-suite* requires network-run >=0.2.4 && < 0.4 and the snapshot contains network-run-0.4.3
     - pipes-category # tried pipes-category-0.3.0.0, but its *test-suite* requires transformers >=0.4 && < 0.6 and the snapshot contains transformers-0.6.1.1
     - pipes-fluid # tried pipes-fluid-0.6.0.1, but its *test-suite* requires the disabled package: pipes-misc
-    - polysemy # tried polysemy-1.9.2.0, but its *test-suite* requires doctest >=0.16.0.1 && < 0.23 and the snapshot contains doctest-0.23.0
-    - polysemy-plugin # tried polysemy-plugin-0.4.5.2, but its *test-suite* requires doctest >=0.16.0.1 && < 0.23 and the snapshot contains doctest-0.23.0
     - postgresql-libpq-notify # tried postgresql-libpq-notify-0.2.0.0, but its *test-suite* requires the disabled package: tmp-postgres
     - pretty-diff # tried pretty-diff-0.4.0.3, but its *test-suite* requires tasty >=1.1 && < 1.5 and the snapshot contains tasty-1.5.2
     - pretty-sop # tried pretty-sop-0.2.0.3, but its *test-suite* requires markdown-unlit >=0.5.0 && < 0.6 and the snapshot contains markdown-unlit-0.6.0
@@ -9201,7 +9190,6 @@ skipped-tests:
     - serialise # tried serialise-0.2.6.1, but its *test-suite* requires base >=4.11 && < 4.20 and the snapshot contains base-4.20.0.0
     - serialise # tried serialise-0.2.6.1, but its *test-suite* requires tasty-quickcheck >=0.8 && < 0.11 and the snapshot contains tasty-quickcheck-0.11
     - servant-auth-client # tried servant-auth-client-0.4.2.0, but its *test-suite* requires the disabled package: servant-auth-server
-    - servant-auth-docs # tried servant-auth-docs-0.2.11.0, but its *test-suite* requires doctest >=0.16 && < 0.23 and the snapshot contains doctest-0.23.0
     - servant-cassava # tried servant-cassava-0.10.2, but its *test-suite* requires servant-server >=0.4.4.5 && < 0.20 and the snapshot contains servant-server-0.20.2
     - servant-cassava # tried servant-cassava-0.10.2, but its *test-suite* requires warp >=3.0.13.1 && < 3.4 and the snapshot contains warp-3.4.7
     - servant-docs-simple # tried servant-docs-simple-0.4.0.0, but its *test-suite* requires hspec >=2.7.1 && < 2.9 and the snapshot contains hspec-2.11.10
