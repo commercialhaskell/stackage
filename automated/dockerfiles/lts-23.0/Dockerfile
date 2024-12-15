@@ -4,7 +4,7 @@ LABEL maintainer="manny@fpcomplete.com"
 
 ARG GHC_VERSION=9.8.4
 ARG LTS_SLUG=lts-23.0
-ARG PID1_VERSION=0.1.3.1
+ARG PID1_VERSION=0.1.2.0
 ARG STACK_VERSION=2.15.7
 ARG CUDA_VERSION=10.0
 ARG JVM_PATH=/usr/lib/jvm/java-8-openjdk-amd64
