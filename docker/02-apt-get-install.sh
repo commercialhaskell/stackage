@@ -24,6 +24,7 @@ apt-get install -y \
     fsharp \
     g++ \
     gawk \
+    gir1.2-javascriptcoregtk-6.0 \
     git \
     gnupg \
     gradle \
