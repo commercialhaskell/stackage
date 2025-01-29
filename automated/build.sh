@@ -33,13 +33,7 @@ else
 fi
 WORKDIR=$ROOT/work/$TAG
 
-if [ $SHORTNAME = "lts" ]
-then
 IMAGE=ghcr.io/commercialhaskell/stackage/build:$TAG
-else
-# workaround https://github.com/haskellfoundation/hf-infrastructure/issues/11
-IMAGE=ghcr.io/commercialhaskell/stackage/build@sha256:885c67138c034bbba4b5538faeaefc1eac0260f396fed446c11102f7d902f9cb
-fi
 
 docker pull $IMAGE
 
