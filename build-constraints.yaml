@@ -1199,7 +1199,7 @@ packages:
         - hspec-wai-json
         - aeson-qq
         - interpolate
-        - doctest < 0.23 # https://github.com/commercialhaskell/stackage/issues/7615
+        - doctest
         - base-compat
 
     "Mario Blazevic <blamario@protonmail.com> @blamario":
@@ -5687,7 +5687,7 @@ packages:
         - word8
         - xml
         - xml-conduit
-        - xml-conduit-writer
+        - xml-conduit-writer < 0 # 0.1.1.5 fails to compile
         - xml-hamlet
         - xml-types
         - xss-sanitize
@@ -8177,7 +8177,7 @@ skipped-tests:
     # Test bounds issues
     - BiobaseNewick # tried BiobaseNewick-0.0.0.2, but its *test-suite* requires the disabled package: test-framework-th
     - ENIG # tried ENIG-0.0.1.0, but its *test-suite* requires the disabled package: test-framework-th
-    - JuicyPixels-blurhash # tried JuicyPixels-blurhash-0.1.0.3, but its *test-suite* requires doctest >=0.16.2 && < 0.20 and the snapshot contains doctest-0.22.10
+    - JuicyPixels-blurhash # tried JuicyPixels-blurhash-0.1.0.3, but its *test-suite* requires doctest >=0.16.2 && < 0.20 and the snapshot contains doctest-0.23.0
     - JuicyPixels-blurhash # tried JuicyPixels-blurhash-0.1.0.3, but its *test-suite* requires hedgehog >=1.0.2 && < 1.2 and the snapshot contains hedgehog-1.5
     - JuicyPixels-blurhash # tried JuicyPixels-blurhash-0.1.0.3, but its *test-suite* requires tasty >=1.2.3 && < 1.5 and the snapshot contains tasty-1.5.3
     - JuicyPixels-blurhash # tried JuicyPixels-blurhash-0.1.0.3, but its *test-suite* requires tasty-discover >=4.2.1 && < 4.3 and the snapshot contains tasty-discover-5.0.1
@@ -8200,12 +8200,13 @@ skipped-tests:
     - atom-conduit # tried atom-conduit-0.9.0.1, but its *test-suite* requires the disabled package: hlint
     - aur # tried aur-7.0.7, but its *test-suite* requires tasty >=0.11 && < 1.5 and the snapshot contains tasty-1.5.3
     - aura # tried aura-3.2.10, but its *test-suite* requires tasty >=0.11 && < 1.5 and the snapshot contains tasty-1.5.3
-    - avro # tried avro-0.6.2.1, but its *test-suite* requires the disabled package: hw-hspec-hedgehog
+    - avro # tried avro-0.6.2.1, but its *test-suite* requires doctest >=0.16.2 && < 0.23 and the snapshot contains doctest-0.23.0
     - aws-cloudfront-signed-cookies # tried aws-cloudfront-signed-cookies-0.2.0.13, but its *test-suite* requires hedgehog ^>=1.4 and the snapshot contains hedgehog-1.5
     - barrier # tried barrier-0.1.1, but its *test-suite* requires tasty >=0.10 && < 1.5 and the snapshot contains tasty-1.5.3
     - base32 # tried base32-0.4, but its *test-suite* requires bytestring ^>=0.11 and the snapshot contains bytestring-0.12.1.0
     - beam-postgres # tried beam-postgres-0.5.4.2, but its *test-suite* requires the disabled package: testcontainers
     - binary-tagged # tried binary-tagged-0.3.1, but its *test-suite* requires QuickCheck ^>=2.14 and the snapshot contains QuickCheck-2.15.0.1
+    - bits-extra # tried bits-extra-0.0.2.3, but its *test-suite* requires doctest >=0.16.2 && < 0.23 and the snapshot contains doctest-0.23.0
     - bits-extra # tried bits-extra-0.0.2.3, but its *test-suite* requires hedgehog >=0.5.3 && < 1.5 and the snapshot contains hedgehog-1.5
     - blake2 # tried blake2-0.3.0.1, but its *test-suite* requires QuickCheck ^>=2.14.3 and the snapshot contains QuickCheck-2.15.0.1
     - blake2 # tried blake2-0.3.0.1, but its *test-suite* requires hlint ^>=3.5 and the snapshot contains hlint-3.8
@@ -8237,7 +8238,7 @@ skipped-tests:
     - conduit-parse # tried conduit-parse-0.2.1.1, but its *test-suite* requires the disabled package: hlint
     - configurator-pg # tried configurator-pg-0.2.10, but its *test-suite* requires filepath >=1.4 && < 1.5 and the snapshot contains filepath-1.5.2.0
     - construct # tried construct-0.3.2, but its *test-suite* requires markdown-unlit >=0.5 && < 0.6 and the snapshot contains markdown-unlit-0.6.0
-    - csg # tried csg-0.1.0.6, but its *test-suite* requires doctest < 0.17 and the snapshot contains doctest-0.22.10
+    - csg # tried csg-0.1.0.6, but its *test-suite* requires doctest < 0.17 and the snapshot contains doctest-0.23.0
     - csg # tried csg-0.1.0.6, but its *test-suite* requires tasty < 1.3 and the snapshot contains tasty-1.5.3
     - csg # tried csg-0.1.0.6, but its *test-suite* requires tasty-quickcheck < 0.11 and the snapshot contains tasty-quickcheck-0.11.1
     - data-array-byte # tried data-array-byte-0.1.0.1, but its *test-suite* requires tasty-quickcheck >=0.10 && < 0.11 and the snapshot contains tasty-quickcheck-0.11.1
@@ -8258,7 +8259,7 @@ skipped-tests:
     - ed25519 # tried ed25519-0.0.5.0, but its *test-suite* requires QuickCheck >=2.4 && < 2.9 and the snapshot contains QuickCheck-2.15.0.1
     - ed25519 # tried ed25519-0.0.5.0, but its *test-suite* requires bytestring >=0.9 && < 0.12 and the snapshot contains bytestring-0.12.1.0
     - ed25519 # tried ed25519-0.0.5.0, but its *test-suite* requires directory >=1.0 && < 1.3 and the snapshot contains directory-1.3.8.3
-    - ed25519 # tried ed25519-0.0.5.0, but its *test-suite* requires doctest >=0.10 && < 0.12 and the snapshot contains doctest-0.22.10
+    - ed25519 # tried ed25519-0.0.5.0, but its *test-suite* requires doctest >=0.10 && < 0.12 and the snapshot contains doctest-0.23.0
     - ed25519 # tried ed25519-0.0.5.0, but its *test-suite* requires filepath >=1.0 && < 1.5 and the snapshot contains filepath-1.5.2.0
     - ed25519 # tried ed25519-0.0.5.0, but its *test-suite* requires hlint >=1.7 && < 1.10 and the snapshot contains hlint-3.8
     - errors-ext # tried errors-ext-0.4.2, but its *test-suite* requires the disabled package: binary-ext
@@ -8311,7 +8312,7 @@ skipped-tests:
     - haskey-mtl # tried haskey-mtl-0.3.1.0, but its *test-suite* requires lens >=4.12 && < 5 and the snapshot contains lens-5.3.3
     - haskey-mtl # tried haskey-mtl-0.3.1.0, but its *test-suite* requires text >=1.2 && < 2 and the snapshot contains text-2.1.1
     - haskoin-core # tried haskoin-core-1.1.0, but its *test-suite* requires base64 >=0.4 && < 0.5 and the snapshot contains base64-1.0
-    - hasmin # tried hasmin-1.0.3, but its *test-suite* requires doctest >=0.11 && < 0.17 and the snapshot contains doctest-0.22.10
+    - hasmin # tried hasmin-1.0.3, but its *test-suite* requires doctest >=0.11 && < 0.17 and the snapshot contains doctest-0.23.0
     - heap # tried heap-1.0.4, but its *test-suite* requires QuickCheck >=2.10 && < 2.12 and the snapshot contains QuickCheck-2.15.0.1
     - hegg # tried hegg-0.5.0.0, but its *test-suite* requires tasty >=1.4 && < 1.5 and the snapshot contains tasty-1.5.3
     - hegg # tried hegg-0.5.0.0, but its *test-suite* requires tasty-quickcheck >=0.10 && < 0.11 and the snapshot contains tasty-quickcheck-0.11.1
@@ -8319,40 +8320,59 @@ skipped-tests:
     - hspec-expectations-pretty-diff # tried hspec-expectations-pretty-diff-0.7.2.6, but its *test-suite* requires aeson < 2 and the snapshot contains aeson-2.2.3.0
     - http-conduit # tried http-conduit-2.3.9.1, but its *test-suite* requires warp >=3.0.0.2 && < 3.4 and the snapshot contains warp-3.4.7
     - http-media # tried http-media-0.8.1.1, but its *test-suite* requires tasty-quickcheck >=0.8 && < 0.11 and the snapshot contains tasty-quickcheck-0.11.1
+    - hw-balancedparens # tried hw-balancedparens-0.4.1.3, but its *test-suite* requires doctest >=0.16.2 && < 0.23 and the snapshot contains doctest-0.23.0
     - hw-balancedparens # tried hw-balancedparens-0.4.1.3, but its *test-suite* requires hedgehog >=1.0 && < 1.5 and the snapshot contains hedgehog-1.5
+    - hw-bits # tried hw-bits-0.7.2.2, but its *test-suite* requires doctest >=0.16.2 && < 0.23 and the snapshot contains doctest-0.23.0
     - hw-bits # tried hw-bits-0.7.2.2, but its *test-suite* requires hedgehog >=0.6 && < 1.5 and the snapshot contains hedgehog-1.5
-    - hw-conduit # tried hw-conduit-0.2.1.1, but its *test-suite* requires doctest >=0.16.2 && < 0.21 and the snapshot contains doctest-0.22.10
+    - hw-conduit # tried hw-conduit-0.2.1.1, but its *test-suite* requires doctest >=0.16.2 && < 0.21 and the snapshot contains doctest-0.23.0
     - hw-conduit-merges # tried hw-conduit-merges-0.2.1.0, but its *test-suite* requires QuickCheck < 2.15 and the snapshot contains QuickCheck-2.15.0.1
     - hw-conduit-merges # tried hw-conduit-merges-0.2.1.0, but its *test-suite* requires bytestring < 0.12 and the snapshot contains bytestring-0.12.1.0
-    - hw-diagnostics # tried hw-diagnostics-0.0.1.0, but its *test-suite* requires doctest >=0.16.2 && < 0.21 and the snapshot contains doctest-0.22.10
-    - hw-eliasfano # tried hw-eliasfano-0.1.2.1, but its *test-suite* requires doctest >=0.16.2 && < 0.21 and the snapshot contains doctest-0.22.10
+    - hw-diagnostics # tried hw-diagnostics-0.0.1.0, but its *test-suite* requires doctest >=0.16.2 && < 0.21 and the snapshot contains doctest-0.23.0
+    - hw-dsv # tried hw-dsv-0.4.1.2, but its *test-suite* requires doctest >=0.16.2 && < 0.23 and the snapshot contains doctest-0.23.0
+    - hw-eliasfano # tried hw-eliasfano-0.1.2.1, but its *test-suite* requires doctest >=0.16.2 && < 0.21 and the snapshot contains doctest-0.23.0
     - hw-eliasfano # tried hw-eliasfano-0.1.2.1, but its *test-suite* requires hedgehog >=0.6 && < 1.3 and the snapshot contains hedgehog-1.5
     - hw-excess # tried hw-excess-0.2.3.0, but its *test-suite* requires QuickCheck >=2.10 && < 2.15 and the snapshot contains QuickCheck-2.15.0.1
+    - hw-excess # tried hw-excess-0.2.3.0, but its *test-suite* requires doctest >=0.16.2 && < 0.23 and the snapshot contains doctest-0.23.0
     - hw-excess # tried hw-excess-0.2.3.0, but its *test-suite* requires hedgehog >=0.6 && < 1.5 and the snapshot contains hedgehog-1.5
-    - hw-fingertree # tried hw-fingertree-0.1.2.1, but its *test-suite* requires doctest >=0.16.2 && < 0.21 and the snapshot contains doctest-0.22.10
+    - hw-fingertree # tried hw-fingertree-0.1.2.1, but its *test-suite* requires doctest >=0.16.2 && < 0.21 and the snapshot contains doctest-0.23.0
     - hw-fingertree # tried hw-fingertree-0.1.2.1, but its *test-suite* requires hedgehog >=0.6 && < 1.3 and the snapshot contains hedgehog-1.5
     - hw-fingertree-strict # tried hw-fingertree-strict-0.1.2.1, but its *test-suite* requires QuickCheck >=2.10 && < 2.15 and the snapshot contains QuickCheck-2.15.0.1
-    - hw-fingertree-strict # tried hw-fingertree-strict-0.1.2.1, but its *test-suite* requires doctest >=0.16.2 && < 0.21 and the snapshot contains doctest-0.22.10
+    - hw-fingertree-strict # tried hw-fingertree-strict-0.1.2.1, but its *test-suite* requires doctest >=0.16.2 && < 0.21 and the snapshot contains doctest-0.23.0
     - hw-fingertree-strict # tried hw-fingertree-strict-0.1.2.1, but its *test-suite* requires hedgehog >=0.6 && < 1.3 and the snapshot contains hedgehog-1.5
+    - hw-hedgehog # tried hw-hedgehog-0.1.1.1, but its *test-suite* requires doctest >=0.16.2 && < 0.23 and the snapshot contains doctest-0.23.0
+    - hw-hspec-hedgehog # tried hw-hspec-hedgehog-0.1.1.1, but its *test-suite* requires doctest >=0.16.2 && < 0.23 and the snapshot contains doctest-0.23.0
+    - hw-int # tried hw-int-0.0.2.0, but its *test-suite* requires doctest >=0.16.2 && < 0.23 and the snapshot contains doctest-0.23.0
     - hw-int # tried hw-int-0.0.2.0, but its *test-suite* requires hedgehog >=0.6 && < 1.5 and the snapshot contains hedgehog-1.5
+    - hw-json # tried hw-json-1.3.3.0, but its *test-suite* requires doctest >=0.16.2 && < 0.23 and the snapshot contains doctest-0.23.0
     - hw-json # tried hw-json-1.3.3.0, but its *test-suite* requires hedgehog >=0.6 && < 1.5 and the snapshot contains hedgehog-1.5
+    - hw-json-simd # tried hw-json-simd-0.1.1.2, but its *test-suite* requires doctest >=0.16.2 && < 0.23 and the snapshot contains doctest-0.23.0
+    - hw-json-simple-cursor # tried hw-json-simple-cursor-0.1.1.1, but its *test-suite* requires doctest >=0.16.2 && < 0.23 and the snapshot contains doctest-0.23.0
     - hw-json-simple-cursor # tried hw-json-simple-cursor-0.1.1.1, but its *test-suite* requires hedgehog >=0.6 && < 1.5 and the snapshot contains hedgehog-1.5
+    - hw-json-standard-cursor # tried hw-json-standard-cursor-0.2.3.2, but its *test-suite* requires doctest >=0.16.2 && < 0.23 and the snapshot contains doctest-0.23.0
     - hw-json-standard-cursor # tried hw-json-standard-cursor-0.2.3.2, but its *test-suite* requires hedgehog >=0.6 && < 1.5 and the snapshot contains hedgehog-1.5
     - hw-mquery # tried hw-mquery-0.2.1.2, but its *test-suite* requires the disabled package: hw-hspec-hedgehog
-    - hw-packed-vector # tried hw-packed-vector-0.2.1.1, but its *test-suite* requires doctest >=0.16.2 && < 0.21 and the snapshot contains doctest-0.22.10
+    - hw-packed-vector # tried hw-packed-vector-0.2.1.1, but its *test-suite* requires doctest >=0.16.2 && < 0.21 and the snapshot contains doctest-0.23.0
     - hw-packed-vector # tried hw-packed-vector-0.2.1.1, but its *test-suite* requires hedgehog >=0.6 && < 1.3 and the snapshot contains hedgehog-1.5
+    - hw-parser # tried hw-parser-0.1.1.0, but its *test-suite* requires doctest >=0.16.2 && < 0.23 and the snapshot contains doctest-0.23.0
     - hw-parser # tried hw-parser-0.1.1.0, but its *test-suite* requires hedgehog >=1.0 && < 1.5 and the snapshot contains hedgehog-1.5
     - hw-prim # tried hw-prim-0.6.3.2, but its *test-suite* requires QuickCheck >=2.10 && < 2.15 and the snapshot contains QuickCheck-2.15.0.1
+    - hw-prim # tried hw-prim-0.6.3.2, but its *test-suite* requires doctest >=0.16.2 && < 0.23 and the snapshot contains doctest-0.23.0
     - hw-prim # tried hw-prim-0.6.3.2, but its *test-suite* requires hedgehog >=1.0 && < 1.5 and the snapshot contains hedgehog-1.5
     - hw-rankselect # tried hw-rankselect-0.13.4.1, but its *test-suite* requires QuickCheck >=2.10 && < 2.15 and the snapshot contains QuickCheck-2.15.0.1
+    - hw-rankselect # tried hw-rankselect-0.13.4.1, but its *test-suite* requires doctest >=0.16.2 && < 0.23 and the snapshot contains doctest-0.23.0
     - hw-rankselect # tried hw-rankselect-0.13.4.1, but its *test-suite* requires hedgehog >=1.0 && < 1.5 and the snapshot contains hedgehog-1.5
     - hw-rankselect-base # tried hw-rankselect-base-0.3.4.1, but its *test-suite* requires QuickCheck >=2.10 && < 2.15 and the snapshot contains QuickCheck-2.15.0.1
+    - hw-rankselect-base # tried hw-rankselect-base-0.3.4.1, but its *test-suite* requires doctest >=0.16.2 && < 0.23 and the snapshot contains doctest-0.23.0
     - hw-rankselect-base # tried hw-rankselect-base-0.3.4.1, but its *test-suite* requires hedgehog >=0.6 && < 1.5 and the snapshot contains hedgehog-1.5
+    - hw-simd # tried hw-simd-0.1.2.2, but its *test-suite* requires doctest >=0.16.2 && < 0.23 and the snapshot contains doctest-0.23.0
     - hw-simd # tried hw-simd-0.1.2.2, but its *test-suite* requires hedgehog >=0.5 && < 1.5 and the snapshot contains hedgehog-1.5
     - hw-streams # tried hw-streams-0.0.1.1, but its *test-suite* requires QuickCheck >=2.10 && < 2.15 and the snapshot contains QuickCheck-2.15.0.1
+    - hw-string-parse # tried hw-string-parse-0.0.0.5, but its *test-suite* requires doctest >=0.16.2 && < 0.23 and the snapshot contains doctest-0.23.0
+    - hw-xml # tried hw-xml-0.5.1.2, but its *test-suite* requires doctest >=0.16.2 && < 0.23 and the snapshot contains doctest-0.23.0
     - hw-xml # tried hw-xml-0.5.1.2, but its *test-suite* requires hedgehog >=1.0 && < 1.5 and the snapshot contains hedgehog-1.5
     - indexed-containers # tried indexed-containers-0.1.0.2, but its *test-suite* requires hspec >=2.4.8 && < 2.8 and the snapshot contains hspec-2.11.10
     - inflections # tried inflections-0.4.0.7, but its *test-suite* requires containers >=0.5 && < 0.7 and the snapshot contains containers-0.7
+    - influxdb # tried influxdb-1.9.3.2, but its *test-suite* requires doctest >=0.11.3 && < 0.23 and the snapshot contains doctest-0.23.0
     - inline-r # tried inline-r-1.0.1, but its *test-suite* requires filepath >=1.3 && < 1.5 and the snapshot contains filepath-1.5.2.0
     - inline-r # tried inline-r-1.0.1, but its *test-suite* requires tasty >=0.11 && < 1.5 and the snapshot contains tasty-1.5.3
     - inline-r # tried inline-r-1.0.1, but its *test-suite* requires tasty-quickcheck >=0.4.1 && < 0.11 and the snapshot contains tasty-quickcheck-0.11.1
@@ -8375,7 +8395,7 @@ skipped-tests:
     - makefile # tried makefile-1.1.0.0, but its *test-suite* requires Glob >=0.7 && < 0.9 and the snapshot contains Glob-0.10.2
     - makefile # tried makefile-1.1.0.0, but its *test-suite* requires QuickCheck >=2.9.2 && < 2.11 and the snapshot contains QuickCheck-2.15.0.1
     - makefile # tried makefile-1.1.0.0, but its *test-suite* requires base >=4.9.1.0 && < 4.10 and the snapshot contains base-4.20.0.0
-    - makefile # tried makefile-1.1.0.0, but its *test-suite* requires doctest >=0.9 && < 0.12 and the snapshot contains doctest-0.22.10
+    - makefile # tried makefile-1.1.0.0, but its *test-suite* requires doctest >=0.9 && < 0.12 and the snapshot contains doctest-0.23.0
     - makefile # tried makefile-1.1.0.0, but its *test-suite* requires tasty >=0.11 && < 0.12 and the snapshot contains tasty-1.5.3
     - makefile # tried makefile-1.1.0.0, but its *test-suite* requires tasty-hunit >=0.9 && < 0.10 and the snapshot contains tasty-hunit-0.10.2
     - makefile # tried makefile-1.1.0.0, but its *test-suite* requires tasty-quickcheck >=0.8 && < 0.9 and the snapshot contains tasty-quickcheck-0.11.1
@@ -8396,10 +8416,10 @@ skipped-tests:
     - natural-transformation # tried natural-transformation-0.4.1, but its *test-suite* requires tasty-quickcheck >=0.8 && < 0.11 and the snapshot contains tasty-quickcheck-0.11.1
     - next-ref # tried next-ref-0.1.0.2, but its *test-suite* requires hspec >=2 && < 2.3 and the snapshot contains hspec-2.11.10
     - nri-http # tried nri-http-0.3.0.0, but its *test-suite* requires warp >=3.3.0 && < 3.4 and the snapshot contains warp-3.4.7
-    - numhask-prelude # tried numhask-prelude-0.5.0, but its *test-suite* requires doctest >=0.13 && < 0.17 and the snapshot contains doctest-0.22.10
+    - numhask-prelude # tried numhask-prelude-0.5.0, but its *test-suite* requires doctest >=0.13 && < 0.17 and the snapshot contains doctest-0.23.0
     - o-clock # tried o-clock-1.4.0.1, but its *test-suite* requires the disabled package: tasty-hunit-compat
     - oops # tried oops-0.2.0.1, but its *test-suite* requires base-compat >=0.10.5 && < 0.14 and the snapshot contains base-compat-0.14.1
-    - oops # tried oops-0.2.0.1, but its *test-suite* requires doctest >=0.16.2 && < 0.22 and the snapshot contains doctest-0.22.10
+    - oops # tried oops-0.2.0.1, but its *test-suite* requires doctest >=0.16.2 && < 0.22 and the snapshot contains doctest-0.23.0
     - opaleye # tried opaleye-0.10.5.0, but its *test-suite* requires the disabled package: dotenv
     - opml-conduit # tried opml-conduit-0.9.0.0, but its *test-suite* requires the disabled package: hlint
     - optics # tried optics-0.4.2.1, but its *test-suite* requires inspection-testing >=0.5 && < 0.6 and the snapshot contains inspection-testing-0.6
@@ -8417,6 +8437,8 @@ skipped-tests:
     - pinch # tried pinch-0.5.2.0, but its *test-suite* requires network-run >=0.2.4 && < 0.4 and the snapshot contains network-run-0.4.3
     - pipes-category # tried pipes-category-0.3.0.0, but its *test-suite* requires transformers >=0.4 && < 0.6 and the snapshot contains transformers-0.6.1.1
     - pipes-fluid # tried pipes-fluid-0.6.0.1, but its *test-suite* requires the disabled package: pipes-misc
+    - polysemy # tried polysemy-1.9.2.0, but its *test-suite* requires doctest >=0.16.0.1 && < 0.23 and the snapshot contains doctest-0.23.0
+    - polysemy-plugin # tried polysemy-plugin-0.4.5.2, but its *test-suite* requires doctest >=0.16.0.1 && < 0.23 and the snapshot contains doctest-0.23.0
     - postgresql-libpq-notify # tried postgresql-libpq-notify-0.2.0.0, but its *test-suite* requires the disabled package: tmp-postgres
     - postgresql-simple # tried postgresql-simple-0.7.0.0, but its *test-suite* requires inspection-testing >=0.4.1.1 && < 0.6 and the snapshot contains inspection-testing-0.6
     - pretty-diff # tried pretty-diff-0.4.0.3, but its *test-suite* requires tasty >=1.1 && < 1.5 and the snapshot contains tasty-1.5.3
@@ -8433,6 +8455,7 @@ skipped-tests:
     - rank2classes # tried rank2classes-1.5.4, but its *test-suite* requires markdown-unlit >=0.5 && < 0.6 and the snapshot contains markdown-unlit-0.6.0
     - records-sop # tried records-sop-0.1.1.1, but its *test-suite* requires hspec >=2.2 && < 2.11 and the snapshot contains hspec-2.11.10
     - rel8 # tried rel8-1.6.0.0, but its *test-suite* requires the disabled package: tmp-postgres
+    - relude # tried relude-1.2.2.0, but its *test-suite* requires doctest >=0.20 && < 0.23 and the snapshot contains doctest-0.23.0
     - rest-rewrite # tried rest-rewrite-0.4.4, but its *test-suite* requires QuickCheck >=2.14.2 && < 2.15 and the snapshot contains QuickCheck-2.15.0.1
     - rhine # tried rhine-1.5, but its *test-suite* requires tasty-quickcheck ^>=0.10 and the snapshot contains tasty-quickcheck-0.11.1
     - rss-conduit # tried rss-conduit-0.6.0.1, but its *test-suite* requires the disabled package: hlint
@@ -8446,12 +8469,15 @@ skipped-tests:
     - serialise # tried serialise-0.2.6.1, but its *test-suite* requires base >=4.11 && < 4.20 and the snapshot contains base-4.20.0.0
     - serialise # tried serialise-0.2.6.1, but its *test-suite* requires tasty-quickcheck >=0.8 && < 0.11 and the snapshot contains tasty-quickcheck-0.11.1
     - servant-auth-client # tried servant-auth-client-0.4.2.0, but its *test-suite* requires the disabled package: servant-auth-server
+    - servant-auth-docs # tried servant-auth-docs-0.2.11.0, but its *test-suite* requires doctest >=0.16 && < 0.23 and the snapshot contains doctest-0.23.0
     - servant-cassava # tried servant-cassava-0.10.2, but its *test-suite* requires servant-server >=0.4.4.5 && < 0.20 and the snapshot contains servant-server-0.20.2
     - servant-cassava # tried servant-cassava-0.10.2, but its *test-suite* requires warp >=3.0.13.1 && < 3.4 and the snapshot contains warp-3.4.7
     - servant-kotlin # tried servant-kotlin-0.1.1.9, but its *test-suite* requires aeson >=1.0 && < 1.5 and the snapshot contains aeson-2.2.3.0
     - servant-kotlin # tried servant-kotlin-0.1.1.9, but its *test-suite* requires hspec >=2.4.1 && < 2.8 and the snapshot contains hspec-2.11.10
     - servant-kotlin # tried servant-kotlin-0.1.1.9, but its *test-suite* requires http-api-data >=0.3.7 && < 0.4.2 and the snapshot contains http-api-data-0.6.1
     - servant-multipart # tried servant-multipart-0.12.1, but its *test-suite* requires the disabled package: tasty-wai
+    - servant-openapi3 # tried servant-openapi3-2.0.1.6, but its *test-suite* requires doctest >=0.11.1 && < 0.23 and the snapshot contains doctest-0.23.0
+    - servant-swagger # tried servant-swagger-1.2.1, but its *test-suite* requires doctest >=0.17 && < 0.23 and the snapshot contains doctest-0.23.0
     - sessiontypes-distributed # tried sessiontypes-distributed-0.1.1, but its *test-suite* requires hspec >=2.4.4 && < 2.5 and the snapshot contains hspec-2.11.10
     - sessiontypes-distributed # tried sessiontypes-distributed-0.1.1, but its *test-suite* requires network-transport-tcp >=0.6 && < 0.7 and the snapshot contains network-transport-tcp-0.8.5
     - siggy-chardust # tried siggy-chardust-1.0.0, but its *test-suite* requires the disabled package: hlint
@@ -8486,7 +8512,7 @@ skipped-tests:
     - sydtest-yesod # tried sydtest-yesod-0.3.0.2, but its *test-suite* requires the disabled package: path
     - system-filepath # tried system-filepath-0.4.14.1, but its *test-suite* requires the disabled package: chell-quickcheck
     - tasty-autocollect # tried tasty-autocollect-0.4.4, but its *test-suite* requires the disabled package: explainable-predicates
-    - tasty-checklist # tried tasty-checklist-1.0.6.0, but its *test-suite* requires doctest >=0.10 && < 0.22 and the snapshot contains doctest-0.22.10
+    - tasty-checklist # tried tasty-checklist-1.0.6.0, but its *test-suite* requires doctest >=0.10 && < 0.22 and the snapshot contains doctest-0.23.0
     - tasty-discover # tried tasty-discover-5.0.1, but its *test-suite* requires tasty-quickcheck >=0.10 && < 0.11 and the snapshot contains tasty-quickcheck-0.11.1
     - tasty-sugar # tried tasty-sugar-2.2.2.0, but its *test-suite* requires hedgehog >=1.1 && < 1.5 and the snapshot contains hedgehog-1.5
     - temporary-resourcet # tried temporary-resourcet-0.1.0.1, but its *test-suite* requires tasty >=1.0 && < 1.2 and the snapshot contains tasty-1.5.3
@@ -8494,7 +8520,7 @@ skipped-tests:
     - test-framework # tried test-framework-0.8.2.0, but its *test-suite* requires the disabled package: libxml
     - text-builder-dev # tried text-builder-dev-0.3.9, but its *test-suite* requires tasty-quickcheck >=0.10.1 && < 0.11 and the snapshot contains tasty-quickcheck-0.11.1
     - true-name # tried true-name-0.2.0.0, but its *test-suite* requires containers ^>=0.5.6 || ^>=0.6.0 and the snapshot contains containers-0.7
-    - type-errors # tried type-errors-0.2.0.2, but its *test-suite* requires doctest >=0.16.0.1 && < 0.22 and the snapshot contains doctest-0.22.10
+    - type-errors # tried type-errors-0.2.0.2, but its *test-suite* requires doctest >=0.16.0.1 && < 0.22 and the snapshot contains doctest-0.23.0
     - tztime # tried tztime-0.1.1.0, but its *test-suite* requires the disabled package: tasty-hunit-compat
     - uniprot-kb # tried uniprot-kb-0.1.2.0, but its *test-suite* requires QuickCheck >=2.9 && < 2.14 and the snapshot contains QuickCheck-2.15.0.1
     - uniprot-kb # tried uniprot-kb-0.1.2.0, but its *test-suite* requires hspec >=2.4.1 && < 2.8 and the snapshot contains hspec-2.11.10
@@ -8518,7 +8544,7 @@ skipped-tests:
     - zenc # tried zenc-0.1.2, but its *test-suite* requires hedgehog >=1.0 && < 1.1 and the snapshot contains hedgehog-1.5
     - zenc # tried zenc-0.1.2, but its *test-suite* requires hspec >=2.8 && < 2.9 and the snapshot contains hspec-2.11.10
     - zenc # tried zenc-0.1.2, but its *test-suite* requires hspec-hedgehog >=0.0 && < 0.1 and the snapshot contains hspec-hedgehog-0.3.0.0
-    - zm # tried zm-0.3.2, but its *test-suite* requires doctest >=0.11.1 && < 0.14 and the snapshot contains doctest-0.22.10
+    - zm # tried zm-0.3.2, but its *test-suite* requires doctest >=0.11.1 && < 0.14 and the snapshot contains doctest-0.23.0
     - zm # tried zm-0.3.2, but its *test-suite* requires tasty >=0.11 && < 0.13 and the snapshot contains tasty-1.5.3
     - zm # tried zm-0.3.2, but its *test-suite* requires tasty-quickcheck >=0.8.1 && < 0.9.2 and the snapshot contains tasty-quickcheck-0.11.1
     - zm # tried zm-0.3.2, but its *test-suite* requires timeit >=1 && < 1.1 and the snapshot contains timeit-2.0
