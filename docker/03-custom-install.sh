@@ -76,7 +76,7 @@ add-apt-repository "deb https://packages.confluent.io/deb/5.2 stable main"
 apt-get update && apt install -y librdkafka-dev
 
 # Install z3, for grisette test suite
-Z3_VER=4.12.4
+Z3_VER=4.13.4
 (
   cd /usr/local \
     && wget https://github.com/Z3Prover/z3/releases/download/z3-${Z3_VER}/z3-${Z3_VER}-x64-glibc-2.35.zip \
