@@ -185,7 +185,7 @@ packages:
         - system-filepath
 
     "Pete Ryland <pdr@pdr.cx> @peteryland":
-        - regex-pcre2 < 0 # Compilation failure, https://github.com/commercialhaskell/stackage/issues/7698
+        - regex-pcre2
 
     "Diogo Biazus <diogo@biazus.ca>":
         - hasql-notifications
@@ -7969,6 +7969,10 @@ package-flags:
 
     path:
       os-string: true
+
+    # Debugging https://github.com/commercialhaskell/stackage/issues/7698
+    regex-pcre2:
+      pkg-config: false
 # end of package-flags
 
 # Special configure options for individual packages
