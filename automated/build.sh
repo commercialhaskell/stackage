@@ -87,7 +87,11 @@ else
 fi
 chmod +x curator
 
-STACK_VERSION=3.1.1
+if [ $SHORTNAME = "lts" ]; then
+    STACK_VERSION=3.1.1
+else
+    STACK_VERSION=3.3.1
+fi
 # rc url
 #curl -L https://github.com/commercialhaskell/stack/releases/download/rc%2Fv${STACK_VERSION}/stack-${STACK_VERSION}-linux-x86_64-bin > stack
 curl -L https://github.com/commercialhaskell/stack/releases/download/v${STACK_VERSION}/stack-${STACK_VERSION}-linux-x86_64-bin > stack
