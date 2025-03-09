@@ -185,7 +185,7 @@ docker run $ARGS_UPLOAD $IMAGE curator check-target-available --target $TARGET
 # * Upload the docs to S3
 # * Upload the new snapshot .yaml file to the appropriate Github repo, also upload its constraints
 date
-docker run $ARGS_UPLOAD $IMAGE /bin/bash -c "
+docker run $ARGS_UPLOAD -e "CURATOR_AWS_OPTIONS=--only-show-errors" $IMAGE /bin/bash -c "
     set -e
     ulimit -n hard
     curator upload-docs --target $TARGET ${DOCS_BUCKET:+--bucket $DOCS_BUCKET}
