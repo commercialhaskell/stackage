@@ -7569,6 +7569,7 @@ packages:
         - systemd-socket-activation < 0 # tried systemd-socket-activation-1.1.0.2, but its *library* requires network ^>=3.1.2 and the snapshot contains network-3.2.7.0
         - taffybar < 0 # tried taffybar-4.0.3, but its *library* requires gi-gdk >=3.0.6 && < 3.1 and the snapshot contains gi-gdk-4.0.10
         - taffybar < 0 # tried taffybar-4.0.3, but its *library* requires gi-gtk >=3.0.26 && < 4 and the snapshot contains gi-gtk-4.0.12
+        - taffybar < 0 # tried taffybar-4.0.3, but its *library* requires the disabled package: broadcast-chan
         - tasty-bench-fit < 0 # tried tasty-bench-fit-0.1.1, but its *library* requires the disabled package: regression-simple
         - tasty-hunit-compat < 0 # tried tasty-hunit-compat-0.2.0.1, but its *library* requires tasty < 1.5 and the snapshot contains tasty-1.5.3
         - tasty-stats < 0 # tried tasty-stats-0.2.0.4, but its *library* requires containers >=0.4 && < 0.6 and the snapshot contains containers-0.7
@@ -8224,6 +8225,7 @@ skipped-tests:
     - filepath-bytestring # tried filepath-bytestring-1.5.2.0.2, but its *test-suite* requires QuickCheck >=2.7 && < 2.15 and the snapshot contains QuickCheck-2.15.0.1
     - filtrable # tried filtrable-0.1.6.0, but its *test-suite* requires tasty >=1.3.1 && < 1.4 and the snapshot contains tasty-1.5.3
     - finite-typelits # tried finite-typelits-0.2.1.0, but its *test-suite* requires QuickCheck >=2.12 && < 2.15 and the snapshot contains QuickCheck-2.15.0.1
+    - fixed-vector-hetero # tried fixed-vector-hetero-0.6.2.0, but its *test-suite* requires doctest >=0.15 && < 0.24 and the snapshot contains doctest-0.24.0
     - focuslist # tried focuslist-0.1.1.0, but its *test-suite* requires genvalidity < 1.0.0.0 and the snapshot contains genvalidity-1.1.1.0
     - focuslist # tried focuslist-0.1.1.0, but its *test-suite* requires validity < 0.12.0.0 and the snapshot contains validity-0.12.1.0
     - fortran-src # tried fortran-src-0.16.3, but its *test-suite* requires QuickCheck >=2.10 && < 2.15 and the snapshot contains QuickCheck-2.15.0.1
@@ -8343,6 +8345,7 @@ skipped-tests:
     - morpheus-graphql-server # tried morpheus-graphql-server-0.28.1, but its *test-suite* requires tasty >=0.1.0 && < =1.5 and the snapshot contains tasty-1.5.3
     - msgpack # tried msgpack-1.0.1.0, but its *test-suite* requires QuickCheck >=2.12 && < 2.15 and the snapshot contains QuickCheck-2.15.0.1
     - msgpack # tried msgpack-1.0.1.0, but its *test-suite* requires tasty-quickcheck >=0.10 && < 0.11 and the snapshot contains tasty-quickcheck-0.11.1
+    - mwc-random # tried mwc-random-0.15.2.0, but its *test-suite* requires doctest >=0.15 && < 0.24 and the snapshot contains doctest-0.24.0
     - nakadi-client # tried nakadi-client-0.7.0.0, but its *test-suite* requires classy-prelude >=1.4.0 && < 1.5.0 and the snapshot contains classy-prelude-1.5.0.3
     - next-ref # tried next-ref-0.1.0.2, but its *test-suite* requires hspec >=2 && < 2.3 and the snapshot contains hspec-2.11.12
     - nri-http # tried nri-http-0.3.0.0, but its *test-suite* requires warp >=3.3.0 && < 3.4 and the snapshot contains warp-3.4.7
@@ -8451,14 +8454,6 @@ skipped-tests:
     - zm # tried zm-0.3.2, but its *test-suite* requires timeit >=1 && < 1.1 and the snapshot contains timeit-2.0
     - zxcvbn-hs # tried zxcvbn-hs-0.3.6, but its *test-suite* requires hedgehog >=0.6 && < 1.3 || ^>=1.3 || ^>=1.4 and the snapshot contains hedgehog-1.5
     # End of Test bounds issues
-
-    # doctest-0.24  https://github.com/commercialhaskell/stackage/issues/7683
-    - co-log-core
-    - fixed-vector-hetero
-    - grisette
-    - mwc-random
-    - polysemy
-    - polysemy-plugin
 
     # general failures
     - aern2-mp            # https://github.com/michalkonecny/aern2/issues/11
