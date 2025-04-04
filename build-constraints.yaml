@@ -5160,12 +5160,14 @@ packages:
         # Feel free to snatch them from me! Just remove them if they are casusing trouble!
         - array-chunks
         - bowtie
+        - consumers
         - easyplot
         - data-prometheus
         - delta-types
         - digraph
         - lifted-threads
         - nerd-font-icons
+        - pinecone
         - probability-polynomial
         - refined-containers
         - smith
@@ -6476,7 +6478,7 @@ packages:
         - cabal-install < 0 # tried cabal-install-3.12.1.0, but its *library* requires Cabal ^>=3.12.1.0 and the snapshot contains Cabal-3.12.0.0
         - cabal-install < 0 # tried cabal-install-3.12.1.0, but its *library* requires Cabal-syntax ^>=3.12.1.0 and the snapshot contains Cabal-syntax-3.12.0.0
         - cabal-install < 0 # tried cabal-install-3.12.1.0, but its *library* requires hashable >=1.0 && < 1.5 and the snapshot contains hashable-1.5.0.0
-        - cabal-install < 0 # tried cabal-install-3.12.1.0, but its *library* requires open-browser >=0.2.1.0 && < 0.3 and the snapshot contains open-browser-0.3.0.1
+        - cabal-install < 0 # tried cabal-install-3.12.1.0, but its *library* requires open-browser >=0.2.1.0 && < 0.3 and the snapshot contains open-browser-0.4.0.0
         - cabal-install-solver < 0 # tried cabal-install-solver-3.12.1.0, but its *library* requires Cabal ^>=3.12.1.0 and the snapshot contains Cabal-3.12.0.0
         - cabal-install-solver < 0 # tried cabal-install-solver-3.12.1.0, but its *library* requires Cabal-syntax ^>=3.12.1.0 and the snapshot contains Cabal-syntax-3.12.0.0
         - cheapskate < 0 # tried cheapskate-0.1.1.2, but its *library* requires containers >=0.4 && < 0.7 and the snapshot contains containers-0.7
@@ -8617,6 +8619,7 @@ expected-test-failures:
     - call-alloy # Requires a Java Runtime that allows class file version 61.0
     - cayley-client
     - consul-haskell
+    - consumers  # requires PostgreSQL instance
     - cql-io # Cassandra
     - datadog # requires API keys in env vars https://github.com/fpco/stackage/pull/3308#issuecomment-369535040
     - dbcleaner # Requires running PostgreSQL server
@@ -8683,6 +8686,7 @@ expected-test-failures:
     - pantry # https://github.com/commercialhaskell/stackage/issues/4628
     - peregrin # Requires running pg-harness-server
     - persistent-redis # redis - https://github.com/fpco/stackage/pull/1581
+    - pinecone # Requires pinecone API key
     - pipes-mongodb
     - postgresql-libpq-notify
     - postgresql-query # PostgreSQL
