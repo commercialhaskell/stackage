@@ -23,3 +23,7 @@ unzip -q awscliv2.zip
 ./aws/install --bin-dir /usr/bin
 )
 rm -rf /tmp/awscli
+
+STACK_VERSION=3.3.1
+curl -L https://github.com/commercialhaskell/stack/releases/download/v${STACK_VERSION}/stack-${STACK_VERSION}-linux-x86_64-bin > /usr/bin/stack
+chmod +x /usr/bin/stack
