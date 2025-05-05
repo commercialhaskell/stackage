@@ -79,7 +79,7 @@ cd $BINDIR
 rm -f curator stack *.bz2
 
 if [ $SHORTNAME = "lts" ]; then
-    # drop for lts24 at least if not before
+    # drop for lts24
     curl -L "https://github.com/commercialhaskell/curator/releases/download/commit-54cc5a95a7e29550e0fd7a48b24ddad105d223b2/curator.bz2" | bunzip2 > curator
 else
     # needed for ghc-9.10
@@ -90,7 +90,7 @@ chmod +x curator
 if [ $SHORTNAME = "lts" ]; then
     STACK_VERSION=3.1.1
 else
-    STACK_VERSION=3.3.1
+    STACK_VERSION=3.5.1
 fi
 # rc url
 #curl -L https://github.com/commercialhaskell/stack/releases/download/rc%2Fv${STACK_VERSION}/stack-${STACK_VERSION}-linux-x86_64-bin > stack
