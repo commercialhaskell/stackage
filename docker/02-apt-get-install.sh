@@ -134,9 +134,9 @@ apt-get install -y \
     libzip-dev \
     libzmq3-dev \
     libzstd-dev \
-    llvm-11 \
     llvm-12 \
-    llvm-13 \
+    llvm-14 \
+    llvm-15 \
     locales \
     m4 \
     minisat \
