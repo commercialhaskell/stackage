@@ -24,21 +24,21 @@ apt-get install -y \
     fsharp \
     g++ \
     gawk \
-    gir1.2-javascriptcoregtk-4.0 \
+    gir1.2-javascriptcoregtk-4.1 \
     gir1.2-javascriptcoregtk-6.0 \
     git \
     gnupg \
     gradle \
     hscolour \
     libadns1-dev \
-    libaio1 \
+    libaio-dev \
     libalut-dev \
     libasound2-dev \
     libblas-dev \
     libbrotli-dev \
     libbz2-dev \
     libcairo2-dev \
-    libclang-12-dev \
+    libclang-14-dev \
     libcurl4-openssl-dev \
     libcwiid-dev \
     libdbusmenu-glib-dev \
@@ -124,7 +124,7 @@ apt-get install -y \
     libudev-dev \
     libusb-1.0-0-dev \
     libvte-2.91-dev \
-    libwebkit2gtk-4.0-dev \
+    libwebkit2gtk-4.1-dev \
     libxau-dev \
     libxml2-dev \
     libxrandr-dev \
@@ -134,7 +134,6 @@ apt-get install -y \
     libzip-dev \
     libzmq3-dev \
     libzstd-dev \
-    llvm-12 \
     llvm-14 \
     llvm-15 \
     locales \
@@ -147,7 +146,7 @@ apt-get install -y \
     nodejs \
     nvidia-cuda-toolkit \
     openjdk-8-jdk \
-    python-mpltoolkits.basemap \
+#    python3-mpltoolkits.basemap \
     python3-matplotlib \
     python3-numpy \
     python3-pip \
