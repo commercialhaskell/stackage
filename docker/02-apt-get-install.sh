@@ -146,7 +146,6 @@ apt-get install -y \
     nodejs \
     nvidia-cuda-toolkit \
     openjdk-8-jdk \
-#    python3-mpltoolkits.basemap \
     python3-matplotlib \
     python3-numpy \
     python3-pip \
