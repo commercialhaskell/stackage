@@ -26,6 +26,8 @@ apt-get install -y \
     gawk \
     gir1.2-javascriptcoregtk-4.1 \
     gir1.2-javascriptcoregtk-6.0 \
+    gir1.2-soup-2.4 \
+    gir1.2-soup-3.0 \
     git \
     gnupg \
     gradle \
