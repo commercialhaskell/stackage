@@ -101,6 +101,7 @@ apt-get install -y \
     libpapi-dev \
     libpcap0.8-dev \
     libpcre2-dev \
+    libpcre3-dev \
     libpq-dev \
     libprimecount-dev \
     libprotobuf-dev \
