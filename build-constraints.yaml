@@ -4611,7 +4611,7 @@ packages:
         - kazura-queue
 
     "Eric Torreborre <etorreborre@yahoo.com> @etorreborre":
-        - registry < 0 # 0.6.3.1 https://github.com/etorreborre/registry/issues/12
+        - registry
         - registry-aeson
         - registry-hedgehog
         - registry-hedgehog-aeson
@@ -7381,11 +7381,9 @@ packages:
         - regex-pcre-text < 0 # tried regex-pcre-text-0.94.0.1, but its *library* requires regex-pcre-builtin >=0.94 && < 0.95 and the snapshot contains regex-pcre-builtin-0.95.2.3.8.44
         - regex-pcre-text < 0 # tried regex-pcre-text-0.94.0.1, but its *library* requires text >=1.2 && < 1.3 and the snapshot contains text-2.1.2
         - regex-tdfa-text < 0 # tried regex-tdfa-text-1.0.0.3, but its *library* requires regex-base < 0.94 and the snapshot contains regex-base-0.94.0.3
-        - registry-aeson < 0 # tried registry-aeson-0.3.1.1, but its *library* requires the disabled package: registry
-        - registry-hedgehog < 0 # tried registry-hedgehog-0.8.2.1, but its *library* requires the disabled package: registry
-        - registry-hedgehog-aeson < 0 # tried registry-hedgehog-aeson-0.3.1.1, but its *library* requires the disabled package: registry
-        - registry-options < 0 # tried registry-options-0.2.1.0, but its *library* requires text >=1 && < 2 and the snapshot contains text-2.1.2
-        - registry-options < 0 # tried registry-options-0.2.1.0, but its *library* requires the disabled package: registry
+        - registry-hedgehog < 0 # tried registry-hedgehog-0.8.2.2, but its *library* requires the disabled package: universum
+        - registry-hedgehog-aeson < 0 # tried registry-hedgehog-aeson-0.3.1.2, but its *library* requires the disabled package: universum
+        - registry-options < 0 # tried registry-options-0.2.1.1, but its *library* requires text >=1 && < 2 and the snapshot contains text-2.1.2
         - regression-simple < 0 # tried regression-simple-0.2.1, but its *library* requires base >=4.3 && < 4.20 and the snapshot contains base-4.20.1.0
         - rel8 < 0 # tried rel8-1.6.0.0, but its *library* requires hasql >=1.6.1.2 && < 1.9 and the snapshot contains hasql-1.9.1.2
         - require < 0 # tried require-0.4.11, but its *library* requires bytestring >=0.10 && < 0.11 and the snapshot contains bytestring-0.12.2.0
@@ -8347,6 +8345,8 @@ skipped-tests:
     - quadratic-irrational # tried quadratic-irrational-0.1.1, but its *test-suite* requires tasty-quickcheck >=0.8 && < 0.11 and the snapshot contains tasty-quickcheck-0.11.1
     - rank2classes # tried rank2classes-1.5.4, but its *test-suite* requires markdown-unlit >=0.5 && < 0.6 and the snapshot contains markdown-unlit-0.6.0
     - records-sop # tried records-sop-0.1.1.1, but its *test-suite* requires hspec >=2.2 && < 2.11 and the snapshot contains hspec-2.11.12
+    - registry # tried registry-0.6.3.2, but its *test-suite* requires the disabled package: universum
+    - registry-aeson # tried registry-aeson-0.3.1.2, but its *test-suite* requires the disabled package: registry-hedgehog
     - rest-rewrite # tried rest-rewrite-0.4.5, but its *test-suite* requires QuickCheck >=2.14.2 && < 2.15 and the snapshot contains QuickCheck-2.15.0.1
     - salak-toml # tried salak-toml-0.3.5.3, but its *test-suite* requires QuickCheck < 2.14 and the snapshot contains QuickCheck-2.15.0.1
     - scalendar # tried scalendar-1.2.0, but its *test-suite* requires the disabled package: SCalendar
@@ -8444,7 +8444,7 @@ expected-test-failures:
     - brick
     - butter # 0.1.0.6
     - cabal-file-th # 0.2.7
-    - cacophony # 0.10.1 https://github.com/centromere/cacophony/issues/15
+    - cacophony # 0.11.0 https://github.com/centromere/cacophony/issues/15
     - cereal # 0.5.8.3 https://github.com/GaloisInc/cereal/issues/109
     - conduit-connection # 0.1.0.5
     - cryptohash # 0.11.9 Stack builds test and benchmarks in one pass so benchmark could prevent tests from getting built
@@ -8901,7 +8901,7 @@ skipped-haddocks:
 expected-benchmark-failures:
     # Compilation failures
     - OrderedBits # 0.0.2.0
-    - cacophony # 0.10.1
+    - cacophony # 0.11.0
     - chronos # 1.1.5.1 Ambiguous occurrence ‘Thyme.defaultTimeLocale’
     - cmark-gfm # https://github.com/kivikakk/cmark-gfm-hs/issues/5
     - cryptohash # 0.11.9 https://github.com/vincenthz/hs-cryptohash/pull/43
