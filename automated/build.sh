@@ -1,19 +1,20 @@
 #!/usr/bin/env bash
 
-# shellcheck disable=SC2086,SC1091
+# shellcheck disable=SC2086,SC1091,SC2001
 # SC2086: We actually want some word splitting to happen
 # SC1091: Secrets are sourced from a file that doesn't exist in the tree.
+# SC2001: Pattern substitution is too hard to use; don't recommend it.
 
 set -eu +x -o pipefail
 
-ROOT=$(cd $(dirname $0) ; pwd)
+ROOT=$(cd "$(dirname $0)" ; pwd)
 TARGET=$1
 
 # Home on the container
-: ${C_HOME:=$HOME}
+: "${C_HOME:=$HOME}"
 
 # User to run as on the container
-: ${USERID:=$(id -u)}
+: "${USERID:=$(id -u)}"
 
 source work/aws.sh
 
@@ -76,7 +77,7 @@ mkdir -p $ROOT/work/bin
 BINDIR=$(cd $ROOT/work/bin ; pwd)
 (
 cd $BINDIR
-rm -f curator stack *.bz2
+rm -f curator stack -- *.bz2
 
 if [ $SHORTNAME = "lts" ]; then
     # drop for lts24
@@ -97,7 +98,7 @@ fi
 curl -L https://github.com/commercialhaskell/stack/releases/download/v${STACK_VERSION}/stack-${STACK_VERSION}-linux-x86_64-bin > stack
 chmod +x stack
 
-docker run --rm -v $(pwd)/curator:/curator -v $(pwd)/stack:/stack $IMAGE /bin/bash -c "
+docker run --rm -v "$(pwd)"/curator:/curator -v "$(pwd)"/stack:/stack $IMAGE /bin/bash -c "
     echo -n 'curator version: '
     /curator --version
     echo -n 'stack version: '
