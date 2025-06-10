@@ -19,8 +19,8 @@ process works:
 * [build-constraints.yaml](https://github.com/commercialhaskell/stackage/blob/master/build-constraints.yaml) specifies packages to be included in Stackage
 * [curator](https://github.com/commercialhaskell/curator) combines build-constraints.yaml with the current state of Hackage to create a build plan for a Stackage Nightly
 * `curator` can check that build plan to ensure all version bounds are consistent
-    * The [Travis job](https://github.com/commercialhaskell/stackage/blob/master/.travis.yml) performs these two steps to provide immediate feedback on pull requests
-* Docker builds [builds](https://github.com/commercialhaskell/stackage/actions/workflows/image.yml)
+    * On pull requests, the GitHub action [performs these two steps](https://github.com/commercialhaskell/stackage/blob/master/etc/check.sh) to provide immediate feedback on pull requests
+* Docker [builds](https://github.com/commercialhaskell/stackage/actions/workflows/image.yml)
 * The stackage-build server (described below) is able to run automated builds using the [build.sh script](https://github.com/commercialhaskell/stackage/blob/master/automated/build.sh)
 * When a new (nightly or LTS) build is completed, it is uploaded to [stackage-snapshots](https://github.com/commercialhaskell/stackage-snapshots)
 * Once a week, we run an LTS minor bump. Instead of using build-constraints.yaml, that job takes the previous LTS release, turns it into `^>=` constraints, and then bumps the version numbers to the latest on Hackage, in accordance with the generated constraint.
@@ -28,7 +28,7 @@ process works:
 
 ## Pull requests
 
-The typical story on pull requests is: If Travis accepts it and the
+The typical story on pull requests is: If the checks pass and the
 author only added packages under his/her own name, merge it.  If the
 build later fails (see [Adding Debian packages]), then block the
 package until it's fixed.
@@ -46,9 +46,9 @@ Builds may fail because of unrelated bounds changes. If this happens,
 first add any version bounds to get master into a passing state (see
 "Fixing bounds issues"), then re-run the travis build.
 
-A common issue is that authors submit newly uploaded packages, it can
-take up to an hour before this has synced across the stack
-infrastructure. You can usually compare the versions of the package in
+A common issue is that authors submit newly uploaded packages. It can
+take up to an hour before the package has synced from Hackage across the
+Stackage infrastructure. You can usually compare the versions of the package in
 https://github.com/commercialhaskell/all-cabal-metadata/tree/master/packages/
 to what's on hackage to see if this is the case. Wait an hour and
 re-run the pull request.
