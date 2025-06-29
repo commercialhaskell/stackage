@@ -82,7 +82,7 @@ rm -f curator stack -- *.bz2
 curl -L "https://github.com/commercialhaskell/curator/releases/download/commit-a5ec7062d97a460db0d8c4a61b240fd3e51fa5e8/curator.bz2" | bunzip2 > curator
 chmod +x curator
 
-STACK_VERSION=3.5.1
+STACK_VERSION=3.7.1
 # rc url
 #curl -L https://github.com/commercialhaskell/stack/releases/download/rc%2Fv${STACK_VERSION}/stack-${STACK_VERSION}-linux-x86_64-bin > stack
 curl -L https://github.com/commercialhaskell/stack/releases/download/v${STACK_VERSION}/stack-${STACK_VERSION}-linux-x86_64-bin > stack
