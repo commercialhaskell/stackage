@@ -449,8 +449,8 @@ packages:
     "Travis Athougies <travis@athougies.net> @tathougies":
         - beam-core
         - beam-migrate
-        - beam-postgres < 0 # 0.5.4.2 https://github.com/commercialhaskell/stackage/issues/7753
-        - beam-sqlite < 0 # 0.5.4.0 https://github.com/commercialhaskell/stackage/issues/7753
+        - beam-postgres
+        - beam-sqlite
 
     "Fraser Murray <fraser.m.murray@gmail.com @intolerable":
         - stitch
@@ -8175,6 +8175,7 @@ skipped-tests:
     - aws-cloudfront-signed-cookies # tried aws-cloudfront-signed-cookies-0.2.0.13, but its *test-suite* requires hedgehog ^>=1.4 and the snapshot contains hedgehog-1.5
     - barrier # tried barrier-0.1.1, but its *test-suite* requires tasty >=0.10 && < 1.5 and the snapshot contains tasty-1.5.3
     - base32 # tried base32-0.4, but its *test-suite* requires bytestring ^>=0.11 and the snapshot contains bytestring-0.12.2.0
+    - beam-postgres # tried beam-postgres-0.5.4.3, but its *test-suite* requires the disabled package: testcontainers
     - binary-tagged # tried binary-tagged-0.3.1, but its *test-suite* requires QuickCheck ^>=2.14 and the snapshot contains QuickCheck-2.15.0.1
     - bits-extra # tried bits-extra-0.0.2.3, but its *test-suite* requires the disabled package: hw-hspec-hedgehog
     - blake2 # tried blake2-0.3.0.1, but its *test-suite* requires QuickCheck ^>=2.14.3 and the snapshot contains QuickCheck-2.15.0.1
