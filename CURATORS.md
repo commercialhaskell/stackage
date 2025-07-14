@@ -24,7 +24,7 @@ process works:
 * The stackage-build server (described below) is able to run automated builds using the [build.sh script](https://github.com/commercialhaskell/stackage/blob/master/automated/build.sh)
 * When a new (nightly or LTS) build is completed, it is uploaded to [stackage-snapshots](https://github.com/commercialhaskell/stackage-snapshots)
 * Once a week, we run an LTS minor bump. Instead of using build-constraints.yaml, that job takes the previous LTS release, turns it into `^>=` constraints, and then bumps the version numbers to the latest on Hackage, in accordance with the generated constraint.
-* Cutting a new LTS major release is essentially just a Stackage Nightly that gets rebuilt and uploaded as an LTS
+* Cutting a new LTS major release is essentially just a Stackage Nightly that gets rebuilt using lts-haskell with constraints setup with etc/lts-constraints.
 
 ## Pull requests
 
@@ -39,12 +39,11 @@ If benchmarks, haddocks, or test suites fails at this point we
 typically also block the package until these issues are fixed. This in
 order to add packages with a clean slate.
 
-Optionally we can check if packdeps says the package is up to date.
-Visit http://packdeps.haskellers.com/feed?needle=<package-name>
+Optionally we can check what [packdeps](https://hackage.haskell.org/package/packdeps) and [hackage-revdeps](https://hackage.haskell.org/package/hackage-revdeps) say about the package.
 
 Builds may fail because of unrelated bounds changes. If this happens,
 first add any version bounds to get master into a passing state (see
-"Fixing bounds issues"), then re-run the travis build.
+"Fixing bounds issues").
 
 A common issue is that authors submit newly uploaded packages. It can
 take up to an hour before the package has synced from Hackage across the
@@ -207,8 +206,10 @@ If a new package fails to build because of missing system libraries we often ask
 
 
 ### Upgrading GHC version
-The nightly branch is used for nightlies. For LTSes, we use the ltsX branch,
-where X is the major version number (e.g., lts20 for lts-20.\*).)
+Branches are only used for the container build image:
+
+- The nightly branch is used for the nightly build image.
+- For LTSes, we use the ltsX branch, where X is the major version number (e.g., lts20 for lts-20.\*).)
 
 Note that when starting a new LTS major release, you'll need to modify `.github/workflows/image.yml` to add a new lts branch.
 
@@ -228,31 +229,32 @@ update-global-hints.hs: Received ExitFailure 1 when running
 
 Also required to build an LTS minor bump with a ghc version change: modify <https://github.com/commercialhaskell/lts-haskell/tree/master/build-constraints> and update the ghc-version.  Then run `automated/build.sh lts-$THIS_LTS_MINOR_BUMP` to build the LTS.
 
-### Getting the new image to the build server
-Once a new Docker image is available, you'll need to pull it onto the stackage-build server (see
-below). Instead of pulling an unbounded number of images, I typically just
-delete all of the old images and let the new ones get downloaded:
+### Docker image management
+The latest image is pulled automatically.
+
+If diskspace is tight, one can delete all of the old images and
+let the new ones get downloaded:
 
 ```
 docker rm $(docker ps -a -q)
 docker rmi $(docker images -q)
 ```
 
-but `docker pull ghcr.io/commercialhaskell/stackage/build:nightly` can also be run instead just to update the nightly image say.
+To pull the nightly image manually run `docker pull ghcr.io/commercialhaskell/stackage/build:nightly`.
 
-For a new GHC version you should also delete the ~~cache~~ .stack-work snapshot install directories on the stackage-build server to
-~~force all packages to be rebuilt~~ clear up some space. See: [issue#746](https://github.com/commercialhaskell/stackage/issues/746). Eg:
+(For a new GHC version you can also delete the .stack-work snapshot install directories on the stackage-build server to clear up some space. See: [issue#746](https://github.com/commercialhaskell/stackage/issues/746). Eg:
 
 ```
 # for example
-SNAP_SERIES=nightly # or lts16
-OLD_GHCVER=8.10.1
+SNAP_SERIES=nightly # or ltsXX
+OLD_GHCVER=9.10.1
 rm -r work/$SNAP_SERIES/unpack-dir/.stack-work/install/x86_64-linux-tinfo6/*/$OLD_GHCVER/
 ```
-This should also be done when moving the Nightly docker image to a new version of Ubuntu.
 
-If you're impatient and would like to build the Docker image on the
-build server instead of waiting for Docker Hub, you can run the
+
+When moving to a new version of Ubuntu: all the packages should be rebuilt from scratch: therefore normally only change Ubuntu version at the same time as doing a ghc bump.
+
+In an emergency the Docker image can be built on the build server, by the
 following command (replacing `BRANCH=nightly` if the image for a different branch is desired):
 
 ```
@@ -262,16 +264,16 @@ DIR=$(mktemp -d)
   && git clone https://github.com/commercialhaskell/stackage \
   && cd stackage \
   && git checkout $BRANCH \
-  && docker build --tag commercialhaskell/stackage:$BRANCH .)
+  && docker build --tag commercialhaskell/stackage/build:$BRANCH .)
 rm -rf $DIR
 ```
 
-Note that we do a clean clone of the `stackage` repo instead of using
+(Note that we do a clean clone of the `stackage` repo instead of using
 the existing checkout because of how `docker build` works: it will
 send the entire local directory contents as context to the Docker
 daemon, which in the case of the build tree is a _lot_ of content. (We
 can discuss the wisdom&mdash;or lack thereof&mdash;of Docker's
-approach separately.)
+approach separately.))
 
 ## stackage-build server
 
@@ -307,7 +309,9 @@ info above).
 ### Building LTS minor releases
 Before running the build, please make sure that the Dockerfile in `automated/dockerfiles/lts-X.Y` is up to date, where X is the major version that you're building and Y is the latest minor version of X for which a Dockerfile exists.
   * If any changes need to be made, (eg, new GHC version), copy `automated/lts-X.Y/Dockerfile` to `automated/lts-X.Z/Dockerfile`, where Z is the minor version you're building, and include the new changes.
-  * If you are building the first release of a new LTS major version, create a new `lts-X.0/Dockerfile` based on the previous LTS's, and adjust the variables at the top to match the requirements of the snapshot.  Ensure that `STACK_VERSION` is the latest release of Stack, and `BOOTSTRAP_COMMIT` is the commit ID of this repo containing the version of the `docker/*.sh` used to build the snapshot.  Also ensure the FROM image's Ubuntu version matches that used in the [root Dockerfile](Dockerfile) used to build this snapshot.
+  * If you are building the first release of a new LTS major version:
+    * create a new `build-constraints/ltsX-build-constraints.yaml` in lts-haskell using `stackage/etc/lts-constraints`
+    * create a new `lts-X.0/Dockerfile` based on the previous LTS's, and adjust the variables at the top to match the requirements of the snapshot.  Ensure that `STACK_VERSION` is the latest release of Stack, and `BOOTSTRAP_COMMIT` is the commit ID of this repo containing the version of the `docker/*.sh` used to build the snapshot.  Also ensure the FROM image's Ubuntu version matches that used in the [root Dockerfile](Dockerfile) used to build this snapshot.
 
 For an LTS minor bump, you'll typically want to update <https://github.com/commercialhaskell/lts-haskell/tree/master/build-constraints> as needed:
 
@@ -583,19 +587,16 @@ packages compatible with the new GHC release.
 
 Every 3-6 months, we make a new major release of LTS. The procedure we follow for this is:
 
-1. Write a blog post on stackage.org announcing the intent to cut a major
-   release. Give an estimated date two weeks in the future from the publication
-   date of the post.
-2. Spread the blog post on social media and mailing lists as much as possible.
-3. Expect maintainers to send significant requests for added packages and
-   relaxed upper bounds. There will likely be some hard decisions to be made
-   regarding relaxing a bound versus keeping more packages. All of these changes
-   occur on master and affect nightly.
-4. Once the estimated date hits, push a new `ltsXX` and wait for the docker image build.
-5. Run the build procedure for the new LTS release.
-6. After the LTS build completes, more aggressively prune upper bounds from
-   `build-constraints.yaml`.
-7. Once both (5) and (6) are done, publish a new blog post on stackage.org
+1. Once Stackage Nightly and its ghc version is considered mature enough and
+   there is newer ghc version that has somewhat stabilized to bring next into
+   nightly
+2. First push a new `ltsXX` branch and wait for the docker image to build.
+3. Add the new ltsXX build-constraints file in lts-haskell,
+   generated from nightly using etc/lts-constraints.
+4. Run the build procedure for the new LTS release.
+5. After the new LTS is pushed, it is time to prune nightly upper bounds from
+   `build-constraints.yaml` and bump nightly to the newer major ghc version.
+6. Once both (5) and (6) are done, publish a new blog post on stackage.org
    announcing the new LTS and Nightly, with links to the change pages on
-   stackage.org. Include a reminder that requests for packages to be added to LTS
-   may be made on commercialhaskell/lts-haskell.
+   stackage.org. Include a reminder that requests for packages to be added
+   to LTS may be made on commercialhaskell/lts-haskell.

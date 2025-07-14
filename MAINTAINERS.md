@@ -1,9 +1,11 @@
+*(this file is a bit dated and needs some revisions)*
+
 This project is built around the concept of maintainers taking responsibility for making their packages work with the rest of the stable ecosystem, usually meaning the newest version of all dependencies. This is a social contract, and is not reflected in the codebase in any way.
 
 The idea behind Stackage is that, if all packages work with the newest versions of dependencies, we avoid dependency hell. Specifically, we aim for:
 
-* All packages are buildable and testable from Hackage. We recommend [the Stack Travis script](https://docs.haskellstack.org/en/stable/travis_ci/), which ensures a package is not accidentally incomplete.
-* All packages are compatible with the newest versions of all dependencies (You can find restrictive upper bounds by visiting http://packdeps.haskellers.com/feed?needle=PACKAGENAME).
+* All packages are buildable and testable from Hackage. We recommend using CI, which ensures a package is not accidentally incomplete.
+* All packages are compatible with the newest versions of all dependencies (You can check restrictive upper bounds [packdeps](https://hackage.haskell.org/package/packdeps).
 * All packages in a snapshot are compatible with the versions of libraries that ship with the GHC used in the snapshot ([more information on lenient lower bounds](https://tech.fpcomplete.com/blog/2014/05/lenient-lower-bounds)).
 
 Packages in Stackage are not patched: all package changes occur upstream in Hackage.
@@ -44,10 +46,12 @@ of:
 
 * It won't notify you of restrictive upper bounds in your package if
   Stackage has the same upper bounds. For that reason, we recommend
-  using [Packdeps](http://packdeps.haskellers.com/) (see "Following
-  dependency upgrades" below). You can also run `cabal outdated`.
+  using `cabal outdated` or
+  [Packdeps](https://hackage.haskell.org/package/packdeps)
+  (see "Following dependency upgrades" below).
+
 * If the latest Stackage Nightly is missing some of the latest
-  packages, your build above may succeed whereas the Travis job may
+  packages, your build above may succeed whereas the CI job may
   fail. Again: Packdeps will help you detect this situation.
 
 ## Github and Notifications
@@ -87,11 +91,11 @@ the dependency so that your package remains in nightly. We'll also
 create a github issue pinging you with the bounds issues or give build
 logs showing failures. It's then up to you to modify your package.
 
-We recommend that you also follow the dependencies of your packages on
-[Packdeps](http://packdeps.haskellers.com/) (typically using the RSS
-feeds) as well as that often gives you notice ahead of stackage
-issues. There are cases where we will not notice a new release of a
-package because of other upper bounds that are in place.
+We recommend that you also follow the dependencies of your packages with
+[Packdeps](https://hackage.haskell.org/package/packdeps)
+as well as that often gives you notice ahead of stackage issues.
+There are cases where we will not notice a new release of a package
+because of other upper bounds that are in place.
 
 If a package is not updated in time, it may be temporarily removed
 from Stackage by the curator team. We strive to notify you when this
