@@ -247,7 +247,7 @@ To pull the nightly image manually run `docker pull ghcr.io/commercialhaskell/st
 ```
 # for example
 SNAP_SERIES=nightly # or ltsXX
-OLD_GHCVER=9.10.1
+OLD_GHCVER=9.10.2
 rm -r work/$SNAP_SERIES/unpack-dir/.stack-work/install/x86_64-linux-tinfo6/*/$OLD_GHCVER/
 ```
 
