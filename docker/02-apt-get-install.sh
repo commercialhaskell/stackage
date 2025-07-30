@@ -67,6 +67,7 @@ apt-get install -y \
     libgtk-3-dev \
     libgtk-4-dev \
     libgtk2.0-dev \
+    libgtksourceview-3.0-dev \
     libgtksourceview-5-dev \
     libhidapi-dev \
     libi2c-dev \
@@ -74,6 +75,7 @@ apt-get install -y \
     libimlib2-dev \
     libjack-jackd2-dev \
     libjansson-dev \
+    libjavascriptcoregtk-4.0-dev \
     libjavascriptcoregtk-6.0-dev \
     libjudy-dev \
     liblapack-dev \
@@ -117,6 +119,7 @@ apt-get install -y \
     libsnappy-dev \
     libsndfile1-dev \
     libsodium-dev \
+    libsoup2.4-dev \
     libsoup-3.0-dev \
     libsox-dev \
     libsqlite3-dev \
