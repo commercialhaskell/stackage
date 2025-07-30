@@ -411,7 +411,7 @@ errors for builds, tests and benchmarks.
 
 ### Large scale enabling/disabling of packages
 
-`etc/commenter` is a binary that automates `build-constraints.yaml` workflows.
+`./commenter` is a [tool](https://github.com/bergmark/commenter/) that automates `build-constraints.yaml` workflows.
 
 #### Setup
 This is currently a rust program, You can install the rust toolchain
@@ -438,6 +438,7 @@ Now run:
 ```
 ./check 2>&1 >/dev/null | ./commenter add
 ```
+(or easier just use `commenter add-loop`).
 
 You will get this output:
 ```
