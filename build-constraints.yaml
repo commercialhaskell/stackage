@@ -878,7 +878,7 @@ packages:
         - html-conduit
         - yesod-auth
         - authenticate-oauth
-        - yesod-bin # 0 # 1.6.2.3 https://github.com/yesodweb/yesod/issues/1884
+        - yesod-bin < 0 # https://github.com/yesodweb/yesod/issues/1884 is fixed now
         - yesod-eventsource
         - yesod-gitrepo
         - yesod-newsfeed
@@ -9461,7 +9461,8 @@ build-tool-overrides:
 # Example:
 # If bindings-GLFW-3.1.2.1 is the current latest version write
 # - bindings-GLFW-3.1.2.1 # Comment saying what should be done when the new version is released
-tell-me-when-its-released: []
+tell-me-when-its-released:
+- yesod-bin-1.6.2.3  # https://github.com/yesodweb/yesod/issues/1884 fixed, re-enable
 
 # Packages which should be hidden after registering, to avoid module name
 # conflicts. This is intended for at least two use cases:
