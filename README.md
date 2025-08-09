@@ -24,7 +24,7 @@ We welcome all packages, provided:
 * The package's tests and benchmark code SHOULD also build: if possible the testsuite SHOULD also pass.
   * We recommend setting up CI, which ensures a package is not accidentally incomplete, etc.
 * The package should stay compatible with the newest versions of its dependencies.
-* The package author/maintainer strives to follow [MAINTAINERS.md](https://github.com/commercialhaskell/stackage/blob/master/MAINTAINERS.md).
+* The package author/maintainer aims to follow [MAINTAINERS.md](https://github.com/commercialhaskell/stackage/blob/master/MAINTAINERS.md).
 
 Full details on how to add and test a package can be found in the [here](https://github.com/commercialhaskell/stackage/blob/master/MAINTAINERS.md#adding-a-package).
 

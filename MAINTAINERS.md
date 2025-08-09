@@ -98,7 +98,7 @@ There are cases where we will not notice a new release of a package
 because of other upper bounds that are in place.
 
 If a package is not updated in time, it may be temporarily removed
-from Stackage by the curator team. We strive to notify you when this
+from Stackage by the curator team. We aim to notify you when this
 happens. If it does you are always welcome to file another pull
 request to add it back.
 
