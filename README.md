@@ -73,6 +73,11 @@ The following describes at a high level the series of steps for processing
 6. Verify that the build plan can be compiled
 7. Perform the build
 
+__NOTE__: Packages in Nightly that are holding newer versions of other
+packages back for an extended period of time will eventually get disabled,
+depending on the impact but at latest usually right after the branching of the
+next major LTS version.
+
 ### LTS
 
 1. Load up most recent build plan
