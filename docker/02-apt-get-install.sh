@@ -19,6 +19,7 @@ apt-get install -y \
     coinor-libclp-dev \
     curl \
     dvipng \
+    erlang \
     freeglut3-dev \
     freetds-dev \
     fsharp \
