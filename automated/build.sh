@@ -88,13 +88,13 @@ STACK_VERSION=3.7.1
 curl -L https://github.com/commercialhaskell/stack/releases/download/v${STACK_VERSION}/stack-${STACK_VERSION}-linux-x86_64-bin > stack
 chmod +x stack
 
-docker run --rm -v "$(pwd)"/curator:/curator -v "$(pwd)"/stack:/stack $IMAGE /bin/bash -c "
-    echo -n 'curator version: '
-    /curator --version
-    echo -n 'stack version: '
-    /stack --version
-    "
-)
+# docker run --rm -v "$(pwd)"/curator:/curator -v "$(pwd)"/stack:/stack $IMAGE /bin/bash -c "
+#     echo -n 'curator version: '
+#     /curator --version
+#     echo -n 'stack version: '
+#     /stack --version
+#     "
+# )
 
 # We share pantry directory between snapshots while the other content in .stack
 # is stored separately (because e.g. Ubuntu releases between LTS and nightly
