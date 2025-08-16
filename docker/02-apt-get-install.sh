@@ -75,7 +75,7 @@ apt-get install -y \
     libimlib2-dev \
     libjack-jackd2-dev \
     libjansson-dev \
-    libjavascriptcoregtk-4.0-dev \
+    libjavascriptcoregtk-4.1-dev \
     libjavascriptcoregtk-6.0-dev \
     libjudy-dev \
     liblapack-dev \
