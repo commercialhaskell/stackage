@@ -94,7 +94,7 @@ chmod +x stack
 #     echo -n 'stack version: '
 #     /stack --version
 #     "
-# )
+)
 
 # We share pantry directory between snapshots while the other content in .stack
 # is stored separately (because e.g. Ubuntu releases between LTS and nightly
