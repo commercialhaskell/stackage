@@ -170,7 +170,6 @@ apt-get install -y \
     unzip \
     wget \
     xclip \
-    z3 \
     zip \
     zlib1g-dev \
     zsh
