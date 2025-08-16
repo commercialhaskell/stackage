@@ -18,6 +18,7 @@ apt-get install -y \
     cmake \
     coinor-libclp-dev \
     curl \
+    cvc5 \
     dvipng \
     erlang \
     freeglut3-dev \
