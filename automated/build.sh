@@ -182,7 +182,13 @@ docker run $ARGS_UPLOAD -e "CURATOR_AWS_OPTIONS=--only-show-errors" $IMAGE /bin/
     "
 date
 
-docker run $ARGS_UPLOAD $IMAGE curator hackage-distro --target $TARGET
+case $TARGET in
+    lts-22.*) ;;
+    lts-23.*) ;;
+    *)
+        docker run $ARGS_UPLOAD $IMAGE curator hackage-distro --target $TARGET
+        ;;
+esac
 
 # Build and push docker image fpco/stack-build & fpco/stack-build-small for current release
 
