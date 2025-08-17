@@ -13,6 +13,7 @@ while true; do
     ${cmd:+exit 0}
     date
     ${once:+exit 0}
+    echo "$0: run completed"
     sleep 60m
     echo
 done
