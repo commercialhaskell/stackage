@@ -6,7 +6,7 @@ Stable sets of Haskell Packages from Hackage
 
 _This repository is for package authors and maintainers to get their packages into Stackage._
 
-If you simply want to use Stackage as an end user, please follow the instructions in the  [stack documentation](https://docs.haskellstack.org/en/stable/) or via <https://www.stackage.org/>.
+If you simply want to use Stackage as an end user, please follow the instructions in the  [stack documentation](https://docs.haskellstack.org/en/stable/) or via <https://www.stackage.org/#about>.
 
 We highly recommend using the Haskell [stack](https://github.com/commercialhaskell/stack) tool for doing builds, which
 includes built-in Stackage support.
