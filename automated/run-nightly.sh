@@ -11,9 +11,8 @@ while true; do
     git pull
     ./build.sh nightly-$(date -u +%F) $cmd
     ${cmd:+exit 0}
-    date
-    ${once:+exit 0}
-    echo "$0: run completed"
+    ${once:+date; exit 0}
+    echo "$0: run completed at $(date)"
     sleep 60m
     echo
 done
