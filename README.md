@@ -18,12 +18,15 @@ Add your package
 
 We welcome all packages, provided:
 
-* The package author/maintainer agrees to the [maintainers agreement](https://github.com/commercialhaskell/stackage/blob/master/MAINTAINERS.md).
-* The package is buildable and testable from Hackage. We recommend setting up CI, which ensures a package is not accidentally incomplete, etc.
-* The package is compatible with the newest versions of its dependencies.
-* The package is compatible with the versions of libraries that ship with GHC ([more information on lenient lower bounds](https://tech.fpcomplete.com/blog/2014/05/lenient-lower-bounds)).
+* The package from Hackage builds in current Stackage snapshots
+  * Stackage only uses pristine sources from Hackage (no patches of packages are allowed, including bounds, other than Hackage revisions)
+  * In particular the package MUST be compatible with the versions of core libraries that ship with GHC ([more information on lenient lower bounds](https://tech.fpcomplete.com/blog/2014/05/lenient-lower-bounds)).
+* The package's tests and benchmark code SHOULD also build: if possible the testsuite SHOULD also pass.
+  * We recommend setting up CI, which ensures a package is not accidentally incomplete, etc.
+* The package should stay compatible with the newest versions of its dependencies.
+* The package author/maintainer strives to follow [MAINTAINERS.md](https://github.com/commercialhaskell/stackage/blob/master/MAINTAINERS.md).
 
-Full details on how to add and test a package can be found in the [maintainers agreement](https://github.com/commercialhaskell/stackage/blob/master/MAINTAINERS.md#adding-a-package).
+Full details on how to add and test a package can be found in the [here](https://github.com/commercialhaskell/stackage/blob/master/MAINTAINERS.md#adding-a-package).
 
 __NOTE__: There is an approximate 30 minute delay between a package uploading
 to Hackage and being available to the Github workflow action to check upper
