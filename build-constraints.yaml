@@ -8049,6 +8049,12 @@ packages:
         - hledger-lib < 1.50
         - hledger < 1.50
         - hledger-ui < 1.50
+
+        # https://github.com/commercialhaskell/stackage/issues/7837
+        - lifted-async < 0.11
+
+        # https://github.com/commercialhaskell/stackage/issues/7838
+        - tar < 0.7.0.0
     # end of Stackage upper bounds
 # end of packages
 
@@ -9236,6 +9242,7 @@ skipped-benchmarks:
     - statistics
     - tree-diff
     - vector-binary-instances
+    - dataframe # dataframe-0.3.0.0 needs criterion >=1 && <=1.6.4.0
 
     # Misc dependency issues
     - heftia-effects # requires https://github.com/hasura/eff (?) -- not on hackage
