@@ -1681,7 +1681,7 @@ packages:
         - stm-containers
         - stm-hamt
         - template-haskell-compat-v0208
-        - testcontainers-postgresql
+        - testcontainers-postgresql < 0 # testcontainers
         - text-builder
         - text-builder-core
         - text-builder-dev
@@ -4133,7 +4133,7 @@ packages:
     "Alex Biehl <alexbiehl@gmail.com> @alexbiehl":
         - haddock-library
         - http-client-openssl
-        - testcontainers
+        - testcontainers < 0 # https://github.com/phadej/aeson-optics/issues/20
 
     "Steven Vandevelde <icid.asset@gmail.com> @icidasset":
         - shikensu
@@ -8209,6 +8209,7 @@ skipped-tests:
     # Missing foreign libraries
     - symengine
     - hasql-interpolate # https://github.com/commercialhaskell/stackage/issues/6841
+    - hasql # blocked by https://github.com/phadej/aeson-optics/issues/20
 
     # Timeouts
     # These tests sometimes take too long and hit the stackage build
