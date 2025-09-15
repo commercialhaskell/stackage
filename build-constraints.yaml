@@ -1657,7 +1657,7 @@ packages:
         - domain-core
         - domain-optics
         - focus
-        - hasql
+        - hasql < 1.9.3.2 # because internal deps pull in testcontainers: https://github.com/phadej/aeson-optics/issues/20
         - hasql-optparse-applicative
         - hasql-pool
         - hasql-th
@@ -8209,7 +8209,6 @@ skipped-tests:
     # Missing foreign libraries
     - symengine
     - hasql-interpolate # https://github.com/commercialhaskell/stackage/issues/6841
-    - hasql # blocked by https://github.com/phadej/aeson-optics/issues/20
 
     # Timeouts
     # These tests sometimes take too long and hit the stackage build
