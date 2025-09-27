@@ -8188,6 +8188,466 @@ skipped-builds:
 # end of skipped-builds
 
 
+# Tests listed in expected-test-failures configure correctly but may fail to run
+# or even build correctly. A Stackage build should not fail based on a test build
+# or test run failure for these packages.
+# (Testsuites which can't configure should be placed under skipped-tests.)
+#
+# We need to build and run test suites to verify if tests listed here
+# can be re-enabled, so we usually wait for the maintainer to file a
+# PR to re-enable them.
+expected-test-failures:
+
+    # Compilation failures
+    - Spock # 0.14.0.0
+    - blake2
+    - brick
+    - butter # 0.1.0.6
+    - cabal-file-th # 0.2.7
+    - cacophony # 0.11.0 https://github.com/centromere/cacophony/issues/15
+    - cereal # 0.5.8.3 https://github.com/GaloisInc/cereal/issues/109
+    - conduit-connection # 0.1.0.5
+    - cryptohash # 0.11.9 Stack builds test and benchmarks in one pass so benchmark could prevent tests from getting built
+    - derive-topdown # 0.1.1.0 https://github.com/HaskellZhangSong/derive-topdown/issues/2
+    - do-notation # 0.1.0.2
+    - fields-and-cases # 0.2.0.0 https://github.com/m-bock/fields-and-cases/issues/1
+    - fortran-src # 0.16.3 https://github.com/camfort/fortran-src/issues/293
+    - generic-lens # https://github.com/commercialhaskell/stackage/issues/6377
+    - ghc-byteorder # 4.11.0.0.10 https://github.com/haskell-hvr/ghc-byteorder/issues/1
+    - ghc-prof # Regression tests: /usr/bin/ld.gold: error: cannot find -lHStemporary-1.3-51ST9z47bmaL2YkhqqBGqn_p ...
+    - haskey-btree # https://github.com/commercialhaskell/stackage/issues/7393
+    - hasql-migration # 0.3.1 https://github.com/tvh/hasql-migration/issues/11
+    - heist # GHC 9.8.1
+    - hweblib # 0.6.3 https://github.com/aycanirican/hweblib/issues/3
+    - inline-r # 1.0.1 https://github.com/tweag/HaskellR/issues/371
+    - interpolate # should be fixed in 9.12.3 https://github.com/sol/interpolate/issues/20
+    - leveldb-haskell
+    - lifted-base # 0.2.3.12 compile fail
+    - massiv-persist # 1.0.0.3 https://github.com/lehins/massiv-compat/issues/1
+    - mfsolve # https://github.com/commercialhaskell/stackage/issues/6379
+    - multiarg # 0.30.0.10
+    - parameterized # 0.5.0.0 https://github.com/commercialhaskell/stackage/issues/5746
+    - protobuf # 0.2.1.4
+    - record-wrangler # 0.1.1.0
+    - rocksdb-haskell # 1.0.1 linking problems with Ubuntu 24.2
+    - say # 0.1.0.1 https://github.com/fpco/say/issues/5
+    - secp256k1-haskell # #5948/closed
+    - serialise # 0.2.6.1 https://github.com/well-typed/cborg/issues/344
+    - servant-http-streams # 0.20.2 https://github.com/haskell-servant/servant/issues/1817
+    - servant-static-th # 1.0.0.1 https://github.com/cdepillabout/servant-static-th/issues/21
+    - store # 0.7.20 https://github.com/mgsloan/store/issues/182
+    - thread-supervisor # 0.2.0.0
+    - twitter-types # 0.11.0 compile fail against aeson 2
+    - type-of-html-static # 0.1.0.2 https://github.com/commercialhaskell/stackage/issues/5728
+    - tztime # 0.1.1.0
+    - ua-parser # 0.7.7.0 compile fail against aeson 2
+    - ua-parser # 0.7.7.0 https://github.com/commercialhaskell/stackage/issues/6440
+    - vformat # 0.14.1.0
+    - vivid-supercollider # 0.4.1.2 https://github.com/commercialhaskell/stackage/issues/4250
+    - xml-html-qq # 0.1.0.1
+    - xmlgen # 0.6.2.2 https://github.com/skogsbaer/xmlgen/issues/6
+    - functor-combinators # 0.4.1.4 https://github.com/mstksg/functor-combinators/issues/9
+    - path # 0.9.6 https://github.com/commercialhaskell/stackage/issues/7503
+
+    # Consistent test failures
+    - Allure # 0.11.0.0
+    - ANum # executable not found, https://github.com/commercialhaskell/stackage/issues/7809
+    - SpatialMath # 0.2.7.1 https://github.com/ghorn/spatial-math/issues/10
+    - ap-normalize # 0.1.0.1 ghc-9.6
+    - astro # 0.4.3.0 https://github.com/aligusnet/astro/issues/8
+    - aws-sns-verify # https://github.com/commercialhaskell/stackage/issues/7438
+    - bugsnag # 1.2.0.0 https://github.com/pbrisbin/bugsnag-haskell/issues/99
+    - coinor-clp # 0.0.0.2
+    - easy-logger # 0.1.0.7 https://github.com/schnecki/easy-logger/issues/1
+    - filecache # 0.5.2 https://github.com/bartavelle/filecache/issues/13
+    - free-foil # 0.2.0 doctest-0.4
+    - generics-eot # 0.4.0.1 ghc-9.6
+    - genvalidity-appendful # https://github.com/commercialhaskell/stackage/issues/7465
+    - genvalidity-mergeful # https://github.com/commercialhaskell/stackage/issues/7465
+    - ghc-typelits-extra # 0.4.8 https://github.com/clash-lang/ghc-typelits-extra/issues/60
+    - ghc-typelits-natnormalise # 0.7.11 https://github.com/clash-lang/ghc-typelits-natnormalise/issues/89
+    - hinotify # 0.4.2 https://github.com/kolmodin/hinotify/issues/38
+    - hsexif # 0.6.1.10 Missing test file
+    - katip # 0.8.8.2 https://github.com/Soostone/katip/issues/155
+    - lsfrom # test: lsfrom does not exist (No such file or directory)
+    - markov-chain-usage-model # https://github.com/advancedtelematic/markov-chain-usage-model/issues/44
+    - monad-logger-aeson # 0.4.1.3 ghc-9.10.1
+    - PSQueue # 1.2.1 https://github.com/PSQueue/PSQueue/issues/19
+    - pvar # 1.0.0.0 ghc-9.6
+    - read-env-var # 1.0.0.0 https://github.com/cdepillabout/read-env-var/issues/2
+    - regex-tdfa # 1.3.2.4 doctest-0.4
+    - rocksdb-haskell-jprupp # 2.1.7 https://github.com/jprupp/rocksdb-haskell/issues/10
+    - sandwich-webdriver # 0.3.0.1 needs Nix binary and store.
+    - sydtest # 0.20.0.0
+    - sydtest-autodocodec # https://github.com/commercialhaskell/stackage/issues/7465
+    - sydtest-yesod # 0.3.0.3 https://github.com/NorfairKing/sydtest/issues/101
+    - symbolize # 1.0.3.1 https://github.com/Qqwy/haskell-symbolize/issues/12
+    - tar-conduit # https://github.com/snoyberg/tar-conduit/issues/33
+    - unicode-data # 0.6.0 https://github.com/composewell/unicode-data/issues/137
+    - vary # 0.1.1.3 doctest-0.4
+    - xml-conduit # 1.10.0.0 https://github.com/snoyberg/xml/issues/204
+
+    # Intermittent failures or unreliable. These tests may pass when
+    # re-enabled, but will eventually fail again.
+    #
+    - aeson-lens # https://github.com/tanakh/aeson-lens/issues/10
+    - base64 # https://github.com/emilypi/base64/issues/31
+    - binary-instances # https://github.com/haskellari/binary-instances/issues/7
+    - cabal-debian # https://github.com/ddssff/cabal-debian/issues/50
+    - capataz # https://github.com/roman/Haskell-capataz/issues/6
+    - cardano-coin-selection # 1.0.1 https://github.com/input-output-hk/cardano-coin-selection/issues/93
+    - comfort-glpk # 0.1 https://github.com/commercialhaskell/stackage/issues/7482
+    - concurrent-extra # https://github.com/basvandijk/concurrent-extra/issues/12
+    - crypto-numbers
+    - cryptocompare # live api request can time out
+    - css-text # https://github.com/yesodweb/css-text/issues/10
+    - distributed-process-execution # https://github.com/haskell-distributed/distributed-process-execution/issues/2
+    - distributed-process-task
+    - dl-fedora # status 404 on http download
+    - fft # test-fft:  exited with: ExitFailure (-11)
+    - foldl-statistics # https://github.com/data61/foldl-statistics/issues/2
+    - friday # https://github.com/RaphaelJ/friday/issues/37
+    - fsnotify # Often runs out of inotify handles
+    - hastache
+    - hedn
+    - ihaskell # https://github.com/gibiansky/IHaskell/issues/551
+    - kdt # 0.2.6 https://github.com/giogadi/kdt/issues/7
+    - lapack
+    - massiv-serialise
+    - math-functions # https://github.com/bos/math-functions/issues/25
+    - mltool # https://github.com/Alexander-Ignatyev/mltool/issues/1
+    - myers-diff # myers-diff-test:  executable not found
+    - network # Unfortunately network failures seem to happen haphazardly
+    - nsis # Intermittent on non-Windows systems
+    - tdigest # 0.3.1 https://github.com/phadej/tdigest/issues/46
+    - text-icu # 0.8.0.5 https://github.com/haskell/text-icu/issues/103
+    - tree-diff # 0.3.4 https://github.com/haskellari/tree-diff/issues/79
+    - wreq
+
+    # Requires running servers, accounts, or a specific environment.
+    #
+    # If a maintainer wants us to run a partial tests suite with tests
+    # that do not require external dependencies, see
+    # https://github.com/commercialhaskell/stackage/issues/6172#issuecomment-902072030
+    #
+    - GLFW-b # X
+    - HTF # Requires shell script and are incompatible with sandboxed package databases
+    - HaRe # Needs ~/.ghc-mod/cabal-helper https://github.com/fpco/stackage/pull/906
+    - IPv6DB
+    - aeson-typescript # needs either yarn or npm; one of them is needed to install a TypeScript compiler.
+    - alex
+    - amqp
+    - aws # AWS Credentials
+    - beam-postgres # requires Postgress instance
+    - bindings-GLFW # Expects running X server
+    - bitcoin-api
+    - bitcoin-api-extra
+    - bloodhound # ElasticSearch
+    - cabal-install
+    - cabal-install-parsers # 0.6.3 # Need local cabal environment
+    - call-alloy # Requires a Java Runtime that allows class file version 61.0
+    - cayley-client
+    - consul-haskell
+    - consumers  # requires PostgreSQL instance
+    - cql-io # Cassandra
+    - datadog # requires API keys in env vars https://github.com/fpco/stackage/pull/3308#issuecomment-369535040
+    - dbcleaner # Requires running PostgreSQL server
+    - dbmigrations # PostgreSQL
+    - dbus # #6373/closed
+    - dns # https://github.com/commercialhaskell/stackage/issues/6374
+    - drifter-postgresql # PostgreSQL
+    - egison # executable not found https://github.com/egison/egison/issues/250
+    - esqueleto # mysql and postgresql
+    - essence-of-live-coding-warp # 0.2.8
+    - eventful-dynamodb
+    - eventful-postgresql
+    - faktory # connection refused, https://github.com/commercialhaskell/stackage/issues/5905
+    - filestore # needs mercurial
+    - gdax # Needs environment variables set
+    - ghc-imported-from # depends on haddocks being generated first https://github.com/fpco/stackage/pull/1315
+    - ghc-mod # https://github.com/DanielG/ghc-mod/issues/611
+    - githash # Needs a git repo
+    - github-rest # needs github auth
+    - gitson # 0.5.2 error with git executable https://github.com/myfreeweb/gitson/issues/1
+    - gitson # https://github.com/myfreeweb/gitson/issues/1
+    - happy # Needs mtl in the user package DB
+    - haskell-neo4j-client # neo4j with auth disabled
+    - hasql # PostgreSQL
+    - hasql-dynamic-statements # PostgreSQL
+    - hasql-notifications # PostgreSQL
+    - hasql-queue
+    - hasql-transaction # PostgreSQL
+    - hedis
+    - hexml-lens # Access to web.archive.org is unreliable.
+    - hie-bios # cabal, stack, ghc; see https://github.com/commercialhaskell/stackage/issues/5025
+    - hjsmin # Test-runner expects a cabal-style 'dist-newstyle' directory
+    - hledger-web # 1.43.2 test: setupTerm: Couldn't look up terminfo entry "unknown"
+    - hocilib # oracle
+    - http-client # httpbin issues, https://github.com/snoyberg/http-client/issues/439
+    - http-client-tls # Access to httpbin.org is unreliable (at the moment 504 Gateway Time-out).
+    - http-directory # httpbin issues, https://github.com/juhp/http-directory/issues/1
+    - http-reverse-proxy # 0.6.1.0
+    - http2 # executable not found https://github.com/kazu-yamamoto/http2/issues/22
+    - influxdb
+    - jsaddle-warp # Needs node
+    - jvm
+    - katip-elasticsearch # elasticsearch
+    - katip-wai # 0.2.0.0
+    - koji-tool
+    - langchain-hs # assumes local HTTP endpoint
+    - liquid-fixpoint # assumes git checkout https://github.com/ucsd-progsys/liquid-fixpoint/issues/760
+    - log # ElasticSearch
+    - lsp-test # example: lsp-demo-reactor-server: createProcess: posix_spawnp: does not exist (No such file or directory)
+    - lz4 # executable not found https://github.com/commercialhaskell/stackage/issues/6226
+    - mangopay # https://github.com/prowdsponsor/mangopay/issues/30
+    - matplotlib # https://github.com/fpco/stackage/issues/2365
+    - memcached-binary # memcached
+    - milena
+    - minio-hs # 1.7.0 Depends on AWS API
+    - mongoDB # Requires local MongoDB server
+    - mysql # MySQL
+    - mysql-haskell # Requires local mysql server with a test account, and binlog enabled.
+    - mysql-simple # MySQL
+    - network-anonymous-i2p
+    - nri-kafka # requires kafka
+    - nri-postgresql # requires postgres
+    - nri-redis # requires redis
+    - odbc # "Need ODBC_TEST_CONNECTION_STRING environment variable"
+    - ollama-haskell # https://github.com/commercialhaskell/stackage/pull/7576
+    - opaleye # PostgreSQL
+    - optima # `demo` invoked with bad arguments https://github.com/commercialhaskell/stackage/pull/6102
+    - pandoc-plot # requires matlab, etc and DISPLAY for tcltk
+    - pantry # https://github.com/commercialhaskell/stackage/issues/4628
+    - peregrin # Requires running pg-harness-server
+    - persistent-redis # redis - https://github.com/fpco/stackage/pull/1581
+    - pinecone # Requires pinecone API key
+    - pipes-mongodb
+    - postgresql-libpq-notify
+    - postgresql-query # PostgreSQL
+    - postgresql-simple # PostgreSQL
+    - postgresql-simple-interval # needs local server
+    - postgresql-simple-migration
+    - postgresql-simple-queue
+    - postgresql-syntax # hedgehog-test executable not found https://github.com/commercialhaskell/stackage/pull/6102
+    - postgresql-typed # PostgreSQL
+    - purescript # git 128 https://github.com/purescript/purescript/issues/2292
+    - rattle # needs fsatrace
+    - redis-io
+    - rel8
+    - req-conduit # Access to httpbin.org is unreliable (at the moment 504 Gateway Time-out).
+    - rest-rewrite # posix_spawnp
+    - rethinkdb
+    - sdl2 # "Failed to connect to the Mir Server"
+    - sendgrid-v3 # Requires sendgrid API key in env #5951/closed
+    - serialport # "The tests need two serial ports as command line arguments" https://github.com/jputcu/serialport/issues/30
+    - servant-rate-limit # redis
+    - serversession-backend-acid-state
+    - serversession-backend-persistent # persistent, see https://github.com/commercialhaskell/stackage/pull/6655#issuecomment-1198868074
+    - serversession-backend-redis # redis
+    - shake # Needs ghc on $PATH with some installed haskell packages
+    - slack-api # needs api key https://github.com/commercialhaskell/stackage/pull/5345
+    - sourcemap # requires npm installed packages
+    - squeal-postgresql # ConnectionException "LibPQ.exec", https://github.com/commercialhaskell/stackage/issues/7108
+    - stripe-http-streams # https://github.com/fpco/stackage/issues/2945, needs Stripe account
+    - sydtest-wai # epollControl does not exist. Stackage server issue?
+    - tasty-papi # Exception: PAPI: Failed to add counter TOT_INS: Permission level does not permit operation [-15]
+    - users-persistent # sqlite
+    - users-postgresql-simple # PostgreSQL
+    - wai-cors # PhantomJS
+    - wai-middleware-delegate # Access to httpbin.org is unreliable (at the moment 504 Gateway Time-out).
+    - wai-rate-limit-redis # Redis
+    - wai-session-postgresql # PostgreSQL
+    - wai-session-redis # https://github.com/commercialhaskell/stackage/pull/5980
+    - webdriver # needs nix
+    - webdriver-angular # webdriver server
+    - webex-teams-api # 0.2.0.1
+    - webex-teams-conduit # 0.2.0.1
+    - websockets
+    - what4 # Missing cvc4 and cvc5 - cvc5 is not available for ubuntu 22.04 https://github.com/GaloisInc/what4/issues/262
+    - yesod-auth-hashdb # 1.7.1.7
+    - yesod-core
+    - yesod-persistent # 1.6.0.8
+    - yesod-test # 1.6.23
+
+    # Missing test files in sdist
+    #
+    # The cause is that a test suite requires a file that is not
+    # present in the tarball that is uploaded to Hackage. It can be
+    # fixed by adding these files to `extra-source-files` in the
+    # .cabal file.
+    #
+    - aeson-combinators # https://github.com/turboMaCk/aeson-combinators/issues/31
+    - aeson-jsonpath # https://github.com/taimoorzaeem/aeson-jsonpath/issues/31
+    - brittany # https://github.com/commercialhaskell/stackage/issues/6465
+    - cpio-conduit # Test file not in tarball https://github.com/da-x/cpio-conduit/issues/1
+    - crypto-pubkey # https://github.com/vincenthz/hs-crypto-pubkey/issues/23
+    - doctest-discover # https://github.com/karun012/doctest-discover/issues/33
+    - enum-text # https://github.com/cdornan/enum-text/issues/3
+    - ghc-events # https://github.com/haskell/ghc-events/issues/70
+    - gitlab-haskell # https://github.com/commercialhaskell/stackage/issues/6088
+    - hspec-junit-formatter # https://github.com/freckle/hspec-junit-formatter/issues/14
+    - persistent # https://github.com/commercialhaskell/stackage/issues/6037
+    - reanimate-svg # https://github.com/commercialhaskell/stackage/issues/5688
+    - rzk
+
+    # Testcase failures, or other runtime failures.
+    # These can be real testsuite bugs, or maybe limitations in test cases or the test setup.
+    - OrderedBits # 0.0.2.0
+    - ace # failed with ghc-9.4.4
+    - algebraic-graphs # Module not visible https://github.com/commercialhaskell/stackage/issues/4670
+    - binary-generic-combinators # 0.4.4.0 negative quickcheck resize
+    - bsb-http-chunked # 0.0.0.4
+    - c2hs # 0.28.8
+    - cfenv # 0.1.0.0 https://github.com/tomphp/haskell-cfenv/issues/1
+    - character-cases # 0.1.0.6 https://github.com/aiya000/hs-character-cases/issues/3
+    - codec-beam # 0.2.0 posix_spawnp: does not exist
+    - colonnade # 1.2.0.2 https://github.com/andrewthad/colonnade/issues/31
+    - control-dsl # 0.2.1.3
+    - crypt-sha512 # 0 Use -p '/crypt.$6$rounds=10$roundstoolow/' to rerun this test only.
+    - curl-runnings # 0.17.0
+    - download # 0.3.2.7 https://github.com/fpco/stackage/issues/2811
+    - duration # 0.2.0.0
+    - ede # 0.3.4.0 /test/resources/include.child2 doesn't exist
+    - fakedata # 1.0.5 https://github.com/fakedata-haskell/fakedata/issues/57
+    - fast-builder # prop: executable not found
+    - fedora-repoquery # as part of https://github.com/commercialhaskell/stackage/pull/7517
+    - free-alacarte
+    - generic-optics # 2.2.1.0 optimization output https://github.com/kcsongor/generic-lens/issues/133
+    - github-types # https://github.com/commercialhaskell/stackage/issues/6549
+    - hgeometry-combinatorial # 0.14
+    - hruby # 0.5.1.0
+    - hspec-golden-aeson # 0.9.0.0
+    - invertible # 0.2.0.8 executable not found
+    - justified-containers # 0.3.0.0
+    - lattices # quicheck flakiness
+    - list-transformer
+    - massiv-io
+    - megaparsec-tests
+    - memcache # 0.3.0.2 executable not found
+    - mighty-metropolis # https://github.com/jtobin/mighty-metropolis/issues/6
+    - mixpanel-client # https://github.com/domenkozar/mixpanel-client/issues/7
+    - morpheus-graphql-app
+    - mwc-random
+    - nri-observability # https://github.com/commercialhaskell/stackage/issues/6179
+    - nri-prelude # https://github.com/commercialhaskell/stackage/issues/6179
+    - ochintin-daicho
+    - openapi3
+    - openssl-streams # 1.2.3.0 asn1 encoding wrong tag
+    - opentelemetry-extra # 0.8.0 negative quickcheck resize
+    - optics # 0.4.2.1
+    - pcre-heavy
+    - persistent-mtl # cannot run tests with persistent > 2.14
+    - pkgtreediff # 0.6.0
+    - posix-paths
+    - posix-pty # 0.2.2
+    - prettyprinter
+    - prettyprinter-ansi-terminal
+    - product-profunctors # 0.11.0.3 executable not found
+    - rando # https://github.com/commercialhaskell/stackage/issues/4249
+    - rank1dynamic
+    - readline # 1.0.3.0
+    - req # https://github.com/commercialhaskell/stackage/issues/6904
+    - rescue
+    - roc-id # negative quickcheck resize
+    - rose-trees
+    - safe-decimal
+    - simple-affine-space
+    - simple-vec3 # https://github.com/commercialhaskell/stackage/pull/5410
+    - singletons-base
+    - sized
+    - spatial-math
+    - sqids
+    - stateWriter # 0.4.0 https://github.com/bartavelle/stateWriter/issues/6
+    - tasty-fail-fast
+    - triplesec
+    - turtle
+    - type-level-kv-list
+    - unicode-show
+    - universe-some
+    - universum
+    - utf8-conversions
+    - varying
+    - vivid-osc
+    - wakame
+    - world-peace
+    - xml-picklers # https://github.com/Philonous/xml-picklers/issues/5
+    - xmlbf
+    - yarn-lock
+    - yesod-gitrev # needs a git repo https://github.com/commercialhaskell/stackage/issues/6132
+    - yesod-markdown # https://github.com/pbrisbin/yesod-markdown/issues/77
+    - yggdrasil-schema # https://github.com/commercialhaskell/stackage/issues/7518
+    - genvalidity-network-uri # URI <<loop>>
+    - haskoin-node # "reads arbitrary addresses" failed
+
+    # Recursive deps https://github.com/fpco/stackage/issues/1818
+    - options
+    - text # 1.2.2.1
+
+    # Problem on the stackage build server, we need to dig deeper into
+    # these if we want them fixed
+    - domain-optics # `demo`: executable not found
+    - ghci-hexcalc # https://github.com/takenobu-hs/ghci-hexcalc/issues/2
+    - isocline # segfault https://github.com/daanx/isocline/issues/1
+    - rounded # segfault
+    - shake-language-c # Cannot reproduce locally, looks like it may be a bug in Stack or curator
+    - skein # openfile: does not exist https://github.com/fpco/stackage/issues/1187
+    - genvalidity-text # Suddenly not able to find the executable
+    - safe-coloured-text-layout # Golden output not found
+    - ListLike # listlike-tests:  executable not found
+
+    # doctests can be flaky on the build server, add packages here if
+    # they start causing issues.
+    - bookkeeping
+    - detour-via-sci # https://github.com/commercialhaskell/stackage/issues/6360
+    - dhall
+    - dimensional # CPP issue
+    - doctest-driver-gen
+    - doctest-parallel
+    - dyre
+    - envelope # https://github.com/commercialhaskell/stackage/issues/6383
+    - error
+    - fmt # https://github.com/commercialhaskell/stackage/issues/6375
+    - greskell
+    - greskell-core
+    - headroom
+    - hint
+    - hledger-lib
+    - iproute
+    - kawhi
+    - lens-regex
+    - makefile # Doctests require hidden Glob package
+    - model
+    - multiset # Doctests require hidden Glob package
+    - servant-openapi3
+    - xml-indexed-cursor
+    - yesod-paginator
+
+    # Misc. Please check if there is a better section before adding more packages here.
+    - ghcid # Weird conflicts with sandboxingistributed/distributed-process-supervisor/issues/1
+    - http-io-streams # https://github.com/commercialhaskell/stackage/issues/7644
+    - pcg-random # https://github.com/cchalmers/pcg-random/pull/7
+    - persistent-mongoDB # Requires a running server
+    - persistent-mysql # https://github.com/commercialhaskell/stackage/issues/4764
+    - persistent-postgresql # https://github.com/commercialhaskell/stackage/issues/4763
+    - pg-transact # https://github.com/jfischoff/pg-transact/issues/2
+    - poly
+    - postgresql-simple-queue # same issue as before, see also https://github.com/fpco/stackage/issues/2592 as that will fix both
+    - rattletrap # OOM? https://github.com/fpco/stackage/issues/2232
+    - relude # doctest fails due to GHC bugs, will be fixed in the next `relude` release
+    - sbv
+    - servant-elm # https://github.com/haskell-servant/servant-elm/issues/62
+    - servant-ruby # Module not visible https://github.com/commercialhaskell/stackage/issues/4650
+    - skews # https://github.com/iij-ii/direct-hs/issues/100
+    - stm-delay # https://github.com/joeyadams/haskell-stm-delay/issues/5
+    - tasty-discover # https://github.com/commercialhaskell/stackage/issues/4722
+    - threads # https://github.com/basvandijk/threads/issues/10
+    - tmp-postgres # https://github.com/jfischoff/tmp-postgres/issues/1
+
+    # Please review the sections above before adding packages to a new section or to Misc.
+
+# end of expected-test-failures
+
+
 # By skipping a test suite, we do not pull in the build dependencies
 # Packages should only be added here if required by `stackage-curator check'
 # or if Setup fails because of missing foreign libraries.
@@ -8689,465 +9149,6 @@ skipped-tests:
     - sandwich-contexts # assumes nix is present
 
 # end of skipped-tests
-
-# Tests listed in expected-test-failures configure correctly but may fail to run
-# or even build correctly. A Stackage build should not fail based on a test build
-# or test run failure for these packages.
-# (Testsuites which can't configure should be placed under skipped-tests.)
-#
-# We need to build and run test suites to verify if tests listed here
-# can be re-enabled, so we usually wait for the maintainer to file a
-# PR to re-enable them.
-expected-test-failures:
-
-    # Compilation failures
-    - Spock # 0.14.0.0
-    - blake2
-    - brick
-    - butter # 0.1.0.6
-    - cabal-file-th # 0.2.7
-    - cacophony # 0.11.0 https://github.com/centromere/cacophony/issues/15
-    - cereal # 0.5.8.3 https://github.com/GaloisInc/cereal/issues/109
-    - conduit-connection # 0.1.0.5
-    - cryptohash # 0.11.9 Stack builds test and benchmarks in one pass so benchmark could prevent tests from getting built
-    - derive-topdown # 0.1.1.0 https://github.com/HaskellZhangSong/derive-topdown/issues/2
-    - do-notation # 0.1.0.2
-    - fields-and-cases # 0.2.0.0 https://github.com/m-bock/fields-and-cases/issues/1
-    - fortran-src # 0.16.3 https://github.com/camfort/fortran-src/issues/293
-    - generic-lens # https://github.com/commercialhaskell/stackage/issues/6377
-    - ghc-byteorder # 4.11.0.0.10 https://github.com/haskell-hvr/ghc-byteorder/issues/1
-    - ghc-prof # Regression tests: /usr/bin/ld.gold: error: cannot find -lHStemporary-1.3-51ST9z47bmaL2YkhqqBGqn_p ...
-    - haskey-btree # https://github.com/commercialhaskell/stackage/issues/7393
-    - hasql-migration # 0.3.1 https://github.com/tvh/hasql-migration/issues/11
-    - heist # GHC 9.8.1
-    - hweblib # 0.6.3 https://github.com/aycanirican/hweblib/issues/3
-    - inline-r # 1.0.1 https://github.com/tweag/HaskellR/issues/371
-    - interpolate # should be fixed in 9.12.3 https://github.com/sol/interpolate/issues/20
-    - leveldb-haskell
-    - lifted-base # 0.2.3.12 compile fail
-    - massiv-persist # 1.0.0.3 https://github.com/lehins/massiv-compat/issues/1
-    - mfsolve # https://github.com/commercialhaskell/stackage/issues/6379
-    - multiarg # 0.30.0.10
-    - parameterized # 0.5.0.0 https://github.com/commercialhaskell/stackage/issues/5746
-    - protobuf # 0.2.1.4
-    - record-wrangler # 0.1.1.0
-    - rocksdb-haskell # 1.0.1 linking problems with Ubuntu 24.2
-    - say # 0.1.0.1 https://github.com/fpco/say/issues/5
-    - secp256k1-haskell # #5948/closed
-    - serialise # 0.2.6.1 https://github.com/well-typed/cborg/issues/344
-    - servant-http-streams # 0.20.2 https://github.com/haskell-servant/servant/issues/1817
-    - servant-static-th # 1.0.0.1 https://github.com/cdepillabout/servant-static-th/issues/21
-    - store # 0.7.20 https://github.com/mgsloan/store/issues/182
-    - thread-supervisor # 0.2.0.0
-    - twitter-types # 0.11.0 compile fail against aeson 2
-    - type-of-html-static # 0.1.0.2 https://github.com/commercialhaskell/stackage/issues/5728
-    - tztime # 0.1.1.0
-    - ua-parser # 0.7.7.0 compile fail against aeson 2
-    - ua-parser # 0.7.7.0 https://github.com/commercialhaskell/stackage/issues/6440
-    - vformat # 0.14.1.0
-    - vivid-supercollider # 0.4.1.2 https://github.com/commercialhaskell/stackage/issues/4250
-    - xml-html-qq # 0.1.0.1
-    - xmlgen # 0.6.2.2 https://github.com/skogsbaer/xmlgen/issues/6
-    - functor-combinators # 0.4.1.4 https://github.com/mstksg/functor-combinators/issues/9
-    - path # 0.9.6 https://github.com/commercialhaskell/stackage/issues/7503
-
-    # Consistent test failures
-    - Allure # 0.11.0.0
-    - ANum # executable not found, https://github.com/commercialhaskell/stackage/issues/7809
-    - SpatialMath # 0.2.7.1 https://github.com/ghorn/spatial-math/issues/10
-    - ap-normalize # 0.1.0.1 ghc-9.6
-    - astro # 0.4.3.0 https://github.com/aligusnet/astro/issues/8
-    - aws-sns-verify # https://github.com/commercialhaskell/stackage/issues/7438
-    - bugsnag # 1.2.0.0 https://github.com/pbrisbin/bugsnag-haskell/issues/99
-    - coinor-clp # 0.0.0.2
-    - easy-logger # 0.1.0.7 https://github.com/schnecki/easy-logger/issues/1
-    - filecache # 0.5.2 https://github.com/bartavelle/filecache/issues/13
-    - free-foil # 0.2.0 doctest-0.4
-    - generics-eot # 0.4.0.1 ghc-9.6
-    - genvalidity-appendful # https://github.com/commercialhaskell/stackage/issues/7465
-    - genvalidity-mergeful # https://github.com/commercialhaskell/stackage/issues/7465
-    - ghc-typelits-extra # 0.4.8 https://github.com/clash-lang/ghc-typelits-extra/issues/60
-    - ghc-typelits-natnormalise # 0.7.11 https://github.com/clash-lang/ghc-typelits-natnormalise/issues/89
-    - hinotify # 0.4.2 https://github.com/kolmodin/hinotify/issues/38
-    - hsexif # 0.6.1.10 Missing test file
-    - katip # 0.8.8.2 https://github.com/Soostone/katip/issues/155
-    - lsfrom # test: lsfrom does not exist (No such file or directory)
-    - markov-chain-usage-model # https://github.com/advancedtelematic/markov-chain-usage-model/issues/44
-    - monad-logger-aeson # 0.4.1.3 ghc-9.10.1
-    - PSQueue # 1.2.1 https://github.com/PSQueue/PSQueue/issues/19
-    - pvar # 1.0.0.0 ghc-9.6
-    - read-env-var # 1.0.0.0 https://github.com/cdepillabout/read-env-var/issues/2
-    - regex-tdfa # 1.3.2.4 doctest-0.4
-    - rocksdb-haskell-jprupp # 2.1.7 https://github.com/jprupp/rocksdb-haskell/issues/10
-    - sandwich-webdriver # 0.3.0.1 needs Nix binary and store.
-    - sydtest # 0.20.0.0
-    - sydtest-autodocodec # https://github.com/commercialhaskell/stackage/issues/7465
-    - sydtest-yesod # 0.3.0.3 https://github.com/NorfairKing/sydtest/issues/101
-    - symbolize # 1.0.3.1 https://github.com/Qqwy/haskell-symbolize/issues/12
-    - tar-conduit # https://github.com/snoyberg/tar-conduit/issues/33
-    - unicode-data # 0.6.0 https://github.com/composewell/unicode-data/issues/137
-    - vary # 0.1.1.3 doctest-0.4
-    - xml-conduit # 1.10.0.0 https://github.com/snoyberg/xml/issues/204
-
-    # Intermittent failures or unreliable. These tests may pass when
-    # re-enabled, but will eventually fail again.
-    #
-    - aeson-lens # https://github.com/tanakh/aeson-lens/issues/10
-    - base64 # https://github.com/emilypi/base64/issues/31
-    - binary-instances # https://github.com/haskellari/binary-instances/issues/7
-    - cabal-debian # https://github.com/ddssff/cabal-debian/issues/50
-    - capataz # https://github.com/roman/Haskell-capataz/issues/6
-    - cardano-coin-selection # 1.0.1 https://github.com/input-output-hk/cardano-coin-selection/issues/93
-    - comfort-glpk # 0.1 https://github.com/commercialhaskell/stackage/issues/7482
-    - concurrent-extra # https://github.com/basvandijk/concurrent-extra/issues/12
-    - crypto-numbers
-    - cryptocompare # live api request can time out
-    - css-text # https://github.com/yesodweb/css-text/issues/10
-    - distributed-process-execution # https://github.com/haskell-distributed/distributed-process-execution/issues/2
-    - distributed-process-task
-    - dl-fedora # status 404 on http download
-    - fft # test-fft:  exited with: ExitFailure (-11)
-    - foldl-statistics # https://github.com/data61/foldl-statistics/issues/2
-    - friday # https://github.com/RaphaelJ/friday/issues/37
-    - fsnotify # Often runs out of inotify handles
-    - hastache
-    - hedn
-    - ihaskell # https://github.com/gibiansky/IHaskell/issues/551
-    - kdt # 0.2.6 https://github.com/giogadi/kdt/issues/7
-    - lapack
-    - massiv-serialise
-    - math-functions # https://github.com/bos/math-functions/issues/25
-    - mltool # https://github.com/Alexander-Ignatyev/mltool/issues/1
-    - myers-diff # myers-diff-test:  executable not found
-    - network # Unfortunately network failures seem to happen haphazardly
-    - nsis # Intermittent on non-Windows systems
-    - tdigest # 0.3.1 https://github.com/phadej/tdigest/issues/46
-    - text-icu # 0.8.0.5 https://github.com/haskell/text-icu/issues/103
-    - tree-diff # 0.3.4 https://github.com/haskellari/tree-diff/issues/79
-    - wreq
-
-    # Requires running servers, accounts, or a specific environment.
-    #
-    # If a maintainer wants us to run a partial tests suite with tests
-    # that do not require external dependencies, see
-    # https://github.com/commercialhaskell/stackage/issues/6172#issuecomment-902072030
-    #
-    - GLFW-b # X
-    - HTF # Requires shell script and are incompatible with sandboxed package databases
-    - HaRe # Needs ~/.ghc-mod/cabal-helper https://github.com/fpco/stackage/pull/906
-    - IPv6DB
-    - aeson-typescript # needs either yarn or npm; one of them is needed to install a TypeScript compiler.
-    - alex
-    - amqp
-    - aws # AWS Credentials
-    - beam-postgres # requires Postgress instance
-    - bindings-GLFW # Expects running X server
-    - bitcoin-api
-    - bitcoin-api-extra
-    - bloodhound # ElasticSearch
-    - cabal-install
-    - cabal-install-parsers # 0.6.3 # Need local cabal environment
-    - call-alloy # Requires a Java Runtime that allows class file version 61.0
-    - cayley-client
-    - consul-haskell
-    - consumers  # requires PostgreSQL instance
-    - cql-io # Cassandra
-    - datadog # requires API keys in env vars https://github.com/fpco/stackage/pull/3308#issuecomment-369535040
-    - dbcleaner # Requires running PostgreSQL server
-    - dbmigrations # PostgreSQL
-    - dbus # #6373/closed
-    - dns # https://github.com/commercialhaskell/stackage/issues/6374
-    - drifter-postgresql # PostgreSQL
-    - egison # executable not found https://github.com/egison/egison/issues/250
-    - esqueleto # mysql and postgresql
-    - essence-of-live-coding-warp # 0.2.8
-    - eventful-dynamodb
-    - eventful-postgresql
-    - faktory # connection refused, https://github.com/commercialhaskell/stackage/issues/5905
-    - filestore # needs mercurial
-    - gdax # Needs environment variables set
-    - ghc-imported-from # depends on haddocks being generated first https://github.com/fpco/stackage/pull/1315
-    - ghc-mod # https://github.com/DanielG/ghc-mod/issues/611
-    - githash # Needs a git repo
-    - github-rest # needs github auth
-    - gitson # 0.5.2 error with git executable https://github.com/myfreeweb/gitson/issues/1
-    - gitson # https://github.com/myfreeweb/gitson/issues/1
-    - happy # Needs mtl in the user package DB
-    - haskell-neo4j-client # neo4j with auth disabled
-    - hasql # PostgreSQL
-    - hasql-dynamic-statements # PostgreSQL
-    - hasql-notifications # PostgreSQL
-    - hasql-queue
-    - hasql-transaction # PostgreSQL
-    - hedis
-    - hexml-lens # Access to web.archive.org is unreliable.
-    - hie-bios # cabal, stack, ghc; see https://github.com/commercialhaskell/stackage/issues/5025
-    - hjsmin # Test-runner expects a cabal-style 'dist-newstyle' directory
-    - hledger-web # 1.43.2 test: setupTerm: Couldn't look up terminfo entry "unknown"
-    - hocilib # oracle
-    - http-client # httpbin issues, https://github.com/snoyberg/http-client/issues/439
-    - http-client-tls # Access to httpbin.org is unreliable (at the moment 504 Gateway Time-out).
-    - http-directory # httpbin issues, https://github.com/juhp/http-directory/issues/1
-    - http-reverse-proxy # 0.6.1.0
-    - http2 # executable not found https://github.com/kazu-yamamoto/http2/issues/22
-    - influxdb
-    - jsaddle-warp # Needs node
-    - jvm
-    - katip-elasticsearch # elasticsearch
-    - katip-wai # 0.2.0.0
-    - koji-tool
-    - langchain-hs # assumes local HTTP endpoint
-    - liquid-fixpoint # assumes git checkout https://github.com/ucsd-progsys/liquid-fixpoint/issues/760
-    - log # ElasticSearch
-    - lsp-test # example: lsp-demo-reactor-server: createProcess: posix_spawnp: does not exist (No such file or directory)
-    - lz4 # executable not found https://github.com/commercialhaskell/stackage/issues/6226
-    - mangopay # https://github.com/prowdsponsor/mangopay/issues/30
-    - matplotlib # https://github.com/fpco/stackage/issues/2365
-    - memcached-binary # memcached
-    - milena
-    - minio-hs # 1.7.0 Depends on AWS API
-    - mongoDB # Requires local MongoDB server
-    - mysql # MySQL
-    - mysql-haskell # Requires local mysql server with a test account, and binlog enabled.
-    - mysql-simple # MySQL
-    - network-anonymous-i2p
-    - nri-kafka # requires kafka
-    - nri-postgresql # requires postgres
-    - nri-redis # requires redis
-    - odbc # "Need ODBC_TEST_CONNECTION_STRING environment variable"
-    - ollama-haskell # https://github.com/commercialhaskell/stackage/pull/7576
-    - opaleye # PostgreSQL
-    - optima # `demo` invoked with bad arguments https://github.com/commercialhaskell/stackage/pull/6102
-    - pandoc-plot # requires matlab, etc and DISPLAY for tcltk
-    - pantry # https://github.com/commercialhaskell/stackage/issues/4628
-    - peregrin # Requires running pg-harness-server
-    - persistent-redis # redis - https://github.com/fpco/stackage/pull/1581
-    - pinecone # Requires pinecone API key
-    - pipes-mongodb
-    - postgresql-libpq-notify
-    - postgresql-query # PostgreSQL
-    - postgresql-simple # PostgreSQL
-    - postgresql-simple-interval # needs local server
-    - postgresql-simple-migration
-    - postgresql-simple-queue
-    - postgresql-syntax # hedgehog-test executable not found https://github.com/commercialhaskell/stackage/pull/6102
-    - postgresql-typed # PostgreSQL
-    - purescript # git 128 https://github.com/purescript/purescript/issues/2292
-    - rattle # needs fsatrace
-    - redis-io
-    - rel8
-    - req-conduit # Access to httpbin.org is unreliable (at the moment 504 Gateway Time-out).
-    - rest-rewrite # posix_spawnp
-    - rethinkdb
-    - sdl2 # "Failed to connect to the Mir Server"
-    - sendgrid-v3 # Requires sendgrid API key in env #5951/closed
-    - serialport # "The tests need two serial ports as command line arguments" https://github.com/jputcu/serialport/issues/30
-    - servant-rate-limit # redis
-    - serversession-backend-acid-state
-    - serversession-backend-persistent # persistent, see https://github.com/commercialhaskell/stackage/pull/6655#issuecomment-1198868074
-    - serversession-backend-redis # redis
-    - shake # Needs ghc on $PATH with some installed haskell packages
-    - slack-api # needs api key https://github.com/commercialhaskell/stackage/pull/5345
-    - sourcemap # requires npm installed packages
-    - squeal-postgresql # ConnectionException "LibPQ.exec", https://github.com/commercialhaskell/stackage/issues/7108
-    - stripe-http-streams # https://github.com/fpco/stackage/issues/2945, needs Stripe account
-    - sydtest-wai # epollControl does not exist. Stackage server issue?
-    - tasty-papi # Exception: PAPI: Failed to add counter TOT_INS: Permission level does not permit operation [-15]
-    - users-persistent # sqlite
-    - users-postgresql-simple # PostgreSQL
-    - wai-cors # PhantomJS
-    - wai-middleware-delegate # Access to httpbin.org is unreliable (at the moment 504 Gateway Time-out).
-    - wai-rate-limit-redis # Redis
-    - wai-session-postgresql # PostgreSQL
-    - wai-session-redis # https://github.com/commercialhaskell/stackage/pull/5980
-    - webdriver # needs nix
-    - webdriver-angular # webdriver server
-    - webex-teams-api # 0.2.0.1
-    - webex-teams-conduit # 0.2.0.1
-    - websockets
-    - what4 # Missing cvc4 and cvc5 - cvc5 is not available for ubuntu 22.04 https://github.com/GaloisInc/what4/issues/262
-    - yesod-auth-hashdb # 1.7.1.7
-    - yesod-core
-    - yesod-persistent # 1.6.0.8
-    - yesod-test # 1.6.23
-
-    # Missing test files in sdist
-    #
-    # The cause is that a test suite requires a file that is not
-    # present in the tarball that is uploaded to Hackage. It can be
-    # fixed by adding these files to `extra-source-files` in the
-    # .cabal file.
-    #
-    - aeson-combinators # https://github.com/turboMaCk/aeson-combinators/issues/31
-    - aeson-jsonpath # https://github.com/taimoorzaeem/aeson-jsonpath/issues/31
-    - brittany # https://github.com/commercialhaskell/stackage/issues/6465
-    - cpio-conduit # Test file not in tarball https://github.com/da-x/cpio-conduit/issues/1
-    - crypto-pubkey # https://github.com/vincenthz/hs-crypto-pubkey/issues/23
-    - doctest-discover # https://github.com/karun012/doctest-discover/issues/33
-    - enum-text # https://github.com/cdornan/enum-text/issues/3
-    - ghc-events # https://github.com/haskell/ghc-events/issues/70
-    - gitlab-haskell # https://github.com/commercialhaskell/stackage/issues/6088
-    - hspec-junit-formatter # https://github.com/freckle/hspec-junit-formatter/issues/14
-    - persistent # https://github.com/commercialhaskell/stackage/issues/6037
-    - reanimate-svg # https://github.com/commercialhaskell/stackage/issues/5688
-    - rzk
-
-    # Testcase failures, or other runtime failures.
-    # These can be real testsuite bugs, or maybe limitations in test cases or the test setup.
-    - OrderedBits # 0.0.2.0
-    - ace # failed with ghc-9.4.4
-    - algebraic-graphs # Module not visible https://github.com/commercialhaskell/stackage/issues/4670
-    - binary-generic-combinators # 0.4.4.0 negative quickcheck resize
-    - bsb-http-chunked # 0.0.0.4
-    - c2hs # 0.28.8
-    - cfenv # 0.1.0.0 https://github.com/tomphp/haskell-cfenv/issues/1
-    - character-cases # 0.1.0.6 https://github.com/aiya000/hs-character-cases/issues/3
-    - codec-beam # 0.2.0 posix_spawnp: does not exist
-    - colonnade # 1.2.0.2 https://github.com/andrewthad/colonnade/issues/31
-    - control-dsl # 0.2.1.3
-    - crypt-sha512 # 0 Use -p '/crypt.$6$rounds=10$roundstoolow/' to rerun this test only.
-    - curl-runnings # 0.17.0
-    - download # 0.3.2.7 https://github.com/fpco/stackage/issues/2811
-    - duration # 0.2.0.0
-    - ede # 0.3.4.0 /test/resources/include.child2 doesn't exist
-    - fakedata # 1.0.5 https://github.com/fakedata-haskell/fakedata/issues/57
-    - fast-builder # prop: executable not found
-    - fedora-repoquery # as part of https://github.com/commercialhaskell/stackage/pull/7517
-    - free-alacarte
-    - generic-optics # 2.2.1.0 optimization output https://github.com/kcsongor/generic-lens/issues/133
-    - github-types # https://github.com/commercialhaskell/stackage/issues/6549
-    - hgeometry-combinatorial # 0.14
-    - hruby # 0.5.1.0
-    - hspec-golden-aeson # 0.9.0.0
-    - invertible # 0.2.0.8 executable not found
-    - justified-containers # 0.3.0.0
-    - lattices # quicheck flakiness
-    - list-transformer
-    - massiv-io
-    - megaparsec-tests
-    - memcache # 0.3.0.2 executable not found
-    - mighty-metropolis # https://github.com/jtobin/mighty-metropolis/issues/6
-    - mixpanel-client # https://github.com/domenkozar/mixpanel-client/issues/7
-    - morpheus-graphql-app
-    - mwc-random
-    - nri-observability # https://github.com/commercialhaskell/stackage/issues/6179
-    - nri-prelude # https://github.com/commercialhaskell/stackage/issues/6179
-    - ochintin-daicho
-    - openapi3
-    - openssl-streams # 1.2.3.0 asn1 encoding wrong tag
-    - opentelemetry-extra # 0.8.0 negative quickcheck resize
-    - optics # 0.4.2.1
-    - pcre-heavy
-    - persistent-mtl # cannot run tests with persistent > 2.14
-    - pkgtreediff # 0.6.0
-    - posix-paths
-    - posix-pty # 0.2.2
-    - prettyprinter
-    - prettyprinter-ansi-terminal
-    - product-profunctors # 0.11.0.3 executable not found
-    - rando # https://github.com/commercialhaskell/stackage/issues/4249
-    - rank1dynamic
-    - readline # 1.0.3.0
-    - req # https://github.com/commercialhaskell/stackage/issues/6904
-    - rescue
-    - roc-id # negative quickcheck resize
-    - rose-trees
-    - safe-decimal
-    - simple-affine-space
-    - simple-vec3 # https://github.com/commercialhaskell/stackage/pull/5410
-    - singletons-base
-    - sized
-    - spatial-math
-    - sqids
-    - stateWriter # 0.4.0 https://github.com/bartavelle/stateWriter/issues/6
-    - tasty-fail-fast
-    - triplesec
-    - turtle
-    - type-level-kv-list
-    - unicode-show
-    - universe-some
-    - universum
-    - utf8-conversions
-    - varying
-    - vivid-osc
-    - wakame
-    - world-peace
-    - xml-picklers # https://github.com/Philonous/xml-picklers/issues/5
-    - xmlbf
-    - yarn-lock
-    - yesod-gitrev # needs a git repo https://github.com/commercialhaskell/stackage/issues/6132
-    - yesod-markdown # https://github.com/pbrisbin/yesod-markdown/issues/77
-    - yggdrasil-schema # https://github.com/commercialhaskell/stackage/issues/7518
-    - genvalidity-network-uri # URI <<loop>>
-    - haskoin-node # "reads arbitrary addresses" failed
-
-    # Recursive deps https://github.com/fpco/stackage/issues/1818
-    - options
-    - text # 1.2.2.1
-
-    # Problem on the stackage build server, we need to dig deeper into
-    # these if we want them fixed
-    - domain-optics # `demo`: executable not found
-    - ghci-hexcalc # https://github.com/takenobu-hs/ghci-hexcalc/issues/2
-    - isocline # segfault https://github.com/daanx/isocline/issues/1
-    - rounded # segfault
-    - shake-language-c # Cannot reproduce locally, looks like it may be a bug in Stack or curator
-    - skein # openfile: does not exist https://github.com/fpco/stackage/issues/1187
-    - genvalidity-text # Suddenly not able to find the executable
-    - safe-coloured-text-layout # Golden output not found
-    - ListLike # listlike-tests:  executable not found
-
-    # doctests can be flaky on the build server, add packages here if
-    # they start causing issues.
-    - bookkeeping
-    - detour-via-sci # https://github.com/commercialhaskell/stackage/issues/6360
-    - dhall
-    - dimensional # CPP issue
-    - doctest-driver-gen
-    - doctest-parallel
-    - dyre
-    - envelope # https://github.com/commercialhaskell/stackage/issues/6383
-    - error
-    - fmt # https://github.com/commercialhaskell/stackage/issues/6375
-    - greskell
-    - greskell-core
-    - headroom
-    - hint
-    - hledger-lib
-    - iproute
-    - kawhi
-    - lens-regex
-    - makefile # Doctests require hidden Glob package
-    - model
-    - multiset # Doctests require hidden Glob package
-    - servant-openapi3
-    - xml-indexed-cursor
-    - yesod-paginator
-
-    # Misc. Please check if there is a better section before adding more packages here.
-    - ghcid # Weird conflicts with sandboxingistributed/distributed-process-supervisor/issues/1
-    - http-io-streams # https://github.com/commercialhaskell/stackage/issues/7644
-    - pcg-random # https://github.com/cchalmers/pcg-random/pull/7
-    - persistent-mongoDB # Requires a running server
-    - persistent-mysql # https://github.com/commercialhaskell/stackage/issues/4764
-    - persistent-postgresql # https://github.com/commercialhaskell/stackage/issues/4763
-    - pg-transact # https://github.com/jfischoff/pg-transact/issues/2
-    - poly
-    - postgresql-simple-queue # same issue as before, see also https://github.com/fpco/stackage/issues/2592 as that will fix both
-    - rattletrap # OOM? https://github.com/fpco/stackage/issues/2232
-    - relude # doctest fails due to GHC bugs, will be fixed in the next `relude` release
-    - sbv
-    - servant-elm # https://github.com/haskell-servant/servant-elm/issues/62
-    - servant-ruby # Module not visible https://github.com/commercialhaskell/stackage/issues/4650
-    - skews # https://github.com/iij-ii/direct-hs/issues/100
-    - stm-delay # https://github.com/joeyadams/haskell-stm-delay/issues/5
-    - tasty-discover # https://github.com/commercialhaskell/stackage/issues/4722
-    - threads # https://github.com/basvandijk/threads/issues/10
-    - tmp-postgres # https://github.com/jfischoff/tmp-postgres/issues/1
-
-    # Please review the sections above before adding packages to a new section or to Misc.
-
-# end of expected-test-failures
 
 
 # Haddocks which are expected to fail. Same concept as expected test failures.
