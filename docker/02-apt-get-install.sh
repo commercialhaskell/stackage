@@ -172,5 +172,6 @@ apt-get install -y \
     wget \
     xclip \
     zip \
+    zlib-dev \
     zlib1g-dev \
     zsh
