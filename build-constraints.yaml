@@ -2515,7 +2515,7 @@ packages:
         - ghc-typelits-knownnat
         - ghc-typelits-natnormalise
         - clash-prelude
-        - clash-lib < 0 # 1.8.2 https://github.com/commercialhaskell/stackage/issues/7752
+        - clash-lib
         - clash-ghc
         - clash-prelude-hedgehog
 
@@ -6656,12 +6656,15 @@ packages:
         - clash-ghc < 0 # tried clash-ghc-1.8.3, but its *library* requires ghc-prim >=0.3.1.0 && < 0.13 and the snapshot contains ghc-prim-0.13.0
         - clash-ghc < 0 # tried clash-ghc-1.8.3, but its *library* requires ghci >=8.6.0 && < 9.11 and the snapshot contains ghci-9.12.2
         - clash-ghc < 0 # tried clash-ghc-1.8.3, but its *library* requires template-haskell >=2.8.0.0 && < 2.23 and the snapshot contains template-haskell-2.23.0.0
-        - clash-ghc < 0 # tried clash-ghc-1.8.3, but its *library* requires the disabled package: clash-lib
+        - clash-lib < 0 # tried clash-lib-1.8.3, but its *library* requires ghc >=8.6.0 && < 9.11 and the snapshot contains ghc-9.12.2
+        - clash-lib < 0 # tried clash-lib-1.8.3, but its *library* requires template-haskell >=2.8.0.0 && < 2.23 and the snapshot contains template-haskell-2.23.0.0
         - clash-prelude < 0 # tried clash-prelude-1.8.3, but its *library* requires QuickCheck >=2.7 && < 2.16 and the snapshot contains QuickCheck-2.16.0.0
         - clash-prelude < 0 # tried clash-prelude-1.8.3, but its *library* requires ghc-prim >=0.5.1.0 && < 0.13 and the snapshot contains ghc-prim-0.13.0
         - clash-prelude < 0 # tried clash-prelude-1.8.3, but its *library* requires template-haskell >=2.12.0.0 && < 2.23 and the snapshot contains template-haskell-2.23.0.0
         - clash-prelude-hedgehog < 0 # tried clash-prelude-hedgehog-1.8.3, but its *library* requires hedgehog >=1.0.3 && < 1.6 and the snapshot contains hedgehog-1.7
+        - clash-shake < 0 # tried clash-shake-0.4.0, but its *library* requires the disabled package: clash-ghc
         - clash-shake < 0 # tried clash-shake-0.4.0, but its *library* requires the disabled package: clash-lib
+        - clash-shake < 0 # tried clash-shake-0.4.0, but its *library* requires the disabled package: clash-prelude
         - classy-prelude-yesod < 0 # tried classy-prelude-yesod-1.5.0, but its *library* requires the disabled package: yesod-static
         - cleff < 0 # tried cleff-0.3.3.0, but its *library* requires base >=4.12 && < 4.20 and the snapshot contains base-4.21.0.0
         - cleff < 0 # tried cleff-0.3.3.0, but its *library* requires containers >=0.5 && < 0.7 and the snapshot contains containers-0.7
@@ -6929,7 +6932,6 @@ packages:
         - gitit < 0 # tried gitit-0.15.1.2, but its *library* requires hoauth2 >=2.3.0 && < 2.11 and the snapshot contains hoauth2-2.14.3
         - gitit < 0 # tried gitit-0.15.1.2, but its *library* requires network >=2.6 && < 3.2 and the snapshot contains network-3.2.8.0
         - gitit < 0 # tried gitit-0.15.1.2, but its *library* requires pandoc >=2.9 && < 2.20 || >=3.0 && < 3.2 and the snapshot contains pandoc-3.8.2
-        - gitit < 0 # tried gitit-0.15.1.2, but its *library* requires the disabled package: recaptcha
         - gitit < 0 # tried gitit-0.15.1.2, but its *library* requires xml-conduit >=1.5 && < 1.10 and the snapshot contains xml-conduit-1.10.0.1
         - gitit < 0 # tried gitit-0.15.1.2, but its *library* requires zlib >=0.5 && < 0.7 and the snapshot contains zlib-0.7.1.1
         - gitlib-libgit2 < 0 # tried gitlib-libgit2-3.1.2.1, but its *library* requires the disabled package: gitlib
@@ -7961,7 +7963,6 @@ packages:
         - yesod-auth-hashdb < 0 # tried yesod-auth-hashdb-1.7.1.7, but its *library* requires the disabled package: yesod-auth
         - yesod-auth-oauth2 < 0 # tried yesod-auth-oauth2-0.7.4.0, but its *library* requires the disabled package: yesod-auth
         - yesod-csp < 0 # tried yesod-csp-0.2.7.0, but its *library* requires template-haskell >=2.19.0 && < 2.22 and the snapshot contains template-haskell-2.23.0.0
-        - yesod-csp < 0 # tried yesod-csp-0.2.7.0, but its *library* requires the disabled package: mime
         - yesod-form-richtext < 0 # tried yesod-form-richtext-0.1.0.2, but its *library* requires yesod-core >=1.4 && < 1.5 and the snapshot contains yesod-core-1.6.27.1
         - yesod-form-richtext < 0 # tried yesod-form-richtext-0.1.0.2, but its *library* requires yesod-form >=1.4.4.1 && < 1.5 and the snapshot contains yesod-form-1.7.9
         - yesod-middleware-csp < 0 # tried yesod-middleware-csp-1.2.0, but its *library* requires bytestring >=0.9 && < 0.12 and the snapshot contains bytestring-0.12.2.0
@@ -8846,6 +8847,7 @@ skipped-tests:
     - cassava-conduit # tried cassava-conduit-0.6.6, but its *test-suite* requires QuickCheck >=2.12 && < 2.13 and the snapshot contains QuickCheck-2.16.0.0
     - cassava-conduit # tried cassava-conduit-0.6.6, but its *test-suite* requires bytestring >=0.11 && < 0.12 and the snapshot contains bytestring-0.12.2.0
     - cassava-conduit # tried cassava-conduit-0.6.6, but its *test-suite* requires text >=1.2 && < 1.3 || >=2.0 && < 2.1 and the snapshot contains text-2.1.2
+    - clash-lib # tried clash-lib-1.8.3, but its *test-suite* requires doctest-parallel >=0.2 && < 0.4 and the snapshot contains doctest-parallel-0.4
     - clash-prelude # tried clash-prelude-1.8.3, but its *test-suite* requires doctest-parallel >=0.2 && < 0.4 and the snapshot contains doctest-parallel-0.4
     - clash-prelude # tried clash-prelude-1.8.3, but its *test-suite* requires hedgehog >=1.0.3 && < 1.6 and the snapshot contains hedgehog-1.7
     - co-log # tried co-log-0.7.0.0, but its *test-suite* requires hedgehog >=1.0 && < 1.6 and the snapshot contains hedgehog-1.7
