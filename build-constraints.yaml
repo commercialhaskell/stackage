@@ -4684,7 +4684,7 @@ packages:
         - hpc-lcov
         - http-api-data-qq
         - persistent-mtl
-        - recover-rtti
+        - recover-rtti ^>= 0.5.0 && < 0 # 0.5.1 compile fail against unordered-containers 0.2.21
         - skeletest
         - tasty-autocollect
         - th-test-utils
@@ -7503,6 +7503,7 @@ packages:
         - simplest-sqlite < 0 # tried simplest-sqlite-0.1.0.2, but its *library* requires template-haskell >=2.12 && < 2.16 and the snapshot contains template-haskell-2.23.0.0
         - simplest-sqlite < 0 # tried simplest-sqlite-0.1.0.2, but its *library* requires text >=1.1 && < 1.3 and the snapshot contains text-2.1.2
         - siphash < 0 # tried siphash-1.0.3, but its *library* requires bytestring < 0.11 and the snapshot contains bytestring-0.12.2.0
+        - skeletest < 0 # tried skeletest-0.2.1, but its *library* requires the disabled package: recover-rtti
         - skeletons < 0 # tried skeletons-0.4.0, but its *executable* requires the disabled package: tinytemplate
         - smash < 0 # tried smash-0.1.3, but its *library* requires base >=4.12 && < 4.17 and the snapshot contains base-4.21.0.0
         - smash < 0 # tried smash-0.1.3, but its *library* requires bifunctors ^>=5.5 and the snapshot contains bifunctors-5.6.2
@@ -8618,6 +8619,7 @@ skipped-tests:
     - arbor-lru-cache # tried arbor-lru-cache-0.1.1.1, but its *test-suite* requires hspec >=2.4 && < 2.8 and the snapshot contains hspec-2.11.14
     - ascii-numbers # tried ascii-numbers-1.2.0.2, but its *test-suite* requires hedgehog ^>=1.1.2 || ^>=1.2 || ^>=1.3 || ^>=1.4 and the snapshot contains hedgehog-1.7
     - ascii-predicates # tried ascii-predicates-1.0.1.4, but its *test-suite* requires hedgehog ^>=1.1.2 || ^>=1.2 || ^>=1.3 || ^>=1.4 and the snapshot contains hedgehog-1.7
+    - atomic-css # tried atomic-css-0.2.0, but its *test-suite* requires the disabled package: skeletest
     - aur # tried aur-7.0.7, but its *test-suite* requires tasty >=0.11 && < 1.5 and the snapshot contains tasty-1.5.3
     - aura # tried aura-3.2.10, but its *test-suite* requires tasty >=0.11 && < 1.5 and the snapshot contains tasty-1.5.3
     - automaton # tried automaton-1.6, but its *test-suite* requires QuickCheck >=2.14 && < 2.16 and the snapshot contains QuickCheck-2.16.0.0
@@ -8769,6 +8771,7 @@ skipped-tests:
     - hw-string-parse # tried hw-string-parse-0.0.0.5, but its *test-suite* requires QuickCheck < 2.16 and the snapshot contains QuickCheck-2.16.0.0
     - hw-string-parse # tried hw-string-parse-0.0.0.5, but its *test-suite* requires doctest >=0.16.2 && < 0.23 and the snapshot contains doctest-0.24.2
     - hw-xml # tried hw-xml-0.5.1.2, but its *test-suite* requires doctest >=0.16.2 && < 0.23 and the snapshot contains doctest-0.24.2
+    - hyperbole # tried hyperbole-0.5.0, but its *test-suite* requires the disabled package: skeletest
     - indexed-containers # tried indexed-containers-0.1.0.2, but its *test-suite* requires hspec >=2.4.8 && < 2.8 and the snapshot contains hspec-2.11.14
     - inflections # tried inflections-0.4.0.7, but its *test-suite* requires containers >=0.5 && < 0.7 and the snapshot contains containers-0.7
     - influxdb # tried influxdb-1.9.3.2, but its *test-suite* requires doctest >=0.11.3 && < 0.23 and the snapshot contains doctest-0.24.2
@@ -8826,6 +8829,7 @@ skipped-tests:
     - patch # tried patch-0.0.8.4, but its *test-suite* requires hlint >=3.5 && < 3.6 and the snapshot contains hlint-3.10
     - peregrin # tried peregrin-0.4.2, but its *test-suite* requires resource-pool >=0.4 && < 0.5 and the snapshot contains resource-pool-0.5.0.0
     - peregrin # tried peregrin-0.4.2, but its *test-suite* requires transformers >=0.5.2 && < 0.6 and the snapshot contains transformers-0.6.1.2
+    - persistent-mtl # tried persistent-mtl-0.5.2, but its *test-suite* requires the disabled package: skeletest
     - pfile # tried pfile-0.1.0.1, but its *test-suite* requires hspec >=2.10.10 && < =2.11.9 and the snapshot contains hspec-2.11.14
     - pfile # tried pfile-0.1.0.1, but its *test-suite* requires tasty >=1.4.3 && < =1.5 and the snapshot contains tasty-1.5.3
     - pfile # tried pfile-0.1.0.1, but its *test-suite* requires tasty-quickcheck >=0.10.2 && < =0.11 and the snapshot contains tasty-quickcheck-0.11.1
@@ -8887,6 +8891,7 @@ skipped-tests:
     - time-compat # tried time-compat-1.9.8, but its *test-suite* requires QuickCheck >=2.15.0.1 && < 2.16 and the snapshot contains QuickCheck-2.16.0.0
     - time-compat # tried time-compat-1.9.8, but its *test-suite* requires random >=1.2.1.3 && < 1.3 and the snapshot contains random-1.3.1
     - timers-tick # tried timers-tick-0.5.0.4, but its *test-suite* requires QuickCheck >=2.14 && < 2.16 and the snapshot contains QuickCheck-2.16.0.0
+    - toml-reader # tried toml-reader-0.3.0.0, but its *test-suite* requires the disabled package: skeletest
     - tomland # tried tomland-1.3.3.3, but its *test-suite* requires hedgehog >=1.0.1 && < 1.6 and the snapshot contains hedgehog-1.7
     - true-name # tried true-name-0.2.0.0, but its *test-suite* requires containers ^>=0.5.6 || ^>=0.6.0 and the snapshot contains containers-0.7
     - true-name # tried true-name-0.2.0.0, but its *test-suite* requires time ^>=1.1.2 || ^>=1.5.0 || ^>=1.6.0 || ^>=1.8.0 || ^>=1.9 || ^>=1.11.1 || ^>=1.12.2 and the snapshot contains time-1.14
