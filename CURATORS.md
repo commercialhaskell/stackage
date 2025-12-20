@@ -173,7 +173,7 @@ issue.
 
 If a package needs to be disabled due to build failures: Add a `< 0`
 bound to the package to exclude it, and add a comment stating why it
-was disabled: `- swagger < 0 # compile failure againts aeson 1.0`
+was disabled: `- swagger < 0 # compile failure against aeson 1.0`
 
 If a package needs to be disabled due to bounds issues, see the "Large
 scale enabling/disabling of packages" section below.
@@ -218,7 +218,7 @@ file](https://github.com/commercialhaskell/stackage-content/blob/master/stack/gl
 is updated with information on the latest GHC release by cloning that
 repo and running `./update-global-hints.hs ghc-X.Y.Z`.
 
-If enountering an error like the following, this means that the [Stack metadata](https://github.com/commercialhaskell/stackage-content)
+If encountering an error like the following, this means that the [Stack metadata](https://github.com/commercialhaskell/stackage-content)
 has not yet been updated, so wait some time until this happens:
 
 ```
@@ -404,7 +404,7 @@ This can be used to make sure all version bounds are in place, including for
 test suites and benchmarks, to check whether bounds can be lifted, and to get
 [tell-me-when-its-released] notifications.
 
-`curator` does not build anything, so you wont see any compilation
+`curator` does not build anything, so you won't see any compilation
 errors for builds, tests and benchmarks.
 
 [tell-me-when-its-released]: https://github.com/commercialhaskell/stackage/blob/master/CURATORS.md#waiting-for-new-releases
