@@ -9,10 +9,11 @@ esac
 
 while true; do
     git pull
-    ./build.sh nightly-$(date -u +%F) $cmd
+    time ./build.sh nightly-$(date -u +%F) $cmd
     ${cmd:+exit 0}
     ${once:+date; exit 0}
     echo "$0: run completed at $(date)"
+    echo
     sleep 60m
     echo
 done
