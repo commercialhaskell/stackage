@@ -5,6 +5,7 @@
 # SC1091: Secrets are sourced from a file that doesn't exist in the tree.
 # SC2001: Pattern substitution is too hard to use; don't recommend it.
 
+date
 set -eu +x -o pipefail
 
 ROOT=$(cd "$(dirname $0)" ; pwd)
