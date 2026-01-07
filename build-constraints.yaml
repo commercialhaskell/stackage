@@ -5869,7 +5869,7 @@ packages:
         # This should match GHC version, but maintainer also asked to be
         # removed from notifications, see
         # https://github.com/commercialhaskell/stackage/issues/7861
-        - ghc-exactprint < 1.14
+        - ghc-exactprint
         - ghc-trace-events # #6326/closed
         - hashing # #6271
         - hnix-store-core # #6271
@@ -7812,10 +7812,20 @@ packages:
         - zxcvbn-hs < 0 # tried zxcvbn-hs-0.3.6, but its *library* requires zlib ^>=0.6 and the snapshot contains zlib-0.7.1.1
     # End of Library and exe bounds failures
 
-    "Stackage upper bounds":
+    "GHC major version specific bounds":
         # Cabal
         - cabal-install < 3.16
         - cabal-install-solver < 3.16
+
+        # https://github.com/commercialhaskell/stackage/issues/7904
+        - ghc-lib-parser < 9.13
+        - ghc-lib-parser-ex < 9.13
+        - ghc-lib < 9.14.1
+
+        # ghc-exactprint depends on ghc
+        - ghc-exactprint < 1.14
+
+    "Stackage upper bounds":
 
         # https://github.com/commercialhaskell/stackage/issues/7822
         - jose < 0.12
@@ -7836,11 +7846,6 @@ packages:
 
         # https://github.com/commercialhaskell/stackage/issues/7898
         - egison-pattern-src < 0.2.2
-
-        # https://github.com/commercialhaskell/stackage/issues/7904
-        - ghc-lib-parser < 9.13
-        - ghc-lib-parser-ex < 9.13
-        - ghc-lib < 9.14.1
 
         # https://github.com/commercialhaskell/stackage/issues/7907
         - tasty-bench < 0.5
