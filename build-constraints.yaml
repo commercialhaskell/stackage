@@ -1625,7 +1625,7 @@ packages:
         - domain-core
         - domain-optics
         - focus
-        - hasql < 1.9.3.2 # because internal deps pull in testcontainers: https://github.com/phadej/aeson-optics/issues/20
+        - hasql
         - hasql-optparse-applicative
         - hasql-pool
         - hasql-th
@@ -7852,9 +7852,10 @@ packages:
         - http-api-data < 0.7
 
         # https://github.com/commercialhaskell/stackage/issues/7913
-        # hasql < 1.10 # already bounded above due to aeson-options
+        - hasql < 1.9.3.2 # because internal deps pull in testcontainers: https://github.com/phadej/aeson-optics/issues/20
         - postgresql-binary < 0.15
         - hasql-dynamic-statements < 0.4
+        - hasql-notifications < 0.2.5
         - hasql-optparse-applicative < 0.9.1
         - hasql-pool < 1.4
         - hasql-th < 0.4.1
