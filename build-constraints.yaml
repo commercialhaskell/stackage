@@ -7544,6 +7544,7 @@ packages:
         - stb-image-redux < 0 # tried stb-image-redux-0.2.1.2, but its *library* requires vector >=0.10.12.3 && < 0.13 and the snapshot contains vector-0.13.2.0
         - stm-lifted < 0 # tried stm-lifted-2.5.0.0, but its *library* requires transformers >=0.2 && < 0.6 and the snapshot contains transformers-0.6.1.2
         - streaming-cassava < 0 # tried streaming-cassava-0.2.0.0, but its *library* requires streaming-bytestring >=0.2 && < 0.3 and the snapshot contains streaming-bytestring-0.3.4
+        - streamly-examples < 0 # tried streamly-examples-0.3.0, but its *executable* requires tasty-bench >=0.3 && < 0.5 and the snapshot contains tasty-bench-0.5
         - streamly-examples < 0 # tried streamly-examples-0.3.0, but its *executable* requires the disabled package: streamly-fsevents
         - streamt < 0 # tried streamt-0.5.0.1, but its *library* requires mtl >=2.0 && < 2.3 and the snapshot contains mtl-2.3.1
         - strict-tuple-lens < 0 # tried strict-tuple-lens-0.2, but its *library* requires lens ^>=5 and the snapshot contains lens-5.3.6
@@ -7834,9 +7835,6 @@ packages:
 
         # https://github.com/commercialhaskell/stackage/issues/7898
         - egison-pattern-src < 0.2.2
-
-        # https://github.com/commercialhaskell/stackage/issues/7907
-        - tasty-bench < 0.5
 
         # https://github.com/commercialhaskell/stackage/issues/7912
         - http-api-data < 0.7
@@ -9112,8 +9110,10 @@ skipped-benchmarks:
     #
     # Benchmark bounds issues
     - IntervalMap # tried IntervalMap-0.6.2.1, but its *benchmarks* requires the disabled package: SegmentTree
+    - arithmoi # tried arithmoi-0.13.2.0, but its *benchmarks* requires tasty-bench >=0.4 && < 0.5 and the snapshot contains tasty-bench-0.5
     - base32 # tried base32-0.4, but its *benchmarks* requires bytestring ^>=0.11 and the snapshot contains bytestring-0.12.2.0
     - binary-parsers # tried binary-parsers-0.2.4.0, but its *benchmarks* requires criterion >=1.1 && < 1.2 and the snapshot contains criterion-1.6.4.1
+    - bitvec # tried bitvec-1.1.5.0, but its *benchmarks* requires tasty-bench >=0.3.2 && < 0.5 and the snapshot contains tasty-bench-0.5
     - bitwise-enum # tried bitwise-enum-1.0.1.2, but its *benchmarks* requires the disabled package: gauge
     - bsb-http-chunked # tried bsb-http-chunked-0.0.0.4, but its *benchmarks* requires the disabled package: gauge
     - bytebuild # tried bytebuild-0.3.17.0, but its *benchmarks* requires the disabled package: gauge
@@ -9122,6 +9122,7 @@ skipped-benchmarks:
     - bytesmith # tried bytesmith-0.3.14.0, but its *benchmarks* requires the disabled package: gauge
     - bytestring-encodings # tried bytestring-encodings-0.2.0.2, but its *benchmarks* requires the disabled package: gauge
     - bytestring-trie # tried bytestring-trie-0.2.7.6, but its *benchmarks* requires QuickCheck >=2.10 && < 2.16 and the snapshot contains QuickCheck-2.16.0.0
+    - chimera # tried chimera-0.4.1.0, but its *benchmarks* requires tasty-bench >=0.4 && < 0.5 and the snapshot contains tasty-bench-0.5
     - cipher-aes # tried cipher-aes-0.2.11, but its *benchmarks* requires the disabled package: crypto-cipher-benchmarks
     - cipher-camellia # tried cipher-camellia-0.0.2, but its *benchmarks* requires the disabled package: crypto-cipher-benchmarks
     - cipher-rc4 # tried cipher-rc4-0.1.4, but its *benchmarks* requires the disabled package: crypto-cipher-benchmarks
@@ -9131,18 +9132,23 @@ skipped-benchmarks:
     - crypton # tried crypton-1.0.4, but its *benchmarks* requires the disabled package: gauge
     - csg # tried csg-0.1.0.6, but its *benchmarks* requires criterion < 1.6 and the snapshot contains criterion-1.6.4.1
     - csg # tried csg-0.1.0.6, but its *benchmarks* requires vector < 0.13 and the snapshot contains vector-0.13.2.0
+    - data-findcycle # tried data-findcycle-0.1.2.0, but its *benchmarks* requires tasty-bench >=0.4 && < 0.5 and the snapshot contains tasty-bench-0.5
+    - dhall # tried dhall-1.42.3, but its *benchmarks* requires tasty-bench >=0.4 && < 0.5 and the snapshot contains tasty-bench-0.5
     - fakedata # tried fakedata-1.0.5, but its *benchmarks* requires the disabled package: gauge
+    - fast-digits # tried fast-digits-0.3.2.0, but its *benchmarks* requires tasty-bench >=0.4 && < 0.5 and the snapshot contains tasty-bench-0.5
     - filepath-bytestring # tried filepath-bytestring-1.5.2.0.3, but its *benchmarks* requires filepath >=1.4.2 && < =1.4.2.1 and the snapshot contains filepath-1.5.4.0
     - freer-simple # tried freer-simple-1.2.1.2, but its *benchmarks* requires the disabled package: extensible-effects
-    - fused-effects # tried fused-effects-1.1.2.6, but its *benchmarks* requires tasty-bench >=0.3 && < 0.4 and the snapshot contains tasty-bench-0.4.1
+    - fused-effects # tried fused-effects-1.1.2.6, but its *benchmarks* requires tasty-bench >=0.3 && < 0.4 and the snapshot contains tasty-bench-0.5
     - galois-field # tried galois-field-1.0.2, but its *benchmarks* requires criterion >=1.5 && < 1.6 and the snapshot contains criterion-1.6.4.1
-    - ghc-trace-events # tried ghc-trace-events-0.1.2.10, but its *benchmarks* requires tasty-bench < 0.4 and the snapshot contains tasty-bench-0.4.1
+    - ghc-trace-events # tried ghc-trace-events-0.1.2.10, but its *benchmarks* requires tasty-bench < 0.4 and the snapshot contains tasty-bench-0.5
     - hasmin # tried hasmin-1.0.3, but its *benchmarks* requires criterion >=0.11 && < 1.6 and the snapshot contains criterion-1.6.4.1
-    - hegg # tried hegg-0.6.0.0, but its *benchmarks* requires tasty-bench >=0.2 && < 0.4 and the snapshot contains tasty-bench-0.4.1
+    - hegg # tried hegg-0.6.0.0, but its *benchmarks* requires tasty-bench >=0.2 && < 0.4 and the snapshot contains tasty-bench-0.5
     - hourglass # tried hourglass-0.2.12, but its *benchmarks* requires the disabled package: gauge
     - http-client-tls # tried http-client-tls-0.3.6.4, but its *benchmarks* requires the disabled package: gauge
     - jsonifier # tried jsonifier-0.2.1.3, but its *benchmarks* requires text-builder ^>=0.6.6.1 and the snapshot contains text-builder-1.0.0.5
     - large-hashable # tried large-hashable-0.1.2.0, but its *benchmarks* requires the disabled package: cryptohash
+    - lifted-async # tried lifted-async-0.11.0, but its *benchmarks* requires tasty-bench < 0.5 and the snapshot contains tasty-bench-0.5
+    - list-shuffle # tried list-shuffle-1.0.0.1, but its *benchmarks* requires tasty-bench ^>=0.3.5 || ^>=0.4 and the snapshot contains tasty-bench-0.5
     - min-max-pqueue # tried min-max-pqueue-0.1.0.2, but its *benchmarks* requires criterion >=1.4.1 && < 1.6 and the snapshot contains criterion-1.6.4.1
     - min-max-pqueue # tried min-max-pqueue-0.1.0.2, but its *benchmarks* requires random >=1.1 && < 1.3 and the snapshot contains random-1.3.1
     - minisat-solver # tried minisat-solver-0.1, but its *benchmarks* requires the disabled package: easyrender
@@ -9156,6 +9162,8 @@ skipped-benchmarks:
     - pg-transact # tried pg-transact-0.3.2.0, but its *benchmarks* requires the disabled package: tmp-postgres
     - pipes # tried pipes-4.3.16, but its *benchmarks* requires optparse-applicative >=0.12 && < 0.18 and the snapshot contains optparse-applicative-0.19.0.0
     - pred-trie # tried pred-trie-0.6.1, but its *benchmarks* requires the disabled package: sets
+    - primecount # tried primecount-0.1.0.2, but its *benchmarks* requires tasty-bench >=0.3 && < 0.4 || >=0.4 && < 0.5 and the snapshot contains tasty-bench-0.5
+    - queues # tried queues-1.0.0, but its *benchmarks* requires tasty-bench ^>=0.3.5 || ^>=0.4 and the snapshot contains tasty-bench-0.5
     - random # tried random-1.3.1, but its *benchmarks* requires time >=1.4 && < 1.13 and the snapshot contains time-1.14
     - random-bytestring # tried random-bytestring-0.1.4, but its *benchmarks* requires the disabled package: cryptonite
     - regex-applicative # tried regex-applicative-0.3.4, but its *benchmarks* requires the disabled package: parsers-megaparsec
@@ -9167,16 +9175,20 @@ skipped-benchmarks:
     - squeal-postgresql # tried squeal-postgresql-0.9.2.0, but its *benchmarks* requires the disabled package: gauge
     - streaming-commons # tried streaming-commons-0.2.3.1, but its *benchmarks* requires the disabled package: gauge
     - streamly-bytestring # tried streamly-bytestring-0.2.3, but its *benchmarks* requires the disabled package: gauge
+    - streamly-process # tried streamly-process-0.4.0, but its *benchmarks* requires tasty-bench >=0.2.5 && < 0.5 and the snapshot contains tasty-bench-0.5
     - superbuffer # tried superbuffer-0.3.1.2, but its *benchmarks* requires criterion < 1.3 and the snapshot contains criterion-1.6.4.1
     - superbuffer # tried superbuffer-0.3.1.2, but its *benchmarks* requires the disabled package: buffer-builder
+    - tar # tried tar-0.7.0.0, but its *benchmarks* requires tasty-bench >=0.4 && < 0.5 and the snapshot contains tasty-bench-0.5
     - teardown # tried teardown-0.5.0.1, but its *benchmarks* requires the disabled package: gauge
-    - text-builder # tried text-builder-1.0.0.5, but its *benchmarks* requires tasty-bench ^>=0.5 and the snapshot contains tasty-bench-0.4.1
-    - text-builder-core # tried text-builder-core-0.1.1.2, but its *benchmarks* requires tasty-bench ^>=0.5 and the snapshot contains tasty-bench-0.4.1
+    - text-builder-linear # tried text-builder-linear-0.1.3, but its *benchmarks* requires tasty-bench >=0.4 && < 0.5 and the snapshot contains tasty-bench-0.5
+    - text-iso8601 # tried text-iso8601-0.1.1, but its *benchmarks* requires tasty-bench >=0.3.4 && < 0.5 and the snapshot contains tasty-bench-0.5
+    - timer-wheel # tried timer-wheel-1.0.0.1, but its *benchmarks* requires tasty-bench ^>=0.3.5 || ^>=0.4 and the snapshot contains tasty-bench-0.5
     - ttrie # tried ttrie-0.1.2.2, but its *benchmarks* requires the disabled package: criterion-plus
     - ttrie # tried ttrie-0.1.2.2, but its *benchmarks* requires the disabled package: stm-stats
     - tz # tried tz-0.1.3.6, but its *benchmarks* requires the disabled package: timezone-olson
     - tz # tried tz-0.1.3.6, but its *benchmarks* requires the disabled package: timezone-series
-    - unicode-transforms # tried unicode-transforms-0.4.0.1, but its *benchmarks* requires tasty-bench >=0.2.5 && < 0.4 and the snapshot contains tasty-bench-0.4.1
+    - unicode-data # tried unicode-data-0.8.0, but its *benchmarks* requires tasty-bench >=0.2.5 && < 0.5 and the snapshot contains tasty-bench-0.5
+    - unicode-transforms # tried unicode-transforms-0.4.0.1, but its *benchmarks* requires tasty-bench >=0.2.5 && < 0.4 and the snapshot contains tasty-bench-0.5
     - universum # tried universum-1.8.3, but its *benchmarks* requires the disabled package: gauge
     - unliftio # tried unliftio-0.2.25.1, but its *benchmarks* requires the disabled package: gauge
     - vectortiles # tried vectortiles-1.5.1, but its *benchmarks* requires criterion >=1.1 && < 1.6 and the snapshot contains criterion-1.6.4.1
