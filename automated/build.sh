@@ -80,7 +80,7 @@ BINDIR=$(cd $ROOT/work/bin ; pwd)
 cd $BINDIR
 rm -f curator stack -- *.bz2
 
-curl -L "https://github.com/commercialhaskell/curator/releases/download/commit-fd0ce08183fbd0de290ac1847946cee64084ca62/curator.bz2" | bunzip2 > curator
+curl -L "https://github.com/commercialhaskell/curator/releases/download/commit-28f0bf6b153b7b4317a5613e1067a2e7f42b5f5a/curator.bz2" | bunzip2 > curator
 chmod +x curator
 
 STACK_VERSION=3.7.1
