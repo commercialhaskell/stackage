@@ -11,7 +11,7 @@ export PATH=$HOME/.local/bin:$PATH
 curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
 
 # Get new Stackage curator
-curl -L "https://github.com/commercialhaskell/curator/releases/download/commit-94bf97ad57e03993b8c57a8c4750ea1d00507f68/curator.bz2" | bunzip2 > curator
+curl -L "https://github.com/commercialhaskell/curator/releases/download/commit-9b711e4c71f730cf2ba02cf928882486b27b65a5/curator.bz2" | bunzip2 > curator
 chmod +x curator
 
 # Install GHC

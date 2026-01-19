@@ -6,7 +6,6 @@ ARG GHC_VERSION=9.10.3
 ARG LTS_SLUG=lts-24.12
 # update to 0.1.3.1 for lts-25
 ARG PID1_VERSION=0.1.2.0
-# update to 3.9.1 for lts-25
 ARG STACK_VERSION=3.7.1
 ARG CUDA_VERSION=10.0
 ARG JVM_PATH=/usr/lib/jvm/java-8-openjdk-amd64
