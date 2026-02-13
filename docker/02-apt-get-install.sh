@@ -68,6 +68,7 @@ apt-get install -y \
     libgsl-dev \
     libgtk-3-dev \
     libgtk-4-dev \
+    libgtk-layer-shell-dev \
     libgtk2.0-dev \
     libgtksourceview-3.0-dev \
     libgtksourceview-5-dev \
