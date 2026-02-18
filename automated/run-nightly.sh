@@ -10,7 +10,7 @@ esac
 while true; do
     git pull
     LOG_FILE="nightly-build-$(date -u +%F_%T).log"
-    time script -q -c "./build.sh nightly-$(date -u +%F) $cmd"
+    time script -q -c "./build.sh nightly-$(date -u +%F) $cmd" $LOG_FILE
     ${cmd:+exit 0}
     ${once:+date; exit 0}
     echo "$0: run completed at $(date)"
