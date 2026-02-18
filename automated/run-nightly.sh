@@ -18,8 +18,8 @@ while true; do
     touch -h $LOG_FILE
     ${cmd:+exit 0}
     ${once:+date; exit 0}
-    # echo "$0: run completed at $(date)"
+    echo "$0: run completed at $(date)"
     echo
-    sleep 99m
+    sleep 90m
     echo
 done
