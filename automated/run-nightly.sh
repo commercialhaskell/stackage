@@ -14,11 +14,11 @@ while true; do
         mv -f nightly-build.log nightly-build-previous.log
     fi
     ln -sf $LOG_FILE nightly-build.log
-    time script -q -c "./build.sh nightly-$(date -u +%F) $cmd" $LOG_FILE
+    time script -c "./build.sh nightly-$(date -u +%F) $cmd" $LOG_FILE
     touch -h $LOG_FILE
     ${cmd:+exit 0}
     ${once:+date; exit 0}
-    echo "$0: run completed at $(date)"
+    # echo "$0: run completed at $(date)"
     echo
     sleep 99m
     echo
