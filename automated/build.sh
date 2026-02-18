@@ -153,7 +153,7 @@ esac
 # Now do the actual build. We need to first set the owner of the home directory
 # correctly, so we run the command as root, change owner, and then use sudo to
 # switch back to the current user
-docker run $ARGS_BUILD $IMAGE nice -n 15 /bin/bash -c "
+docker run -t $ARGS_BUILD $IMAGE nice -n 15 /bin/bash -c "
     chown $USER $HOME
     exec sudo -E -u $USER env \"HOME=$HOME\" \"PATH=\$PATH\" curator build --jobs $JOBS
     "
