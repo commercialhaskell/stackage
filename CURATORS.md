@@ -21,7 +21,7 @@ process works:
 * `curator` can check that build plan to ensure all version bounds are consistent
     * On pull requests, the GitHub action [performs these two steps](https://github.com/commercialhaskell/stackage/blob/master/etc/check.sh) to provide immediate feedback on pull requests
 * Docker [builds](https://github.com/commercialhaskell/stackage/actions/workflows/image.yml)
-* The stackage-build server (described below) is able to run automated builds using the [build.sh script](https://github.com/commercialhaskell/stackage/blob/master/automated/build.sh)
+* The stackage-build server (described below) is able to run automated builds using the [build.sh script](https://github.com/commercialhaskell/stackage/blob/master/automated/build.sh). Note it is wrapped by `run-night.sh` and `run-lts.sh`.
 * When a new (nightly or LTS) build is completed, it is uploaded to [stackage-snapshots](https://github.com/commercialhaskell/stackage-snapshots)
 * Once a week, we run an LTS minor bump. Instead of using build-constraints.yaml, that job takes the previous LTS release, turns it into `^>=` constraints, and then bumps the version numbers to the latest on Hackage, in accordance with the generated constraint.
 * Cutting a new LTS major release is essentially just a Stackage Nightly that gets rebuilt using lts-haskell with constraints setup with etc/lts-constraints.
@@ -227,7 +227,7 @@ Supported versions: ...
 update-global-hints.hs: Received ExitFailure 1 when running
 ```
 
-Also required to build an LTS minor bump with a ghc version change: modify <https://github.com/commercialhaskell/lts-haskell/tree/master/build-constraints> and update the ghc-version.  Then run `automated/build.sh lts-$THIS_LTS_MINOR_BUMP` to build the LTS.
+Also required to build an LTS minor bump with a ghc version change: modify <https://github.com/commercialhaskell/lts-haskell/tree/master/build-constraints> and update the ghc-version.  Then run `automated/run-lts.sh lts-$THIS_LTS_MINOR_BUMP` to build the LTS.
 
 ### Docker image management
 The latest image is pulled automatically.
@@ -296,10 +296,10 @@ we're just not there yet.
 /var/stackage/stackage/automated/run-nightly.sh
 
 # Run an LTS minor bump
-/var/stackage/stackage/automated/build.sh lts-15.1
+/var/stackage/stackage/automated/run-lts.sh lts-15.1
 
 # Run an LTS major bump
-/var/stackage/stackage/automated/build.sh lts-16.0
+/var/stackage/stackage/automated/run-lts.sh lts-16.0
 ```
 
 Recommended: run these from inside a `tmux` session. If you get version bound
@@ -319,7 +319,7 @@ For an LTS minor bump, you'll typically want to update <https://github.com/comme
 * add new packages
 * enable/disable test, benchmark, haddock when needed
 
-Then run `./build.sh lts-X.Z` to generate an updated snapshot.
+Then run `./run-lts.sh lts-X.Z` to generate an updated snapshot.
 
 If a build fails for bounds reasons, see all of the advice above. If the code
 itself doesn't build, or tests fail, open up an issue and then either put in a
