@@ -11,7 +11,7 @@ while true; do
     git pull
     LOG_FILE="logs/nightly-build-$(date -u +%F+%T).log"
     if [ -L nightly-build.log ]; then
-        mv -f nightly-build.log nightly-build-previous.log
+        mv -f nightly-build.log nightly-build.log-prev
     fi
     ln -sf $LOG_FILE nightly-build.log
     time script -c "./build.sh nightly-$(date -u +%F) $cmd" $LOG_FILE
