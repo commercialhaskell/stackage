@@ -17,8 +17,8 @@ while true; do
     time script -c "./build.sh nightly-$(date -u +%F) $cmd" $LOG_FILE
     touch -h nightly-build.log
     ${cmd:+exit 0}
-    ${once:+date; exit 0}
     echo "$0: run completed at $(date)"
+    ${once:+exit 0}
     echo
     sleep 90m
     echo
