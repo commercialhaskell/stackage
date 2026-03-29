@@ -74,8 +74,8 @@ function require_400_file {
 require_400_file "$SSH_DIR/id_rsa"
 require_400_file "$HACKAGE_CREDS"
 
-mkdir -p $ROOT/work/bin
-BINDIR=$(cd $ROOT/work/bin ; pwd)
+mkdir -p $WORKDIR/bin
+BINDIR=$(cd $WORKDIR/bin ; pwd)
 (
 cd $BINDIR
 rm -f curator stack -- *.bz2
