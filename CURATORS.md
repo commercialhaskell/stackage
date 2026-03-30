@@ -343,7 +343,7 @@ resolve any issues before the next curator shift the coming monday.
 
 ### Diskspace errors (and website sync debugging)
 
-* You can check disk usage with `df -h`.
+* You can check stackage disk usage with `df -h ~`.
 * If you see that stackage `$HOME` is out of space, you can use `stack-clean-old` to clean up (note it defaults to "dry-run" mode):
   * Enter `nix-shell -p haskellPackages.stack-clean-old` and then:
     * `cd ~/stackage/automated/work/[nightly|ltsXX]/unpack-dir`
