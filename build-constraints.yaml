@@ -79,7 +79,11 @@ packages:
         - microlens-pro
         - pollock
         - threads-supervisor
+        - timezone-olson
         - timezone-olson-th
+        - timezone-series
+        - tz
+        - tzdata
         - wai-saml2
         - xml-hamlet
 
@@ -2453,8 +2457,6 @@ packages:
 
     "Yitz Gale <gale@sefer.org> @ygale":
         - strict-concurrency
-        - timezone-series
-        - timezone-olson
 
     "Harry Garrood <harry@garrood.me> @hdgarrood":
         - aeson-better-errors
@@ -3154,8 +3156,6 @@ packages:
 
     "Mihaly Barasz klao@nilcons.com @klao":
         - lens-datetime
-        - tz
-        - tzdata
 
     "Timothy Klim <stackage@timothyklim.com> @TimothyKlim":
         - pkcs10
@@ -7589,9 +7589,6 @@ packages:
         - time-parsers < 0 # tried time-parsers-0.2, but its *library* requires base >=4.6 && < 4.19 and the snapshot contains base-4.21.2.0
         - time-parsers < 0 # tried time-parsers-0.2, but its *library* requires template-haskell >=2.8.0.0 && < 2.21 and the snapshot contains template-haskell-2.23.0.0
         - time-parsers < 0 # tried time-parsers-0.2, but its *library* requires time >=1.4.0.1 && < 1.13 and the snapshot contains time-1.14
-        - timezone-olson < 0 # tried timezone-olson-0.2.1, but its *library* requires time >=1.6 && < 1.14 and the snapshot contains time-1.14
-        - timezone-olson-th < 0 # tried timezone-olson-th-0.1.0.11, but its *library* requires time >=1.4 && < 1.14 and the snapshot contains time-1.14
-        - timezone-series < 0 # tried timezone-series-0.1.13, but its *library* requires time >=1.1.4 && < 1.9 || >=1.9.1 && < 1.14 and the snapshot contains time-1.14
         - tls-debug < 0 # tried tls-debug-0.4.8, but its *executable* requires the disabled package: cryptonite
         - tls-debug < 0 # tried tls-debug-0.4.8, but its *executable* requires the disabled package: x509
         - tls-debug < 0 # tried tls-debug-0.4.8, but its *executable* requires the disabled package: x509-store
@@ -9177,8 +9174,6 @@ skipped-benchmarks:
     - timer-wheel # tried timer-wheel-1.0.0.1, but its *benchmarks* requires tasty-bench ^>=0.3.5 || ^>=0.4 and the snapshot contains tasty-bench-0.5
     - ttrie # tried ttrie-0.1.2.2, but its *benchmarks* requires the disabled package: criterion-plus
     - ttrie # tried ttrie-0.1.2.2, but its *benchmarks* requires the disabled package: stm-stats
-    - tz # tried tz-0.1.3.6, but its *benchmarks* requires the disabled package: timezone-olson
-    - tz # tried tz-0.1.3.6, but its *benchmarks* requires the disabled package: timezone-series
     - unicode-data # tried unicode-data-0.8.0, but its *benchmarks* requires tasty-bench >=0.2.5 && < 0.5 and the snapshot contains tasty-bench-0.5
     - universum # tried universum-1.8.3, but its *benchmarks* requires the disabled package: gauge
     - unliftio # tried unliftio-0.2.25.1, but its *benchmarks* requires the disabled package: gauge
