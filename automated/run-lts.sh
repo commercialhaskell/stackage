@@ -10,4 +10,4 @@ fi
 ln -sf $LOG_FILE lts-build.log
 time script -c "./build.sh $*" $LOG_FILE
 touch -h lts-build.log
-date
+LANG=C date

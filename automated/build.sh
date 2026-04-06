@@ -5,7 +5,7 @@
 # SC1091: Secrets are sourced from a file that doesn't exist in the tree.
 # SC2001: Pattern substitution is too hard to use; don't recommend it.
 
-date
+LANG=C date
 set -eu +x -o pipefail
 
 ROOT=$(cd "$(dirname $0)" ; pwd)
@@ -169,14 +169,14 @@ docker run $ARGS_UPLOAD $IMAGE curator check-target-available --target $TARGET
 #
 # * Upload the docs to S3
 # * Upload the new snapshot .yaml file to the appropriate Github repo, also upload its constraints
-date
+LANG=C date
 docker run $ARGS_UPLOAD -e "CURATOR_AWS_OPTIONS=--only-show-errors" $IMAGE /bin/bash -c "
     set -e
     ulimit -n hard
     curator upload-docs --target $TARGET ${DOCS_BUCKET:+--bucket $DOCS_BUCKET}
     curator upload-github --target $TARGET
     "
-date
+LANG=C date
 
 case $TARGET in
     lts-22.*) ;;
@@ -196,4 +196,4 @@ then
 fi
 
 echo -n "Completed at "
-date
+LANG=C date
