@@ -131,6 +131,7 @@ apt-get install -y \
     libtagc0-dev \
     libtre-dev \
     libudev-dev \
+    libuhd-dev \
     libusb-1.0-0-dev \
     libvte-2.91-dev \
     libwebkit2gtk-4.1-dev \
