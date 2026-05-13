@@ -135,6 +135,7 @@ apt-get install -y \
     libusb-1.0-0-dev \
     libvte-2.91-dev \
     libwebkit2gtk-4.1-dev \
+    libwireplumber-0.4-dev \
     libxau-dev \
     libxml2-dev \
     libxrandr-dev \
