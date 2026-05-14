@@ -14,6 +14,24 @@ locale-gen en_US.UTF-8
 update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.gold" 20
 update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
 
+# Install WirePlumber 0.5 for gi-wireplumber and taffybar.
+# Ubuntu 24.04 only packages WirePlumber 0.4.
+WIREPLUMBER_VER=0.5.14
+WIREPLUMBER_TARBALL=wireplumber-${WIREPLUMBER_VER}.tar.gz
+(
+  cd /tmp \
+    && curl -L -o ${WIREPLUMBER_TARBALL} https://gitlab.freedesktop.org/pipewire/wireplumber/-/archive/${WIREPLUMBER_VER}/${WIREPLUMBER_TARBALL} \
+    && echo "e91f04cd8cec75d72b8a2aaa7e90b1ba0a5e2094b7a882fc3a29a484a48a87e9  ${WIREPLUMBER_TARBALL}" | sha256sum -c - \
+    && tar -xzf ${WIREPLUMBER_TARBALL} \
+    && cd wireplumber-${WIREPLUMBER_VER} \
+    && meson setup build -Ddoc=disabled -Dsystem-lua=true \
+    && meson compile -C build \
+    && meson install -C build \
+    && ldconfig \
+    && cd /tmp \
+    && rm -rf wireplumber-${WIREPLUMBER_VER} ${WIREPLUMBER_TARBALL}
+)
+
 # # Add JDK to system paths.
 # echo "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server" > /etc/ld.so.conf.d/openjdk.conf \
 #     && ldconfig

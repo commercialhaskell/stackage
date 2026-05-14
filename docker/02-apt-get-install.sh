@@ -32,6 +32,7 @@ apt-get install -y \
     gir1.2-soup-3.0 \
     git \
     gnupg \
+    gobject-introspection \
     gradle \
     hscolour \
     libadns1-dev \
@@ -86,6 +87,7 @@ apt-get install -y \
     liblmdb-dev \
     liblz4-tool \
     liblzma-dev \
+    liblua5.4-dev \
     libmagic-dev \
     libmagickcore-dev \
     libmagickwand-dev \
@@ -107,6 +109,7 @@ apt-get install -y \
     libpcap0.8-dev \
     libpcre2-dev \
     libpcre3-dev \
+    libpipewire-0.3-dev \
     libpq-dev \
     libprimecount-dev \
     libprotobuf-dev \
@@ -135,7 +138,6 @@ apt-get install -y \
     libusb-1.0-0-dev \
     libvte-2.91-dev \
     libwebkit2gtk-4.1-dev \
-    libwireplumber-0.4-dev \
     libxau-dev \
     libxml2-dev \
     libxrandr-dev \
@@ -149,6 +151,7 @@ apt-get install -y \
     llvm-15 \
     locales \
     m4 \
+    meson \
     minisat \
     mono-mcs \
     nettle-dev \
@@ -157,6 +160,7 @@ apt-get install -y \
     nodejs \
     nvidia-cuda-toolkit \
     openjdk-8-jdk \
+    pkg-config \
     python3-matplotlib \
     python3-numpy \
     python3-pip \
