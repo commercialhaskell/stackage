@@ -59,7 +59,7 @@ cat >$GITCONFIG <<EOF
 	name = Stackage Build host
 EOF
 
-HACKAGE_CREDS=$ROOT/work/hackage-creds
+HACKAGE_TOKEN=$ROOT/work/hackage-distro-token
 
 function require_400_file {
     if [ ! -f "$1" ]
@@ -72,7 +72,7 @@ function require_400_file {
 }
 
 require_400_file "$SSH_DIR/id_rsa"
-require_400_file "$HACKAGE_CREDS"
+require_400_file "$HACKAGE_TOKEN"
 
 mkdir -p $WORKDIR/bin
 BINDIR=$(cd $WORKDIR/bin ; pwd)
@@ -103,7 +103,7 @@ chmod +x stack
 ARGS_COMMON="--rm -v $WORKDIR:$C_HOME/work -w $C_HOME/work -v $BINDIR/curator:/usr/bin/curator:ro -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v $BINDIR/stack:/usr/bin/stack:ro -v $STACK_DIR:$C_HOME/.stack -v $PANTRY_DIR:$C_HOME/.stack/pantry -v $HOME/.aws/config:$C_HOME/.aws/config:ro"
 ARGS_PREBUILD="$ARGS_COMMON -u $USERID -e HOME=$C_HOME -v $DOT_STACKAGE_DIR:$C_HOME/.stackage"
 ARGS_BUILD="$ARGS_COMMON"
-ARGS_UPLOAD="$ARGS_PREBUILD -v $HACKAGE_CREDS:/hackage-creds:ro -v $SSH_DIR:$C_HOME/.ssh:ro -v $GITCONFIG:$C_HOME/.gitconfig:ro -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY ${AWS_ENDPOINT_URL:+-e AWS_ENDPOINT_URL=$AWS_ENDPOINT_URL} -v $DOT_STACKAGE_DIR:/dot-stackage"
+ARGS_UPLOAD="$ARGS_PREBUILD -v $HACKAGE_TOKEN:/hackage-distro-token:ro -v $SSH_DIR:$C_HOME/.ssh:ro -v $GITCONFIG:$C_HOME/.gitconfig:ro -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY ${AWS_ENDPOINT_URL:+-e AWS_ENDPOINT_URL=$AWS_ENDPOINT_URL} -v $DOT_STACKAGE_DIR:/dot-stackage"
 
 # for debugging etc
 if [ -n "${2:-}" ]
