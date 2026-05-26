@@ -110,6 +110,7 @@ apt-get install -y \
     libpcre2-dev \
     libpcre3-dev \
     libpipewire-0.3-dev \
+    libportmidi-dev \
     libpq-dev \
     libprimecount-dev \
     libprotobuf-dev \
