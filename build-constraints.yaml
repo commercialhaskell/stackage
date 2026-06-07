@@ -1,7 +1,7 @@
 ghc-major-version: "9.12"
 
 # new curator is supposed to use exact GHC version
-ghc-version: "9.12.4"
+ghc-version: "9.12.4.20260606"
 
 # This affects which version of the Cabal file format we allow. We
 # should ensure that this is always no greater than the version
@@ -7709,7 +7709,7 @@ packages:
 
     "GHC major version specific bounds":
         # Cabal
-        - cabal-install < 3.16
+        - cabal-install < 0 # due to semaphore-compat bump in 9.12.5
         - cabal-install-solver < 3.16
         - ormolu < 0.8.1 # requires Cabal-syntax-3.16 and ghc-9.14
 
