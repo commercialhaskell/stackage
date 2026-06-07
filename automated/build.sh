@@ -158,8 +158,6 @@ docker run -t $ARGS_BUILD $IMAGE nice -n 15 /bin/bash -c "
     exec sudo -E -u $USER env \"HOME=$HOME\" \"PATH=\$PATH\" curator build --jobs $JOBS
     "
 
-exit 1
-
 # Make sure we actually need this snapshot. We used to perform this check
 # exclusively before building. Now we perform it after as well for the case of
 # nightly, where we don't perform this check beforehand. This is also slightly

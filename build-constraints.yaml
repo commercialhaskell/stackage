@@ -1,7 +1,7 @@
 ghc-major-version: "9.12"
 
 # new curator is supposed to use exact GHC version
-ghc-version: "9.12.4.20260606"
+ghc-version: "9.12.4"
 
 # This affects which version of the Cabal file format we allow. We
 # should ensure that this is always no greater than the version
@@ -6556,7 +6556,6 @@ packages:
         - base64-lens < 0 # tried base64-lens-0.3.1, but its *library* requires lens >=4.0 && < 5.1 and the snapshot contains lens-5.3.6
         - base64-lens < 0 # tried base64-lens-0.3.1, but its *library* requires text ^>=1.2 and the snapshot contains text-2.1.4
         - bench < 0 # tried bench-1.0.13, but its *executable* requires optparse-applicative >=0.14.0.0 && < 0.19 and the snapshot contains optparse-applicative-0.19.0.0
-        - bhoogle < 0 # tried bhoogle-0.1.4.4, but its *executable* requires the disabled package: hoogle
         - bin < 0 # tried bin-0.1.4.1, but its *library* requires QuickCheck ^>=2.14.2 || ^>=2.15 || ^>=2.18.0.0 and the snapshot contains QuickCheck-2.16.0.0
         - binary-tagged < 0 # tried binary-tagged-0.3.1, but its *library* requires base >=4.7.0.2 && < 4.20 and the snapshot contains base-4.21.2.0
         - binary-tagged < 0 # tried binary-tagged-0.3.1, but its *library* requires containers >=0.5.5.1 && < 0.7 and the snapshot contains containers-0.7
@@ -6862,7 +6861,6 @@ packages:
         - gtk < 0 # tried gtk-0.15.10, but its *library* requires the disabled package: glib
         - gtk3 < 0 # tried gtk3-0.15.10, but its *library* requires the disabled package: glib
         - hOpenPGP < 0 # tried hOpenPGP-2.10.1, but its *library* requires the disabled package: ixset-typed
-        - hackage-revdeps < 0 # tried hackage-revdeps-0.3, but its *executable* requires the disabled package: cabal-install
         - hackernews < 0 # tried hackernews-1.4.0.0, but its *library* requires http-client >=0.5 && < 0.6 and the snapshot contains http-client-0.7.19
         - hackernews < 0 # tried hackernews-1.4.0.0, but its *library* requires servant >=0.9 && < 0.13 and the snapshot contains servant-0.20.3.0
         - hackernews < 0 # tried hackernews-1.4.0.0, but its *library* requires servant-client >=0.9 && < 0.13 and the snapshot contains servant-client-0.20.3.0
@@ -6934,7 +6932,6 @@ packages:
         - hocon < 0 # tried hocon-0.1.0.4, but its *library* requires parsec < =3.1.14.0 and the snapshot contains parsec-3.1.18.0
         - hocon < 0 # tried hocon-0.1.0.4, but its *library* requires split < =0.2.3.4 and the snapshot contains split-0.2.5
         - holy-project < 0 # tried holy-project-0.2.0.1, but its *library* requires the disabled package: hastache
-        - hoogle < 0 # tried hoogle-5.0.19.0, but its *library* requires the disabled package: hackage-revdeps
         - hopenpgp-tools < 0 # tried hopenpgp-tools-0.23.11, but its *executable* requires the disabled package: ixset-typed
         - hopfli < 0 # tried hopfli-0.2.2.1, but its *library* requires bytestring >=0.9 && < 0.12 and the snapshot contains bytestring-0.12.2.0
         - hopfli < 0 # tried hopfli-0.2.2.1, but its *library* requires zlib >=0.5.4 && < 0.7 and the snapshot contains zlib-0.7.1.1
@@ -7715,7 +7712,7 @@ packages:
 
     "GHC major version specific bounds":
         # Cabal
-        - cabal-install < 0 # due to semaphore-compat bump in 9.12.5
+        - cabal-install < 3.16
         - cabal-install-solver < 3.16
         - ormolu < 0.8.1 # requires Cabal-syntax-3.16 and ghc-9.14
 
