@@ -70,3 +70,4 @@ Z3_VER=4.13.4
 curl -OL https://download.pytorch.org/libtorch/cpu/libtorch-shared-with-deps-$LIBTORCH_VERSION%2Bcpu.zip
 unzip libtorch-shared-with-deps-$LIBTORCH_VERSION%2Bcpu.zip -d /usr/local/
 rm libtorch-shared-with-deps-$LIBTORCH_VERSION%2Bcpu.zip
+mv /usr/local/libtorch/lib/lib* /usr/lib/
