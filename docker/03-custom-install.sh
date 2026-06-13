@@ -67,10 +67,6 @@ Z3_VER=4.13.4
 )
 
 # Install libtorch
-LIBTORCH_VERSION=2.5.0 
-LIBTORCH_HOME=/usr/local/libtorch
-LIBTORCH_CUDA_VERSION=cpu
-LIBTORCH_SKIP_DOWNLOAD=1
 curl -OL https://download.pytorch.org/libtorch/cpu/libtorch-shared-with-deps-$LIBTORCH_VERSION%2Bcpu.zip
 unzip libtorch-shared-with-deps-$LIBTORCH_VERSION%2Bcpu.zip -d /usr/local/
 rm libtorch-shared-with-deps-$LIBTORCH_VERSION%2Bcpu.zip
