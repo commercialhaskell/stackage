@@ -19,4 +19,4 @@ RUN /tmp/04-cleanup.sh && rm /tmp/04-cleanup.sh
 ENV CPATH=/usr/lib/jvm/java-8-openjdk-amd64/include:/usr/lib/jvm/java-8-openjdk-amd64/include/linux:/usr/lib/llvm-3.7/include
 
 # Download libtorch into mounted work volume (so that artifact is shared on rebuilds)
-ENV LIBTORCH_HOME=~/work/libtorch
+ENV LIBTORCH_HOME=/home/curators/work/libtorch
