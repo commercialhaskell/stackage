@@ -71,5 +71,6 @@ curl -OL https://download.pytorch.org/libtorch/cpu/libtorch-shared-with-deps-$LI
 unzip libtorch-shared-with-deps-$LIBTORCH_VERSION%2Bcpu.zip -d /usr/local/
 cp -rf /usr/local/libtorch/lib/* /usr/lib/
 cp -rf /usr/local/libtorch/include/* /usr/include/
+cp -rf /usr/local/libtorch/include/torch/csrc/api/include/* /usr/include/
 rm libtorch-shared-with-deps-$LIBTORCH_VERSION%2Bcpu.zip
 rm -rf /usr/local/libtorch
