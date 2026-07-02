@@ -7895,10 +7895,7 @@ packages:
         - hasql-dynamic-statements < 0.5.1.1
 
         # https://github.com/commercialhaskell/stackage/issues/8088
-        - dataframe < 3.4
-        - dataframe-core < 2.3
-        - dataframe-learn < 2.3
-        - dataframe-operations < 2.3
+        - dataframe-learn < 2.4
     # end of Stackage upper bounds
 # end of packages
 
@@ -9435,7 +9432,8 @@ hide:
 # This always use the cabal file shipped with the sdist tarball instead of the latest revision.
 #
 # This only supports pinning to the initial release (revision 0), not to an arbitrary revision.
-no-revisions: []
+no-revisions:
+- dataframe # https://github.com/commercialhaskell/stackage/issues/8088
 
 # Note, this no longer actually does anything with curator2 unfortunately:
 # Do not build these packages in parallel with others. Useful for high memory
