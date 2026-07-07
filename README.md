@@ -6,27 +6,32 @@ Stable sets of Haskell Packages from Hackage
 
 _This repository is for package authors and maintainers to get their packages into Stackage._
 
-If you simply want to use Stackage as an end user, please follow the instructions on [https://www.stackage.org/](https://www.stackage.org).
+If you simply want to use Stackage as an end user, please follow the instructions in the  [stack documentation](https://docs.haskellstack.org/en/stable/) or via <https://www.stackage.org/#about>.
 
-We strongly recommend using the Haskell [stack](https://github.com/commercialhaskell/stack) tool for doing builds, which
+We highly recommend using the Haskell [stack](https://github.com/commercialhaskell/stack) tool for doing builds, which
 includes built-in Stackage support.
 
 Add your package
 ----------------
+- To add your package in Stackage Nightly: edit the [build-constraints file](https://github.com/commercialhaskell/stackage/blob/master/build-constraints.yaml) and open a PR.
+- To add you package to Stackage LTS: you need to open a pull request for changing [lts-haskell](https://github.com/commercialhaskell/lts-haskell/tree/master/build-constraints) build-constraints.
 
 We welcome all packages, provided:
 
-* The package author/maintainer agrees to the [maintainers agreement](https://github.com/commercialhaskell/stackage/blob/master/MAINTAINERS.md).
-* The package is buildable and testable from Hackage. We recommend [the Stack Travis script](https://docs.haskellstack.org/en/stable/travis_ci/), which ensures a package is not accidentally incomplete.
-* The package is compatible with the newest versions of all dependencies (You can find restrictive upper bounds by visiting http://packdeps.haskellers.com/feed?needle=PACKAGENAME).
-* The package is compatible with the versions of libraries that ship with GHC ([more information on lenient lower bounds](https://tech.fpcomplete.com/blog/2014/05/lenient-lower-bounds)).
+* The package from Hackage builds in current Stackage snapshots
+  * Stackage only uses pristine sources from Hackage (no patches of packages are allowed, including bounds, other than Hackage revisions)
+  * In particular the package MUST be compatible with the versions of core libraries that ship with GHC ([more information on lenient lower bounds](https://tech.fpcomplete.com/blog/2014/05/lenient-lower-bounds)).
+* The package's tests and benchmark code SHOULD also build: if possible the testsuite SHOULD also pass.
+  * We recommend setting up CI, which ensures a package is not accidentally incomplete, etc.
+* The package should stay compatible with the newest versions of its dependencies.
+* The package author/maintainer aims to follow [MAINTAINERS.md](https://github.com/commercialhaskell/stackage/blob/master/MAINTAINERS.md).
 
-Full details on how to add and test a package can be found in the [maintainers agreement](https://github.com/commercialhaskell/stackage/blob/master/MAINTAINERS.md#adding-a-package).
+Full details on how to add and test a package can be found in the [here](https://github.com/commercialhaskell/stackage/blob/master/MAINTAINERS.md#adding-a-package).
 
 __NOTE__: There is an approximate 30 minute delay between a package uploading
 to Hackage and being available to the Github workflow action to check upper
 bounds. If a pull request is marked as failed due to using an older version,
-please close and reopen the PR to retrigger a Travis build.
+please close and reopen the PR to retrigger a CI build.
 
 Other repos
 -----------
@@ -35,13 +40,13 @@ The Stackage project consists of multiple repositories. This repository
 contains the metadata on packages to be included in future builds and some
 project information. In addition, we have the following repositories:
 
-* [stackage-server](https://github.com/fpco/stackage-server) [![Base image](https://github.com/fpco/stackage-server/actions/workflows/base.yml/badge.svg)](https://github.com/fpco/stackage-server/actions/workflows/base.yml)
+* [stackage-server](https://github.com/commercialhaskell/stackage-server)
 * [curator](https://github.com/commercialhaskell/curator) ![Build Status](https://github.com/commercialhaskell/curator/workflows/Runtime%20image/badge.svg)
 * [lts-haskell](https://github.com/commercialhaskell/lts-haskell)
 * [stackage-snapshots](https://github.com/commercialhaskell/stackage-snapshots/)
 
 Curious how it all fits together? See the [Stackage data
-flow](https://github.com/commercialhaskell/stackage/blob/master/DATA-FLOW.md).
+flow](https://github.com/commercialhaskell/stackage/blob/master/DATA-FLOW.md) (slightly outdated)
 
 Build the package set
 ---------------------
@@ -67,6 +72,11 @@ The following describes at a high level the series of steps for processing
 5. Write out a YAML file with complete build plan
 6. Verify that the build plan can be compiled
 7. Perform the build
+
+__NOTE__: Packages in Nightly that are holding newer versions of other
+packages back for an extended period of time will eventually get disabled,
+depending on the impact but at latest usually right after the branching of the
+next major LTS version.
 
 ### LTS
 

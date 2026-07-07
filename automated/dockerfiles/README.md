@@ -1,9 +1,7 @@
 dockerfiles/stack-build
 =======================
 
-Build [fpco/stack-build](https://hub.docker.com/r/fpco/stack-build/) Docker
-images. This script and its Dockerfiles are used for building images for LTS >=
-8.0.
+Build [ghcr.io/commercialhaskell/stackage/build](https://github.com/commercialhaskell/stackage/pkgs/container/stackage%2Fbuild) Docker images.
 
 Usage
 -----

@@ -1,19 +1,21 @@
 #!/usr/bin/env bash
 
-# shellcheck disable=SC2086,SC1091
+# shellcheck disable=SC2086,SC1091,SC2001
 # SC2086: We actually want some word splitting to happen
 # SC1091: Secrets are sourced from a file that doesn't exist in the tree.
+# SC2001: Pattern substitution is too hard to use; don't recommend it.
 
+LANG=C date
 set -eu +x -o pipefail
 
-ROOT=$(cd $(dirname $0) ; pwd)
+ROOT=$(cd "$(dirname $0)" ; pwd)
 TARGET=$1
 
 # Home on the container
-: ${C_HOME:=$HOME}
+: "${C_HOME:=$HOME}"
 
 # User to run as on the container
-: ${USERID:=$(id -u)}
+: "${USERID:=$(id -u)}"
 
 source work/aws.sh
 
@@ -57,7 +59,7 @@ cat >$GITCONFIG <<EOF
 	name = Stackage Build host
 EOF
 
-HACKAGE_CREDS=$ROOT/work/hackage-creds
+HACKAGE_TOKEN=$ROOT/work/hackage-distro-token
 
 function require_400_file {
     if [ ! -f "$1" ]
@@ -70,39 +72,29 @@ function require_400_file {
 }
 
 require_400_file "$SSH_DIR/id_rsa"
-require_400_file "$HACKAGE_CREDS"
+require_400_file "$HACKAGE_TOKEN"
 
-mkdir -p $ROOT/work/bin
-BINDIR=$(cd $ROOT/work/bin ; pwd)
+mkdir -p $WORKDIR/bin
+BINDIR=$(cd $WORKDIR/bin ; pwd)
 (
 cd $BINDIR
-rm -f curator stack *.bz2
+rm -f curator stack -- *.bz2
 
-if [ $SHORTNAME = "lts" ]; then
-    # drop for lts24 at least if not before
-    curl -L "https://github.com/commercialhaskell/curator/releases/download/commit-54cc5a95a7e29550e0fd7a48b24ddad105d223b2/curator.bz2" | bunzip2 > curator
-else
-    # needed for ghc-9.10
-    curl -L "https://github.com/commercialhaskell/curator/releases/download/commit-6689440033b12182c0853bdd23880a84849eb6b2/curator.bz2" | bunzip2 > curator
-fi
+curl -L "https://github.com/commercialhaskell/curator/releases/download/commit-57858287bcb07f57810b7967deb52f6033fbe322/curator.bz2" | bunzip2 > curator
 chmod +x curator
 
-if [ $SHORTNAME = "lts" ]; then
-    STACK_VERSION=3.1.1
-else
-    STACK_VERSION=3.3.1
-fi
+STACK_VERSION=3.9.3
 # rc url
 #curl -L https://github.com/commercialhaskell/stack/releases/download/rc%2Fv${STACK_VERSION}/stack-${STACK_VERSION}-linux-x86_64-bin > stack
 curl -L https://github.com/commercialhaskell/stack/releases/download/v${STACK_VERSION}/stack-${STACK_VERSION}-linux-x86_64-bin > stack
 chmod +x stack
 
-docker run --rm -v $(pwd)/curator:/curator -v $(pwd)/stack:/stack $IMAGE /bin/bash -c "
-    echo -n 'curator version: '
-    /curator --version
-    echo -n 'stack version: '
-    /stack --version
-    "
+# docker run --rm -v "$(pwd)"/curator:/curator -v "$(pwd)"/stack:/stack $IMAGE /bin/bash -c "
+#     echo -n 'curator version: '
+#     /curator --version
+#     echo -n 'stack version: '
+#     /stack --version
+#     "
 )
 
 # We share pantry directory between snapshots while the other content in .stack
@@ -111,9 +103,7 @@ docker run --rm -v $(pwd)/curator:/curator -v $(pwd)/stack:/stack $IMAGE /bin/ba
 ARGS_COMMON="--rm -v $WORKDIR:$C_HOME/work -w $C_HOME/work -v $BINDIR/curator:/usr/bin/curator:ro -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v $BINDIR/stack:/usr/bin/stack:ro -v $STACK_DIR:$C_HOME/.stack -v $PANTRY_DIR:$C_HOME/.stack/pantry -v $HOME/.aws/config:$C_HOME/.aws/config:ro"
 ARGS_PREBUILD="$ARGS_COMMON -u $USERID -e HOME=$C_HOME -v $DOT_STACKAGE_DIR:$C_HOME/.stackage"
 ARGS_BUILD="$ARGS_COMMON"
-# instance-data is an undocumented feature of S3 used by amazonka,
-# see https://github.com/brendanhay/amazonka/issues/271
-ARGS_UPLOAD="$ARGS_PREBUILD -v $HACKAGE_CREDS:/hackage-creds:ro -v $SSH_DIR:$C_HOME/.ssh:ro -v $GITCONFIG:$C_HOME/.gitconfig:ro -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY ${AWS_ENDPOINT_URL:+-e AWS_ENDPOINT_URL=$AWS_ENDPOINT_URL} -v $DOT_STACKAGE_DIR:/dot-stackage"
+ARGS_UPLOAD="$ARGS_PREBUILD -v $HACKAGE_TOKEN:/hackage-distro-token:ro -v $SSH_DIR:$C_HOME/.ssh:ro -v $GITCONFIG:$C_HOME/.gitconfig:ro -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY ${AWS_ENDPOINT_URL:+-e AWS_ENDPOINT_URL=$AWS_ENDPOINT_URL} -v $DOT_STACKAGE_DIR:/dot-stackage"
 
 # for debugging etc
 if [ -n "${2:-}" ]
@@ -160,18 +150,13 @@ case $SHORTNAME in
     nightly) JOBS=16 ;;
 esac
 
-if [ -e "$SHORTNAME-build.log" ]
-then
-    cp -p $SHORTNAME-build.log $SHORTNAME-build.log-previous
-fi
-
 # Now do the actual build. We need to first set the owner of the home directory
 # correctly, so we run the command as root, change owner, and then use sudo to
 # switch back to the current user
-docker run $ARGS_BUILD $IMAGE nice -n 15 /bin/bash -c "
+docker run -t $ARGS_BUILD $IMAGE nice -n 15 /bin/bash -c "
     chown $USER $HOME
     exec sudo -E -u $USER env \"HOME=$HOME\" \"PATH=\$PATH\" curator build --jobs $JOBS
-    " 2>&1 | tee $SHORTNAME-build.log
+    "
 
 # Make sure we actually need this snapshot. We used to perform this check
 # exclusively before building. Now we perform it after as well for the case of
@@ -184,17 +169,22 @@ docker run $ARGS_UPLOAD $IMAGE curator check-target-available --target $TARGET
 #
 # * Upload the docs to S3
 # * Upload the new snapshot .yaml file to the appropriate Github repo, also upload its constraints
-date
+LANG=C date
 docker run $ARGS_UPLOAD -e "CURATOR_AWS_OPTIONS=--only-show-errors" $IMAGE /bin/bash -c "
     set -e
     ulimit -n hard
     curator upload-docs --target $TARGET ${DOCS_BUCKET:+--bucket $DOCS_BUCKET}
     curator upload-github --target $TARGET
     "
-date
+LANG=C date
 
-# was fixed in https://github.com/commercialhaskell/curator/pull/24
-docker run $ARGS_UPLOAD $IMAGE curator hackage-distro --target $TARGET
+case $TARGET in
+    lts-22.*) ;;
+    lts-23.*) ;;
+    *)
+        docker run $ARGS_UPLOAD $IMAGE curator hackage-distro --target $TARGET
+        ;;
+esac
 
 # Build and push docker image fpco/stack-build & fpco/stack-build-small for current release
 
@@ -206,4 +196,4 @@ then
 fi
 
 echo -n "Completed at "
-date
+LANG=C date

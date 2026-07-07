@@ -18,27 +18,32 @@ apt-get install -y \
     cmake \
     coinor-libclp-dev \
     curl \
+    cvc5 \
     dvipng \
+    erlang \
     freeglut3-dev \
     freetds-dev \
     fsharp \
     g++ \
     gawk \
-    gir1.2-javascriptcoregtk-4.0 \
+    gir1.2-javascriptcoregtk-4.1 \
     gir1.2-javascriptcoregtk-6.0 \
+    gir1.2-soup-2.4 \
+    gir1.2-soup-3.0 \
     git \
     gnupg \
+    gobject-introspection \
     gradle \
     hscolour \
     libadns1-dev \
-    libaio1 \
+    libaio-dev \
     libalut-dev \
     libasound2-dev \
     libblas-dev \
     libbrotli-dev \
     libbz2-dev \
     libcairo2-dev \
-    libclang-12-dev \
+    libclang-14-dev \
     libcurl4-openssl-dev \
     libcwiid-dev \
     libdbusmenu-glib-dev \
@@ -64,7 +69,9 @@ apt-get install -y \
     libgsl-dev \
     libgtk-3-dev \
     libgtk-4-dev \
+    libgtk-layer-shell-dev \
     libgtk2.0-dev \
+    libgtksourceview-3.0-dev \
     libgtksourceview-5-dev \
     libhidapi-dev \
     libi2c-dev \
@@ -72,6 +79,7 @@ apt-get install -y \
     libimlib2-dev \
     libjack-jackd2-dev \
     libjansson-dev \
+    libjavascriptcoregtk-4.1-dev \
     libjavascriptcoregtk-6.0-dev \
     libjudy-dev \
     liblapack-dev \
@@ -79,6 +87,7 @@ apt-get install -y \
     liblmdb-dev \
     liblz4-tool \
     liblzma-dev \
+    liblua5.4-dev \
     libmagic-dev \
     libmagickcore-dev \
     libmagickwand-dev \
@@ -99,6 +108,9 @@ apt-get install -y \
     libpapi-dev \
     libpcap0.8-dev \
     libpcre2-dev \
+    libpcre3-dev \
+    libpipewire-0.3-dev \
+    libportmidi-dev \
     libpq-dev \
     libprimecount-dev \
     libprotobuf-dev \
@@ -114,6 +126,7 @@ apt-get install -y \
     libsnappy-dev \
     libsndfile1-dev \
     libsodium-dev \
+    libsoup2.4-dev \
     libsoup-3.0-dev \
     libsox-dev \
     libsqlite3-dev \
@@ -122,9 +135,10 @@ apt-get install -y \
     libtagc0-dev \
     libtre-dev \
     libudev-dev \
+    libuhd-dev \
     libusb-1.0-0-dev \
     libvte-2.91-dev \
-    libwebkit2gtk-4.0-dev \
+    libwebkit2gtk-4.1-dev \
     libxau-dev \
     libxml2-dev \
     libxrandr-dev \
@@ -134,11 +148,11 @@ apt-get install -y \
     libzip-dev \
     libzmq3-dev \
     libzstd-dev \
-    llvm-11 \
-    llvm-12 \
-    llvm-13 \
+    llvm-14 \
+    llvm-15 \
     locales \
     m4 \
+    meson \
     minisat \
     mono-mcs \
     nettle-dev \
@@ -147,7 +161,7 @@ apt-get install -y \
     nodejs \
     nvidia-cuda-toolkit \
     openjdk-8-jdk \
-    python-mpltoolkits.basemap \
+    pkg-config \
     python3-matplotlib \
     python3-numpy \
     python3-pip \

@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - nightly
+      - lts24
       - lts23
-      - lts22
 
 jobs:
   push:
@@ -13,15 +13,14 @@ jobs:
     if: github.event_name == 'push'
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Log into Github registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build image
         run: |
-          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/build:${GITHUB_REF#refs/heads/}
-          #IMAGE_ID=${{ github.repository }}:${GITHUB_REF#refs/heads/}
+          IMAGE_ID=ghcr.io/${{ github.repository }}/build:${GITHUB_REF#refs/heads/}
           docker build . -f Dockerfile --tag $IMAGE_ID
           docker push $IMAGE_ID
           echo Pushed new build image $IMAGE_ID

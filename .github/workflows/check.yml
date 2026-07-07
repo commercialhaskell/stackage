@@ -9,11 +9,15 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     name: Stackage check
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/cache@v4
+      - uses: actions/checkout@v7
+      - name: Install system deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgmp-dev
+      - uses: actions/cache@v6
         with:
           path: |
             ~/.stack

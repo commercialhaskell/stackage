@@ -9,10 +9,17 @@ esac
 
 while true; do
     git pull
-    ./build.sh nightly-$(date -u +%F) $cmd
+    LOG_FILE="logs/nightly-build-$(date -u +%F+%T).log"
+    if [ -L nightly-build.log ]; then
+        mv -f nightly-build.log nightly-build.log-prev
+    fi
+    ln -sf $LOG_FILE nightly-build.log
+    time script -c "./build.sh nightly-$(date -u +%F) $cmd" $LOG_FILE
+    touch -h nightly-build.log
     ${cmd:+exit 0}
-    date
+    LANG=C echo "$0: run completed at $(LANG=C date)"
     ${once:+exit 0}
-    sleep 60m
+    echo
+    sleep 90m
     echo
 done

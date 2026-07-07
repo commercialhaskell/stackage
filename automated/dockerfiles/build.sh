@@ -69,7 +69,7 @@ while [[ $# -gt 0 ]]; do
             ;;
         *)
             if [[ -n "$LTS_SLUG_ARG" ]]; then
-                usage "Cannot specify multiple snaphots: $1"
+                usage "Cannot specify multiple snapshots: $1"
             fi
             LTS_SLUG_ARG="$1"
             shift
