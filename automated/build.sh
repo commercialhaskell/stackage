@@ -158,7 +158,7 @@ docker run -t $ARGS_BUILD $IMAGE nice -n 15 /bin/bash -c "
     exec sudo -E -u $USER env \"HOME=$HOME\" \"PATH=\$PATH\" curator build --jobs $JOBS
     "
 
-if [ -n "$TEST_RUN" ]
+if [ -n "${TEST_RUN:-}" ]
 then
    exit 1
 fi
