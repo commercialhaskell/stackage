@@ -333,7 +333,7 @@ You may need to `run-nightly.sh` to get a newer package, but this should be less
 ### Timing
 
 A looping script on the build server keeps trying to build nightly
-with `sleep 30m` interleaved. It only publishes the nightly once per
+with `sleep 90m` interleaved. It only publishes the nightly once per
 day. This way new package versions or build failures can be caught
 early and hopefully the nightlies will be timely.
 
