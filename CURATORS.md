@@ -11,6 +11,8 @@ The following is the current list of curators, in alphabetical order:
 * Joe Kachmar (@jkachmar)
 * Mihai Maruseac (@mihaimaruseac)
 
+See the list of former curator team members at the bottom.
+
 ## Workflow overview
 
 This section sketches out at a high level how the entire Stackage build/curation
@@ -602,3 +604,9 @@ Every 3-6 months, we make a new major release of LTS. The procedure we follow fo
    announcing the new LTS and Nightly, with links to the change pages on
    stackage.org. Include a reminder that requests for packages to be added
    to LTS may be made on commercialhaskell/lts-haskell.
+
+# Former Curators
+Big thanks to former Stackage Curators:
+
+- Michael Snoyman
+- Chris Dornan
