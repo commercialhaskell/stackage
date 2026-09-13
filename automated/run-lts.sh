@@ -2,7 +2,7 @@
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
-if [ -z "$1" ];
+if [ -z "$1" ]; then
    echo "Usage: $0 lts-X.Y"
    exit 1
 fi
