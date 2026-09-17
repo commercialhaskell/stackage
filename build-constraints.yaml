@@ -8083,6 +8083,7 @@ skipped-builds:
 expected-test-failures:
 
     # Compilation failures
+    - HasBigDecimal # 0.2.0.0 https://github.com/thma/HasBigDecimal/issues/8
     - Spock # 0.14.0.0
     - blake2
     - brick
@@ -8094,9 +8095,12 @@ expected-test-failures:
     - conferer # 1.1.0.0
     - cryptohash # 0.11.9 Stack builds test and benchmarks in one pass so benchmark could prevent tests from getting built
     - derive-topdown # 0.1.1.0 https://github.com/HaskellZhangSong/derive-topdown/issues/2
+    - distributors # 0.6.0.0 https://github.com/morphismtech/distributors/issues/29
     - dlist # 1.0 https://github.com/spl/dlist/issues/132
     - do-notation # 0.1.0.2
+    - fastmemo # 0.1.2 https://github.com/davidspies/fastmemo/issues/1
     - fields-and-cases # 0.2.0.0 https://github.com/m-bock/fields-and-cases/issues/1
+    - flat # 0.6 https://github.com/Quid2/flat/issues/35
     - fortran-src # 0.16.3 https://github.com/camfort/fortran-src/issues/293
     - functor-combinators # 0.4.1.4 https://github.com/mstksg/functor-combinators/issues/9
     - generic-lens # https://github.com/commercialhaskell/stackage/issues/6377
@@ -8152,6 +8156,7 @@ expected-test-failures:
     - lsfrom # "test: lsfrom does not exist (No such file or directory)" for 9.12.4 bootstrap
     - hmatrix-backprop # hmatrix-backprop-test:  executable not found (9.12.4)
     - xlsx # 1.2.0: data-test:  executable not found for 9.12.4 bootstrap
+    - zenacy-html # 2.1.2 zenacy-html-test: executable not found
 
     # Consistent test failures
     - ANum # executable not found, https://github.com/commercialhaskell/stackage/issues/7809
@@ -8811,7 +8816,6 @@ skipped-tests:
     - darcs # tried darcs-2.18.5, but its *test-suite* requires QuickCheck >=2.13 && < 2.16 and the snapshot contains QuickCheck-2.17.1.0
     - darcs # tried darcs-2.18.5, but its *test-suite* requires quickcheck-instances >=0.3.29.1 && < 0.4 and the snapshot contains quickcheck-instances-0.4
     - data-clist # tried data-clist-0.2, but its *test-suite* requires QuickCheck >=2.4 && < 2.15 and the snapshot contains QuickCheck-2.17.1.0
-    - data-findcycle # tried data-findcycle-0.1.2.0, but its *test-suite* requires QuickCheck >=2.7 && < 2.16 and the snapshot contains QuickCheck-2.17.1.0
     - delta-types # tried delta-types-1.0.0.0, but its *test-suite* requires QuickCheck >=2.14 && < 2.16 and the snapshot contains QuickCheck-2.17.1.0
     - deriveJsonNoPrefix # tried deriveJsonNoPrefix-0.1.0.1, but its *test-suite* requires aeson < 2 and the snapshot contains aeson-2.2.5.1
     - dhall # tried dhall-1.42.3, but its *test-suite* requires the disabled package: turtle
@@ -9254,7 +9258,6 @@ skipped-benchmarks:
     - crypton # tried crypton-1.1.5, but its *benchmarks* requires the disabled package: gauge
     - csg # tried csg-0.1.0.6, but its *benchmarks* requires criterion < 1.6 and the snapshot contains criterion-1.6.5.0
     - csg # tried csg-0.1.0.6, but its *benchmarks* requires vector < 0.13 and the snapshot contains vector-0.13.2.0
-    - data-findcycle # tried data-findcycle-0.1.2.0, but its *benchmarks* requires tasty-bench >=0.4 && < 0.5 and the snapshot contains tasty-bench-0.5.1
     - fakedata # tried fakedata-1.0.5, but its *benchmarks* requires the disabled package: gauge
     - filepath-bytestring # tried filepath-bytestring-1.5.2.0.5, but its *benchmarks* requires filepath >=1.4.2 && < =1.4.2.1 and the snapshot contains filepath-1.5.5.0
     - freer-simple # tried freer-simple-1.2.1.2, but its *benchmarks* requires the disabled package: extensible-effects
