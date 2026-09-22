@@ -10,6 +10,9 @@ cabal-format-version: "3.0"
 
 # Constraints for brand new builds
 packages:
+    "Andreas Breitschopp <info@keynub.com> @ab-tools":
+        - keynub-licdongle
+
     "Andreas Klebinger <klebinger.andreas@gmx.at> @AndreasPK":
         - dom-lt
 
@@ -8598,6 +8601,7 @@ expected-test-failures:
 # Otherwise place them in expected-test-failures.
 skipped-tests:
     # Missing foreign libraries
+    - keynub-licdongle # the test suite compiles a C stand-in from the SDK sources, which are not in the Hackage package
     - symengine
     - hasql-interpolate # https://github.com/commercialhaskell/stackage/issues/6841
 
