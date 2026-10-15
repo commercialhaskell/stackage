@@ -9169,8 +9169,23 @@ skipped-haddocks:
 # benchmarks, and therefore failures are only for building, not running.
 expected-benchmark-failures:
     # Compilation failures
+    # (moved to skipped-benchmarks)
+    []
+# end of expected-benchmark-failures
+
+
+# Benchmarks which should not be built.
+# Note that Stackage builds benchmarks but does not run them.
+# By skipping a benchmark, we do not pull in the build dependencies
+# Packages should only be added here if required by `stackage-curator check'
+# or if Setup fails because of missing foreign libraries.
+# Update 2026-10-14: also place compilation failures here. See below.
+# Otherwise place them in expected-benchmark-failures.
+skipped-benchmarks:
+    # Compilation failures (may prevent the test suite from building & running)
+    # See https://github.com/commercialhaskell/curator/issues/81
     - OrderedBits # 0.0.2.0
-    - alfred-margaret # 2.1.1.0
+    - alfred-margaret # 2.1.1.1: bench/uvector-vs-tba references removed Data.TypedByteArray
     - apecs # 0.10.1: bench/Main.hs references nonexistent MPos/MVel
     - cacophony # 0.11.0
     - chronos # 1.1.6.2 Ambiguous occurrence ‘Thyme.defaultTimeLocale’
@@ -9192,16 +9207,6 @@ expected-benchmark-failures:
     - xlsx # 1.2.0 https://github.com/qrilka/xlsx/issues/203
     - xmlgen # https://github.com/skogsbaer/xmlgen/issues/6
 
-# end of expected-benchmark-failures
-
-
-# Benchmarks which should not be built.
-# Note that Stackage builds benchmarks but does not run them.
-# By skipping a benchmark, we do not pull in the build dependencies
-# Packages should only be added here if required by `stackage-curator check'
-# or if Setup fails because of missing foreign libraries.
-# Otherwise place them in expected-benchmark-failures.
-skipped-benchmarks:
     # Cyclic dependencies
     - Agda
     - aeson
