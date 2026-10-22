@@ -8,6 +8,11 @@
 LANG=C date
 set -eu +x -o pipefail
 
+if [ -n "${TEST_RUN:-}" ]
+then
+    echo "This TEST RUN will not be published"
+fi
+
 ROOT=$(cd "$(dirname $0)" ; pwd)
 TARGET=$1
 
@@ -165,7 +170,7 @@ docker run -t $ARGS_BUILD $IMAGE nice -n 15 /bin/bash -c "
 
 if [ -n "${TEST_RUN:-}" ]
 then
-   exit 1
+    exit 1
 fi
 
 # Make sure we actually need this snapshot. We used to perform this check
