@@ -20,7 +20,7 @@ We welcome all packages, provided:
 
 * The package from Hackage builds in current Stackage snapshots
   * Stackage only uses pristine sources from Hackage (no patches of packages are allowed, including bounds, other than Hackage revisions)
-  * In particular the package MUST be compatible with the versions of core libraries that ship with GHC ([more information on lenient lower bounds](https://tech.fpcomplete.com/blog/2014/05/lenient-lower-bounds)).
+  * In particular the package MUST be compatible with the versions of core libraries that ship with GHC ([more information on lenient lower bounds](https://web.archive.org/web/20191017041028/https://tech.fpcomplete.com/blog/2014/05/lenient-lower-bounds)).
 * The package's tests and benchmark code SHOULD also build: if possible the testsuite SHOULD also pass.
   * We recommend setting up CI, which ensures a package is not accidentally incomplete, etc.
 * The package should stay compatible with the newest versions of its dependencies.
@@ -119,14 +119,14 @@ There are a number of answers to this question:
   and packages depending on them - are fixed to GHC versions. Common
   examples of this are containers and transformers. There's a lot more
   information on this in
-  [an FP Complete blog post](https://tech.fpcomplete.com/blog/2014/05/lenient-lower-bounds)
+  [an FP Complete blog post](https://web.archive.org/web/20191017041028/https://tech.fpcomplete.com/blog/2014/05/lenient-lower-bounds)
 
 __How long do you maintain an LTS build?__
 
 We only guarantee that we will maintain a single LTS major version at
 a time, and that it will be maintained for at least three months. This
 is the
-[originally proposed support window](https://tech.fpcomplete.com/blog/2014/12/backporting-bug-fixes),
+[originally proposed support window](https://web.archive.org/web/20191017024919/https://tech.fpcomplete.com/blog/2014/12/backporting-bug-fixes),
 and hasn't changed since then.
 
 That said, we do maintain the capability to keep multiple LTS runs
