@@ -118,7 +118,7 @@ ARGS_UPLOAD="$ARGS_PREBUILD -v $HACKAGE_TOKEN:/hackage-distro-token:ro -v $SSH_D
 # for debugging etc
 if [ -n "${2:-}" ]
 then
-    docker run -it $ARGS_UPLOAD $IMAGE $2
+    docker run -it $ARGS_UPLOAD -v $ROOT/install-ghc-tarball.sh:$C_HOME/work/bin/install-ghc-tarball.sh $IMAGE $2
     exit 0
 fi
 
