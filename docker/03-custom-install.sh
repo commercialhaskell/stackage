@@ -65,3 +65,15 @@ Z3_VER=4.13.4
     && rm z3-${Z3_VER}-x64-glibc-2.35.zip \
     && ln -s /usr/local/z3-${Z3_VER}-x64-glibc-2.35/bin/z3 /usr/bin/z3
 )
+# Install libsecretspec, for secretspec
+SECRETSPEC_VER=0.21.1
+LIBSECRETSPEC_PATH=/usr/local/lib/libsecretspec.so
+LIBSECRETSPEC_URL=https://github.com/cachix/secretspec/releases/download/"v${SECRETSPEC_VER}"/libsecretspec-x86_64-unknown-linux-gnu.so
+
+curl -L -o "$LIBSECRETSPEC_PATH.$SECRETSPEC_VER" "$LIBSECRETSPEC_URL"
+sha256sum -c - <<EOF
+7a4b6f232bd3955ab77e62d436e791a35231e8261155ec940937f853b479522b  $LIBSECRETSPEC_PATH.$SECRETSPEC_VER
+EOF
+
+ln -s "$LIBSECRETSPEC_PATH.$SECRETSPEC_VER" "$LIBSECRETSPEC_PATH"
+ldconfig
